@@ -36,7 +36,7 @@ def highlight_code(code, name, attrs):
     try:
         lexer = get_lexer_by_name(name)
         formatter = HtmlFormatter()
-        print(f" [TRACE] Highlight code for '{name}' Ok.")
+        ## print(f" [TRACE] Highlight code for '{name}' Ok.")
         result = highlight(code, lexer, formatter)
         ## breakpoint()
         return result 
@@ -149,7 +149,8 @@ def get_headings(markdown: str):
         if node.type != "heading": continue
         heading = node.children[0].content
         anchor  = "H_" + heading.replace(" ", "_")
-        item = (heading, anchor, node.markup)
+        level = sum([x == "#" for x in node.markup])
+        item = (heading, anchor, level)
         sections.append(item)
         print(" [TRACE] heading = ", item)
         ##breakpoint()
@@ -161,8 +162,14 @@ def route_index():
     files = [f for f in os.listdir(BASE_PATH) if f.endswith(".md")]
     sorted_files = sorted(files)
     pages = [f.split(".")[0] for f in sorted_files]
-    html =  "\n".join([f"""<li><a href="/wiki/{f}">{f}</a></li>""" for f in pages])
-    html = f"""<h1>Markdown Wiki Pages</h1>\n<ul>\n{html}\n</ul>"""
+    content =  "\n".join([f"""<li><a href="/wiki/{f}" class="link-internal">{f}</a></li>""" for f in pages])
+    content = f"""<h1>Markdown Wiki Pages</h1>\n<ul>\n{content}\n</ul>"""
+    html = ( 
+         tpl
+            .replace("{{body}}", content)
+            .replace("{{title}}", "Index Patge")
+            .replace("{{toc}}", "")
+    )
     return html
 
 
