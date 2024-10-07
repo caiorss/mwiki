@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signals and Systems</title>
+    <style>
+        body {
+            background-color: #F2EACA;
+            /* background-color: black;  */
+            line-height: 1.5em;
+            letter-spacing: 0.01rem;
+            max-width: 100%;
+
+        }
+
+        div.content {
+            background-color: #F2EACA;
+        }
+
+        .content blockquote {
+            background: aliceblue;
+            max-width: 50%;
+            border-radius: 10px;
+            border: 20px;
+            padding: 10px;
+        }
+
+
+        /** Definition List **/
+        dl {
+            background-color: aliceblue;
+        }
+
+        dd {
+            font-style: oblique;
+        }
+
+        dt {
+            font-weight: bold;
+            color: black;
+        }
+
+
+        /** Highlight */
+        .highlight {
+            background: #fdfda4;
+        }
+
+
+        #table-of-contents {
+            background-color: lightgreen;
+            max-width: 100%;
+            width: 100%;
+            position: fixed;
+            top: 0px;
+            z-index: 1000;
+
+        }
+
+        img.inline-math {
+            vertical-align: -3.4754999pt;
+            max-height: 20px;
+            /* background-color: yellow; */
+        }
+
+
+        div.math-container {
+            overflow-x: scroll;
+            display: block;
+            margin-bottom: 20px;
+
+            /* background-color: aliceblue; */
+        }
+
+        highlight {
+            background: lightyellow;
+        }
+
+        ul {
+            list-style-type: circle;
+
+        }
+
+        li {
+            /* text-indent: -20px; */
+        }
+
+        a.link-external {
+            color: hsl(0, 100%, 33%);
+            word-wrap: break-word;
+        }
+
+        a.link-internal {
+            color: green;
+        }
+
+        a.link-toc {
+            color: blue;
+        }
+
+
+        p {
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            margin: 15px 5px 15px 0px;
+        }
+
+        pre {
+            /* background-color: #dbdfe0; */
+            /* border: 1px solid #DEDEDE; */
+            /* color: #444444; */
+            background-color: lightyellow;
+            font-family: monospace;
+            font-size: 10px;
+            margin: 0px 1px;
+            padding: 0px 2px;
+            overflow-x: scroll;
+            overflow-y: scroll;
+            max-height: 400px;
+        }
+
+
+        #scrollToTopBtn {
+            background-color: black;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 48px;
+            width: 48px;
+            z-index: 200;
+            position: fixed;
+            bottom: 30px;
+            left: 80%;
+        }
+
+        .div-math-proof {
+            background: aliceblue;
+            padding: 10px;
+            border-10px;
+            border-radius: 10px;
+            max-width: 80%;
+            display: block;
+        }
+
+        .div-math-proof summary {
+            background: #ecede4;
+            font-size: 20px;
+        }
+
+        .div-math-proof div {
+            padding: 10px;
+        }
+
+
+        table {
+            border-collapse: collapse;
+            border: 2px solid rgb(140 140 140);
+            font-family: sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            background-color: #d6ecd4;
+
+        }
+
+
+        /** Media query for mobile devices only */
+        @media only screen and (max-width: 900px) {
+            body {
+                font-size: 12px;
+                /** background-color: blue !important; */
+            }
+
+            .content {
+                /* position: relative; */
+                margin-top: 30px;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                margin-top: 20px;
+            }
+
+            img.math {
+                transform: scale(0.6);
+                margin-left: 0px;
+                padding: 0px;
+
+                /** Debug */
+                /* background-color: gray; */
+            }
+
+            div.math-container {
+                margin-bottom: 10px;
+                /* background-color: aliceblue; */
+            }
+
+
+            img.inline-math {
+                vertical-align: -2pt;
+                max-height: 15px;
+                /* background-color: aliceblue; */
+            }
+
+
+            img.inline-math:hover {
+                transform: scale(1.5);
+                background-color: aliceblue;
+                margin: 10px;
+            }
+
+            .content ul {
+                /* 
+            margin: 0px;
+            margin-left: 5px;
+            margin-top: -10px;
+            margin-bottom: -10px;
+            padding: 0px;
+            padding-left: 15px;
+           */
+                margin-left: -15px;
+            }
+
+            .content li {
+                /* margin: 0px !important; */
+                /* margin-top: -10px !important; */
+            }
+
+            .div-math-proof {
+                background: lightgreen;
+                padding: 0px !important;
+                border: 0px !important;
+                border-radius: 0px !important;
+                max-width: 100% !important;
+            }
+
+            .div-math-proof summary {
+                background: #ecede4;
+                font-size: 18px;
+            }
+
+            .div-math-proof div {}
+
+            .div-math-proof .math {
+                padding: 0px !important;
+                margin-left: -50px !important;
+            }
+
+
+        }
+
+        /* -- Desktop media Query --- */
+        @media only screen and (min-width: 1000px) {
+
+            body {
+                max-width: 800px;
+                margin: 8px !important;
+                border: 1px solid #333;
+                border-radius: 10px;
+                padding: 5px;
+                width: 100%;
+            }
+
+            .content {
+                max-width: 800px;
+                /* background: blue !important; */
+            }
+
+            #table-of-contents {
+                overflow: clip;
+                background-clor: gray;
+                max-width: 800px;
+            }
+
+            .math {
+                padding: 10px;
+                margin-left: 100px;
+            }
+
+            ul {
+                display: block;
+                list-style-type: disc;
+                margin-block-start: 1em;
+                margin-block-end: 1em;
+                margin-inline-start: 0px;
+                margin-inline-end: 0px;
+                padding-inline-start: 40px;
+            }
+
+            li {
+                display: list-item;
+                text-align: -webkit-match-parent;
+            }
+
+            #scrollToTopBtn {
+                background-color: black;
+                border: none;
+                border-radius: 50%;
+                color: white;
+                cursor: pointer;
+                font-size: 16px;
+                line-height: 48px;
+                width: 48px;
+                z-index: 200;
+                position: fixed;
+                bottom: 30px;
+                left: 70%;
+            }
+
+            .div-math-proof {
+                background: aliceblue;
+                pardding: 10px;
+                border: 10px;
+                border-radius: 10px;
+                max-width: 80%;
+            }
+
+
+
+
+
+        }
+
+        /* -- End of desktop media equery -- */
+    </style>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+</head>
+
+<body>
+    <a href="/">Index</a>
+    {{body}}
+</body>
+
+</html>
