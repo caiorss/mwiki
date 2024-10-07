@@ -9,6 +9,10 @@ from mdit_py_plugins.texmath import texmath_plugin
 from mdit_py_plugins.deflist import deflist_plugin
 from mdit_py_plugins.tasklists import tasklists_plugin
 from mdit_py_plugins.container import container_plugin
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name
+from pygments.formatters import HtmlFormatter
+import pygments.util
 
 """
     MarkdownIt("js-default", 
@@ -23,9 +27,33 @@ from mdit_py_plugins.container import container_plugin
 
 """
 
+def highlight_code(code, name, attrs):
+    """Highlight a block of code"""
+    ##if attrs:
+    ##    rich.print(f"Ignoring {attrs=}")
+    ### breakpoint()
+    if name == "": return code
+    try:
+        lexer = get_lexer_by_name(name)
+        formatter = HtmlFormatter()
+        print(f" [TRACE] Highlight code for '{name}' Ok.")
+        result = highlight(code, lexer, formatter)
+        ## breakpoint()
+        return result 
+    except pygments.util.ClassNotFound:
+        print(f" [TRACE] Warning not found Python's pygment lexer for '{name}'")
+        return code
+
 
 md = (
-    MarkdownIt("gfm-like")
+    MarkdownIt("gfm-like", {
+           "linkify":      True 
+         , "typographer":  True 
+         , "quotes":       True 
+         , "html":         True 
+         , "breaks":       True 
+         , "highlight":    highlight_code
+    })
     ## MarkdownIt('commonmark' ,{'breaks':True,'html':True})
     .use(front_matter_plugin)
     .use(footnote_plugin)
