@@ -121,16 +121,40 @@ tpl = open("template.html").read()
 
 BASE_PATH = os.getenv("WIKI_BASE_PATH") or "./"
 
-def mdfile_to_html(inp_file):
+def mdfile_to_html(inp_file, title, toc):
     with open(inp_file) as fd:
         inp = fd.read()
         out = md.render(inp)
-        html = tpl.replace("{{body}}", out)
+        html = ( 
+             tpl
+                .replace("{{body}}", out)
+                .replace("{{title}}", title)
+                .replace("{{toc}}", toc)
+                
+        )
         return html
     ## with open(out_file, "w") as fo:
     ## 	fo.write(html)
 
 from bottle import static_file, route
+
+def get_headings(markdown: str):
+    tokens = md.parse(markdown)
+    ast = SyntaxTreeNode(tokens)
+    gen = ast.walk()
+    sections = []
+    while True:
+        node = next(gen, None)
+        if node is None: break  
+        if node.type != "heading": continue
+        heading = node.children[0].content
+        anchor  = "H_" + heading.replace(" ", "_")
+        item = (heading, anchor, node.markup)
+        sections.append(item)
+        print(" [TRACE] heading = ", item)
+        ##breakpoint()
+    return sections
+
 
 @route("/")
 def route_index():
@@ -145,9 +169,18 @@ def route_index():
 @route("/wiki/<page>")
 def route_wiki_page(page):
     mdfile = os.path.join(BASE_PATH, page + ".md")
+    print(" [TRACE] mdfile = ", mdfile, "\n\n")
     if not os.path.exists(mdfile):
          return f"<h1>404 NOT FOUND PAGE: {page}</h1>"
-    html = mdfile_to_html(mdfile)
+    headings = []
+    with open(mdfile) as fd:
+        inp = fd.read()
+        headings = get_headings(inp)
+    toc = ""
+    for (label, id, _) in headings:
+         toc += f"""<li ><a href="#{id}" class="link-internal" >{label}</a></li>"""
+    toc = f"<lu>\n{toc}\n</lu>"
+    html = mdfile_to_html(mdfile, page, toc)
     return html
      
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signals and Systems</title>
+    <title>{{title}}</title>
     <style>
         body {
             background-color: #F2EACA;
@@ -25,6 +25,10 @@
             border-radius: 10px;
             border: 20px;
             padding: 10px;
+        }
+
+        .document-heading {
+            color: darkcyan;
         }
 
 
@@ -339,8 +343,15 @@
 </head>
 
 <body>
-    <a href="/">Index</a>
-    {{body}}
+    <h1>{{title}}</h1>
+    <div class="toc">
+        <a href="/">Index</a>
+        <hr>
+        {{toc}}
+    </div>
+    <div class="content">
+        {{body}}
+    </div>
 </body>
 
 </html>
