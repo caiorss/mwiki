@@ -106,6 +106,9 @@ inp_file = "sample.md"
 ## out_file = "sample.html"
 tpl = open("template.html").read()
 
+
+BASE_PATH = os.getenv("WIKI_BASE_PATH") or "./"
+
 def mdfile_to_html(inp_file):
     with open(inp_file) as fd:
         inp = fd.read()
@@ -119,15 +122,17 @@ from bottle import static_file, route
 
 @route("/")
 def route_index():
-    files = glob.glob("*.md")
-    pages = [f.split(".")[0] for f in files]
+    files = [f for f in os.listdir(BASE_PATH) if f.endswith(".md")]
+    sorted_files = sorted(files)
+    pages = [f.split(".")[0] for f in sorted_files]
     html =  "\n".join([f"""<li><a href="/wiki/{f}">{f}</a></li>""" for f in pages])
     html = f"""<h1>Markdown Wiki Pages</h1>\n<ul>\n{html}\n</ul>"""
     return html
 
+
 @route("/wiki/<page>")
 def route_wiki_page(page):
-    mdfile = page + ".md"
+    mdfile = os.path.join(BASE_PATH, page + ".md")
     if not os.path.exists(mdfile):
          return f"<h1>404 NOT FOUND PAGE: {page}</h1>"
     html = mdfile_to_html(mdfile)
