@@ -87,6 +87,17 @@ def render_blank_link(self, tokens, idx, options, env):
     # pass token to default renderer.
     return self.renderToken(tokens, idx, options, env)
 
+
+def render_heading_open(self, tokens, idx, options, env):
+    content = tokens[idx + 1].children[0].content
+    anchor  = "H_" + content.replace(" ", "_")
+    tokens[idx].attrSet("class", "document-heading")
+    tokens[idx].attrSet("id", anchor) 
+    ## breakpoint()
+    # pass token to default renderer.
+    return self.renderToken(tokens, idx, options, env)
+
+
 ## def render_internal(self, tokens, idx, options, env):
 ## 	token = tokens[idx]
 ## 	url = token.attrs["src"]
@@ -98,6 +109,7 @@ def render_blank_link(self, tokens, idx, options, env):
 md.add_render_rule("math_inline", render_math_inline)
 md.add_render_rule("math_block", render_math_block)
 md.add_render_rule("link_open", render_blank_link)
+md.add_render_rule("heading_open", render_heading_open)
 
 
 ## inp_file = "signals.md"
