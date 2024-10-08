@@ -9,6 +9,8 @@ from mdit_py_plugins.texmath import texmath_plugin
 from mdit_py_plugins.deflist import deflist_plugin
 from mdit_py_plugins.tasklists import tasklists_plugin
 from mdit_py_plugins.container import container_plugin
+from bottle import static_file, route, auth_basic, request
+import bottle
 import mdwiki.utils as utils
 
 """
@@ -121,7 +123,6 @@ def mdfile_to_html(inp_file, title, toc):
     ## with open(out_file, "w") as fo:
     ## 	fo.write(html)
 
-from bottle import static_file, route
 
 def get_headings(markdown: str):
     tokens = md.parse(markdown)
@@ -141,21 +142,6 @@ def get_headings(markdown: str):
         ##breakpoint()
     return sections
 
-
-@route("/")
-def route_index():
-    files = [f for f in os.listdir(BASE_PATH) if f.endswith(".md")]
-    sorted_files = sorted(files)
-    pages = [f.split(".")[0] for f in sorted_files]
-    content =  "\n".join([f"""<li><a href="/wiki/{f}" class="link-internal">{f}</a></li>""" for f in pages])
-    content = f"""<h1>Markdown Wiki Pages</h1>\n<ul>\n{content}\n</ul>"""
-    html = ( 
-         tpl
-            .replace("{{body}}", content)
-            .replace("{{title}}", "Index Patge")
-            .replace("{{toc}}", "")
-    )
-    return html
 
 
 def make_headings_hierarchy(headings):
@@ -246,9 +232,46 @@ def headings_to_html(root):
         _heading = utils.escape_code(heading)
         html = f"""<li><a href="#{anchor}" class="link-internal" >{_heading}</a>\n{inner}</li>"""
     return html
-    
+
+#
+#  For setting a username and password, just 
+# set the environment variable LOGIN, 
+# export LOGIN="<USERNAME>;<PASSWORD>"
+#
+LOGIN = os.getenv("LOGIN") or ""
+USERNAME = ""
+PASSWORD = ""
+if LOGIN != "": 
+    t = LOGIN.split(";")
+    if len(t) == 2:
+        USERNAME = t[0]
+        PASSWORD = t[1]
+
+def is_authhenticated(user, passwd):
+    # Disable Login if environment variable is not set 
+    if LOGIN == "": 
+        return True 
+    is_auth = user == USERNAME and passwd == PASSWORD 
+    return is_auth
+
+@route("/")
+@auth_basic(is_authhenticated)
+def route_index():
+    files = [f for f in os.listdir(BASE_PATH) if f.endswith(".md")]
+    sorted_files = sorted(files)
+    pages = [f.split(".")[0] for f in sorted_files]
+    content =  "\n".join([f"""<li><a href="/wiki/{f}" class="link-internal">{f}</a></li>""" for f in pages])
+    content = f"""<h1>Markdown Wiki Pages</h1>\n<ul>\n{content}\n</ul>"""
+    html = ( 
+         tpl
+            .replace("{{body}}", content)
+            .replace("{{title}}", "Index Patge")
+            .replace("{{toc}}", "")
+    )
+    return html
 
 @route("/wiki/<page>")
+@auth_basic(is_authhenticated)
 def route_wiki_page(page):
     mdfile = os.path.join(BASE_PATH, page + ".md")
     print(" [TRACE] mdfile = ", mdfile, "\n\n")
@@ -271,7 +294,7 @@ def route_wiki_page(page):
     return html
      
 
-@route('/hello')
+@auth_basic(is_authhenticated)
 def hello():
     return "Hello World!"
 
