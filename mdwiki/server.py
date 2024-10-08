@@ -242,7 +242,9 @@ def headings_to_html(root):
     if heading == "":
         html = f"""<ul>{inner}</ul>"""
     else:
-        html = f"""<li><a href="#{anchor}" class="link-internal" >{heading}</a>\n{inner}</li>"""
+        _anchor = utils.encode_url(anchor)
+        _heading = utils.escape_code(heading)
+        html = f"""<li><a href="#{anchor}" class="link-internal" >{_heading}</a>\n{inner}</li>"""
     return html
     
 
