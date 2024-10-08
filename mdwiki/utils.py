@@ -31,4 +31,18 @@ def highlight_code(code: str, language: str, verbose: bool = False) -> str:
             print(f" [TRACE] Warning not found Python's pygment lexer for '{language}'")
         return code
 
-__all__ = [ "escape_code", "encode_url", "highlight_code" ]
+def file_contains(fileName: str, query: str):
+    """Check whether a file (full path) contains a queyr string.
+    Returns true if file contains a query string.
+    NOTE: This function is case-indepedent.
+    """
+    with open(fileName) as fd:
+        result = False
+        while line := fd.readline():
+            # Ignore case
+            if query.lower() in line.lower(): 
+                result = True
+                break
+        return result
+
+__all__ = [ "escape_code", "encode_url", "highlight_code", "file_contains" ]

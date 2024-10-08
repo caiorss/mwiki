@@ -84,6 +84,11 @@ def render_heading_open(self, tokens, idx, options, env):
     # pass token to default renderer.
     return self.renderToken(tokens, idx, options, env)
 
+def render_heading(self, tokens, idx, options, env):
+    token = tokens[idx]
+    breakpoint()
+    pass 
+
 
 ## def render_internal(self, tokens, idx, options, env):
 ## 	token = tokens[idx]
@@ -96,8 +101,10 @@ def render_heading_open(self, tokens, idx, options, env):
 md.add_render_rule("math_inline", render_math_inline)
 md.add_render_rule("math_block", render_math_block)
 md.add_render_rule("link_open", render_blank_link)
+## md.add_render_rule("heading", render_heading)
 md.add_render_rule("heading_open", render_heading_open)
 
+### breakpoint()
 
 ## inp_file = "signals.md"
 ## out_file = "signals.html"
@@ -257,11 +264,30 @@ def is_authhenticated(user, passwd):
 @route("/")
 @auth_basic(is_authhenticated)
 def route_index():
-    files = [f for f in os.listdir(BASE_PATH) if f.endswith(".md")]
+    query = request.query.get("search") or ""
+    files = []
+    if query == "":
+        files = [f for f in os.listdir(BASE_PATH) if f.endswith(".md")]
+    else:
+        files = [f for f in os.listdir(BASE_PATH) if f.endswith(".md") \
+                 and utils.file_contains(os.path.join(BASE_PATH, f), query)]
     sorted_files = sorted(files)
     pages = [f.split(".")[0] for f in sorted_files]
-    content =  "\n".join([f"""<li><a href="/wiki/{f}" class="link-internal">{f}</a></li>""" for f in pages])
+    content =  "\n".join([f"""<li><a href="/wiki/{f}" target="_blank" class="link-internal">{f}</a></li>""" for f in pages])
     content = f"""<h1>Markdown Wiki Pages</h1>\n<ul>\n{content}\n</ul>"""
+    content = f"""
+        <form>
+            <label for="site-search-bar">Search all Markdown Files</label>
+            <br>
+            <input type="search" 
+                   id="site-search-bar" 
+                   name="search"
+                   placeholder="Search..."
+                   value="{query}"
+                   />
+            <button>Search</button>
+        </form>
+        """ + content
     html = ( 
          tpl
             .replace("{{body}}", content)
