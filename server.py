@@ -173,6 +173,94 @@ def route_index():
     return html
 
 
+def make_headings_hierarchy(headings):
+    """
+    Algorithm from:  
+        Question:  /parse-indented-text-tree-in-java 
+        https://stackoverflow.com/questions/21735468
+
+    Algorithm Pseudocode:
+
+        intialize a stack
+        push first line to stack
+        while (there are more lines to read) {
+         S1 = top of stack // do not pop off yet
+         S2 = read a line
+         if depth of S1 < depth of S2 {
+          add S2 as child of S1
+          push S2 into stack
+         }
+         else {
+             while (depth of S1 >= depth of S2 AND there are at least 2 elements in stack) 
+             {
+                pop stack
+                S1 = top of stack // do not pop
+             }
+             add S2 as child of S1
+             push S2 into stack
+         }
+        }
+        return bottom element of stack (stack[0])
+    
+    """
+    stack = []
+    def push(n):
+        stack.append(n)
+    def pop():
+        if len(stack) == 0:
+            raise RuntimeError("Stack is empty")
+        top = stack.pop()
+        return top 
+    def top():
+        return stack[-1]
+    def empty(): return len(stack) == 0
+    root = { "type": "ul", "level": -1, "children": [] }
+    push(root)
+    LEVEL = 2 
+    for n in headings:
+        (heading, anchor, level) = n 
+        ## breakpoint()
+        s1 = top()
+        s2 = { "type": "li", "level": level
+              , "anchor": anchor, "heading": heading, "children": [] }
+        if s1["level"] < s2["level"]:
+            # Add s2 as a child of s1 
+            s1["children"].append(s2)
+            # Push s2 onto stack
+            push(s2)
+        else:
+            while s1["level"] >= s2["level"] and len(stack) >= 2:
+                pop()
+                s1 = top() 
+            # Add s2 as a child of s1 
+            s1["children"].append(s2)
+            # Push s2 into the stack 
+            push(s2)
+    ## print(" [TRACE] root ", root)
+    print(" ---------- generate_heading_html() ----------------")
+    from pprint import pprint
+    pprint(root)
+    return root
+    ## pprint(root)
+
+    
+def headings_to_html(root):
+    children = root["children"]
+    heading  = root.get("heading", "")
+    anchor   = root.get("anchor", "") 
+    temp = ""
+    for n in children: 
+        node_html = headings_to_html(n)
+        temp += node_html 
+    inner = f"<ul>\n{temp}\n</ul>" if len(children) !=0 else ""
+    print("[ TRACE] inner = \n", inner)
+    if heading == "":
+        html = f"""<ul>{inner}</ul>"""
+    else:
+        html = f"""<li><a href="#{anchor}" class="link-internal" >{heading}</a>\n{inner}</li>"""
+    return html
+    
+
 @route("/wiki/<page>")
 def route_wiki_page(page):
     mdfile = os.path.join(BASE_PATH, page + ".md")
@@ -183,11 +271,16 @@ def route_wiki_page(page):
     with open(mdfile) as fd:
         inp = fd.read()
         headings = get_headings(inp)
-    toc = ""
-    for (label, id, _) in headings:
-         toc += f"""<li ><a href="#{id}" class="link-internal" >{label}</a></li>"""
-    toc = f"<lu>\n{toc}\n</lu>"
+    root = make_headings_hierarchy(headings)
+    ## breakpoint()
+    toc = headings_to_html(root)
+    # TOC - Table of Contents
+    ## toc = ""
+    ## for (label, id, _) in headings:
+    ##      toc += f"""<li ><a href="#{id}" class="link-internal" >{label}</a></li>"""
+    ## toc = f"<lu>\n{toc}\n</lu>"
     html = mdfile_to_html(mdfile, page, toc)
+    make_headings_hierarchy(headings)
     return html
      
 
