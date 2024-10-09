@@ -241,9 +241,9 @@ def is_authhenticated(user, passwd):
     is_auth = user == USERNAME and passwd == PASSWORD 
     return is_auth
 
-@route("/")
-@auth_basic(is_authhenticated)
-def route_index():
+##@auth_basic(is_authhenticated)
+@route("/pages")
+def route_pages():
     query = request.query.get("search") or ""
     highlight =  f"#:~:text={ utils.encode_url(query) }" if query != "" else ""
     files = []
@@ -277,6 +277,10 @@ def route_index():
             .replace("{{toc}}", "")
     )
     return html
+
+@route("/")
+def route_index_page():
+    bottle.redirect("/wiki/Index")
 
 @bottle.get("/wiki/img/<filepath>")
 def route_wiki_image(filepath):
