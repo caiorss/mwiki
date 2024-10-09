@@ -29,7 +29,6 @@ def wiki_mage_plugin(
     """
     macros = macros or {}
     ## breakpoint()
-
     if delimiters in rules:
         for rule_inline in rules[delimiters]["inline"]:
             md.inline.ruler.before(
@@ -49,26 +48,6 @@ def wiki_mage_plugin(
 
             ##print(" [TRACE] rule_inline = ", rule_inline)
             md.add_render_rule(rule_inline["name"], render_math_inline)
-
-        for rule_block in rules[delimiters].get("block") or []:
-            md.block.ruler.before(
-                "fence", rule_block["name"], make_block_func(rule_block)
-            )
-
-            def render_math_block(
-                self: RendererProtocol,
-                tokens: Sequence[Token],
-                idx: int,
-                options: OptionsDict,
-                env: EnvType,
-            ) -> str:
-                out = rule_block["tmpl"].format(  # noqa: B023
-                    render(tokens[idx].content, True, macros), tokens[idx].info
-                )
-                return out
-
-            md.add_render_rule(rule_block["name"], render_math_block)
-
 
 class _RuleDictReqType(TypedDict):
     name: str
