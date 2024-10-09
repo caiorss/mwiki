@@ -40,18 +40,42 @@ def highlight_code(code: str, language: str, verbose: bool = False) -> str:
             print(f" [TRACE] Warning not found Python's pygment lexer for '{language}'")
         return code
 
-def file_contains(fileName: str, query: str):
+def file_contains(fileName: str, query: str, opt = "exact"):
     """Check whether a file (full path) contains a queyr string.
     Returns true if file contains a query string.
     NOTE: This function is case-indepedent.
     """
     with open(fileName) as fd:
         result = False
+        query = query.lower()
+        # Split whitespace
+        queries = query.split()
+        queries_ = queries.copy()
+        # WARNING: Never read the whole file to memory, becasue 
+        # if the file is 1 GB, then 1 GB memory will be consumed,
+        # what can case OOM (Out-Of-Memory) issues and slow down
+        # the server.
         while line := fd.readline():
             # Ignore case
-            if query.lower() in line.lower(): 
-                result = True
-                break
+            if opt == "exact" and query in line.lower():
+                result = True 
+                break 
+            # (OR) Returns true if is the file contains at 
+            # at least one word of the query.
+            elif opt == "or_all":
+                for q in queries:
+                    if q in line.lower(): 
+                        result = True
+                        break
+            # (AND) Returns treu if the file contains all words 
+            # from the input query
+            elif opt == "and_all":
+                for q in queries:
+                    if q in line.lower() and q in queries_:
+                        queries_.remove(q)                        
+                if len(queries_) == 0:
+                    result = True 
+                    break 
         return result
 
 def expand_path(path: str):
