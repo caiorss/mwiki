@@ -113,7 +113,8 @@ md.add_render_rule("heading_open", render_heading_open)
 tpl = utils.read_resource(mdwiki, "template.html")
 
 
-BASE_PATH =  utils.expand_path( os.getenv("WIKI_BASE_PATH") or "./")
+BASE_PATH = utils.get_wiki_path()
+## BASE_PATH =  utils.expand_path( os.getenv("WIKI_BASE_PATH") or "./")
 
 def mdfile_to_html(inp_file, title, toc):
     with open(inp_file) as fd:
@@ -265,15 +266,17 @@ def is_authhenticated(user, passwd):
 @auth_basic(is_authhenticated)
 def route_index():
     query = request.query.get("search") or ""
+    highlight =  f"#:~:text={ utils.encode_url(query) }" if query != "" else ""
     files = []
     if query == "":
         files = [f for f in os.listdir(BASE_PATH) if f.endswith(".md")]
     else:
         files = [f for f in os.listdir(BASE_PATH) if f.endswith(".md") \
-                 and utils.file_contains(os.path.join(BASE_PATH, f), query)]
+                 and utils.file_contains(utils.get_wiki_path(f), query)]
+                 ##and utils.file_contains(os.path.join(BASE_PATH, f), query)]
     sorted_files = sorted(files)
     pages = [f.split(".")[0] for f in sorted_files]
-    content =  "\n".join([f"""<li><a href="/wiki/{f}" target="_blank" class="link-internal">{f}</a></li>""" for f in pages])
+    content =  "\n".join([f"""<li><a href="/wiki/{f}{highlight}" target="_blank" class="link-internal">{f}</a></li>""" for f in pages])
     content = f"""<h1>Markdown Wiki Pages</h1>\n<ul>\n{content}\n</ul>"""
     content = f"""
         <form>

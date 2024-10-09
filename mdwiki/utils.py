@@ -1,3 +1,4 @@
+import os
 import urllib.parse
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
@@ -65,9 +66,16 @@ def expand_path(path: str):
             )
     return path_
 
-__all__ = [  "escape_code"
+def get_wiki_path(file: str = "") -> str: 
+    path = expand_path( os.getenv("WIKI_BASE_PATH") or "./")
+    path = os.path.join(path, file)
+    return path 
+
+
+__all__ = (  "escape_code"
            , "encode_url"
            , "highlight_code"
            , "file_contains"
            , "expand_path"
-           ]
+           , "get_wiki_path"
+          )
