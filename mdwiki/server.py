@@ -15,18 +15,6 @@ import mdwiki
 import mdwiki.utils as utils
 import mdwiki.plugins 
 
-"""
-    MarkdownIt("js-default", 
-			   {
-				    "html": True 
-				   ,"linkify": True 
-				   ,"breaks": True 
-				   ,"typographer": True 
-				   ,"quotes": True 
-				   
-               })
-
-"""
 
 def highlight_code(code, name, attrs):
     """Highlight a block of code"""
@@ -93,14 +81,6 @@ def render_heading(self, tokens, idx, options, env):
     breakpoint()
     pass 
 
-
-## def render_internal(self, tokens, idx, options, env):
-## 	token = tokens[idx]
-## 	url = token.attrs["src"]
-## 	if url.startsWith("internal://"):
-## 		url_ = url.replace("internal://", "base/")
-## 		return f"""<a href="{url_}"></a> """
-
 # Register renderers 
 md.add_render_rule("math_inline", render_math_inline)
 md.add_render_rule("math_block", render_math_block)
@@ -108,10 +88,6 @@ md.add_render_rule("link_open", render_blank_link)
 ## md.add_render_rule("heading", render_heading)
 md.add_render_rule("heading_open", render_heading_open)
 
-### breakpoint()
-
-## inp_file = "signals.md"
-## out_file = "signals.html"
 
 tpl = utils.read_resource(mdwiki, "template.html")
 
@@ -304,11 +280,11 @@ def route_index():
 
 @bottle.get("/wiki/img/<filepath>")
 def route_wiki_image(filepath):
-    print(" [TRACE] Enter filepath route => filepath = ", filepath)
+    ## print(" [TRACE] Enter filepath route => filepath = ", filepath)
     root = utils.get_wiki_path("images")
-    print(" [TRACE] root = ", root)
+    ## print(" [TRACE] root = ", root)
     resp = static_file(filepath, root)
-    print(" [TRACE] resp = ", resp)
+    ## print(" [TRACE] resp = ", resp)
     return resp
 
 @route("/wiki/<page>")
