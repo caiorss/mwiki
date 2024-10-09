@@ -13,6 +13,7 @@ from bottle import static_file, route, auth_basic, request
 import bottle
 import mdwiki
 import mdwiki.utils as utils
+import mdwiki.plugins 
 
 """
     MarkdownIt("js-default", 
@@ -46,6 +47,7 @@ md = (
     .use(front_matter_plugin)
     .use(footnote_plugin)
     .use(texmath_plugin)
+    .use(mdwiki.plugins.wikilink_plugin)
     .use(deflist_plugin)
     .use(tasklists_plugin)
 	#.use(container_plugin)
