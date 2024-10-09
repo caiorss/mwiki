@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 RULE_NAME = "wikilink"
 MAIN_DELIMITER = "double_square_brackets"
 
-def wikilink_plugin(
+def wiki_link_plugin(
     md: MarkdownIt, delimiters: str = MAIN_DELIMITER, macros: Any = None
 ) -> None:
     """Plugin for creating Mediawki-like internal hyperlinks using [[Page Name]], akin to Wikipedia. 

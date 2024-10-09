@@ -36,7 +36,7 @@ md = (
     .use(footnote_plugin)
     .use(texmath_plugin)
     .use(mdwiki.plugins.wiki_mage_plugin)
-    .use(mdwiki.plugins.wikilink_plugin)
+    .use(mdwiki.plugins.wiki_link_plugin)
     .use(deflist_plugin)
     .use(tasklists_plugin)
 	#.use(container_plugin)
