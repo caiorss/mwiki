@@ -16,15 +16,17 @@ if TYPE_CHECKING:
 
 ### print(" [TRACE Loading Wikilinks Plugin]")
 
-RULE_NAME = "wikilink"
-MAIN_DELIMITER = "double_square_brackets"
+RULE_NAME = "wimage"
+MAIN_DELIMITER = "double_square_brackets_bang"
 
-def wikilink_plugin(
+def wiki_mage_plugin(
     md: MarkdownIt, delimiters: str = MAIN_DELIMITER, macros: Any = None
 ) -> None:
-    """Plugin for creating Mediawki-like internal hyperlinks using [[Page Name]], akin to Wikipedia. 
+    """Wiki image plugin - implements Wikimedia's ![[picture.png]] syntax for showing some image. 
+
+    A picture ![[picture.png]] is rendered as:
+      <src img="/wiki/images/picture.png" class="wiki-image" />
     """
-    print(" [TRACE] Inside function WikiLink Plugin")
     macros = macros or {}
     ## breakpoint()
 
@@ -165,6 +167,7 @@ def wikilink_pre(src: str, beg: int) -> bool:
     starts_with_bang = src[0] == "!"
     ### if src.startswith("!"): breakpoint()
     result = not starts_with_bang
+    print(f" [TRACE] wikilink_pre =>  src = {src} ; flag = {starts_with_bang} ; result = {result}")
     return result
 
 rules: dict[str, dict[str, list[RuleDictType]]] = {
@@ -172,14 +175,12 @@ rules: dict[str, dict[str, list[RuleDictType]]] = {
     MAIN_DELIMITER: {
         "inline": [
            {
-                #### "name": "math_inline",
-                 "name": "wikilink_inline"
-               , "rex": re.compile(r"\[\[(.+)\]\]")
-               , "tmpl": """<a href="/wiki/{0}" class="link-internal" >{0}</a>"""
-               , "tag": "[["
-               , "pre": wikilink_pre
-           }
-
+                
+                 "name": "wiki_image"
+               , "rex": re.compile(r"!\[\[(.+)\]\]", re.M)
+               , "tmpl": """<img src="/wiki/img/{0}" class="wiki-image" />"""
+               , "tag": "![["
+            } 
         ]
     },
 }
