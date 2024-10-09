@@ -149,8 +149,6 @@ def make_block_func(rule: RuleDictType) -> Callable[[StateBlock, int, int, bool]
 
     return _func
 
-
-
 def render(tex: str, displayMode: bool, macros: Any) -> str:
     return tex
     # TODO better HTML renderer port for math
@@ -160,15 +158,6 @@ def render(tex: str, displayMode: bool, macros: Any) -> str:
     #     res = tex+": "+err.message.replace("<","&lt;")
     # return res
 
-
-def wikilink_pre(src: str, beg: int) -> bool:
-    ##prv = charCodeAt(src[beg - 1], 0) 
-    # breakpoint()
-    starts_with_bang = src[0] == "!"
-    ### if src.startswith("!"): breakpoint()
-    result = not starts_with_bang
-    print(f" [TRACE] wikilink_pre =>  src = {src} ; flag = {starts_with_bang} ; result = {result}")
-    return result
 
 rules: dict[str, dict[str, list[RuleDictType]]] = {
 
