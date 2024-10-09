@@ -4,6 +4,14 @@ from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
 import pygments.util
 
+def read_resource(module, resource_file: str):
+    """Read resource file packaged with a given module."""
+    import importlib.resources
+    data = ""
+    with importlib.resources.open_text(module, resource_file) as fd:
+        data =  fd.read()
+    return data
+
 def escape_code(code):
     """Escape html code."""
     code = code.replace("&", "&amp;")\

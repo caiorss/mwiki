@@ -11,6 +11,7 @@ from mdit_py_plugins.tasklists import tasklists_plugin
 from mdit_py_plugins.container import container_plugin
 from bottle import static_file, route, auth_basic, request
 import bottle
+import mdwiki
 import mdwiki.utils as utils
 
 """
@@ -108,9 +109,8 @@ md.add_render_rule("heading_open", render_heading_open)
 
 ## inp_file = "signals.md"
 ## out_file = "signals.html"
-inp_file = "sample.md"
-## out_file = "sample.html"
-tpl = open("template.html").read()
+
+tpl = utils.read_resource(mdwiki, "template.html")
 
 
 BASE_PATH = os.getenv("WIKI_BASE_PATH") or "./"
