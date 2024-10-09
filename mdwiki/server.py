@@ -146,7 +146,7 @@ def get_headings(markdown: str):
         level = sum([x == "#" for x in node.markup])
         item = (heading, anchor, level)
         sections.append(item)
-        print(" [TRACE] heading = ", item)
+        ## print(" [TRACE] heading = ", item)
         ##breakpoint()
     return sections
 
@@ -216,9 +216,9 @@ def make_headings_hierarchy(headings):
             # Push s2 into the stack 
             push(s2)
     ## print(" [TRACE] root ", root)
-    print(" ---------- generate_heading_html() ----------------")
-    from pprint import pprint
-    pprint(root)
+    ## print(" ---------- generate_heading_html() ----------------")
+    ## from pprint import pprint
+    ## pprint(root)
     return root
     ## pprint(root)
 
@@ -232,7 +232,7 @@ def headings_to_html(root):
         node_html = headings_to_html(n)
         temp += node_html 
     inner = f"<ul>\n{temp}\n</ul>" if len(children) !=0 else ""
-    print("[ TRACE] inner = \n", inner)
+    ## print("[ TRACE] inner = \n", inner)
     if heading == "":
         html = f"""<ul>{inner}</ul>"""
     else:
@@ -303,7 +303,7 @@ def route_index():
 @auth_basic(is_authhenticated)
 def route_wiki_page(page):
     mdfile = os.path.join(BASE_PATH, page + ".md")
-    print(" [TRACE] mdfile = ", mdfile, "\n\n")
+    ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
     if not os.path.exists(mdfile):
          return f"<h1>404 NOT FOUND PAGE: {page}</h1>"
     headings = []
