@@ -113,7 +113,7 @@ md.add_render_rule("heading_open", render_heading_open)
 tpl = utils.read_resource(mdwiki, "template.html")
 
 
-BASE_PATH = os.getenv("WIKI_BASE_PATH") or "./"
+BASE_PATH =  utils.expand_path( os.getenv("WIKI_BASE_PATH") or "./")
 
 def mdfile_to_html(inp_file, title, toc):
     with open(inp_file) as fd:

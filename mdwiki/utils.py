@@ -53,4 +53,21 @@ def file_contains(fileName: str, query: str):
                 break
         return result
 
-__all__ = [ "escape_code", "encode_url", "highlight_code", "file_contains" ]
+def expand_path(path: str):
+    """ Expand path such as '~/home_file.text` to full path.
+    """
+    import os 
+    HOME_PATH = os.getenv("HOME", "")
+    path_ = ( path
+                .replace("$HOME", HOME_PATH)
+                .replace("~", HOME_PATH) 
+                .replace(".", os.getcwd())
+            )
+    return path_
+
+__all__ = [  "escape_code"
+           , "encode_url"
+           , "highlight_code"
+           , "file_contains"
+           , "expand_path"
+           ]
