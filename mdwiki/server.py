@@ -47,6 +47,7 @@ md = (
     .use(front_matter_plugin)
     .use(footnote_plugin)
     .use(texmath_plugin)
+    .use(mdwiki.plugins.wiki_mage_plugin)
     .use(mdwiki.plugins.wikilink_plugin)
     .use(deflist_plugin)
     .use(tasklists_plugin)
@@ -301,17 +302,8 @@ def route_index():
     )
     return html
 
-@bottle.get("/wiki/img/<filepath>")
-def route_wiki_image(filepath):
-    print(" [TRACE] Enter filepath route => filepath = ", filepath)
-    root = utils.get_wiki_path("images")
-    print(" [TRACE] root = ", root)
-    resp = static_file(filepath, root)
-    print(" [TRACE] resp = ", resp)
-    return resp
-
 @route("/wiki/<page>")
-##@auth_basic(is_authhenticated)
+@auth_basic(is_authhenticated)
 def route_wiki_page(page):
     mdfile = os.path.join(BASE_PATH, page + ".md")
     ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
