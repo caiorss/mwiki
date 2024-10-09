@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 RULE_NAME = "wimage"
 MAIN_DELIMITER = "double_square_brackets_bang"
 
-def wiki_mage_plugin(
+def wiki_image_plugin(
     md: MarkdownIt, delimiters: str = MAIN_DELIMITER, macros: Any = None
 ) -> None:
     """Wiki image plugin - implements Wikimedia's ![[picture.png]] syntax for showing some image. 
