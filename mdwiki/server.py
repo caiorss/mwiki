@@ -39,11 +39,11 @@ def route_pages():
         files = [f for f in os.listdir(BASE_PATH) if f.endswith(".md")]
     else:
         files = [f for f in os.listdir(BASE_PATH) if f.endswith(".md") \
-                 and utils.file_contains(utils.get_wiki_path(f), query)]
+                    and utils.file_contains(utils.get_wiki_path(f), query)]
                  ##and utils.file_contains(os.path.join(BASE_PATH, f), query)]
     sorted_files = sorted(files)
     pages = [f.split(".")[0] for f in sorted_files]
-    content =  "\n".join([f"""<li><a href="/wiki/{f}{highlight}" target="_blank" class="link-internal">{f}</a></li>""" for f in pages])
+    content =  "\n".join([f"""<li><a href="/wiki/{f}{highlight}" class="link-internal">{f}</a></li>""" for f in pages])
     content = f"""<h1>Markdown Wiki Pages</h1>\n<ul>\n{content}\n</ul>"""
     content = f"""
         <form>
