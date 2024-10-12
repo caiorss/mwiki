@@ -1,440 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>{{title}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <style>
-        body {
-            background-color: #F2EACA;
-            /* background-color: black;  */
-            line-height: 1.5em;
-            letter-spacing: 0.01rem;
-            max-width: 100%;
-
-        }
 
-        div.content {
-            background-color: #F2EACA;
-        }
-
-        .content blockquote {
-            background: aliceblue;
-            max-width: 50%;
-            border-radius: 10px;
-            border: 20px;
-            padding: 10px;
-        }
-
-        .document-heading {
-            color: darkcyan;
-        }
-
-
-        /** Definition List **/
-        dl {
-            background-color: aliceblue;
-        }
-
-        dd {
-            font-style: oblique;
-        }
-
-        dt {
-            font-weight: bold;
-            color: black;
-        }
-
-
-        /** Highlight */
-        .highlight {
-            background: #fdfda4;
-        }
-
-
-        #table-of-contents {
-            background-color: lightgreen;
-            max-width: 100%;
-            width: 100%;
-            position: fixed;
-            top: 0px;
-            z-index: 1000;
-
-        }
-
-        img.inline-math {
-            vertical-align: -3.4754999pt;
-            max-height: 20px;
-            /* background-color: yellow; */
-        }
-
-
-        div.math-container {
-            overflow-x: scroll;
-            display: block;
-            margin-bottom: 20px;
-
-            /* background-color: aliceblue; */
-        }
-
-        highlight {
-            background: lightyellow;
-        }
-
-        ul {
-            list-style-type: circle;
-
-        }
-
-        li {
-            /* text-indent: -20px; */
-        }
-
-        a.link-external {
-            color: hsl(0, 100%, 33%);
-            word-wrap: break-word;
-        }
-
-        a.link-internal {
-            color: green;
-        }
-
-        a.link-toc {
-            color: blue;
-        }
-
-
-        p {
-            display: block;
-            margin-block-start: 1em;
-            margin-block-end: 1em;
-            margin-inline-start: 0px;
-            margin-inline-end: 0px;
-            margin: 15px 5px 15px 0px;
-        }
-
-        code pre {
-            background-color: lightyellow;
-            font-family: monospace;
-            font-size: 10px;
-            margin: 0px 1px;
-            padding: 0px 2px;
-            overflow-x: scroll;
-            overflow-y: scroll;
-            max-height: 400px;
-        }
-
-
-        #scrollToTopBtn {
-            background-color: black;
-            border: none;
-            border-radius: 50%;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-            line-height: 48px;
-            width: 48px;
-            z-index: 200;
-            position: fixed;
-            bottom: 30px;
-            left: 80%;
-        }
-
-        .div-math-proof {
-            background: aliceblue;
-            padding: 10px;
-            border-10px;
-            border-radius: 10px;
-            max-width: 80%;
-            display: block;
-        }
-
-        .div-math-proof summary {
-            background: #ecede4;
-            font-size: 20px;
-        }
-
-        .div-math-proof div {
-            padding: 10px;
-        } 
-
-        img.wiki-image {
-            max-width: 100%;
-            width: auto;
-        }
-
-
-        table {
-            border-collapse: collapse;
-            border: 2px solid rgb(140 140 140);
-            font-family: sans-serif;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            background-color: #d6ecd4;
-
-        }
-
-        /** Syntax Highlight Style for Pyhton's Pygment 
-         *
-         */
-        .highlight .hll { background-color: #ffffcc }
-        .highlight  { background: #f8f8f8; }
-        .highlight .c { color: #6a737d } /* Comment */
-        .highlight .err {  } /* Error */
-        .highlight .k { color: #d73a49 } /* Keyword */
-        .highlight .o { } /* Operator */
-        .highlight .ch { color: #6a737d } /* Comment.Hashbang */
-        .highlight .cm { color: #6a737d } /* Comment.Multiline */
-        .highlight .cp { color: #d73a49 } /* Comment.Preproc */
-        .highlight .cpf { color: #032f62 } /* Comment.PreprocFile */
-        .highlight .c1 { color: #6a737d } /* Comment.Single */
-        .highlight .cs { color: #6a737d } /* Comment.Special */
-        .highlight .gd { color: #b31d28; background-color: #ffeef0 } /* Generic.Deleted */
-        .highlight .ge {  } /* Generic.Emph */
-        .highlight .gr {  } /* Generic.Error */
-        .highlight .gh { color: #005cc5 } /* Generic.Heading */
-        .highlight .gi { color: #22863a; background-color: #f0fff4 } /* Generic.Inserted */
-        .highlight .go {  } /* Generic.Output */
-        .highlight .gp {  } /* Generic.Prompt */
-        .highlight .gs { font-weight: bold } /* Generic.Strong */
-        .highlight .gu { color: #6f42c1; font-weight: bold } /* Generic.Subheading */
-        .highlight .gt { color: #0044DD } /* Generic.Traceback */
-        .highlight .kc { color: #005cc5 } /* Keyword.Constant */
-        .highlight .kd { color: #d73a49 } /* Keyword.Declaration */
-        .highlight .kn { color: #d73a49 } /* Keyword.Namespace */
-        .highlight .kp { color: #d73a49 } /* Keyword.Pseudo */
-        .highlight .kr { color: #d73a49 } /* Keyword.Reserved */
-        .highlight .kt { color: #d73a49 } /* Keyword.Type */
-        .highlight .m { color: #666666 } /* Literal.Number */
-        .highlight .s { color: #032f62 } /* Literal.String */
-        .highlight .na { } /* Name.Attribute */
-        .highlight .nb { color: #005cc5 } /* Name.Builtin */
-        .highlight .nc { color: #6f42c1 } /* Name.Class */
-        .highlight .no { color: #005cc5 } /* Name.Constant */
-        .highlight .nd { color: #6f42c1 } /* Name.Decorator */
-        .highlight .ni { color: #005cc5 } /* Name.Entity */
-        .highlight .ne { color: #005cc5 } /* Name.Exception */
-        .highlight .nf { color: #6f42c1 } /* Name.Function */
-        .highlight .nl { color: #005cc5 } /* Name.Label */
-        .highlight .nn { color: #6f42c1 } /* Name.Namespace */
-        .highlight .nt { color: #22863a } /* Name.Tag */
-        .highlight .nv { color: #24292e } /* Name.Variable */
-        .highlight .ow { color: #d73a49; } /* Operator.Word */
-        .highlight .w { color: #bbbbbb } /* Text.Whitespace */
-        .highlight .mb { color: #005cc5 } /* Literal.Number.Bin */
-        .highlight .mf { color: #005cc5 } /* Literal.Number.Float */
-        .highlight .mh { color: #005cc5 } /* Literal.Number.Hex */
-        .highlight .mi { color: #005cc5 } /* Literal.Number.Integer */
-        .highlight .mo { color: #005cc5 } /* Literal.Number.Oct */
-        .highlight .sa { color: #d73a49 } /* Literal.String.Affix */
-        .highlight .sb { color: #032f62 } /* Literal.String.Backtick */
-        .highlight .sc { color: #032f62 } /* Literal.String.Char */
-        .highlight .dl { color: #d73a49 } /* Literal.String.Delimiter */
-        .highlight .sd { color: #032f62 } /* Literal.String.Doc */
-        .highlight .s2 { color: #032f62 } /* Literal.String.Double */
-        .highlight .se { color: #032f62 } /* Literal.String.Escape */
-        .highlight .sh { color: #032f62 } /* Literal.String.Heredoc */
-        .highlight .si { color: #005cc5 } /* Literal.String.Interpol */
-        .highlight .sx { color: #032f62 } /* Literal.String.Other */
-        .highlight .sr { color: #032f62 } /* Literal.String.Regex */
-        .highlight .s1 { color: #032f62 } /* Literal.String.Single */
-        .highlight .ss { color: #005cc5 } /* Literal.String.Symbol */
-        .highlight .bp { color: #005cc5 } /* Name.Builtin.Pseudo */
-        .highlight .fm { color: #005cc5 } /* Name.Function.Magic */
-        .highlight .vc { color: #24292e } /* Name.Variable.Class */
-        .highlight .vg { color: #24292e } /* Name.Variable.Global */
-        .highlight .vi { color: #24292e } /* Name.Variable.Instance */
-        .highlight .vm { color: #005cc5 } /* Name.Variable.Magic */
-        .highlight .il { color: #005cc5 } /* Literal.Number.Integer.Long */
-
-
-        /** Media query for mobile devices only */
-        @media only screen and (max-width: 900px) {
-            body {
-                font-size: 12px;
-                /** background-color: blue !important; */
-            }
-
-            .content {
-                /* position: relative; */
-                margin-top: 30px;
-            }
-
-            h1,
-            h2,
-            h3,
-            h4,
-            h5,
-            h6 {
-                margin-top: 20px;
-            }
-
-            img.math {
-                transform: scale(0.6);
-                margin-left: 0px;
-                padding: 0px;
-
-                /** Debug */
-                /* background-color: gray; */
-            }
-
-            div.math-container {
-                margin-bottom: 10px;
-                /* background-color: aliceblue; */
-            }
-
-
-            img.inline-math {
-                vertical-align: -2pt;
-                max-height: 15px;
-                /* background-color: aliceblue; */
-            }
-
-
-            img.inline-math:hover {
-                transform: scale(1.5);
-                background-color: aliceblue;
-                margin: 10px;
-            }
-
-            .content ul {
-                /* 
-            margin: 0px;
-            margin-left: 5px;
-            margin-top: -10px;
-            margin-bottom: -10px;
-            padding: 0px;
-            padding-left: 15px;
-           */
-                margin-left: -15px;
-            }
-
-            .content li {
-                /* margin: 0px !important; */
-                /* margin-top: -10px !important; */
-            }
-
-            .div-math-proof {
-                background: lightgreen;
-                padding: 0px !important;
-                border: 0px !important;
-                border-radius: 0px !important;
-                max-width: 100% !important;
-            }
-
-            .div-math-proof summary {
-                background: #ecede4;
-                font-size: 18px;
-            }
-
-            .div-math-proof div {}
-
-            .div-math-proof .math {
-                padding: 0px !important;
-                margin-left: -50px !important;
-            }
-
-
-        }
-
-        /* -- Desktop media Query --- */
-        @media only screen and (min-width: 1000px) {
-
-            body {
-                max-width: 800px;
-                margin: 8px !important;
-                border: 1px solid #333;
-                border-radius: 10px;
-                padding: 5px;
-                width: 100%;
-            }
-
-            .content {
-                max-width: 800px;
-                /* background: blue !important; */
-            }
-
-            #table-of-contents {
-                overflow: clip;
-                background-clor: gray;
-                max-width: 800px;
-            }
-
-            .math {
-                padding: 10px;
-                margin-left: 100px;
-            }
-
-            .content ul {
-                margin-left: 10px;
-                display: block;
-                list-style-type: disc;
-                margin-block-start: 1em;
-                margin-block-end: 1em;
-                margin-inline-start: 0px;
-                margin-inline-end: 0px;
-                padding-inline-start: 40px;
-            }
-
-            .content li {
-                margin-left: 5px;
-                display: list-item;
-                text-align: -webkit-match-parent;
-            }
-
-            .toc ul {
-                margin-left: 10px !important;
-                padding-left: 5px !important;
-            }
-
-            #scrollToTopBtn {
-                background-color: black;
-                border: none;
-                border-radius: 50%;
-                color: white;
-                cursor: pointer;
-                font-size: 16px;
-                line-height: 48px;
-                width: 48px;
-                z-index: 200;
-                position: fixed;
-                bottom: 30px;
-                left: 70%;
-            }
-
-            .div-math-proof {
-                background: aliceblue;
-                pardding: 10px;
-                border: 10px;
-                border-radius: 10px;
-                max-width: 80%;
-            }
-
-
-
-
-
-        }
-
-        /* -- End of desktop media equery -- */
+:root {
+    --bg-sidebar: #fafafa ;
+    --bg-main: white;
+    --typography-main-line-height: 1.7em;
+    --typography-main-leter-spacing: 0.5px;
+    --screen-type: "desktop";
+}
+
+
+a.link-external {
+    color: hsl(0, 100%, 33%);
+    word-wrap: break-word;
+}
+
+a.link-internal {
+    color: green;
+}
+
+a.link-toc {
+    color: blue;
+}
+
+img.wiki-image {
+    max-width: 100%;
+    width: auto;
+}
+
+body {
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    text-rendering: optimizeLegibility;
+
+}
+
+
+.sidebar {
+    background-color: var(--bg-sidebar); 
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+
+    position: absolute;
+    border-right: 2px solid rgba(0, 0, 0, 0.973);
+
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    overflow-y: auto;
+
+    padding: 10px;
+
+}
+
+
+.sidebar-toggle-button {
+    height: 50px;
+    padding: 0 15px;
+    line-height: 50px;
+    font-size: 1.5rem;
+    color: cadetblue;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.main {
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom:  0;
+    position: absolute;
+    overflow-y: auto;
+    max-width: 800px;
+    background-color: var(--bg-main);
+
+}
+
+.content {
+    max-width: 700px;
+    letter-spacing: var(--typography-main-leter-spacing);
+    line-height: var(--typography-main-line-height);
+    margin-top: 50px;
+    padding-top: 10px;
+}
+
+.header {
+    height: 50px;
+    background-color: var(--bg-sidebar); 
+    overflow: visible;
+    padding: 0 8px;
+
+    position: fixed;
+    z-index: 1000;
+    margin-bottom: 20px;
+    width: 100%;
+
+    /* background-color: cadetblue; */
+}
+
+
+.toc {
+    margin-left: -50px;
+}
+
+/**
+@media (max-width: 900px)
+{
+    .content{
+        min-height: calc(100% - 50px);
+    }
+}
+**/
+
+/** For desktop systems */
+@media (min-width: 600px)
+{
+    .main-shift 
+    {
+        left: 250px;
+    }
+
+   .main-visiblity {
+        left: 0px; 
+    }
+
+    .content {
+        font-size: 14px;
+        padding-left: 50px;
+        padding-right: 20px;
+    }
+
+    .sidebar {
+        max-width: 250px;
+    }
+
+    :root{
+        --screen-type: desktop;
+    }
+}
+
+/** For mobile devices with small screen */
+@media (max-width: 600px)
+{
+    .sidebar {
+        max-width: min(70%, 300px);
+        z-index: 2;
+    }
+
+    .sidebar-visibility 
+    {
+        display: None;
+    }
+
+
+    .main-shift {
+        left: 0; 
+    }
+
+    .main-visiblity {
+        left: min(70%, 300px);
+    }
+
+
+    .content {
+        font-size: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+   :root{
+        --screen-type: mobile;
+    }
+
+}
+
+.main-left 
+{
+    left: 0px !important;
+}
+
+code pre {
+    background-color: lightyellow;
+    font-family: monospace;
+    font-size: 10px;
+    margin: 0px 1px;
+    padding: 0px 2px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    max-height: 400px;
+}
+
+/** Syntax Highlight Style for Pyhton's Pygment 
+ *
+ */
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #6a737d } /* Comment */
+.highlight .err {  } /* Error */
+.highlight .k { color: #d73a49 } /* Keyword */
+.highlight .o { } /* Operator */
+.highlight .ch { color: #6a737d } /* Comment.Hashbang */
+.highlight .cm { color: #6a737d } /* Comment.Multiline */
+.highlight .cp { color: #d73a49 } /* Comment.Preproc */
+.highlight .cpf { color: #032f62 } /* Comment.PreprocFile */
+.highlight .c1 { color: #6a737d } /* Comment.Single */
+.highlight .cs { color: #6a737d } /* Comment.Special */
+.highlight .gd { color: #b31d28; background-color: #ffeef0 } /* Generic.Deleted */
+.highlight .ge {  } /* Generic.Emph */
+.highlight .gr {  } /* Generic.Error */
+.highlight .gh { color: #005cc5 } /* Generic.Heading */
+.highlight .gi { color: #22863a; background-color: #f0fff4 } /* Generic.Inserted */
+.highlight .go {  } /* Generic.Output */
+.highlight .gp {  } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #6f42c1; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #005cc5 } /* Keyword.Constant */
+.highlight .kd { color: #d73a49 } /* Keyword.Declaration */
+.highlight .kn { color: #d73a49 } /* Keyword.Namespace */
+.highlight .kp { color: #d73a49 } /* Keyword.Pseudo */
+.highlight .kr { color: #d73a49 } /* Keyword.Reserved */
+.highlight .kt { color: #d73a49 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #032f62 } /* Literal.String */
+.highlight .na { } /* Name.Attribute */
+.highlight .nb { color: #005cc5 } /* Name.Builtin */
+.highlight .nc { color: #6f42c1 } /* Name.Class */
+.highlight .no { color: #005cc5 } /* Name.Constant */
+.highlight .nd { color: #6f42c1 } /* Name.Decorator */
+.highlight .ni { color: #005cc5 } /* Name.Entity */
+.highlight .ne { color: #005cc5 } /* Name.Exception */
+.highlight .nf { color: #6f42c1 } /* Name.Function */
+.highlight .nl { color: #005cc5 } /* Name.Label */
+.highlight .nn { color: #6f42c1 } /* Name.Namespace */
+.highlight .nt { color: #22863a } /* Name.Tag */
+.highlight .nv { color: #24292e } /* Name.Variable */
+.highlight .ow { color: #d73a49; } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #005cc5 } /* Literal.Number.Bin */
+.highlight .mf { color: #005cc5 } /* Literal.Number.Float */
+.highlight .mh { color: #005cc5 } /* Literal.Number.Hex */
+.highlight .mi { color: #005cc5 } /* Literal.Number.Integer */
+.highlight .mo { color: #005cc5 } /* Literal.Number.Oct */
+.highlight .sa { color: #d73a49 } /* Literal.String.Affix */
+.highlight .sb { color: #032f62 } /* Literal.String.Backtick */
+.highlight .sc { color: #032f62 } /* Literal.String.Char */
+.highlight .dl { color: #d73a49 } /* Literal.String.Delimiter */
+.highlight .sd { color: #032f62 } /* Literal.String.Doc */
+.highlight .s2 { color: #032f62 } /* Literal.String.Double */
+.highlight .se { color: #032f62 } /* Literal.String.Escape */
+.highlight .sh { color: #032f62 } /* Literal.String.Heredoc */
+.highlight .si { color: #005cc5 } /* Literal.String.Interpol */
+.highlight .sx { color: #032f62 } /* Literal.String.Other */
+.highlight .sr { color: #032f62 } /* Literal.String.Regex */
+.highlight .s1 { color: #032f62 } /* Literal.String.Single */
+.highlight .ss { color: #005cc5 } /* Literal.String.Symbol */
+.highlight .bp { color: #005cc5 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #005cc5 } /* Name.Function.Magic */
+.highlight .vc { color: #24292e } /* Name.Variable.Class */
+.highlight .vg { color: #24292e } /* Name.Variable.Global */
+.highlight .vi { color: #24292e } /* Name.Variable.Instance */
+.highlight .vm { color: #005cc5 } /* Name.Variable.Magic */
+.highlight .il { color: #005cc5 } /* Literal.Number.Integer.Long */
+
     </style>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>
+    <script>
+        function toggle_sidebar()
+        {
+            console.log(" [TRACE] Toggle side bar");
+            let sidebar = document.querySelector(".sidebar");
+            sidebar.classList.toggle("sidebar-visibility");
+            let main = document.querySelector(".main");
+            main.classList.toggle("main-visiblity");
+        }
 
+       document.addEventListener("DOMContentLoaded", function(){
+            let toc = document.querySelector(".toc");
+            // Event bubbling
+            toc.addEventListener("click", (evt) => {
+                let screenType = getComputedStyle(document.body).getPropertyValue("--screen-type");
+                let isMobile = screenType === "mobile";
+                if(isMobile && evt.target.className == "link-internal")
+                { 
+                    toggle_sidebar();
+                } 
+            });
+              
+            });
+
+
+
+    </script>
 </head>
-
 <body>
-    <h1>{{title}}</h1>
-    <div class="toc">
-        <a href="/" class="link-internal">Index</a>
-        <a href="/pages" class="link-internal">Search</a>
-        <hr>
-        {{toc}}
-    </div>
-    <div class="content">
-        {{body}}
-    </div>
-</body>
+    <div class="sidebar sidebar-visibility">
+        <h2>Search</h2>
+        <form action="/pages" mehtod="GET">
+            <label for="site-search-bar">Search all Markdown Files</label>
+            <br>
+            <input type="search" 
+                   id="site-search-bar" 
+                   name="search"
+                   placeholder="Search..."
+                   value="{{query}}"
+                   />
+            <button class="sidebar-search-button">OK</button>
+        </form>
 
+        <h2>Contents</h2>
+        <div class="toc">
+            <!-- Table of contents template placeholder -->
+            {{toc}}
+        </div>
+
+    </div>
+    <div class="main main-shift">
+        <div class="header">
+           <a class="sidebar-toggle-button" 
+              href="#/" onclick="toggle_sidebar();" >[#]</a> 
+           <a class="sidebar-toggle-button" 
+              href="/" >Home</a> 
+           <a class="sidebar-toggle-button" 
+              href="/pages" >All</a> 
+        </div>
+
+        <div class="content">
+            {{body}}
+        </div>
+        
+        
+        </div>
+    
+</body>
 </html>

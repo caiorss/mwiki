@@ -59,20 +59,7 @@ def route_pages():
     pages = [f.split(".")[0] for f in sorted_files]
     content =  "\n".join([f"""<li><a href="/wiki/{f}{highlight}" class="link-internal">{f}</a></li>""" for f in pages])
     content = f"""<h1>Markdown Wiki Pages</h1>\n<ul>\n{content}\n</ul>"""
-    content = f"""
-        <form>
-            <label for="site-search-bar">Search all Markdown Files</label>
-            <br>
-            <input type="search" 
-                   id="site-search-bar" 
-                   name="search"
-                   placeholder="Search..."
-                   value="{query}"
-                   />
-            <button>Search</button>
-        </form>
-        """ + content
-    html = mparser.fill_template("Index Page", content, "")
+    html = mparser.fill_template("Index Page", content, toc = "", query = query)
     return html
 
 

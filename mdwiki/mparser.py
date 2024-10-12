@@ -84,16 +84,17 @@ MdParser.add_render_rule("heading_open", render_heading_open)
 
 MainTemplate = utils.read_resource(mdwiki, "template.html")
 
-def fill_template(title: str, content: str, toc: str):
+def fill_template(title: str, content: str, toc: str, query: str = ""):
     html = (
         MainTemplate
         .replace("{{body}}", content)
         .replace("{{title}}", title)
         .replace("{{toc}}", toc)
+        .replace("{{query}}", query)
     )
     return html
 
-def mdfile_to_html(inp_file, title, toc):
+def mdfile_to_html(inp_file, title, toc, query = ""):
     with open(inp_file) as fd:
         inp = fd.read()
         out = MdParser.render(inp)
@@ -102,6 +103,7 @@ def mdfile_to_html(inp_file, title, toc):
                 .replace("{{body}}", out)
                 .replace("{{title}}", title)
                 .replace("{{toc}}", toc)
+                .replace("{{query}}", query)
                 
         )
         return html
