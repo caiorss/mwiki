@@ -1,9 +1,23 @@
 import os
-import bottle
-from bottle import route, run
-from bottle import static_file, route, auth_basic, request
+## from bottle import route, run
+## from bottle import static_file, route, auth_basic, request
+import flask 
+from flask import Flask, request
+
 import mdwiki.utils as utils
 import mdwiki.mparser as mparser 
+
+## Method GET 
+M_GET = "GET" 
+M_POST = "POST"
+
+# TODO Separate configuration from code for safer deployment
+# Use some secrets management system
+app = Flask(__name__) ##template_folder="templates")
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SECRET_KEY'] = 'd21275220cc324ea002684309195b6741b27ce281dc36294'
+# Session(app)
+### WEBSOCKET: sock = Sock(app)
 
 BASE_PATH = utils.get_wiki_path()
 
@@ -30,9 +44,9 @@ def is_authhenticated(user, passwd):
     return is_auth
 
 ##@auth_basic(is_authhenticated)
-@route("/pages")
+@app.route("/pages", methods = [M_GET])
 def route_pages():
-    query = request.query.get("search") or ""
+    query = request.args.get("search") or ""
     highlight =  f"#:~:text={ utils.encode_url(query) }" if query != "" else ""
     files = []
     if query == "":
@@ -61,20 +75,19 @@ def route_pages():
     html = mparser.fill_template("Index Page", content, "")
     return html
 
-@route("/")
-def route_index_page():
-    bottle.redirect("/wiki/Index")
 
-@bottle.get("/wiki/img/<filepath>")
+app.route("/hello")
+def hello():
+    return "<p>Web application running flask</p>"
+
+
+@app.get("/wiki/img/<path:filepath>")
 def route_wiki_image(filepath):
-    ## print(" [TRACE] Enter filepath route => filepath = ", filepath)
     root = utils.get_wiki_path("images")
-    ## print(" [TRACE] root = ", root)
-    resp = static_file(filepath, root)
-    ## print(" [TRACE] resp = ", resp)
+    resp = flask.send_from_directory(root, filepath)
     return resp
 
-@route("/wiki/<page>")
+@app.route("/wiki/<page>")
 ##@auth_basic(is_authhenticated)
 def route_wiki_page(page):
     mdfile = os.path.join(BASE_PATH, page + ".md")
@@ -98,7 +111,11 @@ def route_wiki_page(page):
     return html
      
 
-@auth_basic(is_authhenticated)
-def hello():
-    return "Hello World!"
+@app.route("/")
+def route_index_page():
+    return flask.redirect("/wiki/Index")
+
+if __name__ == '__main__':
+    print(" [TRACE] Server started Ok.")
+    app.run(host='0.0.0.0', port=8010, debug=True)
 
