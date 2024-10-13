@@ -8,6 +8,7 @@ __pycache__
 *.o
 *.back 
 *.temp 
+*.pem
 pages/*
 texmath/*
 flask_session/*

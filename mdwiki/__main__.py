@@ -14,13 +14,18 @@ def cli1():
 @click.option("-p", "--port", default = 8080, help="TCP port to be listend, default 8080.")
 @click.option("--login", default = "", help = "Require login to access any page.")
 @click.option("--debug", is_flag = True
-            , help =( "Run server in debug mode. WARNING: It is unsafe to run " 
-                     "the server in debug mode when exposed in the internet since" 
-                     "it can display creadentials and tokens passed as environment" 
-                     "variables and expose internal details."
+            , help =( "Run server in debug mode. WARNING: It is unsafe to run" 
+                     " the server in debug mode when exposed in the internet since" 
+                     " it can display creadentials and tokens passed as environment" 
+                     " variables and expose internal details."
                      ))
+@click.option("--random-ssl", is_flag  = True
+                , help = ( "Run server with random generated SSL certificate. "
+                          " It is not necessary to run openssl command line tool"
+                          " or create or pass any file in order to use this command line switch."
+                          ))
 @click.option("-w", "--wikipath", default = "./pages", help = "Path to wiki directory")
-def server(host: str, port: int, debug: bool, login: str, wikipath: str):
+def server(host: str, port: int, debug: bool, login: str, wikipath: str, random_ssl: bool):
     _login = None
     if login != "":
         #os.environ["DO_LOGIN"] = "true"
@@ -29,7 +34,7 @@ def server(host: str, port: int, debug: bool, login: str, wikipath: str):
             print("Error expected login in format --login=<USERNAME>;<PASSWORD>")
             exit(1)
     _wikipath = utils.expand_path(wikipath)
-    run_app_server(host, port, debug, _login, _wikipath)
+    run_app_server(host, port, debug, _login, _wikipath, random_ssl)
     ## app.run(host = host, port = port, debug=True)
 
 def main():

@@ -13,11 +13,12 @@ from typing import Tuple, List
 M_GET = "GET" 
 M_POST = "POST"
 
-def run_app_server(   host:     str
-                    , port:     int
-                    , debug:    bool
-                    , login:    Tuple[str, str] 
-                    , wikipath: str
+def run_app_server(   host:        str
+                    , port:        int
+                    , debug:       bool
+                    , login:       Tuple[str, str] 
+                    , wikipath:    str
+                    , random_ssl:  bool = False
                    ):
     # TODO Separate configuration from code for safer deployment
     # Use some secrets management system
@@ -101,11 +102,9 @@ def run_app_server(   host:     str
         html = mparser.fill_template("Index Page", content, toc = "", query = query)
         return html
 
-
     @app.route("/check")
     def hello():
         return "The server is up and running. OK."
-
 
     @app.get("/wiki/img/<path:filepath>")
     @check_login
@@ -141,10 +140,14 @@ def run_app_server(   host:     str
     def route_index_page():
         return flask.redirect("/wiki/Index")
 
-    app.run(host = host, port = port, debug = debug)
-    ##return app
+    if random_ssl:
+        with utils.TempSSLCert() as c:
+            certfile, keyfile = c.certkey()
+            assert os.path.exists(certfile)
+            assert os.path.exists(keyfile)
+            context = (certfile,  keyfile)
+            ## context = ("cert.pem",  "key.pem")
+            app.run(host = host, port = port, debug = debug, ssl_context = context)
+    else:
+        app.run(host = host, port = port, debug = debug)
 
-##if __name__ == '__main__':
-##    print(" [TRACE] Server started Ok.")
-##    app.run(host='0.0.0.0', port=8010, debug=True)
-##

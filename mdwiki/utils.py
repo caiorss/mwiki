@@ -95,6 +95,73 @@ def get_wiki_path(file: str = "") -> str:
     path = os.path.join(path, file)
     return path
 
+class TempSSLCert:
+
+    def __init__(self) -> None:
+        self._tmp_keyfile = None
+        self._tmp_certfile = None
+
+    def __enter__(self):
+        import tempfile
+        import datetime
+        from cryptography.hazmat.primitives import serialization
+        from cryptography.hazmat.primitives.asymmetric import rsa
+        from cryptography import x509
+        from cryptography.x509.oid import NameOID
+        from cryptography.hazmat.primitives import hashes
+        key = rsa.generate_private_key( public_exponent=65537, key_size=2048, )
+        # Various details about who we are. For a self-signed certificate the
+        # subject and issuer are always the same.
+        subject = issuer = x509.Name([
+              x509.NameAttribute(NameOID.COUNTRY_NAME, "US")
+            , x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, "California")
+            , x509.NameAttribute(NameOID.LOCALITY_NAME, "San Francisco")
+            , x509.NameAttribute(NameOID.ORGANIZATION_NAME, "My Company")
+            , x509.NameAttribute(NameOID.COMMON_NAME, "mysite.com")
+        ])
+        # Our certificate will be valid for 2000 days
+        end_date =  datetime.datetime.now(datetime.timezone.utc) + \
+            datetime.timedelta(days=2000)
+        cert = ( x509.CertificateBuilder()
+		     .subject_name( subject)
+		     .issuer_name( issuer )
+		     .public_key( key.public_key() )
+		     .serial_number( x509.random_serial_number() )
+		     .not_valid_before(datetime.datetime.now(datetime.timezone.utc))
+		     .not_valid_after(end_date)
+		     .add_extension(
+		        x509.SubjectAlternativeName([x509.DNSName("localhost")])
+		      , critical=False,)
+		# Sign our certificate with our private key
+			 .sign(key, hashes.SHA256())
+	        )
+        self._tmp_keyfile  = tempfile.NamedTemporaryFile(delete=False)
+        self._tmp_certfile = tempfile.NamedTemporaryFile(delete=False)
+        with open(self._tmp_keyfile.name, "wb") as f:
+            f.write(key.private_bytes(
+                  encoding=serialization.Encoding.PEM
+                , format=serialization.PrivateFormat.TraditionalOpenSSL
+                , encryption_algorithm=serialization.NoEncryption()
+                ##, encryption_algorithm=serialization.BestAvailableEncryption(b"")
+                ))
+        with open(self._tmp_certfile.name, "wb") as f:
+            f.write(cert.public_bytes(serialization.Encoding.PEM))
+        ## print(" [TRACE] Enter context")
+        return self 
+    
+    def __exit__(self, exc_type, exc_value, traceback):
+        import os
+        self._tmp_certfile.close()
+        os.unlink(self._tmp_certfile.name)
+        self._tmp_keyfile.close()
+        os.unlink(self._tmp_keyfile.name)
+        ## print(" [TRACE] Exit context ok")
+        return True 
+    
+    def certkey(self):
+        """Return tuple containing certificate and key"""
+        return (self._tmp_certfile.name, self._tmp_keyfile.name)
+
 
 __all__ = (  "escape_code"
            , "encode_url"
