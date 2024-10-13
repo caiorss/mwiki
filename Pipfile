@@ -4,13 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-## bottle = "*"
 flask = "*"
-## flask_session = "*"
-## flask_sock = "*"
 markdown-it-py = {extras = ["linkify", "plugins"], version = "*"}
 pygments = "*"
 frontmatter = "*"
+flask-session = "*"
 
 [dev-packages]
 

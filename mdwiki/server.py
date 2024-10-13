@@ -2,7 +2,8 @@ import os
 ## from bottle import route, run
 ## from bottle import static_file, route, auth_basic, request
 import flask 
-from flask import Flask, request
+from flask import Flask, request, session
+import flask_session
 
 import mdwiki.utils as utils
 import mdwiki.mparser as mparser 
@@ -16,7 +17,7 @@ M_POST = "POST"
 app = Flask(__name__) ##template_folder="templates")
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = 'd21275220cc324ea002684309195b6741b27ce281dc36294'
-# Session(app)
+flask_session.Session(app)
 ### WEBSOCKET: sock = Sock(app)
 
 BASE_PATH = utils.get_wiki_path()
@@ -25,26 +26,59 @@ BASE_PATH = utils.get_wiki_path()
 # set the environment variable LOGIN, 
 # export LOGIN="<USERNAME>;<PASSWORD>"
 #
-LOGIN = os.getenv("WIKI_LOGIN") or ""
-USERNAME = ""
-PASSWORD = ""
-if LOGIN != "": 
-    t = LOGIN.split(";")
-    if len(t) == 2:
-        USERNAME = t[0]
-        PASSWORD = t[1]
+DO_LOGIN = (os.getenv("DO_LOGIN") or "") == "true"
+USERNAME = "unix"
+PASSWORD = "passwd"
 
-def is_authhenticated(user, passwd):
-    print(" [TRACE] LOGIN = ", LOGIN)
-    breakpoint()
-    # Disable Login if environment variable is not set 
-    if LOGIN == "": 
-        return True 
-    is_auth = user == USERNAME and passwd == PASSWORD 
-    return is_auth
+# 
+def is_loggedin():
+    return session.get("loggedin") or False
+
+def do_login():
+    session["loggedin"] = True
+
+def do_logoff():
+    session["loggedin"] = False
+
+@app.route("/login", methods = (M_GET, M_POST))
+def login():
+    if not DO_LOGIN:
+        return flask.redirect("/")
+    if request.method == M_GET:
+        if is_loggedin(): 
+            return flask.redirect("/")
+        else:
+            return flask.render_template('login.html')
+    assert request.method == M_POST
+    username = flask.request.form.get("username") or ""
+    password = flask.request.form.get("password") or ""
+    if username == USERNAME and password == PASSWORD:
+        do_login() 
+        return flask.redirect("/") 
+    else:
+        return flask.redirect("/login")
+
+@app.route("/logoff")
+def loggof():
+    do_logoff()
+    return flask.redirect("/login")
+
+def check_login(http_handler):
+    """Decorator that redirects to /login page if the user is not loggged in."""
+    def wrapper(*args, **kwargs):
+        pass
+        response = None
+        if DO_LOGIN and not is_loggedin():
+            response = flask.redirect("/login")
+        else:
+            response = http_handler(*args, **kwargs)
+        return response 
+    wrapper.__name__ = http_handler.__name__
+    return wrapper
 
 ##@auth_basic(is_authhenticated)
 @app.route("/pages", methods = [M_GET])
+@check_login
 def route_pages():
     query = request.args.get("search") or ""
     highlight =  f"#:~:text={ utils.encode_url(query) }" if query != "" else ""
@@ -63,19 +97,20 @@ def route_pages():
     return html
 
 
-app.route("/hello")
+@app.route("/check")
 def hello():
-    return "<p>Web application running flask</p>"
+    return "The server is up and running. OK."
 
 
 @app.get("/wiki/img/<path:filepath>")
+@check_login
 def route_wiki_image(filepath):
     root = utils.get_wiki_path("images")
     resp = flask.send_from_directory(root, filepath)
     return resp
 
 @app.route("/wiki/<page>")
-##@auth_basic(is_authhenticated)
+@check_login
 def route_wiki_page(page):
     mdfile = os.path.join(BASE_PATH, page + ".md")
     ## print(" [TRACE] mdfile = ", mdfile, "\n\n")

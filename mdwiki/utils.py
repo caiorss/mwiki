@@ -20,7 +20,7 @@ def escape_code(code):
                     .replace(">", "&gt;")\
                     .replace('"', "&quot;")\
                     .replace("'", "&apos;")
-    return code  
+    return code
 
 def encode_url(url: str):
     q = urllib.parse.quote(url)
@@ -34,7 +34,7 @@ def highlight_code(code: str, language: str, verbose: bool = False) -> str:
         ## print(f" [TRACE] Highlight code for '{name}' Ok.")
         result = highlight(code, lexer, formatter)
         ## breakpoint()
-        return result 
+        return result
     except pygments.util.ClassNotFound:
         if verbose:
             print(f" [TRACE] Warning not found Python's pygment lexer for '{language}'")
@@ -51,49 +51,49 @@ def file_contains(fileName: str, query: str, opt = "exact"):
         # Split whitespace
         queries = query.split()
         queries_ = queries.copy()
-        # WARNING: Never read the whole file to memory, becasue 
+        # WARNING: Never read the whole file to memory, becasue
         # if the file is 1 GB, then 1 GB memory will be consumed,
         # what can case OOM (Out-Of-Memory) issues and slow down
         # the server.
         while line := fd.readline():
             # Ignore case
             if opt == "exact" and query in line.lower():
-                result = True 
-                break 
-            # (OR) Returns true if is the file contains at 
+                result = True
+                break
+            # (OR) Returns true if is the file contains at
             # at least one word of the query.
             elif opt == "or_all":
                 for q in queries:
-                    if q in line.lower(): 
+                    if q in line.lower():
                         result = True
                         break
-            # (AND) Returns treu if the file contains all words 
+            # (AND) Returns treu if the file contains all words
             # from the input query
             elif opt == "and_all":
                 for q in queries:
                     if q in line.lower() and q in queries_:
-                        queries_.remove(q)                        
+                        queries_.remove(q)
                 if len(queries_) == 0:
-                    result = True 
-                    break 
+                    result = True
+                    break
         return result
 
 def expand_path(path: str):
     """ Expand path such as '~/home_file.text` to full path.
     """
-    import os 
+    import os
     HOME_PATH = os.getenv("HOME", "")
     path_ = ( path
                 .replace("$HOME", HOME_PATH)
-                .replace("~", HOME_PATH) 
+                .replace("~", HOME_PATH)
                 .replace(".", os.getcwd())
             )
     return path_
 
-def get_wiki_path(file: str = "") -> str: 
+def get_wiki_path(file: str = "") -> str:
     path = expand_path( os.getenv("WIKI_BASE_PATH") or "./")
     path = os.path.join(path, file)
-    return path 
+    return path
 
 
 __all__ = (  "escape_code"
