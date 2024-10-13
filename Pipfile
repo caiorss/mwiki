@@ -4,11 +4,17 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+## Command Line Argument Parser 
+click = "==8.0.1"
+## Flask Web Framework 
 flask = "*"
-markdown-it-py = {extras = ["linkify", "plugins"], version = "*"}
-pygments = "*"
-frontmatter = "*"
 flask-session = "*"
+## Makdown Parser from Jupyter Booku used by myst Markdown
+markdown-it-py = {extras = ["linkify", "plugins"], version = "*"}
+## Parser for markdown metadata
+frontmatter = "*"
+## Server-side syntax highlight for source code
+pygments = "*"
 
 [dev-packages]
 
