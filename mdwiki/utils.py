@@ -1,4 +1,5 @@
 import os
+import re
 import urllib.parse
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
@@ -77,6 +78,23 @@ def file_contains(fileName: str, query: str, opt = "exact"):
                     result = True
                     break
         return result
+
+def grep_file(fileName: str, query: str):
+    """Return lines of a file that contains a given query string."""
+    query = query.lower()
+    lines = []
+    n = 1
+    with open(fileName) as fd:
+        while line := fd.readline():
+            if query in line.lower():
+                lines.append((n, line))
+            n += 1
+    return lines  
+
+def replace_ci(text, entry, replacement):
+    """Case insensitive text replacement"""
+    out = re.sub(re.escape(entry), replacement, text, flags = re.IGNORECASE)
+    return out
 
 def expand_path(path: str):
     """ Expand path such as '~/home_file.text` to full path.
