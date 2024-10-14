@@ -7,13 +7,16 @@
     <style>
 
 :root {
-    --bg-sidebar: #fafafa ;
-    --bg-main: white;
+    --bg-sidebar: #F7F4ED;
+    --bg-main: #F7F4ED;
     --typography-main-line-height: 1.7em;
     --typography-main-leter-spacing: 0.5px;
     --screen-type: "desktop";
 }
 
+body {
+    color: #544832;
+}
 
 a.link-external {
     color: hsl(0, 100%, 33%);
@@ -40,6 +43,27 @@ body {
 
 }
 
+
+/** Definition List **/
+dl {
+    /** background-color: aliceblue; */
+    border: 5px black;
+    border-radius: 10px;
+}
+
+dt {
+    /* font-weight: bold; */
+    color: black;
+    text-decoration: underline;
+    /* text-align: right; */
+    /* color: green; */
+}
+
+
+dd {
+    font-style: oblique;
+}
+/** --- End of Definition List Style --- */
 
 .sidebar {
     background-color: var(--bg-sidebar); 
