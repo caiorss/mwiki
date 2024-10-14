@@ -113,13 +113,29 @@ def run_app_server(   host:        str
         resp = flask.send_from_directory(root, filepath)
         return resp
 
+    @app.route("/wiki/<page>/source")
+    @check_login
+    def route_wiki_source(page):
+        mdfile = os.path.join(BASE_PATH, page + ".md")
+        ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
+        if not os.path.exists(mdfile):
+             return f"<h1>404 SOURCE NOT FOUND: {page}</h1>"
+        src = ""
+        with open(mdfile) as fd:
+            src = fd.read()
+        src = utils.escape_code(src)
+        content = f"<pre>\n{src}\n</pre>" 
+        html = mparser.fill_template(f"Source of '{page}.md'", content, toc = "", query = "")
+        return html
+
+
     @app.route("/wiki/<page>")
     @check_login
     def route_wiki_page(page):
         mdfile = os.path.join(BASE_PATH, page + ".md")
         ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
         if not os.path.exists(mdfile):
-             return f"<h1>404 NOT FOUND PAGE: {page}</h1>"
+             return f"<h1>404 PAGE NOT FOUND: {page}</h1>"
         headings = []
         with open(mdfile) as fd:
             inp = fd.read()
