@@ -1,6 +1,8 @@
 import os
 from mdwiki.server import run_app_server
 import mdwiki.utils as utils
+import tomli 
+from pprint import pprint
 
 import click
 ## from click.decorators import commmand 
@@ -24,9 +26,36 @@ def cli1():
                           " It is not necessary to run openssl command line tool"
                           " or create or pass any file in order to use this command line switch."
                           ))
-@click.option("-w", "--wikipath", default = "./pages", help = "Path to wiki directory")
-def server(host: str, port: int, debug: bool, login: str, wikipath: str, random_ssl: bool):
-    _login = None
+@click.option("-w", "--wikipath", default = ".", help = "Path to wiki directory, default '.' current directory.")
+@click.option("-c", "--config", default = None, 
+                help = ( "Path to TOML configuration file for" 
+                        "running the server and loading its settings from the file."))
+def server(host: str, port: int, debug: bool, login: str, wikipath: str, random_ssl: bool, config):
+    _login = None  
+
+    if config is not None:
+        if not os.path.isfile(config):
+            print(f"Error file '{config} does not exist")
+            exit(1)
+        conf = {}
+        with open(config, 'rb') as fd:
+            conf = tomli.load(fd)
+        if "server" not in conf:
+            print(f"Error - missing section [server] in toml config file '{config}'.")
+            exit(1)
+        server      = conf.get("server", {})
+        _host       = server.get("host", "127.0.0.1")
+        _port       = server.get("port", 8080)
+        _debug      = server.get("debug", False)
+        _do_login   = server.get("login", False)
+        _username   = server.get("username", "")
+        _password   = server.get("password", "")
+        _wikipath   = utils.expand_path( server.get("wikipath", ".") )
+        _random_ssl = server.get("random-ssl", False)
+        _login = (_username, _password) if _do_login else None 
+        run_app_server(_host, _port, _debug, _login, _wikipath, _random_ssl)
+        exit(0)
+        
     if login != "":
         #os.environ["DO_LOGIN"] = "true"
         _login =  login.split(",")

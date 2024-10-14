@@ -12,3 +12,4 @@ __pycache__
 pages/*
 texmath/*
 flask_session/*
+server.toml

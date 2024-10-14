@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 ## Command Line Argument Parser 
-click = "==8.0.1"
+click = "*"
 ## Flask Web Framework 
 flask = "*"
 flask-session = "*"
@@ -17,6 +17,8 @@ frontmatter = "*"
 pygments = "*"
 ## Cryptography primitives and utilities
 cryptography = "*"
+## Tomli - TOML Parser - https://github.com/hukkin/tomli
+tomli = "*"
 
 [dev-packages]
 
