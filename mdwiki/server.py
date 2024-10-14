@@ -14,96 +14,6 @@ M_GET = "GET"
 M_POST = "POST"
 
 
-def add_login(app: Flask, do_login: bool, username: str, password: str):
-    """Create login form routes for a single user account
-
-    :param do_login: Flag - if set to true, login form is enabled, otherwise login form is disabled.
-    :param username: Username required for authentication
-    :param password: Corresponding password required for user authentication.
-    :returns:        Function decorator for enforcing user authentication.
-
-    Required Python Pakages: flask_session 
-    
-    This function creates a login form for a single user account by defining 
-    the following http routes 
-
-    /login  => Login form, where the user is redirect to in views/routes 
-               that requeries authentication if the user is not logged in.
-
-    /loggof => Logs off user and redirects to '/' root page of the site.
-
-    This function returns a decorator function check_login, that can 
-    be added to routes/views for requiring authentication. 
-
-    Usage example:
-     
-    ```python
-
-       app = Flask(__name__)
-
-       LOGIN_ENABLED = True 
-
-       # Creates login form for single user account 
-       # requiring "dummy" as username and "pass" as password
-       # for authentication.
-       check_login = add_login(app, LOGIN_ENABLED, "dummy", "pass")
-       
-       # Require login for accessing http://<site-url>/check
-       @app.route("/check")
-       @check_login 
-       def hello():
-           return "The server is up and running. OK."
-    ```
-
-    """
-    def is_loggedin():
-        return session.get("loggedin") or False
-
-    def do_login():
-        session["loggedin"] = True
-
-    def do_logoff():
-        session["loggedin"] = False
-
-    @app.route("/login", methods = (M_GET, M_POST))
-    def login():
-        if not do_login:
-            return flask.redirect("/")
-        if request.method == M_GET:
-            if is_loggedin(): 
-                return flask.redirect("/")
-            else:
-                return flask.render_template('login.html')
-        assert request.method == M_POST
-        _username = flask.request.form.get("username") or ""
-        _password = flask.request.form.get("password") or ""
-        if _username == username and _password == password:
-            do_login() 
-            return flask.redirect("/") 
-        else:
-            return flask.redirect("/login")
-
-    @app.route("/logoff")
-    def loggof():
-        do_logoff()
-        return flask.redirect("/login")
-
-    def check_login(http_handler):
-        """Decorator that redirects to /login page if the user is not loggged in."""
-        def wrapper(*args, **kwargs):
-            pass
-            response = None
-            if do_login and not is_loggedin():
-                response = flask.redirect("/login")
-            else:
-                response = http_handler(*args, **kwargs)
-            return response 
-        wrapper.__name__ = http_handler.__name__
-        return wrapper
-
-    return check_login
-
-
 def run_app_server(   host:        str
                     , port:        int
                     , debug:       bool
@@ -217,4 +127,94 @@ def run_app_server(   host:        str
             app.run(host = host, port = port, debug = debug, ssl_context = context)
     else:
         app.run(host = host, port = port, debug = debug)
+
+
+def add_login(app: Flask, do_login: bool, username: str, password: str):
+    """Create login form routes for a single user account
+
+    :param do_login: Flag - if set to true, login form is enabled, otherwise login form is disabled.
+    :param username: Username required for authentication
+    :param password: Corresponding password required for user authentication.
+    :returns:        Function decorator for enforcing user authentication.
+
+    Required Python Pakages: flask_session 
+    
+    This function creates a login form for a single user account by defining 
+    the following http routes 
+
+    /login  => Login form, where the user is redirect to in views/routes 
+               that requeries authentication if the user is not logged in.
+
+    /loggof => Logs off user and redirects to '/' root page of the site.
+
+    This function returns a decorator function check_login, that can 
+    be added to routes/views for requiring authentication. 
+
+    Usage example:
+     
+    ```python
+
+       app = Flask(__name__)
+
+       LOGIN_ENABLED = True 
+
+       # Creates login form for single user account 
+       # requiring "dummy" as username and "pass" as password
+       # for authentication.
+       check_login = add_login(app, LOGIN_ENABLED, "dummy", "pass")
+       
+       # Require login for accessing http://<site-url>/check
+       @app.route("/check")
+       @check_login 
+       def hello():
+           return "The server is up and running. OK."
+    ```
+
+    """
+    def is_loggedin():
+        return session.get("loggedin") or False
+
+    def do_login():
+        session["loggedin"] = True
+
+    def do_logoff():
+        session["loggedin"] = False
+
+    @app.route("/login", methods = (M_GET, M_POST))
+    def login():
+        if not do_login:
+            return flask.redirect("/")
+        if request.method == M_GET:
+            if is_loggedin(): 
+                return flask.redirect("/")
+            else:
+                return flask.render_template('login.html')
+        assert request.method == M_POST
+        _username = flask.request.form.get("username") or ""
+        _password = flask.request.form.get("password") or ""
+        if _username == username and _password == password:
+            do_login() 
+            return flask.redirect("/") 
+        else:
+            return flask.redirect("/login")
+
+    @app.route("/logoff")
+    def loggof():
+        do_logoff()
+        return flask.redirect("/login")
+
+    def check_login(http_handler):
+        """Decorator that redirects to /login page if the user is not loggged in."""
+        def wrapper(*args, **kwargs):
+            pass
+            response = None
+            if do_login and not is_loggedin():
+                response = flask.redirect("/login")
+            else:
+                response = http_handler(*args, **kwargs)
+            return response 
+        wrapper.__name__ = http_handler.__name__
+        return wrapper
+
+    return check_login
 
