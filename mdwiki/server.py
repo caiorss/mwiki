@@ -125,9 +125,15 @@ def run_app_server(   host:        str
         mparser.make_headings_hierarchy(headings)
         return html
 
-    @app.route("/")
+    @app.get("/")
     def route_index_page():
-        return flask.redirect("/wiki/Index")
+        index_file = os.path.join(BASE_PATH, "Index.md")
+        response = ""
+        if os.path.isfile(index_file):
+            response = flask.redirect("/wiki/Index")
+        else:
+            response = flask.redirect("/pages")
+        return response
 
     if random_ssl:
         with utils.TempSSLCert() as c:
