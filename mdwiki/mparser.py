@@ -46,6 +46,7 @@ MdParser = (
 	.use(container_plugin, name = "{note}")
     # Defintion of math concept or theorem 
 	.use(container_plugin, name = "{def}")
+	.use(container_plugin, name = "{theorem}")
     .use(myst_block_plugin)
     .use(myst_role_plugin)
     .enable('table')
@@ -114,7 +115,23 @@ def render_container_def_open(self, tokens, index, options, env):
     label  = f'id="{label_}"' if label_ else ""
     ## breakpoint()
     html = ( f'<div class="def admonition" {label}>'
-             f'\n<p class="def-admonition-title"><b>DEFINITION:</b> {title}</p>'
+             # f'\n<p class="def-admonition-title"><b>DEFINITION:</b> {title}</p>'
+             f'\n<p><b>DEFINITION:</b> {title}</p>'
+            )
+    return html
+
+
+def render_container_theorem_open(self, tokens, index, options, env):
+    tok = tokens[index]
+    title = tok.info.strip("{theorem}").strip() 
+    # Label is the unique identifier of an AST element
+    # it is similar to Html5 DOM id property.
+    label_ = tok.attrs.get("label") 
+    label  = f'id="{label_}"' if label_ else ""
+    ## breakpoint()
+    html = ( f'<div class="def admonition" {label}>'
+             ##f'\n<p class="theorem-admonition-title"><b>THEOREM:</b> {title}</p>'
+             f'\n<p><b>THEOREM:</b> {title}</p>'
             )
     return html
 
@@ -127,6 +144,7 @@ MdParser.add_render_rule("heading_open", render_heading_open)
 MdParser.add_render_rule("container_{tip}_open", render_container_tip_open)
 MdParser.add_render_rule("container_{note}_open", render_container_note_open)
 MdParser.add_render_rule("container_{def}_open", render_container_def_open)
+MdParser.add_render_rule("container_{theorem}_open", render_container_theorem_open)
 
 MainTemplate = utils.read_resource(mdwiki, "template.html")
 
