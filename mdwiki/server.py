@@ -68,7 +68,8 @@ def run_app_server(   host:        str
                 inner =  "\n".join( [ utils.replace_ci(f"<li><code>{ utils.escape_code(lin) }</code></li>"
                                         , query, f'<span class="search-highlight">{query}</span>') 
                                        for (n, lin) in  utils.grep_file(page_to_file(f), query)])
-                entry = f"""<li><a href="/wiki/{f}{highlight}" class="link-internal">{f}</a> <ul>{inner}</ul></li>""" 
+                url = utils.encode_url(f"/wiki/{f}") + highlight
+                entry = f"""<li><a href="{url}" class="link-internal">{f}</a> <ul>{inner}</ul></li>""" 
                 content += entry
             content = f"<ul>\n{content}\n</ul>"
         content = f"""<h1>Markdown Wiki Pages</h1>\n<ul>\n{content}\n</ul>"""
