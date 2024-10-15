@@ -33,6 +33,7 @@ MdParser = (
     .use(deflist_plugin)
     .use(tasklists_plugin)
 	.use(container_plugin, name = "tip")
+	.use(container_plugin, name = "note")
     .enable('table')
     .enable('strikethrough')
 )
@@ -76,8 +77,14 @@ def render_heading(self, tokens, idx, options, env):
     pass 
 
 def render_container_tip_open(self, tokens, index, options, env):
-    html = ( '<div class="tip">'
-             '\n<p class="admonition-title">Tip</p>'
+    html = ( '<div class="tip admonition">'
+             '\n<p class="tip-admonition-title">Tip</p>'
+            )
+    return html
+
+def render_container_note_open(self, tokens, index, options, env):
+    html = ( '<div class="note admonition">'
+             '\n<p class="note-admonition-title">Note</p>'
             )
     return html
 
@@ -88,6 +95,7 @@ MdParser.add_render_rule("link_open", render_blank_link)
 ## md.add_render_rule("heading", render_heading)
 MdParser.add_render_rule("heading_open", render_heading_open)
 MdParser.add_render_rule("container_tip_open", render_container_tip_open)
+MdParser.add_render_rule("container_note_open", render_container_note_open)
 
 MainTemplate = utils.read_resource(mdwiki, "template.html")
 
