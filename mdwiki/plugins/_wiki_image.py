@@ -1,3 +1,14 @@
+"""Markdown-it Plugin that implements wimedia syntax for internal images.
+
+Syntax example for including an image.
+
+```md
+  ![[path-to-image]] 
+```
+
+This syntax is used by many wikis, including wikimedia engine, used by Wikipedia,
+and by Obsidian note taking app. 
+"""
 from __future__ import annotations
 
 import re
