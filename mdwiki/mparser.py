@@ -1,5 +1,3 @@
-import mdwiki
-import mdwiki.utils as utils
 from markdown_it import MarkdownIt
 from markdown_it.tree import SyntaxTreeNode
 from mdit_py_plugins.front_matter import front_matter_plugin
@@ -8,6 +6,15 @@ from mdit_py_plugins.texmath import texmath_plugin
 from mdit_py_plugins.deflist import deflist_plugin
 from mdit_py_plugins.tasklists import tasklists_plugin
 from mdit_py_plugins.container import container_plugin
+from mdit_py_plugins.field_list import fieldlist_plugin
+# from mdit_py_plugins.admon import admon_plugin
+from mdit_py_plugins.attrs import attrs_plugin 
+from mdit_py_plugins.attrs import attrs_block_plugin
+from mdit_py_plugins.myst_role import myst_role_plugin
+from mdit_py_plugins.myst_blocks import myst_block_plugin
+
+import mdwiki
+import mdwiki.utils as utils
 import mdwiki.plugins 
 
 def highlight_code(code, name, attrs):
@@ -32,10 +39,17 @@ MdParser = (
     .use(mdwiki.plugins.wiki_link_plugin)
     .use(deflist_plugin)
     .use(tasklists_plugin)
+    .use(attrs_plugin)
+    .use(attrs_block_plugin)
+    .use(fieldlist_plugin)
 	.use(container_plugin, name = "tip")
 	.use(container_plugin, name = "note")
+    .use(myst_block_plugin)
+    .use(myst_role_plugin)
     .enable('table')
     .enable('strikethrough')
+    .enable("myst_role")
+    .enable("backticks")
 )
 
 
