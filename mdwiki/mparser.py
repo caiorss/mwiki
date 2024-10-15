@@ -42,8 +42,8 @@ MdParser = (
     .use(attrs_plugin)
     .use(attrs_block_plugin)
     .use(fieldlist_plugin)
-	.use(container_plugin, name = "tip")
-	.use(container_plugin, name = "note")
+	.use(container_plugin, name = "{tip}")
+	.use(container_plugin, name = "{note}")
     .use(myst_block_plugin)
     .use(myst_role_plugin)
     .enable('table')
@@ -52,6 +52,7 @@ MdParser = (
     .enable("backticks")
 )
 
+## breakpoint()
 
 ## Inline Renderer 
 def render_math_inline(self, tokens, idx, options, env):
@@ -108,8 +109,8 @@ MdParser.add_render_rule("math_block", render_math_block)
 MdParser.add_render_rule("link_open", render_blank_link)
 ## md.add_render_rule("heading", render_heading)
 MdParser.add_render_rule("heading_open", render_heading_open)
-MdParser.add_render_rule("container_tip_open", render_container_tip_open)
-MdParser.add_render_rule("container_note_open", render_container_note_open)
+MdParser.add_render_rule("container_{tip}_open", render_container_tip_open)
+MdParser.add_render_rule("container_{note}_open", render_container_note_open)
 
 MainTemplate = utils.read_resource(mdwiki, "template.html")
 
