@@ -32,7 +32,7 @@ MdParser = (
     .use(mdwiki.plugins.wiki_link_plugin)
     .use(deflist_plugin)
     .use(tasklists_plugin)
-	#.use(container_plugin)
+	.use(container_plugin, name = "tip")
     .enable('table')
     .enable('strikethrough')
 )
@@ -75,12 +75,19 @@ def render_heading(self, tokens, idx, options, env):
     breakpoint()
     pass 
 
+def render_container_tip_open(self, tokens, index, options, env):
+    html = ( '<div class="tip">'
+             '\n<p class="admonition-title">Tip</p>'
+            )
+    return html
+
 # Register renderers 
 MdParser.add_render_rule("math_inline", render_math_inline)
 MdParser.add_render_rule("math_block", render_math_block)
 MdParser.add_render_rule("link_open", render_blank_link)
 ## md.add_render_rule("heading", render_heading)
 MdParser.add_render_rule("heading_open", render_heading_open)
+MdParser.add_render_rule("container_tip_open", render_container_tip_open)
 
 MainTemplate = utils.read_resource(mdwiki, "template.html")
 
