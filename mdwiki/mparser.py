@@ -136,9 +136,61 @@ def render_container_theorem_open(self, tokens, index, options, env):
             )
     return html
 
+def get_code_block_directives(code: str) -> Tuple[str, Dict[str, str]]:
+    _directive_pattern = re.compile(":(\S+):\s+(.*)")
+    lines = code.splitlines()
+    # Filter lines containing directives
+    # :<directive>: <value>
+    directives = dict([ (m.group(1), m.group(2).strip()) 
+      for x in lines if (m := _directive_pattern.match(x)) ])
+    ##print(" [TRACE] directive = ", directives)
+    # Filter lines without directives
+    content = "\n".join( [ x for x in lines if not _directive_pattern.match(x)] ) 
+    out =  (content, directives)
+    return out
+
+
+_default_fencer_renderer = MdParser.renderer.rules.get("fence")
+
+def render_code_block(self, tokens, index, options, env):
+    """Implement some MyST code block markdown syntax
+
+    For instance, it implements now the following syntax,
+    that is rendered as a LaTeX expression/equation.
+
+    ```{math}
+    :label:  eq-uniquer-identifier-for-this-equation 
+
+     \| v \|^2 = x^2 + y^2 + z^2 
+    ```
+    
+    """
+    ## print(" [TRACE] Enter render code block ")
+    ## breakpoint()
+    token = tokens[index]
+    ## print(" [TRACE] token = ", token)
+    assert token.type == "fence"
+    ## breakpoint()
+    if token.tag == "code" and token.block and token.info == "{math}":
+        content, directives = get_code_block_directives(token.content)
+        label = f'id="{u}"' if (u := directives.get("label")) else ""
+        output = f"""<div class="math-block" {label} > \n$$\n""" \
+            + utils.escape_code(content) + "\n$$\n</div>"
+    else:
+        ## print(" [TRACE] Execute this branch")
+        ## output = self.renderToken(tokens, index, options, env)
+        output =  _default_fencer_renderer(tokens, index, options, env) 
+    ## print(" [TRACE] output = ", output)
+    return output
+
+## breakpoint()
+
 # Register renderers 
 MdParser.add_render_rule("math_inline", render_math_inline)
 MdParser.add_render_rule("math_block", render_math_block)
+MdParser.add_render_rule("fence", render_code_block)
+# MdParser.renderer.rules["fence"] = render_code_block
+
 MdParser.add_render_rule("link_open", render_blank_link)
 ## md.add_render_rule("heading", render_heading)
 MdParser.add_render_rule("heading_open", render_heading_open)
