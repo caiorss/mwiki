@@ -75,8 +75,14 @@ def render_math_block(self, tokens, idx, options, env):
 	return html 
 
 def render_blank_link(self, tokens, idx, options, env):
-    tokens[idx].attrSet("target", "_blank")
-    tokens[idx].attrSet("class", "link-external")
+    token = tokens[idx]
+    href = token.attrs.get("href") or ""
+    if not href.startswith("#"):
+        token.attrSet("target", "_blank")
+        token.attrSet("class", "link-external")
+    else:
+        token.attrSet("class", "link-internal")
+    ### breakpoint()
     # pass token to default renderer.
     return self.renderToken(tokens, idx, options, env)
 
