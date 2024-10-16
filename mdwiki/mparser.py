@@ -76,12 +76,15 @@ def render_math_block(self, tokens, idx, options, env):
 	html = """<div class="math-block anchor"> \n$$\n""" + token.content + "\n$$\n</div>"
 	return html 
 
-def render_blank_link(self, tokens, idx, options, env):
+def render_hyperlink(self, tokens, idx, options, env):
+    """Render hyperlinks using the syntax [label](url)
+    """
     token = tokens[idx]
     href = token.attrs.get("href") or ""
     if not href.startswith("#"):
         token.attrSet("target", "_blank")
         token.attrSet("class", "link-external")
+        token.attrSet("rel", "noreferrer noopener nofollow")
     else:
         token.attrSet("class", "link-internal")
     ### breakpoint()
@@ -199,7 +202,7 @@ MdParser.add_render_rule("math_block", render_math_block)
 MdParser.add_render_rule("fence", render_code_block)
 # MdParser.renderer.rules["fence"] = render_code_block
 
-MdParser.add_render_rule("link_open", render_blank_link)
+MdParser.add_render_rule("link_open", render_hyperlink)
 ## md.add_render_rule("heading", render_heading)
 MdParser.add_render_rule("heading_open", render_heading_open)
 MdParser.add_render_rule("container_{tip}_open", render_container_tip_open)
