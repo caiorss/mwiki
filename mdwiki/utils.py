@@ -14,7 +14,7 @@ def read_resource(module, resource_file: str):
         data =  fd.read()
     return data
 
-def escape_code(code):
+def escape_html(code):
     """Escape html code."""
     code = code.replace("&", "&amp;")\
                     .replace("<", "&lt;")\
@@ -181,7 +181,7 @@ class TempSSLCert:
         return (self._tmp_certfile.name, self._tmp_keyfile.name)
 
 
-__all__ = (  "escape_code"
+__all__ = (  "escape_html"
            , "encode_url"
            , "highlight_code"
            , "file_contains"

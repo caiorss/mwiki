@@ -186,7 +186,7 @@ def render_code_block(self, tokens, index, options, env):
         content, directives = get_code_block_directives(token.content)
         label = f'id="{u}"' if (u := directives.get("label")) else ""
         output = f"""<div class="math-block anchor" {label} > \n$$\n""" \
-            + utils.escape_code(content) + "\n$$\n</div>"
+            + utils.escape_html(content) + "\n$$\n</div>"
     else:
         ## print(" [TRACE] Execute this branch")
         ## output = self.renderToken(tokens, index, options, env)
@@ -343,6 +343,6 @@ def headings_to_html(root):
         html = f"""<ul>{inner}</ul>"""
     else:
         _anchor = utils.encode_url(anchor)
-        _heading = utils.escape_code(heading)
+        _heading = utils.escape_html(heading)
         html = f"""<li><a href="#{anchor}" class="link-internal" >{_heading}</a>\n{inner}</li>"""
     return html

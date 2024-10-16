@@ -65,7 +65,7 @@ def run_app_server(   host:        str
                               for f in pages])
         else:
             for f in pages:
-                inner =  "\n".join( [ utils.replace_ci(f"<li><code>{ utils.escape_code(lin) }</code></li>"
+                inner =  "\n".join( [ utils.replace_ci(f"<li><code>{ utils.escape_html(lin) }</code></li>"
                                         , query, f'<span class="search-highlight">{query}</span>') 
                                        for (n, lin) in  utils.grep_file(page_to_file(f), query)])
                 url = utils.encode_url(f"/wiki/{f}") + highlight
@@ -97,7 +97,7 @@ def run_app_server(   host:        str
         src = ""
         with open(mdfile) as fd:
             src = fd.read()
-        src = utils.escape_code(src)
+        src = utils.escape_html(src)
         content = f"<pre>\n{src}\n</pre>" 
         html = mparser.fill_template(f"Source of '{page}.md'", content, toc = "", query = "")
         return html
