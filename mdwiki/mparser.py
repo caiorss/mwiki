@@ -1,3 +1,5 @@
+import re
+from typing import List, Tuple, Dict
 from markdown_it import MarkdownIt
 from markdown_it.tree import SyntaxTreeNode
 from mdit_py_plugins.front_matter import front_matter_plugin
@@ -28,7 +30,7 @@ MdParser = (
          , "typographer":  True 
          , "quotes":       True 
          , "html":         True 
-         , "breaks":       True 
+         #, "breaks":       True 
          , "highlight":    highlight_code
     })
     ## MarkdownIt('commonmark' ,{'breaks':True,'html':True})
@@ -71,7 +73,7 @@ def render_math_block(self, tokens, idx, options, env):
 	token = tokens[idx]
 	## assert token.type == "math_inline"
 	## print(" [TRACE] token = ", token)
-	html = """<div class="math-block"> \n$$\n""" + token.content + "\n$$\n</div>"
+	html = """<div class="math-block anchor"> \n$$\n""" + token.content + "\n$$\n</div>"
 	return html 
 
 def render_blank_link(self, tokens, idx, options, env):
@@ -90,7 +92,7 @@ def render_blank_link(self, tokens, idx, options, env):
 def render_heading_open(self, tokens, idx, options, env):
     content = tokens[idx + 1].children[0].content
     anchor  = "H_" + content.replace(" ", "_")
-    tokens[idx].attrSet("class", "document-heading")
+    tokens[idx].attrSet("class", "document-heading anchor")
     tokens[idx].attrSet("id", anchor) 
     ## breakpoint()
     # pass token to default renderer.
@@ -102,13 +104,13 @@ def render_heading(self, tokens, idx, options, env):
     pass 
 
 def render_container_tip_open(self, tokens, index, options, env):
-    html = ( '<div class="tip admonition">'
+    html = ( '<div class="tip admonition anchor">'
              '\n<p class="tip-admonition-title">Tip</p>'
             )
     return html
 
 def render_container_note_open(self, tokens, index, options, env):
-    html = ( '<div class="note admonition">'
+    html = ( '<div class="note admonition anchor">'
              '\n<p class="note-admonition-title">Note</p>'
             )
     return html
@@ -121,9 +123,9 @@ def render_container_def_open(self, tokens, index, options, env):
     label_ = tok.attrs.get("label") 
     label  = f'id="{label_}"' if label_ else ""
     ## breakpoint()
-    html = ( f'<div class="def admonition" {label}>'
+    html = ( f'<div class="def admonition anchor" {label}>'
              # f'\n<p class="def-admonition-title"><b>DEFINITION:</b> {title}</p>'
-             f'\n<p><b>DEFINITION:</b> {title}</p>'
+             f'\n<p><u>DEFINITION:</u> <b>({title})</b></p>'
             )
     return html
 
@@ -136,9 +138,9 @@ def render_container_theorem_open(self, tokens, index, options, env):
     label_ = tok.attrs.get("label") 
     label  = f'id="{label_}"' if label_ else ""
     ## breakpoint()
-    html = ( f'<div class="def admonition" {label}>'
+    html = ( f'<div class="def admonition anchor" {label}>'
              ##f'\n<p class="theorem-admonition-title"><b>THEOREM:</b> {title}</p>'
-             f'\n<p><b>THEOREM:</b> {title}</p>'
+             f'\n<p><u>THEOREM:</u> <b>({title})</b></p>'
             )
     return html
 
@@ -180,7 +182,7 @@ def render_code_block(self, tokens, index, options, env):
     if token.tag == "code" and token.block and token.info == "{math}":
         content, directives = get_code_block_directives(token.content)
         label = f'id="{u}"' if (u := directives.get("label")) else ""
-        output = f"""<div class="math-block" {label} > \n$$\n""" \
+        output = f"""<div class="math-block anchor" {label} > \n$$\n""" \
             + utils.escape_code(content) + "\n$$\n</div>"
     else:
         ## print(" [TRACE] Execute this branch")
@@ -239,6 +241,7 @@ def get_headings(markdown: str):
     sections = []
     while True:
         node = next(gen, None)
+        ## breakpoint() 
         if node is None: break  
         if node.type != "heading": continue
         heading = node.children[0].content
