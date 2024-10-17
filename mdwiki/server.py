@@ -123,7 +123,6 @@ def run_app_server(   host:        str
         ##      toc += f"""<li ><a href="#{id}" class="link-internal" >{label}</a></li>"""
         ## toc = f"<lu>\n{toc}\n</lu>"
         html = mparser.mdfile_to_html(mdfile, page, toc)
-        mparser.make_headings_hierarchy(headings)
         return html
 
     @app.get("/")
