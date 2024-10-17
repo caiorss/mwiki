@@ -398,6 +398,8 @@ def node_to_html(node: SyntaxTreeNode):
         # TODO Implment rendering of footnote_ref
         print(" [WARNING] Note implemented html rendering for footnot_ref node = ", node)
         pass
+    elif node.type == "html_block":
+        html = node.content
     elif node.type == "html_inline":
         html = node.content
     elif node.type == "text":
