@@ -27,19 +27,37 @@ def encode_url(url: str):
     q = urllib.parse.quote(url)
     return q
 
+_language_synonym_db = {
+      "py":     "python"
+    , "js":     "javascript"
+    , "md":     "markdown"
+    , "m":      "matlab"
+    , "octave": "matlab"
+}
+
 def highlight_code(code: str, language: str, verbose: bool = False) -> str:
-    if language == "": return code
-    try:
-        lexer = get_lexer_by_name(language)
-        formatter = HtmlFormatter()
-        ## print(f" [TRACE] Highlight code for '{name}' Ok.")
-        result = highlight(code, lexer, formatter)
-        ## breakpoint()
-        return result
-    except pygments.util.ClassNotFound:
-        if verbose:
-            print(f" [TRACE] Warning not found Python's pygment lexer for '{language}'")
-        return code
+    _code = ""
+    result = None 
+    if language == "": 
+        _code = escape_html(code)
+        # result =  err, _code
+        result = f"""<div class="source-code">{_code}</div>"""
+    else:
+        try:
+            language = _language_synonym_db.get(language, language)
+            lexer = get_lexer_by_name(language)
+            formatter = HtmlFormatter()
+            ## print(f" [TRACE] Highlight code for '{name}' Ok.")
+            _code =  highlight(code, lexer, formatter)
+            result = _code
+            ## breakpoint()
+        except pygments.util.ClassNotFound:
+            if verbose:
+                print(f" [TRACE] Warning not found Python's pygment lexer for '{language}'")
+            _code =  escape_html(code)
+            result = f"""<div class="source-code">{_code}</div>"""
+            ## resut = err, _code
+    return result 
 
 def file_contains(fileName: str, query: str, opt = "exact"):
     """Check whether a file (full path) contains a queyr string.
