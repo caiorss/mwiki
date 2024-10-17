@@ -48,7 +48,7 @@ def run_app_server(   host:        str
     @check_login
     def route_pages():
         query = request.args.get("search") or ""
-        highlight =  f"#:~:text={ utils.encode_url(query) }" if query != "" else ""
+        highlight =  f"#:~:text={ utils.escape_url(query) }" if query != "" else ""
         files = []
         if query == "":
             files = [f for f in os.listdir(BASE_PATH) if f.endswith(".md")]
@@ -68,7 +68,7 @@ def run_app_server(   host:        str
                 inner =  "\n".join( [ utils.replace_ci(f"<li><code>{ utils.escape_html(lin) }</code></li>"
                                         , query, f'<span class="search-highlight">{query}</span>') 
                                        for (n, lin) in  utils.grep_file(page_to_file(f), query)])
-                url = utils.encode_url(f"/wiki/{f}") + highlight
+                url = utils.escape_url(f"/wiki/{f}") + highlight
                 entry = f"""<li><a href="{url}" class="link-internal">{f}</a> <ul>{inner}</ul></li>""" 
                 content += entry
             content = f"<ul>\n{content}\n</ul>"

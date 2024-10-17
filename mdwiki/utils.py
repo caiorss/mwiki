@@ -23,7 +23,7 @@ def escape_html(code):
                     .replace("'", "&apos;")
     return code
 
-def encode_url(url: str):
+def escape_url(url: str):
     q = urllib.parse.quote(url)
     return q
 
@@ -200,7 +200,7 @@ class TempSSLCert:
 
 
 __all__ = (  "escape_html"
-           , "encode_url"
+           , "escape_url"
            , "highlight_code"
            , "file_contains"
            , "expand_path"
