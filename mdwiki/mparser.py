@@ -24,6 +24,14 @@ def highlight_code(code, name, attrs):
     hcode = utils.highlight_code(code, language=name)
     return hcode 
 
+def render_container_tip(self, tokens, index, options, env):
+    print(" [TRACE] Enter fucntion reder_container_tip() ")
+    ##breakpoint()
+    html = ( '<div class="tip admonition anchor">'
+             '\n<p class="tip-admonition-title">Tip</p>'
+            )
+    return html
+
 MdParser = (
     MarkdownIt("gfm-like", {
            "linkify":      True 
@@ -41,8 +49,7 @@ MdParser = (
     .use(tasklists_plugin)
     .use(attrs_plugin)
     .use(attrs_block_plugin)
-    .use(fieldlist_plugin)
-	.use(container_plugin, name = "{tip}")
+	.use(container_plugin, name = "{tip}",  render = render_container_tip)
 	.use(container_plugin, name = "{note}")
     # Defintion of math concept or theorem 
 	.use(container_plugin, name = "{def}")
@@ -52,6 +59,7 @@ MdParser = (
     .use(mdwiki.plugins.wiki_text_highlight_plugin)
     .use(mdwiki.plugins.wiki_image_plugin)
     .use(mdwiki.plugins.wiki_link_plugin)
+   # .use(fieldlist_plugin)
     .enable('table')
     .enable('strikethrough')
     .enable("myst_role")
@@ -103,7 +111,7 @@ def render_heading_open(self, tokens, idx, options, env):
 
 def render_heading(self, tokens, idx, options, env):
     token = tokens[idx]
-    breakpoint()
+    ## breakpoint()
     pass 
 
 def render_container_tip_open(self, tokens, index, options, env):
@@ -196,6 +204,9 @@ def render_code_block(self, tokens, index, options, env):
 
 ## breakpoint()
 
+
+
+
 # Register renderers 
 MdParser.add_render_rule("math_inline", render_math_inline)
 MdParser.add_render_rule("math_block", render_math_block)
@@ -205,7 +216,8 @@ MdParser.add_render_rule("fence", render_code_block)
 MdParser.add_render_rule("link_open", render_hyperlink)
 ## md.add_render_rule("heading", render_heading)
 MdParser.add_render_rule("heading_open", render_heading_open)
-MdParser.add_render_rule("container_{tip}_open", render_container_tip_open)
+MdParser.add_render_rule("container_{tip}", render_container_tip)
+###MdParser.add_render_rule("container_{tip}_open", render_container_tip_open)
 MdParser.add_render_rule("container_{note}_open", render_container_note_open)
 MdParser.add_render_rule("container_{def}_open", render_container_def_open)
 MdParser.add_render_rule("container_{theorem}_open", render_container_theorem_open)
@@ -224,8 +236,11 @@ def fill_template(title: str, content: str, toc: str, query: str = ""):
 
 def mdfile_to_html(inp_file, title, toc, query = ""):
     with open(inp_file) as fd:
-        inp = fd.read()
-        out = MdParser.render(inp)
+        source: str = fd.read()
+        tokens = MdParser.parse(source)
+        ast    = SyntaxTreeNode(tokens)
+        out    = node_to_html(ast)
+        ## out = MdParser.render(inp)
         html = ( 
              MainTemplate
                 .replace("{{body}}", out)
@@ -345,4 +360,225 @@ def headings_to_html(root):
         _anchor = utils.encode_url(anchor)
         _heading = utils.escape_html(heading)
         html = f"""<li><a href="#{anchor}" class="link-internal" >{_heading}</a>\n{inner}</li>"""
+    return html
+
+
+
+def disp(node: SyntaxTreeNode):
+    """Helper function for displaying nodes in the Debugger"""
+    info = f""" 
+{node}
+      node.type = {node.type}
+      node.tag  = "{node.tag}"
+     node.level = {node.level}
+      node.info = "{node.info}"
+     node.attrs = {node.attrs}
+      node.meta = {node.meta}
+   node.content = "{node.content}"
+     node.block = {node.block}
+    node.markup = "{node.markup}"
+node.children() = {node.children}
+"""
+    print(info)
+
+def node_to_html(node: SyntaxTreeNode):
+    html = ""
+    children = node.children
+    tag = node.tag if hasattr(node, "tag") else ""
+    if node.type == "root":
+        html = "\n\n".join([ node_to_html(n) for n in children ])
+    elif node.type == "front_matter":
+        pass
+    elif node.type == "footnote_block":
+        ## html = MdParser.render(node)
+        # TODO Implement rendering of footnote_block
+        print(" [WARNING] Note implemented html rendering for foot_note_block = ", node)
+        pass
+    elif node.type == "footnote_ref":
+        # TODO Implment rendering of footnote_ref
+        print(" [WARNING] Note implemented html rendering for footnot_ref node = ", node)
+        pass
+    elif node.type == "html_inline":
+        html = node.content
+    elif node.type == "text":
+        html = utils.escape_html(node.content)
+    elif node.type == "code_inline":
+        code = utils.escape_html(node.content)
+        html = f"""<code>{code}</code>"""
+    # Bold text 
+    elif node.type == "strong":
+        inner = "".join([ node_to_html(n) for n in children ])
+        html = f"<strong>{inner}</strong>"
+    # Italic text
+    elif node.type == "em":
+        inner = "".join([ node_to_html(n) for n in children ])
+        html = f"<em>{inner}</em>"
+    # Strikthrough 
+    elif node.type == "s":
+        inner = "".join([ node_to_html(n) for n in children ])
+        html = f"<s>{inner}</s>"
+    elif node.type == "hr":
+        html = "<hr>"
+    elif node.type == "softbreak":
+        # Tag <br>
+        html =  "\n"
+    elif node.type == "hardbreak":
+        # Tag <br>
+        html =  "\n"
+    elif node.type == "code_block":
+        code = utils.escape_html(node.content)
+        html = f"""<pre class="code_block">\n{code}\n</pre>"""
+    elif node.type == "math_inline" or node.type == "math_single":
+        # NOTE: It is processed by MathJax
+        #html = f"""<span class="math-inline">${node.content}$</span>"""
+        html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
+    elif node.type == "inline":
+        html = "".join([ node_to_html(n) for n in children ])
+    elif node.type == "paragraph":
+        inner = "".join([ node_to_html(n) for n in children ])
+        html = f"""<p>\n{inner}\n</p>"""
+        ## print(" [DEBUG] paragraph = \n", html)
+    elif node.type == "heading":
+        title =  node.children[0].content
+        anchor  = "H_" + title.replace(" ", "_")
+        ## tokens[idx].attrSet("class", "document-heading anchor")
+        ## tokens[idx].attrSet("id", anchor) 
+        value = utils.escape_html(title)
+        html = f"""<{tag} id="{anchor}" class="document-heading anchor">{value}</{tag}>"""
+        ## print(" [TRACE] heading = ", html)
+    elif node.type == "math_block":
+        html = """<div class="math-block anchor"> \n$$\n""" \
+            + utils.escape_html(node.content) + "\n$$\n</div>"
+        ## print(" [TRACE] math_block = \n", html)
+    elif node.type == "blockquote":
+        inner = "\n".join([ node_to_html(n) for n in children ])
+        # Remove Obsidian tag [!qupte]
+        inner = inner.replace("[!quote]", "")
+        html  = f"""<blockquote>\n{inner}\n</blockquote>"""
+    elif node.type.startswith("container_"):
+        cond  =  len(children) >= 1 and children[0].type == "paragraph"
+        first = children[0].children[0].content if cond else None 
+        metadata = {}
+        if first:
+            _, metadata  = get_code_block_directives(first) 
+        ## print(" [TRACE] metadata = ", metadata)
+        class_ = metadata.get("class") or ""
+        is_dropdown = class_ == "dropdown"
+        label = f'id="{x}"' if (x := metadata.get("label")) else ""
+        ## css_class = x if (x := metadata.get("class")) else ""
+        style = f'style="background: {x};"' if (x := metadata.get("background")) else ""
+        admonition_type = node.type.strip("container_").strip("{").strip("}")
+        admonition_title = node.info.strip("{" + admonition_type + "}").strip()
+        if admonition_type == "def":
+            admonition_title = f"DEFINITION: <strong>({admonition_title})</strong> "
+        elif admonition_type == "theorem":
+            admonition_title = f"THEOREM: <strong>({admonition_title})</strong> "
+        else:
+            rest = "" if admonition_title == "" else ": " + admonition_title
+            admonition_title = admonition_type.title() + rest 
+        attrs =  f""" {label} class="{admonition_type} admonition anchor" {style}""".strip()
+        inner = ""
+        if metadata == {}:
+            inner = "".join([ node_to_html(n) for n in children ])
+        else:
+            inner = "".join([ node_to_html(n) for n in children[1:] ])
+        title = f"""\n<span class="admonition-title">{admonition_title}</span>\n""" \
+                if admonition_title != "" else ""
+        if is_dropdown:
+            html = ( f"""<div {attrs}>""" 
+                     f"""<details>\n<summary>{title}</summary>""" 
+                     f"""\n<div class="details-content">\n{inner}\n</div> <!-- EoF div.details-content -->""" 
+                      """\n</details>""" 
+                      """\n</div>"""
+                    )
+        else:
+            html = f"""<div {attrs}>{title}{inner}\n</div>"""
+        ##print(" [TRACE] container = \n", html)
+        ##breakpoint()
+    elif node.type == "link":
+        inner = "".join([ node_to_html(n) for n in children ])
+        href =  node.attrs.get("href") or ""
+        attrs = "" 
+        if href.startswith("#"):
+            attrs = """ class="link-internal" """
+        else:
+            attrs = """ target="_blank" class="link-external" rel="noreferrer noopener nofollow" """
+        html = f"""<a href="{href}" {attrs}>{inner}</a>"""
+    elif node.type == "wikilink_inline":
+        page = node.content
+        html = f"""<a href="/wiki/{page}" class="link-internal wiki-link">{page}</a>"""
+    elif node.type == "wiki_text_highlight_inline":
+        text = utils.escape_html(node.content)
+        html = f"""<span class="text-highlight">{text}</span>"""
+    elif node.type == "wiki_image":
+        src = node.content
+        html = f"""<img class="wiki-image anchor" src="/wiki/img/{src}">"""
+    # Code block with ```<CODE>```
+    elif node.type == "fence":
+        assert node.tag == "code"
+        info = node.info if node.info != "" else "text" 
+        if info == "{math}":
+            content, directives = get_code_block_directives(node.content)
+            label = f'id="{u}"' if (u := directives.get("label")) else ""
+            html = f"""<div class="math-block anchor" {label} > \n$$\n""" \
+                + utils.escape_html(content) + "\n$$\n</div>"
+        else:
+            code = utils.highlight_code(node.content, language = info)
+            html = f"""<pre>\n<code class="language-{info.strip()}">{code}</code>\n</pre>"""
+    elif node.type == "bullet_list":
+        inner = "\n".join([ node_to_html(n) for n in children ])
+        html = f"""<ul class="">\n{inner}\n</ul>"""
+    elif node.type == "ordered_list":
+        inner = "\n".join([ node_to_html(n) for n in children ])
+        html = f"""<ol class="anchor">\n{inner}\n</ol>"""
+    elif node.type == "list_item":
+        if len(children) >= 1 and children[0].type == "paragraph":
+            first = node_to_html(children[0].children[0])
+            rest = "".join([ node_to_html(n) for n in children[1:] ])
+            inner = first + " " + rest
+        else:
+            inner = "".join([ node_to_html(n) for n in children ])
+        html = f"""<li>\n{inner}\n</li>"""
+    # Definition list <dt>
+    elif node.type == "dl":
+        inner = "\n".join([ node_to_html(n) for n in children ])
+        html = f"""<dl class="anchor">\n{inner}\n</dl>"""
+        ## breakpoint()
+        print(" [TRACE] definition list => html = \n", html)
+    elif node.type == "dt":
+        inner = "".join([ node_to_html(n) for n in children ])
+        html = f"""<dt class="anchor">{inner}</dt>"""
+    elif node.type == "dd":
+        if len(children) == 1 and children[0].type == "paragraph":
+            inner = node_to_html(children[0].children[0])
+        else:
+            inner = "".join([ node_to_html(n) for n in children ])
+        html = f"""<dd class="anchor">{inner}</dd>"""
+    elif node.type == "table":
+        inner = "\n ".join([ node_to_html(n) for n in children ])
+        html = f"""\n<table>\n{inner}\n</table>"""
+    # Table body 
+    elif node.type == "tbody":
+        inner = "\n ".join([ node_to_html(n) for n in children ])
+        html = f"""\n<tbody>\n{inner}\n</tbody>"""
+    # Table element
+    elif node.type == "thead":
+        inner = "\n ".join([ node_to_html(n) for n in children ])
+        html = f"""\n<thead>\n{inner}\n</thead>"""
+    # Table row
+    elif node.type == "tr":
+        inner = "\n ".join([ node_to_html(n) for n in children ])
+        html = f"""\n<tr>\n{inner}\n</tr>"""
+    # Table element
+    elif node.type == "th":
+        inner = "".join([ node_to_html(n) for n in children ])
+        html = f"""\n<th>{inner}</th>"""
+    # Table data
+    elif node.type == "td":
+        inner = "".join([ node_to_html(n) for n in children ])
+        html = f"""\n<td>{inner}</td>"""
+    else:
+        ## print(" Note implemented for ", node)
+        ## breakpoint()
+        raise NotImplementedError(f"Not implemented for node of type {node.type} of object {node}")
     return html

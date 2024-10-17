@@ -210,7 +210,7 @@ blockquote p {
 }
 
 
-.tip-admonition-title {
+.tip .admonition-title {
     font-weight: bold;
     font-size: larger;
     background-color: #a8eec8;
@@ -218,7 +218,8 @@ blockquote p {
     padding: 0.4rem 0.6rem 0.4rem 2rem;
     position: relative;
     z-index: 1;
-
+    display: block;
+    width: 100%;
     /*
     font-weight: bold;
     font-size: larger;
@@ -228,7 +229,7 @@ blockquote p {
     */
 }
 
-.note-admonition-title {
+.note .admonition-title {
     font-weight: bold;
     font-size: larger;
     background-color: #DCE7FC;
@@ -236,10 +237,12 @@ blockquote p {
     padding: 0.4rem 0.6rem 0.4rem 2rem;
     position: relative;
     z-index: 1;
+    display: block;
+    width: 100%;
 
 }
 
-.def-admonition-title {
+.def .admonition-title {
     /* font-weight: bold; */
     font-size: larger;
     background-color:  #D7EDE1;
@@ -247,10 +250,11 @@ blockquote p {
     padding: 0.4rem 0.6rem 0.4rem 2rem;
     position: relative;
     z-index: 1;
- 
+    display: block;
+    width: 100%;
 }
 
-.theorem-admonition-title {
+.theorem .admonition-title {
     /* font-weight: bold; */
     font-size: larger;
     background-color:  #a8eec8;
@@ -258,7 +262,8 @@ blockquote p {
     padding: 0.4rem 0.6rem 0.4rem 2rem;
     position: relative;
     z-index: 1;
- 
+    display: block;
+    width: 100%;
 }
 
 
@@ -331,7 +336,7 @@ blockquote p {
     left: 0px !important;
 }
 
-code pre {
+.highlight {
     background-color: lightyellow;
     font-family: monospace;
     font-size: 10px;
@@ -341,6 +346,19 @@ code pre {
     overflow-y: scroll;
     max-height: 400px;
 }
+
+.source-code {
+    background-color: lightyellow;
+    display: block;
+    font-family: monospace;
+    font-size: 10px;
+    margin: 0px 1px;
+    padding: 0px 2px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    max-height: 400px;
+}
+
 
 /** Syntax Highlight Style for Pyhton's Pygment 
  *
