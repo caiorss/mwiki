@@ -515,6 +515,10 @@ def node_to_html(node: SyntaxTreeNode):
     elif node.type == "wiki_image":
         src = node.content
         html = f"""<img class="wiki-image anchor" src="/wiki/img/{src}">"""
+    elif node.type == "image":
+        src = node.content
+        inner = "".join([ node_to_html(n) for n in children ])
+        html = f"""<img class="external-image anchor" src="{src}" alt="{inner}" >"""
     # Code block with ```<CODE>```
     elif node.type == "fence":
         assert node.tag == "code"
