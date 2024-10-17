@@ -381,12 +381,19 @@ node.children() = {node.children}
 """
     print(info)
 
+MYST_LINE_COMMENT = False
+
 def node_to_html(node: SyntaxTreeNode):
     html = ""
     children = node.children
     tag = node.tag if hasattr(node, "tag") else ""
     if node.type == "root":
         html = "\n\n".join([ node_to_html(n) for n in children ])
+    elif node.type == "myst_line_comment":
+        if MYST_LINE_COMMENT:
+            html = f"<!-- {node.content} -->"
+        else:
+            html = utils.escape_html(node.content)
     elif node.type == "front_matter":
         pass
     elif node.type == "footnote_block":
