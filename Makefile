@@ -11,3 +11,10 @@ pipenv-run:
 .PHONY: pipenv-install
 pipenv-install:
 	pipenv install 
+
+
+.PHONY: vscode 
+vscode:
+	cp -v .vscode/settings.json .vscode/settings.json.back
+	cp -v .vscode/launch.json .vscode/launch.json.back
+	python3 vscode.py

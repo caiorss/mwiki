@@ -9,6 +9,7 @@ __pycache__
 *.back 
 *.temp 
 *.pem
+.vscode/*
 pages/*
 texmath/*
 flask_session/*
