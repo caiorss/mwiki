@@ -597,6 +597,12 @@ def node_to_html(node: SyntaxTreeNode):
         ## MyST math role. Exmaple: {math}`f(x) = \sqrt{x^2 - 10x}`
         if role == "math":
             html = f"""<span class="math-inline">\\({content}\\)</span>"""
+        # MyST sub role for superscript H{sub}`2`O compiles to H<sub>2</sub>O
+        elif role == "sub":
+            html = f"""<sub>{content}</sub>"""
+        # MyST sub role for superscript 4{sup}`th` compiles to 4<sup>th</sup>O
+        elif role == "sup":
+            html = f"""<sup>{content}</sup>"""
         else:
             raise NotImplementedError(f"Rendering MyST role '{role} not implemented yet.")
         ##breakpoint()
