@@ -591,6 +591,15 @@ def node_to_html(node: SyntaxTreeNode):
     elif node.type == "td":
         inner = "".join([ node_to_html(n) for n in children ])
         html = f"""\n<td>{inner}</td>"""
+    elif node.type == "myst_role":
+        role = node.meta.get("name", "")
+        content = utils.escape_html(node.content)
+        ## MyST math role. Exmaple: {math}`f(x) = \sqrt{x^2 - 10x}`
+        if role == "math":
+            html = f"""<span class="math-inline">\\({content}\\)</span>"""
+        else:
+            raise NotImplementedError(f"Rendering MyST role '{role} not implemented yet.")
+        ##breakpoint()
     else:
         ## print(" Note implemented for ", node)
         ## breakpoint()
