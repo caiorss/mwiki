@@ -357,7 +357,7 @@ def headings_to_html(root):
     if heading == "":
         html = f"""<ol>{inner}</ol>"""
     else:
-        _anchor = utils.escape_url(anchor)
+        ## _anchor = utils.escape_url(anchor)
         _heading = utils.escape_html(heading)
         html = f"""<li><a href="#{anchor}" class="link-sidebar" >{_heading}</a>\n{inner}</li>"""
     return html
@@ -453,7 +453,8 @@ def node_to_html(node: SyntaxTreeNode):
         ## tokens[idx].attrSet("class", "document-heading anchor")
         ## tokens[idx].attrSet("id", anchor) 
         value = utils.escape_html(title)
-        html = f"""<{tag} id="{anchor}" class="document-heading anchor">{value}</{tag}>"""
+        link = f"""<a class="link-heading" href="#{anchor}">¶</a>"""
+        html = f"""<{tag} id="{anchor}" class="document-heading anchor">{value} {link}</{tag}>"""
         ## print(" [TRACE] heading = ", html)
     elif node.type == "math_block":
         html = """<div class="math-block anchor"> \n$$\n""" \
