@@ -352,14 +352,14 @@ def headings_to_html(root):
     for n in children: 
         node_html = headings_to_html(n)
         temp += node_html 
-    inner = f"<ul>\n{temp}\n</ul>" if len(children) !=0 else ""
+    inner = f"<ol>\n{temp}\n</ol>" if len(children) !=0 else ""
     ## print("[ TRACE] inner = \n", inner)
     if heading == "":
-        html = f"""<ul>{inner}</ul>"""
+        html = f"""<ol>{inner}</ol>"""
     else:
         _anchor = utils.escape_url(anchor)
         _heading = utils.escape_html(heading)
-        html = f"""<li><a href="#{anchor}" class="link-internal" >{_heading}</a>\n{inner}</li>"""
+        html = f"""<li><a href="#{anchor}" class="link-sidebar" >{_heading}</a>\n{inner}</li>"""
     return html
 
 

@@ -57,6 +57,16 @@ a.link-external {
     word-wrap: break-word;
 }
 
+a.link-sidebar {
+    color: hsl(0, 100%, 33%);
+    word-wrap: break-word;
+}
+
+a.link-sidebar-clicked {
+    color: black !important;
+    background-color: ivory;
+}
+
 a.link-internal {
     color: green;
 }
@@ -499,11 +509,21 @@ table {
             toc.addEventListener("click", (evt) => {
                 let screenType = getComputedStyle(document.body).getPropertyValue("--screen-type");
                 let isMobile = screenType === "mobile";
-                if(isMobile && evt.target.className == "link-internal")
+                if(isMobile && evt.target.className == "link-sidebar")
                 { 
                     toggle_sidebar();
                 } 
             });
+
+            let last = null;
+            toc.addEventListener("click", (event) => {
+                let tg = event.target;
+                if(tg.className !== "link-sidebar"){ return; }
+                if(last != null){  last.classList.remove("link-sidebar-clicked"); }
+                tg.classList.add("link-sidebar-clicked");
+                last = tg;
+            });
+
               
         });
 
