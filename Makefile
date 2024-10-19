@@ -25,3 +25,10 @@ vscode:
 .PHONY: install 
 install:
 	pipx install . --force
+
+
+.PHONY: install 
+clean:
+	rm -rf -v ./mdwiki.egg-info 
+	rm -rf -v build 
+	rm -rf -v flask_session 
