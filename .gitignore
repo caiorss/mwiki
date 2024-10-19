@@ -10,6 +10,10 @@ __pycache__
 *.temp 
 *.pem
 .vscode/*
+build/*
+dependency_links.text/*
+*.egg-info
+*.egg-info/*
 pages/*
 texmath/*
 flask_session/*

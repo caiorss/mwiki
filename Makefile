@@ -18,3 +18,10 @@ vscode:
 	cp -v .vscode/settings.json .vscode/settings.json.back
 	cp -v .vscode/launch.json .vscode/launch.json.back
 	python3 vscode.py
+
+
+# Install package using pipx tool 
+# Install pipx first $ pip install pipx
+.PHONY: install 
+install:
+	pipx install . --force
