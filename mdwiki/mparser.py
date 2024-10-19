@@ -536,6 +536,10 @@ def node_to_html(node: SyntaxTreeNode):
             label = f'id="{u}"' if (u := directives.get("label")) else ""
             html = f"""<div class="math-block anchor" {label} > \n$$\n""" \
                 + utils.escape_html(content) + "\n$$\n</div>"
+        elif info == "{quote}":
+            content, directives = get_code_block_directives(node.content)
+            label = f'id="{u}"' if (u := directives.get("label")) else ""
+            html = f"""<blockquote {label} >\n{utils.escape_html(content)}\n</blockquote>"""
         else:
             code = utils.highlight_code(node.content, language = info)
             html = f"""<pre>\n<code class="language-{info.strip()}">{code}</code>\n</pre>"""
