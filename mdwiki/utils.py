@@ -5,8 +5,9 @@ from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
 import pygments.util
+from typing import List, Dict, Tuple 
 
-def read_resource(module, resource_file: str):
+def read_resource(module, resource_file: str) -> str:
     """Read resource file packaged with a given module."""
     import importlib.resources
     data = ""
@@ -14,7 +15,7 @@ def read_resource(module, resource_file: str):
         data =  fd.read()
     return data
 
-def escape_html(code):
+def escape_html(code) -> str:
     """Escape html code."""
     code = code.replace("&", "&amp;")\
                     .replace("<", "&lt;")\
@@ -23,7 +24,7 @@ def escape_html(code):
                     .replace("'", "&apos;")
     return code
 
-def escape_url(url: str):
+def escape_url(url: str) -> str:
     q = urllib.parse.quote(url)
     return q
 
@@ -59,7 +60,7 @@ def highlight_code(code: str, language: str, verbose: bool = False) -> str:
             ## resut = err, _code
     return result 
 
-def file_contains(fileName: str, query: str, opt = "exact"):
+def file_contains(fileName: str, query: str, opt = "exact") -> bool:
     """Check whether a file (full path) contains a queyr string.
     Returns true if file contains a query string.
     NOTE: This function is case-indepedent.
@@ -97,7 +98,7 @@ def file_contains(fileName: str, query: str, opt = "exact"):
                     break
         return result
 
-def grep_file(fileName: str, query: str):
+def grep_file(fileName: str, query: str) -> List[str]:
     """Return lines of a file that contains a given query string."""
     query = query.lower()
     lines = []
@@ -109,12 +110,12 @@ def grep_file(fileName: str, query: str):
             n += 1
     return lines  
 
-def replace_ci(text, entry, replacement):
+def replace_ci(text, entry, replacement) -> str:
     """Case insensitive text replacement"""
     out = re.sub(re.escape(entry), replacement, text, flags = re.IGNORECASE)
     return out
 
-def expand_path(path: str):
+def expand_path(path: str) -> str:
     """ Expand path such as '~/home_file.text` to full path.
     """
     import os
