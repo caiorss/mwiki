@@ -37,6 +37,9 @@ _language_synonym_db = {
 }
 
 def highlight_code(code: str, language: str, verbose: bool = False) -> str:
+    """"Performs server-side code syntax of source code.
+    This function is a high level wrapper for Pygment package.
+    """
     _code = ""
     result = None 
     if language == "": 
@@ -46,8 +49,8 @@ def highlight_code(code: str, language: str, verbose: bool = False) -> str:
     else:
         try:
             language = _language_synonym_db.get(language, language)
-            lexer = get_lexer_by_name(language)
-            formatter = HtmlFormatter()
+            lexer = get_lexer_by_name(language, stripall = True)
+            formatter = HtmlFormatter(linelos = True)
             ## print(f" [TRACE] Highlight code for '{name}' Ok.")
             _code =  highlight(code, lexer, formatter)
             result = _code
