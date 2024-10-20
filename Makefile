@@ -1,16 +1,12 @@
-.PHONY: run
-run:
-	env WIKIBASE_PATH=./pages python -m mdwiki
-
-.PHONY: pipenv-run
-pipenv-run:
-	pipenv run python -m mdwiki
+.PHONY: run 
+run
+	poetry run python -m mdwiki
 
 # Build virtual-env with same dependencies specified
 # in the Pipfile and the lockfile.
-.PHONY: pipenv-install
+.PHONY: poetry-install
 pipenv-install:
-	pipenv install 
+	poetry install 
 
 
 .PHONY: vscode 
@@ -27,8 +23,16 @@ install:
 	pipx install . --force
 
 
-.PHONY: install 
+.PHONY: clean 
 clean:
 	rm -rf -v ./mdwiki.egg-info 
 	rm -rf -v build 
+	rm -rf -v dist 
 	rm -rf -v flask_session 
+
+
+.PHONY: build 
+build: 
+	poetry build 
+
+.PHONY: install clean run vscode 

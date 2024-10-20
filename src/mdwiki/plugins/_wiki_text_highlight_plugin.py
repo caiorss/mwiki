@@ -31,7 +31,7 @@ def wiki_text_highlight_plugin(
     as <span class="text-highlight">text highlighed here</span>
 
     """
-    print(" [TRACE] Inside function WikiLink Plugin")
+    ## print(" [TRACE] Inside function WikiLink Plugin")
     macros = macros or {}
     ## breakpoint()
 

@@ -11,6 +11,7 @@ __pycache__
 *.pem
 .vscode/*
 build/*
+dist/*
 dependency_links.text/*
 *.egg-info
 *.egg-info/*
@@ -21,3 +22,8 @@ server.toml
 notes/*
 notes/*.md
 **notes**
+*.tar.gz
+*.tag.bz2
+*.zip
+*.egg 
+*.whl

@@ -70,8 +70,3 @@ def main():
     cli = click.CommandCollection(sources = [ cli1 ])
     cli()
 
-
-if __name__ == '__main__':
-    main()
-    ## print(" [TRACE] Server started Ok.")
-    ## app.run(host='0.0.0.0', port=8010, debug=True)

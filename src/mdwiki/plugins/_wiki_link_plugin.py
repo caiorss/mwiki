@@ -24,7 +24,7 @@ def wiki_link_plugin(
 ) -> None:
     """Plugin for creating Mediawki-like internal hyperlinks using [[Page Name]], akin to Wikipedia. 
     """
-    print(" [TRACE] Inside function WikiLink Plugin")
+    ## print(" [TRACE] Inside function WikiLink Plugin")
     macros = macros or {}
     ## breakpoint()
 
