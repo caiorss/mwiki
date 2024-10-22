@@ -233,6 +233,12 @@ def add_login(app: Flask, do_login: bool, username: str, password: str):
     def do_logoff():
         session["loggedin"] = False
 
+    @app.route("/api/logged", methods = (M_GET, ))
+    def api_is_logged_in():
+        res =  session.get("loggedin") or False
+        output = flask.jsonify({ "logged": res})
+        return output
+
     @app.route("/login", methods = (M_GET, M_POST))
     def login():
         if not do_login:
