@@ -52,7 +52,7 @@ def run_app_server(   host:        str
     app.config['SESSION_TYPE'] = 'filesystem'
     app.config['SESSION_FILE_DIR'] = session_folder ## 'M:/code/flaskLoginTest/sessions'
     # Set the maximum number of stored sessions
-    app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(minutes = 2)
+    app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days = 30)
     app.config['SESSION_FILE_THRESHOLD'] = 1000  # Adjust the limit as needed
     # Configure Flask to use FileSystemSessionInterface with the custom options
     app.config["SESSION_PERMANENT"] = True
