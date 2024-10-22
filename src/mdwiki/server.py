@@ -1,4 +1,5 @@
 import os
+import secrets
 ## from bottle import route, run
 ## from bottle import static_file, route, auth_basic, request
 import flask 
@@ -10,10 +11,27 @@ import datetime
 import mdwiki.utils as utils
 import mdwiki.mparser as mparser 
 
-## Method GET 
+## Http Method GET 
 M_GET = "GET" 
+# Http Method Post
 M_POST = "POST"
 
+def get_secret_key(appname: str) -> str:
+    KEYFILE = "appkey"
+    fkey =  utils.project_data_path(appname, KEYFILE)
+    secret_key = ""
+    # Generate secret key and store it in file within
+    # the application data directory if the file 
+    # does not exist yet.
+    if not os.path.isfile(fkey):
+        secret_key = secrets.token_hex(16)
+        with utils.open_project_data_dir(appname, KEYFILE, "w") as fd:
+            fd.write(secret_key)
+    else:
+        with open(fkey, "r") as fd:
+            secret_key = fd.read()
+            ##print(" [TRACE] secret_key = ", secret_key)
+    return secret_key
 
 def run_app_server(   host:        str
                     , port:        int
@@ -24,8 +42,12 @@ def run_app_server(   host:        str
                    ):
 
     APPNAME = "mdwiki"
+    KEYFILE = "appkey"
     session_folder = utils.project_cache_path(APPNAME, "session")
     utils.mkdir(session_folder)
+
+    secret_key = get_secret_key(APPNAME)
+
     
     # TODO Separate configuration from code for safer deployment
     # Use some secrets management system
@@ -38,7 +60,7 @@ def run_app_server(   host:        str
     app.config['SESSION_FILE_THRESHOLD'] = 1000  # Adjust the limit as needed
     # Configure Flask to use FileSystemSessionInterface with the custom options
     app.config["SESSION_PERMANENT"] = True
-    app.config['SECRET_KEY'] = 'd21275220cc324ea002684309195b6741b27ce281dc36294'
+    app.config['SECRET_KEY'] = secret_key 
     flask_session.Session(app)
     ### WEBSOCKET: sock = Sock(app)
     BASE_PATH = wikipath ## utils.get_wiki_path()
