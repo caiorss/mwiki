@@ -1,11 +1,163 @@
 import os
+import sys
 import re
 import urllib.parse
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
 import pygments.util
-from typing import List, Dict, Tuple 
+from typing import IO, Any, List, Dict, Tuple 
+
+def mkdir(path: str):
+    """Create directory if it does not exist yet."""
+    try:
+      os.makedirs(path)
+    except OSError:
+      pass
+
+def is_os_linux_or_bsd() -> bool:
+	"""Returns true if the current Linux or BSD."""
+	output = "linux" in sys.platform or "bsd" in sys.platform
+	return output
+
+def is_os_windows() -> bool:
+	"""Returns true if the current OS is Windows NT."""
+	output = "windows" in sys.platform or "win" in sys.platform
+	return output
+
+def is_os_macos() -> bool:
+	"""Return true if the current OS (Operating System) is MacOSX."""
+	output = "darwin" in sys.platform
+	return output
+
+def xdg_config_home() -> str:
+	"""Return OS-specific base path user-editable cofiguration files."""
+	out = ""
+	if is_os_linux_or_bsd(): 
+		HOME = os.getenv("HOME")
+		tmp = os.getenv("XDG_CONFIG_HOME") or ".config"
+		out = os.path.join(HOME, tmp)
+	elif is_os_windows(): 
+		out = os.getenv("RoamingAppData")
+	elif is_os_macos(): 
+		out = os.path.join(HOME, "Library/Application Support")
+	else:
+		msg = f"Not implemented for sys.platform = {sys.platform}"
+		raise NotImplementedError(msg)
+	return out
+
+def xdg_data_home() -> str:
+	"""Return OS-specific base path of program data."""
+	out = ""
+	if is_os_linux_or_bsd(): 
+		HOME = os.getenv("HOME")
+		tmp = os.getenv("XDG_DATA_HOME") or ".local/share"
+		out = os.path.join(HOME, tmp)
+	elif is_os_windows(): 
+		out = os.getenv("LocalAppData")
+	elif is_os_macos(): 
+		out = os.path.join(HOME, "Library/Application Support")
+	else:
+		msg = f"Not implemented for sys.platform = {sys.platform}"
+		raise NotImplementedError(msg)
+	return out
+
+def xdg_cache_dir() -> str:
+	"""Return OS-specific base path of cache directory."""
+	out = ""
+	if is_os_linux_or_bsd(): 
+		HOME = os.getenv("HOME")
+		tmp = os.getenv("XDG_CACHE_HOME") or ".cache"
+		out = os.path.join(HOME, tmp)
+	elif is_os_windows(): 
+		out = os.getenv("LocalAppData")
+	elif is_os_macos(): 
+		out = os.path.join(HOME, "Library/Application Support")
+	else:
+		msg = f"Not implemented for sys.platform = {sys.platform}"
+		raise NotImplementedError(msg)
+	return out
+
+def project_config_dir(project: str) -> str:
+    """Return path to project configuration folder."""
+    base = xdg_config_home() 
+    output = os.path.join(base, project)
+    return output
+
+def project_data_dir(project: str) -> str:
+    """Return path to project configuration folder."""
+    base = xdg_data_home() 
+    output = os.path.join(base, project)
+    return output
+
+def project_cache_dir(project: str) -> str:
+    """Return path to project cache folder."""
+    base = xdg_cache_dir() 
+    output = os.path.join(base, project)
+    return output
+
+def open_project_config_dir(project, file, mode = "", fpath: str = "") -> IO[Any]:
+    """Open file for reading or writing in project directory of config files."""
+    path = project_config_dir(project)
+    mkdir(path)
+    pfile = os.path.join(path, fpath, file)
+    path_ = os.path.join(path, fpath)
+    mkdir(path_)
+    fd = open(pfile, mode)
+    return fd 
+
+def open_project_data_dir(project: str, file: str, mode: str = "", fpath: str = "") -> IO[Any]: 
+    """Open file for reading or writing in project data dir."""
+    path = project_data_dir(project)
+    mkdir(path)
+    path_ = os.path.join(path, fpath)
+    mkdir(path_)
+    pfile = os.path.join(path, fpath, file)
+    fd = open(pfile, mode)
+    return fd 
+
+def open_project_cache_dir(project: str, file: str, mode: str = "", fpath: str = "") -> IO[Any]: 
+    """Open file for reading or writing in project cache dir."""
+    path = project_cache_dir(project)
+    mkdir(path)
+    path_ = os.path.join(path, fpath)
+    mkdir(path_)
+    pfile = os.path.join(path, fpath, file)
+    fd = open(pfile, mode)
+    return fd 
+
+def project_config_path(project: str, path: str = "") -> str:
+    out = os.path.join(project_config_dir(project), path)
+    return out 
+
+def project_data_path(project: str, path: str = "") -> str:
+    out = os.path.join(project_data_dir(project), path)
+    return out 
+
+def project_cache_path(project: str, path: str = "") -> str:
+    out = os.path.join(project_cache_dir(project), path)
+    return out 
+
+def file_project_config_dir_exists(project: str, file: str, fpath: str = "") -> bool:
+    """Return true if file exists in project config directory"""
+    path = project_config_dir(project)
+    pfile = os.path.join(path, fpath, file)
+    out = os.path.isfile(pfile)
+    return out 
+
+def file_project_data_dir_exists(project: str, file: str, fpath: str = "") -> bool:
+    """Return true if file exists in project data directory"""
+    path = project_data_dir(project)
+    pfile = os.path.join(path, fpath, file)
+    out = os.path.isfile(pfile)
+    return out 
+
+def file_project_cache_dir_exists(project: str, file: str, fpath: str = "") -> bool:
+    """Return true if file exists in project cache directory"""
+    path = project_cache_dir(project)
+    pfile = os.path.join(path, fpath, file)
+    out = os.path.isfile(pfile)
+    return out 
 
 def read_resource(module, resource_file: str) -> str:
     """Read resource file packaged with a given module."""
