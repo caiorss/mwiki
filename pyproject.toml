@@ -57,7 +57,8 @@ linkify-it-py = "*"
 mdit-py-plugins = "*"
 pygments = "*"
 click = "^8.1.7"
-cryptography = "*"
+cryptography = "^2.8"
+#cryptography = "*"
 tomli = "*"
 
 [build-system]
