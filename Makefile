@@ -1,11 +1,11 @@
 .PHONY: run 
-run
+run:
 	poetry run python -m mdwiki
 
 # Build virtual-env with same dependencies specified
 # in the Pipfile and the lockfile.
-.PHONY: poetry-install
-pipenv-install:
+.PHONY: poetry 
+poetry:
 	poetry install 
 
 
@@ -20,8 +20,15 @@ vscode:
 # Install pipx first $ pip install pipx
 .PHONY: install 
 install:
+	pipx uninstall mdwiki
 	pipx install . --force
 
+
+# Create the file requirements.txt, which is useful 
+# for building docker images.
+.PHONY: requirements
+requirements:
+	poetry export --output requirements.txt
 
 .PHONY: clean 
 clean:
