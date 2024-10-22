@@ -96,7 +96,7 @@ def run_app_server(   host:        str
                               for f in pages])
         else:
             for f in pages:
-                inner =  "\n".join( [ utils.replace_ci(f"<li><code>{ utils.escape_html(lin) }</code></li>"
+                inner =  "\n".join( [ utils.replace_ci(f"<li><span class='search-item'>{ utils.escape_html(lin)}</span></li>"
                                         , query, f'<span class="search-highlight">{query}</span>') 
                                        for (n, lin) in  utils.grep_file(page_to_file(f), query)])
                 url = utils.escape_url(f"/wiki/{f}") + highlight
