@@ -4,10 +4,11 @@ import os
 import flask 
 from flask import Flask, request, session
 import flask_session
+from typing import Tuple, List
+import datetime
 
 import mdwiki.utils as utils
 import mdwiki.mparser as mparser 
-from typing import Tuple, List
 
 ## Method GET 
 M_GET = "GET" 
@@ -21,10 +22,22 @@ def run_app_server(   host:        str
                     , wikipath:    str
                     , random_ssl:  bool = False
                    ):
+
+    APPNAME = "mdwiki"
+    session_folder = utils.project_cache_path(APPNAME, "session")
+    utils.mkdir(session_folder)
+    
     # TODO Separate configuration from code for safer deployment
     # Use some secrets management system
     app = Flask(__name__) ##template_folder="templates")
+    # Specify a custom directory for storing session files
     app.config['SESSION_TYPE'] = 'filesystem'
+    app.config['SESSION_FILE_DIR'] = session_folder ## 'M:/code/flaskLoginTest/sessions'
+    # Set the maximum number of stored sessions
+    app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(minutes = 2)
+    app.config['SESSION_FILE_THRESHOLD'] = 1000  # Adjust the limit as needed
+    # Configure Flask to use FileSystemSessionInterface with the custom options
+    app.config["SESSION_PERMANENT"] = True
     app.config['SECRET_KEY'] = 'd21275220cc324ea002684309195b6741b27ce281dc36294'
     flask_session.Session(app)
     ### WEBSOCKET: sock = Sock(app)
