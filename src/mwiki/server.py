@@ -42,13 +42,9 @@ def run_app_server(   host:        str
                    ):
 
     APPNAME = "mdwiki"
-    KEYFILE = "appkey"
     session_folder = utils.project_cache_path(APPNAME, "session")
     utils.mkdir(session_folder)
-
     secret_key = get_secret_key(APPNAME)
-
-    
     # TODO Separate configuration from code for safer deployment
     # Use some secrets management system
     app = Flask(__name__) ##template_folder="templates")
