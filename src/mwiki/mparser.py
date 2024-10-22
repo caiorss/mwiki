@@ -15,9 +15,9 @@ from mdit_py_plugins.attrs import attrs_block_plugin
 from mdit_py_plugins.myst_role import myst_role_plugin
 from mdit_py_plugins.myst_blocks import myst_block_plugin
 
-import mdwiki
-import mdwiki.utils as utils
-import mdwiki.plugins 
+import mwiki
+import mwiki.utils as utils
+import mwiki.plugins 
 
 def highlight_code(code, name, attrs):
     """Highlight a block of code"""
@@ -56,9 +56,9 @@ MdParser = (
 	.use(container_plugin, name = "{theorem}")
     .use(myst_block_plugin)
     .use(myst_role_plugin)
-    .use(mdwiki.plugins.wiki_text_highlight_plugin)
-    .use(mdwiki.plugins.wiki_image_plugin)
-    .use(mdwiki.plugins.wiki_link_plugin)
+    .use(mwiki.plugins.wiki_text_highlight_plugin)
+    .use(mwiki.plugins.wiki_image_plugin)
+    .use(mwiki.plugins.wiki_link_plugin)
    # .use(fieldlist_plugin)
     .enable('table')
     .enable('strikethrough')
@@ -222,7 +222,7 @@ MdParser.add_render_rule("container_{note}_open", render_container_note_open)
 MdParser.add_render_rule("container_{def}_open", render_container_def_open)
 MdParser.add_render_rule("container_{theorem}_open", render_container_theorem_open)
 
-MainTemplate = utils.read_resource(mdwiki, "template.html")
+MainTemplate = utils.read_resource(mwiki, "template.html")
 
 def fill_template(title: str, content: str, toc: str, query: str = ""):
     html = (

@@ -1,6 +1,6 @@
 import os
-from mdwiki.server import run_app_server
-import mdwiki.utils as utils
+from mwiki.server import run_app_server
+import mwiki.utils as utils
 import tomli 
 from pprint import pprint
 

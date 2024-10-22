@@ -1,8 +1,8 @@
 [project]
-name = "mdwiki"
+name = "mwiki"
 version = "0.1"
 readme = "README.md"
-description = "mdwiki - Markdown Wiki Server for publishing and accessing Github Markdown-Flavor Documents, MyST (from Jupyter Books) documents and  Obsidian Markdown vaults."
+description = "mwiki - Markdown Wiki Server for publishing and accessing Github Markdown-Flavor Documents, MyST (from Jupyter Books) documents and  Obsidian Markdown vaults."
 requires-python = ">=3.8"
 license = { text = "AGPL - GNU Afero" }
 ## authors = [ (name = "dummy", email = "user@mail") ]
@@ -23,7 +23,7 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["./src"]
-include = ["mdwiki", "mdwiki.plugins"]
+include = ["mwiki", "mwiki.plugins"]
 exclude = ["**__pycache__**"]
 
 # Package data from all directories and sub-directories
@@ -33,16 +33,16 @@ exclude = ["**__pycache__**"]
 
 
 [tool.poetry]
-name = "mdwiki"
+name = "mwiki"
 version = "0.1.0"
-description = "mdwiki - Markdown Wiki Server for publishing and accessing Github Markdown-Flavor Documents, MyST (from Jupyter Books) documents and  Obsidian Markdown vaults."
-packages = [{include = "mdwiki", from = "src"} ]
+description = "mwiki - Markdown Wiki Server for publishing and accessing Github Markdown-Flavor Documents, MyST (from Jupyter Books) documents and  Obsidian Markdown vaults."
+packages = [{include = "mwiki", from = "src"} ]
 authors = [ "Caio Rodrigues"]
 readme = "README.md"
 keywords  = ["wiki", "myst", "markdown", "markdup", "obsidian"]
 
 [tool.poetry.scripts]
-mdwiki = "mdwiki.cli:main"
+mwiki = "mwiki.cli:main"
 ## run    = "mdwiki.cli:main"
 
 [tool.poetry.dependencies]

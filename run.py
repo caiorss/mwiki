@@ -12,13 +12,13 @@ Abbreviations:
 
 """
 
-import mdwiki.server 
+import mwiki.server 
 
 
 HOST = "0.0.0.0"
 PORT = 8000
 
-mdwiki.server.run_app_server(  host = HOST
+mwiki.server.run_app_server(  host = HOST
                              , port = PORT
                              , debug = True
                              , login = None

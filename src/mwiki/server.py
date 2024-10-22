@@ -8,8 +8,8 @@ import flask_session
 from typing import Tuple, List
 import datetime
 
-import mdwiki.utils as utils
-import mdwiki.mparser as mparser 
+import mwiki.utils as utils
+import mwiki.mparser as mparser 
 
 ## Http Method GET 
 M_GET = "GET" 
