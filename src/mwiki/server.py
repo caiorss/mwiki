@@ -93,8 +93,12 @@ def run_app_server(   host:        str
         MAX_LEN = 200
         pages = [  {    "name": f.split(".")[0] 
                       , "src":  f 
-                      , "matches": [ lin[:MAX_LEN] + " ..." if len(lin) > MAX_LEN else lin  for (n, lin) in  utils.grep_file(page_to_file(f), query)  ] \
+                      , "matches": [ lin[:MAX_LEN] + " ..." 
+                                    if len(lin) > MAX_LEN else lin  
+                                        for (n, lin) in  utils.grep_file(page_to_file(f), query)  ] \
                                     if query != "" else [ ]
+
+                      , "metadata": mparser.get_pagefile_metadata( page_to_file(f))
                    } 
                  for f in sorted_files ]
         title = f"Search results for \"{query}\"" if query != "" else "All pages"

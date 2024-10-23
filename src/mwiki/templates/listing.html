@@ -6,10 +6,32 @@
             <li>
                 <a class="link-internal" href="/wiki/{{ p.name }}">{{ p.name }}</a>
                 <ul>
-                    {% for m in p.matches %}
+                    {% if p.metadata.subject %}
+                    <li> Subject: {{ p.metadata.subject }} </li>
+                    {% endif %}
+
+                    {% if p.metadata.keywords %}
+                        <li> Keywords: {{ p.metadata.keywords }}</li>
+                    {% endif %}
+
+                    {% if p.metadata.description %}
+                        <li> {{ p.metadata.description }}</li>
+                    {% endif %}
+
+
+                    </li>
+                </ul> 
+
+                {% if p.matches %}
+                <details>
+                    <summary>Search matches</summary>
+                    <ul>
+                        {% for m in p.matches %}
                         <li><span class="search-item">{{ m }}</span></li>
-                    {% endfor %}
-                </ul>
+                        {% endfor %}
+                    </ul>
+                </details>
+                {% endif %}
             </li>
         {% endfor %}
 

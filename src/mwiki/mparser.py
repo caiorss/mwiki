@@ -1,5 +1,5 @@
 import re
-from typing import List, Tuple, Dict
+from typing import Any, List, Tuple, Dict
 from markdown_it import MarkdownIt
 from markdown_it.tree import SyntaxTreeNode
 from mdit_py_plugins.front_matter import front_matter_plugin
@@ -14,6 +14,8 @@ from mdit_py_plugins.attrs import attrs_plugin
 from mdit_py_plugins.attrs import attrs_block_plugin
 from mdit_py_plugins.myst_role import myst_role_plugin
 from mdit_py_plugins.myst_blocks import myst_block_plugin
+import frontmatter
+import yaml
 
 import mwiki
 import mwiki.utils as utils
@@ -222,6 +224,21 @@ MdParser.add_render_rule("container_{note}_open", render_container_note_open)
 MdParser.add_render_rule("container_{def}_open", render_container_def_open)
 MdParser.add_render_rule("container_{theorem}_open", render_container_theorem_open)
 
+_FrontMatter = frontmatter.Frontmatter()
+_default_attr = {  "description": ""
+                 , "subject":     ""
+                 , "keywords":    ""
+                 , "uuid":        ""
+                 }
+
+def get_pagefile_metadata(pagefile: str) -> Dict[str, Any]:
+    metadata = _default_attr
+    try:
+        data     = _FrontMatter.read_file(pagefile)
+        metadata = data.get("attributes", metadata)
+    except yaml.scanner.ScannerError:
+        metadata = _default_attr
+    return metadata
 
 
 def pagefile_to_html(pagefile: str):
@@ -250,7 +267,6 @@ def get_headings(markdown: str):
         ## print(" [TRACE] heading = ", item)
         ##breakpoint()
     return sections
-
 
 
 def make_headings_hierarchy(headings):
