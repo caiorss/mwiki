@@ -20,7 +20,6 @@ vscode:
 # Install pipx first $ pip install pipx
 .PHONY: install 
 install:
-	pipx uninstall mdwiki
 	pipx install . --force
 
 
