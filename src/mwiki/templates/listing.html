@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <ul>
+        {% for p in pages %}
+            <li>
+                <a class="link-internal" href="/wiki/{{ p.name }}">{{ p.name }}</a>
+                <ul>
+                    {% for m in p.matches %}
+                        <li><span class="search-item">{{ m }}</span></li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+
+    </ul>
+{% endblock %}

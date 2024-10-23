@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,47 +10,41 @@
     </script>
     <script type="text/javascript" src="/static/main.js"></script>
 </head>
+
 <body>
     <div class="sidebar sidebar-visibility">
         <h2>Search</h2>
         <form action="/pages" mehtod="GET">
             <label for="site-search-bar">Search all Markdown Files</label>
             <br>
-            <input type="search" 
-                   id="site-search-bar" 
-                   name="search"
-                   placeholder="Search..."
-                   value="{{query}}"
-                   />
+            <input type="search" id="site-search-bar" name="search" placeholder="Search..." value="{{query}}" />
             <button class="sidebar-search-button">OK</button>
         </form>
 
+        {% if toc %}
         <h2>Contents</h2>
         <div class="toc">
             <!-- Table of contents template placeholder -->
-            {{toc}}
+            {% block toc %}{% endblock %} 
         </div>
+        {% endif %}
 
     </div>
     <div class="main main-shift">
         <div class="header">
-           <a class="sidebar-toggle-button" 
-              href="#/" onclick="toggle_sidebar();" >[#]</a> 
-           <a class="sidebar-toggle-button" 
-              href="/" >Home</a> 
-           <a class="sidebar-toggle-button" 
-              href="/pages" >All</a> 
-           <a class="sidebar-toggle-button" 
-              href="/logoff" >Quit</a> 
+            <a class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();">[#]</a>
+            <a class="sidebar-toggle-button" href="/">Home</a>
+            <a class="sidebar-toggle-button" href="/pages">All</a>
+            <a class="sidebar-toggle-button" href="/logoff">Quit</a>
         </div>
 
         <div class="content">
             <h1 class="document-heading">{{title}}</h1>
-            {{body}}
+            {% block content %}
+            {% endblock %}
         </div>
-        
-        
-        </div>
-    
+    </div>
+
 </body>
+
 </html>

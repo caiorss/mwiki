@@ -251,6 +251,13 @@ def mdfile_to_html(inp_file, title, toc, query = ""):
         )
         return html
 
+def pagefile_to_html(pagefile: str):
+    with open(pagefile) as fd:
+        source: str = fd.read()
+        tokens = MdParser.parse(source)
+        ast    = SyntaxTreeNode(tokens)
+        html    = node_to_html(ast)
+        return html
 
 def get_headings(markdown: str):
     tokens = MdParser.parse(markdown)

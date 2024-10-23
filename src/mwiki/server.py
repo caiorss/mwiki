@@ -79,7 +79,7 @@ def run_app_server(   host:        str
     @app.route("/pages", methods = [M_GET])
     @check_login
     def route_pages():
-        query = request.args.get("search") or ""
+        query = (request.args.get("search") or "").strip()
         highlight =  f"#:~:text={ utils.escape_url(query) }" if query != "" else ""
         files = []
         if query == "":
@@ -89,24 +89,22 @@ def run_app_server(   host:        str
                         and utils.file_contains(os.path.join(BASE_PATH, f), query)]
                      ##and utils.file_contains(os.path.join(BASE_PATH, f), query)]
         sorted_files = sorted(files)
-        pages = [f.split(".")[0] for f in sorted_files]
-        content = ""
-        page_to_file = lambda page:  os.path.join(BASE_PATH, f) + ".md"
-        if query == "":
-            content =  "\n".join([f"""<li><a href="/wiki/{f}{highlight}" class="link-internal">{f}</a></li>""" 
-                              for f in pages])
-        else:
-            for f in pages:
-                inner =  "\n".join( [ utils.replace_ci(f"<li><span class='search-item'>{ utils.escape_html(lin)}</span></li>"
-                                        , query, f'<span class="search-highlight">{query}</span>') 
-                                       for (n, lin) in  utils.grep_file(page_to_file(f), query)])
-                url = utils.escape_url(f"/wiki/{f}") + highlight
-                entry = f"""<li><a href="{url}" class="link-internal">{f}</a> <ul>{inner}</ul></li>""" 
-                content += entry
-            content = f"<ul>\n{content}\n</ul>"
-        content = f"""<h1>Markdown Wiki Pages</h1>\n<ul>\n{content}\n</ul>"""
-        html = mparser.fill_template("Index Page", content, toc = "", query = query)
-        return html
+        page_to_file = lambda f:  os.path.join(BASE_PATH, f) # + ".md"
+        MAX_LEN = 200
+        pages = [  {    "name": f.split(".")[0] 
+                      , "src":  f 
+                      , "matches": [ lin[:MAX_LEN] + " ..." if len(lin) > MAX_LEN else lin  for (n, lin) in  utils.grep_file(page_to_file(f), query)  ] \
+                                    if query != "" else [ ]
+                   } 
+                 for f in sorted_files ]
+        title = f"Search results for \"{query}\"" if query != "" else "All pages"
+        response = flask.render_template( "listing.html"
+                                         , title = title
+                                         , pages = pages
+                                         , query = query
+                                         )
+        return response
+
 
     @app.route("/check")
     def hello():
@@ -139,23 +137,23 @@ def run_app_server(   host:        str
     @check_login
     def route_wiki_page(page):
         mdfile = os.path.join(BASE_PATH, page + ".md")
-        ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
+        # ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
         if not os.path.exists(mdfile):
-             return f"<h1>404 PAGE NOT FOUND: {page}</h1>"
+              return f"<h1>404 PAGE NOT FOUND: {page}</h1>"
         headings = []
         with open(mdfile) as fd:
             inp = fd.read()
             headings = mparser.get_headings(inp)
         root = mparser.make_headings_hierarchy(headings)
-        ## breakpoint()
-        toc = mparser.headings_to_html(root)
-        # TOC - Table of Contents
-        ## toc = ""
-        ## for (label, id, _) in headings:
-        ##      toc += f"""<li ><a href="#{id}" class="link-internal" >{label}</a></li>"""
-        ## toc = f"<lu>\n{toc}\n</lu>"
-        html = mparser.mdfile_to_html(mdfile, page, toc)
-        return html
+        # ## breakpoint()
+        toc      = mparser.headings_to_html(root)
+        content  = mparser.pagefile_to_html(mdfile)
+        response = flask.render_template(  "content.html"
+                                         , title   = page
+                                         , content = content
+                                         , toc     = toc
+                                         )
+        return response
 
     @app.get("/")
     def route_index_page():
