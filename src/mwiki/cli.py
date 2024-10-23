@@ -3,7 +3,7 @@ from mwiki.server import run_app_server
 import mwiki.utils as utils
 import tomli 
 from pprint import pprint
-
+from typing import Optional, Tuple, List 
 import click
 ## from click.decorators import commmand 
 
@@ -30,7 +30,9 @@ def cli1():
 @click.option("-c", "--config", default = None, 
                 help = ( "Path to TOML configuration file for" 
                         "running the server and loading its settings from the file."))
-def server(host: str, port: int, debug: bool, login: str, wikipath: str, random_ssl: bool, config):
+@click.option("-s", "--secret-key", default = None, 
+                help = ( "Secret key of flask application." ))
+def server(host: str, port: int, debug: bool, login: str, wikipath: str, random_ssl: bool, config, secret_key: Optional[str]):
     _login = None  
 
     if config is not None:
@@ -53,7 +55,8 @@ def server(host: str, port: int, debug: bool, login: str, wikipath: str, random_
         _wikipath   = utils.expand_path( server.get("wikipath", ".") )
         _random_ssl = server.get("random-ssl", False)
         _login = (_username, _password) if _do_login else None 
-        run_app_server(_host, _port, _debug, _login, _wikipath, _random_ssl)
+        _secret_key = server.get("secret_key", None)
+        run_app_server(_host, _port, _debug, _login, _wikipath, _random_ssl, _secret_key)
         exit(0)
         
     if login != "":

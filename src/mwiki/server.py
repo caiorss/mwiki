@@ -5,7 +5,7 @@ import secrets
 import flask 
 from flask import Flask, request, session
 import flask_session
-from typing import Tuple, List
+from typing import Tuple, List, Optional
 import datetime
 
 import mwiki.utils as utils
@@ -39,12 +39,13 @@ def run_app_server(   host:        str
                     , login:       Tuple[str, str] 
                     , wikipath:    str
                     , random_ssl:  bool = False
+                    , secret_key:  Optional[str] = None 
                    ):
 
     APPNAME = "mdwiki"
     session_folder = utils.project_cache_path(APPNAME, "session")
     utils.mkdir(session_folder)
-    secret_key = get_secret_key(APPNAME)
+    secret_key = get_secret_key(APPNAME) if secret_key is None else secret_key
     # TODO Separate configuration from code for safer deployment
     # Use some secrets management system
     app = Flask(__name__) ##template_folder="templates")
