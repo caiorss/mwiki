@@ -36,7 +36,7 @@ def get_secret_key(appname: str) -> str:
 def run_app_server(   host:        str
                     , port:        int
                     , debug:       bool
-                    , login:       Tuple[str, str] 
+                    , login:       Optional[Tuple[str, str]]
                     , wikipath:    str
                     , random_ssl:  bool = False
                     , secret_key:  Optional[str] = None 
