@@ -222,7 +222,7 @@ MdParser.add_render_rule("container_{note}_open", render_container_note_open)
 MdParser.add_render_rule("container_{def}_open", render_container_def_open)
 MdParser.add_render_rule("container_{theorem}_open", render_container_theorem_open)
 
-MainTemplate = utils.read_resource(mwiki, "template.html")
+MainTemplate = None ## utils.read_resource(mwiki, "template.html")
 
 def fill_template(title: str, content: str, toc: str, query: str = ""):
     html = (
