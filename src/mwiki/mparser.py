@@ -222,34 +222,7 @@ MdParser.add_render_rule("container_{note}_open", render_container_note_open)
 MdParser.add_render_rule("container_{def}_open", render_container_def_open)
 MdParser.add_render_rule("container_{theorem}_open", render_container_theorem_open)
 
-MainTemplate = None ## utils.read_resource(mwiki, "template.html")
 
-def fill_template(title: str, content: str, toc: str, query: str = ""):
-    html = (
-        MainTemplate
-        .replace("{{body}}", content)
-        .replace("{{title}}", title)
-        .replace("{{toc}}", toc)
-        .replace("{{query}}", query)
-    )
-    return html
-
-def mdfile_to_html(inp_file, title, toc, query = ""):
-    with open(inp_file) as fd:
-        source: str = fd.read()
-        tokens = MdParser.parse(source)
-        ast    = SyntaxTreeNode(tokens)
-        out    = node_to_html(ast)
-        ## out = MdParser.render(inp)
-        html = ( 
-             MainTemplate
-                .replace("{{body}}", out)
-                .replace("{{title}}", title)
-                .replace("{{toc}}", toc)
-                .replace("{{query}}", query)
-                
-        )
-        return html
 
 def pagefile_to_html(pagefile: str):
     with open(pagefile) as fd:
