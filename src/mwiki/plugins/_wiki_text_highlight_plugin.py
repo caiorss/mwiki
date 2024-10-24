@@ -1,5 +1,14 @@
-"""This module provide Obsidian's markdown text hightlight syntax.
- 
+"""This module provide Obsidian's markdown text hightlight syntax '=='.
+
+By using this plugin, it is possible to highlight any text wrapped in the delimiters
+=={text}==. For example, consider the next paragraph,
+
+  > Here is a ==sample paragraph== with text highlight.
+
+It will be renderend to:
+
+  > <p>Here is a <span class="text-highlight">sample paragraph</span> with text hightlight.
+
 """
 from __future__ import annotations
 
