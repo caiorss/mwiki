@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block topbar_buttons %}
+    <a  class="sidebar-toggle-button" 
+        href="/wiki/{{page}}" 
+        title="Got to corresponding page of this source code.">Page</a>
+{% endblock %}
+
+{% block toc  %}
+    {{ toc|safe }}
+{% endblock %}
+
+{% block content %}
+    {{ content|safe }}
+{% endblock %}
+
+{% block style %}
+<style>
+    .highlight {
+        max-height: none !important;
+    }
+
+    .highlight pre {
+        overflow-wrap: break-word;
+        word-break: break-word;
+        text-wrap: balance;
+    }
+
+    body {
+        background-color: azure !important;
+    }
+</style>
+{% endblock %}

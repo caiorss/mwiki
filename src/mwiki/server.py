@@ -121,7 +121,7 @@ def run_app_server(   host:        str
         resp = flask.send_from_directory(root, filepath)
         return resp
 
-    @app.route("/wiki/<page>/source")
+    @app.route("/source/<page>")
     @check_login
     def route_wiki_source(page):
         mdfile = os.path.join(BASE_PATH, page + ".md")
@@ -131,9 +131,15 @@ def run_app_server(   host:        str
         src = ""
         with open(mdfile) as fd:
             src = fd.read()
-        src = utils.escape_html(src)
-        content = f"<pre>\n{src}\n</pre>" 
-        html = mparser.fill_template(f"Source of '{page}.md'", content, toc = "", query = "")
+        ## src = utils.escape_html(src)
+        src = utils.highlight_code(src, "markdown")
+        ## content = f"<pre>\n{src}\n</pre>" 
+        content = src
+        ## html = mparser.fill_template(f"Source of '{page}.md'", content, toc = "", query = "")
+        html = flask.render_template("source.html"
+                                     , page = page 
+                                     , title = f"Source: {page}"
+                                     , content = content)
         return html
 
 
@@ -154,6 +160,7 @@ def run_app_server(   host:        str
         content  = mparser.pagefile_to_html(mdfile)
         response = flask.render_template(  "content.html"
                                          , title   = page
+                                         , page    = page
                                          , content = content
                                          , toc     = toc
                                          )

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MdWiki - {{title}}</title>
     <link rel="stylesheet" href="/static/style.css">
+    {% block style %}{% endblock %}
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>
     <script type="text/javascript" src="/static/main.js"></script>
@@ -35,6 +36,7 @@
             <a class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();">[#]</a>
             <a class="sidebar-toggle-button" href="/">Home</a>
             <a class="sidebar-toggle-button" href="/pages">All</a>
+            {% block topbar_buttons %}{% endblock %}
             <a class="sidebar-toggle-button" href="/logoff">Quit</a>
         </div>
 

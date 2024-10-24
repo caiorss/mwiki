@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+{% block topbar_buttons %}
+    <a  class="sidebar-toggle-button" 
+        href="/source/{{page}}" 
+        title="Display source code of current page.">Source</a>
+{% endblock %}
+
 {% block toc  %}
     {{ toc|safe }}
 {% endblock %}
@@ -7,3 +13,4 @@
 {% block content %}
     {{ content|safe }}
 {% endblock %}
+
