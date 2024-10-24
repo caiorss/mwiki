@@ -229,6 +229,7 @@ _default_attr = {  "description": ""
                  , "subject":     ""
                  , "keywords":    ""
                  , "uuid":        ""
+                 , "title":       ""
                  }
 
 def get_pagefile_metadata(pagefile: str) -> Dict[str, Any]:
@@ -488,7 +489,14 @@ def node_to_html(node: SyntaxTreeNode):
             inner = "".join([ node_to_html(n) for n in children ])
         else:
             inner = "".join([ node_to_html(n) for n in children[1:] ])
-        title = f"""\n<span class="admonition-title">{admonition_title}</span>\n""" \
+        iconsdb = {
+              "info": """<img class="admonition-icon" src="/static/icon-info.svg"/> """
+            , "note": """<img class="admonition-icon" src="/static/icon-info.svg"/> """
+            , "tip":  """<img class="admonition-icon" src="/static/icon-lightbulb.svg"/> """
+            , "warning":  """<img class="admonition-icon" src="/static/icon-warning1.svg"/> """
+        }
+        icon = iconsdb.get(admonition_type, "")
+        title = f"""\n<span class="admonition-title">{icon}{admonition_title}</span>\n""" \
                 if admonition_title != "" else ""
         if is_dropdown:
             html = ( f"""<div {attrs}>""" 
