@@ -170,7 +170,7 @@ rules: dict[str, dict[str, list[RuleDictType]]] = {
            {
                 #### "name": "math_inline",
                  "name": "wiki_text_highlight_inline"
-               , "rex": re.compile(r"==(.+)==")
+               , "rex": re.compile(r"==(.+?)==")
                , "tmpl": """<span class="text-highlight">{0}</span>"""
                , "tag": "=="
                #, "pre": wikilink_pre
