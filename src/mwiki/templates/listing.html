@@ -1,11 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <ul>
+    <div>
         {% for p in pages %}
-            <li>
-                <a class="link-internal" href="/wiki/{{ p.name }}">{{ p.name }}</a>
+            <div class="div-page-info">
+                <h4><a class="link-internal" href="/wiki/{{ p.name }}">{{ p.name }}</a> </h4>
+                
+                {% if p.metadata.description %}
+                <div class="page-description">  
+                    {{ p.metadata.description }}
+                </div>
+                
+                {% endif %}
+
                 <ul>
+                    {% if p.metadata.label %}
+                    <li> Label: {{ p.metadata.label }} </li>
+                    {% endif %}
+
                     {% if p.metadata.subject %}
                     <li> Subject: {{ p.metadata.subject }} </li>
                     {% endif %}
@@ -13,12 +25,6 @@
                     {% if p.metadata.keywords %}
                         <li> Keywords: {{ p.metadata.keywords }}</li>
                     {% endif %}
-
-                    {% if p.metadata.description %}
-                        <li> {{ p.metadata.description }}</li>
-                    {% endif %}
-
-
                     </li>
                 </ul> 
 
@@ -32,8 +38,8 @@
                     </ul>
                 </details>
                 {% endif %}
-            </li>
+            </div>
         {% endfor %}
 
-    </ul>
+    </div>
 {% endblock %}

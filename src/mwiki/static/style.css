@@ -238,6 +238,14 @@ table {
     margin-bottom: 20px;
 }
 
+.div-page-info {
+  background: #FFFFE0;
+  margin: 10px;
+  margin-top: 2px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
 .admonition {
     padding: 10px;
     border: 5px;
