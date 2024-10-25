@@ -410,8 +410,10 @@ class HtmlRenderer(Renderer):
 
     def render_wiki_text_highlight_inline(self, node: SyntaxTreeNode) -> str:
         assert node.type == "wiki_text_highlight_inline"
-        inner = "".join([ self.render(n) for n in node.children ])
+        ##inner = "".join([ self.render(n) for n in node.children ])
+        inner = node.content
         html = f"""<span class="text-highlight">{inner}</span>"""
+        ## breakpoint()
         return html 
     
     def render_image(self, node: SyntaxTreeNode):
