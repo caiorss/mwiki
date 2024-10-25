@@ -566,7 +566,7 @@ def node_to_html(node: SyntaxTreeNode):
         inner = "\n".join([ node_to_html(n) for n in children ])
         html = f"""<dl class="anchor">\n{inner}\n</dl>"""
         ## breakpoint()
-        print(" [TRACE] definition list => html = \n", html)
+        ## print(" [TRACE] definition list => html = \n", html)
     elif node.type == "dt":
         inner = "".join([ node_to_html(n) for n in children ])
         html = f"""<dt class="anchor">{inner}</dt>"""
