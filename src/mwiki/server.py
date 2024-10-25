@@ -1,4 +1,5 @@
 import os
+import re
 import secrets
 ## from bottle import route, run
 ## from bottle import static_file, route, auth_basic, request
@@ -121,6 +122,14 @@ def run_app_server(   host:        str
         resp = flask.send_from_directory(root, filepath)
         return resp
 
+
+    rpat = re.compile(r"!\[(.*?)\]\(data:image/(.+?);base64,(.*?)\)")
+
+    def replacement_(m: re.Match[str]) -> str:
+        img = m.group(3)[:200] + "..."
+        out = f"![{m.group(1)}](data:image/{m.group(2)};base64,{img})"
+        return out
+
     @app.route("/source/<page>")
     @check_login
     def route_wiki_source(page):
@@ -131,10 +140,10 @@ def run_app_server(   host:        str
         src = ""
         with open(mdfile) as fd:
             src = fd.read()
+        src = re.sub(rpat, replacement_, src)
         ## src = utils.escape_html(src)
-        src = utils.highlight_code(src, "markdown")
+        content = utils.highlight_code(src, "markdown")
         ## content = f"<pre>\n{src}\n</pre>" 
-        content = src
         ## html = mparser.fill_template(f"Source of '{page}.md'", content, toc = "", query = "")
         html = flask.render_template("source.html"
                                      , page = page 
