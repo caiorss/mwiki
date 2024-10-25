@@ -14,7 +14,7 @@ class Renderer:
         self._handlers = {
               "root":                       self.render_root
             , "text":                       self.render_text
-            , "strong":                     self.render_text
+            , "strong":                     self.render_strong
             , "em":                         self.render_em_italic
             , "inline":                     self.render_inline 
             , "paragraph":                  self.render_paragraph
@@ -541,7 +541,18 @@ class HtmlRenderer(Renderer):
         print(" [WARNING] Frontmatter not renderend to HTML")
         return "" 
 
-__html_render = HtmlRenderer()
+    def render_horizontal_line_hr(self, node: SyntaxTreeNode) -> str:
+        return "<hr>" 
+
+    def render_myst_line_comment(self, node: SyntaxTreeNode) -> str:
+        html = ""
+        if self._myst_line_comment_enabled:
+            html = f"<!-- {node.content} -->"
+        else:
+            html = utils.escape_html(node.content)       
+        return html
+
+__html_render = HtmlRenderer( render_math_svg = True)
 
 def node_to_html(node: SyntaxTreeNode):
     html = __html_render.render(node)
