@@ -380,91 +380,482 @@ node.children() = {node.children}
 
 MYST_LINE_COMMENT = False
 
-def node_to_html(node: SyntaxTreeNode):
-    html = ""
-    children = node.children
-    tag = node.tag if hasattr(node, "tag") else ""
-    if node.type == "root":
-        html = "\n\n".join([ node_to_html(n) for n in children ])
-    elif node.type == "myst_line_comment":
-        if MYST_LINE_COMMENT:
-            html = f"<!-- {node.content} -->"
+
+class Renderer:
+    """Renderer abstract class providing a framework for concrete renderers classes.
+    This renderer class is a basic building block for creating new renderer types,
+    including html and LaTeX/PDF renderers.     
+    """
+
+    def __init__(self):
+        self._handlers = {
+              "root":                       self.render_root
+            , "text":                       self.render_text
+            , "strong":                     self.render_text
+            , "em":                         self.render_em_italic
+            , "inline":                     self.render_inline 
+            , "paragraph":                  self.render_paragraph
+            , "s":                          self.render_strikethrough
+            , "code_inline":                self.render_code_inline
+            , "math_single":                self.render_math_single
+            , "math_inline":                self.render_math_inline
+            , "math_block":                 self.render_math_block
+            , "softbreak":                  self.render_softbreak
+            , "hardbreak":                  self.render_hardbreak
+            , "hr":                         self.render_horizontal_line_hr
+            , "heading":                    self.render_heading
+            , "blockquote":                 self.render_blockquote
+            , "link":                       self.render_link
+            , "wikilink_inline":            self.render_wikilink_inline
+            , "wiki_text_highlight_inline": self.render_wiki_text_highlight_inline
+            , "wiki_image":                 self.render_wiki_image 
+            # Code block 
+            , "code_block":                 self.render_code_block
+            , "fence":                      self.render_fence 
+            # Bullet list and Ordered List 
+            , "bullet_list":                self.render_bullet_list
+            , "ordered_list":               self.render_ordered_list
+            , "list_item":                  self.render_list_item
+            # MyST Syntax Extensions
+            , "myst_role":                  self.render_myst_role 
+            , "myst_line_comment":          self.render_myst_line_comment
+            # Render Definition List 
+            , "dl":                         self.render_dl 
+            , "dt":                         self.render_dt 
+            , "dd":                         self.render_dd
+            # Table 
+            , "table":                      self.render_table
+            , "thead":                      self.render_thead 
+            , "tbody":                      self.render_tbody 
+            , "tr":                         self.render_tr 
+            , "th":                         self.render_th
+            , "td":                         self.render_td
+            # Html (Github-Flavoured Markdown)
+            , "html_block":                 self.render_html_block
+            , "html_inline":                self.render_html_inline
+            , "image":                      self.render_image
+            # Front matter (metadata)
+            , "front_matter":               self.render_frontmatter
+            # Footnotes 
+            , "footnote_ref":               self.render_footnote_ref
+            , "footnote_block":             self.render_footnote_block
+        }
+    
+    def render(self, node: SyntaxTreeNode) -> str:
+        handler = self._handlers.get(node.type)
+        result = ""
+        if handler is None:
+            if "container_" in node.type:
+                result = self.render_container(node)
+            else: 
+                raise RuntimeError(f"Rendering not implemented for node type '{node.type}' => node = {node} ")
         else:
-            html = utils.escape_html(node.content)
-    elif node.type == "front_matter":
-        pass
-    elif node.type == "footnote_block":
-        ## html = MdParser.render(node)
-        # TODO Implement rendering of footnote_block
-        print(" [WARNING] Note implemented html rendering for foot_note_block = ", node)
-        pass
-    elif node.type == "footnote_ref":
-        # TODO Implment rendering of footnote_ref
-        print(" [WARNING] Note implemented html rendering for footnot_ref node = ", node)
-        pass
-    elif node.type == "html_block":
+            result = handler(node)
+        return result
+
+    def render_text(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError() 
+
+    def render_strong(self, node: SyntaxTreeNode) -> str:
+        """Render bold text"""
+        raise NotImplementedError() 
+
+    def render_em_italic(self, node: SyntaxTreeNode) -> str:
+        """Render emphasis text, aka Italic text"""
+        raise NotImplementedError() 
+
+    def render_strikethrough(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+    
+    def render_root(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_softbreak(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_hardbreak(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+    
+    def render_frontmatter(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError() 
+
+    def render_footnote_block(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError() 
+
+    def render_footnote_ref(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError() 
+
+    def render_code_inline(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError() 
+    
+    def render_math_inline(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+    
+    def render_math_single(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+    
+    def render_math_block(self, node: SyntaxTreeNode) -> str: 
+        raise NotImplementedError()
+    
+    def render_horizontal_line_hr(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_paragraph(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_heading(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_blockquote(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+    
+    def render_container(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+    
+    def render_link(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_wikilink_inline(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+    
+    def render_wiki_text_highlight_inline(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_image(self, node: SyntaxTreeNode):
+        raise NotImplementedError()
+
+    def render_wiki_image(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_code_block(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_fence(self, node: SyntaxTreeNode) -> str:
+        """Render code block using three backticks.
+
+        Example:
+
+        ```python
+            for x in os.listdir("/"):
+                print("file = ", x)
+        ```
+        """
+        raise NotImplementedError()
+
+    def render_bullet_list(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_ordered_list(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_list_item(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_myst_role(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError() 
+
+    def render_dl (self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError() 
+
+    def render_dt (self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError() 
+        
+    def render_dd(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError() 
+
+    def render_table(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError() 
+
+    def render_tbody (self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError() 
+    
+    def render_thead (self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError() 
+
+    def render_tr (self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError() 
+
+    def render_th(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError() 
+
+    def render_td(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError() 
+
+    def render_html_block(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_html_inline(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_myst_line_comment(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_frontmatter(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_footnote_block(self, ndoe: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_footnote_ref(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+class HtmlRenderer(Renderer):
+
+    def __init__(self):
+        super().__init__()
+
+    def render_root(self, node: SyntaxTreeNode) -> str:
+        html = "\n\n".join([ self.render(n) for n in node.children ])
+        return html
+    
+    def render_text(self, node: SyntaxTreeNode) -> str:
         html = node.content
-    elif node.type == "html_inline":
-        html = node.content
-    elif node.type == "text":
-        html = utils.escape_html(node.content)
-    elif node.type == "code_inline":
-        code = utils.escape_html(node.content)
-        html = f"""<code>{code}</code>"""
-    # Bold text 
-    elif node.type == "strong":
-        inner = "".join([ node_to_html(n) for n in children ])
-        html = f"<strong>{inner}</strong>"
-    # Italic text
-    elif node.type == "em":
-        inner = "".join([ node_to_html(n) for n in children ])
-        html = f"<em>{inner}</em>"
-    # Strikthrough 
-    elif node.type == "s":
-        inner = "".join([ node_to_html(n) for n in children ])
-        html = f"<s>{inner}</s>"
-    elif node.type == "hr":
-        html = "<hr>"
-    elif node.type == "softbreak":
-        # Tag <br>
-        html =  "\n"
-    elif node.type == "hardbreak":
-        # Tag <br>
-        html =  "\n"
-    elif node.type == "code_block":
-        code = utils.escape_html(node.content)
-        html = f"""<pre class="code_block">\n{code}\n</pre>"""
-    elif node.type == "math_inline" or node.type == "math_single":
-        # NOTE: It is processed by MathJax
-        #html = f"""<span class="math-inline">${node.content}$</span>"""
-        html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
-    elif node.type == "inline":
-        html = "".join([ node_to_html(n) for n in children ])
-    elif node.type == "paragraph":
-        inner = "".join([ node_to_html(n) for n in children ])
+        return html 
+
+    def render_softbreak(self, node: SyntaxTreeNode) -> str:
+        return "" 
+
+    def render_hardbreak(self, node: SyntaxTreeNode) -> str:
+        return "" 
+    
+    def render_paragraph(self, node: SyntaxTreeNode) -> str:
+        inner = "".join([ self.render(n) for n in node.children ])
         html = f"""<p>\n{inner}\n</p>"""
-        ## print(" [DEBUG] paragraph = \n", html)
-    elif node.type == "heading":
-        title =  node.children[0].content
-        anchor  = "H_" + title.replace(" ", "_")
-        ## tokens[idx].attrSet("class", "document-heading anchor")
-        ## tokens[idx].attrSet("id", anchor) 
-        value = utils.escape_html(title)
-        link = f"""<a class="link-heading" href="#{anchor}">¶</a>"""
-        html = f"""<{tag} id="{anchor}" class="document-heading anchor">{value} {link}</{tag}>"""
-        ## print(" [TRACE] heading = ", html)
-    elif node.type == "math_block":
-        html = """<div class="math-block anchor"> \n$$\n""" \
-            + utils.escape_html(node.content) + "\n$$\n</div>"
-        ## print(" [TRACE] math_block = \n", html)
-    elif node.type == "blockquote":
-        inner = "\n".join([ node_to_html(n) for n in children ])
+        return html
+
+    def render_inline(self, node: SyntaxTreeNode) -> str:
+        html = "".join([ self.render(n) for n in node.children ])
+        return html 
+
+    def render_strong(self, node: SyntaxTreeNode) -> str:
+        inner = "".join([ self.render(n) for n in node.children ])
+        html = f"<strong>{inner}</strong>"
+        return html 
+
+    def render_em_italic(self, node: SyntaxTreeNode) -> str:
+        inner = "".join([ self.render(n) for n in node.children ])
+        html = f"<em>{inner}</em>"
+        return html
+
+    def render_strikethrough(self, node: SyntaxTreeNode) -> str:
+        inner = "".join([ self.render(n) for n in node.children ])
+        html = f"<s>{inner}</s>"
+        return html        
+
+    def render_heading(self, node: SyntaxTreeNode) -> str:
+        title  = node.children[0].content
+        anchor = "H_" + title.replace(" ", "_")
+        value  = utils.escape_html(title)
+        link   = f"""<a class="link-heading" href="#{anchor}">¶</a>"""
+        tag    = node.tag if hasattr(node, "tag") else ""
+        html   = f"""<{tag} id="{anchor}" class="document-heading anchor">{value} {link}</{tag}>"""
+        return html  
+ 
+    def render_html_inline(self, node: SyntaxTreeNode) -> str:
+        html = node.content
+        return html 
+    
+    def render_html_block(self, node: SyntaxTreeNode) -> str:
+        html = node.content       
+        return html 
+
+    def render_blockquote(self, node: SyntaxTreeNode) -> str:
+        inner = "\n".join([ self.render(n) for n in node.children ])
         # Remove Obsidian tag [!qupte]
         inner = inner.replace("[!quote]", "")
         html  = f"""<blockquote>\n{inner}\n</blockquote>"""
-    elif node.type.startswith("container_"):
-        cond  =  len(children) >= 1 and children[0].type == "paragraph"
-        first = children[0].children[0].content if cond else None 
+        return html 
+
+    def render_math_block(self, node: SyntaxTreeNode) -> str:
+        html = """<div class="math-block anchor"> \n$$\n""" \
+            + utils.escape_html(node.content) + "\n$$\n</div>"
+        return html 
+
+    def render_math_inline(self, node: SyntaxTreeNode) -> str:
+        # NOTE: It is processed by MathJax
+        #html = f"""<span class="math-inline">${node.content}$</span>"""
+        html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
+        return html
+
+    def render_math_single(self, node: SyntaxTreeNode) -> str:
+        # NOTE: It is processed by MathJax
+        #html = f"""<span class="math-inline">${node.content}$</span>"""
+        html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
+        return html 
+
+    def render_wiki_image(self, node: SyntaxTreeNode) -> str:
+        assert node.type == "wiki_image"
+        src = node.content
+        html = f"""<img class="wiki-image anchor" src="/wiki/img/{src}">"""
+        return html
+
+    def render_link(self, node: SyntaxTreeNode) -> str:
+        inner = "".join([ self.render(n) for n in node.children ])
+        href =  node.attrs.get("href") or ""
+        attrs = "" 
+        if href.startswith("#"):
+            attrs = """ class="link-internal" """
+        else:
+            attrs = """ target="_blank" class="link-external" rel="noreferrer noopener nofollow" """
+        html = f"""<a href="{href}" {attrs}>{inner}</a>"""
+        return html
+
+    def render_wikilink_inline(self, node: SyntaxTreeNode) -> str:
+        page = node.content
+        html = f"""<a href="/wiki/{page}" class="link-internal wiki-link">{page}</a>"""
+        return html 
+
+    def render_myst_role(self, node: SyntaxTreeNode) -> str:
+        role = node.meta.get("name", "")
+        content = utils.escape_html(node.content)
+        html = ""
+        ## MyST math role. Exmaple: {math}`f(x) = \sqrt{x^2 - 10x}`
+        if role == "math":
+            html = f"""<span class="math-inline">\\({content}\\)</span>"""
+        # MyST sub role for superscript H{sub}`2`O compiles to H<sub>2</sub>O
+        elif role == "sub":
+            html = f"""<sub>{content}</sub>"""
+        # MyST sub role for superscript 4{sup}`th` compiles to 4<sup>th</sup>O
+        elif role == "sup":
+            html = f"""<sup>{content}</sup>"""
+        else:
+            raise NotImplementedError(f"Rendering MyST role '{role} not implemented yet.")
+        return html
+
+    def render_code_inline(self, node: SyntaxTreeNode) -> str:
+        code = utils.escape_html(node.content)
+        html = f"""<code>{code}</code>"""
+        return html
+
+    def render_code_block(self, node: SyntaxTreeNode) -> str:
+        assert node.type == "code_block"
+        code = utils.escape_html(node.content)
+        html = f"""<pre class="code_block">\n{code}\n</pre>"""
+        return html
+
+    def render_fence(self, node: SyntaxTreeNode) -> str:
+        assert node.tag == "code"
+        info = node.info if node.info != "" else "text" 
+        if info == "{math}":
+            content, directives = get_code_block_directives(node.content)
+            label = f'id="{u}"' if (u := directives.get("label")) else ""
+            html = f"""<div class="math-block anchor" {label} > \n$$\n""" \
+                + utils.escape_html(content) + "\n$$\n</div>"
+        elif info == "{quote}":
+            content, directives = get_code_block_directives(node.content)
+            label = f'id="{u}"' if (u := directives.get("label")) else ""
+            html = f"""<blockquote {label} >\n{utils.escape_html(content)}\n</blockquote>"""
+        # Compatible with Obsidian's pseudo-code plugin
+        elif info == "pseudo" or info == "{pseudo}":
+            content, directives = get_code_block_directives(node.content)
+            label = f'id="{u}"' if (u := directives.get("label")) else ""
+            #content_ = utils.escape_html(content)
+            html = f"""<pre {label} class="pseudocode" >\n{content}\n</pre>\n"""
+        else:
+            code = utils.highlight_code(node.content, language = info)
+            html = f"""<pre>\n<code class="language-{info.strip()}">{code}</code>\n</pre>"""
+        return html
+
+    def render_wiki_text_highlight_inline(self, node: SyntaxTreeNode) -> str:
+        assert node.type == "wiki_text_highlight_inline"
+        inner = "".join([ self.render(n) for n in node.children ])
+        html = f"""<span class="text-highlight">{inner}</span>"""
+        return html 
+    
+    def render_image(self, node: SyntaxTreeNode):
+        assert node.type == "image"
+        src = node.attrs.get("src", "")
+        inner = "".join([ self.render(n) for n in node.children ])
+        html = f"""<img class="external-image anchor" src="{src}" alt="{inner}" >"""
+        return html 
+
+    def render_bullet_list(self, node: SyntaxTreeNode) -> str:
+        inner = "\n".join([ self.render(n) for n in node.children ])
+        html = f"""<ul class="">\n{inner}\n</ul>"""
+        return html 
+
+    def render_ordered_list(self, node: SyntaxTreeNode) -> str:
+        assert node.type == "ordered_list"
+        inner = "\n".join([ self.render(n) for n in node.children ])
+        html = f"""<ol class="anchor">\n{inner}\n</ol>"""
+        return html 
+
+    def render_list_item(self, node: SyntaxTreeNode) -> str:
+        assert node.type == "list_item"
+        if len(node.children) >= 1 and node.children[0].type == "paragraph":
+            first = self.render(node.children[0].children[0])
+            rest = "".join([ self.render(n) for n in node.children[1:] ])
+            inner = first + " " + rest
+        else:
+            inner = "".join([ self.render(n) for n in node.children ])
+        html = f"""<li>\n{inner}\n</li>"""
+        return html
+
+    def render_dl(self, node: SyntaxTreeNode) -> str:
+        assert node.type == "dl"
+        inner = "\n".join([ self.render(n) for n in node.children ])
+        html = f"""<dl class="anchor">\n{inner}\n</dl>"""
+        return html 
+
+    def render_dt(self, node: SyntaxTreeNode) -> str:
+        assert node.type == "dt"
+        inner = "".join([ self.render(n) for n in node.children ])
+        html = f"""<dt class="anchor">{inner}</dt>"""
+        return html
+
+    def render_dd(self, node: SyntaxTreeNode) -> str:
+        assert node.type == "dd"
+        if len(node.children) == 1 and node.children[0].type == "paragraph":
+            inner = self.render(node.children[0].children[0])
+        else:
+            inner = "".join([ self.render(n) for n in node.children ])
+        html = f"""<dd class="anchor">{inner}</dd>"""
+        return html
+
+    def render_table(self, node: SyntaxTreeNode) -> str:
+        assert node.type == "table"
+        inner = "\n ".join([ self.render(n) for n in node.children ])
+        html = f"""\n<table>\n{inner}\n</table>"""
+        return html
+
+    # Table body 
+    def render_tbody(self, node: SyntaxTreeNode) -> str:
+        assert node.type == "tbody"
+        inner = "\n ".join([ self.render(n) for n in node.children ])
+        html = f"""\n<tbody>\n{inner}\n</tbody>"""
+        return html 
+
+    # Table element
+    def render_thead(self, node: SyntaxTreeNode) -> str:
+        assert node.type == "thead"
+        inner = "\n ".join([ self.render(n) for n in node.children ])
+        html = f"""\n<thead>\n{inner}\n</thead>"""
+        return html 
+
+    # Table row
+    def render_tr(self, node: SyntaxTreeNode) -> str:
+        assert node.type == "tr"
+        inner = "\n ".join([ self.render(n) for n in node.children ])
+        html = f"""\n<tr>\n{inner}\n</tr>"""
+        return html 
+
+    # Table element
+    def render_th(self, node: SyntaxTreeNode) -> str:
+        assert node.type == "th"
+        inner = "".join([ self.render(n) for n in node.children ])
+        html = f"""\n<th>{inner}</th>"""
+        return html 
+
+    # Table data
+    def render_td(self, node: SyntaxTreeNode) -> str:
+        assert node.type == "td"
+        inner = "".join([ self.render(n) for n in node.children ])
+        html = f"""\n<td>{inner}</td>"""
+        return html 
+
+    def render_container(self, node: SyntaxTreeNode) -> str:
+        cond  =  len(node.children) >= 1 and node.children[0].type == "paragraph"
+        first = node.children[0].node.children[0].content if cond else None 
         metadata = {}
         if first:
             _, metadata  = get_code_block_directives(first) 
@@ -486,9 +877,9 @@ def node_to_html(node: SyntaxTreeNode):
         attrs =  f""" {label} class="{admonition_type} admonition anchor" {style}""".strip()
         inner = ""
         if metadata == {}:
-            inner = "".join([ node_to_html(n) for n in children ])
+            inner = "".join([ self.render(n) for n in node.children ])
         else:
-            inner = "".join([ node_to_html(n) for n in children[1:] ])
+            inner = "".join([ self.render(n) for n in node.children[1:] ])
         iconsdb = {
               "info": """<img class="admonition-icon" src="/static/icon-info.svg"/> """
             , "note": """<img class="admonition-icon" src="/static/icon-info.svg"/> """
@@ -507,122 +898,23 @@ def node_to_html(node: SyntaxTreeNode):
                     )
         else:
             html = f"""<div {attrs}>{title}{inner}\n</div>"""
-        ##print(" [TRACE] container = \n", html)
-        ##breakpoint()
-    elif node.type == "link":
-        inner = "".join([ node_to_html(n) for n in children ])
-        href =  node.attrs.get("href") or ""
-        attrs = "" 
-        if href.startswith("#"):
-            attrs = """ class="link-internal" """
-        else:
-            attrs = """ target="_blank" class="link-external" rel="noreferrer noopener nofollow" """
-        html = f"""<a href="{href}" {attrs}>{inner}</a>"""
-    elif node.type == "wikilink_inline":
-        page = node.content
-        html = f"""<a href="/wiki/{page}" class="link-internal wiki-link">{page}</a>"""
-    elif node.type == "wiki_text_highlight_inline":
-        text = utils.escape_html(node.content)
-        html = f"""<span class="text-highlight">{text}</span>"""
-    elif node.type == "wiki_image":
-        src = node.content
-        html = f"""<img class="wiki-image anchor" src="/wiki/img/{src}">"""
-    elif node.type == "image":
-        src = node.attrs.get("src", "")
-        inner = "".join([ node_to_html(n) for n in children ])
-        html = f"""<img class="external-image anchor" src="{src}" alt="{inner}" >"""
-        ## breakpoint()
-    # Code block with ```<CODE>```
-    elif node.type == "fence":
-        assert node.tag == "code"
-        info = node.info if node.info != "" else "text" 
-        if info == "{math}":
-            content, directives = get_code_block_directives(node.content)
-            label = f'id="{u}"' if (u := directives.get("label")) else ""
-            html = f"""<div class="math-block anchor" {label} > \n$$\n""" \
-                + utils.escape_html(content) + "\n$$\n</div>"
-        elif info == "{quote}":
-            content, directives = get_code_block_directives(node.content)
-            label = f'id="{u}"' if (u := directives.get("label")) else ""
-            html = f"""<blockquote {label} >\n{utils.escape_html(content)}\n</blockquote>"""
-        # Compatible with Obsidian's pseudo-code plugin
-        elif info == "pseudo" or info == "{pseudo}":
-            content, directives = get_code_block_directives(node.content)
-            label = f'id="{u}"' if (u := directives.get("label")) else ""
-            #content_ = utils.escape_html(content)
-            html = f"""<pre {label} class="pseudocode" >\n{content}\n</pre>\n"""
-        else:
-            code = utils.highlight_code(node.content, language = info)
-            html = f"""<pre>\n<code class="language-{info.strip()}">{code}</code>\n</pre>"""
-    elif node.type == "bullet_list":
-        inner = "\n".join([ node_to_html(n) for n in children ])
-        html = f"""<ul class="">\n{inner}\n</ul>"""
-    elif node.type == "ordered_list":
-        inner = "\n".join([ node_to_html(n) for n in children ])
-        html = f"""<ol class="anchor">\n{inner}\n</ol>"""
-    elif node.type == "list_item":
-        if len(children) >= 1 and children[0].type == "paragraph":
-            first = node_to_html(children[0].children[0])
-            rest = "".join([ node_to_html(n) for n in children[1:] ])
-            inner = first + " " + rest
-        else:
-            inner = "".join([ node_to_html(n) for n in children ])
-        html = f"""<li>\n{inner}\n</li>"""
-    # Definition list <dt>
-    elif node.type == "dl":
-        inner = "\n".join([ node_to_html(n) for n in children ])
-        html = f"""<dl class="anchor">\n{inner}\n</dl>"""
-        ## breakpoint()
-        ## print(" [TRACE] definition list => html = \n", html)
-    elif node.type == "dt":
-        inner = "".join([ node_to_html(n) for n in children ])
-        html = f"""<dt class="anchor">{inner}</dt>"""
-    elif node.type == "dd":
-        if len(children) == 1 and children[0].type == "paragraph":
-            inner = node_to_html(children[0].children[0])
-        else:
-            inner = "".join([ node_to_html(n) for n in children ])
-        html = f"""<dd class="anchor">{inner}</dd>"""
-    elif node.type == "table":
-        inner = "\n ".join([ node_to_html(n) for n in children ])
-        html = f"""\n<table>\n{inner}\n</table>"""
-    # Table body 
-    elif node.type == "tbody":
-        inner = "\n ".join([ node_to_html(n) for n in children ])
-        html = f"""\n<tbody>\n{inner}\n</tbody>"""
-    # Table element
-    elif node.type == "thead":
-        inner = "\n ".join([ node_to_html(n) for n in children ])
-        html = f"""\n<thead>\n{inner}\n</thead>"""
-    # Table row
-    elif node.type == "tr":
-        inner = "\n ".join([ node_to_html(n) for n in children ])
-        html = f"""\n<tr>\n{inner}\n</tr>"""
-    # Table element
-    elif node.type == "th":
-        inner = "".join([ node_to_html(n) for n in children ])
-        html = f"""\n<th>{inner}</th>"""
-    # Table data
-    elif node.type == "td":
-        inner = "".join([ node_to_html(n) for n in children ])
-        html = f"""\n<td>{inner}</td>"""
-    elif node.type == "myst_role":
-        role = node.meta.get("name", "")
-        content = utils.escape_html(node.content)
-        ## MyST math role. Exmaple: {math}`f(x) = \sqrt{x^2 - 10x}`
-        if role == "math":
-            html = f"""<span class="math-inline">\\({content}\\)</span>"""
-        # MyST sub role for superscript H{sub}`2`O compiles to H<sub>2</sub>O
-        elif role == "sub":
-            html = f"""<sub>{content}</sub>"""
-        # MyST sub role for superscript 4{sup}`th` compiles to 4<sup>th</sup>O
-        elif role == "sup":
-            html = f"""<sup>{content}</sup>"""
-        else:
-            raise NotImplementedError(f"Rendering MyST role '{role} not implemented yet.")
-        ##breakpoint()
-    else:
-        ## print(" Note implemented for ", node)
-        ## breakpoint()
-        raise NotImplementedError(f"Not implemented for node of type {node.type} of object {node}")
+        return html
+    
+    def render_footnote_block(self, node: SyntaxTreeNode) -> str:
+        print(" [WARNING] Note implemented html rendering for foot_note_block = ", node)
+        return ""
+
+    def render_footnote_ref(self, node: SyntaxTreeNode) -> str:
+        print(" [WARNING] Note implemented html rendering for foot_note_block = ", node)
+        return ""
+
+    def render_frontmatter(self, node: SyntaxTreeNode) -> str:
+        print(" [WARNING] Frontmatter not renderend to HTML")
+        return "" 
+
+__html_render = HtmlRenderer()
+
+def node_to_html(node: SyntaxTreeNode):
+    html = __html_render.render(node)
     return html
+
