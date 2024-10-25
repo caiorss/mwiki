@@ -9,8 +9,9 @@ import flask_session
 from typing import Tuple, List, Optional
 import datetime
 
-import mwiki.utils as utils
-import mwiki.mparser as mparser 
+from . import utils
+from . import mparser
+from . import render
 
 ## Http Method GET 
 M_GET = "GET" 
@@ -166,7 +167,7 @@ def run_app_server(   host:        str
         root = mparser.make_headings_hierarchy(headings)
         # ## breakpoint()
         toc      = mparser.headings_to_html(root)
-        content  = mparser.pagefile_to_html(mdfile)
+        content  = render.pagefile_to_html(mdfile)
         response = flask.render_template(  "content.html"
                                          , title   = page
                                          , page    = page
