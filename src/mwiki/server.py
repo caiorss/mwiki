@@ -44,7 +44,7 @@ def run_app_server(   host:        str
                     , secret_key:  Optional[str] = None 
                    ):
 
-    APPNAME = "mdwiki"
+    APPNAME = "mwiki"
     session_folder = utils.project_cache_path(APPNAME, "session")
     utils.mkdir(session_folder)
     secret_key = get_secret_key(APPNAME) if secret_key is None else secret_key
@@ -123,6 +123,10 @@ def run_app_server(   host:        str
         resp = flask.send_from_directory(root, filepath)
         return resp
 
+    @app.route("/wiki/math/<file>")
+    def route_wiki_math(file):
+        resp = flask.send_from_directory(render.svg_cache_folder, file)    
+        return resp
 
     rpat = re.compile(r"!\[(.*?)\]\(data:image/(.+?);base64,(.*?)\)")
 
@@ -175,6 +179,7 @@ def run_app_server(   host:        str
                                          , toc     = toc
                                          )
         return response
+
 
     @app.get("/")
     def route_index_page():

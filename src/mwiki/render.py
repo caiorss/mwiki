@@ -227,8 +227,17 @@ class Renderer:
 
 class HtmlRenderer(Renderer):
 
-    def __init__(self):
+    def __init__(self, render_math_svg = False, embed_math_svg = False):
         super().__init__()
+        self._render_math_svg =  render_math_svg  
+        self._embed_math_svg = False
+        self._myst_line_comment_enabled = False
+
+    def enable_render_math_mathjax(self, value):
+        self._render_math_svg = not value
+
+    def enable_render_math_svg(self, value):
+        self._render_math_svg = value 
 
     def render_root(self, node: SyntaxTreeNode) -> str:
         html = "\n\n".join([ self.render(n) for n in node.children ])
@@ -250,11 +259,8 @@ class HtmlRenderer(Renderer):
 
     def render_paragraph(self, node: SyntaxTreeNode) -> str:
         inner = "".join([ self.render(n) for n in node.children ])
-        html = ""
-        if inner != "":
-            html = f"""<p>\n{inner}\n</p>"""
+        html = f"""<p>\n{inner}\n</p>"""
         return html
-
 
     def render_strong(self, node: SyntaxTreeNode) -> str:
         inner = "".join([ self.render(n) for n in node.children ])
@@ -296,20 +302,33 @@ class HtmlRenderer(Renderer):
         return html 
 
     def render_math_block(self, node: SyntaxTreeNode) -> str:
-        html = """<div class="math-block anchor"> \n$$\n""" \
-            + utils.escape_html(node.content) + "\n$$\n</div>"
+        html = ""
+        if self._render_math_svg:
+            html = _latex_to_html(node.content, inline = False)
+        else:
+            html = """<div class="math-block anchor"> \n$$\n""" \
+                 + utils.escape_html(node.content) + "\n$$\n</div>"
         return html 
 
     def render_math_inline(self, node: SyntaxTreeNode) -> str:
         # NOTE: It is processed by MathJax
         #html = f"""<span class="math-inline">${node.content}$</span>"""
-        html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
+        html = ""
+        if self._render_math_svg:
+            html = _latex_to_html(node.content, inline = True)
+        else:
+            html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
         return html
 
     def render_math_single(self, node: SyntaxTreeNode) -> str:
         # NOTE: It is processed by MathJax
         #html = f"""<span class="math-inline">${node.content}$</span>"""
-        html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
+        html = ""
+        if self._render_math_svg:
+            html = _latex_to_html(node.content, inline = True)
+        else:
+            html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
+        ## html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
         return html 
 
     def render_wiki_image(self, node: SyntaxTreeNode) -> str:
@@ -368,8 +387,12 @@ class HtmlRenderer(Renderer):
         if info == "{math}":
             content, directives = mparser.get_code_block_directives(node.content)
             label = f'id="{u}"' if (u := directives.get("label")) else ""
-            html = f"""<div class="math-block anchor" {label} > \n$$\n""" \
-                + utils.escape_html(content) + "\n$$\n</div>"
+            html = ""
+            if self._render_math_svg:
+                html = _latex_to_html(content, inline = False)
+            else:
+                html = f"""<div class="math-block anchor" {label} > \n$$\n""" \
+                    + utils.escape_html(content) + "\n$$\n</div>"
         elif info == "{quote}":
             content, directives = mparser.get_code_block_directives(node.content)
             label = f'id="{u}"' if (u := directives.get("label")) else ""
@@ -484,7 +507,7 @@ class HtmlRenderer(Renderer):
 
     def render_container(self, node: SyntaxTreeNode) -> str:
         cond  =  len(node.children) >= 1 and node.children[0].type == "paragraph"
-        first = node.children[0].node.children[0].content if cond else None 
+        first = node.children[0].children[0].content if cond else None 
         metadata = {}
         if first:
             _, metadata  = mparser.get_code_block_directives(first) 
@@ -551,6 +574,61 @@ class HtmlRenderer(Renderer):
         else:
             html = utils.escape_html(node.content)       
         return html
+
+svg_cache_folder = utils.project_cache_path("mwiki", "svg")
+utils.mkdir(svg_cache_folder)
+
+def _latex_to_svg(eqtex, inline = False):
+    import subprocess
+    args =  ["tex2svg", eqtex ]
+    if inline: args.append("--inline")
+    proc = subprocess.run(args, capture_output=True , text=True)
+    if proc.returncode != 0: 
+        print(f"[WARN] tex2vg failed to process the latex equation:\n{eqtex}")
+    ## breakpoint()
+    output = proc.stdout #.decode("utf-8")
+    return output
+
+def _sha1_hash_string(text: str):
+    import hashlib 
+    data = text.encode("utf-8")
+    hash = hashlib.sha1(data).hexdigest()
+    return hash
+
+
+def _latex_to_html(eqtext, inline = False, embed = False):
+    """Compile LaTeX equations to SVG and store the images in cache folder."""
+    import os
+    import os.path
+    ## if eqtext in self._cache: return self._cache.get(eqtext)
+    eqtext = eqtext.strip()
+    eqhash = _sha1_hash_string(eqtext)
+    svgfile = os.path.join(svg_cache_folder, eqhash) + ".svg"
+    svg = ""
+    if os.path.isfile(svgfile):
+        with open(svgfile, "r") as fd:
+            svg = fd.read()
+    else: 
+        print(f" [TRACE] Compiling equation to {svgfile}\nEquation= \n", eqtext)
+        svg = _latex_to_svg(eqtext, inline)
+        with open(svgfile, "w") as fd:
+            fd.write(svg)
+    html = ""
+    if embed: 
+        html = ""
+        ## html = self._svg2b64_image(  svg
+        ##                            , alt = utils.escape_html(eqtext)
+        ##                            , inline = inline)
+    else:
+        klass = "inline-math" if inline else "math"
+        alt = utils.escape_html(eqtext)
+        svgfile_ = eqhash + ".svg"
+        html = f'<img class="{klass}" src="/wiki/math/{svgfile_}" alt="{alt}" >'
+        if not inline: 
+            html = f"""<div class="math-container">\n{html}\n</div>"""
+            ## print(" [DEBUG] math html = ", html)
+    return html 
+
 
 __html_render = HtmlRenderer( render_math_svg = True)
 
