@@ -7,9 +7,31 @@
     <title>MdWiki - {{title}}</title>
     <link rel="stylesheet" href="/static/style.css">
     {% block style %}{% endblock %}
+    <script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\\[','\\]']],
+            processEscapes: true,
+            processEnvironments: true,
+        }
+    }
+    </script>
+    <!-- 
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>
+        -->
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml-full.js"
+        integrity="sha256-kbAFUDxdHwlYv01zraGjvjNZayxKtdoiJ38bDTFJtaQ="
+        crossorigin="anonymous">
+</script>
+
+    <!-- Pseudocode.js - Render LaTeX pseudocode code blocks.-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js"> </script>
+
     <script type="text/javascript" src="/static/main.js"></script>
+
 </head>
 
 <body>
@@ -46,7 +68,9 @@
             {% endblock %}
         </div>
     </div>
-
+    <script>
+            pseudocode.renderClass("pseudocode", { "lineNumber": 1 });
+    </script>
 </body>
 
 </html>
