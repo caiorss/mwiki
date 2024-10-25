@@ -99,6 +99,16 @@ span.search-highlight  {
     background-color: lightsalmon;
 }
 
+.content p {
+    margin-block-start: 5px !important;
+    margin-block-end: 5px !important;
+}
+
+pre {
+    margin-top: 10px     !important;
+    margin-bottom: 10px  !important;
+}
+
 /** Definition List **/
 dl {
     /** background-color: aliceblue; */
