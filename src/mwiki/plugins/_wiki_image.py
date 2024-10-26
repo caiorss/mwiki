@@ -156,8 +156,10 @@ rules: dict[str, dict[str, list[RuleDictType]]] = {
            {
                 
                  "name": "wiki_image"
-               , "rex": re.compile(r"!\[\[(.+)\]\]", re.M)
-               , "tmpl": """<img src="/wiki/img/{0}" class="wiki-image" />"""
+               #, "rex":  re.compile(r"!\[\[(.+)\]\]", re.M)
+               #, "rex": re.compile(r"!\[\[ *(.+?) *\| *(.+?) *\]\]") 
+               , "rex":  re.compile(r'!\[\[\s*(.+?)\s*(\|\s*(.+?))?\s*\]\]')
+               , "tmpl": r"""<img src="/wiki/img/\1" class="wiki-image" alt="\2"  />"""
                , "tag": "![["
             } 
         ]
