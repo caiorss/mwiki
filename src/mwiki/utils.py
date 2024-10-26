@@ -1,3 +1,4 @@
+from importlib.resources import Package
 import os
 import sys
 import re
@@ -159,7 +160,7 @@ def file_project_cache_dir_exists(project: str, file: str, fpath: str = "") -> b
     out = os.path.isfile(pfile)
     return out 
 
-def read_resource(module, resource_file: str) -> str:
+def read_resource(module: Package, resource_file: str) -> str:
     """Read resource file packaged with a given module."""
     import importlib.resources
     data = ""

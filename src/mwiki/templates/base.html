@@ -64,6 +64,11 @@
 
         <div class="content">
             <h1 class="document-heading">{{title}}</h1>
+            <p class="hidden-mathjax-macros" style="display: none;">
+                $$
+                {{ latex_macros }}
+                $$
+            </p>
             {% block content %}
             {% endblock %}
         </div>

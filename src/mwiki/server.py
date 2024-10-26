@@ -8,7 +8,7 @@ from flask import Flask, request, session
 import flask_session
 from typing import Tuple, List, Optional
 import datetime
-
+import mwiki 
 from . import utils
 from . import mparser
 from . import render
@@ -18,6 +18,7 @@ M_GET = "GET"
 # Http Method Post
 M_POST = "POST"
 
+utils.read_resource
 
 
 def run_app_server(   host:        str
@@ -141,6 +142,8 @@ def run_app_server(   host:        str
                                      , content = content)
         return html
 
+    ## Latex Macros to be Injected in Page Template
+    latex_macros = utils.read_resource(mwiki, "macros.sty")
 
     @app.route("/wiki/<page>")
     @check_login
@@ -157,11 +160,13 @@ def run_app_server(   host:        str
         # ## breakpoint()
         toc      = mparser.headings_to_html(root)
         content  = render.pagefile_to_html(mdfile)
+        ## print(" [TRACE] Macros = \n", latex_macros)
         response = flask.render_template(  "content.html"
                                          , title   = page
                                          , page    = page
                                          , content = content
                                          , toc     = toc
+                                         , latex_macros = latex_macros
                                          )
         return response
 
