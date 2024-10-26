@@ -1,4 +1,5 @@
 import os
+import sys
 from mwiki.server import run_app_server
 import mwiki.utils as utils
 import tomli 
@@ -6,6 +7,15 @@ from pprint import pprint
 from typing import Optional, Tuple, List 
 import click
 ## from click.decorators import commmand 
+
+
+def debughook(etype, value, tb):
+    import pdb
+    import traceback
+    traceback.print_exception(etype, value, tb)
+    print() # make a new line before launching post-mortem
+    pdb.pm() # post-mortem debugger
+
 
 @click.group()
 def cli1():
@@ -32,8 +42,23 @@ def cli1():
                         "running the server and loading its settings from the file."))
 @click.option("-s", "--secret-key", default = None, 
                 help = ( "Secret key of flask application." ))
-def server(host: str, port: int, debug: bool, login: str, wikipath: str, random_ssl: bool, config, secret_key: Optional[str]):
+@click.option("--pdb", is_flag = True, 
+                help = ( "Enable post-mortem debugger." ))
+def server(  host: str
+           , port: int
+           , debug: bool
+           , login: str
+           , wikipath: str
+           , random_ssl: bool
+           , config
+           , secret_key: Optional[str]
+           , pdb: bool
+           ):
     _login = None  
+
+    if pdb:
+        print("[INFO] Enabled Post-mortem debugger.")
+        sys.excepthook = debughook
 
     if config is not None:
         if not os.path.isfile(config):
