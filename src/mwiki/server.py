@@ -18,22 +18,7 @@ M_GET = "GET"
 # Http Method Post
 M_POST = "POST"
 
-def get_secret_key(appname: str) -> str:
-    KEYFILE = "appkey"
-    fkey =  utils.project_data_path(appname, KEYFILE)
-    secret_key = ""
-    # Generate secret key and store it in file within
-    # the application data directory if the file 
-    # does not exist yet.
-    if not os.path.isfile(fkey):
-        secret_key = secrets.token_hex(16)
-        with utils.open_project_data_dir(appname, KEYFILE, "w") as fd:
-            fd.write(secret_key)
-    else:
-        with open(fkey, "r") as fd:
-            secret_key = fd.read()
-            ##print(" [TRACE] secret_key = ", secret_key)
-    return secret_key
+
 
 def run_app_server(   host:        str
                     , port:        int
@@ -202,6 +187,22 @@ def run_app_server(   host:        str
     else:
         app.run(host = host, port = port, debug = debug)
 
+def get_secret_key(appname: str) -> str:
+    KEYFILE = "appkey"
+    fkey =  utils.project_data_path(appname, KEYFILE)
+    secret_key = ""
+    # Generate secret key and store it in file within
+    # the application data directory if the file 
+    # does not exist yet.
+    if not os.path.isfile(fkey):
+        secret_key = secrets.token_hex(16)
+        with utils.open_project_data_dir(appname, KEYFILE, "w") as fd:
+            fd.write(secret_key)
+    else:
+        with open(fkey, "r") as fd:
+            secret_key = fd.read()
+            ##print(" [TRACE] secret_key = ", secret_key)
+    return secret_key
 
 def add_login(app: Flask, do_login: bool, username: str, password: str):
     """Create login form routes for a single user account
