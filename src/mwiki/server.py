@@ -115,7 +115,7 @@ def run_app_server(   host:        str
 
     rpat = re.compile(r"!\[(.*?)\]\(data:image/(.+?);base64,(.*?)\)")
 
-    def replacement_(m: re.Match[str]) -> str:
+    def replacement_(m: re.Match) -> str:
         img = m.group(3)[:200] + "..."
         out = f"![{m.group(1)}](data:image/{m.group(2)};base64,{img})"
         return out
