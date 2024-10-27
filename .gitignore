@@ -27,3 +27,6 @@ notes/*.md
 *.zip
 *.egg 
 *.whl
+*.log
+*.aux 
+*.pdf 
