@@ -366,7 +366,7 @@ img.admonition-icon {
 @media (min-width: 600px)
 {
 
-    img {
+    .wiki-image, .external-image {
         max-width: 50%;
     }
 
@@ -470,10 +470,11 @@ img.admonition-icon {
     }
 
     img.math {
-        transform: scale(0.6);
+        transform: scale(0.8); 
         margin-left: 0px;
-        padding-bottom: 10px;
-        margin: -20px !important;
+        /* padding-bottom: 10px;  */
+        margin-top: 5px !important;
+        /* margin: -20px !important; */
 
         /** Debug */
         /* background-color: gray; */

@@ -1,8 +1,32 @@
+import glob
 from markdown_it.tree import SyntaxTreeNode
-
+import os 
+import tempfile
+import subprocess
 from . import utils
 from . import mparser
 
+class TempDirectory:
+
+    def __init__(self):
+        self._prev = ""
+        self._tempdir = None
+
+    def name(self):
+        out = self._tempdir.name
+        return out 
+
+    def __enter__(self):
+        self._prev = os.getcwd()
+        self._tempdir = tempfile.TemporaryDirectory()
+        path = self._tempdir.name 
+        os.chdir(path)
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        os.chdir(self._prev)
+        self._tempdir.cleanup()
+        return False
 
 class Renderer:
     """Renderer abstract class providing a framework for concrete renderers classes.
@@ -334,7 +358,7 @@ class HtmlRenderer(Renderer):
     def render_wiki_image(self, node: SyntaxTreeNode) -> str:
         assert node.type == "wiki_image"
         src = node.content
-        html = f"""<img class="wiki-image anchor" src="/wiki/img/{src}">"""
+        html = f"""<img class="wiki-image anchor" src="/wiki/img/{src}  ">"""
         return html
 
     def render_link(self, node: SyntaxTreeNode) -> str:
@@ -580,16 +604,160 @@ class HtmlRenderer(Renderer):
 svg_cache_folder = utils.project_cache_path("mwiki", "svg")
 utils.mkdir(svg_cache_folder)
 
-def _latex_to_svg(eqtex, inline = False):
-    import subprocess
-    args =  ["tex2svg", eqtex ]
-    if inline: args.append("--inline")
-    proc = subprocess.run(args, capture_output=True , text=True)
-    if proc.returncode != 0: 
-        print(f"[WARN] tex2vg failed to process the latex equation:\n{eqtex}")
-    ## breakpoint()
-    output = proc.stdout #.decode("utf-8")
-    return output
+##def _latex_to_svg(eqtex, inline = False):
+##    import subprocess
+##    args =  ["tex2svg", eqtex ]
+##    if inline: args.append("--inline")
+##    proc = subprocess.run(args, capture_output=True , text=True)
+##    if proc.returncode != 0: 
+##        print(f"[WARN] tex2vg failed to process the latex equation:\n{eqtex}")
+##    ## breakpoint()
+##    output = proc.stdout #.decode("utf-8")
+##    return output
+
+_latex_template = r"""
+\documentclass[12pt]{article}
+\usepackage[paperwidth=12in, paperheight=12in]{geometry}
+\pagestyle{empty}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{cancel}
+\usepackage{algcompatible}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+%% \usepackage{algorithmic}
+\definecolor{darkred}{rgb}{0.6,0,0}
+\definecolor{darkgreen}{rgb}{0,0.6,0}
+\definecolor{darkblue}{rgb}{0,0,0.6}
+\definecolor{amber}{rgb}{0.9,0.6,0}
+\usepackage{amsmath}
+\usepackage{unicode-math}
+
+ %% --- Begin Fonts Section --------%%
+\setmainfont[Ligatures=TeX]{TeX Gyre Pagella}
+\setmathfont{TeX Gyre Pagella Math}
+
+ %% --- Macros ----------%%
+
+\newcommand{\To}{ {\textbf{to}} } 
+ 
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator*{\argmax}{\mathrm{\arg\,max}\,}
+\DeclareMathOperator*{\argmin}{\mathrm{\arg\,min}\,}
+
+\begin{document}
+{{math}}
+\end{document}
+""".strip()
+
+def _latex_to_svg(latex: str, inline = False) -> str:
+    """Compile Latex code or document to SVG images.
+    This function abstract away the process of compiling 
+    LaTeX, aka TeX, formulas to SVG images and returns 
+    the SVG XML code.
+
+    In order to this piece of code work, it is necessary 
+    to installl Xelatex, pdfcrop and pdf2svg external executable.
+    In Debian or Ubuntu-derivate Linux distributions, these 
+    dependencies can be installed by using the following set
+    of commands:
+
+    ```sh
+    $ sudo apt-get install -y texlive-extra-utils texlive-science
+    $ sudo apt-get install -y pdf2svg
+    ```
+    """
+    # Replace tabs by 4 spaces 
+    code = latex
+    code = code.replace("\t", "   ")
+    # Remove empty lines
+    code = "\n".join([x for x in code.splitlines() if x.strip() != '']).strip()
+    code = ( code
+                .replace(r"\begin{align}", r"\begin{split}") 
+                .replace(r"\end{align}", r"\end{split}") 
+                .replace(r"\begin{equation}", r"") 
+                .replace(r"\end{equation}", r"") 
+                .replace(r"\begin{equation*}", r"") 
+                .replace(r"\end{equation*}", r"") 
+                .replace(r"\begin{eqnarray}", r"\begin{split}") 
+                .replace(r"\end{eqnarray}", r"\end{split}") 
+                .replace(r"\begin{eqnarray*}", r"\begin{split}") 
+                .replace(r"\end{eqnarray*}", r"\end{split}") 
+                # Remove MathJax \require{cancel}
+                .replace(r"\require{cancel}", "")
+                # .replace(r"\begin{equation}", r"\[") 
+                # .replace(r"\end{equation}", r"\]") 
+                # .replace(r"\begin{equation*}", r"\[") 
+                # .replace(r"\end{equation*}", r"\]") 
+                .strip()
+            )
+    # Remove empty lines
+    code = "\n".join([x for x in code.splitlines() if x.strip() != '']).strip()
+    print(" [TRACE] code = \n", code)
+    if inline:
+        code = code.strip("$")
+        if code != r"\LaTeX": 
+            code = f"${code}$"
+    else:
+        if not code.startswith(r"\begin{align}") \
+           and not code.startswith(r"\begin{align*}")\
+           and not code.startswith(r"\begin{algorithm}"):
+            # and not code.startswith(r"\begin{split}"):
+            code = "\\[\n" + code + "\n\\]"
+    tex  = _latex_template.replace("{{math}}", code)
+    # breakpoint()
+    print(" [TRACE] texfile = \n", tex)
+    BASEFILE = "input"
+    TEXFILE  = BASEFILE + ".tex"
+    PDFFILE  = BASEFILE + ".pdf"
+    CROP_PDFILE = BASEFILE + "-crop.pdf"
+    SVGFILE     = BASEFILE + ".svg"
+    ### print(" [TRACE] tex = ", tex)
+    svg = ""
+    with TempDirectory() as d:
+        ## breakpoint()
+        print(" [TRACE] within directory ", d.name())
+        with open(TEXFILE, "w") as fd:
+            fd.write(tex)
+        print(" [INFO] Compiling with xelatex")
+        proc = subprocess.run([  "xelatex"
+                               , "-output-directory=."
+                               , "-interaction=batchmode"
+                              # , "-no-console"
+                               , TEXFILE]
+                               , capture_output=True , text=True)
+        print(" [TRACE] proc = ", proc)
+        ## breakpoint()
+        if proc.returncode != 0:
+            print(" [ERROR] Failed to compile latex formula ", latex)
+            print(" [ERROR] stderr = ", proc.stderr)
+            log = ""
+            with open("input.log", "r") as fd:
+                log = fd.read()
+            print(f" [ERROR LOG FILE] input.log = \n{log}\n")
+            ## breakpoint()
+            return proc.stderr
+        assert os.path.isfile(PDFFILE)
+        proc = subprocess.run([  "pdfcrop" , PDFFILE ]
+                               , capture_output=True , text=True)
+        print(" [INFO] Croping PDF .... ")
+        if proc.returncode != 0:
+            print(f" [ERROR] Failed to crop pdf of latex formula:\n{latex}")
+            return ""
+        assert os.path.isfile(CROP_PDFILE)
+        print(" [INFO] Turnin PDF into SVG .... ")
+        proc = subprocess.run([ "pdf2svg" , CROP_PDFILE, SVGFILE ]
+                               , capture_output=True , text=True)
+        if proc.returncode != 0:
+            print(f" [ERROR] Failed to turn pdf of latex formula into SVG. => \n{latex}")
+            return ""
+        with open(SVGFILE, "r") as fd:
+            svg = fd.read()
+        ##breakpoint()
+    print(" [TRACE] Current directory after exit = ", os.getcwd())
+    if svg == "": 
+        print(" [ERROR] failed to compile latex = ", latex)
+        ## breakpoint()
+    return svg  
 
 def _sha1_hash_string(text: str):
     import hashlib 
@@ -598,7 +766,39 @@ def _sha1_hash_string(text: str):
     return hash
 
 
+def _get_image_file_from_latex(eqtext, inline = False, embed = False):
+    """Get unique image file file name of latex formula.
+    The file name is computed as the hash of the latex formula.
+    """
+    import os
+    import os.path
+    ## if eqtext in self._cache: return self._cache.get(eqtext)
+    eqtext = eqtext.strip()
+    hash =  _sha1_hash_string(eqtext)
+    svgfile = hash + ".svg"
+    #  svgfile = os.path.join(svg_cache_folder, eqhash) + ".svg"
+    return hash, svgfile
+
 def _latex_to_html(eqtext, inline = False, embed = False):
+    eqhash, svgfile_ = _get_image_file_from_latex(eqtext, inline, embed) 
+    html = ""
+    if embed: 
+        html = ""
+        ## html = self._svg2b64_image(  svg
+        ##                            , alt = utils.escape_html(eqtext)
+        ##                            , inline = inline)
+    else:
+        klass = "inline-math" if inline else "math"
+        alt = utils.escape_html(eqtext)
+        html = f"""<a href="#{eqhash}"><img id="{eqhash}" class="{klass} anchor" src="/wiki/math/{svgfile_}" alt="{alt}" loading="lazy" ></a>"""
+        ## html = f'<img class="{klass}" src="/wiki/math/{svgfile_}" alt="{alt}" loading="lazy" >'
+        if not inline: 
+            html = f"""<div class="math-container">\n{html}\n</div>"""
+            ## print(" [DEBUG] math html = ", html)
+    return html 
+    
+
+def _latex_to_html2(eqtext, inline = False, embed = False):
     """Compile LaTeX equations to SVG and store the images in cache folder."""
     import os
     import os.path
@@ -610,9 +810,14 @@ def _latex_to_html(eqtext, inline = False, embed = False):
     if os.path.isfile(svgfile):
         with open(svgfile, "r") as fd:
             svg = fd.read()
-    else: 
-        print(f" [TRACE] Compiling equation to {svgfile}\nEquation= \n", eqtext)
+    # The condition svg == "" tries to compile latex to SVG file again 
+    # if the variable svg is set to an empty string, which indicates
+    # that the last compilation failed.
+    ## breakpoint()
+    if not os.path.isfile(svgfile) or svg == "": 
+        print(f"\n[TRACE] Compiling equation to {svgfile}\nEquation= \n", eqtext)
         svg = _latex_to_svg(eqtext, inline)
+        print("\n\n--------------------------------------")
         with open(svgfile, "w") as fd:
             fd.write(svg)
     html = ""
@@ -625,23 +830,109 @@ def _latex_to_html(eqtext, inline = False, embed = False):
         klass = "inline-math" if inline else "math"
         alt = utils.escape_html(eqtext)
         svgfile_ = eqhash + ".svg"
-        html = f'<img class="{klass}" src="/wiki/math/{svgfile_}" alt="{alt}" >'
+        html = f"""<a href="#{eqhash}"><img id="{eqhash}" class="{klass}" src="/wiki/math/{svgfile_}" alt="{alt}" loading="lazy" ></a>"""
         if not inline: 
             html = f"""<div class="math-container">\n{html}\n</div>"""
             ## print(" [DEBUG] math html = ", html)
     return html 
 
 
-__html_render = HtmlRenderer( render_math_svg = False)
+__html_render = HtmlRenderer( render_math_svg = True)
 
 def node_to_html(node: SyntaxTreeNode):
     html = __html_render.render(node)
     return html
 
 def pagefile_to_html(pagefile: str):
+    import re
     with open(pagefile) as fd:
         source: str = fd.read()
+        ## source = re.sub(r"^$$", "\n$$", source) 
         tokens = mparser.MdParser.parse(source)
         ast    = SyntaxTreeNode(tokens)
         html    = node_to_html(ast)
         return html
+
+def compile_pagefile_(pagefile: str):
+    with open(pagefile) as fd:
+        source: str = fd.read()
+        ## source = re.sub(r"^$$", "\n$$", source) 
+        tokens = mparser.MdParser.parse(source)
+        ast    = SyntaxTreeNode(tokens)
+        print(" [*] Comiling File: ", pagefile)
+        # Get generator object to iterate over the AST
+        # (Abstract Syntax Tree nods)
+        gen = ast.walk()
+        while True:
+            node = next(gen, None)
+            if node is None: break
+            if node.type == "math_block":
+                _latex_to_html2(node.content, inline = False)
+            elif node.type == "math_inline" \
+                or node.type == "math_single":
+                 _latex_to_html2(node.content, inline = True)
+            # Code block ```{math} ... ```
+            elif node.type == "fence":
+                assert node.tag == "code"
+                info = node.info if node.info != "" else "text" 
+                if info == "{math}":
+                    content, directives = mparser.get_code_block_directives(node.content)
+                    #label = f'id="{u}"' if (u := directives.get("label")) else ""
+                    _latex_to_html2(content, inline = False)
+
+        print(" [*]  Compilation Finished => File: ", pagefile)
+        print("\n\n-------------------------------------------")
+
+# Parallelb compilation with multiprocess 
+def get_latex_expressions(pagefile: str):
+    with open(pagefile) as fd:
+        source: str = fd.read()
+        ## source = re.sub(r"^$$", "\n$$", source) 
+        tokens = mparser.MdParser.parse(source)
+        ast    = SyntaxTreeNode(tokens)
+        # Get generator object to iterate over the AST
+        # (Abstract Syntax Tree nods)
+        gen = ast.walk()
+        mathblocks = []
+        while True:
+            node = next(gen, None)
+            if node is None: break
+            if node.type == "math_block":
+                x = (node.content, False)
+                mathblocks.append(x)
+            elif node.type == "math_inline" \
+                or node.type == "math_single":
+                x = (node.content, True)
+                mathblocks.append(x)
+            # Code block ```{math} ... ```
+            elif node.type == "fence":
+                assert node.tag == "code"
+                info = node.info if node.info != "" else "text" 
+                if info == "{math}":
+                    content, directives = mparser.get_code_block_directives(node.content)
+                    #label = f'id="{u}"' if (u := directives.get("label")) else ""
+                    x = (content, False)
+                    mathblocks.append(x)
+        return mathblocks
+
+def compile_(x):
+    out = _latex_to_html2(x[0], x[1])
+    return out
+
+def compile_pagefile(pagefile: str):
+    import multiprocessing
+    print(" [*] Comiling File: ", pagefile)
+    equations = get_latex_expressions(pagefile)
+    with multiprocessing.Pool(6) as p:
+        p.map(compile_, equations) 
+    print(" [*]  Compilation Finished => File: ", pagefile)
+    print("\n\n-------------------------------------------")
+        
+
+def compile_folder(path_to_folder: str):
+    pattern = os.path.join(path_to_folder, "*.md")
+    files = glob.glob(pattern)
+    print(" [***] Compiling Latex Formulas of Folder: ", path_to_folder)
+    for f in files:
+        compile_pagefile(f)
+    print(" [***] Total Compilation Finished")
