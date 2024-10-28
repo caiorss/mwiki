@@ -1,5 +1,6 @@
 import os
 import re
+import pathlib
 import secrets
 ## from bottle import route, run
 ## from bottle import static_file, route, auth_basic, request
@@ -69,18 +70,20 @@ def run_app_server(   host:        str
     def route_pages():
         query = (request.args.get("search") or "").strip()
         highlight =  f"#:~:text={ utils.escape_url(query) }" if query != "" else ""
+        # Get all pages in directories and subdirectories in a recursively way
+        files_ = pathlib.Path(BASE_PATH).rglob("*.md")
         files = []
         if query == "":
-            files = [f for f in os.listdir(BASE_PATH) if f.endswith(".md")]
+            files = [f for f in files_ ]
         else:
-            files = [f for f in os.listdir(BASE_PATH) if f.endswith(".md") \
-                        and utils.file_contains(os.path.join(BASE_PATH, f), query)]
+            files = [f for f in files_ 
+                        if utils.file_contains(str(f), query) ]
                      ##and utils.file_contains(os.path.join(BASE_PATH, f), query)]
-        sorted_files = sorted(files)
-        page_to_file = lambda f:  os.path.join(BASE_PATH, f) # + ".md"
+        sorted_files = sorted(files, key = lambda x: x.name)
+        page_to_file = lambda f:  str(f) ##os.path.join(BASE_PATH, f) # + ".md"
         MAX_LEN = 200
-        pages = [  {    "name": f.split(".")[0] 
-                      , "src":  f 
+        pages = [  {    "name": f.name.split(".")[0] 
+                     # , "src":  f 
                       , "matches": [ lin[:MAX_LEN] + " ..." 
                                     if len(lin) > MAX_LEN else lin  
                                         for (n, lin) in  utils.grep_file(page_to_file(f), query)  ] \
@@ -145,30 +148,54 @@ def run_app_server(   host:        str
     ## Latex Macros to be Injected in Page Template
     latex_macros = utils.read_resource(mwiki, "macros.sty")
 
-    @app.route("/wiki/<page>")
+    base_path = pathlib.Path(BASE_PATH)
+
+    @app.route("/wiki/<path>")
     @check_login
-    def route_wiki_page(page):
-        mdfile = os.path.join(BASE_PATH, page + ".md")
-        # ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
-        if not os.path.exists(mdfile):
-              return f"<h1>404 PAGE NOT FOUND: {page}</h1>"
-        headings = []
-        with open(mdfile) as fd:
-            inp = fd.read()
-            headings = mparser.get_headings(inp)
-        root = mparser.make_headings_hierarchy(headings)
-        # ## breakpoint()
-        toc      = mparser.headings_to_html(root)
-        content  = render.pagefile_to_html(mdfile)
-        ## print(" [TRACE] Macros = \n", latex_macros)
-        response = flask.render_template(  "content.html"
-                                         , title   = page
-                                         , page    = page
-                                         , content = content
-                                         , toc     = toc
-                                         , latex_macros = latex_macros
-                                         )
-        return response
+    def route_wiki_page(path: str):
+        # path does not have exntension, it is just the name
+        # of the mdfile without any extension
+        if "." not in path:
+            mdfile_ = path + ".md"
+            print(f" [TRACE] mdfile_ = {mdfile_} ; base_path = {base_path}")
+            matches = list(base_path.rglob(mdfile_))
+            print(" [TRACE] matches = ", matches)
+            # ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
+            if len(matches) == 0:
+                flask.abort(404) 
+            mdfile = str(matches[0])
+            headings = []
+            with open(mdfile) as fd:
+                inp = fd.read()
+                headings = mparser.get_headings(inp)
+            root = mparser.make_headings_hierarchy(headings)
+            # ## breakpoint()
+            toc      = mparser.headings_to_html(root)
+            content  = render.pagefile_to_html(mdfile)
+            ## print(" [TRACE] Macros = \n", latex_macros)
+            response = flask.render_template(  "content.html"
+                                             , title   = path
+                                             , page    = path
+                                             , content = content
+                                             , toc     = toc
+                                             , latex_macros = latex_macros
+                                             )
+            return response
+        ## breakpoint()
+        # Dont' show source code of markdown file
+        if path.endswith(".md"):
+            flask.abort(404)
+        # Seach file in any directory in basepath recursively 
+        # In the future this code can be optimized using some sort 
+        # of caching or search index for speeding up 
+        # the response.
+        match: Optional[pathlib.Path] = next(base_path.rglob(path), None)
+        if not match:
+            flask.abort(404)
+        relpath = match.relative_to(base_path)
+        resp = flask.send_from_directory(BASE_PATH, relpath)
+        return resp 
+        # Attempt to server static file 
 
 
     @app.get("/")
