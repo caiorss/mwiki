@@ -373,8 +373,26 @@ class HtmlRenderer(Renderer):
         return html
 
     def render_wikilink_inline(self, node: SyntaxTreeNode) -> str:
-        page = node.content
-        html = f"""<a href="/wiki/{page}" class="link-internal wiki-link">{page}</a>"""
+        href = ""
+        label = ""
+        if "." not in node.content:
+            href = node.content
+            label = href
+        else:
+            x = node.content.split("|")
+            if len(x) == 1:
+                href = x[0].strip()
+                label = x[0].strip()
+            elif len(x) == 2:
+                href = x[0].strip()
+                label = x[1].strip()
+        html = ""
+        if "." not in href:
+            # In this case href refers to a Wiki page (has no extension)
+            html = f"""<a href="/wiki/{href}" class="link-internal wiki-link">{label}</a>"""
+        else:
+            # In this case href refers to some file, that is opened in a new tab 
+            html = f"""<a href="/wiki/{href}" target="_blank" class="link-internal wiki-link">{label}</a>"""
         return html 
 
     def render_myst_role(self, node: SyntaxTreeNode) -> str:
