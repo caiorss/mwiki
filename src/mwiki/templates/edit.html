@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block topbar_buttons %}
+    <a  class="sidebar-toggle-button" 
+        href="/wiki/{{page}}" 
+        title="Got to corresponding page of this source code.">Page</a>
+    <a  class="sidebar-toggle-button" 
+        href="/source/{{page}}" 
+        title="Display source code of current page.">Source</a>
+{% endblock %}
+
+{% block jslibs %}
+{% endblock %}
+
+{% block style %}
+
+<style type="text/css" media="screen">
+
+
+/** For desktop systems */
+@media (min-width: 600px)
+{
+    #editor { 
+        position: absolute;
+        display: block;
+        width: 80%;
+        height: 70%;
+        font-size: 14pt;
+        /* top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0; */
+    }
+}
+
+/** For desktop systems */
+@media (max-width: 600px)
+{
+    #editor { 
+        position: absolute;
+        display: block;
+        width: 90%;
+        height: 80%;
+        font-size: 8pt;
+        /* top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0; */
+    }
+}
+
+
+
+
+</style>
+{% endblock %}
+
+{% block toc  %}
+{% endblock %}
+
+{% block content %}
+<strong>Editing page:</strong> {{page}}
+<button onclick="save_document();">Save</button>
+<br>Status: <label id="status-info">Not saved</label>
+
+<div id="editor">{{content}} </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.3/ace.js" integrity="sha512-l13f2Dlet80LPHc8rVTtou5W/g57iXICo6ejbKXNyQeTIhFxb4STvoJSaV7kFK/tmrIRIN4caTlpH6lxondKJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.3/keybinding-vscode.min.js" integrity="sha512-sALdRE8skRaHi5dri3ejsaAQb1NCbkiBMSUI/IWJQYMzA7k/VvlJ5JLOX3n88OG2S+zEcqeJlaX7GZOeLXyYlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.3/ext-beautify.min.js" integrity="sha512-uXfi0GwpQZcHIhGOMMHeNYtBSjt7qDXjXHmjShWSp+RWMSmjdy69N7M/pufinvQLv6rSYlpbSXqSnLRzWE952w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.3/ext-command_bar.min.js" integrity="sha512-AqFRkdjhllaERDJ3vD8myi6aKTX2dJxqAZ7uTB0mjBd1+YFUoQKcIRpTU0+b5jzkKU7M8gO9vLbmJb0kcRR+XQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.3/ext-inline_autocomplete.min.js" integrity="sha512-StLvTHZa8ZUJvQFRdA+rKevfMqZwkGcdAabg13cCy/Gx3sc+7aTTTNJzc/nCZwJlWYhOskpBq0bw5uX3KAWJnA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.3/ext-searchbox.min.js" integrity="sha512-nKqGxQVBui0VGf73E6lxK8JcMOiiQFJyoC7vb1FEhFXooBhJ6sU6yUqfkO0i+mVBlsthwiGWWQrSjCRhXd/Gfg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.3/keybinding-vim.min.js" integrity="sha512-C7YjfQmi4h4DPvLet9RJKxsMRY216RlotJh4HK+PM6/4V/R538srcwHpCRgjSA1UZ3qFDCtLiIKHEy83kvMAQQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.3/keybinding-vscode.min.js" integrity="sha512-sALdRE8skRaHi5dri3ejsaAQb1NCbkiBMSUI/IWJQYMzA7k/VvlJ5JLOX3n88OG2S+zEcqeJlaX7GZOeLXyYlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.3/mode-markdown.min.js" integrity="sha512-6POKArs6bJW5Stg2VlGSlx1mEy/BRwaUk5xuhZVqts4cwKLHjO3i3OD3yPasDlMGEFDLN5RbP0UuBMllqhU2xw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    let editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/markdown");
+    // Enable VIM keybindings
+    editor.setKeyboardHandler("ace/keyboard/vim");
+    let page = "{{page}}";
+
+    editor.setOptions({
+          selectionStyle:     "line"  // "line" | "text"
+        , highlightActiveLine: true   // boolean 
+        , readOnly:            false  // 
+        , cursorStyle:        "ace"
+        , showFoldWidgets:     true
+        , showLineNumbers:     false  
+        , theme:               'ace/theme/textmate'
+        , useSoftTabs:         true 
+        , wrap:                true 
+        , indentSoftWrap:      true 
+        , foldStyle:          'markbegin'
+
+    });
+
+    editor.getSession().setUseWrapMode(true)
+    editor.getSession().setWrapLimitRange(60, 60);
+
+
+    async function save_document()
+    {
+        let code  = editor.getValue();
+        // console.log("Current page ", page);
+        // console.log("Editor content = \n", code);
+        let payload = { "content": code };
+        let out = await http_post(document.URL, payload);
+        console.log(" [RESULT] of saving operation = ", out)
+        let status = out["status"];
+        let statusbar = document.querySelector("#status-info");
+        if(status == "ok"){
+            statusbar.textContent = "Document saved ok.";
+        } else {
+            console.log("Status Error = ", out);
+            statusbar.textContent = "Failed to save document."
+        }
+    }
+
+    async function http_post(url, body) 
+    {
+        let headers =  {  'Content-Type':     'application/json'
+                        , 'X-Requested-With': 'XMLHttpRequest'
+                       // , 'X-CSRFToken': crfs_token
+                        };
+        const res = await fetch(url, { "method": "POST"
+                                        , "headers": headers 
+                                        , body: JSON.stringify(body) })
+                                .catch(networkErrorHandler)
+                                ;
+        let result = await res.json();
+        return result;
+    }
+
+    function networkErrorHandler(err){
+        console.warn("Network error ", err);
+        let response = new Response(JSON.stringify({
+               status: "error"
+            ,  message: "Failed to reach server. A network error happenned."
+        }));
+        return response;
+    }
+
+</script>
+{% endblock %}
+

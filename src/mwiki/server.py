@@ -7,7 +7,7 @@ import secrets
 import flask 
 from flask import Flask, request, session
 import flask_session
-from typing import Tuple, List, Optional
+from typing import Any, Tuple, List, Optional
 import datetime
 import mwiki 
 from . import utils
@@ -157,9 +157,9 @@ def run_app_server(   host:        str
         # of the mdfile without any extension
         if "." not in path:
             mdfile_ = path + ".md"
-            print(f" [TRACE] mdfile_ = {mdfile_} ; base_path = {base_path}")
+            ##print(f" [TRACE] mdfile_ = {mdfile_} ; base_path = {base_path}")
             matches = list(base_path.rglob(mdfile_))
-            print(" [TRACE] matches = ", matches)
+            ## print(" [TRACE] matches = ", matches)
             # ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
             if len(matches) == 0:
                 flask.abort(404) 
@@ -197,6 +197,34 @@ def run_app_server(   host:        str
         return resp 
         # Attempt to server static file 
 
+
+    @app.route("/edit/<path>", methods = [M_GET, M_POST])
+    @check_login
+    def route_edit_page(path: str):
+        mdfile_ = path + ".md"
+        match = next(base_path.rglob(mdfile_), None)
+        if request.method == M_GET:
+            if not match:
+                flask.abort(404) 
+            content = match.read_text() 
+            ## print(" [TRACE] content = ", content)
+            resp = flask.render_template(  "edit.html"
+                                         , title = f"Edit page: {path}", 
+                                         page = path, content = content)
+            return resp
+        assert request.method == M_POST
+        data: dict[str, Any] = request.get_json()
+        content = data.get("content", "") 
+        out = {}
+        if not match:
+            out = { "status": "error", "error": "Page not found." }
+        elif not isinstance(content, str):
+            out = { "status": "error", "error": "Invalid input. Expected text. " }
+        else:
+            match.write_text(content)                    
+            out = { "status": "ok", "error": "" }
+        resp = flask.jsonify(out)
+        return resp
 
     @app.get("/")
     def route_index_page():
