@@ -6,6 +6,9 @@
             <div class="div-page-info">
                 <h4><a class="link-internal" href="/wiki/{{ p.name }}">{{ p.name }}</a> </h4>
                 
+                <a href="/edit/{{p.name}}" class="link-internal" title="Edit page markdown">Edit</a>
+                <a href="/source/{{p.name}}" class="link-internal" title="View page source in read-only-mode">Source</a>
+                
                 {% if p.metadata.description %}
                 <div class="page-description">  
                     {{ p.metadata.description }}
