@@ -23,7 +23,7 @@
     #editor { 
         position: absolute;
         display: block;
-        width: 80%;
+        width: 100%;
         height: 70%;
         font-size: 14pt;
         /* top: 0;
@@ -78,7 +78,6 @@
     editor.setTheme("ace/theme/monokai");
     editor.session.setMode("ace/mode/markdown");
     // Enable VIM keybindings
-    editor.setKeyboardHandler("ace/keyboard/vim");
     let page = "{{page}}";
 
     editor.setOptions({
@@ -99,6 +98,15 @@
     editor.getSession().setUseWrapMode(true)
     editor.getSession().setWrapLimitRange(60, 60);
 
+    /** Vim Emulation */
+    editor.setKeyboardHandler("ace/keyboard/vim");
+    ace.config.loadModule("ace/keyboard/vim", function(m) {
+    var VimApi = require("ace/keyboard/vim").CodeMirror.Vim
+    VimApi.defineEx("write", "w", function(cm, input) {
+        // cm.ace.execCommand("save")
+        save_document();
+    })
+})
 
     async function save_document()
     {
