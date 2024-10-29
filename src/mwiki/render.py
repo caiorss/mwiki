@@ -433,18 +433,26 @@ class HtmlRenderer(Renderer):
             if self._render_math_svg:
                 html = _latex_to_html(content, inline = False)
             else:
-                html = f"""<div class="math-block anchor" {label} > \n$$\n""" \
-                    + utils.escape_html(content) + "\n$$\n</div>"
-        elif info == "{quote}":
-            content, directives = mparser.get_code_block_directives(node.content)
-            label = f'id="{u}"' if (u := directives.get("label")) else ""
-            html = f"""<blockquote {label} >\n{utils.escape_html(content)}\n</blockquote>"""
+                # Algorithm code block 
+                if content.strip().startswith(r"\begin{algorithm}"):
+                    content, directives = mparser.get_code_block_directives(node.content)
+                    label = f'id="{u}"' if (u := directives.get("label")) else ""
+                    #content_ = utils.escape_html(content)
+                    html = f"""<pre {label} class="pseudocode" >\n{content}\n</pre>\n"""
+                # MathJS/Latex Code Block 
+                else:
+                    html = f"""<div class="math-block anchor" {label} > \n$$\n""" \
+                        + utils.escape_html(content) + "\n$$\n</div>"
         # Compatible with Obsidian's pseudo-code plugin
         elif info == "pseudo" or info == "{pseudo}":
             content, directives = mparser.get_code_block_directives(node.content)
             label = f'id="{u}"' if (u := directives.get("label")) else ""
             #content_ = utils.escape_html(content)
             html = f"""<pre {label} class="pseudocode" >\n{content}\n</pre>\n"""
+        elif info == "{quote}":
+            content, directives = mparser.get_code_block_directives(node.content)
+            label = f'id="{u}"' if (u := directives.get("label")) else ""
+            html = f"""<blockquote {label} >\n{utils.escape_html(content)}\n</blockquote>"""
         else:
             code = utils.highlight_code(node.content, language = info)
             html = f"""<pre>\n<code class="language-{info.strip()}">{code}</code>\n</pre>"""
