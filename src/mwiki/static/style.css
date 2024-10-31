@@ -20,6 +20,37 @@
     src: url('/static/computer-modern-bold.ttf');
 }
 
+/** Font that brins the nostalgia of typewriter machines */
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-weight: normal;
+  font-style: normal;
+  src: url('/static/IBM-Plex-Mono-normal.ttf');
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-weight: normal;
+  font-style:  italic;
+  src: url('/static/IBM-Plex-Mono-italic.ttf');
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-weight: bold;
+  font-style:  normal;
+  src: url('/static/IBM-Plex-Mono-bold.ttf');
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-weight: bold;
+  font-style:  italic;
+  src: url('/static/IBM-Plex-Mono-bold-italic.ttf');
+}
+
+
+
 :root {
     /* --bg-sidebar: #F2EACA; */  /* #F7F4ED; */
     --bg-sidebar: white;  /* #F7F4ED; */
@@ -160,6 +191,8 @@ span.search-highlight  {
 pre {
     margin-top: 10px     !important;
     margin-bottom: 10px  !important;
+    font-family: "IBM Plex Mono" !important;
+    line-height: initial;
 }
 
 /** Definition List **/
@@ -519,7 +552,7 @@ img.admonition-icon {
 
 .highlight {
     background-color: lightyellow;
-    font-family: monospace;
+    font-family: "IBM Plex Mono";
     font-size: 10px;
     margin: 0px 1px;
     padding: 0px 2px;
@@ -531,7 +564,7 @@ img.admonition-icon {
 .source-code {
     background-color: lightyellow;
     display: block;
-    font-family: monospace;
+    font-family:  "IBM Plex Mono";
     font-size: 10px;
     margin: 0px 1px;
     padding: 0px 2px;
