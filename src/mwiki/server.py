@@ -124,24 +124,26 @@ def run_app_server(   host:        str
         out = f"![{m.group(1)}](data:image/{m.group(2)};base64,{img})"
         return out
 
-    @app.route("/source/<page>")
+    @app.route("/source/<path>")
     @check_login
-    def route_wiki_source(page):
-        mdfile = os.path.join(BASE_PATH, page + ".md")
+    def route_wiki_source(path):
+        mdfile_ = path + ".md"
+        match = next(base_path.rglob(mdfile_), None)
+        if request.method == M_GET:
+            if not match:
+                flask.abort(404) 
         ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
-        if not os.path.exists(mdfile):
-             return f"<h1>404 SOURCE NOT FOUND: {page}</h1>"
-        src = ""
-        with open(mdfile) as fd:
-            src = fd.read()
+        if not match.exists(): 
+            flask.abort() 
+        src = match.read_text()
         src = re.sub(rpat, replacement_, src)
         ## src = utils.escape_html(src)
         content = utils.highlight_code(src, "markdown")
         ## content = f"<pre>\n{src}\n</pre>" 
         ## html = mparser.fill_template(f"Source of '{page}.md'", content, toc = "", query = "")
         html = flask.render_template("source.html"
-                                     , page = page 
-                                     , title = f"Source: {page}"
+                                     , page = path 
+                                     , title = f"Source: {path}"
                                      , content = content)
         return html
 
