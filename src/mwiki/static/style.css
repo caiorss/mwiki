@@ -125,6 +125,10 @@ a.link-internal {
     color: green;
 }
 
+a.link-internal-missing {
+    color: #b31d28;
+}
+
 a.link-toc {
     color: blue;
 }

@@ -99,6 +99,11 @@ class Renderer:
         match = next(self._base_path.rglob(mdfile_), None)
         return match 
 
+    def note_exist(self, name: str) -> bool:
+        path = self.find_note(name)
+        out = path is not None
+        return out
+
     def render_note(self, name: str) -> Optional[str]:
         """Render note file, given its name"""
         p = self.find_note(name)
@@ -275,8 +280,8 @@ class Renderer:
 
 class HtmlRenderer(Renderer):
 
-    def __init__(self, render_math_svg = False, embed_math_svg = False):
-        super().__init__()
+    def __init__(self, render_math_svg = False, embed_math_svg = False, base_path: str = ""):
+        super().__init__(base_path = base_path)
         self._render_math_svg =  render_math_svg  
         self._embed_math_svg = False
         self._myst_line_comment_enabled = False
@@ -330,7 +335,15 @@ class HtmlRenderer(Renderer):
         anchor = "H_" + title.replace(" ", "_")
         value  = utils.escape_html(title)
         link   = f"""<a class="link-heading" href="#{anchor}">¶</a>"""
-        tag    = node.tag if hasattr(node, "tag") else ""
+        # h1 => 1, h2 => 2, ..., h6 => 6
+        tag = ""
+        if self._embed_page:
+            heading_level = int(node.tag.strip("h"))
+            tag = f"h{heading_level + 1}"
+            ## print(" [TRACE] embed tag = ", tag, " title = ", title)
+        else:
+            tag = node.tag if hasattr(node, "tag") else ""
+        ## breakpoint()
         html   = f"""<{tag} id="{anchor}" class="document-heading anchor">{value} {link}</{tag}>"""
         return html  
  
@@ -342,20 +355,43 @@ class HtmlRenderer(Renderer):
         html = node.content       
         return html 
 
-    def render_blockquote(self, node: SyntaxTreeNode) -> str:
+    def _render_blockquote(self, node: SyntaxTreeNode) -> str:
         inner = "\n".join([ self.render(n) for n in node.children ])
         # Remove Obsidian tag [!qupte]
         inner = inner.replace("[!quote]", "")
         html  = f"""<blockquote>\n{inner}\n</blockquote>"""
         return html 
 
+    def render_blockquote(self, node: SyntaxTreeNode) -> str:
+        html = ""
+        if len(node.children) == 0:
+            html =  self._render_blockquote(node)
+            return html 
+        tag = node.children[0].children[0].children[0].content.strip() 
+        if tag.startswith("[!note]") or tag.startswith("![example]+") or tag == "[!info]" or tag == "[!tip]" or tag == "[!def]" or tag == "![proof]":
+            admonition_title = "".join([ self.render(x) 
+                                        for x in node.children[0].children[0].children[1:]])
+            rest = node.children[1:]
+            ## breakpoint()
+            content = "\n".join([ self.render(x) for x in rest])
+            html = f"""<div class="note admonition anchor">
+                         <span class="admonition-title">{admonition_title}</span>
+                         <div>
+                         {content}
+                         </div>
+                    </div> """
+            return html
+        html =  self._render_blockquote(node)
+        return html 
+
     def render_math_block(self, node: SyntaxTreeNode) -> str:
         html = ""
+        content = node.content.replace("\n>", "")
         if self._render_math_svg:
-            html = _latex_to_html(node.content, inline = False)
+            html = _latex_to_html(content, inline = False)
         else:
             html = """<div class="math-block anchor"> \n$$\n""" \
-                 + utils.escape_html(node.content) + "\n$$\n</div>"
+                 + utils.escape_html(content) + "\n$$\n</div>"
         return html 
 
     def render_math_inline(self, node: SyntaxTreeNode) -> str:
@@ -419,12 +455,15 @@ class HtmlRenderer(Renderer):
                 href = x[0].strip()
                 label = x[1].strip()
         html = ""
+        href_ = utils.escape_url(f"/wiki/{href}")
         if "." not in href:
-            # In this case href refers to a Wiki page (has no extension)
-            html = f"""<a href="/wiki/{href}" class="link-internal wiki-link">{label}</a>"""
+            note_exists =  self.note_exist(href)
+            class_name = "link-internal" if note_exists else "link-internal-missing"
+            # In this case, href refers to a Wiki page (has no extension)
+            html = f"""<a href="{href_}" class="{class_name} wiki-link">{label}</a>"""
         else:
-            # In this case href refers to some file, that is opened in a new tab 
-            html = f"""<a href="/wiki/{href}" target="_blank" class="link-internal wiki-link">{label}</a>"""
+            # In this case, href refers to some file, that is opened in a new tab 
+            html = f"""<a href="{href_}" target="_blank" class="link-internal wiki-link">{label}</a>"""
         return html 
 
     def render_myst_role(self, node: SyntaxTreeNode) -> str:
