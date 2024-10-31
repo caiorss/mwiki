@@ -55,7 +55,7 @@ class Renderer:
             , "link":                       self.render_link
             , "wikilink_inline":            self.render_wikilink_inline
             , "wiki_text_highlight_inline": self.render_wiki_text_highlight_inline
-            , "wiki_image":                 self.render_wiki_image 
+            , "wiki_embed":                 self.render_wiki_embed 
             # Code block 
             , "code_block":                 self.render_code_block
             , "fence":                      self.render_fence 
@@ -174,7 +174,7 @@ class Renderer:
     def render_image(self, node: SyntaxTreeNode):
         raise NotImplementedError()
 
-    def render_wiki_image(self, node: SyntaxTreeNode) -> str:
+    def render_wiki_embed(self, node: SyntaxTreeNode) -> str:
         raise NotImplementedError()
 
     def render_code_block(self, node: SyntaxTreeNode) -> str:
@@ -355,8 +355,8 @@ class HtmlRenderer(Renderer):
         ## html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
         return html 
 
-    def render_wiki_image(self, node: SyntaxTreeNode) -> str:
-        assert node.type == "wiki_image"
+    def render_wiki_embed(self, node: SyntaxTreeNode) -> str:
+        assert node.type == "wiki_embed"
         src = node.content
         html = f"""<img class="wiki-image anchor" src="/wiki/img/{src}  ">"""
         return html

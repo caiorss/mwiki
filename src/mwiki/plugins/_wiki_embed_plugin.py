@@ -27,10 +27,10 @@ if TYPE_CHECKING:
 
 ### print(" [TRACE Loading Wikilinks Plugin]")
 
-RULE_NAME = "wimage"
+RULE_NAME = "wembed"
 MAIN_DELIMITER = "double_square_brackets_bang"
 
-def wiki_image_plugin(
+def wiki_embed_plugin(
     md: MarkdownIt, delimiters: str = MAIN_DELIMITER, macros: Any = None
 ) -> None:
     """Wiki image plugin - implements Wikimedia's ![[picture.png]] syntax for showing some image. 
@@ -155,7 +155,7 @@ rules: dict[str, dict[str, list[RuleDictType]]] = {
         "inline": [
            {
                 
-                 "name": "wiki_image"
+                 "name": "wiki_embed"
                #, "rex":  re.compile(r"!\[\[(.+)\]\]", re.M)
                #, "rex": re.compile(r"!\[\[ *(.+?) *\| *(.+?) *\]\]") 
                , "rex":  re.compile(r'!\[\[\s*(.+?)\s*(\|\s*(.+?))?\s*\]\]')

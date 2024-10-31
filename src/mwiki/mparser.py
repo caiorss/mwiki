@@ -59,7 +59,7 @@ MdParser = (
     .use(myst_block_plugin)
     .use(myst_role_plugin)
     .use(mwiki.plugins.wiki_text_highlight_plugin)
-    .use(mwiki.plugins.wiki_image_plugin)
+    .use(mwiki.plugins.wiki_embed_plugin)
     .use(mwiki.plugins.wiki_link_plugin)
    # .use(fieldlist_plugin)
     .enable('table')
