@@ -1,9 +1,42 @@
+/* LaTeX Font created by Donald Knuth. */
+@font-face {
+    font-family: 'Computer Modern';
+    font-style: normal;
+    font-weight: normal;
+    src: url('/static/computer-modern-normal.ttf');
+}
+
+@font-face {
+    font-family: 'Computer Modern';
+    font-style: italic;
+    font-weight: normal;
+    src: url('/static/computer-modern-italic.ttf');
+}
+
+@font-face {
+    font-family: 'Computer Modern';
+    font-style: bold;
+    font-weight: bold;
+    src: url('/static/computer-modern-bold.ttf');
+}
+
 :root {
-    --bg-sidebar: #F2EACA;  /* #F7F4ED; */
-    --bg-main:   #F2EACA ;
+    /* --bg-sidebar: #F2EACA; */  /* #F7F4ED; */
+    --bg-sidebar: white;  /* #F7F4ED; */
+    /* --bg-main:   #F2EACA ; */
+    --bg-main: white;
     --typography-main-line-height: 1.7em;
     --typography-main-leter-spacing: 0.5px;
     --screen-type: "desktop";
+    --link-external-color: blue; /* hsl(0, 100%, 33%); */
+    --link-internal-color: blue;
+}
+
+body {
+    color: #544832;
+    background-color: var(--bg-main);
+    scroll-padding-top: 60px;
+    font-family: 'Computer Modern';
 }
 
 h1 { 
@@ -31,11 +64,7 @@ h4 {
     display:     block;        
 }
 
-body {
-    color: #544832;
-    background-color: var(--bg-main);
-    scroll-padding-top: 60px;
-}
+
 
 .anchor {
 	padding-top: 100px;
@@ -47,12 +76,12 @@ body {
 }
 
 a.link-external {
-    color: hsl(0, 100%, 33%);
+    color: var(--link-external-color);
     word-wrap: break-word;
 }
 
 a.link-sidebar {
-    color: hsl(0, 100%, 33%);
+    color:  var(--link-external-color); 
     word-wrap: break-word;
 }
 
@@ -273,7 +302,8 @@ table {
 }
 
 .div-page-info {
-  background: #FFFFE0;
+  /* background: #FFFFE0; */
+  background: #eef5f2;
   margin: 10px;
   margin-top: 2px;
   padding: 5px;
