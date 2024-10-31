@@ -216,38 +216,56 @@ def highlight_code(code: str, language: str, verbose: bool = False) -> str:
             ## resut = err, _code
     return result 
 
-def file_contains(fileName: str, query: str, opt = "exact") -> bool:
+def normalize_text(text: str) -> str:
+    """Remove accents, such as ú or ç for making searching easier."""
+    out = (text 
+                .replace("ã", "a")
+                .replace("á", "a")
+                .replace("à", "a")
+                .replace("â", "a")
+                .replace("ó", "o")
+                .replace("ô", "o")
+                .replace("í", "i")
+                .replace("é", "e")
+                .replace("ê", "e")
+                .replace("ú", "u")
+                .replace("ç", "c")
+            )
+    return out
+
+def file_contains(fileName: str, query: str, opt = "and_all") -> bool:
     """Check whether a file (full path) contains a queyr string.
     Returns true if file contains a query string.
     NOTE: This function is case-indepedent.
     """
     with open(fileName) as fd:
         result = False
-        query = query.lower()
+        query = normalize_text(query.lower())
         # Split whitespace
         queries = query.split()
-        queries_ = queries.copy()
+        queries_ = [normalize_text(q) for q in queries.copy()]
         # WARNING: Never read the whole file to memory, becasue
         # if the file is 1 GB, then 1 GB memory will be consumed,
         # what can case OOM (Out-Of-Memory) issues and slow down
         # the server.
         while line := fd.readline():
+            line_ = normalize_text(line.lower())
             # Ignore case
-            if opt == "exact" and query in line.lower():
+            if opt == "exact" and query in line_ :
                 result = True
                 break
             # (OR) Returns true if is the file contains at
             # at least one word of the query.
             elif opt == "or_all":
                 for q in queries:
-                    if q in line.lower():
+                    if q in line_: 
                         result = True
                         break
             # (AND) Returns treu if the file contains all words
             # from the input query
             elif opt == "and_all":
                 for q in queries:
-                    if q in line.lower() and q in queries_:
+                    if q in line_ and q in queries_:
                         queries_.remove(q)
                 if len(queries_) == 0:
                     result = True
@@ -256,13 +274,19 @@ def file_contains(fileName: str, query: str, opt = "exact") -> bool:
 
 def grep_file(fileName: str, query: str) -> List[str]:
     """Return lines of a file that contains a given query string."""
-    query = query.lower()
+    query = normalize_text(query.lower())
+    queries = [normalize_text(q) for q in query.split()]
     lines = []
     n = 1
     with open(fileName) as fd:
         while line := fd.readline():
-            if query in line.lower():
-                lines.append((n, line))
+            line_ = normalize_text(line.lower())
+            for q in queries:
+                if q in line_: 
+                    lines.append((n, line))
+            n += 1
+            # if query in normalize_text(line.lower()):
+            #     lines.append((n, line))
             n += 1
     return lines  
 
