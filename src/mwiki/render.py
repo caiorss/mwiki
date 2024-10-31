@@ -1,4 +1,6 @@
 import glob
+import pathlib
+from typing import Optional
 from markdown_it.tree import SyntaxTreeNode
 import os 
 import tempfile
@@ -34,7 +36,10 @@ class Renderer:
     including html and LaTeX/PDF renderers.     
     """
 
-    def __init__(self):
+    def __init__(self, base_path = "", embed_page = False):
+        # Path to the notes repository
+        self._base_path: pathlib.Path = pathlib.Path(base_path)
+        self._embed_page: bool = embed_page
         self._handlers = {
               "root":                       self.render_root
             , "text":                       self.render_text
@@ -88,6 +93,25 @@ class Renderer:
             , "footnote_block":             self.render_footnote_block
         }
     
+    def find_note(self, name: str) -> Optional[pathlib.Path]:
+        """Find path to note file, given its name."""
+        mdfile_ = name + ".md"
+        match = next(self._base_path.rglob(mdfile_), None)
+        return match 
+
+    def render_note(self, name: str) -> Optional[str]:
+        """Render note file, given its name"""
+        p = self.find_note(name)
+        if not p: return None 
+        if not p.is_file(): return None 
+        source = p.read_text()
+        tokens = mparser.MdParser.parse(source)
+        ast    = SyntaxTreeNode(tokens)       
+        self._embed_page = True 
+        html = self.render(ast)
+        self._embed_page = False
+        return html
+
     def render(self, node: SyntaxTreeNode) -> str:
         handler = self._handlers.get(node.type)
         result = ""
@@ -358,7 +382,15 @@ class HtmlRenderer(Renderer):
     def render_wiki_embed(self, node: SyntaxTreeNode) -> str:
         assert node.type == "wiki_embed"
         src = node.content
-        html = f"""<img class="wiki-image anchor" src="/wiki/img/{src}  ">"""
+        html = ""
+        if "." not in src:
+            note_name = src 
+            href = utils.escape_url(f"/wiki/{note_name}")
+            html_ = f"""<hr>Embedded note: <a class="link-internal" href="{href}">{note_name}</a>  """
+            html = html_ + self.render_note(note_name) or ""
+            ## print(" [TRACE] html = ", html)
+        else:
+            html = f"""<img class="wiki-image anchor" src="/wiki/img/{src}  ">"""
         return html
 
     def render_link(self, node: SyntaxTreeNode) -> str:
@@ -863,20 +895,19 @@ def _latex_to_html2(eqtext, inline = False, embed = False):
     return html 
 
 
-__html_render = HtmlRenderer( render_math_svg = False)
-
-def node_to_html(node: SyntaxTreeNode):
+def node_to_html(node: SyntaxTreeNode, base_path: str):
+    __html_render = HtmlRenderer( render_math_svg = False, base_path = base_path)
     html = __html_render.render(node)
     return html
 
-def pagefile_to_html(pagefile: str):
+def pagefile_to_html(pagefile: str, base_path: str):
     import re
     with open(pagefile) as fd:
         source: str = fd.read()
         ## source = re.sub(r"^$$", "\n$$", source) 
         tokens = mparser.MdParser.parse(source)
         ast    = SyntaxTreeNode(tokens)
-        html    = node_to_html(ast)
+        html    = node_to_html(ast, base_path = base_path)
         return html
 
 def compile_pagefile_(pagefile: str):

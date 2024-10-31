@@ -173,7 +173,7 @@ def run_app_server(   host:        str
             root = mparser.make_headings_hierarchy(headings)
             # ## breakpoint()
             toc      = mparser.headings_to_html(root)
-            content  = render.pagefile_to_html(mdfile)
+            content  = render.pagefile_to_html(mdfile, base_path = BASE_PATH)
             ## print(" [TRACE] Macros = \n", latex_macros)
             response = flask.render_template(  "content.html"
                                              , title   = path
