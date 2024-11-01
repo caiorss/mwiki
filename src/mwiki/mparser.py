@@ -58,6 +58,7 @@ MdParser = (
 	.use(container_plugin, name = "{theorem}")
     .use(myst_block_plugin)
     .use(myst_role_plugin)
+    .use(mwiki.plugins.wiki_tag_plugin)
     .use(mwiki.plugins.wiki_text_highlight_plugin)
     .use(mwiki.plugins.wiki_embed_plugin)
     .use(mwiki.plugins.wiki_link_plugin)

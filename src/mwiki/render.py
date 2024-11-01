@@ -91,6 +91,7 @@ class Renderer:
             # Footnotes 
             , "footnote_ref":               self.render_footnote_ref
             , "footnote_block":             self.render_footnote_block
+            , "wiki_tag_inline":            self.render_wiki_tag_inline
         }
     
     def find_note(self, name: str) -> Optional[pathlib.Path]:
@@ -276,6 +277,9 @@ class Renderer:
         raise NotImplementedError()
 
     def render_footnote_ref(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_wiki_tag_inline(self, node: SyntaxTreeNode) -> str:
         raise NotImplementedError()
 
 class HtmlRenderer(Renderer):
@@ -697,6 +701,12 @@ class HtmlRenderer(Renderer):
         else:
             html = utils.escape_html(node.content)       
         return html
+
+    def render_wiki_tag_inline(self, node: SyntaxTreeNode) -> str:
+        url = f"/pages?search={node.content}".replace("#", "%23")
+        html = f"""<a href="{url}" class="link-internal">{node.content}</a> """ 
+        return html
+
 
 svg_cache_folder = utils.project_cache_path("mwiki", "svg")
 utils.mkdir(svg_cache_folder)
