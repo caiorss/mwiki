@@ -199,6 +199,30 @@ def run_app_server(   host:        str
         return resp 
         # Attempt to server static file 
 
+    @app.route("/api/wiki/<path>", methods = [M_GET, M_POST])
+    @check_login
+    def api_wiki(path: str):
+        mdfile_ = path + ".md"
+        p: Optional[pathlib.Path] = next(base_path.rglob(mdfile_), None)
+        if request.method == M_GET:
+            if not p:
+                flask.abort(404)
+            content = p.read_text()
+            out = flask.jsonify({ "status": "ok", "error": "", "content": content })
+            return out
+        elif request.method == M_POST:
+            out = ""
+            ## breakpoint()
+            if p: 
+                out = flask.jsonify({ "status": "error", "error": "Note already exists"})
+            else: 
+                p_ = base_path.joinpath(mdfile_)
+                p_.touch()    
+                out = flask.jsonify({ "status": "ok", "error": ""})
+            return out
+        else:
+            flask.abort(405)
+
 
     @app.route("/edit/<path>", methods = [M_GET, M_POST])
     @check_login

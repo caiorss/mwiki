@@ -428,6 +428,24 @@ img.admonition-icon {
     width: 100%;
 }
 
+.btn-window-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    margin: 10x;
+    background: none;
+    border: none;
+    font-weight: bolder;
+}
+
+.window-title {
+    top: 0px;
+    left: 0px;
+    margin: 10px;
+    position: absolute;
+    display: contents;
+    background: #6a737d;
+}
 
 /** For desktop systems */
 @media (min-width: 600px)
@@ -467,6 +485,15 @@ img.admonition-icon {
     :root{
         --screen-type: desktop;
     }
+
+
+    .popup-window {
+        max-height: 30%;
+        max-width: 25%;
+        top: 10px;
+        left: 20px;
+    }
+
 
 
 }
@@ -546,6 +573,18 @@ img.admonition-icon {
         /** Debug */
         /* background-color: gray; */
     }
+
+    .popup-window {
+        max-height: 50% !important;
+        max-width: 80% !important;
+        top: 10px !important;
+        left: 20px !important;
+    }
+
+    .popup-window label {
+        padding: 5px;
+    }
+
 
 }
 
