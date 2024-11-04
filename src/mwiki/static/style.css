@@ -501,6 +501,13 @@ img.admonition-icon {
 /** For mobile devices with small screen */
 @media (max-width: 600px)
 {
+    .content {
+        font-size: 14px !important;
+    }
+
+    .table {
+        font-size: 8pt;
+    }
 
    .highlight {
         margin-bottom: -30px !important;
