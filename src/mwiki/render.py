@@ -349,6 +349,9 @@ class HtmlRenderer(Renderer):
             tag = node.tag if hasattr(node, "tag") else ""
         ## breakpoint()
         html   = f"""<{tag} id="{anchor}" class="document-heading anchor">{value} {link}</{tag}>"""
+        # Add horizontal line below heading if it is h2.
+        if tag == "h2":
+            html += "\n<hr>\n"
         return html  
  
     def render_html_inline(self, node: SyntaxTreeNode) -> str:
