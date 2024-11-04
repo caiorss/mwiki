@@ -40,6 +40,10 @@ class Renderer:
         # Path to the notes repository
         self._base_path: pathlib.Path = pathlib.Path(base_path)
         self._embed_page: bool = embed_page
+        self._count_h1 = 0
+        self._count_h2 = 0
+        self._count_h3 = 0
+        self._count_h4 = 0
         self._handlers = {
               "root":                       self.render_root
             , "text":                       self.render_text
@@ -335,6 +339,8 @@ class HtmlRenderer(Renderer):
         return html        
 
     def render_heading(self, node: SyntaxTreeNode) -> str:
+        """Render markdown heading #, ## ... to html heading <h1>, <h2> and etc.       
+        """
         title  = node.children[0].content
         anchor = "H_" + title.replace(" ", "_")
         value  = utils.escape_html(title)
@@ -347,6 +353,18 @@ class HtmlRenderer(Renderer):
             ## print(" [TRACE] embed tag = ", tag, " title = ", title)
         else:
             tag = node.tag if hasattr(node, "tag") else ""
+        ## Add automatic enumeration to headings 
+        if tag == "h2":
+            self._count_h2 += 1
+            self._count_h3 = 0
+            value = f"{self._count_h2} {value}"
+        elif tag == "h3":
+            self._count_h3 += 1
+            self._count_h4 = 0
+            value = f"{self._count_h2}.{self._count_h3} {value}"
+        elif tag == "h4":
+            self._count_h4 += 1
+            value = f"{self._count_h2}.{self._count_h3}.{self._count_h4} {value}"
         ## breakpoint()
         html   = f"""<{tag} id="{anchor}" class="document-heading anchor">{value} {link}</{tag}>"""
         # Add horizontal line below heading if it is h2.
