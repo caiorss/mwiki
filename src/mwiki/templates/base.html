@@ -8,15 +8,28 @@
     <title>MWiki - {{title}}</title>
     <link rel="stylesheet" href="/static/style.css">
     {% block style %}{% endblock %}
+    <!-- MathJax Settings -->
     <script>
     MathJax = {
         tex: {
-            inlineMath: [['$','$'], ['\\(','\\)']],
-            displayMath: [['$$','$$'], ['\\[','\\]']],
-            processEscapes: true,
-            processEnvironments: true,
+              inlineMath: [['$','$'], ['\\(','\\)']]
+            , displayMath: [['$$','$$'], ['\\[','\\]']]
+            , processEscapes: true
+            , processEnvironments: true
+            // Possible values: 
+            //   tags: "ams" only enumerate \begin{equation} ... 
+            //   tags: "all" enumerate all block expressions between $$...$$
+            // 
+            // If all equations are enumerated use \notag or \nonumber LaTeX
+            // tags, in order to not display the equation number. 
+            , tags: "all"
+        }
+        , chtml: {
+            displayAlign: "left"
         }
     }
+
+
     </script>
     <!-- 
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
