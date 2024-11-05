@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block topbar_buttons %}
+    <a  class="sidebar-toggle-button" 
+        href="/source/{{page}}" 
+        title="Display source code of current page.">Source</a>
+    <a  class="sidebar-toggle-button" 
+        href="/edit/{{page}}" 
+        title="Edit markdown page">Edit</a>
+{% endblock %}
+
+{% block toc  %}
+    {{ toc|safe }}
+{% endblock %}
+
+{% block content %}
+    <h1>Create new page</h1>
+
+    
+
+    <hr>
+
+    <form action="/create/{{pagename}}" method="POST">
+        <!--
+        <div class="field">
+            <label for="page">Page</label>
+            <input type="type" name="page" value="{{pagename}}" placeholder="Enter page/note name" />
+        </div>
+        -->
+        <p> The page <strong>'{{pagename}}'</strong> does not 
+            exist yet, would you like to create it?
+        </p>
+        <fieldset>
+            <legend>Create new page:</legend>
+            <div class="field">
+                <p>
+                <label for="label">Label (Optional)</label>
+                <input type="text" name="label" pattern="^\S+$" placeholder="Enter the page label (unique-identifier, whithout whitespaces)" />
+                </p>
+            </div>
+                <p>
+                <label for="description">Description (Optional)</label>
+                <input type="text" name="description" placeholder="Enter page/note description" />
+                </p>
+            <div class="field">
+                <label for="keywords">Keywords (Optional)</label>
+                <input type="text" name="keywords" placeholder="Enter keywords of this page." />
+            </div>
+            <div>
+                <input type="submit" class="button is success" name="submit-yes" value="YES" />
+                <input type="submit" class="button is success" name="submit-no"  value="NO" />
+            </div>
+        </fieldset>
+    </form>
+
+{% endblock %}
+

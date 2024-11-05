@@ -164,7 +164,9 @@ def run_app_server(   host:        str
             ## print(" [TRACE] matches = ", matches)
             # ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
             if len(matches) == 0:
-                flask.abort(404) 
+                ## flask.abort(404) 
+                out = flask.redirect(f"/create/{path}")
+                return out
             mdfile = str(matches[0])
             headings = []
             with open(mdfile) as fd:
@@ -223,6 +225,41 @@ def run_app_server(   host:        str
         else:
             flask.abort(405)
 
+    @app.route("/create/<path>", methods = [M_GET, M_POST])
+    def route_create(path: str):
+        """Flask http route for creating new wiki pages/notes."""
+        mdfile_ = path + ".md"
+        p: Optional[pathlib.Path] = next(base_path.rglob(mdfile_), None)
+        out = None 
+        if p:
+            out = flask.redirect(f"/wiki/{path}")
+            return out
+        if request.method == M_GET:
+            out = flask.render_template("create.html", title = f"Creating page '{path}'", pagename = path)
+        elif request.method == M_POST:
+            ## _page        = flask.request.form.get("page", "") 
+            label       = flask.request.form.get("label", "") 
+            description = flask.request.form.get("description", "") 
+            keywords    = flask.request.form.get("keywords", "") 
+            submit_yes  = flask.request.form.get("submit-yes", "") 
+            ##submit_no   = flask.request.form.get("submit-no", "") 
+            ## breakpoint()
+            if submit_yes == "YES":
+                content = (   "---"
+                             f"\ntitle:       {path}"
+                             f"\nlable:       {label}"
+                             f"\ndescription: {description}"
+                             f"\nkeywords:    {keywords}"
+                             "\n---\n\n"
+                          )
+                page_path = base_path.joinpath(path + ".md")
+                page_path.write_text(content)
+                out = flask.redirect(f"/wiki/{path}")
+            else:
+                out = flask.redirect(f"/")
+        else:
+            flask.abort(405)
+        return out
 
     @app.route("/edit/<path>", methods = [M_GET, M_POST])
     @check_login

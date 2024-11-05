@@ -277,21 +277,21 @@ document.addEventListener("DOMContentLoaded", function()
           
 });
 
-document.addEventListener("click", (event) => {
-    let target = event.target; 
-    let className = target.classList[0];
-    if(className === "link-internal-missing")
-    {
-        event.preventDefault();
-        let noteName = target.innerText;
-        let message =  `The note/page "${noteName}" does not exist yet. Do you wish to create it?`;
-        popupYesNo("Create Note?", message, async () => {
-            let resp = await http_post(`/api/wiki/${noteName}`);
-            if (resp.status === "error"){
-                popupMessage("Error", resp.error); 
-                return;
-            } 
-            redirect(`/edit/${noteName}`);
-        });
-    }
-});
+// document.addEventListener("click", (event) => {
+//     let target = event.target; 
+//     let className = target.classList[0];
+//     if(className === "link-internal-missing")
+//     {
+//         event.preventDefault();
+//         let noteName = target.innerText;
+//         let message =  `The note/page "${noteName}" does not exist yet. Do you wish to create it?`;
+//         popupYesNo("Create Note?", message, async () => {
+//             let resp = await http_post(`/api/wiki/${noteName}`);
+//             if (resp.status === "error"){
+//                 popupMessage("Error", resp.error); 
+//                 return;
+//             } 
+//             redirect(`/edit/${noteName}`);
+//         });
+//     }
+// });
