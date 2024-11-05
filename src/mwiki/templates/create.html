@@ -14,22 +14,11 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Create new page</h1>
-
-    
-
+    <p> The page <strong>'{{pagename}}'</strong> does not 
+        exist yet, would you like to create it?
+    </p>
     <hr>
-
     <form action="/create/{{pagename}}" method="POST">
-        <!--
-        <div class="field">
-            <label for="page">Page</label>
-            <input type="type" name="page" value="{{pagename}}" placeholder="Enter page/note name" />
-        </div>
-        -->
-        <p> The page <strong>'{{pagename}}'</strong> does not 
-            exist yet, would you like to create it?
-        </p>
         <fieldset>
             <legend>Create new page:</legend>
             <div class="field">
