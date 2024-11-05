@@ -36,7 +36,7 @@ class Renderer:
     including html and LaTeX/PDF renderers.     
     """
 
-    def __init__(self, base_path = "", embed_page = False):
+    def __init__(self, document = "", base_path = "", embed_page = False):
         # Path to the notes repository
         self._base_path: pathlib.Path = pathlib.Path(base_path)
         self._embed_page: bool = embed_page
@@ -288,8 +288,9 @@ class Renderer:
 
 class HtmlRenderer(Renderer):
 
-    def __init__(self, render_math_svg = False, embed_math_svg = False, base_path: str = ""):
+    def __init__(self, page_name = "", render_math_svg = False, embed_math_svg = False, base_path: str = ""):
         super().__init__(base_path = base_path)
+        self._pagefile = page_name
         self._render_math_svg =  render_math_svg  
         self._embed_math_svg = False
         self._myst_line_comment_enabled = False
@@ -365,11 +366,32 @@ class HtmlRenderer(Renderer):
         elif tag == "h4":
             self._count_h4 += 1
             value = f"{self._count_h2}.{self._count_h3}.{self._count_h4} {value}"
+        ## Edit link for editing only part
+        # of the document 
+        next_sibling = None 
+        line_start = node.map[0]
+        ##breakpoint()
+        for x in node.siblings:
+            if x.tag == node.tag \
+                and id(x) != id(node) and x.map[1] >= line_start:
+                next_sibling = x 
+                break
+        assert id(next_sibling) != id(node)
+        line_end   = next_sibling.map[1] - 1 if next_sibling else "end"
+        ## assert line_start <= line_end
         ## breakpoint()
-        html   = f"""<{tag} id="{anchor}" class="document-heading anchor">{value} {link}</{tag}>"""
-        # Add horizontal line below heading if it is h2.
+        pagename = self._pagefile.split(".")[0]
+        url =  f"/edit/{pagename}?start={line_start}&end={line_end}&anchor={anchor}&page={pagename}"
+        edit_link = f"""<a class="link-edit" href="{url}" title="Edit heading: {value}" class="edit-button">[E]</a>"""
+        ## breakpoint()
+        html   = (f"""<div class="div-heading">""" 
+                  f""" \n<{tag} id="{anchor}" class="document-heading anchor">{value} {link}</{tag}>"""
+                  f""" \n{edit_link}"""
+                   "\n</div>"
+                  )
         if tag == "h2":
-            html += "\n<hr>\n"
+           html = html + """<hr class="line-under-heading">""" 
+        # Add horizontal line below heading if it is h2.
         return html  
  
     def render_html_inline(self, node: SyntaxTreeNode) -> str:
@@ -965,8 +987,8 @@ def _latex_to_html2(eqtext, inline = False, embed = False):
     return html 
 
 
-def node_to_html(node: SyntaxTreeNode, base_path: str):
-    __html_render = HtmlRenderer( render_math_svg = False, base_path = base_path)
+def node_to_html(page_name: str, node: SyntaxTreeNode, base_path: str):
+    __html_render = HtmlRenderer(page_name = page_name, render_math_svg = False, base_path = base_path)
     html = __html_render.render(node)
     return html
 
@@ -977,7 +999,8 @@ def pagefile_to_html(pagefile: str, base_path: str):
         ## source = re.sub(r"^$$", "\n$$", source) 
         tokens = mparser.MdParser.parse(source)
         ast    = SyntaxTreeNode(tokens)
-        html    = node_to_html(ast, base_path = base_path)
+        page_name = os.path.basename(pagefile)
+        html    = node_to_html(page_name, ast, base_path = base_path)
         return html
 
 def compile_pagefile_(pagefile: str):

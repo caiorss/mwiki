@@ -93,9 +93,14 @@ h4 {
     text-wrap:   balance;
     line-height: 30px !important;
     display:     block;        
+    margin-top: -20px !important;
+    padding-top: 40px !important;
 }
 
 
+.div-heading {
+    display: flex;
+}
 
 .anchor {
 	padding-top: 100px;
@@ -104,6 +109,10 @@ h4 {
 
 .text-highlight {
     background-color: rgb(241, 228, 151);
+}
+
+a {
+    z-index: 600;
 }
 
 a.link-external {
@@ -139,6 +148,13 @@ a.link-heading {
 
 a.link-heading:hover {
     color: black; 
+}
+
+
+hr.line-under-heading {
+    color: #22863a;
+    margin-top:   -15px;
+    margin-bottom: 20px;
 }
 
 /** Fix issues caused by the CSS class anchor */
@@ -451,6 +467,13 @@ img.admonition-icon {
 @media (min-width: 600px)
 {
 
+    a.link-edit {
+        /** Align Button to the right **/
+        position: absolute;
+        right: 50px; 
+    }
+
+
     .wiki-image, .external-image {
         max-width: 50%;
     }
@@ -503,6 +526,12 @@ img.admonition-icon {
 {
     .content {
         font-size: 14px !important;
+    }
+
+    a.link-edit {
+        /** Align Button to the right **/
+        position: absolute;
+        right: 10px; 
     }
 
     .table {

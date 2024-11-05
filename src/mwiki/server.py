@@ -228,11 +228,17 @@ def run_app_server(   host:        str
     @check_login
     def route_edit_page(path: str):
         mdfile_ = path + ".md"
+        line_start = utils.parse_int(request.args.get("start"))
+        line_end   = utils.parse_int(request.args.get("end"))
         match = next(base_path.rglob(mdfile_), None)
         if request.method == M_GET:
             if not match:
                 flask.abort(404) 
             content = match.read_text() 
+            ## breakpoint()
+            if line_start is not None:
+                lines = content.splitlines()
+                content = "\n".join(lines[line_start:line_end]) 
             ## print(" [TRACE] content = ", content)
             resp = flask.render_template(  "edit.html"
                                          , title = f"Edit page: {path}", 
@@ -247,7 +253,24 @@ def run_app_server(   host:        str
         elif not isinstance(content, str):
             out = { "status": "error", "error": "Invalid input. Expected text. " }
         else:
-            match.write_text(content)                    
+            ## lines = content.splitlines()
+            if line_start is None:
+                match.write_text(content)
+            else:
+                ## breakpoint()
+                text = ""
+                content_ = match.read_text() 
+                lines_   = content_.splitlines()
+                if line_end is not None:
+                    lines    = lines_[0:line_start]
+                    lines   = lines + content.splitlines()
+                    lines   = lines + lines_[line_end:]
+                    text = "\n".join(lines)
+                else:
+                    lines    = lines_[0:line_start]
+                    lines   = lines + content.splitlines()
+                    text = "\n".join(lines)
+                match.write_text(text)                    
             out = { "status": "ok", "error": "" }
         resp = flask.jsonify(out)
         return resp

@@ -7,7 +7,7 @@ from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
 import pygments.util
-from typing import IO, Any, List, Dict, Tuple 
+from typing import IO, Any, List, Dict, Optional, Tuple 
 
 def mkdir(path: str):
     """Create directory if it does not exist yet."""
@@ -311,6 +311,15 @@ def get_wiki_path(file: str = "") -> str:
     path = expand_path( os.getenv("WIKI_BASE_PATH") or "./")
     path = os.path.join(path, file)
     return path
+
+def parse_int(x: Optional[str]) -> Optional[int]:
+    if x is None: return None
+    out: Optional[int] = -1
+    try:
+        out = int(x)
+    except ValueError:
+        out = None 
+    return out
 
 class TempSSLCert:
 

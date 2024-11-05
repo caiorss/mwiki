@@ -108,18 +108,32 @@
     })
 })
 
+    let currentPage = "{{page}}";
+
     async function save_document()
     {
         let code  = editor.getValue();
         // console.log("Current page ", page);
         // console.log("Editor content = \n", code);
-        let payload = { "content": code };
+        const urlParams = new URLSearchParams(window.location.search);
+        const lineStart = urlParams.get('start');
+        const lineEnd   = urlParams.get('end');
+        const anchor    = urlParams.get('anchor');
+        const page      = urlParams.get('page');
+        let payload = {  "content": code
+                       , "start":   lineStart
+                       , "end":     lineEnd 
+                    };
         let out = await http_post(document.URL, payload);
         console.log(" [RESULT] of saving operation = ", out)
         let status = out["status"];
         let statusbar = document.querySelector("#status-info");
         if(status == "ok"){
             statusbar.textContent = "Document saved ok.";
+            let url = `/wiki/${currentPage}#${anchor}`
+            // Redirect to corresponding wiki page
+            // and heading 
+            document.location.href= url;
         } else {
             console.log("Status Error = ", out);
             statusbar.textContent = "Failed to save document."
@@ -132,7 +146,7 @@
                         , 'X-Requested-With': 'XMLHttpRequest'
                        // , 'X-CSRFToken': crfs_token
                         };
-        const res = await fetch(url, { "method": "POST"
+        const res = await fetch(url, {    "method": "POST"
                                         , "headers": headers 
                                         , body: JSON.stringify(body) })
                                 .catch(networkErrorHandler)
