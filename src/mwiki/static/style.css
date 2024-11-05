@@ -463,7 +463,7 @@ img.admonition-icon {
     background: #6a737d;
 }
 
-.style-form form {
+.style-form {
   position: relative;
   width: 100%;
   height: 100%;
@@ -480,17 +480,19 @@ img.admonition-icon {
   grid-template-rows: 10em 1em 1em 1em;
 }
 
-form input[type=text] {
+.style-form-input  
+{
     width: 80%;
     padding: 12px 20px;
 }
 
-form input[type=button], input[type=submit], input[type=reset] {
+.style-form-button { 
   background-color: #bdf5e0;
+  font-weight: bold;
   border: none;
   color: rgb(20, 17, 17);
-  padding: 16px 18px;
-  width: 80px;
+  padding: 10px 15px;
+  min-width: 50px;
   text-decoration: none;
   margin: 10px 2px;
   cursor: pointer;

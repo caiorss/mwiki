@@ -1,28 +1,44 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block content %} 
+        <div>
+            <div id="page-search">
+                <form class="form-style" action="/pages" mehtod="GET">
+                    <fieldset>
+                        <legend>Search pages</legend>
+                        <div class="field">
+                            <input class="style-form-input" 
+                                   type="search" id="site-search-bar" 
+                                   name="search" 
+                                   placeholder="Search..." 
+                                   value="{{query}}" />
+                        </div>
+                        <div class="field">
+                            <input type="submit" class="style-form-button" value="Search" />
+                            <input type="reset"  class="style-form-button" value="Clear" />
+                            <input type="button"  class="style-form-button" onclick="redirect('/pages');" value="All" title="List all pages" />
+                        </div>
+                    </fieldset>
+                </form>
+        </div>
 
-<p>Buttons</p>
-<ul>
-    <li>[E] => Button for edting page</li>
-    <li>[S] => Button for viewing page source in read-only mode.</li>
-    <li>[D] => Button for deleting page</li>
-</ul>
+       <div>
+        <h2>Pages</h2>
+        <hr>
 
-    <div>
         {% for p in pages %}
             <div class="div-page-info">
                 <h4><a class="link-internal" href="/wiki/{{ p.name }}">{{ p.name }}</a> </h4>
-                
+
                 <a href="/edit/{{p.name}}" class="link-internal" title="Edit page markdown">[E]</a>
                 <a href="/source/{{p.name}}" class="link-internal" title="View page source in read-only-mode">[S]</a>
                 <a href="#" onclick="deletePage('{{p.name}}')"  class="link-internal delete-page-button" title="Delete page">[D]</a>
-                
+
                 {% if p.metadata.description %}
                 <div class="page-description">  
                     {{ p.metadata.description }}
                 </div>
-                
+
                 {% endif %}
 
                 <ul>
@@ -52,6 +68,5 @@
                 {% endif %}
             </div>
         {% endfor %}
-
-    </div>
+        </div>
 {% endblock %}
