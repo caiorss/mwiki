@@ -1,13 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<p>Buttons</p>
+<ul>
+    <li>[E] => Button for edting page</li>
+    <li>[S] => Button for viewing page source in read-only mode.</li>
+    <li>[D] => Button for deleting page</li>
+</ul>
+
     <div>
         {% for p in pages %}
             <div class="div-page-info">
                 <h4><a class="link-internal" href="/wiki/{{ p.name }}">{{ p.name }}</a> </h4>
                 
-                <a href="/edit/{{p.name}}" class="link-internal" title="Edit page markdown">Edit</a>
-                <a href="/source/{{p.name}}" class="link-internal" title="View page source in read-only-mode">Source</a>
+                <a href="/edit/{{p.name}}" class="link-internal" title="Edit page markdown">[E]</a>
+                <a href="/source/{{p.name}}" class="link-internal" title="View page source in read-only-mode">[S]</a>
+                <a href="#" onclick="deletePage('{{p.name}}')"  class="link-internal delete-page-button" title="Delete page">[D]</a>
                 
                 {% if p.metadata.description %}
                 <div class="page-description">  

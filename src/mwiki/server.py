@@ -18,9 +18,8 @@ from . import render
 M_GET = "GET" 
 # Http Method Post
 M_POST = "POST"
-
-utils.read_resource
-
+# Http Delete Method
+M_DELETE = "DELETE"
 
 def run_app_server(   host:        str
                     , port:        int
@@ -201,14 +200,13 @@ def run_app_server(   host:        str
         return resp 
         # Attempt to server static file 
 
-    @app.route("/api/wiki/<path>", methods = [M_GET, M_POST])
+    @app.route("/api/wiki/<path>", methods = [M_GET, M_POST, M_DELETE])
     @check_login
     def api_wiki(path: str):
         mdfile_ = path + ".md"
         p: Optional[pathlib.Path] = next(base_path.rglob(mdfile_), None)
         if request.method == M_GET:
-            if not p:
-                flask.abort(404)
+            if not p: flask.abort(404)
             content = p.read_text()
             out = flask.jsonify({ "status": "ok", "error": "", "content": content })
             return out
@@ -221,6 +219,12 @@ def run_app_server(   host:        str
                 p_ = base_path.joinpath(mdfile_)
                 p_.touch()    
                 out = flask.jsonify({ "status": "ok", "error": ""})
+            return out
+        elif request.method == M_DELETE:
+            if not p: flask.abort(404)
+            ## Remove file 
+            p.unlink()
+            out = flask.jsonify({ "status": "ok", "error": ""})
             return out
         else:
             flask.abort(405)

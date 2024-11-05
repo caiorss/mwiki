@@ -139,13 +139,23 @@ function popupMessage(title, message)
     pwindow.show();
 }
 
-async function http_post(url, body) 
+/** Send an Http request to a Rest API */
+async function httpRequest(method, url, body)
 {
+    function networkErrorHandler(err){
+        console.warn("Network error ", err);
+        let response = new Response(JSON.stringify({
+               status: "error"
+            ,  message: "Failed to reach server. A network error happenned."
+        }));
+        return response;
+    }
+
     let headers =  {  'Content-Type':     'application/json'
                     , 'X-Requested-With': 'XMLHttpRequest'
                    // , 'X-CSRFToken': crfs_token
                     };
-    const res = await fetch(url, { "method": "POST"
+    const res = await fetch(url, { "method": method
                                     , "headers": headers 
                                     , body: JSON.stringify(body) })
                             .catch(networkErrorHandler)
@@ -168,15 +178,19 @@ async function http_post(url, body)
     }
     let result = await res.json();
     return result;
+
 }
 
-function networkErrorHandler(err){
-    console.warn("Network error ", err);
-    let response = new Response(JSON.stringify({
-           status: "error"
-        ,  message: "Failed to reach server. A network error happenned."
-    }));
-    return response;
+async function httpPutRequest(url, body)
+{
+    let result = await httpRequest("PUT", url, body);
+    return result;
+}
+
+async function http_post(url, body) 
+{
+    let result = await httpRequest("POST", url, body);
+    return result;
 }
 
 
@@ -276,6 +290,21 @@ document.addEventListener("DOMContentLoaded", function()
     });
           
 });
+
+function deletePage(pagename)
+{
+    let message =  (  `Are you sure you really want to delete the page: "${pagename}"?` 
+                    + "WARNING: This action cannot be reversed." );
+    popupYesNo("Delete page?", message, async () => {
+           let resp = await httpRequest("DELETE", `/api/wiki/${pagename}`);
+           if (resp.status === "error"){
+               popupMessage("Error", resp.error); 
+               return;
+           } 
+           // Refresh/Reload current page
+           document.location.reload();
+       });   
+}
 
 // document.addEventListener("click", (event) => {
 //     let target = event.target; 
