@@ -1,3 +1,6 @@
+"""Extends markdown_it_py parser to support Mediawiki-like hyperlinks.
+"""
+
 from __future__ import annotations
 
 import re
@@ -23,6 +26,19 @@ def wiki_link_plugin(
     md: MarkdownIt, delimiters: str = MAIN_DELIMITER, macros: Any = None
 ) -> None:
     """Plugin for creating Mediawki-like internal hyperlinks using [[Page Name]], akin to Wikipedia. 
+
+    Implement Mediawiki-like hyperlink and Obisdian's hyperlink syntax 
+    to internal pages or notes, such as:
+
+    + [[hyperlink to page]] 
+    + [[hyperlink to page|custom label]]
+    + [[some file.pdf]]
+    + [[some file.pdf|custom label - pdf file]]
+    
+    For instance, a hyperkink [[Some Page]], that refers to a internal file 
+    'Some Internal Page.md' is rendered as:
+      
+    + '<a class="internal-link" href="wiki/Some%20Page">Some Page</a>'.
     """
     ## print(" [TRACE] Inside function WikiLink Plugin")
     macros = macros or {}
