@@ -69,6 +69,18 @@ MdParser = (
     .enable("backticks")
 )
 
+def parse_file(file: str) -> SyntaxTreeNode:
+    with open(file, "r") as fd:
+        source: str = fd.read()
+        tokens = MdParser.parse(source)
+        ast    = SyntaxTreeNode(tokens)
+        return ast 
+    
+def parse_source(source: str) -> SyntaxTreeNode:
+    tokens = MdParser.parse(source)
+    ast    = SyntaxTreeNode(tokens)
+    return ast 
+
 ## breakpoint()
 
 ## Inline Renderer 
