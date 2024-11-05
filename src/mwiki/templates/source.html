@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 
 {% block topbar_buttons %}
-    <a  class="sidebar-toggle-button" 
-        href="/wiki/{{page}}" 
-        title="Got to corresponding page of this source code.">Page</a>
+    {% include 'page_menu.html' %}
 {% endblock %}
 
 {% block toc  %}

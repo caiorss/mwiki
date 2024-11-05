@@ -306,6 +306,56 @@ function deletePage(pagename)
        });   
 }
 
+function generateUUID() { // Public Domain/MIT
+    var d = new Date().getTime();//Timestamp
+    var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16;//random number between 0 and 16
+        if(d > 0){//Use timestamp until depleted
+            r = (d + r)%16 | 0;
+            d = Math.floor(d/16);
+        } else {//Use microseconds since page-load if supported
+            r = (d2 + r)%16 | 0;
+            d2 = Math.floor(d2/16);
+        }
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+}
+
+
+function btnClickHandler(event) {
+    // let dom = document.querySelector("#myDropdown");
+    let dom = event.target.parentElement.querySelector(".menu-dropdown-content");
+    dom.classList.toggle("menu-hidden");
+}
+
+function menuClicked(event) {
+    let target = event.target;
+    console.log(" [TRACE] target = ", event.target);
+    let parent = event.target.parentElement;
+    console.log(" [TRACE] parent = ", parent);
+    /** 
+     *  CSS Class 
+     * 
+     * .show {
+     *     visibility: visible;
+     * }
+     *------------------------------------------*/
+    parent.classList.toggle("show");
+
+    let href = target.href.split("#")[1];
+    console.log(" [TRACE] target.href = ", href);
+
+    // if( href === "home" )
+    // {  
+    //    alert("Button Home was clicked");
+    // } else if( href === "about" )
+    // {
+    //    alert("Button About was clicked");   
+    // }
+
+}
+
 // document.addEventListener("click", (event) => {
 //     let target = event.target; 
 //     let className = target.classList[0];

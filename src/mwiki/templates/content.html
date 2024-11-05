@@ -1,12 +1,7 @@
 {% extends "base.html" %}
 
 {% block topbar_buttons %}
-    <a  class="sidebar-toggle-button" 
-        href="/source/{{page}}" 
-        title="Display source code of current page.">Source</a>
-    <a  class="sidebar-toggle-button" 
-        href="/edit/{{page}}" 
-        title="Edit markdown page">Edit</a>
+    {% include 'page_menu.html' %}
 {% endblock %}
 
 {% block toc  %}

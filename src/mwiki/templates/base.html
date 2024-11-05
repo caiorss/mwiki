@@ -75,10 +75,20 @@
         <div class="header">
             <a class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();">[#]</a>
             <a class="sidebar-toggle-button" href="/">Home</a>
-            <a class="sidebar-toggle-button" href="/pages">All</a>
-            {% block topbar_buttons %}{% endblock %}
-            <a class="sidebar-toggle-button" href="#" id="btn-create-note">New</a>
-            <a class="sidebar-toggle-button" href="/logoff">Quit</a>
+            <div class="dropdown">
+              <a class="sidebar-toggle-button" 
+                 href="#" 
+                 onclick="btnClickHandler(event)" 
+                 title="Global menu"
+                 class="dropbtn"
+                 >[Global]</a>
+              <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                 <a class="sidebar-toggle-button" href="/pages">All</a>
+                 <a class="sidebar-toggle-button" href="#" id="btn-create-note">New</a>
+                 <a class="sidebar-toggle-button" href="/logoff">Quit</a>
+              </div>
+            </div>
+            {% block topbar_buttons %}{% endblock %} 
         </div>
 
         <div class="content">

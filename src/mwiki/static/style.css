@@ -768,4 +768,45 @@ select:focus {
 .highlight .vm { color: #005cc5 } /* Name.Variable.Magic */
 .highlight .il { color: #005cc5 } /* Literal.Number.Integer.Long */
 
-    
+ 
+   /** ---- CSS For Dropdown Menu -------------------- */
+
+
+
+.show {
+    display: block;
+    visibility: visible;
+}
+
+.dropdown {
+    display: inline;
+    position: relative;
+}
+
+ .menu-dropdown-content {
+/*     position: absolute; */
+    background-color: #f1f1f1;
+
+    overflow: auto;
+    position: absolute;
+    left: 0px;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.menu-dropdown-content a {
+    /* padding: 12px 16px; */
+    display: block;
+}
+
+/*
+.menu-dropdown a:hover {
+    background-color: #ddd;
+}
+*/
+
+.menu-hidden {
+    display: none;
+    visibility: none;
+}   
