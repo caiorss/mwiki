@@ -140,29 +140,6 @@
         }
     }
 
-    async function http_post(url, body) 
-    {
-        let headers =  {  'Content-Type':     'application/json'
-                        , 'X-Requested-With': 'XMLHttpRequest'
-                       // , 'X-CSRFToken': crfs_token
-                        };
-        const res = await fetch(url, {    "method": "POST"
-                                        , "headers": headers 
-                                        , body: JSON.stringify(body) })
-                                .catch(networkErrorHandler)
-                                ;
-        let result = await res.json();
-        return result;
-    }
-
-    function networkErrorHandler(err){
-        console.warn("Network error ", err);
-        let response = new Response(JSON.stringify({
-               status: "error"
-            ,  message: "Failed to reach server. A network error happenned."
-        }));
-        return response;
-    }
 
 </script>
 {% endblock %}
