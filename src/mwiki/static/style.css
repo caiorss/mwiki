@@ -463,7 +463,7 @@ img.admonition-icon {
     background: #6a737d;
 }
 
-form {
+.style-form form {
   position: relative;
   width: 100%;
   height: 100%;
