@@ -112,8 +112,8 @@ class Renderer:
     def render_note(self, name: str) -> Optional[str]:
         """Render note file, given its name"""
         p = self.find_note(name)
-        if not p: return None 
-        if not p.is_file(): return None 
+        if not p: return "" 
+        if not p.is_file(): return ""
         source = p.read_text()
         tokens = mparser.MdParser.parse(source)
         ast    = SyntaxTreeNode(tokens)       
@@ -469,7 +469,8 @@ class HtmlRenderer(Renderer):
         if "." not in src:
             note_name = src 
             href = utils.escape_url(f"/wiki/{note_name}")
-            html_ = f"""<hr>Embedded note: <a class="link-internal" href="{href}">{note_name}</a>  """
+            caption = f"The page '{note_name}' does not exist yet. Click on it to create the page." 
+            html_ = f"""<hr>Embedded note: <a class="link-internal-missing" href="{href}" title="{caption}">{note_name}</a>  """
             html = html_ + self.render_note(note_name) or ""
             ## print(" [TRACE] html = ", html)
         else:
