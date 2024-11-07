@@ -267,6 +267,9 @@ document.addEventListener("DOMContentLoaded", function()
     document.querySelector("#btn-scroll-top")
         .addEventListener("click", scrollToTop);
 
+    document.querySelector("#btn-scroll-bottom")
+        .addEventListener("click", scrollToBottom);
+
     let last = null;
     onClick(".toc", (event) => {
         let tg = event.target;
@@ -301,6 +304,14 @@ function scrollToTop()
     console.log(" [TRACE] I was called.");
     let domMain = document.querySelector(".main");
     domMain.scrollTo({top: 0});
+}
+
+function scrollToBottom()
+{
+    console.log(" [TRACE] I was called.");
+    let domMain = document.querySelector(".main");
+    // domMain.scrollTo({top: 0});
+    domMain.scrollTop = domMain.scrollHeight;
 }
 
 function deletePage(pagename)
