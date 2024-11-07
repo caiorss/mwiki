@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block topbar_buttons %}
+{% endblock %}
+
+{% block toc  %}
+    {{ toc|safe }}
+{% endblock %}
+
+{% block content %}
+<h1>MWiki (v0.1) - Markdown Wiki Application</h1>
+
+<h2>About</h2>
+
+<p>
+    Alternative file-based Wiki that uses a Markdown-based as markup language, 
+    based on Github-Flavoured Markdown, MyST markdown from Jupyter Book project, 
+    Obisdian Markdown and Mediawiki (Wikipedia's wiki engine) markup language, 
+    also known as wikicode.
+</p>
+
+<p>
+    NOTE: This is a still a work in progress.
+</p>
+
+<h2>Open Source Libraries Used by this project</h2>
+
+<ul>
+    <li>Python Flask Web Framework</li>
+    <li>Markdown_it_py Markdown Parser form Jupyter Book project</li>
+    <li>Python Pygment for server-side syntax highlight of source code blocks.</li>
+    <li>Python Frontmatter library for parsing markdown frontmatter</li>
+    <li>Python Click command line parser</li>
+    <li>Ace JavaScript code editor</li>
+    <li>MathJax JavaScript library for displayin math on the web</li>
+</ul>
+
+{% endblock %}
+

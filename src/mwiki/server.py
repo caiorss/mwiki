@@ -104,6 +104,11 @@ def run_app_server(   host:        str
     def hello():
         return "The server is up and running. OK."
 
+    @app.get("/about")
+    def route_about():
+        resp = flask.render_template("about.html")
+        return resp
+
     @app.get("/wiki/img/<path:filepath>")
     @check_login
     def route_wiki_image(filepath):
