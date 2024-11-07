@@ -240,6 +240,8 @@ def file_contains(fileName: str, query: str, opt = "and_all") -> bool:
     """
     with open(fileName) as fd:
         result = False
+        basename = normalize_text(os.path.basename(fileName).lower())
+        ## print(f" [TRACE] fileName = {fileName} ; basename = {basename}")
         query = normalize_text(query.lower())
         # Split whitespace
         queries = query.split()
@@ -265,7 +267,9 @@ def file_contains(fileName: str, query: str, opt = "and_all") -> bool:
             # from the input query
             elif opt == "and_all":
                 for q in queries:
-                    if q in line_ and q in queries_:
+                    if (q in line_ and q in queries_):
+                        queries_.remove(q)
+                    if (q in basename and q in queries_):
                         queries_.remove(q)
                 if len(queries_) == 0:
                     result = True
