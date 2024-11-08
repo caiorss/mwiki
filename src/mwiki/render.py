@@ -491,17 +491,17 @@ class HtmlRenderer(Renderer):
     def render_wikilink_inline(self, node: SyntaxTreeNode) -> str:
         href = ""
         label = ""
-        if "." not in node.content:
-            href = node.content
-            label = href
-        else:
-            x = node.content.split("|")
-            if len(x) == 1:
-                href = x[0].strip()
-                label = x[0].strip()
-            elif len(x) == 2:
-                href = x[0].strip()
-                label = x[1].strip()
+        ## breakpoint()
+        x = node.content.split("|")
+        if len(x) == 1:
+            href = x[0].strip()
+            label = x[0].strip()
+        elif len(x) == 2:
+            href = x[0].strip()
+            label = x[1].strip()
+        ## if "." not in node.content:
+        ##     href = node.content
+        ##     label = href
         html = ""
         href_ = utils.escape_url(f"/wiki/{href}")
         if "." not in href:
