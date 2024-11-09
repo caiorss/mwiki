@@ -68,7 +68,8 @@ def run_app_server(   host:        str
     @check_login
     def route_pages():
         query = (request.args.get("search") or "").strip()
-        highlight =  f"#:~:text={ utils.escape_url(query) }" if query != "" else ""
+        # Possibliity: ?sort=modified, ?sort=name, ?sort=created
+        sort  = request.args.get("sort", "")
         # Get all pages in directories and subdirectories in a recursively way
         files_ = pathlib.Path(BASE_PATH).rglob("*.md")
         files = []
@@ -78,9 +79,15 @@ def run_app_server(   host:        str
             files = [f for f in files_ 
                         if utils.file_contains(str(f), query) ]
                      ##and utils.file_contains(os.path.join(BASE_PATH, f), query)]
-        sorted_files = sorted(files, key = lambda x: x.name)
+        sorted_files = []
+        if sort == "" or sort == "name":
+            sorted_files = sorted(files, key = lambda x: x.name)
+        elif sort == "modified":
+            sorted_files = sorted(files, key = lambda x: x.stat().st_mtime, reverse = True )
+        elif sort == "created":
+            sorted_files = sorted(files, key = lambda x: x.stat().st_ctime, reverse = True)
         page_to_file = lambda f:  str(f) ##os.path.join(BASE_PATH, f) # + ".md"
-        MAX_LEN = 200
+        MAX_LEN = 500
         pages = [  {    "name": f.name.split(".")[0] 
                      # , "src":  f 
                       , "matches": [ lin[:MAX_LEN] + " ..." 

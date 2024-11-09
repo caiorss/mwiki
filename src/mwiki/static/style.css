@@ -695,6 +695,16 @@ pre {
     overflow-y: auto;
 }
 
+.div-sort {
+    display: block;
+    margin-top: 20px;
+}
+
+.div-sort-content {
+    display: block;
+    margin-top: 10px;
+    margin-left: 20px;
+}
 
 /** Syntax Highlight Style for Pyhton's Pygment 
  *
