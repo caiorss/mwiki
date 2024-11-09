@@ -379,6 +379,19 @@ function menuClicked(event) {
 
 }
 
+function clearFormEntries(formID)
+{
+    let form = document.querySelector(formID);
+    if(!form){ return; }
+    let entries = form.querySelectorAll("input");
+    for(let q of entries)
+    {
+        if(q.type == "search" || q.type == "text")
+        {
+            q.value = "";
+        }
+    }
+}
 
 
 // document.addEventListener("click", (event) => {
