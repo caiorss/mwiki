@@ -484,7 +484,62 @@ class HtmlRenderer(Renderer):
         if href.startswith("#"):
             attrs = """ class="link-internal" """
         else:
-            attrs = """ target="_blank" class="link-external" rel="noreferrer noopener nofollow" """
+            ## breakpoint()
+            title = ""
+            ## DOI - Digital Object Identifier
+            if href.startswith("doi:") or href.startswith("DOI:"):
+                temp = utils.escape_url(href.strip("doi:").strip("DOI:"))
+                title = "Digital Object Identifier"
+                href = f"https://doi.org/{temp}"
+            # arXiv Bibliographic Identifier for resarch paper pre-print 
+            elif href.startswith("arxiv:") or href.startswith("arXiv:"):
+                temp = utils.escape_url(href.strip("arxiv:").strip("arXiv:"))
+                title = "arXiv preprint identifier"
+                href = f"https://arxiv.org/abs/{temp}"
+            # CiteSeerX Bibliographic Identifier 
+            elif href.startswith("CiteSeerX:"):
+                temp = utils.escape_url(href.strip("CiteSeerX:"))
+                title = "CiteSeerX identifier - citerseerx.ist.psu.edu"
+                href = f"https://citeseerx.ist.psu.edu/viewdoc/summary?doi={temp}"
+            # Semantic Scholar Bibliographic Identifier 
+            elif href.startswith("S2CID:"):
+                title = "Semantic Scholar Bibliographic Identifier"
+                temp = utils.escape_url(href.strip("S2CID:"))               
+                href = f" https://api.semanticscholar.org/CorpusID:{temp}"
+            elif href.startswith("issn") or href.startswith("ISSN"):
+                title = "International Standard Serial Number identifier"
+                temp = utils.escape_url(href.strip("issn:").strip("ISSN"))               
+                href = f"https://search.worldcat.org/issn/{temp}"
+            # Bibcode identifier for astronomical data Bibcode:2020ISysJ..14.1921B
+            elif href.startswith("Bibcode:"):
+                title = "Bbibcode identifier for astronomical data"
+                temp = utils.escape_url(href.strip("Bibcode:"))
+                href = f"https://ui.adsabs.harvard.edu/abs/{temp}"
+            # Request For Comment => IETF (Internet Engineering Task Force) Technical Standard
+            elif href.startswith("rfc:") or href.startswith("RFC"):
+                title = "Request For Comment - IETF (Internet Engineering Task Force) Technical Standard"
+                temp = utils.escape_url(href.strip("rfc:").strip("RFC"))
+                href = f"https://datatracker.ietf.org/doc/html/rfc{temp}"
+                inner = f"RFC {temp}"
+            # WorldCat Identifier OCLC Number 
+            elif href.startswith("oclc:") or href.startswith("OCLC:"):
+                title = "WorldCat Identifier OCLC Number "
+                temp = utils.escape_url(href.strip("oclc:").strip("OCLC:"))
+                href = f"https://search.worldcat.org/oclc/{temp}"
+                inner = f"{temp}"
+            # PMID - PubMedID 
+            elif href.startswith("pmid:") or href.startswith("PMID:"):
+                title = "PubMed Identifier"
+                temp = utils.escape_url(href.strip("pmid:").strip("PMID:"))
+                href = f"https://pubmed.ncbi.nlm.nih.gov/{temp}"
+                inner = f"PMID {temp}"
+            elif href.startswith("patent:") or href.startswith("PATENT:"):
+                title = "Patent number"
+                temp = utils.escape_url(href.strip("patent:").strip("PATENT:"))
+                href = f"https://patents.google.com/patent/{temp}"
+                inner = f"Patent {temp}"
+        title = f'title="{title}"' if title != "" else ""
+        attrs = f""" target="_blank" {title} class="link-external" rel="noreferrer noopener nofollow" """
         html = f"""<a href="{href}" {attrs}>{inner}</a>"""
         return html
 
