@@ -294,6 +294,25 @@ class HtmlRenderer(Renderer):
         self._render_math_svg =  render_math_svg  
         self._embed_math_svg = False
         self._myst_line_comment_enabled = False
+        self._unicode_database = [
+              ("(TM)", "™") # Trademark 
+            , ("{TM}", "™")  # Trademark 
+            , ("(C)",  "©") # Copyright 
+            , ("{C}",  "©") # Copyright 
+            , ("(R)",  "®") # Registered
+            , ("{R}",  "®") # Registered
+            , ("{deg}", "°")     # Degrees (angle)
+            , ("{degrees}", "°") # Degrees (angle)
+            , ("{euros}", "€")  # Euro 
+            , ("{pounds}", "£") # Great Britain Pound (aka pounds)
+            , ("{gpb}",    "£")  # Great Britain Pound (aka pounds)
+            , ("{yen}", "¥")     # Yen (Currency)
+            , ("{yens}", "¥")     # Yen (Currency)
+            , ("{pargraph}", "¶")
+            , ("{pilcrow}", "¶")
+            , ("{section}", "§")
+
+        ]
 
     def enable_render_math_mathjax(self, value):
         self._render_math_svg = not value
@@ -307,6 +326,8 @@ class HtmlRenderer(Renderer):
     
     def render_text(self, node: SyntaxTreeNode) -> str:
         html = node.content
+        for (entry, replacement) in self._unicode_database:
+            html = html.replace(entry, replacement)
         return html 
 
     def render_softbreak(self, node: SyntaxTreeNode) -> str:
