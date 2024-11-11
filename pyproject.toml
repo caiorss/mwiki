@@ -18,6 +18,8 @@ dependencies = [
         , "click==8.1.7"
         , "cryptography"
         , "tomli"
+        , "python-dateutil"
+        , "gurnicorn"
 ]
 
 
@@ -60,6 +62,8 @@ click = "^8.1.7"
 cryptography = "^2.8"
 #cryptography = "*"
 tomli = "*"
+gunicorn = "^23.0.0"
+python-dateutil = "^2.9.0.post0"
 
 [build-system]
 requires = ["poetry-core"]

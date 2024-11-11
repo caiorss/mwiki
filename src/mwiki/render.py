@@ -495,7 +495,7 @@ class HtmlRenderer(Renderer):
             html = html_ + self.render_note(note_name) or ""
             ## print(" [TRACE] html = ", html)
         else:
-            html = f"""<img class="wiki-image anchor" src="/wiki/img/{src}  ">"""
+            html = f"""<img class="wiki-image anchor" src="/wiki/{src}">"""
         return html
 
     def render_link(self, node: SyntaxTreeNode) -> str:

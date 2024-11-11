@@ -14,6 +14,7 @@ from . import utils
 from . import mparser
 from . import render
 
+
 ## Http Method GET 
 M_GET = "GET" 
 # Http Method Post
@@ -21,7 +22,7 @@ M_POST = "POST"
 # Http Delete Method
 M_DELETE = "DELETE"
 
-def run_app_server(   host:        str
+def make_app_server(   host:        str
                     , port:        int
                     , debug:       bool
                     , login:       Optional[Tuple[str, str]]
@@ -106,6 +107,9 @@ def run_app_server(   host:        str
                                          )
         return response
 
+    # This variable is set to true if gunicorn WSGI server is being used.
+    is_gunicorn = "gunicorn" in os.environ.get("SERVER_SOFTWARE", "")
+    ## print(" [TRACE] running gunicorn = ", is_gunicorn)
 
     @app.route("/check")
     def hello():
@@ -119,7 +123,9 @@ def run_app_server(   host:        str
     @app.get("/wiki/img/<path:filepath>")
     @check_login
     def route_wiki_image(filepath):
+        print(" [TRACE] path = ", filepath)
         root = IMAGE_PATH ## utils.get_wiki_path("images")
+        print(" [TRACE] root = ", root)
         resp = flask.send_from_directory(root, filepath)
         return resp
 
@@ -208,7 +214,41 @@ def run_app_server(   host:        str
         if not match:
             flask.abort(404)
         relpath = match.relative_to(base_path)
-        resp = flask.send_from_directory(BASE_PATH, relpath)
+        ## print(f" [TRACE] relpath = {path} ; match = {match}")
+        resp = None
+        if not is_gunicorn:
+            resp = flask.send_from_directory(BASE_PATH, relpath)
+        else:
+            import mimetypes
+            import time
+            # import datetime
+            from dateutil.parser import parse as parsedate
+            ## Get file mime type
+            mtype, _ = mimetypes.guess_type(match.name, strict = False)
+            mtype = mtype or "application/octect-stream"
+            ## Get last modified time (formatted as string)
+            pattern  = "%a, %d %b %Y %H:%M:%S %Z"
+            last_modfied_timestamp = match.stat().st_mtime
+            last_modified          = time.strftime(pattern, time.gmtime(last_modfied_timestamp))
+            ifModifiedSince = flask.request.headers.get("If-Modified-Since", None)
+            dtime = int(parsedate(ifModifiedSince).timestamp()) if ifModifiedSince is not None else None
+            resp = None
+            if dtime is not None and dtime <= int(last_modfied_timestamp):
+                    ## print(" [TRACE] Return (304) status code, NOT modified")
+                    resp = flask.Response(response= None, mimetype=mtype, content_type=mtype, status = 304) 
+            else:
+                ## print(" [TRACE] mtype = ", mtype)
+                ## print(" [TRACE] sending file response = ", match)
+                fd = match.open("rb")
+                resp = flask.Response(response = fd, mimetype = mtype, content_type = mtype)
+            # Enable cache and Cache never expires
+            ## resp.headers.add("Cache-Control", "max-age")  
+            # Disable cache 
+            ## resp.headers.add("Cache-Control", "no-cache")  
+            resp.headers.add("Content-Length",       match.stat().st_size)
+            resp.headers.add("Last-Modified",        last_modified)
+            resp.headers.add("vary",                 "Accept-Enconding")
+            resp.headers.add("Content-Disposition", f"inline; filename={ match.name }")
         return resp 
         # Attempt to server static file 
 
@@ -338,16 +378,27 @@ def run_app_server(   host:        str
             response = flask.redirect("/pages")
         return response
 
-    if random_ssl:
-        with utils.TempSSLCert() as c:
-            certfile, keyfile = c.certkey()
-            assert os.path.exists(certfile)
-            assert os.path.exists(keyfile)
-            context = (certfile,  keyfile)
-            ## context = ("cert.pem",  "key.pem")
-            app.run(host = host, port = port, debug = debug, ssl_context = context)
-    else:
-        app.run(host = host, port = port, debug = debug)
+    return app
+
+
+##def make_app_server(   host:        str
+##                    , port:        int
+##                    , debug:       bool
+##                    , login:       Optional[Tuple[str, str]]
+##                    , wikipath:    str
+##                    , random_ssl:  bool = False
+##                    , secret_key:  Optional[str] = None 
+##                   ):
+##    ##if random_ssl:
+##    ##    with utils.TempSSLCert() as c:
+##    ##        certfile, keyfile = c.certkey()
+##    ##        assert os.path.exists(certfile)
+##    ##        assert os.path.exists(keyfile)
+##    ##        context = (certfile,  keyfile)
+##    ##        ## context = ("cert.pem",  "key.pem")
+##    ##        app.run(host = host, port = port, debug = debug, ssl_context = context)
+##    ##else:
+##        app.run(host = host, port = port, debug = debug)
 
 def get_secret_key(appname: str) -> str:
     KEYFILE = "appkey"

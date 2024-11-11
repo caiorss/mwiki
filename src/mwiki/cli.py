@@ -1,6 +1,6 @@
 import os
 import sys
-from mwiki.server import run_app_server
+from mwiki.server import make_app_server
 import mwiki.utils as utils
 from . import render
 import tomli 
@@ -83,7 +83,7 @@ def server(  host: str
         _random_ssl = server.get("random-ssl", False)
         _login = (_username, _password) if _do_login else None 
         _secret_key = server.get("secret_key", None)
-        run_app_server(_host, _port, _debug, _login, _wikipath, _random_ssl, _secret_key)
+        make_app_server(_host, _port, _debug, _login, _wikipath, _random_ssl, _secret_key)
         exit(0)
         
     if login != "":
@@ -93,7 +93,8 @@ def server(  host: str
             print("Error expected login in format --login=<USERNAME>;<PASSWORD>")
             exit(1)
     _wikipath = utils.expand_path(wikipath)
-    run_app_server(host, port, debug, _login, _wikipath, random_ssl)
+    app = make_app_server(host, port, debug, _login, _wikipath, random_ssl)
+    app.run(host = host, port = port, debug = debug)
     ## app.run(host = host, port = port, debug=True)
 
 
