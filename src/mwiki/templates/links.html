@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block topbar_buttons %}
+    {% include 'page_menu.html' %}
+{% endblock %}
+
+{% block toc  %}
+    {{ toc|safe }}
+{% endblock %}
+
+{% block content %}
+    <strong>Page:</strong> <a class="link-internal" href="/wiki/{{page}}">{{ page }}</a>
+
+    <h2>External Hyperlinks</h2>
+    <ul>
+    {% for x in links %}
+        <li><a href="{{x.href}}" 
+               class="link-external" 
+               target="_blank" 
+               rel="noreferrer noopener nofollow"
+               >{{x.label}}</a> </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+

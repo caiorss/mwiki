@@ -368,6 +368,43 @@ def make_app_server(   host:        str
         resp = flask.jsonify(out)
         return resp
 
+    @app.get("/links/<path>") 
+    @check_login
+    def route_link_page(path: str):
+        """This endpoint displays all external hyperlinks of wiki page"""
+        mdfile_ = path + ".md"
+        ## line_start = utils.parse_int(request.args.get("start"))
+        ## line_end   = utils.parse_int(request.args.get("end"))
+        match = next(base_path.rglob(mdfile_), None)
+        if not match:
+            flask.abort(404) 
+        # Absolute path to file
+        abspath =  str(match.absolute())
+        links = []
+        internal_links = []
+        ast = mparser.parse_file(abspath)
+        gen = ast.walk()
+        r = render.HtmlRenderer()
+        while True:
+            node = next(gen, None)
+            ## breakpoint() 
+            if node is None: break  
+            elif node.type == "link": 
+                label = node.children[0].content 
+                url   = node.attrs.get("href")
+                entry = {"label": label, "href": url}
+                links.append(entry)
+            elif node.type == "wikilink_inline":
+                href = node.content
+                internal_links.append(href)
+        resp = flask.render_template("links.html"
+                                       , title = f"Links of page: {path}"
+                                       , page = path
+                                       , links = links
+                                       , internal_links = internal_links
+                                       )
+        return resp
+
     @app.get("/")
     def route_index_page():
         index_file = os.path.join(BASE_PATH, "Index.md")
