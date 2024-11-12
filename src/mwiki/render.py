@@ -369,6 +369,7 @@ class HtmlRenderer(Renderer):
         link   = f"""<a class="link-heading" href="#{anchor}">¶</a>"""
         # h1 => 1, h2 => 2, ..., h6 => 6
         tag = ""
+        tex_command = ""
         if self._embed_page:
             heading_level = int(node.tag.strip("h"))
             tag = f"h{heading_level + 1}"
@@ -378,6 +379,7 @@ class HtmlRenderer(Renderer):
         ## Add automatic enumeration to headings 
         if tag == "h2":
             self._count_h2 += 1
+            tex_command =r'<span class="tex-section-command" style="display:none">\(\setSection{%s}\)</span>' % self._count_h2
             self._count_h3 = 0
             value = f"{self._count_h2} {value}"
         elif tag == "h3":
@@ -407,8 +409,8 @@ class HtmlRenderer(Renderer):
         ## breakpoint()
         html   = (f"""<div class="div-heading">""" 
                   f""" \n<{tag} id="{anchor}" class="document-heading anchor">{value} {link}</{tag}>"""
-                  f""" \n{edit_link}"""
-                   "\n</div>"
+                  f""" \n{edit_link}{tex_command}"""  
+                   "\n</div>" 
                   )
         if tag == "h2":
            html = html + """<hr class="line-under-heading">""" 
