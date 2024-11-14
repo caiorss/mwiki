@@ -561,6 +561,12 @@ class HtmlRenderer(Renderer):
                 temp = utils.escape_url(href.strip("patent:").strip("PATENT:"))
                 href = f"https://patents.google.com/patent/{temp}"
                 inner = f"Patent {temp}"
+            ## PEP - Python Enhancement Proposal 
+            elif href.startswith("pep:") or href.startswith("PEP:"):
+                title = "PEP - Python Enhancement Proposal"
+                temp = utils.escape_url(href.strip("pep:").strip("PEP:"))
+                inner = f"PEP {temp}"
+                href = f"https://peps.python.org/pep-{temp}"
         title = f'title="{title}"' if title != "" else ""
         attrs = f""" target="_blank" {title} class="link-external" rel="noreferrer noopener nofollow" """
         html = f"""<a href="{href}" {attrs}>{inner}</a>"""
