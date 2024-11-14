@@ -3,21 +3,21 @@
     font-family: 'Computer Modern';
     font-style: normal;
     font-weight: normal;
-    src: url('/static/computer-modern-normal.ttf');
+    src: url('/static/fonts/computer-modern-normal.ttf');
 }
 
 @font-face {
     font-family: 'Computer Modern';
     font-style: italic;
     font-weight: normal;
-    src: url('/static/computer-modern-italic.ttf');
+    src: url('/static/fonts/computer-modern-italic.ttf');
 }
 
 @font-face {
     font-family: 'Computer Modern';
     font-style: bold;
     font-weight: bold;
-    src: url('/static/computer-modern-bold.ttf');
+    src: url('/static/fonts/computer-modern-bold.ttf');
 }
 
 /** Font that brins the nostalgia of typewriter machines */
@@ -25,14 +25,14 @@
   font-family: "IBM Plex Mono";
   font-weight: normal;
   font-style: normal;
-  src: url('/static/IBM-Plex-Mono-normal.ttf');
+  src: url('/static/fonts/IBM-Plex-Mono-normal.ttf');
 }
 
 @font-face {
   font-family: "IBM Plex Mono";
   font-weight: normal;
   font-style:  italic;
-  src: url('/static/IBM-Plex-Mono-italic.ttf');
+  src: url('/static/fonts/IBM-Plex-Mono-italic.ttf');
 }
 
 @font-face {
@@ -46,7 +46,7 @@
   font-family: "IBM Plex Mono";
   font-weight: bold;
   font-style:  italic;
-  src: url('/static/IBM-Plex-Mono-bold-italic.ttf');
+  src: url('/static/fonts/IBM-Plex-Mono-bold-italic.ttf');
 }
 
 
