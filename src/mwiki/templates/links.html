@@ -10,6 +10,13 @@
 
 {% block content %}
     <strong>Page:</strong> <a class="link-internal" href="/wiki/{{page}}">{{ page }}</a>
+    <h2>Internal Hyperlinks</h2>
+    
+    <ul>
+    {% for x in internal_links %}
+        <li><a class="link-internal" href="/wiki/{{x}}" >{{x}}</a> </li>
+    {% endfor %}
+    </ul>
 
     <h2>External Hyperlinks</h2>
     <ul>
