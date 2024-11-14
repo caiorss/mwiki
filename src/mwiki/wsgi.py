@@ -11,15 +11,22 @@ a terminal:
 """
 import os
 from mwiki.server import make_app_server
+from . import utils
 
-host = "0.0.0.0"
-port = 8000 
-debug = False
+host = os.getenv("HOST", "0.0.0.0")
+port = utils.parse_int(os.getenv("PORT", "8000")) or 8000
 wikipath = os.getenv("WIKIPATH", "./notes")
+debug = os.getenv("DEBUG", "false") == "true"
+login = os.getenv("LOGIN", "")
+_login = login.split(",")
+_login =  x if len( x := login.split(","))  == 2 else None
+secret_key = os.getenv("SECRET_KEY")
+
+
 app = make_app_server(  host     = host
                       , port     = port
                       , debug    = debug
-                      , login    = None #("user", "pass")
+                      , login    = _login 
                       , wikipath = wikipath 
                       )
 

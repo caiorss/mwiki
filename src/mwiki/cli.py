@@ -1,14 +1,67 @@
 import os
+import os.path 
 import sys
-from mwiki.server import make_app_server
-import mwiki.utils as utils
+import pathlib
 from . import render
 import tomli 
 from pprint import pprint
 from typing import Optional, Tuple, List 
 import click
 ## from click.decorators import commmand 
+## from gunicorn.app.wsiapp import run 
+import multiprocessing
+import mwiki.utils as utils
+from mwiki.server import make_app_server
 
+# Check whether the OS is a Unix-like operating system
+if utils.is_os_linux_or_bsd() or utils.is_os_macos():
+    from gunicorn.app.wsgiapp import WSGIApplication
+else:
+    print("WARNING: Cannot run using gunicorn on Microsoft Windows OS\n" 
+          "Use another WSGI server.")
+
+class StandaloneApplication(WSGIApplication):
+    def __init__(self, app_uri, options=None):
+        self.options = options or {}
+        self.app_uri = app_uri
+        super().__init__()
+
+    def load_config(self):
+        config = {
+            key: value
+            for key, value in self.options.items()
+            if key in self.cfg.settings and value is not None
+        }
+        for key, value in config.items():
+            self.cfg.set(key.lower(), value)
+
+
+def gunicorn_runner(  host:      str
+                    , port:      int
+                    , wikipath:  str
+                    , login:     Optional[str] = None
+                    , secret_key: Optional[str] = None 
+                    ):
+    options = {
+          "bind": f"{host}:{port}"
+        , "workers": (multiprocessing.cpu_count() * 2) + 1
+        ## "worker_class": "uvicorn.workers.UvicornWorker",
+    }
+    environemnt = {
+          "HOST":        host 
+        , "PORT":        str(port)
+        , "LOGIN":       login
+        , "SECRET_KEY":  secret_key
+        , "WIKIPATH":    wikipath
+    }
+    ### print(" [TRACE] wikipath = ", wikipath)
+    for (variable, value) in environemnt.items():
+        ## print(f" [TRACE] variable = {variable} ; value = {value}")
+        if value is not None: os.environ[variable] = value
+    ## See module: mwiki/wsgi, related to file mwiki/wsgi.py 
+    # the inputs of this module are environment variables
+    sapp = StandaloneApplication("mwiki.wsgi:app", options)
+    sapp.run()
 
 def debughook(etype, value, tb):
     import pdb
@@ -37,31 +90,52 @@ def cli1():
                           " It is not necessary to run openssl command line tool"
                           " or create or pass any file in order to use this command line switch."
                           ))
-@click.option("-w", "--wikipath", default = ".", help = "Path to wiki directory, default '.' current directory.")
+@click.option("--wikipath", default = ".", help = "Path to wiki directory, default '.' current directory.")
 @click.option("-c", "--config", default = None, 
                 help = ( "Path to TOML configuration file for" 
                         "running the server and loading its settings from the file."))
 @click.option("-s", "--secret-key", default = None, 
                 help = ( "Secret key of flask application." ))
+@click.option("-g", "--wsgi", 
+                is_flag = True, 
+                help = ( "Run application with gunicorn WSGI server."
+                         "NOTE: Gunicorn only works on Unix-like systems, including "
+                         "Linux, BSD or Apple's MacOS. This option is recommended for "
+                         "deploying the server in production."
+                         ))
 @click.option("--pdb", is_flag = True, 
                 help = ( "Enable post-mortem debugger." ))
-def server(  host: str
-           , port: int
-           , debug: bool
-           , login: str
-           , wikipath: str
+def server(  host:       str
+           , port:       int
+           , debug:      bool
+           , login:      str
+           , wikipath:   str
            , random_ssl: bool
-           , config
+           , config:     str
            , secret_key: Optional[str]
-           , pdb: bool
+           , pdb:        bool
+           , wsgi:       bool
            ):
     """Run the mwiki server."""
     _login = None  
-
     if pdb:
         print("[INFO] Enabled Post-mortem debugger.")
         sys.excepthook = debughook
-
+    # Default value for configuration variables
+    _host = host 
+    _port = port 
+    _debug = debug
+    _do_login = login
+    _login = login.split(",")
+    _username = _login[0] if len(_login) == 2 else ""
+    _password = _login[1] if len(_login) == 2 else ""
+    _wikipath = wikipath
+    ## print(" [TRACE] (before) wikipath = ", _wikipath)
+    _secret_key = secret_key
+    _random_ssl = random_ssl
+    ##_pdb = pdb 
+    _wsgi = wsgi 
+    ## ---- Load server settings from a configuration file --- ## 
     if config is not None:
         if not os.path.isfile(config):
             print(f"Error file '{config} does not exist")
@@ -83,17 +157,34 @@ def server(  host: str
         _random_ssl = server.get("random-ssl", False)
         _login = (_username, _password) if _do_login else None 
         _secret_key = server.get("secret_key", None)
-        make_app_server(_host, _port, _debug, _login, _wikipath, _random_ssl, _secret_key)
-        exit(0)
-        
+        #make_app_server(_host, _port, _debug, _login, _wikipath, _random_ssl, _secret_key)
+    _wikipath = utils.expand_path(_wikipath)
+    if not os.path.isdir(_wikipath):
+        print("ERROR: Expected an existing wiki directory files (markdown repository).")
+        print(f"Directory {_wikipath} not found.")
+        exit(1)
     if login != "":
         #os.environ["DO_LOGIN"] = "true"
         _login =  login.split(",")
         if len(_login) != 2:
-            print("Error expected login in format --login=<USERNAME>;<PASSWORD>")
+            ### print("Error expected login in format --login=<USERNAME>;<PASSWORD>")
             exit(1)
-    _wikipath = utils.expand_path(wikipath)
-    app = make_app_server(host, port, debug, _login, _wikipath, random_ssl)
+    if wsgi:
+        _loginp = f"{_username},{_password}" if _username != "" else None
+        ## print(" [TRACE] Starting flask app using WSGI, wikipath = ", _wikipath)
+        gunicorn_runner(_host, _port, _wikipath
+                        , login = _loginp 
+                        , secret_key= _secret_key
+                        )
+        exit(0)
+    app = make_app_server(  host       = _host
+                          , port       = _port
+                          , debug      = _debug
+                          , login      = _login
+                          , wikipath   = _wikipath
+                          , secret_key = _secret_key
+                          , random_ssl = _random_ssl
+                          )
     app.run(host = host, port = port, debug = debug)
     ## app.run(host = host, port = port, debug=True)
 
@@ -109,9 +200,6 @@ def compile(path: Optional[str], file: Optional[str]):
     """Compile Latex Formulas of .md file or folder to SVG images.
     The images are stored in the cache folder.
     """
-    import glob 
-    import os.path 
-    import multiprocessing
     if file is not None:
         if not os.path.isfile(file):
             print(f" [ERROR] File {file} does not exist.")
