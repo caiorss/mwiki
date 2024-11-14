@@ -52,6 +52,9 @@
 
 
 :root {
+    /*--- Desktop screen Width ----------------*/
+    --screen-width-desktop: 850px;
+
     /* --bg-sidebar: #F2EACA; */  /* #F7F4ED; */
     --bg-sidebar: white;  /* #F7F4ED; */
     /* --bg-main:   #F2EACA ; */
@@ -273,7 +276,7 @@ dd {
     bottom:  0;
     position: absolute;
     overflow-y: auto;
-    max-width: 800px;
+    max-width: var(--screen-width-desktop);
     background-color: var(--bg-main);
 
 }
