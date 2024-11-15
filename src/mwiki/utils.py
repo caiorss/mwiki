@@ -31,6 +31,13 @@ def is_os_macos() -> bool:
 	output = "darwin" in sys.platform
 	return output
 
+def is_os_unix() -> bool:
+    """Return true if the current operating systems is a unix-like OS."""
+    for x in ["linux", "bsd", "darwin"]:
+         if x in sys.platform:
+            return True
+    return False
+
 def xdg_config_home() -> str:
 	"""Return OS-specific base path user-editable cofiguration files."""
 	out = ""
