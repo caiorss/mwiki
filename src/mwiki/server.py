@@ -103,6 +103,7 @@ def make_app_server(   host:        str
         response = flask.render_template( "listing.html"
                                          , title = title
                                          , pages = pages
+                                         , size  = len(pages)
                                          , query = query
                                          )
         return response
