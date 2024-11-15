@@ -165,7 +165,6 @@ def server(  host:       str
         exit(1)
     if login != "":
         #os.environ["DO_LOGIN"] = "true"
-        _login =  login.split(",")
         if len(_login) != 2:
             ### print("Error expected login in format --login=<USERNAME>;<PASSWORD>")
             exit(1)
@@ -177,6 +176,7 @@ def server(  host:       str
                         , secret_key= _secret_key
                         )
         exit(0)
+    _login =  x if len(x := login.split(",")) == 2 else None
     app = make_app_server(  host       = _host
                           , port       = _port
                           , debug      = _debug
