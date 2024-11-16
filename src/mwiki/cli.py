@@ -12,6 +12,7 @@ import click
 import multiprocessing
 import mwiki.utils as utils
 from mwiki.server import make_app_server
+import mwiki.convert
 
 # Check whether the OS is a Unix-like operating system
 if utils.is_os_linux_or_bsd() or utils.is_os_macos():
@@ -225,6 +226,19 @@ def compile(path: Optional[str], file: Optional[str]):
     ## p.join()
     ## input("Type RETURN to exit")
     ## render.compile_folder(path)
+
+
+
+@cli1.command()
+@click.option("-f", "--file", default = None, 
+                help = ( "Input markdown file to be converted." )
+                )
+@click.option("-o", "--output", default = None, 
+                help = ( "Output file." )
+                )
+def convert(file: Optional[str], output: Optional[str]):
+    """Convert from org-mode markup to markdown"""
+    mwiki.convert.convert(file, output)
 
 
 def main():
