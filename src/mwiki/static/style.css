@@ -677,6 +677,7 @@ pre {
     margin-top: 8pt     !important;
     margin-bottom: 10px  !important;
     font-family: "IBM Plex Mono" !important;
+    font-size: 10pt;
     line-height: initial;
     overflow-x: auto !important;
     overflow-y: auto !important;
