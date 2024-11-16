@@ -253,6 +253,7 @@ def file_contains(fileName: str, query: str, opt = "and_all") -> bool:
         # Split whitespace
         queries = query.split()
         queries_ = [normalize_text(q) for q in queries.copy()]
+        score = 0
         # WARNING: Never read the whole file to memory, becasue
         # if the file is 1 GB, then 1 GB memory will be consumed,
         # what can case OOM (Out-Of-Memory) issues and slow down
@@ -268,8 +269,9 @@ def file_contains(fileName: str, query: str, opt = "and_all") -> bool:
             elif opt == "or_all":
                 for q in queries:
                     if q in line_: 
+                        score += 1
                         result = True
-                        break
+                        ##break
             # (AND) Returns treu if the file contains all words
             # from the input query
             elif opt == "and_all":
@@ -277,11 +279,16 @@ def file_contains(fileName: str, query: str, opt = "and_all") -> bool:
                     if (q in line_ and q in queries_):
                         queries_.remove(q)
                     if (q in basename and q in queries_):
+                        score += 2
                         queries_.remove(q)
                 if len(queries_) == 0:
+                    score += 1
+                    queries_ =  [normalize_text(q) for q in queries.copy()]
                     result = True
-                    break
-        return result
+                    ##break
+        ## if score != 0:
+        ##     print(f" [DEBUG] score = {score} ; file =  {fileName} ")
+        return score
 
 def grep_file(fileName: str, query: str) -> List[str]:
     """Return lines of a file that contains a given query string."""

@@ -75,18 +75,21 @@ def make_app_server(   host:        str
         files_ = pathlib.Path(BASE_PATH).rglob("*.md")
         files = []
         if query == "":
-            files = [f for f in files_ ]
+            files = [(f, 1) for f in files_ ]
         else:
-            files = [f for f in files_ 
-                        if utils.file_contains(str(f), query) ]
+            files = [(f, score) for f in files_ 
+                        if (score := utils.file_contains(str(f), query)) != 0 ]
                      ##and utils.file_contains(os.path.join(BASE_PATH, f), query)]
         sorted_files = []
-        if sort == "" or sort == "name":
-            sorted_files = sorted(files, key = lambda x: x.name)
+        if sort == "" or sort == "score":
+            sorted_files = sorted(files, key = lambda x: x[1], reverse = True)
+        elif  sort == "name":
+            sorted_files = sorted(files, key = lambda x: x[0].name)
         elif sort == "modified":
-            sorted_files = sorted(files, key = lambda x: x.stat().st_mtime, reverse = True )
+            sorted_files = sorted(files, key = lambda x: x[0].stat().st_mtime, reverse = True )
         elif sort == "created":
-            sorted_files = sorted(files, key = lambda x: x.stat().st_ctime, reverse = True)
+            sorted_files = sorted(files, key = lambda x: x[0].stat().st_ctime, reverse = True)
+        sorted_files = [ a for (a, _) in sorted_files ]
         page_to_file = lambda f:  str(f) ##os.path.join(BASE_PATH, f) # + ".md"
         MAX_LEN = 500
         pages = [  {    "name": f.name.split(".")[0] 
