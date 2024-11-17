@@ -4,14 +4,16 @@ class PopupWindow
     {
         let title = options.title || "";
         let html  = options.html  || "";
+        let width = options.width || 500;
+        let height = options.height || 400;
         this._html = html;
         this._dom = document.createElement("div");
         document.body.appendChild(this._dom);
         this._dom.classList.add("popup-window");
         this._dom.style.zIndex = "1000";
         this._dom.style.position = "absolute";
-        this._dom.style.width  = "400px";
-        this._dom.style.height = "500px";
+        this._dom.style.width  = `${width}px`;
+        this._dom.style.height = `${height}px`;
         this._dom.style.top    = "10%";
         this._dom.style.left   = "30%";
         this._dom.style.background = "aliceblue";
@@ -25,6 +27,18 @@ class PopupWindow
         this.onClick(".btn-window-close", () => self.close());
     }
 
+    setMessage(message)
+    {
+        let x =  this._dom.querySelector(".popup-message-text");
+        if(!x)
+        { 
+            console.error(`Not found container of CSS class 'pupup-message-text'. 
+                              Failed to set popup window messasge.`) ;
+            return;
+        }
+        x.textContent = message;
+    }
+
     onWindowClick(handler)
     {
         this._dom.addEventListener("click", (event) => {
@@ -32,6 +46,12 @@ class PopupWindow
             let className = target.className;
             handler(className);
         });
+    }
+
+    // Event triggered when window loses focus
+    onBlur(handler)
+    {
+        this._dom.addEventListener("blur", handler);
     }
 
     onClick(query, handler)
@@ -70,7 +90,7 @@ class PopupWindow
     close()
     {
         this.hide();
-        this.remove();
+        // this.remove();
     }
 
     /** Demove _dom element from anchor (document.body) */
@@ -101,7 +121,7 @@ function popupYesNo(title, message, handler)
 function popupInput(title, message, label, handler)
 {
     let html_ = `
-        <p>${message}</p>
+        <p class="popup-message-text">${message}</p>
         <label>${label}</label><input type="text" class="popup-input" required="required" />
         <br><br>
         <button class="btn-yes">Yes</button>
@@ -123,10 +143,10 @@ function popupInput(title, message, label, handler)
     pwindow.show();
 }
 
-function popupMessage(title, message)
+function popupMessage(title, message, options)
 {
     let html_ = `
-        <p>${message}</p>
+        <p class="popup-message-text">${message}</p>
         <button class="btn-popup-close">Close</buttom>
     `;
     let pwindow = new PopupWindow({
@@ -136,7 +156,15 @@ function popupMessage(title, message)
     pwindow.onWindowClick( (className) => {
         if(className == "btn-popup-close"){ pwindow.close(); }
     });
-    pwindow.show();
+    let hidden = options.hidden || false;
+    // let closeOnBlur = options.closeOnBlur || false;
+    // if(closeOnBlur)
+    // {  
+    //     //console.log(" [TRACE] Install close on Blur");
+    //     pwindow.onBlur((event) => pwindow.remove()); 
+    // }
+    if(!hidden){ pwindow.show(); }
+    return pwindow;
 }
 
 /** Send an Http request to a Rest API */
@@ -251,6 +279,8 @@ function onClick(anchor, handler)
     dom.addEventListener("click", handler);
 }
 
+var tooltip_window = null;
+
 document.addEventListener("DOMContentLoaded", function()
   {
     // Event bubbling
@@ -279,6 +309,7 @@ document.addEventListener("DOMContentLoaded", function()
         last = tg;
     });
 
+    tooltip_window = popupMessage("Abbreviation", "", {hidden: true});
 
     let btnCreateNote = document.querySelector("#btn-create-note");
     btnCreateNote.addEventListener("click", () => {
@@ -297,6 +328,23 @@ document.addEventListener("DOMContentLoaded", function()
     });
           
 });
+
+
+document.addEventListener("click", (event) => {
+    let target = event.target; 
+    if(target.tagName === "ABBR")
+    {
+
+        event.preventDefault();
+        let tooltip = target.title; 
+        tooltip_window.setMessage(tooltip);
+        tooltip_window.show();
+        // popupMessage("Abbreviation", tooltip, { closeOnBlur: true });
+    } else {
+        tooltip_window.close();
+    }
+});
+
 
 
 function scrollToTop()
@@ -392,6 +440,7 @@ function clearFormEntries(formID)
         }
     }
 }
+
 
 
 // document.addEventListener("click", (event) => {
