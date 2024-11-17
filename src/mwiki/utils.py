@@ -240,6 +240,17 @@ def normalize_text(text: str) -> str:
             )
     return out
 
+_ENGLISH_STOP_WORDS = [ 
+                "and", "or", "any", "of", "some"
+             , "in", "at", "on", "off", "our"
+             , "your", "we", "yours", "yourself"
+             , "his", "he", "himself", "her", "hers"
+             , "it", "its", "itself", "they", "them"
+             , "what", "which", "whom", "that", "these"
+             , "those" 
+             ]
+
+
 def file_contains(fileName: str, query: str, opt = "and_all") -> bool:
     """Check whether a file (full path) contains a queyr string.
     Returns true if file contains a query string.
@@ -251,8 +262,10 @@ def file_contains(fileName: str, query: str, opt = "and_all") -> bool:
         ## print(f" [TRACE] fileName = {fileName} ; basename = {basename}")
         query = normalize_text(query.lower())
         # Split whitespace
-        queries = query.split()
-        queries_ = [normalize_text(q) for q in queries.copy()]
+        ## queries = query.split()
+        queries = [ x for q in query.split() 
+                    if (x := normalize_text(q))  not in _ENGLISH_STOP_WORDS  ]
+        queries_ = queries.copy()
         score = 0
         # WARNING: Never read the whole file to memory, becasue
         # if the file is 1 GB, then 1 GB memory will be consumed,
@@ -283,7 +296,7 @@ def file_contains(fileName: str, query: str, opt = "and_all") -> bool:
                         queries_.remove(q)
                 if len(queries_) == 0:
                     score += 1
-                    queries_ =  [normalize_text(q) for q in queries.copy()]
+                    queries_ =  queries.copy() 
                     result = True
                     ##break
         ## if score != 0:
