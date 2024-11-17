@@ -51,8 +51,10 @@ MdParser = (
     .use(tasklists_plugin)
     .use(attrs_plugin)
     .use(attrs_block_plugin)
-	.use(container_plugin, name = "{tip}",  render = render_container_tip)
+	.use(container_plugin, name = "{tip}")
 	.use(container_plugin, name = "{note}")
+	.use(container_plugin, name = "{info}")
+	.use(container_plugin, name = "{warning}")
     # Defintion of math concept or theorem 
 	.use(container_plugin, name = "{def}")
 	.use(container_plugin, name = "{theorem}")
