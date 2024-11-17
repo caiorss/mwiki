@@ -4,18 +4,20 @@ class PopupWindow
     {
         let title = options.title || "";
         let html  = options.html  || "";
-        let width = options.width || 500;
-        let height = options.height || 400;
+        let width = options.width || "500px";
+        let height = options.height || "400px";
+        let top = options.top || "10%";
+        let left = options.left || "30%";
         this._html = html;
         this._dom = document.createElement("div");
         document.body.appendChild(this._dom);
         this._dom.classList.add("popup-window");
         this._dom.style.zIndex = "1000";
         this._dom.style.position = "absolute";
-        this._dom.style.width  = `${width}px`;
-        this._dom.style.height = `${height}px`;
-        this._dom.style.top    = "10%";
-        this._dom.style.left   = "30%";
+        this._dom.style.width  = width;
+        this._dom.style.height = height;
+        this._dom.style.top    = top;
+        this._dom.style.left   = left;
         this._dom.style.background = "aliceblue";
         this._dom.style.padding = "10px";
         this.hide();
@@ -166,6 +168,41 @@ function popupMessage(title, message, options)
     if(!hidden){ pwindow.show(); }
     return pwindow;
 }
+
+function popupIframe (title, url, options)
+{
+    if( options == undefined ){ 
+        options = {};
+    }
+    let hidden = (options.hidden || false);
+    let width = (options.hidden || "80%");
+    let height = (options.hidden || "90%");
+    let html_ = `
+        <iframe src="${url}" title="${title}" width="100%" height="100%" ></iframe> 
+        <button class="btn-popup-close">Close</buttom>
+    `;
+    let pwindow = new PopupWindow({
+          title: title 
+        , html: html_
+        , width: width
+        , height: height
+        , top: "20px"
+        , left: "50px" 
+    });
+    pwindow.onWindowClick( (className) => {
+        if(className == "btn-popup-close"){ pwindow.close(); }
+    });
+    // let closeOnBlur = options.closeOnBlur || false;
+    // if(closeOnBlur)
+    // {  
+    //     //console.log(" [TRACE] Install close on Blur");
+    //     pwindow.onBlur((event) => pwindow.remove()); 
+    // }
+    if(!hidden){ pwindow.show(); }
+    return pwindow;
+}
+
+
 
 /** Send an Http request to a Rest API */
 async function httpRequest(method, url, body)
@@ -329,6 +366,21 @@ document.addEventListener("DOMContentLoaded", function()
           
 });
 
+var refcard_window = null;
+
+function showRefcard()
+{
+    if( !refcard_window)
+    {
+        // Lazy Initialization
+        refcard_window =  popupIframe( "Reference Card"
+                                     , "/wiki/special:refcard"
+                                     , { width: "100%", height: null} );
+    }
+    refcard_window.show();
+}
+
+_menus = new Set();
 
 document.addEventListener("click", (event) => {
     let target = event.target; 
@@ -342,6 +394,19 @@ document.addEventListener("click", (event) => {
         // popupMessage("Abbreviation", tooltip, { closeOnBlur: true });
     } else {
         tooltip_window.close();
+    }
+    if(target.classList[0] == "button-toggle-menu")
+    {
+        let dom = event.target.parentElement.querySelector(".menu-dropdown-content");
+        // Show menu 
+        dom.classList.toggle("menu-hidden");
+        _menus.add(dom);
+    } else {
+        for(let x of _menus)
+        {
+            // Hide menu
+            x.classList.add("menu-hidden")
+        } 
     }
 });
 

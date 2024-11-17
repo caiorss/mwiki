@@ -181,14 +181,29 @@ def make_app_server(   host:        str
         if "." not in path:
             mdfile_ = path + ".md"
             ##print(f" [TRACE] mdfile_ = {mdfile_} ; base_path = {base_path}")
-            matches = list(base_path.rglob(mdfile_))
+            ## 
+            is_special = path.startswith("special:")
+            if path == "special:refcard":
+                content = utils.read_resource(mwiki, "refcard.md")
+                ast = mparser.parse_source(content)
+                builder = render.HtmlRenderer()
+                content = builder.render(ast)
+                response = flask.render_template(  
+                                               "standalone.html"
+                                             , title   = "MWiki Markup Language Reference Card" # path
+                                             , page    = path
+                                             , content = content
+                                             , latex_macros = latex_macros
+                                             )
+                return response
+            match = next(base_path.rglob(mdfile_), None)
             ## print(" [TRACE] matches = ", matches)
             # ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
-            if len(matches) == 0:
+            if not match:
                 ## flask.abort(404) 
                 out = flask.redirect(f"/create/{path}")
                 return out
-            mdfile = str(matches[0])
+            mdfile = match
             headings = []
             with open(mdfile) as fd:
                 inp = fd.read()

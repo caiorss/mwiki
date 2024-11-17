@@ -6,8 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
     <title>MWiki - {{title}}</title>
-    <link rel="stylesheet" href="/static/style.css">
-    {% block style %}{% endblock %}
+    <link rel="stylesheet" href="/static/style.css"> 
+    <style>
+        .link-edit {
+            visibility: hidden;
+        }
+    </style> 
+    
     <!-- MathJax Settings -->
     <script>
     MathJax = {
@@ -101,56 +106,7 @@
 </head>
 
 <body>
-    <div class="sidebar sidebar-visibility">
-        <h2>Search</h2>
-        <form action="/pages" mehtod="GET">
-            <label for="site-search-bar">Search all Markdown Files</label>
-            <br>
-            <input type="search" id="site-search-bar" name="search" placeholder="Search..." value="{{query}}" />
-            <button class="sidebar-search-button">OK</button>
-        </form>
-
-        {% if toc %}
-        <h2>Contents</h2>
-        <div class="toc">
-            <!-- Table of contents template placeholder -->
-            {% block toc %}{% endblock %} 
-        </div>
-        {% endif %}
-
-    </div>
-    <div class="main main-shift">
-        <div class="header">
-            <a class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();">[#]</a>
-            <a class="sidebar-toggle-button" href="/">Home</a>
-            <div class="dropdown">
-              <a class="button-toggle-menu sidebar-toggle-button" 
-                 href="#" 
-                 title="Global menu"
-                 class="dropbtn"
-                 >[Global]</a>
-              <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
-                 <a class="sidebar-toggle-button" href="/pages" title="Search and list all pages.">Search</a>
-                 <a class="sidebar-toggle-button" href="#" id="btn-create-note" title="Create new page or note.">New</a>
-                 <a class="sidebar-toggle-button" href="#" onclick="showRefcard();" id="btn-show-refcard" title="Show Reference Card.">Refcard</a>
-                 <a class="sidebar-toggle-button" href="/logoff">Log off</a>
-                 <a class="sidebar-toggle-button" href="/about">About</a>
-              </div>
-            </div>
-            {% block topbar_buttons %}{% endblock %} 
-            <a class="sidebar-toggle-button" 
-                 href="#" 
-                 id="btn-scroll-top" 
-                 title="Scroll to top of the page"
-                 >☝️</a>
-                 
-             <a class="sidebar-toggle-button" 
-                 href="#" 
-                 id="btn-scroll-bottom" 
-                 title="Scroll to bottom the page"
-                 >👇</a>           
-        </div>
-
+    <div class="main">
         <div class="content">
             <h1 class="document-heading">{{title}}</h1>
             <p class="hidden-mathjax-macros" style="display: none;">
@@ -158,8 +114,7 @@
                 {{ latex_macros }}
                 $$
             </p>
-            {% block content %}
-            {% endblock %}
+            {{ content|safe }} 
         </div>
     </div>
     <script>

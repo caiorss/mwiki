@@ -81,13 +81,6 @@ h2 {
     font-size: 20px;
 }
 
-h3 {
-    font-size: 16px;
-}
-
-h4 {
-    font-size: 14px;
-}
 
 
 .document-heading {
@@ -552,8 +545,8 @@ select:focus {
 
 
     .popup-window {
-        max-height: 30%;
-        max-width: 25%;
+        /* max-height: 30%; */
+        /* max-width: 25%; */
         top: 10px;
         left: 20px;
     }
@@ -652,6 +645,16 @@ select:focus {
     }
 
     .popup-window {
+        max-height: 80% !important;
+        max-width: 90% !important;
+        /* top: 10px !important; */
+        left: 10px !important;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    /**
+    .popup-window {
         max-height: 50% !important;
         max-width: 80% !important;
         top: 10px !important;
@@ -661,7 +664,7 @@ select:focus {
     .popup-window label {
         padding: 5px;
     }
-
+    */
 
 }
 
