@@ -305,10 +305,10 @@ class HtmlRenderer(Renderer):
             , ("{degrees}", "°") # Degrees (angle)
             , ("{euros}", "€")  # Euro 
             , ("{pounds}", "£") # Great Britain Pound (aka pounds)
-            , ("{gpb}",    "£")  # Great Britain Pound (aka pounds)
+            , ("{gbp}",    "£")  # Great Britain Pound (aka pounds)
             , ("{yen}", "¥")     # Yen (Currency)
             , ("{yens}", "¥")     # Yen (Currency)
-            , ("{pargraph}", "¶")
+            , ("{paragraph}", "¶")
             , ("{pilcrow}", "¶")
             , ("{section}", "§")
 
