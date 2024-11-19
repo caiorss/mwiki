@@ -392,7 +392,6 @@ img.admonition-icon {
     font-weight: bold;
     font-size: larger;
     background-color: #22863a;
-
     
     */
 }
@@ -409,6 +408,35 @@ img.admonition-icon {
     width: 100%;
 
 }
+
+.info .admonition-title {
+    font-weight: bold;
+    font-size: larger;
+    background-color: #81ff5b;
+    margin: 0 -0.6rem;
+    padding: 0.4rem 0.6rem 0.4rem 2rem;
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+
+}
+
+
+
+.warning .admonition-title {
+    font-weight: bold;
+    font-size: larger;
+    background-color: #ff7a73;
+    margin: 0 -0.6rem;
+    padding: 0.4rem 0.6rem 0.4rem 2rem;
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+
+}
+
 
 .def .admonition-title {
     /* font-weight: bold; */
