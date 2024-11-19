@@ -509,6 +509,9 @@ class HtmlRenderer(Renderer):
         else:
             ## breakpoint()
             title = ""
+            fullLinkFlag = href.startswith("r-")
+            # Trim prefix 'r-'
+            href =  href[2:] if fullLinkFlag else href 
             ## DOI - Digital Object Identifier
             if href.startswith("doi:") or href.startswith("DOI:"):
                 temp = utils.escape_url(href.strip("doi:").strip("DOI:"))
@@ -562,11 +565,20 @@ class HtmlRenderer(Renderer):
                 href = f"https://patents.google.com/patent/{temp}"
                 inner = f"Patent {temp}"
             ## PEP - Python Enhancement Proposal 
+            ## Alows create links to PEPs using <pep:333>, creates 
+            ## lik to https://peps.python.org/pep-333 - Pythons' PEP 333
             elif href.startswith("pep:") or href.startswith("PEP:"):
                 title = "PEP - Python Enhancement Proposal"
                 temp = utils.escape_url(href.strip("pep:").strip("PEP:"))
                 inner = f"PEP {temp}"
                 href = f"https://peps.python.org/pep-{temp}"
+            ## Hyperlink to Python package 
+            elif href.startswith("pypi:") or href.startswith("PYPI:"):
+                title = "Python Package - pypi.org"
+                temp = utils.escape_url(href.strip("pypi:").strip("PYPI:"))
+                inner = temp 
+                href = f"https://pypi.org/project/{temp}"
+            inner = href if fullLinkFlag else inner
         title = f'title="{title}"' if title != "" else ""
         attrs = f""" target="_blank" {title} class="link-external" rel="noreferrer noopener nofollow" """
         html = f"""<a href="{href}" {attrs}>{inner}</a>"""
