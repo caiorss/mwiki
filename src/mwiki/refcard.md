@@ -34,6 +34,46 @@ Rendering:
 
 this ==text will be higlighted== and remaining of the text.  
 
+## Typographic Notation 
+
+MWiki can convert ascii notation, such as `(C)` to the copyright unicode symbol, `(TM)` to trademark unicode symbol and other notations to the equivalent unicode symbol.
+
+Example:
+
+```
++ Copyright Symbol (C)
++ Copyright Symbol {C}
++ Registered Symbol (R)
++ Registered Symbol (C)
++ Trademark(TM) symbol
++ Trademark{TM} symbol
++ The angle is 60{deg} degrees 
++ The angle is 60{degrees} degrees 
++ The price is 30 {euros}
++ The price is 50 {pounds}
++ The price is 50 {gbp}  (British Pounds)
++ The price is 20 {yens}
++ Pilcrow Symbol {pilcrow} or {pagraph}
++ Section Symbol  {section}
+```
+
+Rendering:
+
++ Copyright Symbol (C)
++ Copyright Symbol {C}
++ Registered Symbol (R)
++ Registered Symbol (C)
++ Trademark(TM) symbol
++ Trademark{TM} symbol
++ The angle is 60{deg} degrees 
++ The angle is 60{degrees} degrees 
++ The price is 30 {euros}
++ The price is 50 {pounds}
++ The price is 50 {gbp}  (British Pounds)
++ The price is 20 {yens}
++ Pilcrow Symbol {pilcrow} or {pagraph}
++ Section Symbol  {section}
+
 ## Hyperlinks 
 
 ### Internal Links
@@ -85,7 +125,7 @@ Rendering:
 ### Special Links
 
 
- **Hyperlink to DOI - Digital Object Identifier**
+ **Hyperlink to DOI - Digital Object Identifier (1)**
 
 Syntax:
 
@@ -109,6 +149,28 @@ When this DOI hyperlink is rendered, it is expanded to:
 https://doi.org/10.1109/ICACT.2014.6779016
 ```
 
+ **Hyperlink to DOI - Digital Object Identifier (2)**
+
+This syntax when rendered yields the raw hyperlink, whose label is the DOI URL.
+
+Syntax:
+
+```
+  <r-doi:$DOI-BIBLIOGRAPHIC-REFERENCE>
+```
+
+Example:
+
+```
++ Paper: *Time Aware Least Recent Used (TLRU) cache management policy in ICN*
+  + <r-doi:10.1109/ICACT.2014.6779016> 
+```
+
+Rendering:
+
++ Paper: *Time Aware Least Recent Used (TLRU) cache management policy in ICN*
+  + <r-doi:10.1109/ICACT.2014.6779016> 
+
 **Hyperlink to ArXiv paper**
 
 Syntax:
@@ -127,7 +189,7 @@ Example:
 
 Rendering:
 
-+ See this paper:  <arxiv:1609.06088> - *Time Derivative of Rotation Matrices: a Tutorial*, shiyu zhao, (2016)  
++ see this paper:  <arxiv:1609.06088> - *time derivative of rotation matrices: a tutorial*, shiyu zhao, (2016)  
 
 
 The hyperlink `<arxiv:1609.06088>` when rendered is expanded to following hyperlink.
@@ -136,12 +198,32 @@ The hyperlink `<arxiv:1609.06088>` when rendered is expanded to following hyperl
 https://arxiv.org/abs/1609.06088
 ```
 
+**Hyperlink to ArXiv paper (Full Hyperlink)**
+
+Example: 
+
+```
++ *Time Derivative of Rotation Matrices: a Tutorial*, Shiyu Zhao, (2016)  
+  + <r-arxiv:1609.06088>
+```
+
+Rendering:
+
++ *Time Derivative of Rotation Matrices: a Tutorial*, Shiyu Zhao, (2016)  
+  + <r-arxiv:1609.06088>
+
+
 **Hyperlink to Semantic Scholar** 
 
 This syntax generates a hyperlink to a research paper listed in Semantic Scholar by its Semantic-Scholar Identifier (ID).
 
 ```
-+  <S2CID:$SEMANTIC-SCHOLAR-ID> 
+<S2CID:$SEMANTIC-SCHOLAR-ID> 
+
+  OR:
+ 
+<r-S2CID:$SEMANTIC-SCHOLAR-ID>  
+   => Display hyperlink as Link label
 ```
 
 Example: 
@@ -183,43 +265,71 @@ The special hyperlink `<pmid:23524919>` is expanded to:
 https://pubmed.ncbi.nlm.nih.gov/23524919
 ```
 
+**Hyperlink to PubMed Paper by PubMed Id (Pmid) - (Full Link)**
+
+
+Example: 
+
+```
++ *Teaching population health: a competency map approach to education* 
+  + <r-pmid:23524919>
+```
+
+Rendering:
+
++ *Teaching population health: a competency map approach to education* 
+  + <r-pmid:23524919>
 
  **Hyperlink to Patent**
 
-```
-  <patent:US9906369>
-```
-
-This link syntax is rendered as a hyperlink to the patent number US9906369 provided by Google's patent.
+Syntax:
 
 ```
-  https://patents.google.com/patent/US9906369
+  <patent:$PATENT-NUMBER>
+OR
+  <r-patent:$PATENT-NUMBER>
+
+```
+
+Exaple:
+
+```markdown
++ Short Link: <patent:US9906369>
++ Full Link: <r-patent:US9906369>
 ```
 
 Rendering: 
 
- <patent:US9906369>
++ Short Link: <patent:US9906369>
++ Full Link: <r-patent:US9906369>
 
 
  **Hyperlink to RFC Standard**
 
 Special link to RFC (Request for Comment) technical standards proposed by the IETF (Internet Engineering Task Force).
 
+Syntax: 
+
+```
+    <rfc:$RFC-NUMBER> => Short Link
+  <r-rfc:$RFC-NUMBER> => Link as label 
+```
+
+
 Example:
 
 ```
 + See <rfc:7231> - Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content
+
++ See <r-rfc:7231> - Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content
 ```
 
 Rendering:
 
 + See <rfc:7231> - Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content
 
-The special hyperlink `<rfc:7231>` is expanded to the URL
++ See <r-rfc:7231> - Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content
 
-```
- https://datatracker.ietf.org/doc/html/rfc7231
-```
 
  **Hyperlink to PEP (Pyhton Enhancement Proposal)**
 
@@ -227,21 +337,43 @@ Syntax:
 
  ```
    <pep:$PEP-NUMBER>
+OR:
+   <r-pep:$PEP-NUMBER>
  ```
 
 Example:
 
 ```
 + See: Python WSGI - Webserver Gateway Interface  <pep:333> 
++ See: Python WSGI - Webserver Gateway Interface  <r-pep:333> 
 ```
 
 Rendering:
 
 + See:  Python WSGI - Webserver Gateway Interface  <pep:333> 
++ See: Python WSGI - Webserver Gateway Interface  <r-pep:333> 
+
+ **Hyperlink to Python Package**
+
+Syntax: 
+
+ ```
+   <pypi:$PACKAGE-NAME>
+OR:
+   <r-pypi:$PACKAGE-NAME>
+ ```
+
+Example:
+
+```
++ Pyhton <pypi:sqlitedict> package 
++ Python sqltedict package, available at <r-pypi:sqlitedict>
+```
 
 Rendering:
 
-+ [Python WSGI - Webserver Gateway Interface](pep:333)
++ Pyhton <pypi:sqlitedict> package 
++ Python sqltedict package, available at <r-pypi:sqlitedict>
 
 ## Code Blocks 
 ### Inline code 
@@ -282,19 +414,49 @@ for x in os.listdir("/"):
     print(x)
 ```
 
-### Quotes 
+## Quotes 
+
+ **Quotion Syntax**
 
 Example:
 
 ```markdown
-> Donald E. Knuth on Literate Programming, 1984Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to humans what we want the computer to do.
+> Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to humans what we want the computer to do.
 > - -- Donald E. Knuth, Literate Programming, 1984
 ```
 
 Rendering:
 
-> Donald E. Knuth on Literate Programming, 1984Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to humans what we want the computer to do.
+> Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to humans what we want the computer to do.
 > - -- Donald E. Knuth, Literate Programming, 1984
+
+ **Quotation Syntax Using Code Block**
+
+Example:
+
+
+````
+```{quote}
+Let us change our traditional attitude to the 
+construction of programs: Instead of imagining that 
+our main task is to instruct a computer what to do, 
+let us concentrate rather on explaining to humans 
+what we want the computer to do.
+  -- Donald E. Knuth, Literate Programming, 1984
+```
+````
+
+Rendering:
+
+```{quote}
+Let us change our traditional attitude to the 
+construction of programs: Instead of imagining that 
+our main task is to instruct a computer what to do, 
+let us concentrate rather on explaining to humans 
+what we want the computer to do.
+  -- Donald E. Knuth, Literate Programming, 1984
+```
+
 
 ## LaTeX Math Equations
 ### Inline 
