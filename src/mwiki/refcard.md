@@ -115,6 +115,8 @@ Syntax:
 
 ```
   <arxiv:$ArXivID>
+OR:
+  <arXiv:$ArXivID>
 ```
 
 Example:
@@ -134,25 +136,48 @@ The hyperlink `<arxiv:1609.06088>` when rendered is expanded to following hyperl
 https://arxiv.org/abs/1609.06088
 ```
 
-**Hyperlink to PubMed Paper**
+**Hyperlink to Semantic Scholar** 
 
-Syntax: 
+This syntax generates a hyperlink to a research paper listed in Semantic Scholar by its Semantic-Scholar Identifier (ID).
 
 ```
-  <pubmed:$PUB-MED-ID-HERE>
++  <S2CID:$SEMANTIC-SCHOLAR-ID> 
 ```
 
 Example: 
 
 ```
-+ Reference: *Teaching population health: a competency map approach to education* <pubmed:23524919>
+
++ See this article: *Secure Distribution of Protected Content in Information-Centric Networking* - <S2CID:198967720>
+
 ```
 
 Rendering:
 
-+ Reference: *Teaching population health: a competency map approach to education* <pubmed:23524919>
++ See this article: *Secure Distribution of Protected Content in Information-Centric Networking* - <S2CID:198967720>
 
-The special hyperlink `<pubmed:23524919>` is expanded to:
+
+**Hyperlink to PubMed Paper by PubMed Id (Pmid)**
+
+This type of special short hyperlink allows to create a link to research papers in PubMed Central database by using the PMID - PubMed of the research paper.
+
+Syntax: 
+
+```
+  <pmid:$PUB-MED-ID-HERE>
+```
+
+Example: 
+
+```
++ Reference: *Teaching population health: a competency map approach to education* <pmid:23524919>
+```
+
+Rendering:
+
++ Reference: *Teaching population health: a competency map approach to education* <pmid:23524919>
+
+The special hyperlink `<pmid:23524919>` is expanded to:
 
 ```
 https://pubmed.ncbi.nlm.nih.gov/23524919
@@ -213,6 +238,10 @@ Example:
 Rendering:
 
 + See:  Python WSGI - Webserver Gateway Interface  <pep:333> 
+
+Rendering:
+
++ [Python WSGI - Webserver Gateway Interface](pep:333)
 
 ## Code Blocks 
 ### Inline code 
@@ -354,7 +383,7 @@ Example:
 | Deustch        | German         |
 | ja             | yes            |
 | nein           | no or not      |
-| hallo welt     | hello world    |
+| hallo welt     | hello World    |
 | willkomen      | welcome        |
 | Hilfe          | Help           |
 
@@ -367,7 +396,7 @@ Rendering:
 | Deustch        | German         |
 | ja             | yes            |
 | nein           | no or not      |
-| hallo welt     | hello world    |
+| hallo Welt     | hello world    |
 | willkomen      | welcome        |
 | Hilfe          | Help           |
 
@@ -543,12 +572,12 @@ Rendering:
 ###  Subscript  Role  
 
 ```
-+ H{sub}`2`O 
++ Water: H{sub}`2`O 
 ```
 
 Rendering:
 
-+ H{sub}`2`O, and 4{sup}`th` of July
++ Water: H{sub}`2`O
 
 ### Superscript Role 
 
