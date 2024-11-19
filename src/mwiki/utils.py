@@ -314,7 +314,8 @@ def grep_file(fileName: str, query: str) -> List[str]:
             line_ = normalize_text(line.lower())
             for q in queries:
                 if q in line_: 
-                    lines.append((n, line))
+                    next_line = fd.readline()
+                    lines.append((n, line + "\n" + next_line))
             n += 1
             # if query in normalize_text(line.lower()):
             #     lines.append((n, line))
