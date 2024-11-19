@@ -532,7 +532,7 @@ class HtmlRenderer(Renderer):
             elif href.startswith("issn") or href.startswith("ISSN"):
                 title = "International Standard Serial Number identifier"
                 temp = utils.escape_url(href.strip("issn:").strip("ISSN"))               
-                href = f"https://search.worldcat.org/issn/{temp}"
+                href = f"https://search.worldcat.org/search?q=issn+{temp}"
             # Bibcode identifier for astronomical data Bibcode:2020ISysJ..14.1921B
             elif href.startswith("Bibcode:"):
                 title = "Bbibcode identifier for astronomical data"
