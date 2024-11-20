@@ -45,7 +45,7 @@ keywords  = ["wiki", "myst", "markdown", "markdup", "obsidian"]
 
 [tool.poetry.scripts]
 mwiki            = "mwiki.cli:main"
-"mwiki_convert"  = "mwiki.cli:main convert"
+"mwiki-convert"  = "mwiki.convert:main"
 ## run    = "mdwiki.cli:main"
 
 [tool.poetry.dependencies]

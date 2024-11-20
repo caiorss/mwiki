@@ -144,10 +144,10 @@ def convert(file: Optional[str], output: Optional[str]):
 @click.option("-o", "--output", default = None, 
                 help = ( "Output file." )
                 )
-def _convert_adapter(file: Optional[str], output: Optional[str]):
+def main(file: Optional[str], output: Optional[str]):
     convert(file, output)
 
 
 if __name__ == "__main__":
-   _convert_adapter()
+   main()
    ## convert("test.org", "")
