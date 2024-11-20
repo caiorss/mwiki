@@ -101,7 +101,7 @@
 </head>
 
 <body>
-    <div class="sidebar sidebar-visibility">
+    <aside class="sidebar sidebar-visibility">
         <h2>Search</h2>
         <form action="/pages" mehtod="GET">
             <label for="site-search-bar">Search all Markdown Files</label>
@@ -118,9 +118,9 @@
         </div>
         {% endif %}
 
-    </div>
+    </aside>
     <div class="main main-shift">
-        <div class="header">
+        <header class="header">
             <a class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();">[#]</a>
             <a class="sidebar-toggle-button" href="/">Home</a>
             <div class="dropdown">
@@ -149,9 +149,9 @@
                  id="btn-scroll-bottom" 
                  title="Scroll to bottom the page"
                  >👇</a>           
-        </div>
+        </header>
 
-        <div class="content">
+        <main class="content">
             <h1 class="document-heading">{{title}}</h1>
             <p class="hidden-mathjax-macros" style="display: none;">
                 $$
@@ -160,7 +160,7 @@
             </p>
             {% block content %}
             {% endblock %}
-        </div>
+        </main>
     </div>
     <script>
             pseudocode.renderClass("pseudocode", { "lineNumber": 1 });
