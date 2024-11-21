@@ -16,13 +16,33 @@ Rendering:
 
 ### Bold Text 
 
+Syntax: 
+
 ```
-**This is a bold text**
+**Bold text here**
 ```
 
-**This is a bold text**
+Example:
 
-#### Highlighted Text 
+```
++ Example of syntax of a **bold text**.
+```
+
++ Example of syntax of a **bold text**.
+
+### Strikethrough Text (Deleted Text) 
+
+Example:
+
+```
++ Example of ~~Deleted text~~ syntax.  
+```
+Rendering: 
+
++ Example of ~~Deleted text~~ syntax.  
+
+
+### Highlighted Text 
 
 A highlighted text must be enclosed by `==`. Example:
 
@@ -375,6 +395,42 @@ Rendering:
 + Pyhton <pypi:sqlitedict> package 
 + Python sqltedict package, available at <r-pypi:sqlitedict>
 
+## Image 
+### Internal Image 
+
+The syntax for internal Wiki images is based on Obsidian's markdown syntax for embedding files on pages. It is not necessary to specify the full path or relative path of an image file as it will be displayed regardless of the sub directory it is located within the wiki pages repository. 
+
+Syntax:
+
+```
+![[image_file.png]]
+
+Or 
+
+![[relative/path/to/images/image_file_name.png]]
+```
+
+### External Image 
+
+Hyperlink to external image. The image URL can be a relative URL as shown in the example below or a URL of type `https://www.site.com/files/image.png `.
+
+Syntax:
+
+```
+![$IMAGE-ALT-TEXT-DESCRIPTION]($IMAGE-URL)
+```
+
+Example:
+
+```
+![Java's Duke Mascot](/static/example_java_duke_mascot.svg)
+```
+
+Rendering: 
+
+![Java's Duke Mascot](/static/example_java_duke_mascot.svg)
+
+
 ## Code Blocks 
 ### Inline code 
 
@@ -562,6 +618,98 @@ Rendering:
 | willkomen      | welcome        |
 | Hilfe          | Help           |
 
+## Lists 
+### Bullet Lists 
+
+Example: 
+
+```
++ Element 1 
++ Element 2 
+  + Element 2.1
+  + Element 2.2
++ Element 3
+  + Element 3.1
+  + Element 3.2
+     + Element 3.2.1
+     + Element 3.3.1
+```
+
+Rendering: 
+
++ Element 1 
++ Element 2 
+  + Element 2.1
+  + Element 2.2
++ Element 3
+  + Element 3.1
+  + Element 3.2
+     + Element 3.2.1
+     + Element 3.3.1
+### Ordered List 
+
+Example:
+
+```
+1. Element 1
+2. Element 2
+   1. Element 2.1
+   2. Element 2.2 
+3. Element 3
+   1. Element 3.1
+   2. Element 3.2
+   3. Element 3.3
+      + Element 3.3.1
+      + Element 3.3.2
+   4. Element 3.4
+4. Element 4
+```
+
+Rendering:
+
+1. Element 1
+2. Element 2
+   1. Element 2.1
+   2. Element 2.2 
+3. Element 3
+   1. Element 3.1
+   2. Element 3.2
+   3. Element 3.3
+      + Element 3.3.1
+      + Element 3.3.2
+   4. Element 3.4
+4. Element 4
+
+### Definition Lists 
+
+Example: 
+
+```
+HTML 
+   : Hypertext Markup Language 
+
+DOM 
+   : Domain Object Model 
+   : Object that represents a parsed HTML tag in the memory.
+
+WWW
+   : World Wide Web 
+```
+
+Rendering: 
+
+
+HTML 
+   : Hypertext Markup Language 
+
+DOM 
+   : Domain Object Model 
+   : Object that represents a parsed HTML tag in the memory.
+
+WWW
+   : World Wide Web 
+
+
 ## Admonitions (Callout Boxes) 
 ### Info Admonition 
 
@@ -721,6 +869,29 @@ Syntax:
 {rolename}`text content here`
 ```
 
+### Abbreviation 
+
+This syntax defines abbreviation of acronyms, that is rendered to an `<abbr>` html5 tag. The description of the acronym is shown in a popup window that appears when the user hoovers the mouse on the the abbreviation element.
+
+Syntax:
+
+```
+ {abbr}`$ACRONYM  ($DESCRIPTION)`
+```
+
+Example:
+
+```markdown
++ This wiki engine provides a syntax closer to {abbr}`MyST (Markedly Structured Text)`.
++ {abbr}`HTML (Hypertext Markup Language)` is a declarative language.
+```
+
+Rendering: 
+
++ This wiki engine provides a syntax closer to {abbr}`MyST (Markedly Structured Text)`.
++ {abbr}`HTML (Hypertext Markup Language)` is a declarative language.
+
+
 ### Math Role for Inline LaTeX
 
 ```
@@ -746,13 +917,12 @@ Rendering:
 Superscript Roles:
 
 ```
-+ Happy  4{sup}`th` of July
++ The 7{sup}`th` element.
 ```
 
 Rendering:
 
-+ Happy  4{sup}`th` of July
-
++ The 7{sup}`th` element.
 
 ## Further Reading 
 
