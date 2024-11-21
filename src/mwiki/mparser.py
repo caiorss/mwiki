@@ -58,6 +58,8 @@ MdParser = (
     # Defintion of math concept or theorem 
 	.use(container_plugin, name = "{def}")
 	.use(container_plugin, name = "{theorem}")
+    ## Html details tag 
+	.use(container_plugin, name = "{details}")
     .use(myst_block_plugin)
     .use(myst_role_plugin)
     .use(mwiki.plugins.wiki_tag_plugin)

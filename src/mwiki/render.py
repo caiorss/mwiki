@@ -665,6 +665,16 @@ class HtmlRenderer(Renderer):
         return html
 
     def render_fence(self, node: SyntaxTreeNode) -> str:
+        """
+        Render fence code blocks delimited by three backticks (```). 
+
+        Syntax Exmaple:
+
+        ```python
+        import os 
+        print(os.listdir("/"))
+        ```
+        """
         assert node.tag == "code"
         info = node.info if node.info != "" else "text" 
         if info == "{math}":
@@ -801,25 +811,34 @@ class HtmlRenderer(Renderer):
     def render_container(self, node: SyntaxTreeNode) -> str:
         cond  =  len(node.children) >= 1 and node.children[0].type == "paragraph"
         first = node.children[0].children[0].content if cond else None 
+        ## breakpoint()
         metadata = {}
         if first:
             _, metadata  = mparser.get_code_block_directives(first) 
         ## print(" [TRACE] metadata = ", metadata)
         class_ = metadata.get("class") or ""
+        # Background color override
+        background = metadata.get("background") or ""
         is_dropdown = class_ == "dropdown"
         label = f'id="{x}"' if (x := metadata.get("label")) else ""
         ## css_class = x if (x := metadata.get("class")) else ""
-        style = f'style="background: {x};"' if (x := metadata.get("background")) else ""
+        ##style = f'style="background: {x};"' if (x := metadata.get("background")) else ""
         admonition_type = node.type.strip("container_").strip("{").strip("}")
         admonition_title = node.info.strip("{" + admonition_type + "}").strip()
         if admonition_type == "def":
             admonition_title = f"DEFINITION: <strong>({admonition_title})</strong> "
         elif admonition_type == "theorem":
             admonition_title = f"THEOREM: <strong>({admonition_title})</strong> "
+        elif admonition_type == "details":
+            admonition_title = admonition_title.title()
         else:
             rest = "" if admonition_title == "" else ": " + admonition_title
             admonition_title = admonition_type.title() + rest 
-        attrs =  f""" {label} class="{admonition_type} admonition anchor" {style}""".strip()
+        style = f"""style="background:{background};" """
+        if admonition_type != "details":
+            attrs =  f""" {label} class="{admonition_type} admonition anchor" {style}""".strip()
+        else:
+            attrs =  f""" {label} class="{admonition_type} anchor" """.strip()
         inner = ""
         if metadata == {}:
             inner = "".join([ self.render(n) for n in node.children ])
@@ -834,7 +853,9 @@ class HtmlRenderer(Renderer):
         icon = iconsdb.get(admonition_type, "")
         title = f"""\n<span class="admonition-title">{icon}{admonition_title}</span>\n""" \
                 if admonition_title != "" else ""
-        if is_dropdown:
+        if admonition_type == "details":
+            html = f"""<details {attrs}>\n<summary><strong>{title}</strong></summary>\n<div class="admonition" style="background:{background};" >\n{inner}\n</div>\n</details>"""
+        elif is_dropdown:
             html = ( f"""<div {attrs}>""" 
                      f"""<details>\n<summary>{title}</summary>""" 
                      f"""\n<div class="details-content">\n{inner}\n</div> <!-- EoF div.details-content -->""" 
