@@ -9,6 +9,8 @@ import subprocess
 from . import utils
 from . import mparser
 
+_STOP_SENTINEL = "{{STOP}}"
+
 class TempDirectory:
 
     def __init__(self):
@@ -322,7 +324,13 @@ class HtmlRenderer(Renderer):
         self._render_math_svg = value 
 
     def render_root(self, node: SyntaxTreeNode) -> str:
-        html = "\n\n".join([ self.render(n) for n in node.children ])
+        html = ""
+        ### html = "\n\n".join([ self.render(n) for n in node.children ])
+        for n in node.children:
+            node_html = self.render(n)
+            if node_html == _STOP_SENTINEL:
+                break
+            html += node_html + "\n\n" 
         return html
     
     def render_text(self, node: SyntaxTreeNode) -> str:
@@ -343,6 +351,8 @@ class HtmlRenderer(Renderer):
 
     def render_paragraph(self, node: SyntaxTreeNode) -> str:
         inner = "".join([ self.render(n) for n in node.children ])
+        if inner == "{{@stop}}":
+            return _STOP_SENTINEL
         html = f"""<p>\n{inner}\n</p>"""
         return html
 
