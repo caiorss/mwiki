@@ -351,9 +351,14 @@ class HtmlRenderer(Renderer):
 
     def render_paragraph(self, node: SyntaxTreeNode) -> str:
         inner = "".join([ self.render(n) for n in node.children ])
+        html = ""
         if inner == "{{@stop}}":
-            return _STOP_SENTINEL
-        html = f"""<p>\n{inner}\n</p>"""
+            html =  _STOP_SENTINEL
+        ## Custom Markdown syntax for <br> Html new line
+        elif inner == "{nl}":
+            html = "\n<br>"
+        else:
+            html = f"""<p>\n{inner}\n</p>"""
         return html
 
     def render_strong(self, node: SyntaxTreeNode) -> str:
