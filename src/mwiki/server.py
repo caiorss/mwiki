@@ -183,10 +183,11 @@ def make_app_server(   host:        str
             ##print(f" [TRACE] mdfile_ = {mdfile_} ; base_path = {base_path}")
             ## 
             is_special = path.startswith("special:")
+            ### breakpoint()
             if path == "special:refcard":
                 content = utils.read_resource(mwiki, "refcard.md")
                 ast = mparser.parse_source(content)
-                builder = render.HtmlRenderer()
+                builder = render.HtmlRenderer(base_path=BASE_PATH)
                 content = builder.render(ast)
                 response = flask.render_template(  
                                                "standalone.html"
