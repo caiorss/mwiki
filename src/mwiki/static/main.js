@@ -363,6 +363,8 @@ document.addEventListener("DOMContentLoaded", function()
                     redirect(`/edit/${noteName}`);
                 });
     });
+
+    toggleHeadings();
           
 });
 
@@ -408,6 +410,47 @@ document.addEventListener("click", (event) => {
             x.classList.add("menu-hidden")
         } 
     }
+
+    if(target.tagName == "H2" && target.parentElement.classList[0] == "div-heading")
+    {
+        // Iterate over the siblings
+        // The purpose of .nextElementSibling is to skip
+        // the next DOM node, an horizontal line below the heading
+        var sibling = target.parentElement.nextElementSibling;
+        while(true)
+        {
+            sibling = sibling.nextElementSibling;
+            if(sibling == null || (sibling.className === "div-heading"  
+                                    && sibling.children[0].tagName == "H2" ))
+            { break; }
+            // Alternate viisibility
+            // when the display CSS property is set to none,
+            // the DOM node becomes non visible. 
+            let display =  sibling.style.display === "none" ? "" : "none";
+            sibling.style.display = display; 
+        }
+    }
+    if(target.tagName == "H3" && target.parentElement.classList[0] == "div-heading")
+    {
+        // Iterate over the siblings
+        // The purpose of .nextElementSibling is to skip
+        // the next DOM node, an horizontal line below the heading
+        var sibling = target.parentElement;
+        while(true)
+        {
+            sibling = sibling.nextElementSibling;
+            if(sibling == null || sibling.className === "div-heading" )
+                                    
+            { break; }
+            // Alternate viisibility
+            // when the display CSS property is set to none,
+            // the DOM node becomes non visible. 
+            let display =  sibling.style.display === "none" ? "" : "none";
+            sibling.style.display = display; 
+        }
+    }
+
+
 });
 
 
@@ -506,7 +549,66 @@ function clearFormEntries(formID)
     }
 }
 
+var _visiblityFlag = true;
 
+function toggleHeadings()
+{
+    let nodes_ =  document.querySelectorAll(".div-heading");
+    let nodesh2 = Array.from(nodes_)
+        .filter(n => n.children[0].tagName == "H2");
+    let nodesh3 = Array.from(nodes_)
+        .filter(n => n.children[0].tagName == "H3");
+
+    _visiblityFlag = !_visiblityFlag;
+
+    // for(let n of nodesh3)
+    // {
+    //     // Iterate over the siblings
+    //     // The purpose of .nextElementSibling is to skip
+    //     // the next DOM node, an horizontal line below the heading
+    //     var sibling = n; //.nextElementSibling;
+    //     while(true)
+    //     {
+    //         var sibling = sibling.nextElementSibling;
+    //         if(sibling == null || (sibling.className === "div-heading"))
+    //         { break; }
+    //         // Alternate viisibility
+    //         // when the display CSS property is set to none,
+    //         // the DOM node becomes non visible. 
+    //         ///  let display =  sibling.style.display === "none" ? "" : "none";
+    //         let display =  _visiblityFlag ? "" : "none";
+    //         sibling.style.display = display; 
+    //     }
+    // }
+
+
+    for(let n of nodesh2)
+    {
+        // Iterate over the siblings
+        // The purpose of .nextElementSibling is to skip
+        // the next DOM node, an horizontal line below the heading
+        var sibling = n.nextElementSibling;
+        while(true)
+        {
+            sibling = sibling.nextElementSibling;
+            if(sibling == null || (sibling.className === "div-heading"  
+                                    && sibling.children[0].tagName == "H2" ))
+            { break; }
+            // Alternate viisibility
+            // when the display CSS property is set to none,
+            // the DOM node becomes non visible. 
+            //// let display =  sibling.style.display === "none" ? "" : "none";
+            //////let display =  _visiblityFlag && (sibling.className !== "div-heading") ? "" : "none";
+            var display = "";
+            if( _visiblityFlag ){
+                display = "";
+            } else {
+                if(sibling.className !== "div-heading"){ display = "none"; }
+            }
+            sibling.style.display = display; 
+        }
+    }
+}
 
 // document.addEventListener("click", (event) => {
 //     let target = event.target; 
