@@ -1,4 +1,5 @@
 import glob
+import re 
 import pathlib
 from typing import Optional
 from markdown_it.tree import SyntaxTreeNode
@@ -623,6 +624,16 @@ class HtmlRenderer(Renderer):
         # MyST sub role for superscript 4{sup}`th` compiles to 4<sup>th</sup>O
         elif role == "sup":
             html = f"""<sup>{content}</sup>"""
+        # MyST role for creating abbreviation, rendered to html5 <abbr>
+        # {abbr}`HR (Human Resources)`
+        elif role == "abbr":
+            match = re.match(r"(\S+?)\s+\((.+)\)", content)
+            if not match:
+                return ""
+            abbreviation = match.group(1)
+            description  = match.group(2)
+            html = f'<abbr title="{description}">{abbreviation}</abbr>'
+            # TODO Finish later
         else:
             raise NotImplementedError(f"Rendering MyST role '{role} not implemented yet.")
         return html

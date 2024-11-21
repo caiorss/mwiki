@@ -8,11 +8,12 @@ class PopupWindow
         let height = options.height || "400px";
         let top = options.top || "10%";
         let left = options.left || "30%";
+        let zIndex = options.zIndex || "1000";
         this._html = html;
         this._dom = document.createElement("div");
         document.body.appendChild(this._dom);
         this._dom.classList.add("popup-window");
-        this._dom.style.zIndex = "1000";
+        this._dom.style.zIndex = zIndex;
         this._dom.style.position = "absolute";
         this._dom.style.width  = width;
         this._dom.style.height = height;
@@ -149,11 +150,12 @@ function popupMessage(title, message, options)
 {
     let html_ = `
         <p class="popup-message-text">${message}</p>
-        <button class="btn-popup-close">Close</buttom>
     `;
     let pwindow = new PopupWindow({
           title: title 
         , html: html_
+        , height: options.height
+        , zIndex: options.zIndex
     });
     pwindow.onWindowClick( (className) => {
         if(className == "btn-popup-close"){ pwindow.close(); }
@@ -346,7 +348,8 @@ document.addEventListener("DOMContentLoaded", function()
         last = tg;
     });
 
-    tooltip_window = popupMessage("Abbreviation", "", {hidden: true});
+    tooltip_window = popupMessage("Abbreviation", "" 
+                                  , {hidden: true, height: "100px", zIndex: "2000"});
 
     let btnCreateNote = document.querySelector("#btn-create-note");
     btnCreateNote.addEventListener("click", () => {
@@ -382,21 +385,44 @@ function showRefcard()
     refcard_window.show();
 }
 
+
+document.addEventListener("mouseover", (event) => {
+    let target = event.target;
+
+
+    if(target.tagName === "ABBR")
+    {
+        // Lazy Initialization
+        if( tooltip_window == null )
+        {
+            tooltip_window = popupMessage("Abbreviation", "" 
+                                      , {hidden: true, height: "100px", zIndex: "2000"});
+        }
+        let tooltip = `${target.innerText}: ${target.title}`; 
+        tooltip_window.setMessage(tooltip);
+        tooltip_window.show();
+    } else {
+        if(tooltip_window != null){ tooltip_window.close(); }
+    }
+
+});
+
+
 _menus = new Set();
 
 document.addEventListener("click", (event) => {
     let target = event.target; 
-    if(target.tagName === "ABBR")
-    {
+    // if(target.tagName === "ABBR")
+    // {
 
-        event.preventDefault();
-        let tooltip = target.title; 
-        tooltip_window.setMessage(tooltip);
-        tooltip_window.show();
-        // popupMessage("Abbreviation", tooltip, { closeOnBlur: true });
-    } else {
-        tooltip_window.close();
-    }
+    //     event.preventDefault();
+    //     let tooltip = `${target.innerText}: ${target.title}`; 
+    //     tooltip_window.setMessage(tooltip);
+    //     tooltip_window.show();
+    //     // popupMessage("Abbreviation", tooltip, { closeOnBlur: true });
+    // } else {
+    //     tooltip_window.close();
+    // }
     if(target.classList[0] == "button-toggle-menu")
     {
         let dom = event.target.parentElement.querySelector(".menu-dropdown-content");
