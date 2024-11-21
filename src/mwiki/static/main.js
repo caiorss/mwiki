@@ -181,7 +181,6 @@ function popupIframe (title, url, options)
     let height = (options.hidden || "90%");
     let html_ = `
         <iframe src="${url}" title="${title}" width="100%" height="100%" ></iframe> 
-        <button class="btn-popup-close">Close</buttom>
     `;
     let pwindow = new PopupWindow({
           title: title 
