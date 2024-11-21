@@ -294,7 +294,7 @@ class HtmlRenderer(Renderer):
         self._pagefile = page_name
         self._render_math_svg =  render_math_svg  
         self._embed_math_svg = False
-        self._myst_line_comment_enabled = False
+        self._myst_line_comment_enabled = True
         self._unicode_database = [
               ("(TM)", "™") # Trademark 
             , ("{TM}", "™")  # Trademark 
@@ -848,7 +848,8 @@ class HtmlRenderer(Renderer):
     def render_myst_line_comment(self, node: SyntaxTreeNode) -> str:
         html = ""
         if self._myst_line_comment_enabled:
-            html = f"<!-- {node.content} -->"
+            ## html = f"<!-- {node.content} -->"
+            html = ""
         else:
             html = utils.escape_html(node.content)       
         return html
