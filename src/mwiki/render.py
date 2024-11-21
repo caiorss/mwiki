@@ -1,5 +1,6 @@
 import glob
 import re 
+import yaml                     # Python3 stdlib Yaml Parser
 import pathlib
 from typing import Optional
 from markdown_it.tree import SyntaxTreeNode
@@ -297,6 +298,7 @@ class HtmlRenderer(Renderer):
         self._render_math_svg =  render_math_svg  
         self._embed_math_svg = False
         self._myst_line_comment_enabled = True
+        self._abbreviations = {}
         self._unicode_database = [
               ("(TM)", "™") # Trademark 
             , ("{TM}", "™")  # Trademark 
@@ -337,6 +339,10 @@ class HtmlRenderer(Renderer):
         html = node.content
         for (entry, replacement) in self._unicode_database:
             html = html.replace(entry, replacement)
+        for (abbreviation, description) in self._abbreviations.items():
+            rep =  f"""<abbr title="{description}">{abbreviation}</abbr>""" 
+            ## html = html.replace(abbreviation, rep) 
+            html = re.sub(r"\b%s\b" % abbreviation.replace(".", r"\."), rep, html)
         return html 
 
     def render_softbreak(self, node: SyntaxTreeNode) -> str:
@@ -875,7 +881,13 @@ class HtmlRenderer(Renderer):
         return ""
 
     def render_frontmatter(self, node: SyntaxTreeNode) -> str:
-        print(" [WARNING] Frontmatter not renderend to HTML")
+        data = {}
+        try:
+            data = yaml.safe_load(node.content)
+        except yaml.YAMLError as ex:
+            print("[ERROR] Failed to parse frontmatter data => \nDetails:", ex)
+        self._abbreviations = data.get("abbreviations", {}) 
+        ### print(" [WARNING] Frontmatter not renderend to HTML")
         return "" 
 
     def render_horizontal_line_hr(self, node: SyntaxTreeNode) -> str:
