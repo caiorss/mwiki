@@ -59,6 +59,7 @@
                     'sections', { handler: { macro: ['sections'] } }
                 );
                 MathJax.startup.defaultReady();
+                pseudocode.renderClass("pseudocode", { "lineNumber": 1 });
             }
         }
     , chtml: {
@@ -85,12 +86,8 @@
 -->
 
     <!-- Pseudocode.js - Render LaTeX pseudocode code blocks.-->
-    <!-- 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
-    -->
-
-   <!-- <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js"> </script>
-   -->
+   <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js"> </script>
 
     {% block jslibs %}
     <!-- Additional Javascript libraries -->
@@ -163,7 +160,6 @@
         </main>
     </div>
     <script>
-            pseudocode.renderClass("pseudocode", { "lineNumber": 1 });
     </script>
 </body>
 
