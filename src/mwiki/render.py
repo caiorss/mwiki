@@ -319,6 +319,14 @@ class HtmlRenderer(Renderer):
 
         ]
 
+    def _add_abbreviations(self, text: str) -> str:
+        html = text 
+        for (abbreviation, description) in self._abbreviations.items():
+            rep =  f"""<abbr title="{description}">{abbreviation}</abbr>""" 
+            ## html = html.replace(abbreviation, rep) 
+            html = re.sub(r"\b%s\b" % abbreviation.replace(".", r"\."), rep, html)
+        return html 
+
     def enable_render_math_mathjax(self, value):
         self._render_math_svg = not value
 
@@ -339,10 +347,7 @@ class HtmlRenderer(Renderer):
         html = node.content
         for (entry, replacement) in self._unicode_database:
             html = html.replace(entry, replacement)
-        for (abbreviation, description) in self._abbreviations.items():
-            rep =  f"""<abbr title="{description}">{abbreviation}</abbr>""" 
-            ## html = html.replace(abbreviation, rep) 
-            html = re.sub(r"\b%s\b" % abbreviation.replace(".", r"\."), rep, html)
+        html = self._add_abbreviations(html)
         return html 
 
     def render_softbreak(self, node: SyntaxTreeNode) -> str:
