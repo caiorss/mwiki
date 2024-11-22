@@ -886,7 +886,11 @@ class HtmlRenderer(Renderer):
             data = yaml.safe_load(node.content)
         except yaml.YAMLError as ex:
             print("[ERROR] Failed to parse frontmatter data => \nDetails:", ex)
-        self._abbreviations = data.get("abbreviations", {}) 
+        abbrs =  data.get("abbreviations", {}) 
+        ## Append abbreviation dictionary 
+        for k, v in abbrs.items():
+            self._abbreviations[k] = v
+        ### breakpoint()
         ### print(" [WARNING] Frontmatter not renderend to HTML")
         return "" 
 
