@@ -758,21 +758,26 @@ class HtmlRenderer(Renderer):
         return html
 
     def render_dl(self, node: SyntaxTreeNode) -> str:
+        """Render html definition list <dl> tag."""
         assert node.type == "dl"
         inner = "\n".join([ self.render(n) for n in node.children ])
         html = f"""<dl class="anchor">\n{inner}\n</dl>"""
         return html 
 
     def render_dt(self, node: SyntaxTreeNode) -> str:
+        """Render description term tag <dt> of definition list <dd>."""
         assert node.type == "dt"
         inner = "".join([ self.render(n) for n in node.children ])
         html = f"""<dt class="anchor">{inner}</dt>"""
         return html
 
     def render_dd(self, node: SyntaxTreeNode) -> str:
+        """Render description details tag <dd> of definition list <dd>."""
         assert node.type == "dd"
         if len(node.children) == 1 and node.children[0].type == "paragraph":
-            inner = self.render(node.children[0].children[0])
+            ## breakpoint()
+            x =   node.children[0].children[0]
+            inner = self.render(x)
         else:
             inner = "".join([ self.render(n) for n in node.children ])
         html = f"""<dd class="anchor">{inner}</dd>"""
