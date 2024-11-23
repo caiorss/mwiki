@@ -655,13 +655,16 @@ class HtmlRenderer(Renderer):
         elif role == "abbr":
             match = re.match(r"(\S+?)\s+\((.+)\)", content)
             if not match:
-                return ""
+                return content
             abbreviation = match.group(1)
             description  = match.group(2)
             html = f'<abbr title="{description}">{abbreviation}</abbr>'
             # TODO Finish later
+        elif role.startswith("color") or role in ["blue", "red", "orange", "gray", "green"]:
+            color = role[len("color:"):] if role.startswith("color:") else role
+            html = f"""<span class="myst-color-role" style="color:{color};">{content}</span>"""
         else:
-            raise NotImplementedError(f"Rendering MyST role '{role} not implemented yet.")
+            return "{%s}`%s`" % (role, content)
         return html
 
     def render_code_inline(self, node: SyntaxTreeNode) -> str:
