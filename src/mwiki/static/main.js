@@ -366,7 +366,7 @@ document.addEventListener("DOMContentLoaded", function()
                 });
     });
 
-    toggleHeadings();
+    setHeadingsVisibility(false);
           
 });
 
@@ -574,38 +574,22 @@ function clearFormEntries(formID)
     }
 }
 
-var _visiblityFlag = true;
+var _visibilityFlag = true;
 
 function toggleHeadings()
+{
+
+    _visibilityFlag = !visibilityFlag;
+    setHeadingsVisibility(_visibilityFlag);
+}
+
+function setHeadingsVisibility(visibility)
 {
     let nodes_ =  document.querySelectorAll(".div-heading");
     let nodesh2 = Array.from(nodes_)
         .filter(n => n.children[0].tagName == "H2");
     let nodesh3 = Array.from(nodes_)
         .filter(n => n.children[0].tagName == "H3");
-
-    _visiblityFlag = !_visiblityFlag;
-
-    // for(let n of nodesh3)
-    // {
-    //     // Iterate over the siblings
-    //     // The purpose of .nextElementSibling is to skip
-    //     // the next DOM node, an horizontal line below the heading
-    //     var sibling = n; //.nextElementSibling;
-    //     while(true)
-    //     {
-    //         var sibling = sibling.nextElementSibling;
-    //         if(sibling == null || (sibling.className === "div-heading"))
-    //         { break; }
-    //         // Alternate viisibility
-    //         // when the display CSS property is set to none,
-    //         // the DOM node becomes non visible. 
-    //         ///  let display =  sibling.style.display === "none" ? "" : "none";
-    //         let display =  _visiblityFlag ? "" : "none";
-    //         sibling.style.display = display; 
-    //     }
-    // }
-
 
     for(let n of nodesh2)
     {
@@ -625,7 +609,7 @@ function toggleHeadings()
             //// let display =  sibling.style.display === "none" ? "" : "none";
             //////let display =  _visiblityFlag && (sibling.className !== "div-heading") ? "" : "none";
             var display = "";
-            if( _visiblityFlag ){
+            if( visibility ){
                 display = "";
             } else {
                 if(sibling.className !== "div-heading"){ display = "none"; }
