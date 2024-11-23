@@ -591,6 +591,59 @@ Rendering:
         \end{bmatrix}
 ```
 
+### Pseudocode of Algorithm
+
+This wiki also supports LaTeX pseudocode of algorithms compatible with LaTeX algorithmic package. The implementation of this feature relies on [pseudocode-js](https://saswat.padhi.me/pseudocode.js/) and [MathJax](https://www.mathjax.org/) JavaScript libraries.
+
+Example:
+
+````latex
+```{pseudo}
+\begin{algorithm}
+\caption{Buble Sort Algorithm}
+\begin{algorithmic}
+\PROCEDURE{BubbleSort}{$A, n$}
+   \STATE $B = $ \CALL{CopyArray}{$A, n$}
+   \STATE $\:$ \textit{// i = 0, 1, ..., n - 1}
+   \FOR{$i = 0$ \TO  $i < n$}
+       \STATE $\:$ \textit{// j = 0, 1, ..., n - 2 }
+       \FOR{$j = 0$ \TO $j < n - 1$}
+           \IF{$B[j] > B[j+1]$}
+               \STATE swap $B[j]$ with $B[j+1]$
+           \ENDIF
+       \ENDFOR
+   \ENDFOR
+   \RETURN{$B$}
+\ENDPROCEDURE
+\end{algorithmic}
+\end{algorithm}
+```
+````
+
+Rendering:
+
+```{pseudo}
+\begin{algorithm}
+\caption{Buble Sort Algorithm}
+\begin{algorithmic}
+\PROCEDURE{BubbleSort}{$A, n$}
+   \STATE $B = $ \CALL{CopyArray}{$A, n$}
+   \STATE $\:$ \textit{// i = 0, 1, ..., n - 1}
+   \FOR{$i = 0$ \TO  $i < n$}
+       \STATE $\:$ \textit{// j = 0, 1, ..., n - 2 }
+       \FOR{$j = 0$ \TO $j < n - 1$}
+           \IF{$B[j] > B[j+1]$}
+               \STATE swap $B[j]$ with $B[j+1]$
+           \ENDIF
+       \ENDFOR
+   \ENDFOR
+   \RETURN{$B$}
+\ENDPROCEDURE
+\end{algorithmic}
+\end{algorithm}
+```
+
+
 ## Table 
 
 Example:
@@ -601,7 +654,7 @@ Example:
 | Deustch        | German         |
 | ja             | yes            |
 | nein           | no or not      |
-| hallo welt     | hello World    |
+| hallo Welt     | hello World    |
 | willkomen      | welcome        |
 | Hilfe          | Help           |
 
