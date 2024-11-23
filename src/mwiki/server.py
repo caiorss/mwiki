@@ -121,7 +121,12 @@ def make_app_server(   host:        str
 
     @app.get("/about")
     def route_about():
-        resp = flask.render_template("about.html")
+        resp = flask.render_template("about.html", title="About MWiki")
+        return resp
+
+    @app.get("/licenses")
+    def route_licenses():
+        resp = flask.render_template("licenses.html", title="Open Source Licenses")
         return resp
 
     @app.get("/wiki/img/<path:filepath>")
