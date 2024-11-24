@@ -277,6 +277,15 @@ def make_app_server(   host:        str
         return resp 
         # Attempt to server static file 
 
+
+    @app.get("/api/wiki") 
+    @check_login
+    def api_wiki_pages():
+        pages  = sorted([x.name.split(".md")[0] for  x in base_path.rglob("*.md")])
+        resp  = flask.jsonify(pages)
+        return resp 
+        
+
     @app.route("/api/wiki/<path>", methods = [M_GET, M_POST, M_DELETE])
     @check_login
     def api_wiki(path: str):
@@ -304,7 +313,7 @@ def make_app_server(   host:        str
             out = flask.jsonify({ "status": "ok", "error": ""})
             return out
         else:
-            flask.abort(405)
+            flask.abort(405) 
 
     @app.route("/create/<path>", methods = [M_GET, M_POST])
     def route_create(path: str):
