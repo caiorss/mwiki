@@ -247,7 +247,7 @@ _ENGLISH_STOP_WORDS = [
              , "his", "he", "himself", "her", "hers"
              , "it", "its", "itself", "they", "them"
              , "what", "which", "whom", "that", "these"
-             , "those" 
+             , "those", "a", "an" 
              ]
 
 
@@ -257,7 +257,7 @@ def file_contains(fileName: str, query: str, opt = "and_all") -> bool:
     NOTE: This function is case-indepedent.
     """
     with open(fileName) as fd:
-        result = False
+        ### result = False
         basename = normalize_text(os.path.basename(fileName).lower())
         ## print(f" [TRACE] fileName = {fileName} ; basename = {basename}")
         query = normalize_text(query.lower())
@@ -265,8 +265,10 @@ def file_contains(fileName: str, query: str, opt = "and_all") -> bool:
         ## queries = query.split()
         queries = [ x for q in query.split() 
                     if (x := normalize_text(q))  not in _ENGLISH_STOP_WORDS  ]
-        queries_ = queries.copy()
+        ## queries_ = queries.copy()
         score = 0
+        contail_all = True
+        register = dict( (q, False) for q in queries )
         # WARNING: Never read the whole file to memory, becasue
         # if the file is 1 GB, then 1 GB memory will be consumed,
         # what can case OOM (Out-Of-Memory) issues and slow down
@@ -289,18 +291,17 @@ def file_contains(fileName: str, query: str, opt = "and_all") -> bool:
             # from the input query
             elif opt == "and_all":
                 for q in queries:
-                    if (q in line_ and q in queries_):
-                        queries_.remove(q)
-                    if (q in basename and q in queries_):
-                        score += 2
-                        queries_.remove(q)
-                if len(queries_) == 0:
-                    score += 1
-                    queries_ =  queries.copy() 
-                    result = True
+                    cond1 = re.findall(r"\b%s\b" % q, line_) != []
+                    cond2 = re.findall(r"\b%s\b" % q, basename) != []
+                    register[q] = register[q] or (cond1 or cond2)
+                    if cond1: score += 1
+                    if cond2: score += 3
+                        ## queries_.remove(q)
                     ##break
         ## if score != 0:
         ##     print(f" [DEBUG] score = {score} ; file =  {fileName} ")
+        if not all(register.values()):
+            score = 0 
         return score
 
 def grep_file(fileName: str, query: str) -> List[str]:
