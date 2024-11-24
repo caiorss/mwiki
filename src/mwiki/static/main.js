@@ -372,6 +372,7 @@ document.addEventListener("DOMContentLoaded", function()
     });
 
     if( isMobileScreen() ) { setHeadingsVisibility(false); }
+    _visibilityFlag =  !isMobileScreen();
     // setHeadingsVisibility(false);
           
 });
@@ -444,6 +445,8 @@ document.addEventListener("click", (event) => {
 
     if(target.tagName == "H2" && target.parentElement.classList[0] == "div-heading")
     {
+        // Fold all other headings 
+        setHeadingsVisibility(false);
         // Iterate over the siblings
         // The purpose of .nextElementSibling is to skip
         // the next DOM node, an horizontal line below the heading
@@ -463,6 +466,8 @@ document.addEventListener("click", (event) => {
     }
     if(target.tagName == "H3" && target.parentElement.classList[0] == "div-heading")
     {
+        // Fold all other headings
+        setHeadingsVisibility(false);
         // Iterate over the siblings
         // The purpose of .nextElementSibling is to skip
         // the next DOM node, an horizontal line below the heading
@@ -580,7 +585,7 @@ function clearFormEntries(formID)
     }
 }
 
-var _visibilityFlag = !isMobileScreen();
+var _visibilityFlag = true; 
 
 function toggleHeadings()
 {
