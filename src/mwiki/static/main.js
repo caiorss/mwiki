@@ -463,6 +463,10 @@ document.addEventListener("click", (event) => {
             let display =  sibling.style.display === "none" ? "" : "none";
             sibling.style.display = display; 
         }
+        // Click on link programatically in order to set focus
+        // on this heading
+        let link = target.parentElement.querySelector("a");
+        link.click();
     }
     if(target.tagName == "H3" && target.parentElement.classList[0] == "div-heading")
     {
@@ -484,6 +488,10 @@ document.addEventListener("click", (event) => {
             let display =  sibling.style.display === "none" ? "" : "none";
             sibling.style.display = display; 
         }
+        // Click on link programatically in order to set focus
+        // on this heading
+        let link = target.parentElement.querySelector("a");
+        link.click();
     }
 
 
