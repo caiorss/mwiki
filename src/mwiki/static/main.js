@@ -319,6 +319,7 @@ function onClick(anchor, handler)
 }
 
 var tooltip_window = null;
+var quickOpenWindow = null;
 
 function isMobileScreen()
 {
@@ -356,6 +357,21 @@ document.addEventListener("DOMContentLoaded", function()
     tooltip_window = popupMessage("Abbreviation", "" 
                                   , {hidden: true, height: "100px", zIndex: "2000"});
 
+    quickOpenWindow = new PopupWindow({
+           title: "Quick Open Wiki Page"
+        ,  height: "100px"
+        ,  html: `
+        <input id="prompt-open-page" name="select-page" 
+              list="quick-pagelist" >
+        <datalist id="quick-pagelist"></datalist>
+        <button onclick="openWikiPageCallback();">Open</button>
+        `
+    });
+
+    let inputQuickOpen = document.querySelector("#prompt-open-page");
+    inputQuickOpen.addEventListener("keydown", openWikiPageCallbackKeyDown);
+
+
     let btnCreateNote = document.querySelector("#btn-create-note");
     btnCreateNote.addEventListener("click", () => {
         popupInput(
@@ -377,6 +393,39 @@ document.addEventListener("DOMContentLoaded", function()
     // setHeadingsVisibility(false);
           
 });
+
+
+async function quickOpenPage()
+{
+    let pages = await httpRequest("GET", "/api/wiki");
+    // console.log(" [TRCCE] pages = ", pages);
+    let datalist = document.querySelector("#quick-pagelist");
+    for(let p of pages)
+    {
+        let option = document.createElement("option");
+        option.value = p;
+        datalist.appendChild(option);
+    }
+    quickOpenWindow.show();
+}
+
+function openWikiPageCallback()
+{
+    let input = document.querySelector("#prompt-open-page");
+    let selectedPage = input.value;
+    input.value = "";
+    quickOpenWindow.close();
+    redirect(`/wiki/${selectedPage}`);
+}
+
+
+function openWikiPageCallbackKeyDown(event)
+{
+    console.log(" [TRACE] openWikipageCallbackKeyDown called. ");
+    if(event.key !== "Enter"){ return; }
+    openWikiPageCallback();
+}
+
 
 var refcard_window = null;
 
