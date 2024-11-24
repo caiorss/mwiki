@@ -298,6 +298,7 @@ class HtmlRenderer(Renderer):
         self._render_math_svg =  render_math_svg  
         self._embed_math_svg = False
         self._myst_line_comment_enabled = True
+        self._theorem_counter = 1
         self._abbreviations = {}
         self._unicode_database = [
               ("(TM)", "™") # Trademark 
@@ -847,10 +848,12 @@ class HtmlRenderer(Renderer):
         ##style = f'style="background: {x};"' if (x := metadata.get("background")) else ""
         admonition_type = node.type.strip("container_").strip("{").strip("}")
         admonition_title = node.info.strip("{" + admonition_type + "}").strip()
+        _title = f"<strong>({admonition_title})</strong>" if admonition_title != "" else ""
         if admonition_type == "def":
-            admonition_title = f"DEFINITION: <strong>({admonition_title})</strong> "
+            admonition_title = f"DEFINITION: {_title}" 
         elif admonition_type == "theorem":
-            admonition_title = f"THEOREM: <strong>({admonition_title})</strong> "
+            admonition_title = f"THEOREM {self._theorem_counter}: {_title}" 
+            self._theorem_counter += 1
         elif admonition_type == "details":
             admonition_title = admonition_title.title()
         else:
