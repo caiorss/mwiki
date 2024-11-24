@@ -430,17 +430,20 @@ class HtmlRenderer(Renderer):
         line_end   = next_sibling.map[1] - 1 if next_sibling else "end"
         ## assert line_start <= line_end
         ## breakpoint()
-        pagename = self._pagefile.split(".")[0]
-        url =  f"/edit/{pagename}?start={line_start}&end={line_end}&anchor={anchor}&page={pagename}"
-        edit_link = f"""<a class="link-edit" href="{url}" title="Edit heading: {value}" class="edit-button">[E]</a>"""
-        ## breakpoint()
-        html   = (f"""<div class="div-heading">""" 
-                  f""" \n<{tag} id="{anchor}" class="document-heading anchor">{value} {link}</{tag}>"""
-                  f""" \n{edit_link}{tex_command}"""  
-                   "\n</div>" 
-                  )
-        if tag == "h2":
-           html = html + """<hr class="line-under-heading">""" 
+        if tag == "h2" or tag == "h3":
+            pagename = self._pagefile.split(".")[0]
+            url =  f"/edit/{pagename}?start={line_start}&end={line_end}&anchor={anchor}&page={pagename}"
+            edit_link = f"""<a class="link-edit" href="{url}" title="Edit heading: {value}" class="edit-button">[E]</a>"""
+            ## breakpoint()
+            html   = (f"""<div class="div-heading">""" 
+                      f""" \n<{tag} id="{anchor}" class="document-heading anchor">{value} {link}</{tag}>"""
+                      f""" \n{edit_link}{tex_command}"""  
+                       "\n</div>" 
+                      )
+            if tag == "h2":
+               html = html + """\n<hr class="line-under-heading">""" 
+        else:
+            html = f"""<{tag} class="document-heading">{title}</{tag}>"""
         # Add horizontal line below heading if it is h2.
         return html  
  
