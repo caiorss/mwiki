@@ -9,6 +9,7 @@ class PopupWindow
         let top = options.top || "10%";
         let left = options.left || "30%";
         let zIndex = options.zIndex || "1000";
+        let visible = options.visible || false;
         this._html = html;
         this._dom = document.createElement("div");
         document.body.appendChild(this._dom);
@@ -21,7 +22,7 @@ class PopupWindow
         this._dom.style.left   = left;
         this._dom.style.background = "aliceblue";
         this._dom.style.padding = "10px";
-        this.hide();
+        if(!visible){ this.hide() };
         let code = `<h2 class="window-title">${title}</h2> <button class="btn-window-close">[X]</button><hr>`;
         console.log(" [TRACE] code = ", code);
         this._dom.innerHTML = code;

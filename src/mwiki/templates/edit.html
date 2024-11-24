@@ -57,8 +57,20 @@
 <strong>Editing page:</strong> {{page}}
 <button onclick="save_document();">Save</button>
 <br>Status: <label id="status-info">Not saved</label>
-
+<details>
+    <button onclick="notImplemented();">Undo</button>
+    <button onclick="notImplemented();">Redo</button>
+    <button onclick="insertLinkToPage();">Insert link to page</button>
+    <button>Highlight selected code</button>
+    <button>Insert code block</button>
+    <button onclick="editorInsertLatexEquation();">Insert LaTeX Equation</button>
+    <button onclick="editorInsertLatexEquationNonNumered();">Insert Non Numbered Latex Equation</button>
+    <button onclick="editorInsertTheorem();">Insert Theorem</button>
+    <button onclick="editorInsertDetails();">Insert Foldable Details</button>
+</details>
+<!-- Placement point for Ace Text Editor -->
 <div id="editor">{{content}} </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.3/ace.js" integrity="sha512-l13f2Dlet80LPHc8rVTtou5W/g57iXICo6ejbKXNyQeTIhFxb4STvoJSaV7kFK/tmrIRIN4caTlpH6lxondKJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.3/keybinding-vscode.min.js" integrity="sha512-sALdRE8skRaHi5dri3ejsaAQb1NCbkiBMSUI/IWJQYMzA7k/VvlJ5JLOX3n88OG2S+zEcqeJlaX7GZOeLXyYlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.3/ext-beautify.min.js" integrity="sha512-uXfi0GwpQZcHIhGOMMHeNYtBSjt7qDXjXHmjShWSp+RWMSmjdy69N7M/pufinvQLv6rSYlpbSXqSnLRzWE952w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -69,6 +81,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.3/keybinding-vscode.min.js" integrity="sha512-sALdRE8skRaHi5dri3ejsaAQb1NCbkiBMSUI/IWJQYMzA7k/VvlJ5JLOX3n88OG2S+zEcqeJlaX7GZOeLXyYlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.3/mode-markdown.min.js" integrity="sha512-6POKArs6bJW5Stg2VlGSlx1mEy/BRwaUk5xuhZVqts4cwKLHjO3i3OD3yPasDlMGEFDLN5RbP0UuBMllqhU2xw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+
+
+
     let editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
     editor.session.setMode("ace/mode/markdown");
@@ -95,13 +110,14 @@
 
     /** Vim Emulation */
     editor.setKeyboardHandler("ace/keyboard/vim");
+   
     ace.config.loadModule("ace/keyboard/vim", function(m) {
-    var VimApi = require("ace/keyboard/vim").CodeMirror.Vim
-    VimApi.defineEx("write", "w", function(cm, input) {
-        // cm.ace.execCommand("save")
-        save_document();
+        var VimApi = require("ace/keyboard/vim").CodeMirror.Vim
+        VimApi.defineEx("write", "w", function(cm, input) {
+            // cm.ace.execCommand("save")
+            save_document();
+        })
     })
-})
 
     let currentPage = "{{page}}";
 
@@ -134,6 +150,93 @@
             statusbar.textContent = "Failed to save document."
         }
     }
+
+
+    function editorInsertTextArCursor(text)
+    {
+        let cursorPosition = editor.getCursorPosition();
+        editor.session.insert(cursorPosition, text)
+        editor.focus();
+    }
+
+    function editorInsertLatexEquation()
+    {
+        editorInsertTextArCursor(`$$\n%Latex Equation here\n\n$$`);
+        // editor.moveCursorTo(cursorPosition);
+    }
+
+    function editorInsertLatexEquationNonNumered()
+    {
+        editorInsertTextArCursor(`$$\n%Latex Equation here\n\\notag\n\n$$`);
+        // editor.moveCursorTo(cursorPosition);
+    }
+
+    function editorInsertTheorem()
+    {
+        let text = (":::{theorem} Theorem-name"
+                    + "\n:label: theorem-label-unique-id-optional"
+                    + "\n"
+                    + "\n % theorem content"
+                    + "\n:::"
+                    + "\n% -- End theorem --- %"
+                   );
+        editorInsertTextArCursor(text);
+        // editor.moveCursorTo(cursorPosition);
+    }
+
+    function editorInsertDetails()
+    {
+        let text = (":::{details} $Details-Block-Name"
+                    + "\n:label: details-label-unique-id-optional"
+                    + "\n"
+                    + "\n % content"
+                    + "\n:::"
+                    + "\n% -- End defauls --- %"
+                   );
+        editorInsertTextArCursor(text);
+        // editor.moveCursorTo(cursorPosition);
+    }
+
+    async function insertLinkToPage()
+    {
+        let pages = await httpRequest("GET", "/api/wiki");
+        console.log(" [TRCCE] pages = ", pages);
+        let datalist = document.querySelector("#pagelist");
+        for(let p of pages)
+        {
+            let option = document.createElement("option");
+            option.value = p;
+            datalist.appendChild(option);
+        }
+        selectPageWindow.show();
+    }
+
+    let selectPageWindow = new PopupWindow({
+           title: "Insert Link to Wiki Page"
+        ,  height: "100px"
+        ,  html: `
+        <input id="prompt-select-page" name="select-page" list="pagelist">
+        <datalist id="pagelist"></datalist>
+        <button onclick="insertLinkToPageCallback();">Insert</button>
+        `
+    });
+
+    function insertLinkToPageCallback()
+    {
+        let input = document.querySelector("#prompt-select-page");
+        let selectedPage = input.value;
+        input.value = "";
+        let text = `[[${selectedPage}]]`;
+        editorInsertTextArCursor(text);
+        selectPageWindow.close();
+    }   
+
+    function notImplemented()
+    {
+        alert("ERROR: Not implemented yet.");
+    }
+
+
 
 
 </script>
