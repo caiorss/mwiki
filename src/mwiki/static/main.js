@@ -319,13 +319,18 @@ function onClick(anchor, handler)
 
 var tooltip_window = null;
 
+function isMobileScreen()
+{
+    let screenType = getComputedStyle(document.body).getPropertyValue("--screen-type");
+    let isMobile = screenType === "mobile";
+    return isMobile;
+}
+
 document.addEventListener("DOMContentLoaded", function()
   {
     // Event bubbling
     onClick(".toc", (evt) => {
-        let screenType = getComputedStyle(document.body).getPropertyValue("--screen-type");
-        let isMobile = screenType === "mobile";
-        if(isMobile && evt.target.className == "link-sidebar")
+        if(isMobileScreen() && evt.target.className == "link-sidebar")
         { 
             toggle_sidebar();
         } 
@@ -366,7 +371,8 @@ document.addEventListener("DOMContentLoaded", function()
                 });
     });
 
-    setHeadingsVisibility(false);
+    if( isMobileScreen() ) { setHeadingsVisibility(false); }
+    // setHeadingsVisibility(false);
           
 });
 
@@ -446,7 +452,7 @@ document.addEventListener("click", (event) => {
         {
             sibling = sibling.nextElementSibling;
             if(sibling == null || (sibling.className === "div-heading"  
-                                    && sibling.children[0].tagName == "H2" ))
+                                    /* && sibling.children[0].tagName == "H2" */ ))
             { break; }
             // Alternate viisibility
             // when the display CSS property is set to none,
@@ -574,14 +580,15 @@ function clearFormEntries(formID)
     }
 }
 
-var _visibilityFlag = true;
+var _visibilityFlag = !isMobileScreen();
 
 function toggleHeadings()
 {
 
-    _visibilityFlag = !visibilityFlag;
+    _visibilityFlag = !_visibilityFlag;
     setHeadingsVisibility(_visibilityFlag);
 }
+
 
 function setHeadingsVisibility(visibility)
 {

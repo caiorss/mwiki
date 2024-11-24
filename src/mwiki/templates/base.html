@@ -61,7 +61,8 @@
                 MathJax.startup.defaultReady();
                 pseudocode.renderClass("pseudocode", { "lineNumber": 1 });
                 // This function is provided by main.js.
-                setHeadingsVisibility(false)
+                if( isMobileScreen() ) { setHeadingVisibility(false); }
+                /// setHeadingsVisibility(false)
             }
         }
     , chtml: {
@@ -153,6 +154,12 @@
                  id="btn-scroll-bottom" 
                  title="Scroll to bottom the page"
                  >👇</a>           
+             <a class="sidebar-toggle-button" 
+                 href="#" 
+                 onclick="toggleHeadings();"
+                 id="btn-scroll-bottom" 
+                 title="Fold/Unfold all headings."
+                 >(F)</a> 
         </header>
 
         <main class="content">
