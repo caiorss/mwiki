@@ -102,20 +102,20 @@ class Renderer:
             , "wiki_tag_inline":            self.render_wiki_tag_inline
         }
     
-    def find_note(self, name: str) -> Optional[pathlib.Path]:
+    def find_page(self, name: str) -> Optional[pathlib.Path]:
         """Find path to note file, given its name."""
         mdfile_ = name + ".md"
         match = next(self._base_path.rglob(mdfile_), None)
         return match 
 
-    def note_exist(self, name: str) -> bool:
-        path = self.find_note(name)
+    def page_exists(self, name: str) -> bool:
+        path = self.find_page(name)
         out = path is not None
         return out
 
     def render_note(self, name: str) -> Optional[str]:
         """Render note file, given its name"""
-        p = self.find_note(name)
+        p = self.find_page(name)
         if not p: return "" 
         if not p.is_file(): return ""
         source = p.read_text()
@@ -632,10 +632,14 @@ class HtmlRenderer(Renderer):
         html = ""
         href_ = utils.escape_url(f"/wiki/{href}")
         if "." not in href:
-            note_exists =  self.note_exist(href)
-            class_name = "link-internal" if note_exists else "link-internal-missing"
+            match =  self.find_page(href)
+            class_name = "link-internal" if match else "link-internal-missing"
+            description = ""
+            if match:
+                data = mparser.get_pagefile_metadata(match) or {}
+                description = data.get("description", "")
             # In this case, href refers to a Wiki page (has no extension)
-            html = f"""<a href="{href_}" class="{class_name} wiki-link">{label}</a>"""
+            html = f"""<a href="{href_}" class="{class_name} wiki-link" title="{description}">{label}</a>"""
         else:
             # In this case, href refers to some file, that is opened in a new tab 
             html = f"""<a href="{href_}" target="_blank" class="link-internal wiki-link">{label}</a>"""
