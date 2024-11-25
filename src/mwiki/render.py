@@ -698,7 +698,8 @@ class HtmlRenderer(Renderer):
         ```
         """
         assert node.tag == "code"
-        info = node.info if node.info != "" else "text" 
+        ## breakpoint()
+        info = (node.info if node.info != "" else "text").strip()
         if info == "{math}":
             content, directives = mparser.get_code_block_directives(node.content)
             label = f'id="{u}"' if (u := directives.get("label")) else ""
@@ -726,6 +727,13 @@ class HtmlRenderer(Renderer):
             content, directives = mparser.get_code_block_directives(node.content)
             label = f'id="{u}"' if (u := directives.get("label")) else ""
             html = f"""<blockquote {label} >\n{utils.escape_html(content)}\n</blockquote>"""
+        elif info == "{solution}":
+            ## breakpoint()
+            content, directives = mparser.get_code_block_directives(node.content)
+            label = f'id="{u}"' if (u := directives.get("label")) else ""
+            ast =  mparser.parse_source(content)
+            inner_html = self.render(ast)
+            html = f"""<details {label}>\n<summary><u class="solution-label">Solution</u></summary>\n\n{inner_html}\n</details>"""
         else:
             code = utils.highlight_code(node.content, language = info)
             html = f"""<pre>\n<code class="language-{info.strip()}">{code}</code>\n</pre>"""
@@ -858,6 +866,8 @@ class HtmlRenderer(Renderer):
         elif admonition_type == "theorem":
             admonition_title = f"THEOREM {self._theorem_counter}: {_title}" 
             self._theorem_counter += 1
+        elif admonition_type == "example":
+            admonition_title = f'<strong>Example:</strong> {admonition_title}'
         elif admonition_type == "details":
             admonition_title = admonition_title.title()
         else:
@@ -884,6 +894,8 @@ class HtmlRenderer(Renderer):
                 if admonition_title != "" else ""
         if admonition_type == "details":
             html = f"""<details {attrs}>\n<summary><strong>{title}</strong></summary>\n<div class="admonition" style="background:{background};" >\n{inner}\n</div>\n</details>"""
+        elif admonition_type == "example":
+            html = f"""<aside {attrs}  class="admonition example">\n<span class="admonition-title"><strong>{title}</strong></span>\n\n{inner}\n</aside>"""
         elif is_dropdown:
             html = ( f"""<div {attrs}>""" 
                      f"""<details>\n<summary>{title}</summary>""" 

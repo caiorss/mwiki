@@ -423,7 +423,6 @@ img.admonition-icon {
 }
 
 
-
 .warning .admonition-title {
     font-weight: bold;
     font-size: larger;
@@ -460,6 +459,27 @@ img.admonition-icon {
     z-index: 1;
     display: block;
     width: 100%;
+}
+
+.example .admonition-title {
+    font-weight: bold;
+    font-size: medium;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    color: #006D5B;
+}
+
+.example {
+    background: #DFE9E7;
+}
+
+.solution-label  {
+    color: #D64238;
+    border-bottom: #D64238;
+    font-weight: bolder;
+    border-bottom: 1px dotted #000;
+    text-decoration: none;
 }
 
 .btn-window-close {

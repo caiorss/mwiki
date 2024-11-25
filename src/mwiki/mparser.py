@@ -60,6 +60,7 @@ MdParser = (
 	.use(container_plugin, name = "{theorem}")
     ## Html details tag 
 	.use(container_plugin, name = "{details}")
+	.use(container_plugin, name = "{example}")
     .use(myst_block_plugin)
     .use(myst_role_plugin)
     .use(mwiki.plugins.wiki_tag_plugin)
@@ -388,5 +389,47 @@ node.children() = {node.children}
 
 MYST_LINE_COMMENT = False
 
-def node_to_html(node: SyntaxTreeNode):
-    pass
+
+def _xpath_get_path_index(p: str):
+    index = 0
+    node_type = p 
+    m = re.match(r"(\S+)\[(\d+)\]", p)
+    if m:
+        node_type = m.group(1)
+        index = int(m.group(2))
+    out = (node_type, index)
+    return out
+    
+
+def ast_path_match(ast: SyntaxTreeNode, pattern: str):
+    """Utilility for traversing the AST in declarative way.
+    This function traverse the makdown_it AST (Abstract Syntax Tree)
+    in similar fashion to xpath query language for extracting data 
+    of XML DOM (Document Object Model) nodes. 
+
+    NOTE: This function is similar to xpath query language.
+    However, it is not the same as xpath.   
+    """
+    path = [s for s in pattern.split("/") if s != ""]
+    # Rmeove first element 
+    #root =  path.pop(0)
+    #if ast.type != root: 
+    #    return None
+    node = ast
+    ## breakpoint()
+    while path:
+        entry = path.pop(0) 
+        p, _ = _xpath_get_path_index(entry)
+        if node.type != p:
+            return None
+        if path:
+            entry_ = path[0]
+            p_, idx_ = _xpath_get_path_index(entry_)
+            if not node.children \
+                or idx_ > len(node.children) \
+                    or  node.children[idx_].type != p_:
+                return None 
+            node = node.children[idx_]
+    return node 
+
+
