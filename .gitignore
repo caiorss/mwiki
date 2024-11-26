@@ -30,3 +30,4 @@ notes/*.md
 *.log
 *.aux 
 *.pdf 
+*.pex
