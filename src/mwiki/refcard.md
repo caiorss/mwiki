@@ -881,36 +881,128 @@ $$
 
 Example:
 
-````
-:::{theorem} Chayley-Hamilton Theorem 
-:label: theorem-chayley-hamilton
+````markdown
+:::{theorem} Determinant of Orthogonal Matrix  
 
-Any n by n matrix A, whose characteristic polynomial is  
-$\beta(s) = \det(s  \mathbf{I} - A)$, satisfy its own  
-characteristic equation, so
+The determinant of a **orthogonal matrix** $Q \in \mathbb{R}^{n \times n}$ of n rows and n columns is always 1.
 
-$$ \notag 
-
-   \beta(A) = A^n + a_{n - 1} A^{n - 1} 
-       + \cdots + a_1 A + a_0 \mathbf{I} = 0
 $$
+ \notag 
+  \det(Q) = 1
+$$
+
+
+```{proof}
+
+$$
+\notag 
+\begin{split}
+      \det (Q Q^T)      &= \det(Q) \det(Q^{T}) 
+   \\ \det (Q Q^T)      &= \det(Q) \det(Q) 
+   \\ \det (Q Q^{-1})   &= \det(Q) \det(Q) 
+   \\ \det (\mathbf{I}) &= \det(Q)^2
+   \\  1                &= \det{Q}^2
+   \\  \det(Q)          &= 1
+\end{split}
+$$
+```
+% --- end determinant proof ---
+
 :::
 ````
 
 Rendering:
 
-:::{theorem} Chayley-Hamilton Theorem 
-:label: theorem-chayley-hamilton
 
-Any n by n matrix A, whose characteristic polynomial is  $\beta(s) = \det(s  \mathbf{I} - A)$, satisfy its own  characteristic equation, so
+:::{theorem} Determinant of Orthogonal Matrix  
 
-$$ \notag 
+The determinant of a **orthogonal matrix** $Q \in \mathbb{R}^{n \times n}$ of n rows and n columns is always 1.
 
-   \beta(A) = A^n + a_{n - 1} A^{n - 1} 
-       + \cdots + a_1 A + a_0 \mathbf{I} = 0
 $$
+ \notag 
+  \det(Q) = 1
+$$
+
+
+```{proof}
+
+$$
+\notag 
+\begin{split}
+      \det (Q Q^T)      &= \det(Q) \det(Q^{T}) 
+   \\ \det (Q Q^T)      &= \det(Q) \det(Q) 
+   \\ \det (Q Q^{-1})   &= \det(Q) \det(Q) 
+   \\ \det (\mathbf{I}) &= \det(Q)^2
+   \\  1                &= \det{Q}^2
+   \\  \det(Q)          &= 1
+\end{split}
+$$
+```
+% --- end determinant proof ---
+
 :::
 
+### Example of solved exercise 
+
+````{markdown}
+:::{example} Chain Rule for Derivative Multi-Variate Functions
+
+Let the function f be $f(x, y) = x^2/A^2 + y^2/B^2 - C$.  Find the derivative of f with respect to t. And x and y are functions of t, $x = x(t) = A \cos t$ and $y = y(t) = B \sin t$. 
+
+
+```{solution}   
+$$
+ \notag 
+\begin{split}
+  \frac{df}{dt} 
+    &= \frac{\partial f}{\partial x} \frac{dx}{dt}  
+    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\
+
+    &=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \cos t)
+       \\ & +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \sin t)  \\
+
+    &=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ 
+    &=  -2x \sin(t) / A + 2y \cos(t) / B \\
+    &=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\
+    &=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
+    &=  0 
+\end{split}
+$$
+```
+:::
+````
+
+Rendering:
+
+:::{example} Chain Rule for Derivative Multi-Variate Functions
+
+Let the function f be $f(x, y) = x^2/A^2 + y^2/B^2 - C$.  Find the derivative of f with respect to t. And x and y are functions of t, $x = x(t) = A \cos t$ and $y = y(t) = B \sin t$. 
+
+
+```{solution}   
+$$
+ \notag 
+\begin{split}
+  \frac{df}{dt} 
+    &= \frac{\partial f}{\partial x} \frac{dx}{dt}  
+    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\
+
+    &=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \cos t)
+       \\ & +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \sin t)  \\
+
+    &=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ 
+    &=  -2x \sin(t) / A + 2y \cos(t) / B \\
+    &=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\
+    &=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
+    &=  0 
+\end{split}
+$$
+```
+:::
 
 ## MyST Roles 
 
