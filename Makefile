@@ -41,4 +41,12 @@ clean:
 build: 
 	poetry build 
 
+
+# Build a deployable .pex archive (Similar to Java's JAR files)
+# Requires installing PEX 
+# $ pip install pex
+.PHONY: pex 
+pex:
+	pex . -e mwiki.cli:main -o mwiki.pex
+
 .PHONY: install clean run vscode 
