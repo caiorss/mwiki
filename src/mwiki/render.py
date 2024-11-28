@@ -535,6 +535,7 @@ class HtmlRenderer(Renderer):
         inner = "".join([ self.render(n) for n in node.children ])
         href =  node.attrs.get("href") or ""
         attrs = "" 
+        ## breakpoint()
         if href.startswith("#"):
             attrs = """ class="link-internal" """
         else:
@@ -610,6 +611,7 @@ class HtmlRenderer(Renderer):
                 inner = temp 
                 href = f"https://pypi.org/project/{temp}"
             inner = href if fullLinkFlag else inner
+        title = node.attrs.get("title", title)
         title = f'title="{title}"' if title != "" else ""
         attrs = f""" target="_blank" {title} class="link-external" rel="noreferrer noopener nofollow" """
         html = f"""<a href="{href}" {attrs}>{inner}</a>"""
