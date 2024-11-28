@@ -94,11 +94,12 @@ Rendering:
 + Pilcrow Symbol {pilcrow} or {pagraph}
 + Section Symbol  {section}
 
-## Hyperlinks 
 
-### Internal Links
+## Hyperlinks
 
-*Link to Wiki Page (also called note)
+### Internal Hyperlinks Links (WikiLinks)
+
+Links to Wiki Pages (also called notes)
 
 ```
 + [[Link to internal page]]
@@ -109,7 +110,7 @@ Rendering:
 + [[Link to internal page]]
 
 
-### External Links
+### External Inline Hyperlinks
 
 **Raw External Link (1)**
 
@@ -142,7 +143,32 @@ Rendering:
 
 + [Link label](https://www.site.com/some/page)
 
-### Special Links
+
+### External Reference-Style Hyperlinks
+
+Example:
+
+```markdown
+
++ This page presents a study of [control][ceng] engineering and [state-space][ssmodel] models.
+
+[ceng]: https://en.wikipedia.org/wiki/Control_engineering 
+
+[ssmodel]: <https://en.wikipedia.org/wiki/State-space_representation>
+      "In control engineering and system identification, a state-space representation is a mathematical model of a physical system specified as a set of input, output, and variables related by first-order differential equations or difference equations. Such variables, called state variables, evolve over time in a way that depends on the values they have at any given instant and on the externally imposed values of input variables. Output variables’ values depend on the state variable values and may also depend on the input variable values."
+```
+
+Rendering:
+
+
++ This page presents a study of [control][ceng] engineering and [state-space][ssmodel] models.
+
+[ceng]: https://en.wikipedia.org/wiki/Control_engineering 
+
+[ssmodel]: <https://en.wikipedia.org/wiki/State-space_representation>
+      "In control engineering and system identification, a state-space representation is a mathematical model of a physical system specified as a set of input, output, and variables related by first-order differential equations or difference equations. Such variables, called state variables, evolve over time in a way that depends on the values they have at any given instant and on the externally imposed values of input variables. Output variables’ values depend on the state variable values and may also depend on the input variable values."
+
+### Special Hyperlinks
 
 
  **Hyperlink to DOI - Digital Object Identifier (1)**
