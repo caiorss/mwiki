@@ -391,7 +391,7 @@ class HtmlRenderer(Renderer):
     def render_heading(self, node: SyntaxTreeNode) -> str:
         """Render markdown heading #, ## ... to html heading <h1>, <h2> and etc.       
         """
-        title  = node.children[0].content
+        title  = node.children[0].content.strip()
         anchor = "H_" + title.replace(" ", "_")
         value  = utils.escape_html(title)
         link   = f"""<a class="link-heading" href="#{anchor}">¶</a>"""
@@ -406,10 +406,12 @@ class HtmlRenderer(Renderer):
             tag = node.tag if hasattr(node, "tag") else ""
         ## Add automatic enumeration to headings 
         if tag == "h2":
-            self._count_h2 += 1
-            tex_command =r'<span class="tex-section-command" style="display:none">\(\setSection{%s}\)</span>' % self._count_h2
-            self._count_h3 = 0
-            value = f"{self._count_h2} {value}"
+            # not (a OR b) = (not a) AND (not B)
+            if title.lower() != "overview" and title.lower() != "related":
+                self._count_h2 += 1
+                tex_command =r'<span class="tex-section-command" style="display:none">\(\setSection{%s}\)</span>' % self._count_h2
+                self._count_h3 = 0
+                value = f"{self._count_h2} {value}"
         elif tag == "h3":
             self._count_h3 += 1
             self._count_h4 = 0
