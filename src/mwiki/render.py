@@ -694,11 +694,69 @@ class HtmlRenderer(Renderer):
         """
         Render fence code blocks delimited by three backticks (```). 
 
-        Syntax Exmaple:
+        Python Code Block:
 
         ```python
         import os 
         print(os.listdir("/"))
+        ```
+
+        Latex Formula (Rendered to a LaTeX, not a code block)
+
+        ```{math}
+        f(x) = \\frac{\\sqrt{x^2 + b^2 - c}}{ 2 a}
+        ```
+
+        Latex Macro code Block defines LaTeX macros used by 
+        mathjax. This block is not rendered.
+
+        ```{latex_macro}
+        % Logical AND 
+        \DeclareMathOperator{\\and}{ \\wedge }
+        % Logical OR
+        \DeclareMathOperator{\\or}{ \\vee }
+        ```
+        
+        Quotation code block, rendered to <blockquote>
+
+        ```{quote}
+        Some quotation of somebody here.
+        ```
+
+        Solution of example or exercise:
+
+        ```{solution}
+        Consider an orthogonal matrix $Q \\in \mathbb{R}^{n \\times n}$
+           ... ... 
+           ... ... 
+        Then, it can be shown that:
+        $$
+        (Q \\mathbf{u}) \\cdot (Q \\mathbf{v}) = \\mathbf{u} \\cdot \\mathbf{v}
+        $$
+        ```
+
+        Proof of theorem:
+
+        ```{proof}
+        Let $Q$ be an orthogonal matrix such that $Q \\in \mathbb{R}^{n \\times n}$.
+        It is possible to prove that the determinat of this matrix is always 1
+        taking the determinat of $Q Q^{-1}$.
+
+         ... ... 
+         ... ...
+         
+        $$
+        \\begin{split}
+                   \\det (Q Q^{-1})     &= \\det \\mathbf{I}
+             \\\\  \\det (Q Q^T)        &= 1
+             \\\\  \\det (Q) \\det(Q^T) &= 1
+             \\\\  \\det (Q) \\det(Q^T) &= 1 
+             \\\\  \\det (Q) \\det(Q)   &= 1
+             \\\\  \\det (Q) \\det(Q)   &= 1
+             \\\\  \\det (Q)^2          &= 1 
+             \\\\  \\det (Q)            &= 1 
+        \\end{split}
+        $$
         ```
         """
         assert node.tag == "code"
