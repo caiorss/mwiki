@@ -616,6 +616,33 @@ Rendering:
           \\  \gamma &  \zeta 
         \end{bmatrix}
 ```
+### Latex Macros
+
+It is possible to define LaTeX macros for writing math expressions in a more concise way
+by using a code block similar to the example below on the top of the page. This special 
+code block is not rendered, it is processed by MathJax or other LaTeX rendering engines.
+
+
+````markdown
+```{latex_macro}
+% Logical AND 
+\DeclareMathOperator{\\and}{ \\wedge }
+% Logical OR
+\DeclareMathOperator{\\or}{ \\vee }
+
+ % ---- OR add your OWN LaTeX Macros here ------%%
+
+```
+````
+
+After adding the previous macro to the top of the page, one can write logical expressions $\neg (p \wedge q)$, which means not (p and q) or NAND(p, q), in the following form:
+
+```
+$$
+\neg (p \and q) \equiv \neg p \or q
+$$
+```
+
 
 ### Pseudocode of Algorithm
 
