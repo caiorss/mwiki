@@ -739,6 +739,19 @@ class HtmlRenderer(Renderer):
             title = info.strip("{}").capitalize()
             inner_html = self.render(ast)
             html = f"""<details {label}>\n<summary><u class="solution-label">{title}</u></summary>\n\n{inner_html}\n</details>"""
+        elif info == "{latex_macro}":
+            html = f""" 
+            <div class="hidden-mathjax-macros user-macros" style="display: none;">
+              <div>
+              $$
+                {node.content}                
+              $$
+              </div>
+              <pre>
+              {node.content}
+              </pre>
+            </div>
+            """
         else:
             code = utils.highlight_code(node.content, language = info)
             html = f"""<pre>\n<code class="language-{info.strip()}">{code}</code>\n</pre>"""
