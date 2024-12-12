@@ -923,6 +923,9 @@ class HtmlRenderer(Renderer):
         cond  =  len(node.children) >= 1 and node.children[0].type == "paragraph"
         first = node.children[0].children[0].content if cond else None 
         ## breakpoint()
+        pagename = self._pagefile.split(".")[0]
+        url =  f"/edit/{pagename}?start={node.map[0]}&end={node.map[1] + 1}&page={pagename}"
+        edit_link = f"""<a class="link-edit" href="{url}" title="Edit admonition" class="edit-button">[E]</a>"""  
         metadata = {}
         if first:
             _, metadata  = mparser.get_code_block_directives(first) 
@@ -966,7 +969,7 @@ class HtmlRenderer(Renderer):
             , "warning":  """<img class="admonition-icon" src="/static/icon-warning1.svg"/> """
         }
         icon = iconsdb.get(admonition_type, "")
-        title = f"""\n<span class="admonition-title">{icon}{admonition_title}</span>\n""" \
+        title = f"""\n<span class="admonition-title">{icon}{admonition_title}{edit_link}</span>\n""" \
                 if admonition_title != "" else ""
         if admonition_type == "details":
             html = f"""<details {attrs}>\n<summary><strong>{title}</strong></summary>\n<div class="admonition" style="background:{background};" >\n{inner}\n</div>\n</details>"""
