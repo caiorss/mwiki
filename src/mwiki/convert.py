@@ -103,8 +103,8 @@ def convert_source(content: str) -> str:
             if not flag and not line.startswith(" ") \
                 and not line.strip() == "" \
                 and not line.startswith("$$") \
-                and not line.startswith("```")\
-                and not line.startswith("|"):
+                and not line.startswith("```"):
+               # and not line.startswith("|"):
                 state = state_join_lines
                 temp = temp + line 
                 ## print(" [TRACE] join lines start => line = ", line)
@@ -116,8 +116,8 @@ def convert_source(content: str) -> str:
         elif state == state_join_lines:
             if not line.startswith(" ") and not line.strip() == "" \
                 and not line.startswith("$$") \
-                and not line.startswith("```")\
-                and not line.startswith("|"):
+                and not line.startswith("```"):
+                #and not line.startswith("|"):
                 temp = temp + " "  + line
             else:
                 if line.startswith("$$") or line.startswith("```") or line.startswith("|"):
