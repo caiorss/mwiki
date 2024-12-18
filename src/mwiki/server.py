@@ -187,8 +187,8 @@ def make_app_server(   host:        str
             mdfile_ = path + ".md"
             ##print(f" [TRACE] mdfile_ = {mdfile_} ; base_path = {base_path}")
             ## 
-            is_special = path.startswith("special:")
             ### breakpoint()
+            ## is_special = path.startswith("special:")
             if path == "special:refcard":
                 content = utils.read_resource(mwiki, "refcard.md")
                 ast = mparser.parse_source(content)
@@ -241,6 +241,23 @@ def make_app_server(   host:        str
         relpath = match.relative_to(base_path)
         ## print(f" [TRACE] relpath = {path} ; match = {match}")
         resp = None
+        ###  Render org-mode file 
+        if path.endswith(".org"):
+            content = match.read_text()
+            builder = render.HtmlRenderer(base_path=BASE_PATH)
+            ast = mparser.parse_source(content)
+            html = builder.render(ast)
+            ### ast = mparser.make_headings_hierarchy(headings)
+            # ## breakpoint()
+            ## toc = mparser.headings_to_html(root)
+            response = flask.render_template(  "content.html"
+                                             , title   = path
+                                             , page    = path
+                                             , content = html
+                                             ## , toc     = toc
+                                             , latex_macros = latex_macros
+                                             )
+            return response
         if not is_gunicorn:
             resp = flask.send_from_directory(BASE_PATH, relpath)
         else:

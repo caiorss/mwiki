@@ -238,7 +238,7 @@ def compile(path: Optional[str], file: Optional[str]):
                 )
 def convert(file: Optional[str], output: Optional[str]):
     """Convert from org-mode markup to markdown"""
-    mwiki.convert.convert(file, output)
+    mwiki.convert.convert_file(file, output)
 
 
 def main():

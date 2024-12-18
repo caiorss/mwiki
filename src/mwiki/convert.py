@@ -25,17 +25,7 @@ def replace_underline(line: str) -> str:
             pass 
 
 
-def convert(file: Optional[str], output: Optional[str]):
-    """Convert from org-mode markup to markdown 
-    """
-    if file is None:
-        print("Error expected --file, but none given")
-        exit(1)
-    pfile = pathlib.Path(file).resolve()
-    if not pfile.is_file():
-        print(f"Error {pfile} does not exist.")
-        exit(1)
-    content = pfile.read_text()
+def convert_source(content: str) -> str:
     link_pat = re.compile(r"\[\[(.+)\]\[(.+)\]\]")
     # Covert-org-mode link to markdown likns
     out = re.sub(link_pat, r"[\2](<\1>)", content)
@@ -137,7 +127,21 @@ def convert(file: Optional[str], output: Optional[str]):
                 else:
                     state = state_start
                     temp = temp + "\n" + line 
-    print(temp)
+    return temp  
+
+def convert_file(file: Optional[str], output: Optional[str]):
+    """Convert from org-mode markup to markdown 
+    """
+    if file is None:
+        print("Error expected --file, but none given")
+        exit(1)
+    pfile = pathlib.Path(file).resolve()
+    if not pfile.is_file():
+        print(f"Error {pfile} does not exist.")
+        exit(1)
+    content = pfile.read_text()
+    out = convert_source(content)
+    print(out)
 
 @click.command()
 @click.option("-f", "--file", default = None, 
@@ -147,7 +151,7 @@ def convert(file: Optional[str], output: Optional[str]):
                 help = ( "Output file." )
                 )
 def main(file: Optional[str], output: Optional[str]):
-    convert(file, output)
+    convert_file(file, output)
 
 
 if __name__ == "__main__":
