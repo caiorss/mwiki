@@ -41,7 +41,7 @@ def convert(file: Optional[str], output: Optional[str]):
     out = re.sub(link_pat, r"[\2](<\1>)", content)
     def replace_heading(m: re.Match) -> str:
         n = len(m.group(1)) - 1
-        out = "\n" + "#" * n  + " " if n != 0 else ""
+        out = "\n" + "##" * n  + " " if n != 0 else ""
         return out
     ##out = temp.strip()
     # Turn '#+BEGIN_SRC sh' into '```sh` markdown code block`
@@ -113,7 +113,8 @@ def convert(file: Optional[str], output: Optional[str]):
             if not flag and not line.startswith(" ") \
                 and not line.strip() == "" \
                 and not line.startswith("$$") \
-                and not line.startswith("```"):
+                and not line.startswith("```")\
+                and not line.startswith("|"):
                 state = state_join_lines
                 temp = temp + line 
                 ## print(" [TRACE] join lines start => line = ", line)
@@ -125,10 +126,11 @@ def convert(file: Optional[str], output: Optional[str]):
         elif state == state_join_lines:
             if not line.startswith(" ") and not line.strip() == "" \
                 and not line.startswith("$$") \
-                and not line.startswith("```"):
+                and not line.startswith("```")\
+                and not line.startswith("|"):
                 temp = temp + " "  + line
             else:
-                if line.startswith("$$") or line.startswith("```"):
+                if line.startswith("$$") or line.startswith("```") or line.startswith("|"):
                     temp = temp + "\n" + line 
                     print(" [line] = ", line)
                     state = state_start
