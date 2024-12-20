@@ -21,6 +21,8 @@ flask_session/*
 server.toml
 notes/*
 notes/*.md
+node_modules/*
+*/node_modules/*
 **notes**
 *.tar.gz
 *.tag.bz2
