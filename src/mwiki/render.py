@@ -816,6 +816,13 @@ class HtmlRenderer(Renderer):
               </pre>
             </div>
             """
+        elif info == "{example}":
+            code = node.content
+            ast  = mparser.parse_source(code)
+            inner = self.render(ast)
+            html  =  "<strong>Example</strong>"
+            html += f"""\n<pre>\n<code class="language-markdown">{code}</code>\n</pre>"""
+            html += f"\n<strong>Redering</strong>{inner}" 
         else:
             code = utils.highlight_code(node.content, language = info)
             html = f"""<pre>\n<code class="language-{info.strip()}">{code}</code>\n</pre>"""
