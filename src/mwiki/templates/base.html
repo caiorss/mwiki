@@ -100,6 +100,14 @@
     <!-- Additional Javascript libraries -->
     {% endblock %}
 
+    <script type="module">
+        /** Mermaid JS from CDN */
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        /** Local Installation (Vendored) of mermaid JS diagram renderer. **/
+        // import mermaid from '/static/node_modules/mermaid/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
     <script type="text/javascript" src="/static/main.js"></script>
 
 </head>

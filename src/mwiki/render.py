@@ -779,6 +779,12 @@ class HtmlRenderer(Renderer):
                 else:
                     html = f"""<div class="math-block anchor" {label} > \n$$\n""" \
                         + utils.escape_html(content) + "\n$$\n</div>"
+        ## Mermaid JS Diagram (Flowchart, Sequence Diagram and so on.)
+        elif info == "{mermaid}":
+            content, directives = mparser.get_code_block_directives(node.content)
+            label = f'id="{u}"' if (u := directives.get("label")) else ""
+            #content_ = utils.escape_html(content)
+            html = f"""<pre {label} class="mermaid" >\n{content}\n</pre>\n"""                   
         # Compatible with Obsidian's pseudo-code plugin
         elif info == "pseudo" or info == "{pseudo}":
             content, directives = mparser.get_code_block_directives(node.content)
