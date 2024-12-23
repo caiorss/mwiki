@@ -59,7 +59,7 @@
                     'sections', { handler: { macro: ['sections'] } }
                 );
                 MathJax.startup.defaultReady();
-                pseudocode.renderClass("pseudocode", { "lineNumber": 1 });
+                pseudocode.renderClass("pseudocode", { "lineNumber": true, "scopeLines": true });
                 // This function is provided by main.js.
                 if( isMobileScreen() ) { setHeadingVisibility(false); }
                 /// setHeadingsVisibility(false)
