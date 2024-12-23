@@ -100,6 +100,33 @@
     <!-- Additional Javascript libraries -->
     {% endblock %}
 
+    <!-- Graphviz Rendering Engine (WASM Build) 
+        From: https://viz-js.com/api/
+     -->
+    <script src="/static/viz/node_modules/@viz-js/viz/lib/viz-standalone.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            // Select graphviz code blocks 
+            let lst = document.querySelectorAll(".graphviz-dot");
+            for(let x of lst){
+
+                Viz.instance().then(function(viz) {
+                    // console.log("[TRACE] x = ", x);
+                    let code = x.innerText;
+                    // console.log(" [TRACE] code = ", code);
+                    let svg = viz.renderSVGElement(code);
+                    // console.log(" [TRACE] svg = ", svg);
+                    x.replaceWith(svg); 
+                    // x.outerHTML = svg;
+                    /// document.getElementById("graph").appendChild(svg);
+                });
+
+
+            }
+        }, false);
+        
+    </script>
+
     <script type="module">
         /** Mermaid JS from CDN */
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';

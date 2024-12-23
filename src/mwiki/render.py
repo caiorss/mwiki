@@ -779,6 +779,12 @@ class HtmlRenderer(Renderer):
                 else:
                     html = f"""<div class="math-block anchor" {label} > \n$$\n""" \
                         + utils.escape_html(content) + "\n$$\n</div>"
+        ## Graphviz dot language
+        elif info == "{dot}":
+            content, directives = mparser.get_code_block_directives(node.content)
+            label = f'id="{u}"' if (u := directives.get("label")) else ""
+            html = f"""<pre {label} class="graphviz-dot" >\n{content}\n</pre>\n"""                   
+
         ## Mermaid JS Diagram (Flowchart, Sequence Diagram and so on.)
         elif info == "{mermaid}":
             content, directives = mparser.get_code_block_directives(node.content)
@@ -822,7 +828,7 @@ class HtmlRenderer(Renderer):
             inner = self.render(ast)
             html  =  "<strong>Example</strong>"
             html += f"""\n<pre>\n<code class="language-markdown">{code}</code>\n</pre>"""
-            html += f"\n<strong>Redering</strong>{inner}" 
+            html += f"\n<strong>Redering</strong><br>{inner}" 
         else:
             code = utils.highlight_code(node.content, language = info)
             html = f"""<pre>\n<code class="language-{info.strip()}">{code}</code>\n</pre>"""
