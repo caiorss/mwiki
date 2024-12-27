@@ -539,6 +539,11 @@ img.admonition-icon {
    appearance: none;
 }
 
+.foldable-block {
+    /* background: lightyellow; */
+    padding: 10px;
+}
+
 input:focus,
 textarea:focus,
 select:focus {

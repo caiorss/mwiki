@@ -804,7 +804,8 @@ class HtmlRenderer(Renderer):
         elif info == "{solution}" or info == "{proof}" or info.startswith("{foldable}"):
             ## breakpoint()
             content, directives = mparser.get_code_block_directives(node.content)
-            label = f'id="{u}"' if (u := directives.get("label")) else ""
+            label      = f'id="{u}"' if (u := directives.get("label")) else ""
+            background = f'background:{u};' if (u := directives.get("background")) else ""
             ast =  mparser.parse_source(content)
             title = info.strip("{}").capitalize()
             if info.startswith("{foldable}"):
@@ -812,7 +813,7 @@ class HtmlRenderer(Renderer):
                 title = "Foldable" if (x := info[len("{foldable}"):].strip().capitalize()) == "" \
                           else x
             inner_html = self.render(ast)
-            html = f"""<details {label}>\n<summary><u class="solution-label">{title}</u></summary>\n\n{inner_html}\n</details>"""
+            html = f"""<details {label}>\n<summary><u class="solution-label">{title}</u></summary>\n\n<div class="foldable-block" style="{background}">{inner_html}</div>\n</details>"""
         elif info == "{latex_macro}":
             html = f""" 
             <div class="hidden-mathjax-macros user-macros" style="display: none;">
