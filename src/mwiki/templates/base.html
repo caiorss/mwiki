@@ -173,6 +173,10 @@
                  <a class="sidebar-toggle-button" href="#" id="btn-create-note" title="Create new page or note.">New</a>
                  <a class="sidebar-toggle-button" href="#" onclick="showRefcard();" id="btn-show-refcard" title="Show Reference Card.">Refcard</a>
                  <a class="sidebar-toggle-button" href="/logoff?path={{request.path|encode_url}}">Log off</a>
+                 {% if  current_user().is_admin() %}
+                 <a class="sidebar-toggle-button" href="/settings">Wiki Settings</a>
+                 {% endif %}
+                 {% endif %}
                  <a class="sidebar-toggle-button" href="/about">About</a>
                  <a class="sidebar-toggle-button" href="/licenses" title="Licenses of open source libraries used by this project.">Licenses</a>
               </div>

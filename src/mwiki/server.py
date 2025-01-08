@@ -13,6 +13,10 @@ import sqlalchemy
 from sqlalchemy import ForeignKey
 import sqlalchemy.orm as so 
 import flask_session
+import flask_wtf as fwt 
+import wtforms as wt 
+import wtforms.validators as wtfv 
+
 from typing import Any, Tuple, List, Optional
 import datetime
 import mwiki 
@@ -45,6 +49,14 @@ app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{dbpath}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.jinja_env.filters['encode_url'] = lambda u: urllib.parse.quote_plus(u) 
 
+def current_user():
+    """Get user logged in to the server."""
+    user: User = session.get("user") or User( username = "anonymous"
+                                            , password = "dummy"
+                                            , type = USER_ANONYMOUS)
+    return user 
+
+app.jinja_env.globals.update(current_user = current_user)
 
 db = SQLAlchemy(app)
 
@@ -159,13 +171,6 @@ def check_login_db(username: str, password: str) -> bool:
         out = res.active and res.password == password
     return out 
 
-def current_user():
-    """Get user logged in to the server."""
-    user: User = session.get("user") or User( username = "anonymous"
-                                            , password = "dummy"
-                                            , type = USER_ANONYMOUS)
-    return user 
-
 # --- Database Initialization -----#
 # Create all database tables if they don't exist yet.
 with app.app_context():
@@ -184,6 +189,19 @@ with app.app_context():
         conf = Settings.get_instance()
         password = conf.default_password
         print(f" [INFO] Enter the username: {admin.username} and password: '{password}' to log in.")
+
+
+class SettingsForm(fwt.FlaskForm):
+    pass 
+    public =  wt.BooleanField("Public", 
+                               description = "If enabled, everybody including non logged in users" 
+                                             " will be able to view the wiki content. Note that "
+                                             "only logged in users can edit the wiki."
+                                             )
+    submit = wt.SubmitField("Submit")
+    sitename = wt.StringField("Wiki Name", validators = [ wtfv.DataRequired() ] )
+    description = wt.TextAreaField("Wiki Description") 
+
         
 
 def make_app_server(  host:        str
@@ -214,6 +232,33 @@ def make_app_server(  host:        str
         (USERNAME, PASSWORD) = login
 
     check_login = add_login(app, DO_LOGIN, USERNAME, PASSWORD)
+
+
+    @app.route("/settings", methods = [M_GET, M_POST])
+    @check_login(required = True)
+    def route_settings():
+        user = current_user()
+        if not user.is_admin():
+            flask.abort(403)
+        form = SettingsForm()
+        resp = None
+        conf = Settings.get_instance()
+        if request.method == M_GET:
+            form.public.data = conf.public
+            form.sitename.data = conf.sitename
+            form.description.data = conf.description   
+        if request.method == M_POST:
+            form.validate()
+            app.logger.info(f"Form data = {form.data}")    
+            conf.sitename = form.sitename.data
+            conf.description = form.description.data
+            conf.public = form.public.data 
+            conf.save()
+            flask.flash("Wiki settings updated successfully.")
+            app.logger.info("Wiki setting updated.")
+            flask.redirect("/settings")
+        resp  = flask.render_template("settings.html", form = form, title = "Wiki Settings")
+        return resp
 
     ##@auth_basic(is_authhenticated)
     @app.route("/pages", methods = [M_GET])
