@@ -354,6 +354,15 @@ def parse_int(x: Optional[str]) -> Optional[int]:
         out = None 
     return out
 
+def generate_password(size: int = 20) -> str:
+    """Generate an random alphanumeric password of given size."""
+    import string 
+    import random 
+    result = ''.join(random.SystemRandom()\
+                     .choice( string.ascii_uppercase + string.digits) 
+                              for _ in range(size))
+    return result 
+
 class TempSSLCert:
 
     def __init__(self) -> None:

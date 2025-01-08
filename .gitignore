@@ -33,3 +33,4 @@ node_modules/*
 *.aux 
 *.pdf 
 *.pex
+*.sqlite

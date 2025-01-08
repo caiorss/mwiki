@@ -2,10 +2,16 @@ import os
 import re
 import pathlib
 import secrets
+import urllib.parse
 ## from bottle import route, run
 ## from bottle import static_file, route, auth_basic, request
 import flask 
 from flask import Flask, request, session
+from flask_sqlalchemy import SQLAlchemy
+import flask_sqlalchemy as sa 
+import sqlalchemy
+from sqlalchemy import ForeignKey
+import sqlalchemy.orm as so 
 import flask_session
 from typing import Any, Tuple, List, Optional
 import datetime
@@ -22,7 +28,165 @@ M_POST = "POST"
 # Http Delete Method
 M_DELETE = "DELETE"
 
-def make_app_server(   host:        str
+APPNAME = "mwiki"
+session_folder = utils.project_cache_path(APPNAME, "session")
+utils.mkdir(session_folder)
+
+app = Flask(__name__) ##template_folder="templates")
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SESSION_FILE_DIR'] = session_folder ## 'M:/code/flaskLoginTest/sessions'
+# Set the maximum number of stored sessions
+app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days = 30)
+app.config['SESSION_FILE_THRESHOLD'] = 1000  # Adjust the limit as needed
+# Configure Flask to use FileSystemSessionInterface with the custom options
+app.config["SESSION_PERMANENT"] = True
+dbpath = os.path.join(os.getcwd(), "database.sqlite")
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{dbpath}"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.jinja_env.filters['encode_url'] = lambda u: urllib.parse.quote_plus(u) 
+
+
+db = SQLAlchemy(app)
+
+
+USER_MASTER_ADMIN = 100 
+USER_ADMIN = 50 
+USER_EDITOR = 20
+USER_READ_ONLY = 10  
+USER_ANONYMOUS = 0 
+
+class User(db.Model):
+    __tablename__ = "user"
+    id: so.Mapped[int] = so.mapped_column(primary_key = True)
+    username: so.Mapped[str] = so.mapped_column(index=True, nullable=False, unique=True)
+    email:    so.Mapped[str] = so.mapped_column(nullable=True, unique=True)
+    ## TODO IT should be stored only the password hash, never the password in plain text
+    password: so.Mapped[str] = so.mapped_column(sqlalchemy.String(256), nullable= True)
+    active:   so.Mapped[bool] = so.mapped_column(default= True)
+    type:            so.Mapped[int] = so.mapped_column(default = 0)
+    date_created:    so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
+    date_modified:   so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
+    date_lastaccess: so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
+    # date_modified  = so.mapped_column(DateTime, defalt=datetime.datetime.utcnow)
+
+    def is_admin(self):
+        result = self.type == USER_ADMIN or self.type == USER_MASTER_ADMIN 
+        return result 
+    
+    def user_can_edit(self):
+        result = self.active and (self.is_admin() or self.type == USER_EDITOR)
+        return result 
+
+    def is_anonymous(self):
+        result = self.type == USER_ANONYMOUS
+        return result
+
+    def __repr__(self):
+        return f"User{{ id = {self.id} ; username = {self.username}  ; type = {self.type} }}"
+
+    @classmethod
+    def get_user_by_username(self, username: str) -> Optional['User']:
+        query = sqlalchemy.select(User).where(User.username.like(username))
+        result = db.session.execute(query).scalars().first()
+        return result
+
+class Settings(db.Model):
+    """Single-table instance of only one row that contains the Wiki settings.
+    """
+    __tablename__ = "settings"
+    id: so.Mapped[int] = so.mapped_column(primary_key = True)
+    # Public => Indicates whether the wiki can be viewed (not edited) by everybody.
+    public:   so.Mapped[bool] = so.mapped_column(default = False)
+    # Web Site Name 
+    sitename: so.Mapped[str] = so.mapped_column(default= "MWiki")
+    default_password: so.Mapped[str] = so.mapped_column(nullable=False)
+    # Wiki Site Description 
+    description: so.Mapped[str] = so.mapped_column(default="MWiki Website")
+    date_created:    so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
+    date_modified:   so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
+
+    @classmethod
+    def get_instance(self):
+        """Always use this method for obtaining a single instance of this class"""
+        q = db.session.query(Settings).first()
+        if q is None:
+            # Generate unique default password per deployment
+            password = utils.generate_password(10)
+            # Create default settings when the database is initialized
+            s = Settings( default_password = password )
+            db.session.add(s)
+            db.session.commit()
+            return s 
+        else:
+            return q
+
+    def save(self):
+        """Update database entry"""
+        db.session.add(self)
+        db.session.commit()
+
+    def __repr__(self) -> str:
+        out = f"Settings{{  public = {self.public} ; sitename = {self.sitename}  }}" 
+        return out
+
+class Page(db.Model):
+    __tablename__ = "page"
+    id: so.Mapped[int] = so.mapped_column(primary_key = True)
+    file: so.Mapped[str] = so.mapped_column(unique = True, nullable = False)
+    deleted: so.Mapped[bool] = so.mapped_column(default = False)
+    date_modified:   so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
+
+class BookmarkedPage(db.Model):
+    __tablename__ = "bookmarkedpage"
+    id: so.Mapped[int] = so.mapped_column(primary_key = True)
+    user_id: so.Mapped[int] = so.mapped_column(ForeignKey("user.id"))
+    page_id: so.Mapped[int] = so.mapped_column(ForeignKey("page.id"))
+
+
+def is_database_created() -> bool:
+    tables = sqlalchemy.inspect(db.engine).get_table_names()
+    result = tables != []
+    return result 
+
+def check_login_db(username: str, password: str) -> bool:
+    q = db.session.query(User, User.username == username)
+    res, ok = q.first()
+    if not ok: return False
+    if username == "admin" and res.password is None:
+        dpassword = Settings.get_instance().default_password
+        out = password == dpassword
+    else:
+        out = res.active and res.password == password
+    return out 
+
+def current_user():
+    """Get user logged in to the server."""
+    user: User = session.get("user") or User( username = "anonymous"
+                                            , password = "dummy"
+                                            , type = USER_ANONYMOUS)
+    return user 
+
+# --- Database Initialization -----#
+# Create all database tables if they don't exist yet.
+with app.app_context():
+    u = None 
+    created = is_database_created()
+    if not created: 
+        print(" [TRACE] Admin user created OK")
+        u = User( username = "admin", type = USER_MASTER_ADMIN )
+
+    db.create_all()
+    if not created:
+        db.session.add(u)
+        db.session.commit()
+    admin = User.get_user_by_username("admin")    
+    if admin.password is None:
+        conf = Settings.get_instance()
+        password = conf.default_password
+        print(f" [INFO] Enter the username: {admin.username} and password: '{password}' to log in.")
+        
+
+def make_app_server(  host:        str
                     , port:        int
                     , debug:       bool
                     , login:       Optional[Tuple[str, str]]
@@ -31,21 +195,8 @@ def make_app_server(   host:        str
                     , secret_key:  Optional[str] = None 
                    ):
 
-    APPNAME = "mwiki"
-    session_folder = utils.project_cache_path(APPNAME, "session")
-    utils.mkdir(session_folder)
     secret_key = get_secret_key(APPNAME) if secret_key is None else secret_key
-    # TODO Separate configuration from code for safer deployment
-    # Use some secrets management system
-    app = Flask(__name__) ##template_folder="templates")
     # Specify a custom directory for storing session files
-    app.config['SESSION_TYPE'] = 'filesystem'
-    app.config['SESSION_FILE_DIR'] = session_folder ## 'M:/code/flaskLoginTest/sessions'
-    # Set the maximum number of stored sessions
-    app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days = 30)
-    app.config['SESSION_FILE_THRESHOLD'] = 1000  # Adjust the limit as needed
-    # Configure Flask to use FileSystemSessionInterface with the custom options
-    app.config["SESSION_PERMANENT"] = True
     app.config['SECRET_KEY'] = secret_key 
     flask_session.Session(app)
     ### WEBSOCKET: sock = Sock(app)
@@ -66,7 +217,7 @@ def make_app_server(   host:        str
 
     ##@auth_basic(is_authhenticated)
     @app.route("/pages", methods = [M_GET])
-    @check_login
+    @check_login()
     def route_pages():
         query = (request.args.get("search") or "").strip()
         # Possibliity: ?sort=modified, ?sort=name, ?sort=created
@@ -130,7 +281,7 @@ def make_app_server(   host:        str
         return resp
 
     @app.get("/wiki/img/<path:filepath>")
-    @check_login
+    @check_login()
     def route_wiki_image(filepath):
         print(" [TRACE] path = ", filepath)
         root = IMAGE_PATH ## utils.get_wiki_path("images")
@@ -151,7 +302,7 @@ def make_app_server(   host:        str
         return out
 
     @app.route("/source/<path>")
-    @check_login
+    @check_login( required = True)
     def route_wiki_source(path):
         mdfile_ = path + ".md"
         match = next(base_path.rglob(mdfile_), None)
@@ -179,7 +330,7 @@ def make_app_server(   host:        str
     base_path = pathlib.Path(BASE_PATH)
 
     @app.route("/wiki/<path>")
-    @check_login
+    @check_login()
     def route_wiki_page(path: str):
         # path does not have exntension, it is just the name
         # of the mdfile without any extension
@@ -296,7 +447,7 @@ def make_app_server(   host:        str
 
 
     @app.get("/api/wiki") 
-    @check_login
+    @check_login()
     def api_wiki_pages():
         pages  = sorted([x.name.split(".md")[0] for  x in base_path.rglob("*.md")])
         resp  = flask.jsonify(pages)
@@ -304,16 +455,18 @@ def make_app_server(   host:        str
         
 
     @app.route("/api/wiki/<path>", methods = [M_GET, M_POST, M_DELETE])
-    @check_login
+    @check_login()
     def api_wiki(path: str):
         mdfile_ = path + ".md"
         p: Optional[pathlib.Path] = next(base_path.rglob(mdfile_), None)
+        user = current_user()
         if request.method == M_GET:
             if not p: flask.abort(404)
             content = p.read_text()
             out = flask.jsonify({ "status": "ok", "error": "", "content": content })
             return out
         elif request.method == M_POST:
+            if user.is_anonymous(): flask.abort(403)
             out = ""
             ## breakpoint()
             if p: 
@@ -324,7 +477,8 @@ def make_app_server(   host:        str
                 out = flask.jsonify({ "status": "ok", "error": ""})
             return out
         elif request.method == M_DELETE:
-            if not p: flask.abort(404)
+            if not p: flask.abort(403)
+            if user.is_anonymous(): flask.abort(403)
             ## Remove file 
             p.unlink()
             out = flask.jsonify({ "status": "ok", "error": ""})
@@ -333,6 +487,7 @@ def make_app_server(   host:        str
             flask.abort(405) 
 
     @app.route("/create/<path>", methods = [M_GET, M_POST])
+    @check_login(required = True)
     def route_create(path: str):
         """Flask http route for creating new wiki pages/notes."""
         mdfile_ = path + ".md"
@@ -369,7 +524,7 @@ def make_app_server(   host:        str
         return out
 
     @app.route("/edit/<path>", methods = [M_GET, M_POST])
-    @check_login
+    @check_login( required = True)
     def route_edit_page(path: str):
         mdfile_ = path + ".md"
         line_start = utils.parse_int(request.args.get("start"))
@@ -420,7 +575,7 @@ def make_app_server(   host:        str
         return resp
 
     @app.get("/links/<path>") 
-    @check_login
+    @check_login()
     def route_link_page(path: str):
         """This endpoint displays all external hyperlinks of wiki page"""
         mdfile_ = path + ".md"
@@ -564,39 +719,63 @@ def add_login(app: Flask, do_login: bool, username: str, password: str):
 
     @app.route("/login", methods = (M_GET, M_POST))
     def login():
-        if not do_login:
-            return flask.redirect("/")
+        ## if not do_login:
+        ##     return flask.redirect("/")
+        path = utils.escape_url(request.args.get("path", "/"))
         if request.method == M_GET:
             if is_loggedin(): 
-                return flask.redirect("/")
+                ## breakpoint()
+                return flask.redirect(path)
             else:
-                return flask.render_template('login.html')
+                return flask.render_template('login.html', path = path)
         assert request.method == M_POST
         _username = flask.request.form.get("username") or ""
         _password = flask.request.form.get("password") or ""
-        if _username == username and _password == password:
+        ##if _username == username and _password == password:
+        ## breakpoint()
+        if check_login_db(_username, _password): 
             do_login() 
-            return flask.redirect("/") 
+            user = User.get_user_by_username(_username)
+            session["user"] = user 
+            return flask.redirect(path) 
         else:
-            return flask.redirect("/login")
+            return flask.redirect(f"/login?path={path}")
 
     @app.route("/logoff")
     def loggof():
         do_logoff()
+        session.clear()
+        is_public = Settings.get_instance().public
+        ## breakpoint()
+        if is_public:
+            path = request.args.get("path", "/")
+            return flask.redirect(path)
         return flask.redirect("/login")
 
-    def check_login(http_handler):
-        """Decorator that redirects to /login page if the user is not loggged in."""
-        def wrapper(*args, **kwargs):
-            pass
-            response = None
-            if do_login and not is_loggedin():
-                response = flask.redirect("/login")
-            else:
-                response = http_handler(*args, **kwargs)
-            return response 
-        wrapper.__name__ = http_handler.__name__
-        return wrapper
-
+    def check_login(required = False):
+        """Decorator that redirects to /login page if the user is not loggged in.
+        The user is not asked to log in if the Wiki if the user is already authenticated
+        or the wiki public. If the flag required is set to true, the user is asked to 
+        log in regardless if the Wiki is public. Setting the flag required to true 
+        is useful in pages where the user may modify data.
+        """
+        def login_checker(http_handler):
+            def wrapper(*args, **kwargs):
+                pass
+                response = None
+                is_public = Settings.get_instance().public
+                ## breakpoint()
+                loggedin = is_loggedin()
+                if (is_public or loggedin) and (loggedin or not required):
+                    response = http_handler(*args, **kwargs)
+                else:
+                    # Failed authentication / log in 
+                    path = utils.escape_url(request.path)
+                    response = flask.redirect(f"/login?path={path}") 
+                    ## breakpoint()
+                return response 
+            wrapper.__name__ = http_handler.__name__
+            return wrapper
+        return login_checker
     return check_login
 

@@ -10,6 +10,7 @@ dependencies = [
         # 'flask'
           "flask==3.0.3"
         , "flask-session"
+        , "flask-sqlalchemy"
         , "frontmatter"
         # , 'frontmatter==3.0.8"
         , "markdown-it-py==3.0.0"
@@ -52,6 +53,7 @@ mwiki            = "mwiki.cli:main"
 python = ">=3.8"
 flask  = "3.0.3"
 flask-session = "*"
+flask-sqlalchemy = "*"
 frontmatter = "*"
 #  , 'frontmatter==3.0.8'
 markdown-it-py = "^3.0.0"
