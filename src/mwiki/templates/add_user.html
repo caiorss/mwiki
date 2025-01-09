@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block topbar_buttons %}
+    
+{% endblock %}
+
+{% block toc  %}
+
+{% endblock %}
+
+{% block content %}
+
+<p>Form for adding new users.</p>
+
+<div class="form-wrapper">
+    <form method="POST" action="/account/new">
+        <fieldset class="form-field">
+            {{ form.username.label }}
+            {{ form.username}}
+        </fieldset>
+        <fieldset class="form-field">
+            {{ form.email.label }}
+            {{ form.email}}
+        </fieldset>
+        <fieldset class="form-field">
+            {{ form.type.label }}
+            {{ form.type}}
+        </fieldset>
+        <fieldset class="form-field">
+            {{ form.password.label }}
+            {{ form.password}}
+        </fieldset>
+        {{ form.submit }}
+    </form>
+</div>
+
+{% for msg in get_flashed_messages() %}
+    <p>{{msg}}</p>
+{% endfor %}
+
+{% endblock %}
+

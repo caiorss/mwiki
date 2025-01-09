@@ -65,7 +65,7 @@ db = SQLAlchemy(app)
 USER_MASTER_ADMIN = 100 
 USER_ADMIN = 50 
 USER_EDITOR = 20
-USER_READ_ONLY = 10  
+USER_GUEST = 10  
 USER_ANONYMOUS = 0 
 
 class User(db.Model):
@@ -97,6 +97,12 @@ class User(db.Model):
     def is_authenticated(self):
         result = self.type != USER_ANONYMOUS
         return result
+
+    def check_password(self, password: str) -> bool:
+        out =  check_password_hash(self.password, password)
+        ## print(" [TRACE] password = ", password)
+        return out
+
 
     def __repr__(self):
         return f"User{{ id = {self.id} ; username = {self.username}  ; type = {self.type} }}"
@@ -166,14 +172,19 @@ def is_database_created() -> bool:
     return result 
 
 def check_login_db(username: str, password: str) -> bool:
-    q = db.session.query(User, User.username == username)
-    res, ok = q.first()
-    if not ok: return False
+    ### print(" [TRACE] Enter check_login_db")
+    res = User.get_user_by_username(username) 
+    if res is None: 
+        ##print(" [TRACE] Exit(1) check_login_db() ")
+        ## breakpoint()
+        return False
+    ## breakpoint()
     if username == "admin" and res.password is None:
         dpassword = Settings.get_instance().default_password
         out = password == dpassword
     else:
-        out = res.active and check_password_hash(res.password, password)
+        check = res.check_password(password) 
+        out = res.active and check
     return out 
 
 # --- Database Initialization -----#
@@ -212,6 +223,24 @@ class UserSettingsForm(fwt.FlaskForm):
     """Form that allows users to change their own account settings."""
     password = wt.PasswordField("Password", validators = [ wtfv.DataRequired() ] )
     submit   = wt.SubmitField("Update")
+
+USER_TYPE_CHOICES = [(USER_MASTER_ADMIN, "Root Admin"), (USER_ADMIN, "Admin"), (USER_GUEST, "Guest") ]
+
+class UserAddForm(fwt.FlaskForm):
+    """Form for adding new user account manually."""
+    username = wt.StringField("Username", validators = [ wtfv.DataRequired() ] )
+    ## email    = wt.StringField("Email") 
+    email    = wt.StringField("Email", validators = [ wtfv.DataRequired() ] )
+    password = wt.PasswordField("Password", validators = [ wtfv.DataRequired() ] )
+    ## password = wt.StringField("Password", validators = [ wtfv.DataRequired() ] )
+    type     = wt.SelectField("Type", choices = USER_TYPE_CHOICES )
+    ## active   = wt.BooleanField("Active", default = True) 
+    submit   = wt.SubmitField("Update")
+
+    def get_user_type(self):
+        choice = dict(USER_TYPE_CHOICES).get(self.type.data)
+        return choice
+
 
 
 def make_app_server(  host:        str
@@ -255,12 +284,44 @@ def make_app_server(  host:        str
         if request.method == M_POST:
             form.validate()
             password = form.password.data
+            ## breakpoint()
             user.password = generate_password_hash(password)
             db.session.add(user)
             db.session.commit()
             flask.flash("User account updated successfully. Ok.")
             flask.redirect("/user")
         resp = flask.render_template("user_settings.html", form = form, title = "User account settings")
+        return resp
+
+    @app.route("/account/new", methods = [M_GET, M_POST])
+    @check_login(required = True)
+    def route_user_add():
+        user = current_user()
+        if not user.is_admin():
+            flask.abort(403)
+        form = UserAddForm()
+        ## if request.method == M_GET:
+        ##     form.public.data = conf.public
+        ##     form.sitename.data = conf.sitename
+        ##     form.description.data = conf.description   
+        if request.method == M_POST:
+            form.validate()
+            username = form.username.data
+            email = form.email.data 
+            type = form.get_user_type()
+            _password =  form.password.data
+            ### print(" [TRACE] password (new) = ", _password)
+            password =  generate_password_hash(_password) 
+            if User.get_user_by_username(username) is not None:
+                flask.flash(f"Username {username} already exist.", "error")
+                return flask.redirect("/account/new")
+            new_user = User( username = username, email = email, password = password, type = type)
+            db.session.add(new_user)
+            db.session.commit()
+            flask.flash("Error: User created successfully. Ok.")
+            app.logger.info("User created ok.")
+            return flask.redirect("/account/new")
+        resp  = flask.render_template("add_user.html", form = form, title = "Add User")
         return resp
 
     @app.route("/settings", methods = [M_GET, M_POST])
@@ -795,6 +856,7 @@ def add_login(app: Flask, do_login: bool, username: str, password: str):
     def login():
         ## if not do_login:
         ##     return flask.redirect("/")
+        ### breakpoint()
         path = utils.escape_url(request.args.get("path", "/"))
         if request.method == M_GET:
             if is_loggedin(): 
@@ -805,6 +867,7 @@ def add_login(app: Flask, do_login: bool, username: str, password: str):
         assert request.method == M_POST
         _username = flask.request.form.get("username") or ""
         _password = flask.request.form.get("password") or ""
+        print(f" [TRACE] _username = {_username} ; _password = {_password}")
         ##if _username == username and _password == password:
         ## breakpoint()
         if check_login_db(_username, _password): 

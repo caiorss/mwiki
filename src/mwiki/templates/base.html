@@ -175,9 +175,10 @@
                  <a class="sidebar-toggle-button" href="/logoff?path={{request.path|encode_url}}">Log off</a>
                  {% if  current_user().is_admin() %}
                  <a class="sidebar-toggle-button" href="/settings">Wiki Settings</a>
+                 <a class="sidebar-toggle-button" href="/account/new">New Account</a>
                  {% endif %}
                  {% if current_user().is_authenticated() %}
-                 <a class="sidebar-toggle-button" href="/user">Account</a>
+                 <a class="sidebar-toggle-button" href="/user">My Account</a>
                  {% endif %}
                  <a class="sidebar-toggle-button" href="/about">About</a>
                  <a class="sidebar-toggle-button" href="/licenses" title="Licenses of open source libraries used by this project.">Licenses</a>
