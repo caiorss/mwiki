@@ -49,26 +49,30 @@ def get_proc_output(args):
     proc = subprocess.run(args, capture_output = True, text = True)
     ret = proc.returncode 
     stdout = proc.stdout
-    out = (ret, stdout)
+    out = (ret, stdout.strip())
     return out
 
 
 # Get user directory in platform-independet way
 HOMEDIR = str(pathlib.Path.home())
-(status, PIPENVPATH) = get_proc_output(["pipenv", "--venv"])
-PIPENVPATH = PIPENVPATH.strip()
+#### (status, PIPENVPATH) = get_proc_output(["pipenv", "--venv"])
+#### PIPENVPATH = PIPENVPATH.strip()
 
-VENVPATH    = ""
-PYTHONPATH  = ""
-if "linux" in sys.platform:
-    VENVPATH = f"{HOMEDIR}/.local/share/virtualenvs"
-    PYTHONPATH = f"{PIPENVPATH}/bin/python"
-# Not tested on Windows yet
-elif "windows" in sys.platform:
-    VENVPATH = f"{HOMEDIR}/.virtualenvs"
-    PYTHONPATH = f"{PIPENVPATH}/bin/Scripts/python.exe"
-else:
-    raise NotImplementedError(f"Not implemented for this operating system: '{sys.platform}'")
+## VENVPATH    = ""
+## PYTHONPATH  = ""
+
+(status, PYTHONPATH) = get_proc_output(["poetry", "env", "info", "--executable"])
+(status, VENVPATH)   = get_proc_output(["poetry", "env", "info", "--path"])
+
+### if "linux" in sys.platform:
+###     ## VENVPATH = f"{HOMEDIR}/.local/share/virtualenvs"
+###     ###PYTHONPATH = f"{PIPENVPATH}/bin/python"
+### # Not tested on Windows yet
+### elif "windows" in sys.platform:
+###     VENVPATH = f"{HOMEDIR}/.virtualenvs"
+###     PYTHONPATH = f"{PIPENVPATH}/bin/Scripts/python.exe"
+### else:
+###     raise NotImplementedError(f"Not implemented for this operating system: '{sys.platform}'")
 
 
 ## Content of .vscode/settings.json 
@@ -97,7 +101,8 @@ content_settings = """
     ]
     , "python.testing.unittestEnabled": false
     , "python.testing.pytestEnabled": true    
-
+    , "pyhton.linting.enabled": true 
+    , "python.linting.PylintEnabled": true 
 }
 """
 
