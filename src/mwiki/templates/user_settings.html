@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+{% block topbar_buttons %}
+    
+{% endblock %}
+
+{% block toc  %}
+
+{% endblock %}
+
+{% block content %}
+
+User settings for: <strong>{{ current_user().username }}</strong>
+
+<div class="form-wrapper">
+    <form method="POST" action="/user">
+        <fieldset class="form-field">
+            {{ form.password.label }}
+            {{ form.password}}
+        </fieldset>
+        {{ form.submit }}
+    </form>
+</div>
+
+{% for msg in get_flashed_messages() %}
+    <p>{{msg}}</p>
+{% endfor %}
+
+{% endblock %}
+
+

@@ -16,6 +16,7 @@ import flask_session
 import flask_wtf as fwt 
 import wtforms as wt 
 import wtforms.validators as wtfv 
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from typing import Any, Tuple, List, Optional
 import datetime
@@ -93,6 +94,10 @@ class User(db.Model):
         result = self.type == USER_ANONYMOUS
         return result
 
+    def is_authenticated(self):
+        result = self.type != USER_ANONYMOUS
+        return result
+
     def __repr__(self):
         return f"User{{ id = {self.id} ; username = {self.username}  ; type = {self.type} }}"
 
@@ -168,7 +173,7 @@ def check_login_db(username: str, password: str) -> bool:
         dpassword = Settings.get_instance().default_password
         out = password == dpassword
     else:
-        out = res.active and res.password == password
+        out = res.active and check_password_hash(res.password, password)
     return out 
 
 # --- Database Initialization -----#
@@ -192,7 +197,7 @@ with app.app_context():
 
 
 class SettingsForm(fwt.FlaskForm):
-    pass 
+    """Form for changing Wiki Settings (Website settings)"""
     public =  wt.BooleanField("Public", 
                                description = "If enabled, everybody including non logged in users" 
                                              " will be able to view the wiki content. Note that "
@@ -203,6 +208,11 @@ class SettingsForm(fwt.FlaskForm):
     description = wt.TextAreaField("Wiki Description") 
 
         
+class UserSettingsForm(fwt.FlaskForm):
+    """Form that allows users to change their own account settings."""
+    password = wt.PasswordField("Password", validators = [ wtfv.DataRequired() ] )
+    submit   = wt.SubmitField("Update")
+
 
 def make_app_server(  host:        str
                     , port:        int
@@ -233,6 +243,25 @@ def make_app_server(  host:        str
 
     check_login = add_login(app, DO_LOGIN, USERNAME, PASSWORD)
 
+
+    @app.route("/user", methods = [M_GET, M_POST])
+    @check_login( required = True )
+    def route_user_settings():
+        pass 
+        user = current_user()
+        form = UserSettingsForm()
+        if request.method == M_GET:
+            pass 
+        if request.method == M_POST:
+            form.validate()
+            password = form.password.data
+            user.password = generate_password_hash(password)
+            db.session.add(user)
+            db.session.commit()
+            flask.flash("User account updated successfully. Ok.")
+            flask.redirect("/user")
+        resp = flask.render_template("user_settings.html", form = form, title = "User account settings")
+        return resp
 
     @app.route("/settings", methods = [M_GET, M_POST])
     @check_login(required = True)

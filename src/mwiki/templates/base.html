@@ -176,6 +176,8 @@
                  {% if  current_user().is_admin() %}
                  <a class="sidebar-toggle-button" href="/settings">Wiki Settings</a>
                  {% endif %}
+                 {% if current_user().is_authenticated() %}
+                 <a class="sidebar-toggle-button" href="/user">Account</a>
                  {% endif %}
                  <a class="sidebar-toggle-button" href="/about">About</a>
                  <a class="sidebar-toggle-button" href="/licenses" title="Licenses of open source libraries used by this project.">Licenses</a>
