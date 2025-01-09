@@ -601,7 +601,7 @@ def make_app_server(  host:        str
             out = flask.jsonify({ "status": "ok", "error": "", "content": content })
             return out
         elif request.method == M_POST:
-            if user.is_anonymous(): flask.abort(403)
+            if not user.user_can_edit(): flask.abort(403)
             out = ""
             ## breakpoint()
             if p: 
@@ -613,7 +613,7 @@ def make_app_server(  host:        str
             return out
         elif request.method == M_DELETE:
             if not p: flask.abort(403)
-            if user.is_anonymous(): flask.abort(403)
+            if not user.user_can_edit(): flask.abort(403)
             ## Remove file 
             p.unlink()
             out = flask.jsonify({ "status": "ok", "error": ""})
@@ -625,6 +625,10 @@ def make_app_server(  host:        str
     @check_login(required = True)
     def route_create(path: str):
         """Flask http route for creating new wiki pages/notes."""
+        user = current_user()
+        # Enforce authorization  
+        if not user.user_can_edit():
+            flask.abort(403)
         mdfile_ = path + ".md"
         p: Optional[pathlib.Path] = next(base_path.rglob(mdfile_), None)
         out = None 
@@ -661,6 +665,11 @@ def make_app_server(  host:        str
     @app.route("/edit/<path>", methods = [M_GET, M_POST])
     @check_login( required = True)
     def route_edit_page(path: str):
+        user = current_user()
+        # Enforce authorization  - Guest (Read-Only Users) and anonymous
+        # users cannot edit the Wiki.
+        if not user.user_can_edit():
+            flask.abort(403)
         mdfile_ = path + ".md"
         line_start = utils.parse_int(request.args.get("start"))
         line_end   = utils.parse_int(request.args.get("end"))
