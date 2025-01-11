@@ -131,7 +131,39 @@ This wiki provides a reference card popup windown that provides examples of the 
 
 ![](images/refcard3.png)
 
-## Installation via Docker 
+
+## Installation using Pipx
+
+**STEP 1:** Pip and Python are assumed to be already installed.
+
+Install [pipx](https://github.com/pypa/pipx) tool.
+
+```sh
+$ pip install pipx 
+```
+
+**STEP 2:** Install using Pipx
+
+Install Mwiki using Pipx (MWiki requires Python >= 3.9)
+
+```sh
+$ pipx install git+https://github.com/caiorss/mwiki 
+  installed package mwiki 0.1, installed using Python 3.9.19
+  These apps are now globally available
+    - mwiki
+    - mwiki-convert
+    - mwiki_convert
+done! ✨ 🌟 ✨
+
+```
+
+Install Mwiki using  Pipx and a different version of Python. This command is useful if the default versuion of Python in the current system is 3.8 or a non supported version.
+
+```
+$ pipx install --python=3.9 git+https://github.com/caiorss/mwiki 
+```
+
+## Installation using Docker 
 
 Docker is the most realibable way to install Python application since it is reproducible and helps to avoid the Python and Pip dependency hell (also knowns as "works-on-machine problem"). 
 
