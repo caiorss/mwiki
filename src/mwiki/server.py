@@ -398,8 +398,10 @@ def make_app_server(  host:        str
         return response
 
     # This variable is set to true if gunicorn WSGI server is being used.
-    is_gunicorn = "gunicorn" in os.environ.get("SERVER_SOFTWARE", "")
+    server_software =  os.environ.get("SERVER_SOFTWARE", "")
+    is_gunicorn = "gunicorn" in server_software or "waitress" in server_software
     ## print(" [TRACE] running gunicorn = ", is_gunicorn)
+    ## print(" [TRACE] server sofware   = ", server_software)
 
     @app.route("/check")
     def hello():

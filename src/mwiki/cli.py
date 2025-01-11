@@ -2,67 +2,70 @@ import os
 import os.path 
 import sys
 import pathlib
-from . import render
+import subprocess
 import tomli 
 from pprint import pprint
 from typing import Optional, Tuple, List 
 import click
+##import waitress
 ## from click.decorators import commmand 
 ## from gunicorn.app.wsiapp import run 
 import multiprocessing
 import mwiki.utils as utils
 from mwiki.server import make_app_server
 import mwiki.convert
-
-# Check whether the OS is a Unix-like operating system
-if utils.is_os_linux_or_bsd() or utils.is_os_macos():
-    from gunicorn.app.wsgiapp import WSGIApplication
-else:
-    print("WARNING: Cannot run using gunicorn on Microsoft Windows OS\n" 
-          "Use another WSGI server.")
-
-class StandaloneApplication(WSGIApplication):
-    def __init__(self, app_uri, options=None):
-        self.options = options or {}
-        self.app_uri = app_uri
-        super().__init__()
-
-    def load_config(self):
-        config = {
-            key: value
-            for key, value in self.options.items()
-            if key in self.cfg.settings and value is not None
-        }
-        for key, value in config.items():
-            self.cfg.set(key.lower(), value)
+from . import render
 
 
-def gunicorn_runner(  host:      str
-                    , port:      int
-                    , wikipath:  str
-                    , login:     Optional[str] = None
-                    , secret_key: Optional[str] = None 
-                    ):
-    options = {
-          "bind": f"{host}:{port}"
-        , "workers": (multiprocessing.cpu_count() * 2) + 1
-        ## "worker_class": "uvicorn.workers.UvicornWorker",
-    }
-    environemnt = {
-          "HOST":        host 
-        , "PORT":        str(port)
-        , "LOGIN":       login
-        , "SECRET_KEY":  secret_key
-        , "WIKIPATH":    wikipath
-    }
-    ### print(" [TRACE] wikipath = ", wikipath)
-    for (variable, value) in environemnt.items():
-        ## print(f" [TRACE] variable = {variable} ; value = {value}")
-        if value is not None: os.environ[variable] = value
-    ## See module: mwiki/wsgi, related to file mwiki/wsgi.py 
-    # the inputs of this module are environment variables
-    sapp = StandaloneApplication("mwiki.wsgi:app", options)
-    sapp.run()
+###  # Check whether the OS is a Unix-like operating system
+###  if utils.is_os_linux_or_bsd() or utils.is_os_macos():
+###      from gunicorn.app.wsgiapp import WSGIApplication
+###  else:
+###      print("WARNING: Cannot run using gunicorn on Microsoft Windows OS\n" 
+###            "Use another WSGI server.")
+###  
+###  class StandaloneApplication(WSGIApplication):
+###      def __init__(self, app_uri, options=None):
+###          self.options = options or {}
+###          self.app_uri = app_uri
+###          super().__init__()
+###  
+###      def load_config(self):
+###          config = {
+###              key: value
+###              for key, value in self.options.items()
+###              if key in self.cfg.settings and value is not None
+###          }
+###          for key, value in config.items():
+###              self.cfg.set(key.lower(), value)
+###  
+###  
+###  def gunicorn_runner(  host:      str
+###                      , port:      int
+###                      , wikipath:  str
+###                      , login:     Optional[str] = None
+###                      , secret_key: Optional[str] = None 
+###                      ):
+###      options = {
+###            "bind": f"{host}:{port}"
+###          , "workers": (multiprocessing.cpu_count() * 2) + 1
+###          ## "worker_class": "uvicorn.workers.UvicornWorker",
+###      }
+###      environemnt = {
+###            "HOST":        host 
+###          , "PORT":        str(port)
+###          , "LOGIN":       login
+###          , "SECRET_KEY":  secret_key
+###          , "WIKIPATH":    wikipath
+###      }
+###      ### print(" [TRACE] wikipath = ", wikipath)
+###      for (variable, value) in environemnt.items():
+###          ## print(f" [TRACE] variable = {variable} ; value = {value}")
+###          if value is not None: os.environ[variable] = value
+###      ## See module: mwiki/wsgi, related to file mwiki/wsgi.py 
+###      # the inputs of this module are environment variables
+###      sapp = StandaloneApplication("mwiki.wsgi:app", options)
+###      sapp.run()
 
 def debughook(etype, value, tb):
     import pdb
@@ -171,11 +174,20 @@ def server(  host:       str
             exit(1)
     if wsgi:
         _loginp = f"{_username},{_password}" if _username != "" else None
+        os.environ["SERVER_SOFTWARE"] = "waitress"
+        pyexecutable = sys.executable
+        proc = subprocess.Popen([  pyexecutable
+                                 , "-m" , "waitress"
+                                 , f"--port={port}"
+                                 , f"--host={host}"
+                                 , "mwiki.wsgi:app"
+                                 ]) 
+        proc.wait()
         ## print(" [TRACE] Starting flask app using WSGI, wikipath = ", _wikipath)
-        gunicorn_runner(_host, _port, _wikipath
-                        , login = _loginp 
-                        , secret_key= _secret_key
-                        )
+        ### gunicorn_runner(_host, _port, _wikipath
+        ###                 , login = _loginp 
+        ###                 , secret_key= _secret_key
+        ###                 )
         exit(0)
     _login =  x if len(x := login.split(",")) == 2 else None
     app = make_app_server(  host       = _host
