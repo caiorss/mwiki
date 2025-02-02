@@ -67,6 +67,7 @@ class Renderer:
             , "blockquote":                 self.render_blockquote
             , "link":                       self.render_link
             , "wikilink_inline":            self.render_wikilink_inline
+            , "mastodon_handle_inline":     self.render_mastodon_handle_link
             , "wiki_text_highlight_inline": self.render_wiki_text_highlight_inline
             , "wiki_embed":                 self.render_wiki_embed 
             # Code block 
@@ -204,6 +205,9 @@ class Renderer:
         raise NotImplementedError()
 
     def render_wikilink_inline(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
+    def render_mastodon_handle_link(self, node: SyntaxTreeNode) -> str:
         raise NotImplementedError()
     
     def render_wiki_text_highlight_inline(self, node: SyntaxTreeNode) -> str:
@@ -537,7 +541,7 @@ class HtmlRenderer(Renderer):
         inner = "".join([ self.render(n) for n in node.children ])
         href =  node.attrs.get("href") or ""
         attrs = "" 
-        ## breakpoint()
+        ##breakpoint()
         if href.startswith("#"):
             attrs = """ class="link-internal" """
         else:
@@ -647,6 +651,16 @@ class HtmlRenderer(Renderer):
         else:
             # In this case, href refers to some file, that is opened in a new tab 
             html = f"""<a href="{href_}" target="_blank" class="link-internal wiki-link">{label}</a>"""
+        return html 
+
+
+    def render_mastodon_handle_link(self, node: SyntaxTreeNode) -> str:
+        ## breakpoint() 
+        username =  node.content
+        server = node.info
+        title = f'title="Mastdon account from server {server}"' 
+        attrs = f""" target="_blank" {title} class="link-external" rel="noreferrer noopener nofollow" """
+        html = f"""<a href="https://{server}/@{username}" {attrs}>@{username}@{server}</a>"""
         return html 
 
     def render_myst_role(self, node: SyntaxTreeNode) -> str:

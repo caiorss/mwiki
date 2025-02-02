@@ -542,6 +542,30 @@ Rendering:
 
 #### Special Hyperlinks
 
+ **Hyperlink to Mastodon Handles (User Accounts)**
+
+Syntax:
+ 
+ ```
+   @<USERNAME>@<SERVER>
+ ```
+
+Creates a hyperlink to a Mastodon user account. For instance, the Mastodon handle (user account)
+
+```
++ @kde@floss.social
+```
+
+is rendered to HTML as
+
+```
++  <a href="https://floss.social/@kde" class="link-esternal" ...  >@kde@floss.social</a>
+```
+
+In other words, @kde@floss.social is rendered as hyperlink (link for short) to the [Mastodon](https://en.wikipedia.org/wiki/Mastodon_(social_network)) user account of the [KDE project](https://en.wikipedia.org/wiki/KDE) project.
+
++ [@kde@floss.social](https://floss.social/@kde)
+
 
  **Hyperlink to DOI - Digital Object Identifier (1)**
 

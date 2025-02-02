@@ -6,13 +6,13 @@ MWiki markup language, also known as MWiki wikicode, is a based on Github-flavor
 ### Italic Text 
 
 ```
-   *text in italic*
+  + *text in italic*
 ```
 
 Rendering:
 
 
-*text in italic*
++ *text in italic*
 
 ### Bold Text 
 
@@ -169,6 +169,30 @@ Rendering:
       "In control engineering and system identification, a state-space representation is a mathematical model of a physical system specified as a set of input, output, and variables related by first-order differential equations or difference equations. Such variables, called state variables, evolve over time in a way that depends on the values they have at any given instant and on the externally imposed values of input variables. Output variables’ values depend on the state variable values and may also depend on the input variable values."
 
 ### Special Hyperlinks
+
+ **Hyperlink to Mastodon Handles (User Accounts)**
+
+Syntax:
+ 
+ ```
+   @<USERNAME>@<SERVER>
+ ```
+
+Creates a hyperlink to a Mastodon user account. For instance, the Mastodon handle (user account)
+
+```
++ @kde@floss.social
+```
+
+is rendered to HTML as
+
+```
++  <a href="https://floss.social/@kde" class="link-esternal" ...  >@kde@floss.social</a>
+```
+
+In other words, @kde@floss.social is rendered as hyperlink (link for short) to the [Mastodon](https://en.wikipedia.org/wiki/Mastodon_(social_network)) user account of the [KDE project](https://en.wikipedia.org/wiki/KDE) project.
+
++ [@kde@floss.social](https://floss.social/@kde)
 
 
  **Hyperlink to DOI - Digital Object Identifier (1)**
