@@ -1,4 +1,4 @@
-"""Extends markdown_it_py parser to support Mediawiki-like hyperlinks.
+"""Extends markdown_it_py parser for implementing hyperlinks to Mastodon handles.
 """
 
 from __future__ import annotations
@@ -25,7 +25,14 @@ MAIN_DELIMITER = "at"
 def mastodon_handle_plugin(
     md: MarkdownIt, delimiters: str = MAIN_DELIMITER, macros: Any = None
 ) -> None:
-    """
+    """Turn mastodon handles into hyperlinks.
+
+    Plugin for parsing mastodon handles and turning them into hyperlinks.
+    For instance, the mastodon handle @kde@floss.social is turned into a hyperlink 
+    to the URL https://floss.social/@kde.
+    
+    NOTE: A mastodon handle is equivalent to Twitter's user name @someUserName.
+
     """
     ## print(" [TRACE] Inside function WikiLink Plugin")
     macros = macros or {}
@@ -143,12 +150,9 @@ def render(tex: str, displayMode: bool, macros: Any) -> str:
     # return res
 
 
-def wikilink_pre(src: str, beg: int) -> bool:
-    ##prv = charCodeAt(src[beg - 1], 0) 
-    # breakpoint()
-    starts_with_bang = src[0] == "!"
-    ### if src.startswith("!"): breakpoint()
-    result = not starts_with_bang
+def syntax_filter(src: str, beg: int) -> bool:
+    """Function for regex desambiguation"""
+    result = "(" not in src or "]" not in src
     return result
 
 rules: dict[str, dict[str, list[RuleDictType]]] = {
@@ -158,10 +162,11 @@ rules: dict[str, dict[str, list[RuleDictType]]] = {
            {
                 #### "name": "math_inline",
                  "name": "mastodon_handle_inline"
-               , "rex": re.compile(r"@(.+?)@(.+)")
+                ##, "rex": re.compile(r"@(.+)@([\w\.]+)\s\n?", flags = re.M | re.)
+               , "rex": re.compile(r"@(.+)@([\w\.]+)")
                , "tmpl": """<a href="https://{1}/@{2}" class="link-external" >@{1}@{2}</a>"""
                , "tag": "@"
-               ## , "pre": wikilink_pre
+               , "pre": syntax_filter
            }
 
         ]
