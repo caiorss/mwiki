@@ -143,8 +143,8 @@ def file_contains(fileName: str, query: str, opt = "and_all", flag_normalize_wor
             # from the input query
             elif opt == "and_all":
                 for q in queries:
-                    cond1 = re.findall(r"\b%s\b" % q, line_) != []
-                    cond2 = re.findall(r"\b%s\b" % q, basename) != []
+                    cond1 = re.findall(r"\b%s\b" % q if "#" not in q else q, line_) != []
+                    cond2 = re.findall(r"\b%s\b" % q if "#" not in q else q, basename) != []
                     register[q] = register[q] or (cond1 or cond2)
                     if cond1: score += 1
                     if cond2: score += 3
