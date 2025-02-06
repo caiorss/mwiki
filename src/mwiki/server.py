@@ -24,6 +24,7 @@ import mwiki
 from . import utils
 from . import mparser
 from . import render
+from . import search 
 
 
 ## Http Method GET 
@@ -364,7 +365,7 @@ def make_app_server(  host:        str
             files = [(f, 1) for f in files_ ]
         else:
             files = [(f, score) for f in files_ 
-                        if (score := utils.file_contains(str(f), query)) != 0 ]
+                        if (score := search.file_contains(str(f), query)) != 0 ]
                      ##and utils.file_contains(os.path.join(BASE_PATH, f), query)]
         sorted_files = []
         if sort == "" or sort == "score":
@@ -382,7 +383,7 @@ def make_app_server(  host:        str
                      # , "src":  f 
                       , "matches": [ lin[:MAX_LEN] + " ..." 
                                     if len(lin) > MAX_LEN else lin  
-                                        for (n, lin) in  utils.grep_file(page_to_file(f), query)  ] \
+                                        for (n, lin) in  search.grep_file(page_to_file(f), query)  ] \
                                     if query != "" else [ ]
 
                       , "metadata": mparser.get_pagefile_metadata( page_to_file(f))
