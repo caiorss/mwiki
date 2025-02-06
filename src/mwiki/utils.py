@@ -223,6 +223,78 @@ def highlight_code(code: str, language: str, verbose: bool = False) -> str:
             ## resut = err, _code
     return result 
 
+
+
+_ENGLISH_STOP_WORDS = [ 
+                "and", "or", "any", "of", "some"
+             , "in", "at", "on", "off", "our"
+             , "your", "we", "yours", "yourself"
+             , "his", "he", "himself", "her", "hers"
+             , "it", "its", "itself", "they", "them"
+             , "what", "which", "whom", "that", "these"
+             , "those", "a", "an" 
+             ]
+
+## Database for normalization of English words  
+_NORMALIZATION_DATABASE = {
+       "scripts":  "script"
+    ,  "sources":  "source"
+     , "networks": "network"
+     , "networking": "network"
+     , "identifiers": "identifiers"
+     , "objects": "object"
+     , "countries":  "country"
+     , "people":  "person"
+     , "men":  "man"
+     , "women": "woman"
+     , "guys":   "guy"
+     , "girls":  "girl"
+     , "gurls":  "girl"
+     , "children": "child"
+     , "leaves": "leaf"
+     , "choices": "choice"
+     , "ports":  "port"
+     , "gateway": "gate"
+     , "mathematics": "math"
+     , "arrays": "array"
+     , "matrices": "matrix"
+     , "vectors":  "vector"
+     , "formulas": "formula"
+     , "formulae": "formula"
+     , "engines":  "engine"
+     , "systems":  "system"
+     , "services":  "service"
+     , "projects": "project"
+     , "packages": "package"
+     , "features": "feature"
+     , "functions": "function"
+     , "methods":   "method"
+     , "protocols":  "protocol"
+     , "classes":      "class"
+     , "dependencies": "dependency"
+     , "IDs":          "id"
+     , "ids":          "id"
+     , "APIs":         "api"
+     , "apps":         "app"
+     , "jobs":         "job"
+     , "tasks":        "task"
+     , "listing":       "list"
+     ,  "lists":        "list"
+     , "debugging":    "debug"
+     , "logging":      "log"
+     , "libraries":    "library"
+     , "libs":         "library"
+     , "lib":          "library"
+     , "diseases":     "disease"
+     , "employees":    "employee"
+     , "universities": "university"
+     , "schools":      "school"
+     , "U.K.":         "UK"
+     , "U.K":          "UK"
+     , "U.S.":         "US"
+     , "U.S":          "US"
+}
+
 def normalize_text(text: str) -> str:
     """Remove accents, such as ú or ç for making searching easier."""
     out = (text 
@@ -240,18 +312,14 @@ def normalize_text(text: str) -> str:
             )
     return out
 
-_ENGLISH_STOP_WORDS = [ 
-                "and", "or", "any", "of", "some"
-             , "in", "at", "on", "off", "our"
-             , "your", "we", "yours", "yourself"
-             , "his", "he", "himself", "her", "hers"
-             , "it", "its", "itself", "they", "them"
-             , "what", "which", "whom", "that", "these"
-             , "those", "a", "an" 
-             ]
+def normalize_words(text: str) -> str:
+    out = text 
+    for word in _NORMALIZATION_DATABASE.keys():
+        out = re.sub(r"\b%s\b" % word, _NORMALIZATION_DATABASE[word], out)
+    return out
 
 
-def file_contains(fileName: str, query: str, opt = "and_all") -> bool:
+def file_contains(fileName: str, query: str, opt = "and_all", flag_normalize_words = False) -> bool:
     """Check whether a file (full path) contains a queyr string.
     Returns true if file contains a query string.
     NOTE: This function is case-indepedent.
@@ -263,8 +331,13 @@ def file_contains(fileName: str, query: str, opt = "and_all") -> bool:
         query = normalize_text(query.lower())
         # Split whitespace
         ## queries = query.split()
-        queries = [ x for q in query.split() 
-                    if (x := normalize_text(q))  not in _ENGLISH_STOP_WORDS  ]
+        queries = []
+        if flag_normalize_words:
+            queries = [ _NORMALIZATION_DATABASE.get(x, x) for q in query.split() 
+                        if (x := normalize_text(q))  not in _ENGLISH_STOP_WORDS  ]
+        else:
+            queries = [ x for q in query.split() 
+                        if (x := normalize_text(q))  not in _ENGLISH_STOP_WORDS  ]
         ## queries_ = queries.copy()
         score = 0
         contail_all = True
@@ -275,6 +348,7 @@ def file_contains(fileName: str, query: str, opt = "and_all") -> bool:
         # the server.
         while line := fd.readline():
             line_ = normalize_text(line.lower())
+            line_ = normalize_words(line_) if flag_normalize_words else line_
             # Ignore case
             if opt == "exact" and query in line_ :
                 result = True
