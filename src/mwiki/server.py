@@ -6,6 +6,7 @@ import urllib.parse
 ## from bottle import route, run
 ## from bottle import static_file, route, auth_basic, request
 import flask 
+import base64
 from flask import Flask, request, session
 from flask_sqlalchemy import SQLAlchemy
 import flask_sqlalchemy as sa 
@@ -524,7 +525,10 @@ def make_app_server(  host:        str
         # In the future this code can be optimized using some sort 
         # of caching or search index for speeding up 
         # the response.
-        match: Optional[pathlib.Path] = next(base_path.rglob(path), None)
+        ## print(" [TRACE] filePath (528) = ", path)
+        ## breakpoint()
+        g = base_path.rglob(path) 
+        match: Optional[pathlib.Path] = next(g, None)
         if not match:
             flask.abort(404)
         relpath = match.relative_to(base_path)
@@ -757,6 +761,41 @@ def make_app_server(  host:        str
                                        , internal_links = internal_links
                                        )
         return resp
+
+    @app.route("/paste", methods = [M_GET, M_POST])
+    @check_login( required = True)
+    def route_paste():
+        """URL endpoint API /paste 
+        for uploading images to the wiki by pasting images from the clipboard.
+        """
+        user = current_user()
+        # Enforce authorization  - Guest (Read-Only Users) and anonymous
+        # users cannot edit the Wiki.
+        if not user.user_can_edit():
+            flask.abort(403)
+            return 
+        payload: dict[str, Any] = request.get_json()
+        if not "fileName" in payload.keys() or "data" not in payload.keys():
+            flask.abort(401)
+            return 
+        fileName = payload["fileName"]
+        data = payload["data"]
+        if fileName is None or data is None:
+            flask.abort(401)
+            return 
+        b64data_ = data.split(",")
+        if len(b64data_) != 2 or fileName == "":
+            flask.abort(401)
+        blob: bytes = base64.b64decode(b64data_[1])
+        ### breakpoint()
+        image_path = pathlib.Path(wikipath).joinpath("pasted")
+        utils.mkdir(str(image_path))
+        path = image_path.joinpath(fileName)
+        if path.exists():
+            flask.abort(404)
+        path.write_bytes(blob)
+        response = flask.jsonify({"error": False, "status": "ok"})
+        return response 
 
     @app.get("/")
     def route_index_page():
