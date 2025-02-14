@@ -35,6 +35,12 @@ M_POST = "POST"
 # Http Delete Method
 M_DELETE = "DELETE"
 
+STATUS_CODE_400_BAD_REQUEST        = 400
+STATUS_CODE_405_METHOD_NOT_ALLOWED = 405
+STATUS_CODE_403_FORBIDDEN          = 403
+STATUS_CODE_401_UNAUTHORIZED       = 401
+STATUS_CODE_404_NOT_FOUND          = 404
+
 APPNAME = "mwiki"
 session_folder = utils.project_cache_path(APPNAME, "session")
 utils.mkdir(session_folder)
@@ -300,7 +306,7 @@ def make_app_server(  host:        str
     def route_user_add():
         user = current_user()
         if not user.is_admin():
-            flask.abort(403)
+            flask.abort(STATUS_CODE_403_FORBIDDEN)
         form = UserAddForm()
         ## if request.method == M_GET:
         ##     form.public.data = conf.public
@@ -520,7 +526,7 @@ def make_app_server(  host:        str
         ## breakpoint()
         # Dont' show source code of markdown file
         if path.endswith(".md"):
-            flask.abort(404)
+            flask.abort(STATUS_CODE_404_NOT_FOUND)
         # Seach file in any directory in basepath recursively 
         # In the future this code can be optimized using some sort 
         # of caching or search index for speeding up 
@@ -603,12 +609,12 @@ def make_app_server(  host:        str
         p: Optional[pathlib.Path] = next(base_path.rglob(mdfile_), None)
         user = current_user()
         if request.method == M_GET:
-            if not p: flask.abort(404)
+            if not p: flask.abort(STATUS_CODE_404_NOT_FOUND)
             content = p.read_text()
             out = flask.jsonify({ "status": "ok", "error": "", "content": content })
             return out
         elif request.method == M_POST:
-            if not user.user_can_edit(): flask.abort(403)
+            if not user.user_can_edit(): flask.abort(STATUS_CODE_403_FORBIDDEN)
             out = ""
             ## breakpoint()
             if p: 
@@ -619,14 +625,14 @@ def make_app_server(  host:        str
                 out = flask.jsonify({ "status": "ok", "error": ""})
             return out
         elif request.method == M_DELETE:
-            if not p: flask.abort(403)
-            if not user.user_can_edit(): flask.abort(403)
+            if not p: flask.abort(STATUS_CODE_404_NOT_FOUND)
+            if not user.user_can_edit(): flask.abort(STATUS_CODE_403_FORBIDDEN)
             ## Remove file 
             p.unlink()
             out = flask.jsonify({ "status": "ok", "error": ""})
             return out
         else:
-            flask.abort(405) 
+            flask.abort(STATUS_CODE_405_METHOD_NOT_ALLOWED) 
 
     @app.route("/create/<path>", methods = [M_GET, M_POST])
     @check_login(required = True)
@@ -635,7 +641,7 @@ def make_app_server(  host:        str
         user = current_user()
         # Enforce authorization  
         if not user.user_can_edit():
-            flask.abort(403)
+            flask.abort(STATUS_CODE_403_FORBIDDEN)
         mdfile_ = path + ".md"
         p: Optional[pathlib.Path] = next(base_path.rglob(mdfile_), None)
         out = None 
@@ -676,14 +682,14 @@ def make_app_server(  host:        str
         # Enforce authorization  - Guest (Read-Only Users) and anonymous
         # users cannot edit the Wiki.
         if not user.user_can_edit():
-            flask.abort(403)
+            flask.abort(STATUS_CODE_403_FORBIDDEN)
         mdfile_ = path + ".md"
         line_start = utils.parse_int(request.args.get("start"))
         line_end   = utils.parse_int(request.args.get("end"))
         match = next(base_path.rglob(mdfile_), None)
         if request.method == M_GET:
             if not match:
-                flask.abort(404) 
+                flask.abort(STATUS_CODE_404_NOT_FOUND) 
             content = match.read_text() 
             ## breakpoint()
             if line_start is not None:
@@ -734,7 +740,7 @@ def make_app_server(  host:        str
         ## line_end   = utils.parse_int(request.args.get("end"))
         match = next(base_path.rglob(mdfile_), None)
         if not match:
-            flask.abort(404) 
+            flask.abort(STATUS_CODE_404_NOT_FOUND) 
         # Absolute path to file
         abspath =  str(match.absolute())
         links = []
@@ -771,28 +777,30 @@ def make_app_server(  host:        str
         user = current_user()
         # Enforce authorization  - Guest (Read-Only Users) and anonymous
         # users cannot edit the Wiki.
+        if user.is_anonymous():
+            flask.abort(STATUS_CODE_401_UNAUTHORIZED)
         if not user.user_can_edit():
-            flask.abort(403)
+            flask.abort(STATUS_CODE_403_FORBIDDEN)
             return 
         payload: dict[str, Any] = request.get_json()
         if not "fileName" in payload.keys() or "data" not in payload.keys():
-            flask.abort(401)
+            flask.abort(STATUS_CODE_400_BAD_REQUEST)
             return 
         fileName = payload["fileName"]
         data = payload["data"]
         if fileName is None or data is None:
-            flask.abort(401)
+            flask.abort(STATUS_CODE_400_BAD_REQUEST)
             return 
         b64data_ = data.split(",")
         if len(b64data_) != 2 or fileName == "":
-            flask.abort(401)
+            flask.abort(STATUS_CODE_400_BAD_REQUEST)
         blob: bytes = base64.b64decode(b64data_[1])
         ### breakpoint()
         image_path = pathlib.Path(wikipath).joinpath("pasted")
         utils.mkdir(str(image_path))
         path = image_path.joinpath(fileName)
         if path.exists():
-            flask.abort(404)
+            flask.abort(STATUS_CODE_400_BAD_REQUEST)
         path.write_bytes(blob)
         response = flask.jsonify({"error": False, "status": "ok"})
         return response 
