@@ -1,28 +1,40 @@
 # MWiki - Markdown-Powered Wiki 
 ## Overview 
 
-MWiki is a **wiki engine** and note taking web application software geared towards mathematics and research designed for scientific and technical communication. This wiki engine software has semantic-rich lightweight markup language based on MyST markdown , Obsidian markdown, and Media wiki engine markup language. 
+MWiki is a **wiki engine** and note taking web application software geared towards mathematics and research designed for scientific and technical communication. This wiki engine software has semantic-rich lightweight markup language based on MyST markdown, Obsidian markdown, and Media wiki engine markup language. 
 
 This Python application is powered by Python Flask web framework and the extensible markdown-it parser used by MyST markdown and the Jupyter Book project. 
 
 
 + Note: This software is still **work in progress** and under early stage. However, it can already be used as a personal note taking application.
-+ Note: Media wiki is the wiki engine software that powers Wikipedia.
++ Note: Mediawiki is the wiki engine software that powers Wikipedia.
+
 
 **Features Highlights**
 
-+ File-based Wiki 
-   + All Wiki pages are stored as Markdown files like Moin Moin wiki engine and Dokuwiki. However, it uses SQLite file database or a any full-featured database for system management purposes. 
-+ Wiki Features:  
-  + Support MyST Markdown, GFM (Github-Flavored Markdown Support), subset of Obsidian Markdown syntax, subset of Mediawiki markup language and inline HTML.
-  + Pages written in Markdown-based markup language instead of HTML, which allows to any non programmers to write scientific and technical documents that are rendered to html. 
-  + Markdown Code editor built on top of Ace9 JavaScript code editor.
-  + Buttons for editing specific document sections similar to Media wiki section editing buttons. 
-  + Embeddable pages. The contents of a wiki page can be embedded in another wiki page by using the syntax `![[Name of Wiki page to be embedded]]`
-  + Vendored third-party JavaScript dependencies for offline usage. For instance, MWiki has MathJax, pseudocode-JS, and Ace9 in the source code for offline usage even when no CDN is available due to lack of internet connectivity or if the Wiki is used in rescrited environment behind a firewall. 
-  + Access control 
-     + The wiki has the following types of users: *admin*, that can edit the Wiki pages; *guest* a registered used which can view pages even if the wiki is not public, but a guest user cannot edit any page; and *anonymous* users (non logged in users) that can only view pages if the **public** checkbox in the Wiki settings ('/settings' pages) is enabled.
-     + Public/private wiki settings - if the **public** checkbox in MWiki settings page is disabled, only logged in users will be able to view the wiki pages and non logged in users will be redirected to the authentiation screen. If this checkbox is enabled, non logged in users can view the wiki. Note that: only users of type administrator can edit the wiki pages and make changes to any content.
+File-based Wiki 
+
++ All Wiki pages are stored as Markdown files like Moin Moin wiki engine and Dokuwiki. However, it uses SQLite file database or a any full-featured database for system management purposes. 
+
+Wiki Features:  
+
+ + Support MyST Markdown, GFM (Github-Flavored Markdown Support), subset of Obsidian Markdown syntax, subset of Mediawiki markup language and inline HTML.
+ + Pages written in Markdown-based markup language instead of HTML, which allows to any non programmers to write scientific and technical documents that are rendered to html. 
+ + Markdown **Code editor** built on top of Ace9 JavaScript code editor.
+ + Supports pasting images from clipboard. 
+     + Usage: Copy any image using the right click on any picture and past it on the text editor sesssion of some wiki page.
+     + This feature relies on Web APIs, such as Clibpboard Html5 API, which only is available on [secure contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts). Therefore pasting images from clipboard to the wiki text editor only works when serving the page on local host or from a domain with https (HTTP + TLS), which may require a reverse proxy such as Caddy or NGinx for TLS/SSL termination of the network traffic.
+ + Buttons for editing specific document sections similar to Media wiki section editing buttons. 
+ + Embeddable pages. The contents of a wiki page can be embedded in another wiki page by using the syntax `![[Name of Wiki page to be embedded]]`
+ + Vendored third-party JavaScript dependencies for offline usage. For instance, MWiki has MathJax, pseudocode-JS, and Ace9 in the source code for offline usage even when no CDN is available due to lack of internet connectivity or if the Wiki is used in rescrited environment behind a firewall. 
+
+ Access control 
+
+ + The wiki has the following types of users: *admin*, that can edit the Wiki pages; *guest* a registered used which can view pages even if the wiki is not public, but a guest user cannot edit any page; and *anonymous* users (non logged in users) that can only view pages if the **public** checkbox in the Wiki settings ('/settings' pages) is enabled.
+ + Public/private wiki settings - if the **public** checkbox in MWiki settings page is disabled, only logged in users will be able to view the wiki pages and non logged in users will be redirected to the authentiation screen. If this checkbox is enabled, non logged in users can view the wiki. Note that: only users of type administrator can edit the wiki pages and make changes to any content.
+
+Features of the Wiki Markup Language
+
 + Text formatting:
    + Italic Text 
    + Bold Text 
@@ -170,7 +182,7 @@ Docker is the most realibable way to install Python application since it is repr
 **STEP 1:** Clone the repository
 
 ```sh 
-$ git clone <REPOSITORY-URL> mwiki
+$ git clone https://github.com/caiorss/mwiki mwiki
 
 # Enter source code directory
 $ cd mwiki
@@ -350,6 +362,15 @@ The notes folder, in this case '/path/to/wiki-markdon-files/directory/notes', is
    ... ... ...  ... ... ... ... ...
 
 ```
+
+Every markdown file is rendered as wiki page. For instance the file 'Business News.md' corresponds to the wiki page 
+
++ `http://<PAGE-DOMAIN>/wiki/Business%20News`
+
+or
+
++ `http://localhost/wiki/Business%20News`
+
 
 **STEP 5:** 
 
