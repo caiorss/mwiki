@@ -6,9 +6,15 @@ from sqlalchemy import ForeignKey
 import sqlalchemy.orm as so 
 import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+import yaml.scanner
 from . import utils
 from . constants import *
-
+from . import render 
+from . import mparser
+import pathlib
+import frontmatter
+import yaml
+import flask
 
 ## db = SQLAlchemy(app)
 db = SQLAlchemy()
@@ -117,3 +123,79 @@ def is_database_created() -> bool:
     tables = sqlalchemy.inspect(db.engine).get_table_names()
     result = tables != []
     return result 
+
+
+class WikiPage():
+
+    def __init__(self, base_path: pathlib.Path, path: pathlib.Path, title: str):
+        self._base_path = base_path
+        self._title = title 
+    
+    def path(self):
+        path = self._base_path.joinpath(self._title + ".md")
+        return path 
+
+    def read(self) -> str:
+        """Get wiki text"""
+        path = self.path()
+        text = path.read_text()
+        return text 
+
+    def render_html(self, latex_macros = "") -> str:
+        """Render MWiki page to html"""
+        text = self.read()
+        headings = mparser.get_headings(text)
+        root = mparser.make_headings_hierarchy(headings)
+        toc = mparser.headings_to_html(root)
+        pagefile = str(self.path())
+        base_path = str(self._base_path)
+        content = render.pagefile_to_html(pagefile, base_path)
+        html = flask.render_template(  "content.html"
+                                             , title   = self._title 
+                                             , page    = self._title
+                                             , content = content
+                                             , toc     = toc
+                                             , latex_macros = latex_macros)
+        return html
+
+    def frontmatter(self):
+        """Return wikipage metadata"""
+        out = {  "title":   ""
+               , "subject": ""
+               , "keywords": ""
+               , "uuid": ""
+               , "label": ""
+               }
+        parser = frontmatter.Frontmatter()
+        try:
+            path = str(self.path())
+            data = parser.read_file(path)
+            data = data.get("attributes")
+        except yaml.scanner.ScannerError as err:
+            pass
+        return out
+
+
+class WikiRepository():
+    
+    def __init__(self, wikipath: str):
+        self._wikipath = wikipath
+        self._base_path =  pathlib.Path(wikipath)
+
+    def find_page(self, title: str) -> Optional[pathlib.Path]:
+        """Get path to Wiki page"""
+        mdfile = title  + ".md" 
+        result = next(self._base_path.rglob(mdfile), None)
+        return result 
+
+    def get_wiki_page(self, title: str) -> Optional[WikiPage]:
+        path = self.find_page(title)
+        if path is None: 
+            return None 
+        wikipage = WikiPage(base_path = self._base_path, path = path, title = title)
+        return wikipage
+        
+
+
+
+

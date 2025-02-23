@@ -23,7 +23,7 @@ from . import utils
 from . import mparser
 from . import render
 from . import search 
-from . models import db, User, Settings, BookmarkedPage
+from . models import db, User, Settings, BookmarkedPage, WikiPage, WikiRepository
 from . models import is_database_created
 from . login import add_login
 from . forms import UserAddForm, UserSettingsForm, SettingsForm
@@ -108,6 +108,7 @@ def make_app_server(  host:        str
         (USERNAME, PASSWORD) = login
 
     check_login = add_login(app, DO_LOGIN, USERNAME, PASSWORD)
+    repository = WikiRepository(wikipath)
 
 
     @app.route("/user", methods = [M_GET, M_POST])
@@ -279,14 +280,9 @@ def make_app_server(  host:        str
     @check_login( required = True)
     def route_wiki_source(path):
         mdfile_ = path + ".md"
-        match = next(base_path.rglob(mdfile_), None)
-        if request.method == M_GET:
-            if not match:
-                flask.abort(404) 
-        ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
-        if not match.exists(): 
-            flask.abort() 
-        src = match.read_text()
+        page = repository.get_wiki_page(path)
+        if not page: flask.abort(STATUS_CODE_404_NOT_FOUND)
+        src = page.read()
         src = re.sub(rpat, replacement_, src)
         ## src = utils.escape_html(src)
         content = utils.highlight_code(src, "markdown")
@@ -327,32 +323,15 @@ def make_app_server(  host:        str
                                              , latex_macros = latex_macros
                                              )
                 return response
-            match = next(base_path.rglob(mdfile_), None)
+            page = repository.get_wiki_page(title = path) 
             ## print(" [TRACE] matches = ", matches)
             # ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
-            if not match:
+            if not page:
                 ## flask.abort(404) 
                 out = flask.redirect(f"/create/{path}")
                 return out
-            mdfile = match
-            headings = []
-            with open(mdfile) as fd:
-                inp = fd.read()
-                headings = mparser.get_headings(inp)
-            root = mparser.make_headings_hierarchy(headings)
-            # ## breakpoint()
-            toc      = mparser.headings_to_html(root)
-            content  = render.pagefile_to_html(mdfile, base_path = BASE_PATH)
-            ## print(" [TRACE] Macros = \n", latex_macros)
-            response = flask.render_template(  "content.html"
-                                             , title   = path
-                                             , page    = path
-                                             , content = content
-                                             , toc     = toc
-                                             , latex_macros = latex_macros
-                                             )
+            response = page.render_html(latex_macros = latex_macros)
             return response
-        ## breakpoint()
         # Dont' show source code of markdown file
         if path.endswith(".md"):
             flask.abort(STATUS_CODE_404_NOT_FOUND)
