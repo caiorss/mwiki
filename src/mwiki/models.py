@@ -141,6 +141,10 @@ class WikiPage():
         text = path.read_text()
         return text 
 
+    def write(self, text: str) -> None:
+        path = self.path()
+        path.write_text(text)
+
     def render_html(self, latex_macros = "") -> str:
         """Render MWiki page to html"""
         text = self.read()
