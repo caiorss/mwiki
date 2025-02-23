@@ -1,3 +1,4 @@
+"""MWiki flask server (Python flask application)"""
 import os
 import re
 import pathlib

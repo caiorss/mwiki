@@ -1,3 +1,4 @@
+"""Rendering of MWiki to html and other formats."""
 import glob
 import re 
 import yaml                     # Python3 stdlib Yaml Parser
@@ -686,11 +687,15 @@ class HtmlRenderer(Renderer):
             description  = match.group(2)
             html = f'<abbr title="{description}">{abbreviation}</abbr>'
             # TODO Finish later
+        elif role == "big":
+            html = f'<span class="text-big">{content}</span>'
+        elif role == "big-bold":
+            html = f'<span class="text-big-bold">{content}</span>'
         elif role.startswith("color") or role in ["blue", "red", "orange", "gray", "green"]:
             color = role[len("color:"):] if role.startswith("color:") else role
             html = f"""<span class="myst-color-role" style="color:{color};">{content}</span>"""
         else:
-            return "{%s}`%s`" % (role, content)
+            html = "{%s}`%s`" % (role, content)
         return html
 
     def render_code_inline(self, node: SyntaxTreeNode) -> str:
