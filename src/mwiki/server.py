@@ -494,11 +494,13 @@ def make_app_server(  host:        str
         mdfile_ = path + ".md"
         line_start = utils.parse_int(request.args.get("start"))
         line_end   = utils.parse_int(request.args.get("end"))
-        match = next(base_path.rglob(mdfile_), None)
+        page = repository.get_wiki_page(title = path)
+        if not page:
+            flask.abort(STATUS_CODE_404_NOT_FOUND)
+        ## match = next(base_path.rglob(mdfile_), None)
         if request.method == M_GET:
-            if not match:
-                flask.abort(STATUS_CODE_404_NOT_FOUND) 
-            content = match.read_text() 
+            ## content = match.read_text() 
+            content = page.read()
             ## breakpoint()
             if line_start is not None:
                 lines = content.splitlines()
@@ -512,18 +514,20 @@ def make_app_server(  host:        str
         data: dict[str, Any] = request.get_json()
         content = data.get("content", "") 
         out = {}
-        if not match:
+        if not page:
             out = { "status": "error", "error": "Page not found." }
         elif not isinstance(content, str):
             out = { "status": "error", "error": "Invalid input. Expected text. " }
         else:
             ## lines = content.splitlines()
             if line_start is None:
-                match.write_text(content)
+                ## match.write_text(content)
+                page.write(content)
             else:
                 ## breakpoint()
                 text = ""
-                content_ = match.read_text() 
+                ## content_ = match.read_text() 
+                content_ = page.read()
                 lines_   = content_.splitlines()
                 if line_end is not None:
                     lines    = lines_[0:line_start]
@@ -534,7 +538,8 @@ def make_app_server(  host:        str
                     lines    = lines_[0:line_start]
                     lines   = lines + content.splitlines()
                     text = "\n".join(lines)
-                match.write_text(text)                    
+                ## match.write_text(text)                    
+                page.write(text)
             out = { "status": "ok", "error": "" }
         resp = flask.jsonify(out)
         return resp
