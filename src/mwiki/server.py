@@ -9,16 +9,12 @@ import urllib.parse
 import flask 
 import base64
 from flask import Flask, request, session
-from flask_sqlalchemy import SQLAlchemy
-import flask_sqlalchemy as sa 
-import sqlalchemy
-from sqlalchemy import ForeignKey
-import sqlalchemy.orm as so 
+from werkzeug.security import generate_password_hash, check_password_hash
+
 import flask_session
 import flask_wtf as fwt 
 import wtforms as wt 
 import wtforms.validators as wtfv 
-from werkzeug.security import generate_password_hash, check_password_hash
 
 from typing import Any, Tuple, List, Optional
 import datetime
@@ -27,20 +23,11 @@ from . import utils
 from . import mparser
 from . import render
 from . import search 
-
-
-## Http Method GET 
-M_GET = "GET" 
-# Http Method Post
-M_POST = "POST"
-# Http Delete Method
-M_DELETE = "DELETE"
-
-STATUS_CODE_400_BAD_REQUEST        = 400
-STATUS_CODE_405_METHOD_NOT_ALLOWED = 405
-STATUS_CODE_403_FORBIDDEN          = 403
-STATUS_CODE_401_UNAUTHORIZED       = 401
-STATUS_CODE_404_NOT_FOUND          = 404
+from . models import db, User, Settings, BookmarkedPage
+from . models import is_database_created
+from . login import add_login
+from . forms import UserAddForm, UserSettingsForm, SettingsForm
+from . constants import *
 
 APPNAME = "mwiki"
 session_folder = utils.project_cache_path(APPNAME, "session")
@@ -58,6 +45,7 @@ dbpath = os.path.join(os.getcwd(), "database.sqlite")
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{dbpath}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.jinja_env.filters['encode_url'] = lambda u: urllib.parse.quote_plus(u) 
+db.init_app(app)
 
 def current_user():
     """Get user logged in to the server."""
@@ -68,133 +56,7 @@ def current_user():
 
 app.jinja_env.globals.update(current_user = current_user)
 
-db = SQLAlchemy(app)
 
-
-USER_MASTER_ADMIN = 100 
-USER_ADMIN = 50 
-USER_EDITOR = 20
-USER_GUEST = 10  
-USER_ANONYMOUS = 0 
-
-class User(db.Model):
-    __tablename__ = "user"
-    id: so.Mapped[int] = so.mapped_column(primary_key = True)
-    username: so.Mapped[str] = so.mapped_column(index=True, nullable=False, unique=True)
-    email:    so.Mapped[str] = so.mapped_column(nullable=True, unique=True)
-    ## TODO IT should be stored only the password hash, never the password in plain text
-    password: so.Mapped[str] = so.mapped_column(sqlalchemy.String(256), nullable= True)
-    active:   so.Mapped[bool] = so.mapped_column(default= True)
-    type:            so.Mapped[int] = so.mapped_column(default = 0)
-    date_created:    so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
-    date_modified:   so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
-    date_lastaccess: so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
-    # date_modified  = so.mapped_column(DateTime, defalt=datetime.datetime.utcnow)
-
-    def is_admin(self):
-        result = self.type == USER_ADMIN or self.type == USER_MASTER_ADMIN 
-        return result 
-    
-    def user_can_edit(self):
-        result = self.active and (self.is_admin() or self.type == USER_EDITOR)
-        return result 
-
-    def is_anonymous(self):
-        result = self.type == USER_ANONYMOUS
-        return result
-
-    def is_authenticated(self):
-        result = self.type != USER_ANONYMOUS
-        return result
-
-    def check_password(self, password: str) -> bool:
-        out =  check_password_hash(self.password, password)
-        ## print(" [TRACE] password = ", password)
-        return out
-
-
-    def __repr__(self):
-        return f"User{{ id = {self.id} ; username = {self.username}  ; type = {self.type} }}"
-
-    @classmethod
-    def get_user_by_username(self, username: str) -> Optional['User']:
-        query = sqlalchemy.select(User).where(User.username.like(username))
-        result = db.session.execute(query).scalars().first()
-        return result
-
-class Settings(db.Model):
-    """Single-table instance of only one row that contains the Wiki settings.
-    """
-    __tablename__ = "settings"
-    id: so.Mapped[int] = so.mapped_column(primary_key = True)
-    # Public => Indicates whether the wiki can be viewed (not edited) by everybody.
-    public:   so.Mapped[bool] = so.mapped_column(default = False)
-    # Web Site Name 
-    sitename: so.Mapped[str] = so.mapped_column(default= "MWiki")
-    default_password: so.Mapped[str] = so.mapped_column(nullable=False)
-    # Wiki Site Description 
-    description: so.Mapped[str] = so.mapped_column(default="MWiki Website")
-    date_created:    so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
-    date_modified:   so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
-
-    @classmethod
-    def get_instance(self):
-        """Always use this method for obtaining a single instance of this class"""
-        q = db.session.query(Settings).first()
-        if q is None:
-            # Generate unique default password per deployment
-            password = utils.generate_password(10)
-            # Create default settings when the database is initialized
-            s = Settings( default_password = password )
-            db.session.add(s)
-            db.session.commit()
-            return s 
-        else:
-            return q
-
-    def save(self):
-        """Update database entry"""
-        db.session.add(self)
-        db.session.commit()
-
-    def __repr__(self) -> str:
-        out = f"Settings{{  public = {self.public} ; sitename = {self.sitename}  }}" 
-        return out
-
-class Page(db.Model):
-    __tablename__ = "page"
-    id: so.Mapped[int] = so.mapped_column(primary_key = True)
-    file: so.Mapped[str] = so.mapped_column(unique = True, nullable = False)
-    deleted: so.Mapped[bool] = so.mapped_column(default = False)
-    date_modified:   so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
-
-class BookmarkedPage(db.Model):
-    __tablename__ = "bookmarkedpage"
-    id: so.Mapped[int] = so.mapped_column(primary_key = True)
-    user_id: so.Mapped[int] = so.mapped_column(ForeignKey("user.id"))
-    page_id: so.Mapped[int] = so.mapped_column(ForeignKey("page.id"))
-
-
-def is_database_created() -> bool:
-    tables = sqlalchemy.inspect(db.engine).get_table_names()
-    result = tables != []
-    return result 
-
-def check_login_db(username: str, password: str) -> bool:
-    ### print(" [TRACE] Enter check_login_db")
-    res = User.get_user_by_username(username) 
-    if res is None: 
-        ##print(" [TRACE] Exit(1) check_login_db() ")
-        ## breakpoint()
-        return False
-    ## breakpoint()
-    if username == "admin" and res.password is None:
-        dpassword = Settings.get_instance().default_password
-        out = password == dpassword
-    else:
-        check = res.check_password(password) 
-        out = res.active and check
-    return out 
 
 # --- Database Initialization -----#
 # Create all database tables if they don't exist yet.
@@ -215,40 +77,6 @@ with app.app_context():
         password = conf.default_password
         print(f" [INFO] Enter the username: {admin.username} and password: '{password}' to log in.")
 
-
-class SettingsForm(fwt.FlaskForm):
-    """Form for changing Wiki Settings (Website settings)"""
-    public =  wt.BooleanField("Public", 
-                               description = "If enabled, everybody including non logged in users" 
-                                             " will be able to view the wiki content. Note that "
-                                             "only logged in users can edit the wiki."
-                                             )
-    submit = wt.SubmitField("Submit")
-    sitename = wt.StringField("Wiki Name", validators = [ wtfv.DataRequired() ] )
-    description = wt.TextAreaField("Wiki Description") 
-
-        
-class UserSettingsForm(fwt.FlaskForm):
-    """Form that allows users to change their own account settings."""
-    password = wt.PasswordField("Password", validators = [ wtfv.DataRequired() ] )
-    submit   = wt.SubmitField("Update")
-
-USER_TYPE_CHOICES = [(USER_MASTER_ADMIN, "Root Admin"), (USER_ADMIN, "Admin"), (USER_GUEST, "Guest") ]
-
-class UserAddForm(fwt.FlaskForm):
-    """Form for adding new user account manually."""
-    username = wt.StringField("Username", validators = [ wtfv.DataRequired() ] )
-    ## email    = wt.StringField("Email") 
-    email    = wt.StringField("Email", validators = [ wtfv.DataRequired() ] )
-    password = wt.PasswordField("Password", validators = [ wtfv.DataRequired() ] )
-    ## password = wt.StringField("Password", validators = [ wtfv.DataRequired() ] )
-    type     = wt.SelectField("Type", choices = USER_TYPE_CHOICES )
-    ## active   = wt.BooleanField("Active", default = True) 
-    submit   = wt.SubmitField("Update")
-
-    def get_user_type(self):
-        choice = dict(USER_TYPE_CHOICES).get(self.type.data)
-        return choice
 
 
 
@@ -854,125 +682,3 @@ def get_secret_key(appname: str) -> str:
             secret_key = fd.read()
             ##print(" [TRACE] secret_key = ", secret_key)
     return secret_key
-
-def add_login(app: Flask, do_login: bool, username: str, password: str):
-    """Create login form routes for a single user account
-
-    :param do_login: Flag - if set to true, login form is enabled, otherwise login form is disabled.
-    :param username: Username required for authentication
-    :param password: Corresponding password required for user authentication.
-    :returns:        Function decorator for enforcing user authentication.
-
-    Required Python Pakages: flask_session 
-    
-    This function creates a login form for a single user account by defining 
-    the following http routes 
-
-    /login  => Login form, where the user is redirect to in views/routes 
-               that requeries authentication if the user is not logged in.
-
-    /loggof => Logs off user and redirects to '/' root page of the site.
-
-    This function returns a decorator function check_login, that can 
-    be added to routes/views for requiring authentication. 
-
-    Usage example:
-     
-    ```python
-
-       app = Flask(__name__)
-
-       LOGIN_ENABLED = True 
-
-       # Creates login form for single user account 
-       # requiring "dummy" as username and "pass" as password
-       # for authentication.
-       check_login = add_login(app, LOGIN_ENABLED, "dummy", "pass")
-       
-       # Require login for accessing http://<site-url>/check
-       @app.route("/check")
-       @check_login 
-       def hello():
-           return "The server is up and running. OK."
-    ```
-
-    """
-    def is_loggedin():
-        return session.get("loggedin") or False
-
-    def do_login():
-        session["loggedin"] = True
-
-    def do_logoff():
-        session["loggedin"] = False
-
-    @app.route("/api/logged", methods = (M_GET, ))
-    def api_is_logged_in():
-        res =  session.get("loggedin") or False
-        output = flask.jsonify({ "logged": res})
-        return output
-
-    @app.route("/login", methods = (M_GET, M_POST))
-    def login():
-        ## if not do_login:
-        ##     return flask.redirect("/")
-        ### breakpoint()
-        path = utils.escape_url(request.args.get("path", "/"))
-        if request.method == M_GET:
-            if is_loggedin(): 
-                ## breakpoint()
-                return flask.redirect(path)
-            else:
-                return flask.render_template('login.html', path = path)
-        assert request.method == M_POST
-        _username = flask.request.form.get("username") or ""
-        _password = flask.request.form.get("password") or ""
-        print(f" [TRACE] _username = {_username} ; _password = {_password}")
-        ##if _username == username and _password == password:
-        ## breakpoint()
-        if check_login_db(_username, _password): 
-            do_login() 
-            user = User.get_user_by_username(_username)
-            session["user"] = user 
-            return flask.redirect(path) 
-        else:
-            return flask.redirect(f"/login?path={path}")
-
-    @app.route("/logoff")
-    def loggof():
-        do_logoff()
-        session.clear()
-        is_public = Settings.get_instance().public
-        ## breakpoint()
-        if is_public:
-            path = request.args.get("path", "/")
-            return flask.redirect(path)
-        return flask.redirect("/login")
-
-    def check_login(required = False):
-        """Decorator that redirects to /login page if the user is not loggged in.
-        The user is not asked to log in if the Wiki if the user is already authenticated
-        or the wiki public. If the flag required is set to true, the user is asked to 
-        log in regardless if the Wiki is public. Setting the flag required to true 
-        is useful in pages where the user may modify data.
-        """
-        def login_checker(http_handler):
-            def wrapper(*args, **kwargs):
-                pass
-                response = None
-                is_public = Settings.get_instance().public
-                ## breakpoint()
-                loggedin = is_loggedin()
-                if (is_public or loggedin) and (loggedin or not required):
-                    response = http_handler(*args, **kwargs)
-                else:
-                    # Failed authentication / log in 
-                    path = utils.escape_url(request.path)
-                    response = flask.redirect(f"/login?path={path}") 
-                    ## breakpoint()
-                return response 
-            wrapper.__name__ = http_handler.__name__
-            return wrapper
-        return login_checker
-    return check_login
-
