@@ -45,6 +45,8 @@ dbpath = os.path.join(os.getcwd(), "database.sqlite")
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{dbpath}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.jinja_env.filters['encode_url'] = lambda u: urllib.parse.quote_plus(u) 
+app.jinja_env.globals.update(config_sitename = lambda:  Settings.get_instance().sitename)
+
 db.init_app(app)
 
 def current_user():
