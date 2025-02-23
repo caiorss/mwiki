@@ -2,20 +2,8 @@ import flask
 from flask import Flask, session, request
 from . import utils
 from . models import User, Settings
-
-
-## Http Method GET 
-M_GET = "GET" 
-# Http Method Post
-M_POST = "POST"
-# Http Delete Method
-M_DELETE = "DELETE"
-
-STATUS_CODE_400_BAD_REQUEST        = 400
-STATUS_CODE_405_METHOD_NOT_ALLOWED = 405
-STATUS_CODE_403_FORBIDDEN          = 403
-STATUS_CODE_401_UNAUTHORIZED       = 401
-STATUS_CODE_404_NOT_FOUND          = 404
+from . constants import USER_ADMIN, USER_ADMIN, USER_ANONYMOUS, USER_EDITOR, USER_GUEST
+from . constants import M_GET, M_POST, M_DELETE
 
 def check_login_db(username: str, password: str) -> bool:
     ### print(" [TRACE] Enter check_login_db")
