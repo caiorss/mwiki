@@ -20,6 +20,7 @@ from mdit_py_plugins.myst_role import myst_role_plugin
 from mdit_py_plugins.myst_blocks import myst_block_plugin
 import frontmatter
 import yaml
+import yaml.parser
 
 import mwiki
 import mwiki.utils as utils
@@ -260,7 +261,7 @@ def get_pagefile_metadata(pagefile: str) -> Dict[str, Any]:
     try:
         data     = _FrontMatter.read_file(pagefile)
         metadata = data.get("attributes", metadata)
-    except yaml.scanner.ScannerError:
+    except (yaml.scanner.ScannerError, yaml.parser.ParserError) as err:
         metadata = _default_attr
     return metadata
 
