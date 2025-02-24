@@ -1,3 +1,7 @@
+"""Parser for mwiki markup language built on top of markdown_it library.
+This module contains the parser for MWiki markup language built on top of the 
+markdown parser markdown_it parser of Jupyter book project.
+"""
 import re
 from typing import Any, List, Tuple, Dict
 from markdown_it import MarkdownIt
