@@ -304,7 +304,11 @@ class HtmlRenderer(Renderer):
         self._embed_math_svg = False
         self._myst_line_comment_enabled = True
         self._theorem_counter = 1
+        # Dictionary/hash map/hash table of abbreviations
         self._abbreviations = {}
+        # Dictionary where the keys are the words and the values
+        # ar ethe corresponding heyperlinks 
+        self._wordlinks = {}
         self._unicode_database = [
               ("(TM)", "™") # Trademark 
             , ("{TM}", "™")  # Trademark 
@@ -326,11 +330,20 @@ class HtmlRenderer(Renderer):
         ]
 
     def _add_abbreviations(self, text: str) -> str:
+        """Replace abbreviation words in a text by <abbr> html5 elements."""
         html = text 
         for (abbreviation, description) in self._abbreviations.items():
             rep =  f"""<abbr title="{description}">{abbreviation}</abbr>""" 
             ## html = html.replace(abbreviation, rep) 
             html = re.sub(r"\b%s\b" % abbreviation.replace(".", r"\."), rep, html)
+        return html 
+        
+    def _add_wordlinks(self, text: str) -> str:
+        """Replace workds defined in self._wordlinks by their corresponding hyperlinks."""
+        html = text 
+        for (word, url) in self._wordlinks.items():
+            rep =  f"""<a target="_blank" class="link-external" rel="noreferrer noopener nofollow" href="{url}">{word}</a>""" 
+            html = re.sub(r"\b%s\b" % word.replace(".", r"\."), rep, html)
         return html 
 
     def enable_render_math_mathjax(self, value):
@@ -353,6 +366,7 @@ class HtmlRenderer(Renderer):
         html = node.content
         for (entry, replacement) in self._unicode_database:
             html = html.replace(entry, replacement)
+        html = self._add_wordlinks(html)
         html = self._add_abbreviations(html)
         return html 
 
@@ -1044,9 +1058,12 @@ class HtmlRenderer(Renderer):
         except yaml.YAMLError as ex:
             print("[ERROR] Failed to parse frontmatter data => \nDetails:", ex)
         abbrs =  data.get("abbreviations", {}) 
+        wordlinks = data.get("wordlinks", {})
         ## Append abbreviation dictionary 
         for k, v in abbrs.items():
             self._abbreviations[k] = v
+        for k, v in wordlinks.items():
+            self._wordlinks[k] = v
         ### breakpoint()
         ### print(" [WARNING] Frontmatter not renderend to HTML")
         return "" 
