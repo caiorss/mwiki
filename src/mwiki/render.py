@@ -39,14 +39,25 @@ class Renderer:
     """Renderer abstract class providing a framework for concrete renderers classes.
     This renderer class is a basic building block for creating new renderer types,
     including html and LaTeX/PDF renderers.     
+
+    New renderer types can be implemented by overriding abstract methods of this class,
+    which raise NonImplementedError exceptions.
     """
 
     def __init__(self, document = "", base_path = "", embed_page = False):
         # Path to the notes repository
         self._base_path: pathlib.Path = pathlib.Path(base_path)
-        self._embed_page: bool = embed_page
+        """Root directory of current MWiki repository"""
+
+        self._is_embedded_page: bool = embed_page
+        """Flag which indicates whether the current page is embedded within another wiki page."""
+
         self._count_h1 = 0
+        """Current count of h1 headline - '# h1 headline level'"""
+
         self._count_h2 = 0
+        """Current count of h2 headline - '# h2 headline level'"""
+
         self._count_h3 = 0
         self._count_h4 = 0
         self._handlers = {
@@ -116,19 +127,26 @@ class Renderer:
         return out
 
     def render_note(self, name: str) -> Optional[str]:
-        """Render note file, given its name"""
+        """Render a embedded wiki page (note file of *.md extension) given its name."""
         p = self.find_page(name)
         if not p: return "" 
         if not p.is_file(): return ""
         source = p.read_text()
         tokens = mparser.MdParser.parse(source)
         ast    = SyntaxTreeNode(tokens)       
-        self._embed_page = True 
+        self._is_embedded_page = True 
         html = self.render(ast)
-        self._embed_page = False
+        self._is_embedded_page = False
         return html
 
     def render(self, node: SyntaxTreeNode) -> str:
+        """Render MWiki AST - SyntaxTreeNode to the target format.
+        Compiles a MWiki AST (Abstract Syntax Tree) node, which is the same 
+        as SyntaxTreeNode to the target format of the concrete renderer class.
+        For instance, the target format can be html, UNIX texinfo, LaTex, or other 
+        simpler markdown format. 
+
+        """
         handler = self._handlers.get(node.type)
         result = ""
         if handler is None:
@@ -296,6 +314,9 @@ class Renderer:
         raise NotImplementedError()
 
 class HtmlRenderer(Renderer):
+    """MWiki renderer which compiles MWiki markup language to html.
+    This class compiles .md wiki page files to html.
+    """
 
     def __init__(self, page_name = "", render_math_svg = False, embed_math_svg = False, base_path: str = ""):
         super().__init__(base_path = base_path)
@@ -304,11 +325,19 @@ class HtmlRenderer(Renderer):
         self._embed_math_svg = False
         self._myst_line_comment_enabled = True
         self._theorem_counter = 1
-        # Dictionary/hash map/hash table of abbreviations
+        """Current theorem number"""
+        
         self._abbreviations = {}
-        # Dictionary where the keys are the words and the values
-        # ar ethe corresponding heyperlinks 
+        """Dictionary/hash map/hash database of of abbreviations defined in the wiki page frontmatter.."""
+        
         self._wordlinks = {}
+        """ 
+        Dictionary where the keys are the words and the values
+        are the corresponding heyperlinks. 
+
+        This database is defined in the frontmatter of the current document. 
+        """
+
         self._unicode_database = [
               ("(TM)", "™") # Trademark 
             , ("{TM}", "™")  # Trademark 
@@ -417,7 +446,7 @@ class HtmlRenderer(Renderer):
         # h1 => 1, h2 => 2, ..., h6 => 6
         tag = ""
         tex_command = ""
-        if self._embed_page:
+        if self._is_embedded_page:
             heading_level = int(node.tag.strip("h"))
             tag = f"h{heading_level + 1}"
             ## print(" [TRACE] embed tag = ", tag, " title = ", title)
