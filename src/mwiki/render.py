@@ -653,7 +653,7 @@ class HtmlRenderer(AbstractAstRenderer):
         return html
 
     def render_link(self, node: SyntaxTreeNode) -> str:
-        inner = "".join([ self.render(n) for n in node.children ])
+        label = "".join([ self.render(n) for n in node.children ])
         href =  node.attrs.get("href") or ""
         attrs = "" 
         ##breakpoint()
@@ -699,43 +699,49 @@ class HtmlRenderer(AbstractAstRenderer):
                 title = "Request For Comment - IETF (Internet Engineering Task Force) Technical Standard"
                 temp = utils.escape_url(href.strip("rfc:").strip("RFC"))
                 href = f"https://datatracker.ietf.org/doc/html/rfc{temp}"
-                inner = f"RFC {temp}"
+                label = f"RFC {temp}"
             # WorldCat Identifier OCLC Number 
             elif href.startswith("oclc:") or href.startswith("OCLC:"):
                 title = "WorldCat Identifier OCLC Number "
                 temp = utils.escape_url(href.strip("oclc:").strip("OCLC:"))
                 href = f"https://search.worldcat.org/oclc/{temp}"
-                inner = f"{temp}"
+                label = f"{temp}"
             # PMID - PubMedID 
             elif href.startswith("pmid:") or href.startswith("PMID:"):
                 title = "PubMed Identifier"
                 temp = utils.escape_url(href.strip("pmid:").strip("PMID:"))
                 href = f"https://pubmed.ncbi.nlm.nih.gov/{temp}"
-                inner = f"PMID {temp}"
+                label = f"PMID {temp}"
             elif href.startswith("patent:") or href.startswith("PATENT:"):
                 title = "Patent number"
                 temp = utils.escape_url(href.strip("patent:").strip("PATENT:"))
                 href = f"https://patents.google.com/patent/{temp}"
-                inner = f"Patent {temp}"
+                label = f"Patent {temp}"
             ## PEP - Python Enhancement Proposal 
             ## Alows create links to PEPs using <pep:333>, creates 
             ## lik to https://peps.python.org/pep-333 - Pythons' PEP 333
             elif href.startswith("pep:") or href.startswith("PEP:"):
                 title = "PEP - Python Enhancement Proposal"
                 temp = utils.escape_url(href.strip("pep:").strip("PEP:"))
-                inner = f"PEP {temp}"
+                label = f"PEP {temp}"
                 href = f"https://peps.python.org/pep-{temp}"
             ## Hyperlink to Python package 
             elif href.startswith("pypi:") or href.startswith("PYPI:"):
                 title = "Python Package - pypi.org"
                 temp = utils.escape_url(href.strip("pypi:").strip("PYPI:"))
-                inner = temp 
+                label = temp 
                 href = f"https://pypi.org/project/{temp}"
-            inner = href if fullLinkFlag else inner
+            # Hyperlink to CVE (Common Exposure Vulnerability) bug database 
+            elif href.startswith("cve:") or href.startswith("CB"):
+                title = "CVE - Common Exposure Vulnerability"
+                temp = href[4:]
+                label = temp 
+                href = f"https://www.cve.org/CVERecord?id={temp}"
+            label = href if fullLinkFlag else label
         title = node.attrs.get("title", title)
         title = f'title="{title}"' if title != "" else ""
         attrs = f""" target="_blank" {title} class="link-external" rel="noreferrer noopener nofollow" """
-        html = f"""<a href="{href}" {attrs}>{inner}</a>"""
+        html = f"""<a href="{href}" {attrs}>{label}</a>"""
         return html
 
     def render_wikilink_inline(self, node: SyntaxTreeNode) -> str:

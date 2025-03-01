@@ -173,7 +173,7 @@ Rendering:
  **Hyperlink to Mastodon Handles (User Accounts)**
 
 Syntax:
- 
+
  ```
    @<USERNAME>@<SERVER>
  ```
@@ -444,6 +444,36 @@ Rendering:
 
 + Pyhton <pypi:sqlitedict> package 
 + Python sqltedict package, available at <r-pypi:sqlitedict>
+
+
+ **Hyperlink to CVE - Common Exposure Vulnerability**
+
+This special link syntax allows creating hyperlinks to the CVE (Common Exposed Vulnerability) database given the number of the CVE.
+
+Syntax:
+
+```md
+ <cve:$CVE_NUMBER>
+or
+ <CVE:$CVE_NUMBER>
+```
+
+Example: the link shortcut
+
+```md
++  <cve:CVE-2024-53104> 
+```
+
+is equivalent to the hyperlink 
+
+```md
++ [CVE-2024-53104](https://www.cve.org/CVERecord?id=CVE-2024-53104) 
+```
+
+and is rendered to html as 
+
++  [CVE-2024-53104](https://www.cve.org/CVERecord?id=CVE-2024-53104) 
+
 
 ## Image 
 ### Internal Image 

@@ -838,6 +838,36 @@ Rendering:
 + Pyhton <pypi:sqlitedict> package 
 + Python sqltedict package, available at <r-pypi:sqlitedict>
 
+
+ **Hyperlink to CVE - Common Exposure Vulnerability**
+
+This special link syntax allows creating hyperlinks to the CVE (Common Exposed Vulnerability) database given the vulnerability CVE number.
+
+Syntax:
+
+```md
+ <cve:$CVE_NUMBER>
+or
+ <CVE:$CVE_NUMBER>
+```
+
+Example: the link shortcut
+
+```md
++  <cve:CVE-2024-53104> 
+```
+
+is equivalent to the hyperlink 
+
+```md
++ [CVE-2024-53104](https://www.cve.org/CVERecord?id=CVE-2024-53104) 
+```
+
+and is rendered to html as 
+
++  [CVE-2024-53104](https://www.cve.org/CVERecord?id=CVE-2024-53104) 
+
+
 ### Image 
 #### Internal Image 
 
@@ -1120,27 +1150,47 @@ Rendering:
 Example:
 
 ```
-|  German        |   English      |
-|----------------|----------------|
-| Deustch        | German         |
-| ja             | yes            |
-| nein           | no or not      |
-| hallo Welt     | hello World    |
-| willkomen      | welcome        |
-| Hilfe          | Help           |
-
+|  German          |   English         |
+|------------------|-------------------|
+| Deutsch          | German            |
+| ja               | yes               |
+| jetzt            | now               |
+| nein             | no or not         | 
+| hallo Welt       | hello World       |
+| hallo Leute      | hello people      |
+| willkomen        | welcome           |
+| Hilfe            | Help              |
+| die Zeit         | time              | 
+| die Einstellugen | settings (plural) |
+| die Kunst        | art               |
+| die Freiheit     | freedom, liberty  |
+| die Menschen     | people            |
+| die Wirtschaft   | the economy       |
+| das Ding         | thing, stuff      |
+| das Miteglied    | member            | 
 ```
 
 Rendering: 
 
-|  German        |   English      |
-|----------------|----------------|
-| Deustch        | German         |
-| ja             | yes            |
-| nein           | no or not      |
-| hallo Welt     | hello world    |
-| willkomen      | welcome        |
-| Hilfe          | Help           |
+|  German          |   English         |
+|------------------|-------------------|
+| Deutsch          | German            |
+| ja               | yes               |
+| jetzt            | now               |
+| nein             | no or not         | 
+| hallo Welt       | hello World       |
+| hallo Leute      | hello people      |
+| willkomen        | welcome           |
+| Hilfe            | Help              |
+| die Zeit         | time              | 
+| die Einstellugen | settings (plural) |
+| die Kunst        | art               |
+| die Freiheit     | freedom, liberty  |
+| die Menschen     | people            |
+| die Wirtschaft   | the economy       |
+| das Ding         | thing, stuff      |
+| das Miteglied    | member            | 
+
 
 ### Lists 
 #### Bullet Lists 
