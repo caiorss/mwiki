@@ -35,7 +35,7 @@ class TempDirectory:
         self._tempdir.cleanup()
         return False
 
-class Renderer:
+class AbstractAstRenderer:
     """Renderer abstract class providing a framework for concrete renderers classes.
     This renderer class is a basic building block for creating new renderer types,
     including html and LaTeX/PDF renderers.     
@@ -383,7 +383,7 @@ class Renderer:
         """
         raise NotImplementedError()
 
-class HtmlRenderer(Renderer):
+class HtmlRenderer(AbstractAstRenderer):
     """MWiki renderer which compiles MWiki markup language to html.
     This class compiles .md wiki page files to html.
     """
