@@ -172,23 +172,24 @@ class Renderer:
             result = handler(node)
         return result
 
+    def render_root(self, node: SyntaxTreeNode) -> str:
+        """Render document root node."""
+        raise NotImplementedError()
+
     def render_text(self, node: SyntaxTreeNode) -> str:
         raise NotImplementedError() 
 
     def render_strong(self, node: SyntaxTreeNode) -> str:
-        """Render bold text"""
+        """Render bold text, equivalent to html '<strong>text</strong>'"""
         raise NotImplementedError() 
 
     def render_em_italic(self, node: SyntaxTreeNode) -> str:
-        """Render emphasis text, aka Italic text"""
+        """Render emphasis text, aka italic text, equivalent to html <em>Italic text.</em>"""
         raise NotImplementedError() 
 
     def render_strikethrough(self, node: SyntaxTreeNode) -> str:
         raise NotImplementedError()
     
-    def render_root(self, node: SyntaxTreeNode) -> str:
-        raise NotImplementedError()
-
     def render_softbreak(self, node: SyntaxTreeNode) -> str:
         raise NotImplementedError()
 
@@ -196,6 +197,7 @@ class Renderer:
         raise NotImplementedError()
     
     def render_frontmatter(self, node: SyntaxTreeNode) -> str:
+        """Render frontamtter node, which contains YAML metadata and is not visible."""
         raise NotImplementedError() 
 
     def render_footnote_block(self, node: SyntaxTreeNode) -> str:
@@ -208,24 +210,44 @@ class Renderer:
         raise NotImplementedError() 
     
     def render_math_inline(self, node: SyntaxTreeNode) -> str:
+        """Render Markdown inlince code, akin to html <code>import sys</code>.
+        Example: This method could render `import sys` to '<code>import sys</code>' (html5).
+        """
         raise NotImplementedError()
     
     def render_math_single(self, node: SyntaxTreeNode) -> str:
+        """Render inline LateX math code, such as '$f(x) = \sin \\theta$' """
         raise NotImplementedError()
     
     def render_math_block(self, node: SyntaxTreeNode) -> str: 
+        """Render display mode LaTeX math blocks.
+        For instance, it renders LateX formulas such as
+
+        ```
+        $$
+          \mathbf{v} = \\frac{d \mathbf{r}}{dt}
+        $$
+        ```
+        
+        """
         raise NotImplementedError()
     
     def render_horizontal_line_hr(self, node: SyntaxTreeNode) -> str:
+        """Render horizontal line (---) equivalent to <hr> html5 element."""
         raise NotImplementedError()
 
     def render_inline(self, node: SyntaxTreeNode) -> str:
         raise NotImplementedError()
 
     def render_paragraph(self, node: SyntaxTreeNode) -> str:
+        """Render paragraph elements, akin to html5 <p> element, such as <p>paragraph</p>."""
         raise NotImplementedError()
 
     def render_heading(self, node: SyntaxTreeNode) -> str:
+        """Render document headings, akin to <h1>, <h2>, ..., <h5>
+        For instance a html renderer implementation of this abstract class can
+        render MWiki syntax '## Heading Level 2' to <h2>Heading Level 2</h2>.
+        """
         raise NotImplementedError()
 
     def render_blockquote(self, node: SyntaxTreeNode) -> str:
@@ -235,12 +257,35 @@ class Renderer:
         raise NotImplementedError()
     
     def render_link(self, node: SyntaxTreeNode) -> str:
+        """Render external hyperlink, akin to html5 element <a src="http://some_url.com">Label</a> 
+
+        Syntax of MWiki rendered element:
+            [label of hyperlink](http://url-of-the-hyperlink.com)
+        """
         raise NotImplementedError()
 
     def render_wikilink_inline(self, node: SyntaxTreeNode) -> str:
+        """Render internal hyperlinks for pages or files hosted in the wiki server.
+
+        For instance, the hyperlink to the page 'Linux Debian Distribution', 
+        which corresponds to the file 'Linux Debian Distribution.md' can be defined as
+
+        + [[Linux Debian Distribution]]
+
+        """
         raise NotImplementedError()
 
     def render_mastodon_handle_link(self, node: SyntaxTreeNode) -> str:
+        """Render hyperlinks to Mastodon handles of the format @<USERNAME>@<SERVER>
+
+        For instance, a matodon handler `@kde@floss.social`, which is the Mastodon handle 
+        (username) of the KDE project in the server https://floss.social 
+        could be rendered by a html implementation of the Renderer class as
+
+        + `<a src="http://floss.social/@kde">@kde@floss.social</a>`
+
+        This is just a shortcut for creating hyperkinks to Mastodon handles.
+        """
         raise NotImplementedError()
     
     def render_wiki_text_highlight_inline(self, node: SyntaxTreeNode) -> str:
@@ -253,6 +298,7 @@ class Renderer:
         raise NotImplementedError()
 
     def render_code_block(self, node: SyntaxTreeNode) -> str:
+ 
         raise NotImplementedError()
 
     def render_fence(self, node: SyntaxTreeNode) -> str:
@@ -268,12 +314,15 @@ class Renderer:
         raise NotImplementedError()
 
     def render_bullet_list(self, node: SyntaxTreeNode) -> str:
+        """Render bullet lists, akin to html5 <ul> element."""
         raise NotImplementedError()
 
     def render_ordered_list(self, node: SyntaxTreeNode) -> str:
+        """Render ordered lists, akin to html5 <ol> element."""
         raise NotImplementedError()
 
     def render_list_item(self, node: SyntaxTreeNode) -> str:
+        """Render items of bullet lists or ordered, akin to html5 <li> element."""
         raise NotImplementedError()
 
     def render_myst_role(self, node: SyntaxTreeNode) -> str:
@@ -289,6 +338,7 @@ class Renderer:
         raise NotImplementedError() 
 
     def render_table(self, node: SyntaxTreeNode) -> str:
+        """Render markdown tables, akink to html5 <table>."""
         raise NotImplementedError() 
 
     def render_tbody (self, node: SyntaxTreeNode) -> str:
@@ -307,15 +357,15 @@ class Renderer:
         raise NotImplementedError() 
 
     def render_html_block(self, node: SyntaxTreeNode) -> str:
+        """Render raw html block"""
         raise NotImplementedError()
 
     def render_html_inline(self, node: SyntaxTreeNode) -> str:
+        """Render raw inline html block."""
         raise NotImplementedError()
 
     def render_myst_line_comment(self, node: SyntaxTreeNode) -> str:
-        raise NotImplementedError()
-
-    def render_frontmatter(self, node: SyntaxTreeNode) -> str:
+        """Render Wiki comments, which starts with % syntax. This element is not rendered."""
         raise NotImplementedError()
 
     def render_footnote_block(self, ndoe: SyntaxTreeNode) -> str:
@@ -325,6 +375,12 @@ class Renderer:
         raise NotImplementedError()
 
     def render_wiki_tag_inline(self, node: SyntaxTreeNode) -> str:
+        """Render hashtags, akin to Mastodon or Twitter hashtags, which are shortcuts for searching.
+
+        For instance, a hashtag #foss is rendered to a html5 hyperlink. 
+        When users clicks at this hyperlink, MWiki searches for all pages containing the '#foss' text, 
+        which standas for 'free and open source software'.
+        """
         raise NotImplementedError()
 
 class HtmlRenderer(Renderer):
