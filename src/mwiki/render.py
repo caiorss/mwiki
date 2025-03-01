@@ -52,6 +52,18 @@ class Renderer:
         self._is_embedded_page: bool = embed_page
         """Flag which indicates whether the current page is embedded within another wiki page."""
 
+        self._embedded_page: str = ""
+        """Current embedded wiki page within the current one.
+        An embedded wiki page is created by using the syntax 
+
+        ```md
+        ![[Name of embedded wiki page file]]
+        ```
+        
+        which embeds the wiki page 'Name of embedded wiki page file.md'
+        within the current wiki.
+        """
+
         self._count_h1 = 0
         """Current count of h1 headline - '# h1 headline level'"""
 
@@ -135,8 +147,10 @@ class Renderer:
         tokens = mparser.MdParser.parse(source)
         ast    = SyntaxTreeNode(tokens)       
         self._is_embedded_page = True 
+        self._embedded_page = name
         html = self.render(ast)
         self._is_embedded_page = False
+        self._embedded_page = ""
         return html
 
     def render(self, node: SyntaxTreeNode) -> str:
@@ -447,6 +461,7 @@ class HtmlRenderer(Renderer):
         tag = ""
         tex_command = ""
         if self._is_embedded_page:
+            ## breakpoint()
             heading_level = int(node.tag.strip("h"))
             tag = f"h{heading_level + 1}"
             ## print(" [TRACE] embed tag = ", tag, " title = ", title)
@@ -482,7 +497,7 @@ class HtmlRenderer(Renderer):
         ## assert line_start <= line_end
         ## breakpoint()
         if tag == "h2" or tag == "h3":
-            pagename = self._pagefile.split(".")[0]
+            pagename = self._pagefile.split(".")[0] if not self._is_embedded_page else self._embedded_page
             url =  f"/edit/{pagename}?start={line_start}&end={line_end}&anchor={anchor}&page={pagename}"
             edit_link = f"""<a class="link-edit" href="{url}" title="Edit heading: {value}" class="edit-button">[E]</a>"""
             ## breakpoint()
