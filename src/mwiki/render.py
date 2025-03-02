@@ -732,8 +732,8 @@ class HtmlRenderer(AbstractAstRenderer):
                 label = temp 
                 href = f"https://pypi.org/project/{temp}"
             # Hyperlink to CVE (Common Exposure Vulnerability) bug database 
-            elif href.startswith("cve:") or href.startswith("CB"):
-                title = "CVE - Common Exposure Vulnerability"
+            elif href.startswith("cve:") or href.startswith("CVE:"):
+                title = "CVE - Common Vulnerability Exposures"
                 temp = href[4:]
                 label = temp 
                 href = f"https://www.cve.org/CVERecord?id={temp}"

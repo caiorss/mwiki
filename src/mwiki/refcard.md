@@ -446,9 +446,9 @@ Rendering:
 + Python sqltedict package, available at <r-pypi:sqlitedict>
 
 
- **Hyperlink to CVE - Common Exposure Vulnerability**
+ **Hyperlink to CVE - Common Vulnerability Exposures**
 
-This special link syntax allows creating hyperlinks to the CVE (Common Exposed Vulnerability) database given the number of the CVE.
+This special link syntax allows creating hyperlinks to the CVE (Common Vulnerability Exposure) database given the CVE unique identifier.
 
 Syntax:
 
