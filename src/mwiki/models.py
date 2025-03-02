@@ -126,6 +126,7 @@ def is_database_created() -> bool:
 
 
 class WikiPage():
+    """Model class representing a wiki page markdown file."""
 
     def __init__(self, base_path: pathlib.Path, path: pathlib.Path, title: str):
         self._base_path = base_path
@@ -136,12 +137,13 @@ class WikiPage():
         return path 
 
     def read(self) -> str:
-        """Get wiki text"""
+        """Get markdown content of wiki page file."""
         path = self.path()
         text = path.read_text()
         return text 
 
     def write(self, text: str) -> None:
+        """Update markdown content of wiki page file"""
         path = self.path()
         path.write_text(text)
 
