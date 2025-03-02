@@ -133,8 +133,9 @@ class WikiPage():
         self._title = title 
     
     def path(self):
-        path = self._base_path.joinpath(self._title + ".md")
-        return path 
+        """Get path of Wiki page file"""
+        p = next(self._base_path.rglob(self._title + ".md"), None)
+        return p
 
     def read(self) -> str:
         """Get markdown content of wiki page file."""
