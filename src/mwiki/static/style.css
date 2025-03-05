@@ -74,13 +74,26 @@ body {
 }
 
 h1 { 
-    font-size: 30px;
+    font-size: 30pt;
 }
 
-h2 {
-    font-size: 20px;
+main h2 {
+    font-size: 25pt;
 }
 
+main h3 {
+    font-size: 20pt;
+}
+
+
+.text-big {
+    font-size: 18pt;
+}
+
+.text-big-bold {
+    font-size: 18pt;
+    font-weight: bolder;
+}
 
 
 .document-heading {
@@ -738,6 +751,11 @@ pre {
     overflow-x: auto !important;
     overflow-y: auto !important;
     /** max-height: 400px;  */  /** TODO @TODO  Enable this property later. */
+}
+
+code {
+    font-family: "IBM Plex Mono" !important;
+    font-size: 10pt;
 }
 
 .highlight {
