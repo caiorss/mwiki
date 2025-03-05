@@ -182,11 +182,167 @@ async function pasteImage(event) {
       // destinationImage.src = b64blob;
     }
   } catch (error) {
-    log(error.message);
+    console.log(error.message);
   }
 }
 
+
+
+/** Compiles AST of html5 nodes (DOM) to MWiki markdown. 
+ * 
+ * + AST => Abstract Syntax Tree
+ * + DOM => Domain Object Model
+ ********************************************/
+function domToMarkdownCompiler(dom)
+{
+    var out = "";
+    let ntype = dom.nodeName;
+    const arrayNodeTypes = [ "DIV",  "BODY", "P", "LI", "UL", "EM", "STRONG"
+                             , "H1", "H2", "H3", "H4", "H5", "H6" ];
+    if(ntype === "HTML"){
+        // Iterate over body
+
+        let nextDom = dom.childNodes[1];
+        console.assert(nextDom.nodeName === "BODY");
+        out = domToMarkdownCompiler(nextDom);
+    } 
+    // else if (ntype === "BODY" || ntype == "P" || ntype === "LI" || ntype == "UL" || ntype == "EM" || ntype == "H3")
+    else if ( arrayNodeTypes.includes(ntype) )
+    {
+       for(let ch of dom.childNodes) 
+       {
+            let nodeMarkdown = domToMarkdownCompiler(ch);
+            if(ch.nodeName == "LI"){
+                out += "+ ";
+            }
+            out += nodeMarkdown;
+            if     (ntype === "P"  ){ out += " ";  }
+            else if(ntype === "LI" ){ out += "\n"; }
+            // if(ch.nodeName == "LI"){ out += "\n"; }
+       }
+       if (ntype === "P") // || ntype === "UL")
+       {
+         out += "\n\n";
+       } else if(ntype == "UL")
+       {
+         out += "\n";
+       } else if (ntype == "EM")
+       {
+          out = "*" + out.replace("’", "") + "*";
+       } else if (ntype == "STRONG")
+       {
+          out = "**" + out.replace("’", "") + "**";
+       } else if(ntype === "H1"){
+          out = "# " + out + "\n\n";
+       } else if(ntype === "H2"){
+          out = "## " + out + "\n\n";
+       } else if(ntype === "H3"){
+          out = "### " + out + "\n\n";
+       } else if(ntype === "H4"){
+          out = "#### " + out + "\n\n";
+       } else if(ntype === "H5"){
+          out = "##### " + out + "\n\n";
+       } else if(ntype === "H6"){
+          out = "###### " + out + "\n\n";
+       }
+
+
+    } else if (ntype === "#text")
+    {
+        let text = dom.data.trim().replace("’", "'")
+                                  .replace("“", "\"")
+                                  .replace("”", "\"");
+        out = text.split("\n").map(x => x.trim()).join(); 
+        //text.split("\n").map(x => " " + x.trim()).join().trim();
+        console.log(" [TRACE] ntype - #text => out = \n", out); 
+    } else if (ntype === "A")
+    {
+        if(dom.innerText === ""){
+            out = "";
+        } else {
+            out = `[${dom.innerText}](${dom.href})`;
+        }
+    } else if (ntype === "PRE")
+    {
+        if(  dom.childNodes[0].type === "CODE" )
+        {
+            out = dom.childNodes[0].innerText;
+        } else {
+            out = dom.innerText;
+        }
+        out = "```\n" + out + "\n```\n\n";
+    }  else if (ntype === "CODE")
+    {
+        out = "`" + dom.innerText + "`";
+    }
+    else {
+        console.error(`Not implemented for element of type ${ntype}`);
+   }
+    return out;
+}
+
+/** Transpiler from html to MWiki markdown (markup language) */
+function htmlToMarkdown(htmlSourceCodeString)
+{
+
+    let el = document.createElement("html");
+    el.innerHTML = htmlSourceCodeString;
+    let out = domToMarkdownCompiler(el);
+    return out;
+}
+
+
+
+function onPasteEventHandler (text, event)
+{
+    // event.preventDefault();
+    // event.stopPropagation();
+
+    let choice = document.querySelector('input[name="clipboardChoice"]:checked').value;    
+    console.log(" Clipboard Choice = ", choice);
+
+    console.log("event = ", event);
+    let clipboard = event.clipboardData;
+    console.log(" clipboard = ", clipboard);
+    let types = clipboard.types;
+    var out = "";
+
+    if( types.includes("image/png") )
+    {
+        console.error("Not implemented pasting for images/png");
+
+    } else if( types.includes("text/html") && choice == "html" ) 
+    {
+        out = clipboard.getData("text/html"); 
+
+    } 
+    else if( types.includes("text/html") && choice == "markdown" ) 
+    {
+        let html = clipboard.getData("text/html");
+        out  = htmlToMarkdown(html);
+    }
+    else if( types.includes("text/plain") )
+    {
+        console.log("Pasting text =", clipboard.getData("text/plain"));
+        out = clipboard.getData("text/plain");
+
+    } else 
+    {
+        console.error("Not implemented pasting this type");
+    }
+    editorInsertTextArCursor(out);
+}
+
+
+// editor.container.addEventListener("paste", onPasteEventHandler);
+
+editor.onPaste = onPasteEventHandler;
 document.onpaste = pasteImage;
 
+//// window.onpaste = onPasteEventHandler;
+// window.addEventListener("paste", onPasteEventHandler, false);
 
+// document.onpaste = onPasteEventHandler;
 
+// let output = domToMarkdownCompiler(el);
+// console.log("output \n", output);

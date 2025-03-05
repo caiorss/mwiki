@@ -58,6 +58,7 @@
 <button onclick="save_document();">Save</button>
 <br>Status: <label id="status-info">Not saved</label>
 <details>
+    <summary>Tools</summary>
     <button onclick="notImplemented();">Undo</button>
     <button onclick="notImplemented();">Redo</button>
     <button onclick="insertLinkToPage();">Insert link to page</button>
@@ -67,6 +68,23 @@
     <button onclick="editorInsertLatexEquationNonNumered();">Insert Non Numbered Latex Equation</button>
     <button onclick="editorInsertTheorem();">Insert Theorem</button>
     <button onclick="editorInsertDetails();">Insert Foldable Details</button>
+
+    <div>
+        <p>Select the clipboard pasting mode:</p>
+        <div>
+            <input type="radio" name="clipboardChoice" value="plain" id="clipboard-plain-text" checked="checked">
+            <label for="clipboard-plain-text" >Plain text</label>
+        </div>
+        <div>
+            <input type="radio" name="clipboardChoice" value="markdown" id="clipboard-markdown">
+            <label for="clipboard-markdown" >MWiki Markdown</label>
+        </div>
+        <div>
+            <input type="radio" name="clipboardChoice" value="html" id="clipboard-raw-html">
+            <label for="clipboard-raw-html" >Raw html</label>
+        </div>
+    </div>
+
 </details>
 <!-- Placement point for Ace Text Editor -->
 <div id="editor">{{content}} </div>

@@ -18,17 +18,22 @@ File-based Wiki
 
 Wiki Features:  
 
- + Support MyST Markdown, GFM (Github-Flavored Markdown Support), subset of Obsidian Markdown syntax, subset of Mediawiki markup language and inline HTML.
+ + Supports MyST Markdown, GFM (Github-Flavored Markdown Support), subset of Obsidian Markdown syntax, subset of Mediawiki markup language and inline HTML.
  + Pages written in Markdown-based markup language instead of HTML, which allows to any non programmers to write scientific and technical documents that are rendered to html. 
- + Markdown **Code editor** built on top of Ace9 JavaScript code editor.
- + Supports pasting images from clipboard. 
-     + Usage: Copy any image using the right click on any picture and past it on the text editor sesssion of some wiki page.
-     + This feature relies on Web APIs, such as Clibpboard Html5 API, which only is available on [secure contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts). Therefore pasting images from clipboard to the wiki text editor only works when serving the page on local host or from a domain with https (HTTP + TLS), which may require a reverse proxy such as Caddy or NGinx for TLS/SSL termination of the network traffic.
  + Buttons for editing specific document sections similar to Media wiki section editing buttons. 
  + Embeddable pages. The contents of a wiki page can be embedded in another wiki page by using the syntax `![[Name of Wiki page to be embedded]]`
  + Vendored third-party JavaScript dependencies for offline usage. For instance, MWiki has MathJax, pseudocode-JS, and Ace9 in the source code for offline usage even when no CDN is available due to lack of internet connectivity or if the Wiki is used in rescrited environment behind a firewall. 
 
- Access control 
+Text Editor Features
+
+ + Markdown **Code editor** built on top of Ace9 JavaScript code editor.
+ + *Clipboard to markdown converter*, which allows turning html content copied from any other web page (aka web site) to MWiki markdown. This feature is similar to Obsidian's non-plain text copying and pasting. 
+ + Upload images by pasting them from clipboard. 
+     + Usage: Copy any image using the right click on any picture and past it on the text editor sesssion of some wiki page either by using the mouse or typing Ctrl + v.
++ NOTE: The clipboard features rely on Clibpboard Html5 API, which only is available on [secure contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts). Therefore pasting images from clipboard to the wiki text editor only works if the wiki is served on local host or from a domain with https (HTTP + TLS), which may require a reverse proxy such as Caddy or NGinx for TLS/SSL encryption and server authentication.
+
+
+Access control 
 
  + The wiki has the following types of users: *admin*, that can edit the Wiki pages; *guest* a registered used which can view pages even if the wiki is not public, but a guest user cannot edit any page; and *anonymous* users (non logged in users) that can only view pages if the **public** checkbox in the Wiki settings ('/settings' pages) is enabled.
  + Public/private wiki settings - if the **public** checkbox in MWiki settings page is disabled, only logged in users will be able to view the wiki pages and non logged in users will be redirected to the authentiation screen. If this checkbox is enabled, non logged in users can view the wiki. Note that: only users of type administrator can edit the wiki pages and make changes to any content.
