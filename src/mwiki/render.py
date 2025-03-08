@@ -788,8 +788,10 @@ class HtmlRenderer(AbstractAstRenderer):
         role = node.meta.get("name", "")
         content = utils.escape_html(node.content)
         html = ""
+        if role == "u":
+            html = f"""<u>{content}</u>"""
         ## MyST math role. Exmaple: {math}`f(x) = \sqrt{x^2 - 10x}`
-        if role == "math":
+        elif role == "math":
             html = f"""<span class="math-inline">\\({content}\\)</span>"""
         # MyST sub role for superscript H{sub}`2`O compiles to H<sub>2</sub>O
         elif role == "sub":

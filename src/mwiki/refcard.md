@@ -1121,6 +1121,21 @@ Syntax:
 {rolename}`text content here`
 ```
 
+### Underline text 
+
+Makes a any text underline.
+
+Example:
+
+```
+{u}`underline text`
+```
+
+Rendering:
+
++ {u}`underline text`
+
+
 ### Abbreviation 
 
 This syntax defines abbreviation of acronyms, that is rendered to an `<abbr>` html5 tag. The description of the acronym is shown in a popup window that appears when the user hoovers the mouse on the the abbreviation element.
