@@ -175,6 +175,7 @@ def server(  host:       str
     if wsgi:
         _loginp = f"{_username},{_password}" if _username != "" else None
         os.environ["SERVER_SOFTWARE"] = "waitress"
+        os.environ["WIKIPATH"] = _wikipath
         pyexecutable = sys.executable
         proc = subprocess.Popen([  pyexecutable
                                  , "-m" , "waitress"

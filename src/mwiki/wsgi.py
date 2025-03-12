@@ -15,7 +15,7 @@ from . import utils
 
 host = os.getenv("HOST", "0.0.0.0")
 port = utils.parse_int(os.getenv("PORT", "8000")) or 8000
-wikipath = os.getenv("WIKIPATH", "./notes")
+wikipath = os.getenv("WIKIPATH", ".")
 debug = os.getenv("DEBUG", "false") == "true"
 login = os.getenv("LOGIN", "")
 _login = login.split(",")
