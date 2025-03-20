@@ -51,6 +51,11 @@ class User(db.Model):
         result = self.type != USER_ANONYMOUS
         return result
 
+    def set_password(self, password: Optional[str]) -> None:
+        if password is None: return
+        password_hash = generate_password_hash(password)
+        self.password = password_hash
+
     def check_password(self, password: str) -> bool:
         out =  check_password_hash(self.password, password)
         ## print(" [TRACE] password = ", password)

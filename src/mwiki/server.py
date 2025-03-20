@@ -63,22 +63,23 @@ app.jinja_env.globals.update(current_user = current_user)
 # --- Database Initialization -----#
 # Create all database tables if they don't exist yet.
 with app.app_context():
-    u = None 
+    user = None 
     created = is_database_created()
     if not created: 
         print(" [TRACE] Admin user created OK")
-        u = User( username = "admin", type = USER_MASTER_ADMIN )
-
+        user = User( username = "admin", type = USER_MASTER_ADMIN )
+        # Useful for installation with Docker
+        ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
+        user.set_password(ADMIN_PASSWORD)
     db.create_all()
+    conf = Settings.get_instance()
     if not created:
-        db.session.add(u)
+        db.session.add(user)
         db.session.commit()
     admin = User.get_user_by_username("admin")    
     if admin.password is None:
-        conf = Settings.get_instance()
         password = conf.default_password
         print(f" [INFO] Enter the username: {admin.username} and password: '{password}' to log in.")
-
 
 
 
