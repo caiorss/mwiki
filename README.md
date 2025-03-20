@@ -295,6 +295,19 @@ Restart MWiki container software.
 $ docker restart mwiki
 ```
 
+Change site name using the built-in CLI management tool.
+
+```sh
+$ docker exec -it mwiki python -m mwiki  manage --sitename=WNotes
+ [*] Site name changed to: WNotes
+```
+
+Change admin password.
+
+```sh
+$ docker exec -it mwiki python -m mwiki  manage --admin-password=somePassNewPassword
+```
+
 **STEP 5:** 
 
 Open MWiki in the web browser, in the port 8080 by copying and pasting the URL http://localhost:8000 and enter 'admin' in the username entry and the initial admin password in the password field. The initial admin password is provided in the previous command output. In this password is '0JAJ6UAMUA', which is a random generated string unique per MWiki installation.
