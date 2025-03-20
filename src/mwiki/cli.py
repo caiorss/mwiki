@@ -15,6 +15,8 @@ import mwiki.utils as utils
 from mwiki.server import make_app_server
 import mwiki.convert
 from . import render
+from .models import User, Settings
+from .app import db, app 
 
 
 ###  # Check whether the OS is a Unix-like operating system
@@ -240,7 +242,28 @@ def compile(path: Optional[str], file: Optional[str]):
     ## input("Type RETURN to exit")
     ## render.compile_folder(path)
 
-
+@cli1.command()
+@click.option("--admin-password", 
+                help = ( "Set admin password." )
+                )
+@click.option("--sitename", 
+                help = ( "Change site name" )
+                )
+def manage(admin_password = None, sitename = None):
+    """Manage MWiki settings, including accounts, passwords and etc."""
+    if admin_password is not None:
+        with app.app_context():
+            admin = User.get_user_by_username("admin")
+            admin.set_password(admin_password)
+            db.session.add(admin)
+            db.session.commit()
+            print(" [*] Password changed for admin. Ok.")
+    if sitename is not None:
+        with app.app_context():
+            settings = Settings.get_instance()
+            settings.sitename = sitename
+            settings.save()
+            print(f" [*] Site name changed to: {sitename}")
 
 @cli1.command()
 @click.option("-f", "--file", default = None, 

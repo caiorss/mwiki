@@ -1,5 +1,8 @@
 """Common constants shared by all modules."""
 
+APPNAME = "mwiki"
+
+
 ## Http Method GET 
 M_GET = "GET" 
 # Http Method Post
