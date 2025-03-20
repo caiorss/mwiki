@@ -199,12 +199,31 @@ $ cd mwiki
 $ docker build --tag mwiki-server .
 ```
 
-**STEP 3:** Run MWiki docker image. The $WIKIPATH environment variable is set to any directory containing markdown files, including Obsidian vaults.
+or run the Makefile (only supported on Unix-like systems with GNU Make)
 
 ```sh
-$ export WIKIPATH=/path/to/wiki/folder
+$ make docker 
+```
 
-$ docker run --rm -it  --network=host --volume="$WIKIPATH:/wiki" mwiki-server
+**STEP 3:** Run MWiki docker image. The $WIKIPATH environment variable is set to any directory containing markdown files, including Obsidian vaults.
+
+Create a .env file in the current directory containing the initial configuration of MWiki passed as environment variables. (Optional)
+
+
+File: .env
+
+```
+MWIKI_ADMIN_PASSWORD=u2afb5ck69
+MWIKI_SITENAME=WBook
+WIKI_PUBLIC=
+```
+
+Run docker passing the .env configuration file.
+
+```sh
+$ docker run --rm -it  --privileged \
+            --network=host --env-file=$PWD/.env \
+            --volume="$WIKIPATH:/wiki" mwiki-server
  [TRACE] Admin user created OK
  [INFO] Enter the username: admin and password: 'SN81N87JZ6' to log in.
 [2025-01-09 20:00:40 +0000] [1] [INFO] Starting gunicorn 23.0.0
@@ -231,6 +250,8 @@ Run as a daemon (background service detached from terminal):
 $ docker run --detach \
            --name=mwiki  \
            --network=host \
+           --env-file=$PWD/.env \
+           --privileged \
            --volume="$PWD/pages:/wiki" mwiki-server
 a6f0838f5159ff75aa25228fafdbd2f4fe1432c3359a9dc5d3ec84b10d801577
  
