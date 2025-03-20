@@ -23,11 +23,20 @@ install:
 	pipx install . --force
 
 
+## All Python files
+PYFILES := $(shell find ./src/ -name "*.py" -print)
+
 # Create the file requirements.txt, which is useful 
 # for building docker images.
-.PHONY: requirements
-requirements:
+requirements.txt:  pyproject.toml
 	poetry export --output requirements.txt
+
+docker-build.log: requirements.txt $(PYFILES)
+	docker build --tag mwiki-server . 2>&1 | tee ./docker-build.log 2>&1 | tee ./docker-build.log
+
+docker: docker-build.log 
+
+requirements: requirements.txt 
 
 .PHONY: clean 
 clean:
