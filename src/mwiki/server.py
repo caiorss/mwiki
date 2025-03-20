@@ -65,14 +65,22 @@ app.jinja_env.globals.update(current_user = current_user)
 with app.app_context():
     user = None 
     created = is_database_created()
+    ## Evironment variables which allows defining 
+    ## container configuration during initialization.
+    ADMIN_PASSWORD = os.getenv("MWIKI_ADMIN_PASSWORD")
+    SITE_NAME = os.getenv("MWIKI_SITENAME", "MWiki")
+    PUBLIC = os.getenv("MWIKI_PUBLIC", False) != False
     if not created: 
         print(" [TRACE] Admin user created OK")
         user = User( username = "admin", type = USER_MASTER_ADMIN )
         # Useful for installation with Docker
-        ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
         user.set_password(ADMIN_PASSWORD)
     db.create_all()
     conf = Settings.get_instance()
+    conf.sitename = SITE_NAME
+    conf.public = PUBLIC 
+    db.session.add(conf)
+    db.session.commit()
     if not created:
         db.session.add(user)
         db.session.commit()
