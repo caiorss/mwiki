@@ -1,3 +1,5 @@
+"""Login module - contains decoreators for login."""
+
 import flask
 from flask import Flask, session, request
 from . import utils

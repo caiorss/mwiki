@@ -1,4 +1,4 @@
-"""MWiki flask server (Python flask application)"""
+"""Http Routes"""
 import os
 import re
 import pathlib

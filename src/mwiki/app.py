@@ -1,3 +1,4 @@
+"""Flask app and database entry-point."""
 import os
 import re
 import pathlib
