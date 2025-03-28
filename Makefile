@@ -2,6 +2,12 @@
 run:
 	poetry run python -m mdwiki
 
+# Build Docker container image 
+docker: docker-build.log 
+
+# Build Podman container image
+podman: podman-build.log
+
 # Build virtual-env with same dependencies specified
 # in the Pipfile and the lockfile.
 .PHONY: poetry 
@@ -31,10 +37,13 @@ PYFILES := $(shell find ./src/ -name "*.py" -print)
 requirements.txt:  pyproject.toml
 	poetry export --output requirements.txt
 
-docker-build.log: requirements.txt $(PYFILES)
+docker-build.log: requirements.txt $(PYFILES) Dockerfile 
 	docker build --tag mwiki-server . 2>&1 | tee ./docker-build.log 2>&1 | tee ./docker-build.log
 
-docker: docker-build.log 
+podman-build.log: requirements.txt $(PYFILES) Dockerfile 
+	podman build -f Dockerfile --tag mwiki-server . 2>&1 | tee ./docker-build.log 2>&1 | tee ./podman-build.log
+
+
 
 requirements: requirements.txt 
 
