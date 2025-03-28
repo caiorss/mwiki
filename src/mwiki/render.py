@@ -714,7 +714,8 @@ class HtmlRenderer(AbstractAstRenderer):
                 label = f"PMID {temp}"
             elif href.startswith("patent:") or href.startswith("PATENT:"):
                 title = "Patent number"
-                temp = utils.escape_url(href.strip("patent:").strip("PATENT:"))
+                temp = href.strip("patent:").strip("PATENT:").replace(",", "")
+                temp = ("US" + temp) if temp[0].isdigit else temp
                 href = f"https://patents.google.com/patent/{temp}"
                 label = f"Patent {temp}"
             ## PEP - Python Enhancement Proposal 

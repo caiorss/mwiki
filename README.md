@@ -782,7 +782,7 @@ Rendering:
 + *Teaching population health: a competency map approach to education* 
   + <r-pmid:23524919>
 
- **Hyperlink to Patent**
+ **Hyperlink to Patents**
 
 Syntax:
 
@@ -796,14 +796,20 @@ OR
 Exaple:
 
 ```markdown
-+ Short Link: <patent:US9906369>
-+ Full Link: <r-patent:US9906369>
++ Short Link 1: <patent:US9906369>
++ Full Link 1:  <r-patent:US9906369>
++ Short Link 2: <patent:7,139,686>
++ Full Link 2:  <r-patent:7,139,686>
 ```
 
 Rendering: 
 
-+ Short Link: <patent:US9906369>
-+ Full Link: <r-patent:US9906369>
+
++ Short Link: [Patent USUS9906369](https://patents.google.com/patent/USUS9906369)
++ Full Link: https://patents.google.com/patent/USUS9906369
++ Short Link 2: [Patent US7139686](https://patents.google.com/patent/US7139686)
++ Full Link 2: https://patents.google.com/patent/US7139686
+
 
 
  **Hyperlink to RFC Standard**

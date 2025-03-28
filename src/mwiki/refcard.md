@@ -361,17 +361,21 @@ OR
 
 ```
 
-Exaple:
+Example:
 
 ```markdown
-+ Short Link: <patent:US9906369>
-+ Full Link: <r-patent:US9906369>
++ Short Link 1: <patent:US9906369>
++ Full Link 1:  <r-patent:US9906369>
++ Short Link 2: <patent:7,139,686>
++ Full Link 2:  <r-patent:7,139,686> 
 ```
 
 Rendering: 
 
 + Short Link: <patent:US9906369>
 + Full Link: <r-patent:US9906369>
++ Short Link 2: <patent:7,139,686>
++ Full Link 2:  <r-patent:7,139,686> 
 
 
  **Hyperlink to RFC Standard**
