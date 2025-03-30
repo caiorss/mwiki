@@ -10,8 +10,13 @@ a terminal:
 
 """
 import os
+import logging
+import flask
+import logging
 from mwiki.server import make_app_server
 from . import utils
+##from .app import app
+
 
 host = os.getenv("HOST", "0.0.0.0")
 port = utils.parse_int(os.getenv("PORT", "8000")) or 8000
@@ -29,6 +34,24 @@ app = make_app_server(  host     = host
                       , login    = _login 
                       , wikipath = wikipath 
                       )
+
+logger = logging.getLogger("waitress")
+logger.setLevel(logging.INFO)
+
+@app.after_request
+def log_request_response(response: flask.wrappers.Response):
+  """Request-response logger for waitress WSGI logger.
+  NOTE: This custom logger is necessary because waitress
+  does not log the network traffic by default.
+  """
+  ##print(" response = ", type(response))
+  request: flask.Request = flask.request
+  agent = request.headers.get("User-Agent") 
+  realAddr = request.headers.get("X-Real-IP") or ""
+  msg =  (  f" Method: {request.method} ; Path: {request.path} ;"
+            f"  Addr: {request.remote_addr} ; Real-Addr: {realAddr} ; User-Agent: {agent} ; Resp: {response.status} ")
+  logger.log(logging.INFO, msg) 
+  return response
 
 if __name__ == "__main__":
     app.run()
