@@ -18,6 +18,9 @@ import wtforms.validators as wtfv
 
 from typing import Any, Tuple, List, Optional
 import datetime
+import mimetypes
+import time
+from dateutil.parser import parse as parsedate
 import mwiki 
 from . import utils
 from . import mparser
@@ -318,10 +321,10 @@ def make_app_server(  host:        str
         if not is_gunicorn:
             resp = flask.send_from_directory(BASE_PATH, relpath)
         else:
-            import mimetypes
-            import time
-            # import datetime
-            from dateutil.parser import parse as parsedate
+            if os.getenv("MWIKI_X_ACCEL_REDIRECT"):
+                resp = flask.Response(response = None, status = 200)
+                resp.headers.add("X-Accel-Redirect", relpath)
+                return resp 
             ## Get file mime type
             mtype, _ = mimetypes.guess_type(match.name, strict = False)
             mtype = mtype or "application/octect-stream"
