@@ -47,7 +47,7 @@ def log_request_response(response: flask.wrappers.Response):
   ##print(" response = ", type(response))
   request: flask.Request = flask.request
   agent = request.headers.get("User-Agent") 
-  realAddr = request.headers.get("X-Real-IP") or ""
+  realAddr = request.headers.get("X-Forwarded-For") or request.headers.get("X-Real-IP") or ""
   msg =  (  f" Method: {request.method} ; Path: {request.path} ;"
             f"  Addr: {request.remote_addr} ; Real-Addr: {realAddr} ; User-Agent: {agent} ; Resp: {response.status} ")
   logger.log(logging.INFO, msg) 
