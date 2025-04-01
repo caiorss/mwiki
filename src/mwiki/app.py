@@ -43,7 +43,7 @@ app.config['SESSION_FILE_THRESHOLD'] = 1000  # Adjust the limit as needed
 # Configure Flask to use FileSystemSessionInterface with the custom options
 app.config["SESSION_PERMANENT"] = True
 
-MWIKI_REPOSITORY_PATH = os.getenv("MWIKI_REPOSITORY_PATH", os.getcwd())
+MWIKI_REPOSITORY_PATH = utils.expand_path(os.getenv("MWIKI_PATH", os.getcwd()))
 dbpath = os.path.join(MWIKI_REPOSITORY_PATH, "database.sqlite")
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{dbpath}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
