@@ -934,7 +934,7 @@ Rendering:
 
 :::{warning}
 
-Make sure that device is fully charged before installing the firmware. Otherwise, it the device may not be able to reboot.
+Make sure that device is fully charged before installing the firmware. Otherwise, the device may not be able to reboot.
 :::
 
 
