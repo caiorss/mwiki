@@ -11,6 +11,7 @@ RUN mkdir -p /app && mkdir -p /wiki
 COPY requirements.txt /app
 RUN pip3 install -r /app/requirements.txt  --progress-bar=off 
 COPY src/mwiki /app/mwiki
+COPY ./LICENSE.txt  /app/
 WORKDIR /wiki 
 ##RUN pip install --upgrade pip
 EXPOSE 9090

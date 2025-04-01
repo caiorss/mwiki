@@ -1,0 +1,57 @@
+# Instructions for running this docker-compose file:
+#----------------------------------------------------------------
+# STEP 1) Edit the ./config.env file and set the environment 
+#         variables.
+#
+# STEP 2) Launch this file using either podman or docker
+# 
+# Using podman-compose (Podman instead of docker)
+#  $ podman-compose --env-file=./config.env up -d  --force-recreate
+# 
+# Using docker-compose 
+#  $ podman-compose --env-file=./config.env up -d  --force-recreate
+#
+# STEP 3) View logs
+#  $ docker logs -f caddy
+#  $ podman logs -f caddy
+#  $ docker logs -f mwiki   
+#  $ podman logs -f mwiki
+#
+#--------------------------------------------------------------------#
+services:
+  mwiki-server:
+    container_name: mwiki
+    image: mwiki-server
+    restart: unless-stopped
+    build:  .
+    volumes:
+      - ${MWIKI_PATH}:/wiki
+    environment:
+      - MWIKI_ADMIN_PASSWORD=${MWIKI_ADMIN_PASSWORD} 
+      - MWIKI_SITENAME=${MWIKI_SITENAME} 
+      - MWIKI_PUBLIC=${MWIKI_PUBLIC}
+      - MWIKI_X_ACCEL_REDIRECT=true
+  # Reverse proxy 
+  caddy:
+    container_name: caddy
+    image: caddy:latest
+    restart: unless-stopped
+    ports:
+      - 80:80               
+      - 443:443             
+      - 127.0.0.1:2019:2019 
+    link:
+      - mwiki
+    volumes:
+      - caddy-config:/config
+      - caddy-data:/data
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./src/mwiki/static:/static
+      - ${MWIKI_PATH}:/wiki 
+    environment:
+      - MWIKI_WEBSITE=${MWIKI_WEBSITE} 
+
+# Volumes for data persistence
+volumes:
+  caddy-config:
+  caddy-data:
