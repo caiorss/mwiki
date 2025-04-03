@@ -23,7 +23,9 @@ services:
     container_name: mwiki
     image: mwiki-server
     restart: unless-stopped
-    build:  .
+    build:  
+      context: .
+      dockerfile: ./docker/mwiki.Dockerfile
     volumes:
       - ${MWIKI_PATH}:/wiki
     environment:
@@ -34,22 +36,28 @@ services:
   # Reverse proxy 
   caddy:
     container_name: caddy
-    image: caddy:latest
+    # image: caddy:latest
+    build:
+      context: . 
+      dockerfile: ./docker/Caddy.Dockerfile
     restart: unless-stopped
     ports:
       - 80:80               
       - 443:443             
       - 127.0.0.1:2019:2019 
-    link:
-      - mwiki
     volumes:
       - caddy-config:/config
       - caddy-data:/data
-      - ./Caddyfile:/etc/caddy/Caddyfile
+      #- ./root.crt:/etc/ssl/certs/root.crt 
+      - ./docker/Caddyfile.j2:/etc/Caddyfile.tpl
       - ./src/mwiki/static:/static
       - ${MWIKI_PATH}:/wiki 
     environment:
-      - MWIKI_WEBSITE=${MWIKI_WEBSITE} 
+      - MWIKI_WEBSITE=${MWIKI_WEBSITE}         # Domain where caddy runs 
+      - MWIKI_SERVER_ADDR=${MWIKI_SERVER_ADDR} # address of Python WSGI server 
+      - MWIKI_SERVER_PORT=${MWIKI_SERVER_PORT} # TCP port of Python WSGI server
+      - MWIKI_INTERNAL_CA=${MWIKI_INTERNAL_CA} # If set to non-null uses an internal CA
+      - MWIKI_ACME_CA_URL=${MWIKI_ACME_CA_URL} # URL of ACME service of a custom or internal certificate authority.
 
 # Volumes for data persistence
 volumes:
