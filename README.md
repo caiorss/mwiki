@@ -317,6 +317,111 @@ Open MWiki in the web browser, in the port 8080 by copying and pasting the URL h
 Open the settings page http://localhost:8000/admin and change the Wiki settings. Then go the URL http://localhost:8000/user and change the admin password. Note that user passwords are never stored in plaintext, they are always stored in hashed form for security reasons.
 
 
+## Installation via Docker-Compose or Podman-Compose 
+
+
+**STEP 1:** Clone the repository
+
+```sh 
+$ git clone https://github.com/caiorss/mwiki mwiki
+
+# Enter source code directory
+$ cd mwiki
+```
+
+**STEP 2:** Edit the config.env file.
+
+File: config.env
+
+```sh
+# MWiki configuration files 
+#----------------------------------#
+
+MWIKI_SERVER_ADDR=mwiki 
+MWIKI_SERVER_PORT=9090
+
+# Path to wiki folder, where *.md markdown files, images and other 
+# files will be stored.
+MWIKI_PATH=./sample-wiki
+
+# Password of main admin
+MWIKI_ADMIN_PASSWORD=mypasswd
+
+# Name of the Wiki (Name of the website)
+MWIKI_SITENAME=MyNoteBook
+
+# URL which the website is hosted or just domain name 
+MWIKI_WEBSITE=localhost sbox.ts 
+
+# Configure MWiki as a private Wiki. 
+# => Only logged in users can view wiki pages. 
+# MWIKI_PUBLIC=   
+
+# Configure MWiki  as a public Wiki.
+# => Anonymous users can view wiki pages, however only 
+# admin users can edit.
+MWIKI_PUBLIC=true
+
+# Server static files using Caddy or NGinx 
+MWIKI_X_ACCEL_REDIRECT=true
+
+#----------------------------------------------------##
+##      Less common Settings for certificate         ##
+#----------------------------------------------------##
+# They are not needed if the server is hosted in a machine
+# with static and public IP address. Those settings are only
+# required when hosting in internal networks (LANs).
+#
+MWIKI_INTERNAL_CA=
+MWIKI_ACME_CA_URL=
+```
+
+
+**STEP 3:** Run docker-compose or podman compose for the deployment.
+
+Deploy with docker-compose.
+
+```sh
+$ docker-compose --env-file=./config.env up -d 
+```
+
+Deploy with podman-compose.
+
+```sh
+$ podman-compose --env-file=./config.env up -d 
+```
+
+**STEP 4:** TLS/SSL Certificates
+
+If the MWiki is hosted in a machine with static and public IP address reacheable from anywhere on the internet and MWiki domain points to this IP address, Caddy will automatically obtain the TLS/SSL certificate from Let's Encrypt CA - Certificate authority. 
+
+If this application is hosted on local network or site-to-site VPN, such as tailscale and using Let's Encrypt CA is not possible, Caddy can be turned into a local CA - Certificate Authority by editing the config.env and changing 
+
+```
+MWIKI_INTERNAL_CA=true
+```
+
+This step creates an endpoint 
+
++ `https://<mwiki-website-domain>/root.crt`
+
+where the user can download the root CA certificate and install it on web browsers or phones. This root CA cerfiticate can be downloaded using curl. This procedure is useful for self-hosting MWiki on home labs.
+
+```sh
+$ curl -O -k --silent https://<mwiki-website-domain>/root.crt
+```
+
+See also:
+
++ *Set up Certificate Authorities (CAs) in Firefox*
+  + https://support.mozilla.org/en-US/kb/setting-certificate-authorities-firefox
++ *Installing a Root Certificate Authority in Firefox* 
+  + https://chewett.co.uk/blog/854/installing-root-certificate-authority-firefox/
++ *How to Add a Certificate on Android? Step by Step*
+  + https://www.airdroid.com/mdm/add-certificate-android/
+
+
+
 ## Development 
 
 **STEP 1:** Clone the repository
