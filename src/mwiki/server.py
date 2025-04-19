@@ -1,5 +1,6 @@
 """Http Routes"""
 import os
+import json
 import re
 import pathlib
 import secrets
@@ -251,6 +252,7 @@ def make_app_server(  host:        str
     latex_macros = utils.read_resource(mwiki, "macros.sty")
 
     base_path = pathlib.Path(BASE_PATH)
+    tags_cache_file = base_path.joinpath(".data/tags_cache.json")
 
     @app.route("/wiki/<path>")
     @check_login()
@@ -534,8 +536,22 @@ def make_app_server(  host:        str
                                        )
         return resp
 
+    @app.route("/tags")
+    @check_login()
+    def route_tags():
+        """URL endpoint /tags for browsing all wiki tags.
+        """
+        tags = []
+        print(" [TRACE] tags_cache_file = ", tags_cache_file)
+        if tags_cache_file.exists():
+            with open(tags_cache_file) as fd:
+                data = json.load(fd)
+                tags = data.get("tags") or []
+        resp = flask.render_template("tags.html", title = "Tags", tags = tags)
+        return resp 
+
     @app.route("/paste", methods = [M_GET, M_POST])
-    @check_login( required = True)
+    @check_login(required = True)
     def route_paste():
         """URL endpoint API /paste 
         for uploading images to the wiki by pasting images from the clipboard.

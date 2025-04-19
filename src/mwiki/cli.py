@@ -81,6 +81,7 @@ def debughook(etype, value, tb):
 def cli1():
     pass
 
+
 @cli1.command()
 @click.option("-h", "--host", default = "0.0.0.0", help="Host to be listened, default 0.0.0.0")
 @click.option("-p", "--port", default = 8080, help="TCP port to be listend, default 8080.")
@@ -178,7 +179,12 @@ def server(  host:       str
         _loginp = f"{_username},{_password}" if _username != "" else None
         os.environ["SERVER_SOFTWARE"] = "waitress"
         os.environ["WIKIPATH"] = _wikipath
+        os.environ["MWIKI_PATH"] = _wikipath
         pyexecutable = sys.executable
+        procWatcher =  subprocess.Popen([  pyexecutable
+                                      ,"-m" , "mwiki.watcher"
+                                      ]) 
+        ## print(" [TRACE] procWatcher = ", procWatcher.pid)
         proc = subprocess.Popen([  pyexecutable
                                  , "-m" , "waitress"
                                  , f"--port={port}"

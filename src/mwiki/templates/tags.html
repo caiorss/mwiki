@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+{% block toc  %}
+    {{ toc|safe }}
+{% endblock %}
+
+{% block content %}
+<ul>
+    {% for tag in tags %}
+        <li>
+            <a href="/pages?search=%23{{tag}}" class="link-internal">#{{tag}}</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
