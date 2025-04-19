@@ -37,11 +37,11 @@ PYFILES := $(shell find ./src/ -name "*.py" -print)
 requirements.txt:  pyproject.toml
 	poetry export --output requirements.txt
 
-docker-build.log: requirements.txt $(PYFILES) Dockerfile 
-	docker build --tag mwiki-server . 2>&1 | tee ./docker-build.log 2>&1 | tee ./docker-build.log
+docker-build.log: requirements.txt $(PYFILES) docker/mwiki.Dockerfile 
+	docker build -f docker/mwiki.Dockerfile --tag mwiki-server . 2>&1 | tee ./docker-build.log 2>&1 | tee ./docker-build.log
 
-podman-build.log: requirements.txt $(PYFILES) Dockerfile 
-	podman build -f Dockerfile --tag mwiki-server . 2>&1 | tee ./docker-build.log 2>&1 | tee ./podman-build.log
+podman-build.log: requirements.txt $(PYFILES) docker/mwiki.Dockerfile 
+	podman build -f docker/mwiki.Dockerfile --tag mwiki-server . 2>&1 | tee ./docker-build.log 2>&1 | tee ./podman-build.log
 
 
 
