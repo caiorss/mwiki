@@ -653,6 +653,25 @@ class HtmlRenderer(AbstractAstRenderer):
         return html
 
     def render_link(self, node: SyntaxTreeNode) -> str:
+        """Render markdown hyperlink.
+
+        Render the following syntax for markdown hyperlink:
+
+        [<LABEL>](<UR>)
+    
+        => Hyperlink to US patent US7139686
+          `<patent:7,139,686>`
+        
+        => Hyperlink to DOI (Document Object Indentifier)
+           `<doi:$DOI-IDENTIFIER>` 
+
+        => Hyperlink to IEFT RFC standard 
+           `<rfc:$RFC-NUMBER>`, example `<rfc:7221>`
+        
+        => Hyperlink to Common Vulnerability Exposures (CVE):
+           `<cve:$CVE-NUMBER-HERE>`
+
+        """
         label = "".join([ self.render(n) for n in node.children ])
         href =  node.attrs.get("href") or ""
         attrs = "" 
