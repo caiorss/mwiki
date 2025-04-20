@@ -35,28 +35,53 @@ session_folder = utils.project_cache_path(APPNAME, "session")
 utils.mkdir(session_folder)
 
 app = Flask(__name__) ##template_folder="templates")
-app.config['SESSION_TYPE'] = 'filesystem'
-app.config['SESSION_FILE_DIR'] = session_folder ## 'M:/code/flaskLoginTest/sessions'
-# Set the maximum number of stored sessions
-app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days = 30)
-app.config['SESSION_FILE_THRESHOLD'] = 1000  # Adjust the limit as needed
-# Configure Flask to use FileSystemSessionInterface with the custom options
-app.config["SESSION_PERMANENT"] = True
+# App.config['SESSION_TYPE'] = 'filesystem'
+# App.config['SESSION_FILE_DIR'] = session_folder ## 'M:/code/flaskLoginTest/sessions'
+
+app.config.update(  SESSION_SERVER_SIDE     = True  
+                  , SESSION_TYPE            = "sqlalchemy"
+                  , SESSION_COOKIE_NAME     ="mwiki"
+                  , SESSION_COOKIE_PATH     ='/'
+                  # Protect against XSS (Script Injection)
+                  , SESSION_COOKIE_HTTPONLY = True 
+                  # Cookies are only served over HTTPS, not HTTP 
+                  ##, SESSION_COOKIE_SECURE   = True 
+                  , SESSION_PERMANENT       = True 
+                  , SESSION_FILE_THRESHOLD = 1000  
+                  , PERMANENT_SESSION_LIFETIME = datetime.timedelta(days = 30)
+                 )
+
 
 MWIKI_REPOSITORY_PATH = utils.expand_path(os.getenv("MWIKI_PATH", os.getcwd()))
 dbpath = os.path.join(MWIKI_REPOSITORY_PATH, "database.sqlite")
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{dbpath}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SESSION_SQLALCHEMY_TABLE'] = 'sessions'
+app.config['SESSION_SQLALCHEMY'] = db
+
+## app.json = CustomJSONProvider(app)
+## app.json_provider_class = CustomJSONProvider(app)
+
 app.jinja_env.filters['encode_url'] = lambda u: urllib.parse.quote_plus(u) 
 app.jinja_env.globals.update(config_sitename = lambda:  Settings.get_instance().sitename)
 
 db.init_app(app)
+## session = flask_session.Session(app)
 
 def current_user():
     """Get user logged in to the server."""
-    user: User = session.get("user") or User( username = "anonymous"
-                                            , password = "dummy"
-                                            , type = USER_ANONYMOUS)
+    obj  = session.get("user") 
+    if obj is None or not isinstance(obj, dict) or  obj.get("__class") != "User": 
+        user = User(  username = "anonymous"
+                    , password = "dummy"
+                    , type = USER_ANONYMOUS)
+        return user 
+    user = User(  id = obj.get("id")
+                , username = obj.get("username")
+                , email = obj.get("email")
+                , type = obj.get("type")
+                , active = True 
+              )
     return user 
 
 app.jinja_env.globals.update(current_user = current_user)

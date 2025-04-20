@@ -61,9 +61,18 @@ class User(db.Model):
         ## print(" [TRACE] password = ", password)
         return out
 
-
     def __repr__(self):
         return f"User{{ id = {self.id} ; username = {self.username}  ; type = {self.type} }}"
+
+    def to_Dict(self):
+        obj = {
+              "__class":   "User"
+            , "id":        self.id
+            , "username":  self.username
+            , "email":     self.email
+            , "type":      self.type
+        }
+        return obj
 
     @classmethod
     def get_user_by_username(self, username: str) -> Optional['User']:

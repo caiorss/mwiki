@@ -102,7 +102,7 @@ def add_login(app: Flask, do_login: bool, username: str, password: str):
         if check_login_db(_username, _password): 
             do_login() 
             user = User.get_user_by_username(_username)
-            session["user"] = user 
+            session["user"] = user.to_Dict()
             return flask.redirect(path) 
         else:
             return flask.redirect(f"/login?path={path}")
