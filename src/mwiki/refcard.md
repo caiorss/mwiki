@@ -479,6 +479,35 @@ and is rendered to html as
 +  [CVE-2024-53104](https://www.cve.org/CVERecord?id=CVE-2024-53104) 
 
 
+
+**Hyperlink to Subreddit**
+
+Syntax:
+
+```
+<rd:/r/$NAME-OF-SUBREDDIT>
+
+or
+
+<reddit:/r/$NAME-OF-SUBREDDIT>
+```
+
+Example:
+
+```markdown
++ C++ Subreddit <rd:/r/cpp> 
++ <reddit:/r/smalltalk>
+```
+
+Rendering:
+
++ C++ Subreddit <rd:/r/cpp>
++ <reddit:/r/smalltalk>
+
+The hyperlink `<rd:/r/cpp>` is a hyperlink to 
+
++ https://old.reddit.com/r/cpp 
+
 ## Image 
 ### Internal Image 
 

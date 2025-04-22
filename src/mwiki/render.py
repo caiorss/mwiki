@@ -666,16 +666,17 @@ class HtmlRenderer(AbstractAstRenderer):
            `<doi:$DOI-IDENTIFIER>` 
 
         => Hyperlink to IEFT RFC standard 
-           `<rfc:$RFC-NUMBER>`, example `<rfc:7221>`
+           `<rfc:$RFC-NUMBER>`, example `<rfc:7221e`
         
         => Hyperlink to Common Vulnerability Exposures (CVE):
            `<cve:$CVE-NUMBER-HERE>`
 
         """
+        ## breakpoint()
         label = "".join([ self.render(n) for n in node.children ])
         href =  node.attrs.get("href") or ""
         attrs = "" 
-        ##breakpoint()
+        ## breakpoint()
         if href.startswith("#"):
             attrs = """ class="link-internal" """
         else:
@@ -757,6 +758,14 @@ class HtmlRenderer(AbstractAstRenderer):
                 temp = href[4:]
                 label = temp 
                 href = f"https://www.cve.org/CVERecord?id={temp}"
+            # Hyperlink to subreddit 
+            elif href.startswith("rd:") or href.startswith("reddit:"):
+                ## breakpoint()
+                temp = utils.strip_prefix("reddit:", href)
+                temp = utils.strip_prefix("rd:", temp)
+                label = temp 
+                title = f"Subreddit {temp}"
+                href = f"https://old.reddit.com" + temp
             label = href if fullLinkFlag else label
         title = node.attrs.get("title", title)
         title = f'title="{title}"' if title != "" else ""

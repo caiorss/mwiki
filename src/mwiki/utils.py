@@ -9,6 +9,14 @@ from pygments.formatters import HtmlFormatter
 import pygments.util
 from typing import IO, Any, List, Dict, Optional, Tuple 
 
+
+def strip_prefix(prefix: str, s: str):
+    """Strip prefix of string."""
+    out = s
+    if s.startswith(prefix):
+         out = s[len(prefix):]
+    return out
+
 def mkdir(path: str):
     """Create directory if it does not exist yet."""
     try:
