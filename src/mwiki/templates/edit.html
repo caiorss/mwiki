@@ -74,17 +74,17 @@
     <table class="vtoolbar-table">
         <tr>
             <td>
-                <button class="vtoolbar-button" onclick="save_document();">Save</button>
+                <button class="vtoolbar-button" onclick="editorSaveDocument();">Save</button>
             </td>
         </tr>
         <tr>
             <td>
-                <button class="vtoolbar-button" onclick="notImplemented();">Undo</button>
+                <button class="vtoolbar-button" onclick="editorUndo();">Undo</button>
             </td>
         </tr>
         <tr>
             <td>
-                <button class="vtoolbar-button" onclick="notImplemented();">Redo</button>
+                <button class="vtoolbar-button" onclick="editorRedo();">Redo</button>
             </td>
         </tr>
     </table>
@@ -177,6 +177,7 @@
     currentWikiPage = "{{page}}";
     console.trace(`Current Wiki page being edited ${currentWikiPage}`);
 </script>
+<!-- See file:  file://../static/editor.js -->
 <script src="/static/editor.js"></script>
 
 {% endblock %}

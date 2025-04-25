@@ -32,7 +32,17 @@ ace.config.loadModule("ace/keyboard/vim", function(m) {
     })
 })
 
-async function save_document()
+function editorRedo()
+{
+    editor.redo();
+}
+
+function editorUndo()
+{
+    editor.undo();
+}
+
+async function editorSaveDocument()
 {
     let code  = editor.getValue();
     // console.log("Current page ", page);
