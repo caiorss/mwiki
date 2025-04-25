@@ -10,7 +10,7 @@ This Python application is powered by Python Flask web framework and the extensi
 + Note: Mediawiki is the wiki engine software that powers Wikipedia.
 
 
-**Features Highlights**
+### Features Highlights
 
 File-based Wiki 
 
@@ -71,7 +71,75 @@ Features of the Wiki Markup Language
   + Warning Admonition 
   + Foldable Admonition   
 
-## GIF Animations 
+### Companion Software and Tools
+
+The following set of companion sotfware or apps are recommended for MWiki as they can provide additional features and improve usage.
+
+**Information Extraction**
+
++ *Obsidian Web Clipper* (Firefox Addon)*
+  + https://addons.mozilla.org/en-US/firefox/addon/web-clipper-obsidian
+  + Extension that lets users to save web pages in markdown format or turn selected parts of the web page into markdown. This tool can be used with MWiki for extracting information from web pages as MWiki markup language is compatible with Obsidian markdown. 
+
+**Translation and Text-to-speak**
+
++ *Speech Note - Flathub* \[Linux Flatpak APP\] (Offline "G00gl3 Translator")
+  + https://flathub.org/apps/net.mkiol.SpeechNote
+  + Brief: *Speech Note let you take, read and translate notes in multiple languages. It uses Speech to Text, Text to Speech and Machine Translation to do so. Text and voice processing take place entirely offline, locally on your computer, without using a network connection. Your privacy is always respected. No data is sent to the Internet.*
+
+
+**Screenshot Tools**
+
+Note: These tools allows taking screenshots of select part of the screen and pasting the screenshot image at the target application or MWiki editor by typing Ctrl + v.
+
+
+- *Flameshot*
+   + https://flameshot.org
+   + *Cross platform screenshot tool available for Microsoft Windows, Linux distributions and Apple's MacOSX.*
+- *Flameshot - Flatpak*  
+   + https://flathub.org/apps/org.flameshot.Flameshot
+   + *Ksnip is a Qt based cross-platform screenshot tool that provides many annotation features for your screenshots.*
+- *KSnip - Flathub*  (KDE/QT Flatpak App)
+   + https://flathub.org/apps/org.ksnip.ksnip
+- *Shutter Screenshot tool* \[BEST\]
+   + https://shutter-project.org
+   + => Note: Note available as AppImage or flatpak app. It is easier to install Shutter in Debian-based or Ubuntu-based Linux distributions.
+
+
+**Video Recorder**
+
++ *Peek - Flathub* (Screen Recorder - can create GIF animation or WebM and MP4 videos)
+  + https://flathub.org/apps/com.uploadedlobster.peek
+  + Brief: * Peek makes it easy to create short screencasts of a screen area. It was built for the specific use case of recording screen areas, e.g. for easily showing UI features of your own apps or for showing a bug in bug reports. With Peek you simply place the Peek window over the area you want to record and press "Record". Peek is optimized for generating animated GIFs, but you can also directly record to WebM or MP4 if you prefer.*
+
+**Container Orchestration Tools**
+
++ *Docker Compose*, Docker Company Official Docs
+  + https://docs.docker.com/compose/
++ *Podman Compose*, Red Hat 
+  + https://docs.podman.io/en/latest/markdown/podman-compose.1.html
+
+
+**Site-To-Site Mesh VPN**
+
+A site-to-site mesh VPN such as **tailscale** can be helpful for self hosting this application in a private local network and accessing it from anywhere around the world without exposing any TCP or UDP ports to the internet.
+
++ *Tailscale* - Official Website
+  + https://tailscale.com
+  + Note: Only some tailscale clients are open source, the default tailscale server provided as SAAS (Software-As-Service) is not open source, although there exists the **Headscale** open source implementation of tailscale server.
++ *Tailscale Client Download*
+  + https://tailscale.com/download
++ *Tailscale Client for Android on F-Droid App Store* (App Store for Open Source Android apps compiled with reproducible build)
+  + https://f-droid.org/packages/com.tailscale.ipn
++ *Headscale Server* (Open source, suitable for homelabs and self-hosting)
+  + https://headscale.net/stable
++ *Headscale Server - Github Repository* (Written in GO - Golang)
+  + https://github.com/juanfont/headscale
+
+
+## Demonstration 
+
+### GIF Animations 
 
 **Usage GIF animation**
 
@@ -81,7 +149,7 @@ Features of the Wiki Markup Language
 
 ![](images/mwiki-animation-usage2.gif)
 
-## Screenshots
+### Screenshots
 
 **Wiki Screenshot 1**
 
@@ -156,7 +224,9 @@ This wiki provides a reference card popup windown that provides examples of the 
 ![](images/refcard3.png)
 
 
-## Installation using Pipx
+## Installation 
+
+### Installation using Pipx
 
 **STEP 1:** Pip and Python are assumed to be already installed.
 
@@ -187,7 +257,7 @@ Install Mwiki using  Pipx and a different version of Python. This command is use
 $ pipx install --python=3.9 git+https://github.com/caiorss/mwiki 
 ```
 
-## Installation using Docker 
+### Installation using Docker 
 
 Docker is the most realibable way to install Python application since it is reproducible and helps to avoid the Python and Pip dependency hell (also knowns as "works-on-machine problem"). 
 
@@ -324,7 +394,7 @@ Open MWiki in the web browser, in the port 8080 by copying and pasting the URL h
 Open the settings page http://localhost:8000/admin and change the Wiki settings. Then go the URL http://localhost:8000/user and change the admin password. Note that user passwords are never stored in plaintext, they are always stored in hashed form for security reasons.
 
 
-## Installation via Docker-Compose or Podman-Compose 
+### Installation via Docker-Compose or Podman-Compose 
 
 
 **STEP 1:** Clone the repository
