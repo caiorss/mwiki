@@ -44,48 +44,107 @@
     }
 }
 
+.div-vertical-toolbar {
+    display:     inline-block;
+    margin-left: 3rem;
+    padding:     0.6rem;
+    height:      100vh;
+    width: fit-content;
+}
 
+.vtoolbar-button  {
+    background-color: whitesmoke;
+    text-align: left;
+    width:    14rem; 
+    margin: 0.1rem;
+    padding: 0.28em;
+}
 
+.vtoolbar-table {
+    background-color: unset;
+}
 
 </style>
 {% endblock %}
 
 {% block toc  %}
-{% endblock %}
+<div class="div-vertical-toolbar">
+    <h2>Editor Toolbar</h2>
+    <h3>Actions</h3>
+    <table class="vtoolbar-table">
+        <tr>
+            <td>
+                <button class="vtoolbar-button" onclick="save_document();">Save</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="vtoolbar-button" onclick="notImplemented();">Undo</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="vtoolbar-button" onclick="notImplemented();">Redo</button>
+            </td>
+        </tr>
+    </table>
 
-{% block content %}
-<strong>Editing page:</strong> {{page}}
-<button onclick="save_document();">Save</button>
-<br>Status: <label id="status-info">Not saved</label>
-<details>
-    <summary>Tools</summary>
-    <button onclick="notImplemented();">Undo</button>
-    <button onclick="notImplemented();">Redo</button>
-    <button onclick="insertLinkToPage();">Insert link to page</button>
-    <button>Highlight selected code</button>
-    <button>Insert code block</button>
-    <button onclick="editorInsertLatexEquation();">Insert LaTeX Equation</button>
-    <button onclick="editorInsertLatexEquationNonNumered();">Insert Non Numbered Latex Equation</button>
-    <button onclick="editorInsertTheorem();">Insert Theorem</button>
-    <button onclick="editorInsertDetails();">Insert Foldable Details</button>
+    <h3>Insert</h3>
+    <table class="vtoolbar-table">
+        <tr>
+            <td>
+                <button class="vtoolbar-button" onclick="insertLinkToPage();">Link to page</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="vtoolbar-button" onclick="editorInsertLatexEquation();">LaTeX Equation</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="vtoolbar-button" onclick="editorInsertLatexEquationNonNumered();">Non Numbered Latex
+                    Equation</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="vtoolbar-button" onclick="editorInsertTheorem();">Theorem</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="vtoolbar-button" onclick="editorInsertDetails();">Details</button>
+            </td>
+        </tr>
+    </table>
 
+    <h3>Clipboard Options</h3>
     <div>
         <p>Select the clipboard pasting mode:</p>
         <div>
             <input type="radio" name="clipboardChoice" value="plain" id="clipboard-plain-text" checked="checked">
-            <label for="clipboard-plain-text" >Plain text</label>
+            <label for="clipboard-plain-text">Plain text</label>
         </div>
         <div>
             <input type="radio" name="clipboardChoice" value="markdown" id="clipboard-markdown">
-            <label for="clipboard-markdown" >MWiki Markdown</label>
+            <label for="clipboard-markdown">MWiki Markdown</label>
         </div>
         <div>
             <input type="radio" name="clipboardChoice" value="html" id="clipboard-raw-html">
-            <label for="clipboard-raw-html" >Raw html</label>
+            <label for="clipboard-raw-html">Raw html</label>
         </div>
     </div>
 
-</details>
+    <h3>Information</h3>
+    <strong>Status:</strong> <label id="status-info">Document not saved</label>
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+
 <!-- Placement point for Ace Text Editor -->
 <div id="editor">{{content}} </div>
 
