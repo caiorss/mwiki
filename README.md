@@ -71,8 +71,15 @@ Features of the Wiki Markup Language
   + Warning Admonition 
   + Foldable Admonition   
 
+## GIF Animations 
 
+**Usage GIF animation**
 
+![](images/mwiki-animation-usage1.gif)
+
+**Copying and pasting images**
+
+![](images/mwiki-animation-usage2.gif)
 
 ## Screenshots
 
