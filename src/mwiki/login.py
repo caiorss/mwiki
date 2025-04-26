@@ -96,7 +96,7 @@ def add_login(app: Flask, do_login: bool, username: str, password: str):
         assert request.method == M_POST
         _username = flask.request.form.get("username") or ""
         _password = flask.request.form.get("password") or ""
-        print(f" [TRACE] _username = {_username} ; _password = {_password}")
+        ### print(f" [TRACE] _username = {_username} ; _password = {_password}")
         ##if _username == username and _password == password:
         ## breakpoint()
         if check_login_db(_username, _password): 
