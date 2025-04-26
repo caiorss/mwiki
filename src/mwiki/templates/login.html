@@ -5,13 +5,16 @@
         <title>User Login Screen</title>
         <title>User Login Screen</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--  
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        -->
     </head>
     <body>
         <div class="login">
             <h1 class="title is-1">Login</h1>
             <form action="/login?path={{path}}" method="post" class="box">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <div class="field" >
                     <label for="username">User name</label>
                     <br>

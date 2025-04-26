@@ -13,6 +13,7 @@
 
 <div class="form-wrapper">
     <form method="POST" action="/settings">
+        {{ form.csrf_token }}
         <fieldset class="form-field">
             {{ form.sitename.label }}
             {{ form.sitename}}
@@ -26,7 +27,6 @@
             {{ form.public}}
             {{ form.public.description }}
         </fieldset>
-    
         {{ form.submit }}
     </form>
 </div>

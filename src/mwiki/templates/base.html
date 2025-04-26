@@ -105,6 +105,8 @@
      -->
     <script src="/static/viz/node_modules/@viz-js/viz/lib/viz-standalone.js"></script>
     <script>
+        const CSRF_TOKEN = "{{ csrf_token() }}";
+
         document.addEventListener("DOMContentLoaded", (event) => {
             // Select graphviz code blocks 
             let lst = document.querySelectorAll(".graphviz-dot");

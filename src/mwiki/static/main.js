@@ -220,7 +220,9 @@ async function httpRequest(method, url, body)
 
     let headers =  {  'Content-Type':     'application/json'
                     , 'X-Requested-With': 'XMLHttpRequest'
-                   // , 'X-CSRFToken': crfs_token
+                    // Defined in based.html template as 
+                    //  const CSRF_TOKEN = "{{ csrf_token() }}";
+                    , 'X-CSRFToken':       CSRF_TOKEN
                     };
     const res = await fetch(url, { "method": method
                                     , "headers": headers 

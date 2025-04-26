@@ -38,6 +38,7 @@
             <div>
                 <input type="submit" class="style-form-button" name="submit-yes" value="YES" />
                 <input type="submit" class="style-form-button" name="submit-no"  value="NO" />
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             </div>
         </fieldset>
     </form>

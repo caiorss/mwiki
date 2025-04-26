@@ -13,6 +13,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 import flask_session
 import flask_wtf as fwt 
+from flask_wtf.csrf import CSRFProtect
 import wtforms as wt 
 import wtforms.validators as wtfv 
 
@@ -65,6 +66,8 @@ app.config['SESSION_SQLALCHEMY'] = db
 app.jinja_env.filters['encode_url'] = lambda u: urllib.parse.quote_plus(u) 
 app.jinja_env.globals.update(config_sitename = lambda:  Settings.get_instance().sitename)
 
+csrf = CSRFProtect(app)
+csrf.init_app(app)
 db.init_app(app)
 ## session = flask_session.Session(app)
 
