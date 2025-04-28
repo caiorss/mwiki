@@ -64,6 +64,16 @@
     --screen-type: "desktop";
     --link-external-color: blue; /* hsl(0, 100%, 33%); */
     --link-internal-color: blue;
+
+    --font-size-h1:  1.800rem;
+    --font-size-h2:  1.350rem;
+    --font-size-h3:  1.125rem;
+    --font-size-h4:  1.000rem;
+    --font-size-h5:  0.875rem;
+    --font-size-h6:  0.750rem;
+    --font-size-text: 0.720rem;
+    --font-size-code: 0.700rem;
+    --font-size-sidebar: 0.850rem;
 }
 
 body {
@@ -74,15 +84,15 @@ body {
 }
 
 h1 { 
-    font-size: 30pt;
+    font-size: var(--font-size-h1);
 }
 
 main h2 {
-    font-size: 25pt;
+    font-size: var(--font-size-h2) ;
 }
 
 main h3 {
-    font-size: 20pt;
+    font-size: var(--font-size-h3);
 }
 
 
@@ -202,7 +212,7 @@ img.inline-math:hover {
 
 
 body {
-    font-size: 14px;
+    font-size:      0.60rem;
     letter-spacing: 0.2px;
     text-rendering: optimizeLegibility;
 
@@ -241,6 +251,7 @@ dd {
 
 .sidebar {
     background-color: var(--bg-sidebar); 
+    font-size: var(--font-size-sidebar);
     left: 0px;
     top: 0px;
     bottom: 0px;
@@ -353,7 +364,7 @@ blockquote p {
 
 
 table {
-    background-color: #FFFFE0;
+    /* background-color: #fffebc; */
     margin-bottom: 20px;
 }
 
@@ -746,7 +757,7 @@ pre {
     margin-top: 8pt     !important;
     margin-bottom: 10px  !important;
     font-family: "IBM Plex Mono" !important;
-    font-size: 10pt;
+    font-size:  var(--font-size-code);
     line-height: initial;
     overflow-x: auto !important;
     overflow-y: auto !important;
@@ -755,7 +766,7 @@ pre {
 
 code {
     font-family: "IBM Plex Mono" !important;
-    font-size: 10pt;
+    font-size: var(--font-size-code);
 }
 
 .highlight {
