@@ -174,6 +174,7 @@ class WikiPage():
         html = flask.render_template(  "content.html"
                                              , title   = self._title 
                                              , page    = self._title
+                                             , pagename = self._title 
                                              , content = content
                                              , toc     = toc
                                              , latex_macros = latex_macros)

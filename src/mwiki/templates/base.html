@@ -214,6 +214,9 @@
         </header>
 
         <main class="content">
+            {% if pagename %}
+            <a class="link-edit" title="Edit page {{title}}" href="/edit/{{page}}">[E]</a>
+            {% endif %}
             <h1 class="document-heading">{{title}}</h1>
             <p class="hidden-mathjax-macros" style="display: none;">
                 $$
