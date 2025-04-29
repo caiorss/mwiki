@@ -37,7 +37,7 @@ TPLFILES := $(shell find ./src/ -name "*.html" -print)
 # Create the file requirements.txt, which is useful 
 # for building docker images.
 requirements.txt:  pyproject.toml
-	poetry export --output requirements.txt
+	uv export --format requirements-txt | sed -s 's/-e .//' > requirements.txt
 
 docker-build.log: requirements.txt $(PYFILES) $(TPLFILES) docker/mwiki.Dockerfile 
 	docker build -f docker/mwiki.Dockerfile --tag mwiki-server . 2>&1 | tee ./docker-build.log 2>&1 | tee ./docker-build.log
