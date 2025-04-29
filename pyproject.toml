@@ -27,6 +27,7 @@ dependencies = [
         , "waitress"
         , "watchdog"
         #, "gurnicorn"
+        , "Pillow"
 ]
 
 
@@ -83,6 +84,7 @@ python-dateutil = "*"
 # WSGI Server alternative to Gunicorn
 waitress = "^3.0.2"
 watchdog = "*"
+Pillow = "*"
 
 [build-system]
 requires = ["poetry-core"]

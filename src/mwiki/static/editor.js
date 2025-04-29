@@ -173,7 +173,7 @@ async function pasteImage(event) {
       fr.readAsDataURL(blob);
       fr.onload = async (event) => {
         let timestamp = new Date().valueOf();
-        let fileName = `pasted-image-${timestamp}.png`
+        let fileName = `pasted-image-${timestamp}.jpg`
         let payload = {
                 fileName: fileName
               , data: event.target.result

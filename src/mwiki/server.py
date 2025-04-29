@@ -1,4 +1,5 @@
 """Http Routes"""
+import io
 import os
 import json
 import re
@@ -11,7 +12,9 @@ import flask
 import base64
 from flask import Flask, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
-
+# Python Pillow module for image manipulation (PIL)
+import PIL 
+from PIL import Image
 import flask_session
 import flask_wtf as fwt 
 import wtforms as wt 
@@ -577,13 +580,18 @@ def make_app_server(  host:        str
         if len(b64data_) != 2 or fileName == "":
             flask.abort(STATUS_CODE_400_BAD_REQUEST)
         blob: bytes = base64.b64decode(b64data_[1])
+        png_image = Image.open(io.BytesIO(blob))
+        jpeg_image = png_image.convert('RGB')
         ### breakpoint()
         image_path = pathlib.Path(wikipath).joinpath("pasted")
         utils.mkdir(str(image_path))
         path = image_path.joinpath(fileName)
         if path.exists():
             flask.abort(STATUS_CODE_400_BAD_REQUEST)
-        path.write_bytes(blob)
+        ## path.write_bytes(blob)
+        path_ = str(path)
+        ### print(" [TRACE] path_ = ", path_)
+        jpeg_image.save(path_, "JPEG")
         response = flask.jsonify({"error": False, "status": "ok"})
         return response 
 
