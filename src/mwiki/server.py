@@ -304,6 +304,10 @@ def make_app_server(  host:        str
         if not match:
             flask.abort(404)
         relpath = match.relative_to(base_path)
+        relpath_ = str(relpath)
+        # DO NOT server the sqlite database or the .data and other hidden directories
+        if relpath_ == "database.sqlite" or relpath_.startswith(".data") or relpath_.startswith("."):
+            flask.abort(STATUS_CODE_404_NOT_FOUND)
         ## print(f" [TRACE] relpath = {path} ; match = {match}")
         resp = None
         ###  Render org-mode file 
