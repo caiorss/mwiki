@@ -175,7 +175,11 @@
                  <a class="sidebar-toggle-button" href="/tags" title="Browse pages using tags.">Tags</a>
                  <a class="sidebar-toggle-button" href="#" id="btn-create-note" title="Create new page or note.">New</a>
                  <a class="sidebar-toggle-button" href="#" onclick="showRefcard();" id="btn-show-refcard" title="Show Reference Card.">Refcard</a>
+                 {% if  current_user().is_authenticated()  %}
                  <a class="sidebar-toggle-button" href="/logoff?path={{request.path|encode_url}}">Log off</a>
+                 {% else %}
+                 <a class="sidebar-toggle-button" href="/login?path={{request.path|encode_url}}">Log in</a>
+                 {% endif %}
                  {% if  current_user().is_admin() %}
                  <a class="sidebar-toggle-button" href="/settings">Wiki Settings</a>
                  <a class="sidebar-toggle-button" href="/account/new">New Account</a>
