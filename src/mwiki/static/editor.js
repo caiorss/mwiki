@@ -42,6 +42,19 @@ function editorUndo()
     editor.undo();
 }
 
+/** Redirect current page to a given URL */
+function redirectUrl(url) { document.location.href = url; }
+
+
+/** View document rendered html. */
+function editorViewDocument()
+{
+    const urlParams = new URLSearchParams(window.location.search);
+    const anchor    = urlParams.get('anchor');
+    let url = `/wiki/${currentWikiPage}#${anchor}`
+    redirectUrl(url);
+}
+
 async function editorSaveDocument()
 {
     let code  = editor.getValue();
@@ -60,17 +73,25 @@ async function editorSaveDocument()
     console.log(" [RESULT] of saving operation = ", out)
     let status = out["status"];
     let statusbar = document.querySelector("#status-info");
+
+    let currentdate = new Date(); 
+    let datetime = currentdate.getDate() + "/"
+            + (currentdate.getMonth()+1)  + "/" 
+            + currentdate.getFullYear() + " @ "  
+            + currentdate.getHours() + ":"  
+            + currentdate.getMinutes() + ":" 
+            + currentdate.getSeconds();
+
     if(status == "ok"){
-        statusbar.textContent = "Document saved ok.";
         // Note:  currentWikipage is global variable defined in edit.html template.
         let url = `/wiki/${currentWikiPage}#${anchor}`
         // Redirect to corresponding wiki page
         // and heading 
-        document.location.href= url;
+        /// document.location.href = url;
+        statusbar.textContent = `Saved at ${datetime}.`
     } else {
         console.log("Status Error = ", out);
-        statusbar.textContent = "Failed to save document."
-    }
+        statusbar.textContent = `Failed to reach the server at ${datetime}.`    }
 }
 
 
