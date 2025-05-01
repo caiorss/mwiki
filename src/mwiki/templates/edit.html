@@ -79,7 +79,7 @@
     <table class="vtoolbar-table">
         <tr>
             <td>
-                <button class="vtoolbar-button" onclick="editorViewDocument();" title="Switch to view mode and exit editing mode.">View</button>
+                <button class="vtoolbar-button" onclick="editorViewDocument();" title="Switch to document view mode and exit editing mode.">View</button>
             </td>
         </tr>
         <tr>
@@ -89,12 +89,12 @@
         </tr>
         <tr>
             <td>
-                <button class="vtoolbar-button" onclick="editorUndo();">Undo</button>
+                <button class="vtoolbar-button" onclick="editorUndo();" title="Undo changes.">Undo</button>
             </td>
         </tr>
         <tr>
             <td>
-                <button class="vtoolbar-button" onclick="editorRedo();">Redo</button>
+                <button class="vtoolbar-button" onclick="editorRedo();" title="Redo changes.">Redo</button>
             </td>
         </tr>
     </table>
@@ -103,28 +103,30 @@
     <table class="vtoolbar-table">
         <tr>
             <td>
-                <button class="vtoolbar-button" onclick="insertLinkToPage();">Link to page</button>
+                <button class="vtoolbar-button" onclick="insertLinkToPage();" 
+                        title="Insert hyperlink to existing wiki page at current cursor position.">Link to page</button>
             </td>
         </tr>
         <tr>
             <td>
-                <button class="vtoolbar-button" onclick="editorInsertLatexEquation();">LaTeX Equation</button>
+                <button class="vtoolbar-button" onclick="editorInsertLatexEquation();" 
+                        title="Insert LaTeX equation">LaTeX Equation</button>
             </td>
         </tr>
         <tr>
             <td>
-                <button class="vtoolbar-button" onclick="editorInsertLatexEquationNonNumered();">Non Numbered Latex
-                    Equation</button>
+                <button class="vtoolbar-button" onclick="editorInsertLatexEquationNonNumered();" 
+                        title="Insert non numbered LaTeX equation">Non Numbered Latex Equation</button>
             </td>
         </tr>
         <tr>
             <td>
-                <button class="vtoolbar-button" onclick="editorInsertTheorem();">Theorem</button>
+                <button class="vtoolbar-button" onclick="editorInsertTheorem();" title="Insert theorem box.">Theorem</button>
             </td>
         </tr>
         <tr>
             <td>
-                <button class="vtoolbar-button" onclick="editorInsertDetails();">Details</button>
+                <button class="vtoolbar-button" onclick="editorInsertDetails();" title="Insert foldable details box.">Details</button>
             </td>
         </tr>
     </table>
