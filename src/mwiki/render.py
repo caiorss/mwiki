@@ -5,6 +5,7 @@ import yaml                     # Python3 stdlib Yaml Parser
 import pathlib
 from typing import Optional
 from markdown_it.tree import SyntaxTreeNode
+import urllib.parse
 import os 
 import tempfile
 import subprocess
@@ -12,6 +13,32 @@ from . import utils
 from . import mparser
 
 _STOP_SENTINEL = "{{STOP}}"
+
+
+def get_yoututbe_video_id(video_url_or_id: str) -> str:
+    """Get video ID of a youtube video URL. 
+    The input argument can either be a video URL or video ID.
+
+     Example: 
+
+    ```python
+    >>> get_yoututbe_video_id("https://m.youtube.com/watch?v=T95k9m5zcX4&pp=0gcJCdgAo7VqN5\
+tD")
+'T95k9m5zcX4'
+
+    ```
+    """
+    url = video_url_or_id
+    video_id = ""
+    if not url.startswith('https://'):
+        video_id = url
+    else:
+        parsed = urllib.parse.urlparse(url)
+        query = urllib.parse.parse_qs(parsed.query)
+        x = query.get('v') 
+        video_id = "" if x is None or not isinstance(x, list) \
+            or len(x) == 0 else x[0]
+    return video_id
 
 class TempDirectory:
 
@@ -845,6 +872,12 @@ class HtmlRenderer(AbstractAstRenderer):
         elif role.startswith("color") or role in ["blue", "red", "orange", "gray", "green"]:
             color = role[len("color:"):] if role.startswith("color:") else role
             html = f"""<span class="myst-color-role" style="color:{color};">{content}</span>"""
+        elif role == "youtube" or role == "yt":
+            video_id = get_yoututbe_video_id(content)
+            html = """ <iframe class="youtube-player" 
+                        src="https://www.youtube-nocookie.com/embed/%s?enablejsapi=1" > 
+                      </iframe> 
+                   """ %  video_id
         else:
             html = "{%s}`%s`" % (role, content)
         return html
@@ -1255,8 +1288,8 @@ _latex_template = r"""
 \usepackage{unicode-math}
 
  %% --- Begin Fonts Section --------%%
-\setmainfont[Ligatures=TeX]{TeX Gyre Pagella}
-\setmathfont{TeX Gyre Pagella Math}
+% \setmainfont[Ligatures=TeX]{TeX Gyre Pagella}
+% \setmathfont{TeX Gyre Pagella Math}
 
  %% --- Macros ----------%%
 
@@ -1459,8 +1492,10 @@ def _latex_to_html2(eqtext, inline = False, embed = False):
     return html 
 
 
+RENDER_MATH_SVG = True 
+
 def node_to_html(page_name: str, node: SyntaxTreeNode, base_path: str):
-    __html_render = HtmlRenderer(page_name = page_name, render_math_svg = False, base_path = base_path)
+    __html_render = HtmlRenderer(page_name = page_name, render_math_svg = True, base_path = base_path)
     html = __html_render.render(node)
     return html
 

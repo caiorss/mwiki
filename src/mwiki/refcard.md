@@ -1224,6 +1224,27 @@ Rendering:
 
 + The 7{sup}`th` element.
 
+### Embed Youtube Video 
+
+Embed Youtube video given its ID (Unique Identifier) or URL.
+
+Syntax: 
+
+```
+{youtube}`<VIDEO-URL-OR-ID>`
+```
+
+Example: Embed video [3 Hours of Most Common Logical Fallacies to Fall Asleep To](https://www.youtube.com/watch?v=bNE4uBMsnP0&t=30s)
+
+```
+{youtube}`https://www.youtube.com/watch?v=bNE4uBMsnP0`
+
+or
+
+{youtube}`bNE4uBMsnP0`
+```
+
+
 ## Further Reading 
 
 + https://mystmd.org/guide/admonitions

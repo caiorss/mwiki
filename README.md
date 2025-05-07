@@ -1792,7 +1792,7 @@ Syntax:
 {rolename}`text content here`
 ```
 
-### Underline text 
+#### Underline text 
 
 Makes a any text underline.
 
@@ -1861,6 +1861,26 @@ Superscript Roles:
 Rendering:
 
 + The 7{sup}`th` element.
+
+#### Embed Youtube Youtube Video
+
+Embed Youtube video given its ID (Unique Identifier) or URL.
+
+Syntax: 
+
+```
+{youtube}`<VIDEO-URL-OR-ID>`
+```
+
+Example: Embed video [3 Hours of Most Common Logical Fallacies to Fall Asleep To](https://www.youtube.com/watch?v=bNE4uBMsnP0&t=30s)
+
+```
+{youtube}`https://www.youtube.com/watch?v=bNE4uBMsnP0`
+
+or
+
+{youtube}`bNE4uBMsnP0`
+```
 
 
 ### Frontmatter (Page Metadata)
