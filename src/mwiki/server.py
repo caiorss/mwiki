@@ -330,13 +330,15 @@ def make_app_server(  host:        str
         if not is_gunicorn:
             resp = flask.send_from_directory(BASE_PATH, relpath)
         else:
-            if os.getenv("MWIKI_X_ACCEL_REDIRECT"):
-                resp = flask.Response(response = None, status = 200)
-                resp.headers.add("X-Accel-Redirect", relpath)
-                return resp 
             ## Get file mime type
             mtype, _ = mimetypes.guess_type(match.name, strict = False)
             mtype = mtype or "application/octect-stream"
+            ## breakpoint()
+            if os.getenv("MWIKI_X_ACCEL_REDIRECT"):
+                resp = flask.Response(response = None, status = 200)
+                resp.headers.add("X-Accel-Redirect", relpath)
+                resp.headers.add("Content-Type", mtype)
+                return resp 
             ## Get last modified time (formatted as string)
             pattern  = "%a, %d %b %Y %H:%M:%S %Z"
             last_modfied_timestamp = match.stat().st_mtime
@@ -356,6 +358,7 @@ def make_app_server(  host:        str
             ## resp.headers.add("Cache-Control", "max-age")  
             # Disable cache 
             ## resp.headers.add("Cache-Control", "no-cache")  
+            resp.headers.add("Content-Type", mtype)
             resp.headers.add("Content-Length",       match.stat().st_size)
             resp.headers.add("Last-Modified",        last_modified)
             resp.headers.add("vary",                 "Accept-Enconding")
