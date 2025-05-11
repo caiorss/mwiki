@@ -33,8 +33,11 @@ install:
 PYFILES := $(shell find ./src/ -name "*.py" -print)
 ## All template files
 TPLFILES := $(shell find ./src/ -name "*.html" -print)
+## Javascript files
+JSFILES := $(shell find ./src/ -name "*.js" -print)
 ## Docker config files
 DOCKER_FILES := $(shell find ./docker -type f -print)
+SOURCES := $(PYFILES) $(TPLFILES) $(JSFILES) $(DOCKER_FILES)
 
 
 # Create the file requirements.txt, which is useful 
@@ -42,10 +45,10 @@ DOCKER_FILES := $(shell find ./docker -type f -print)
 requirements.txt:  pyproject.toml
 	uv export --format requirements-txt | sed -s 's/-e .//' > requirements.txt
 
-docker-build.log: requirements.txt $(PYFILES) $(TPLFILES) $(DOCKER_FILES) docker/mwiki.Dockerfile 
+docker-build.log: requirements.txt  $(SOURCES)
 	docker build -f docker/mwiki.Dockerfile --tag mwiki-server . 2>&1 | tee ./docker-build.log 2>&1 | tee ./docker-build.log
 
-podman-build.log: requirements.txt $(PYFILES) $(TPLFILES) $(DOCKER_FILES) docker/mwiki.Dockerfile 
+podman-build.log: requirements.txt $(SOURCES)
 	podman build -f docker/mwiki.Dockerfile --tag mwiki-server . 2>&1 | tee ./docker-build.log 2>&1 | tee ./podman-build.log
 
 requirements: requirements.txt 
