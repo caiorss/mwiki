@@ -207,6 +207,8 @@ async function pasteImage(event) {
         let out = await http_post("/paste", payload);
         console.log(" Output = ", out);
         editorInsertTextArCursor(`![[${fileName}]]`);
+        // Automatically save document after pasting any image.
+        editorSaveDocument();
       };
       // let b64blob =  URL.createObjectURL(blob);
       // console.log("blob = ", b64blob);
