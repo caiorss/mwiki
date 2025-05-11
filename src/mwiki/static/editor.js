@@ -28,7 +28,7 @@ ace.config.loadModule("ace/keyboard/vim", function(m) {
     var VimApi = require("ace/keyboard/vim").CodeMirror.Vim
     VimApi.defineEx("write", "w", function(cm, input) {
         // cm.ace.execCommand("save")
-        save_document();
+        editorSaveDocument();
     })
 })
 
