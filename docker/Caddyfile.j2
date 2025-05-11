@@ -4,7 +4,10 @@
 #
 {
     debug 
-    log 
+    log  {
+        format json 
+        output stderr 
+    }
     admin  0.0.0.0:2019
  
     {% if MWIKI_INTERNAL_CA %}
