@@ -1495,7 +1495,7 @@ def _latex_to_html2(eqtext, inline = False, embed = False):
 RENDER_MATH_SVG = True 
 
 def node_to_html(page_name: str, node: SyntaxTreeNode, base_path: str):
-    __html_render = HtmlRenderer(page_name = page_name, render_math_svg = True, base_path = base_path)
+    __html_render = HtmlRenderer(page_name = page_name, render_math_svg = False, base_path = base_path)
     html = __html_render.render(node)
     return html
 
