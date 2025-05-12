@@ -481,6 +481,14 @@ document.addEventListener("click", (event) => {
     // } else {
     //     tooltip_window.close();
     // }
+
+    // Toggle zoom images (expand to 100% width) when they are clicked
+    if(target.classList[0] == "wiki-image")
+    {
+        // console.log(' [TRACE] toggle css class wiki-image-full');
+        event.target.classList.toggle("wiki-image-full");
+    }
+
     if(target.classList[0] == "button-toggle-menu")
     {
         let dom = event.target.parentElement.querySelector(".menu-dropdown-content");

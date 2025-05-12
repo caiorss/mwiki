@@ -185,6 +185,7 @@ img {
 img.wiki-image {
     max-width: 100%;
     width: auto;
+    cursor: zoom-in;
 }
 
 
@@ -574,8 +575,16 @@ select:focus {
   background-color: #eef;
 }
 
+
+.wiki-image-full  {
+    max-width: 100% !important;
+    width: 100%  !important;
+    height: auto;
+}
+
+
 /** For desktop systems */
-@media (min-width: 600px)
+@media (min-width: 815px)
 {
 
     a.link-edit {
@@ -590,7 +599,7 @@ select:focus {
     }
 
     img.wiki-image {
-        max-width: 60% !important;
+        max-width: 60%;
     }
 
     .highlight {
@@ -633,7 +642,7 @@ select:focus {
 }
 
 /** For mobile devices with small screen */
-@media (max-width: 600px)
+@media (max-width: 810px)
 {
     .content {
         font-size: 14px !important;
