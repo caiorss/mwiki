@@ -372,6 +372,150 @@ function onPasteEventHandler (text, event)
 editor.onPaste = onPasteEventHandler;
 document.onpaste = pasteImage;
 
+uploadWindow = new PopupWindow({
+       title: "Upload File"
+    ,  html: `
+
+        <form id="uploadForm" action="/api/upload" method="POST">
+            <input type="hidden" name="csrf_token" value="${CSRF_TOKEN}">
+            <div class="field">
+                <label for="fileLabel">Link Label</label>
+                <input name="fileLabel" id="fileLabel" title="Enter label of file link. (Optional)"></fileLabel>
+            </div>
+            <div class="field">
+                <label for="fileInput">Choose a file</label>
+                <input type="file" id="fileInput" name="file" required>
+            </div>
+            <br>
+            <div class="field">
+                <button type="submit" name="submit">Upload</button>
+            </div>
+        </form>
+        <p id="upload-status">Ready to upload file.</p>
+        <p>
+            This form allows uploading files and inserting 
+            hyperlinkt to it at current cursor position in 
+            the wiki code editor. NOTE: The file link label 
+            is optional, if it is empty, it the file name will
+            be used as the link label.
+        </p>
+    `
+});
+
+function openUploadWindow()
+{
+    uploadWindow.show();
+}
+
+
+async function handleUploadFormSubmit(event)
+{
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const url = new URL(form.action);
+
+    const headers = {
+        'X-CSRFToken': CSRF_TOKEN
+       ,'X-Requested-With': 'XMLHttpRequest'
+    };
+    const fetchOptions = {
+        'method':  form.method,
+        'headers': headers,
+        'body':    formData,
+    };
+    let networkErrorHandler = function(err){
+        console.warn("Network error ", err);
+        let response = new Response(JSON.stringify({
+               status: "error"
+            ,  message: "Failed to reach server. A network error happenned."
+        }));
+        return response;
+    };
+    let httpErrorCodes = {
+          404: "404 - Not found"
+        , 403: "403 - Forbidden (Autorization)"
+        , 401: "401 - Unauthorized (Athentication)"
+        , 405: "405 - Http Method POST Not Allowed"
+        , 500: "500 - Internal Server Error"
+    };
+    let dom = document.querySelector("#upload-status");        
+    dom.innerText = 'Uploading file wait ...';
+    const res = await fetch(url, fetchOptions)
+                            .catch(networkErrorHandler);
+        
+    console.log(" dom = ", dom);
+    var result = null;
+    // alert("Not implemented");
+    if (!res.ok)
+    {
+        result = {
+              "status": "error"
+            , "error": httpErrorCodes[res.status]
+        }
+        console.log(" [TRACE] message = ", result);
+        dom.innerText = 'ERROR: Failed to upload file';
+    } else {
+        dom.innerText = 'Upload successful';
+        result = await res.json();
+        let filename = result["file"];
+        uploadWindow.hide();
+        let fileLabel = document.querySelector("#fileLabel");
+        let value = fileLabel.value;
+        var output = "";
+        if(value !== ""){
+            output = `[[${filename}|${value}]]`
+        } else {
+            output = `[[${filename}]]`
+        }
+            editorInsertTextArCursor(output);
+        // Automatically save document after pasting any image.
+        editorSaveDocument();
+
+    }
+
+    return result;
+
+}
+
+
+
+const form = document.querySelector('#uploadForm');
+form.addEventListener('submit', handleUploadFormSubmit);
+
+
+
+function dropHandler(ev) {
+  console.log("File(s) dropped");
+
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+
+  if (ev.dataTransfer.items) {
+    // Use DataTransferItemList interface to access the file(s)
+    [...ev.dataTransfer.items].forEach((item, i) => {
+      // If dropped items aren't files, reject them
+      if (item.kind === "file") {
+        const file = item.getAsFile();
+        console.log(`… file[${i}].name = ${file.name}`);
+      }
+    });
+  } else {
+    // Use DataTransfer interface to access the file(s)
+    [...ev.dataTransfer.files].forEach((file, i) => {
+      console.log(`… file[${i}].name = ${file.name}`);
+    });
+  }
+}
+
+function dragOverHandler(ev) {
+  console.log("File(s) in drop zone");
+
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+}
+
+
 //// window.onpaste = onPasteEventHandler;
 // window.addEventListener("paste", onPasteEventHandler, false);
 

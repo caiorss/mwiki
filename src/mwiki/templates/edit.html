@@ -97,6 +97,7 @@
                 <button class="vtoolbar-button" onclick="editorRedo();" title="Redo changes.">Redo</button>
             </td>
         </tr>
+
     </table>
 
     <h3>Insert</h3>
@@ -105,6 +106,11 @@
             <td>
                 <button class="vtoolbar-button" onclick="insertLinkToPage();" 
                         title="Insert hyperlink to existing wiki page at current cursor position.">Link to page</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="vtoolbar-button" onclick="openUploadWindow();" title="Upload file and insert link to it at cursor position in the editor.">Link to Uploaded File</button>
             </td>
         </tr>
         <tr>
@@ -155,9 +161,12 @@
 
 {% block content %}
 
-
+<h2>My Editor</h2>
 <!-- Placement point for Ace Text Editor -->
-<div id="editor">{{content}} </div>
+<div id="editor" 
+    ondrop="dropHandler(event);"
+    ondragover="dragOverHandler(event);"
+    >{{content}} </div>
 
 <script src="/static/acebuild/src-min/ace.js"></script>
 <script src="/static/acebuild/src-min/keybinding-vim.js"></script>

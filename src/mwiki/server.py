@@ -602,6 +602,34 @@ def make_app_server(  host:        str
         response = flask.jsonify({"error": False, "status": "ok"})
         return response 
 
+    
+    @app.route("/api/upload", methods = [M_POST, M_GET, "OPTIONS"])
+    @check_login( required = True)
+    def route_upload():
+        # Enforce authorization  - Guest (Read-Only Users) 
+        # and anonymous users cannot edit the Wiki.
+        user = current_user()
+        if user.is_anonymous():
+            flask.abort(STATUS_CODE_401_UNAUTHORIZED)
+        if not user.user_can_edit():
+            flask.abort(STATUS_CODE_403_FORBIDDEN)
+        afile = request.files.get('file')
+        ## breakpoint()
+        if afile is None:
+            flask.abort(STATUS_CODE_400_BAD_REQUEST)        
+        upload_dir = pathlib.Path(wikipath).joinpath("upload")
+        utils.mkdir(str(upload_dir))
+        file_ = request.form.get("fileLabel") or afile.filename
+        _, extension = os.path.splitext(afile.filename)
+        filename = utils.slugify(file_) + extension
+        path = upload_dir.joinpath(filename)
+        if path.exists():
+            out = flask.jsonify({ "status": "ok", "error": "", "file": filename})
+            return out 
+        afile.save(path)
+        out = flask.jsonify({ "status": "ok", "error": "", "file": filename})
+        return out
+
     @app.get("/")
     def route_index_page():
         index_file = os.path.join(BASE_PATH, "Index.md")

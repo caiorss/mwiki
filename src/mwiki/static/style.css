@@ -631,10 +631,12 @@ select:focus {
 
 
     .popup-window {
-        /* max-height: 30%; */
+        max-height: 80% !important; 
+        height: 30%;
         /* max-width: 25%; */
         top: 10px;
         left: 20px;
+        font-size: 1rem;
     }
 
 
@@ -644,6 +646,7 @@ select:focus {
 /** For mobile devices with small screen */
 @media (max-width: 810px)
 {
+
     .content {
         font-size: 14px !important;
     }
