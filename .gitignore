@@ -34,3 +34,8 @@ node_modules/*
 *.pdf 
 *.pex
 *.sqlite
+deploy.env
+*.crt 
+*.pem 
+tags_cache.json
+.data/*
