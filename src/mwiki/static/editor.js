@@ -514,6 +514,35 @@ function dragOverHandler(ev) {
 }
 
 
+async function editorPreviewDocument()
+{
+    let code  = editor.getValue();
+    // Note:  currentWikipage is global variable defined in edit.html template.
+    let payload = { "code": code, "page": currentWikiPage };
+    let out = await http_post("/api/preview", payload);
+    if( out.status != "ok" ){ return;}
+ 
+    console.log(" [TRACE] out.html = ", out.html);
+    // let src = 'data:text/html;charset=utf-8,' + encodeURI(out.html); 
+
+    let previewWindow = new PopupWindow({
+          title: `Preview of: ${currentWikiPage}`
+        , html:   `<iframe id="iframe-preview" 
+                           sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation-by-user-activation"
+                           srcdoc="${out.html}"  
+                           width="100%" 
+                           height="100%" 
+                           ></iframe> `
+        , width:  "95%"
+        , height: "98%"
+        , top: "0px"
+        , left: "0px" 
+    });
+
+    previewWindow.show();
+}
+
+
 //// window.onpaste = onPasteEventHandler;
 // window.addEventListener("paste", onPasteEventHandler, false);
 

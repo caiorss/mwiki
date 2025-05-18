@@ -12,6 +12,9 @@
             visibility: hidden;
         }
     </style> 
+    <script>
+        let documentType = "{{document_type}}";
+    </script>
     
     <!-- MathJax Settings -->
     <script>
@@ -98,7 +101,9 @@
     <!-- Additional Javascript libraries -->
     {% endblock %}
 
-    <script type="text/javascript" src="/static/main.js"></script>
+    {% if document_type != "preview" %}
+        <script type="text/javascript" src="/static/main.js"></script>
+    {% endif %}
 
 </head>
 
@@ -116,7 +121,12 @@
     </div>
     <script>
             /** Fuction provided by main.js */
-            toggleHeadings();
+            if( documentType !== "preview")
+            {
+                console.trace("Toggling headings");
+                toggleHeadings();
+                //alert("Not prevew");
+            } 
             pseudocode.renderClass("pseudocode", { "lineNumber": 1 });
     </script>
 </body>

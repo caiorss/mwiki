@@ -560,6 +560,29 @@ def make_app_server(  host:        str
         resp = flask.render_template("tags.html", title = "Tags", tags = tags)
         return resp 
 
+    @app.route("/api/preview", methods = [M_POST])
+    @check_login(required = True)
+    def route_preview():   
+        """Provide document preview"""
+        data: dict[str, Any] = request.get_json()
+        content = data.get("code", "") 
+        ### content = utils.read_resource(mwiki, "refcard.md")
+        ast = mparser.parse_source(content)
+        builder = render.HtmlRenderer(base_path=BASE_PATH)
+        html_ = builder.render(ast)
+        html = flask.render_template(  
+                                          "standalone.html"
+                                        , title   = "Preview"
+                                        , page    = data.get("page")
+                                        , content = html_
+                                        , latex_macros = latex_macros
+                                        , document_type = "preview"
+                                        )
+        html = utils.escape_html(html)
+        # print(" [TRACE] html = ", html)
+        resp = flask.jsonify({ "status": "ok", "error": "", "html": html })
+        return resp 
+
     @app.route("/paste", methods = [M_GET, M_POST])
     @check_login(required = True)
     def route_paste():
