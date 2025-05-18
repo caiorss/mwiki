@@ -87,7 +87,7 @@ async function editorSaveDocument()
         let url = `/wiki/${currentWikiPage}#${anchor}`
         // Redirect to corresponding wiki page
         // and heading 
-        /// document.location.href = url;
+        document.location.href = url;
         statusbar.textContent = `Saved at ${datetime}.`
     } else {
         console.log("Status Error = ", out);
@@ -208,7 +208,7 @@ async function pasteImage(event) {
         console.log(" Output = ", out);
         editorInsertTextArCursor(`![[${fileName}]]`);
         // Automatically save document after pasting any image.
-        editorSaveDocument();
+        ///// editorSaveDocument();
       };
       // let b64blob =  URL.createObjectURL(blob);
       // console.log("blob = ", b64blob);
@@ -468,9 +468,9 @@ async function handleUploadFormSubmit(event)
         } else {
             output = `[[${filename}]]`
         }
-            editorInsertTextArCursor(output);
-        // Automatically save document after pasting any image.
-        editorSaveDocument();
+        editorInsertTextArCursor(output);
+        // Automatically save document after uploading file
+        //// editorSaveDocument();
 
     }
 
@@ -479,10 +479,8 @@ async function handleUploadFormSubmit(event)
 }
 
 
-
 const form = document.querySelector('#uploadForm');
 form.addEventListener('submit', handleUploadFormSubmit);
-
 
 
 function dropHandler(ev) {
