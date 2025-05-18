@@ -2,18 +2,88 @@
 <htm>
     <head>
         <meta charset="UTF-8">
-        <title>User Login Screen</title>
-        <title>User Login Screen</title>
+        <title>Login Screen | {{ config_sitename() }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--  
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
         -->
+        <style>
+
+            :root {
+                --background-color: #535353;;
+                --text-color: #fff;
+            }
+
+            .login-wrapper {
+                background: var(--background-color);
+                /*! backdrop-filter: blur(52.8px) invert(11.5%); */
+                color:  var(--text-color);
+                margin: 0;
+                padding: 0;
+                font-family: sans-serif;
+                box-sizing: border-box;
+        
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+        
+            }
+        
+            .login-wrapper h1 {
+                font-size: 3rem;
+                text-align: center;
+            }
+        
+            .login-form {
+                width: 50%;
+                border: 2px solid;
+                padding: 1rem;
+                border-radius: 20px;
+            }
+        
+            .login-wrapper input[type="text"],
+            input[type="password"] {
+                width: 100%;
+                color: white;
+                background: transparent;
+                outline: none;
+                margin-top: 0.5rem;
+                margin-bottom: 0.7rem;
+                border: 2px solid;
+                font-size: 1.2rem;
+                padding: 20px 20px 20px 20px;
+            }
+        
+            .login-wrapper input[type="submit"] {
+                width: 8rem;
+                height: 3rem;
+                font-size: 1.5rem;
+                font-weight: 600;
+                outline: none;
+                background: var(--background-color);
+                color:  var(--text-color);
+                border-radius: 15px;
+            }
+        
+            .login-wrapper label {
+                font-size: 1.3rem;
+                font-weight: 800;
+            }
+
+            .login-wrapper ::placeholder {
+                font-weight: 300;
+                font-size: 1.2rem;
+                color: var(--text-color);
+            }
+                           
+        </style>
     </head>
     <body>
-        <div class="login">
-            <h1 class="title is-1">Login</h1>
-            <form action="/login?path={{path}}" method="post" class="box">
+        <div class="login-wrapper">
+            <form action="/login?path={{path}}" method="post" class="login-form box">
+                <h1 class="login-title title is-1">{{ config_sitename() }} Login</h1>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <div class="field" >
                     <label for="username">User name</label>
@@ -21,12 +91,12 @@
                     <input type="text" name="username" placeholder="Enter your username"></input>
                 </div>
                 <div class="field">
-                    <labe for="password">Password</labe>
+                    <label for="password">Password</label>
                     <br>
-                    <input type="password" name="password" placeholder="Enter your username"></input>
+                    <input type="password" name="password" placeholder="Enter your password"></input>
                 </div>
                 <div class="field">
-                    <input type="submit" class="button is success" name="submit" value="login">
+                    <input type="submit" class="login-button button is success" name="submit" value="LOGIN">
                 </div>
             </form>
         </div>
