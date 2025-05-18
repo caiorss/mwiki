@@ -647,9 +647,16 @@ select:focus {
 @media (max-width: 810px)
 {
 
+    .sidebar-toggle-button {
+        font-size: 1.5rem !important;
+    }
+
+
+    /*    
     .content {
         font-size: 14px !important;
     }
+    */
 
     a.link-edit {
         /** Align Button to the right **/
@@ -686,7 +693,7 @@ select:focus {
 
 
     .content {
-        font-size: 10px;
+        font-size: 1rem;
         padding-left: 10px;
         padding-right: 10px;
     }
@@ -712,7 +719,6 @@ select:focus {
     }
 
     .admonition-title {
-        font-size: 12px !important;
         margin: -6px -30px !important;
         margin-top: 0px !important;
     }
