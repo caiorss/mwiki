@@ -208,7 +208,7 @@ $ whereis mwiki
 mwiki: /var/home/username/.local/bin/mwiki
 
 $ file $(which mwiki)
-/home/username/.local/bin/mwiki: symbolic link to /home/caesar/.local/share/uv/tools/mwiki/bin/mwiki
+/home/username/.local/bin/mwiki: symbolic link to /home/username/.local/share/uv/tools/mwiki/bin/mwiki
 
 $ file $(readlink $(which mwiki))
 /home/username/.local/share/uv/tools/mwiki/bin/mwiki: Python script, ASCII text executable
