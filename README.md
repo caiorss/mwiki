@@ -169,7 +169,59 @@ This wiki provides a reference card popup windown that provides examples of the 
 
 ## Installation 
 
-### Installation using Pipx
+### Installation using UV package manager
+
+[UV](https://github.com/astral-sh/uv) is a newer blazing fast package manager for Python, that can even install multiple specific versions of the Python interpreter without disrupting Python installation used by the system. UV can also install Python tools in isolated environment without breaking the current Python installation. 
+
+**STEP 1**
+
+```sh
+$ uv tool install git+https://github.com/caiorss/mwiki
+  ... ... ... ... ... ... ... ... ..
+  Installed 2 executables: mwiki, mwiki-convert
+```
+
+**STEP 2** Run executable mwiki:
+
+```sh
+$ mwiki 
+
+Usage: mwiki [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  compile  Compile Latex Formulas of .md file or folder to SVG images.
+  convert  Convert from org-mode markup to markdown
+  manage   Manage MWiki settings, including accounts, passwords and etc.
+  server   Run the mwiki server.
+```
+
+**Inspect Executables**
+
+```sh
+$ which mwiki
+/home/username/.local/bin/mwiki
+
+$ whereis mwiki
+mwiki: /var/home/username/.local/bin/mwiki
+
+$ file $(which mwiki)
+/home/username/.local/bin/mwiki: symbolic link to /home/caesar/.local/share/uv/tools/mwiki/bin/mwiki
+
+$ file $(readlink $(which mwiki))
+/home/username/.local/share/uv/tools/mwiki/bin/mwiki: Python script, ASCII text executable
+```
+
+**Uninstall**
+
+```sh
+$ uv tool uninstall mwiki 
+Uninstalled 2 executables: mwiki, mwiki-convert
+```
+
+### Installation using Pipx pacakge manager 
 
 **STEP 1:** Pip and Python are assumed to be already installed.
 
