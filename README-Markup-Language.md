@@ -750,7 +750,36 @@ $$
 + *Graphviz (dot) examples*
   + https://renenyffenegger.ch/notes/tools/Graphviz/examples/index
     
-    
+
+
+### Graphs with Graphviz 
+
+MWiki has a GraphViz rendering engine, which can render Graphviz [DOT](https://graphviz.org/doc/info/lang.html) markup language to an image diagrams of a graph.
+
+Example this GraphViz code block in DOT language
+
+````{markdown}
+```{dot}
+graph {
+    0 -- 1;
+    0 -- 2;
+    0 -- 3;
+    0 -- 4;
+    1 -- 2;
+    1 -- 3;
+    1 -- 4;
+    2 -- 3;
+    2 -- 4;
+    3 -- 4;
+}
+```
+````
+
+is rendered to
+
+![](images/graphviz-dot.jpg)
+
+
 ### Pseudocode of Algorithm
 
 This wiki also supports LaTeX pseudocode of algorithms compatible with LaTeX algorithmic package. The implementation of this feature relies on [pseudocode-js](https://saswat.padhi.me/pseudocode.js/) and [MathJax](https://www.mathjax.org/) JavaScript libraries.
