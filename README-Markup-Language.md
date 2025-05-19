@@ -743,15 +743,6 @@ $$
 ```
 
 
-**See also:**
-
-+ *GraphViz Pocket Reference*
-  + https://graphs.grevian.org/example
-+ *Graphviz (dot) examples*
-  + https://renenyffenegger.ch/notes/tools/Graphviz/examples/index
-    
-
-
 ### Graphs with Graphviz 
 
 MWiki has a GraphViz rendering engine, which can render Graphviz [DOT](https://graphviz.org/doc/info/lang.html) markup language to an image diagrams of a graph.
@@ -778,6 +769,15 @@ graph {
 is rendered to
 
 ![](images/graphviz-dot.jpg)
+
+
+**See also:**
+
++ *GraphViz Pocket Reference*
+  + https://graphs.grevian.org/example
++ *Graphviz (dot) examples*
+  + https://renenyffenegger.ch/notes/tools/Graphviz/examples/index
+    
 
 
 ### Pseudocode of Algorithm
