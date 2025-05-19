@@ -603,7 +603,7 @@ The following set of companion sotfware or apps are recommended for MWiki as the
 **Online Tools**
 
 + *Table Generator for Markdown, LaTeX and MediaWiki*
-  + https://www.tablesgenerator.com/markdown_table
+  + https://www.tablesgenerator.com
 + *Detexify*
   + https://detexify.kirelabs.org/classify.html
   + *Allows to recognize LaTeX symbols by drawing them by hand.*
