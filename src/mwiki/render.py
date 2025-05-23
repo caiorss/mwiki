@@ -1164,8 +1164,8 @@ class HtmlRenderer(AbstractAstRenderer):
         label = f'id="{x}"' if (x := metadata.get("label")) else ""
         ## css_class = x if (x := metadata.get("class")) else ""
         ##style = f'style="background: {x};"' if (x := metadata.get("background")) else ""
-        admonition_type = node.type.strip("container_").strip("{").strip("}")
-        admonition_title = node.info.strip("{" + admonition_type + "}").strip()
+        admonition_type = utils.strip_prefix("container_", node.type).strip("{").strip("}")
+        admonition_title = utils.strip_prefix("{" + admonition_type + "}", node.info).strip()
         _title = f"<strong>({admonition_title})</strong>" if admonition_title != "" else ""
         if admonition_type == "def":
             admonition_title = f"DEFINITION: {_title}" 
