@@ -1234,7 +1234,14 @@ Syntax:
 {youtube}`<VIDEO-URL-OR-ID>`
 ```
 
-Example: Embed video [3 Hours of Most Common Logical Fallacies to Fall Asleep To](https://www.youtube.com/watch?v=bNE4uBMsnP0&t=30s)
+**Example**
+
+Embed video *3 Hours of Most Common Logical Fallacies to Fall Asleep To*, whose URL is 
+
++ https://www.youtube.com/watch?v=bNE4uBMsnP0
+
+
+Code example:
 
 ```
 {youtube}`https://www.youtube.com/watch?v=bNE4uBMsnP0`
