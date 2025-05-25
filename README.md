@@ -1,4 +1,5 @@
 # MWiki - Markdown-Powered Wiki 
+
 ## Overview 
 
 MWiki is a **wiki engine** and note taking web application software geared towards mathematics and research designed for scientific and technical communication. This wiki engine software has semantic-rich lightweight markup language based on MyST markdown, Obsidian markdown, and Media wiki engine markup language. 
@@ -10,36 +11,53 @@ This Python application is powered by Python Flask web framework and the extensi
 + Note: Mediawiki is the wiki engine software that powers Wikipedia.
 
 
+
 ### Features Highlights
 
-File-based Wiki 
+#### Wiki Features 
 
-+ All Wiki pages are stored as Markdown files like Moin Moin wiki engine and Dokuwiki. However, it uses SQLite file database or a any full-featured database for system management purposes. 
-
-Wiki Features:  
-
++ File-based Wiki: all Wiki pages are stored as Markdown files like Moin Moin wiki engine and Dokuwiki. However, it uses SQLite file database or a any full-featured database for system management purposes. 
  + Supports MyST Markdown, GFM (Github-Flavored Markdown Support), subset of Obsidian Markdown syntax, subset of Mediawiki markup language and inline HTML.
  + Pages written in Markdown-based markup language instead of HTML, which allows to any non programmers to write scientific and technical documents that are rendered to html. 
  + Buttons for editing specific document sections similar to Media wiki section editing buttons. 
  + File upload. Now the wiki code editor has a button for inserting a hyperlink to an uploaded file. When the button is clicked, a popup window for upload is shown. Once the user sends the file, the window is closed and a link to the file is inserted in the editor.
  + Embeddable pages. The contents of a wiki page can be embedded in another wiki page by using the syntax `![[Name of Wiki page to be embedded]]`
+ + Document preview - allows users viewing how a wiki page markdown text will look like when rendered before saving it. The editor's preview button also allows viewing how a selected markdown code of a wiki page looks like when rendered.
  + Vendored third-party JavaScript dependencies for offline usage. For instance, MWiki has MathJax, pseudocode-JS, and Ace9 in the source code for offline usage even when no CDN is available due to lack of internet connectivity or if the Wiki is used in rescrited environment behind a firewall. 
 
-Text Editor Features
 
- + Markdown **Code editor** built on top of Ace9 JavaScript code editor.
- + *Clipboard to markdown converter*, which allows turning html content copied from any other web page (aka web site) to MWiki markdown. This feature is similar to Obsidian's non-plain text copying and pasting. 
- + Upload images by pasting them from clipboard. 
-     + Usage: Copy any image using the right click on any picture and past it on the text editor sesssion of some wiki page either by using the mouse or typing Ctrl + v.
-+ NOTE: The clipboard features rely on Clibpboard Html5 API, which only is available on [secure contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts). Therefore pasting images from clipboard to the wiki text editor only works if the wiki is served on local host or from a domain with https (HTTP + TLS), which may require a reverse proxy such as Caddy or NGinx for TLS/SSL encryption and server authentication.
-
-
-Access control 
+#### Access control 
 
  + The wiki has the following types of users: *admin*, that can edit the Wiki pages; *guest* a registered used which can view pages even if the wiki is not public, but a guest user cannot edit any page; and *anonymous* users (non logged in users) that can only view pages if the **public** checkbox in the Wiki settings ('/settings' pages) is enabled.
  + Public/private wiki settings - if the **public** checkbox in MWiki settings page is disabled, only logged in users will be able to view the wiki pages and non logged in users will be redirected to the authentiation screen. If this checkbox is enabled, non logged in users can view the wiki. Note that: only users of type administrator can edit the wiki pages and make changes to any content.
 
-Features of the Wiki Markup Language
+
+#### Text Editor Features
+
++ Markdown **Code editor** built on top of Ace9 JavaScript code editor.
++ *Clipboard to markdown converter*, which allows turning html content copied from any other web page (aka web site) to MWiki markdown. This feature is similar to Obsidian's non-plain text copying and pasting. 
++ Upload images by pasting them from clipboard. 
+     + Usage: Copy any image using the right click on any picture and past it on the text editor sesssion of some wiki page either by using the mouse or typing Ctrl + v.
++ NOTE: The clipboard features rely on Clibpboard Html5 API, which only is available on [secure contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts). Therefore pasting images from clipboard to the wiki text editor only works if the wiki is served on local host or from a domain with https (HTTP + TLS), which may require a reverse proxy such as Caddy or NGinx for TLS/SSL encryption and server authentication.
++ [VIM](<https://en.wikipedia.org/wiki/Vim_(text_editor)>) Editor Keybindings: The Wiki editor uses VIM keybindings by default.
+
+See also:
+
++ *VIM dot ORG* - Official Website
+  + https://www.vim.org
++ *Vim (text editor)*
+  + https://en.wikipedia.org/wiki/Vim_(text_editor)
++ *A Great Vim Cheat Sheet*
+  + https://vimsheet.com/
++ *Vim Cheat Sheet*
+  + https://vim.rtorr.com
++ *Vim Key Bindings – Vim Keys List Reference*
+  + https://www.freecodecamp.org/news/vim-key-bindings-reference/
++ *vi Complete Key Binding List*
+  + https://hea-www.harvard.edu/~fine/Tech/vi.html
+
+
+#### Wiki Markup Language
 
 + Text formatting:
    + Italic Text 
@@ -72,11 +90,7 @@ Features of the Wiki Markup Language
   + Warning Admonition 
   + Foldable Admonition   
 
-## MWiki Markup Language 
-
-As it was stated, MWiki markup language is based on MyST markdown, which is a superset of markdown compatible with GFM Github Flavored Markdown and Obsidian markdown language. A detailed description of the markdown format with examples is provided in the following link.
-
-See:
+View detailed documentation and examples at: 
 
 + [Markup Language](./README-Markup-Language.md)
 
@@ -91,6 +105,13 @@ See:
 **Copying and pasting images**
 
 ![](images/mwiki-animation-usage2.gif)
+
+**Markdown preview feature**
+
++ The editor button preview allows viewing how a wiki page will look like before saving it. The preview feature also allows viewing how a selected markdown text will look like before saving it.
+
+![](images/wiki-markdown-preview.gif)
+
 
 ### Screenshots
 
@@ -198,7 +219,7 @@ Commands:
   server   Run the mwiki server.
 ```
 
-**Inspect Executables**
+**Inspect Executable Files**
 
 ```sh
 $ which mwiki
@@ -246,7 +267,7 @@ done! ✨ 🌟 ✨
 
 ```
 
-Install Mwiki using  Pipx and a different version of Python. This command is useful if the default versuion of Python in the current system is 3.8 or a non supported version.
+Install Mwiki using Pipx and a different version of Python. This command is useful if the default version of Python in the current system is 3.8 or a non supported version.
 
 ```
 $ pipx install --python=3.9 git+https://github.com/caiorss/mwiki 
@@ -367,7 +388,8 @@ Restart MWiki container software.
 $ docker restart mwiki
 ```
 
-Change site name using the built-in CLI management tool.
+Change site name using the built-in CLI (Command Line Interface)
+
 
 ```sh
 $ docker exec -it mwiki python -m mwiki  manage --sitename=WNotes
@@ -615,8 +637,6 @@ The following set of companion sotfware or apps are recommended for MWiki as the
   + https://en.wikibooks.org/wiki/LaTeX/Algorithms
 
 
-
-
 **Browser Addons**
 
 + *LibreWolf* - Fork of Firefox Web Browser
@@ -659,9 +679,9 @@ Note: These tools allows taking screenshots of select part of the screen and pas
    + *Cross platform screenshot tool available for Microsoft Windows, Linux distributions and Apple's MacOSX.*
 - *Flameshot - Flatpak*  
    + https://flathub.org/apps/org.flameshot.Flameshot
-   + *Ksnip is a Qt based cross-platform screenshot tool that provides many annotation features for your screenshots.*
 - *KSnip - Flathub*  (KDE/QT Flatpak App)
    + https://flathub.org/apps/org.ksnip.ksnip
+   + *Ksnip is a Qt based cross-platform screenshot tool that provides many annotation features for your screenshots.*
 - *Shutter Screenshot tool* \[BEST\]
    + https://shutter-project.org
    + => Note: Note available as AppImage or flatpak app. It is easier to install Shutter in Debian-based or Ubuntu-based Linux distributions.
@@ -681,7 +701,7 @@ Note: These tools allows taking screenshots of select part of the screen and pas
   + https://docs.podman.io/en/latest/markdown/podman-compose.1.html
 
 
-**Site-To-Site Mesh VPN**
+**Site-To-Site Mesh VPN (Virtual Private Network)**
 
 A site-to-site mesh VPN such as **tailscale** can be helpful for self hosting this application in a private local network and accessing it from anywhere around the world without exposing any TCP or UDP ports to the internet.
 
