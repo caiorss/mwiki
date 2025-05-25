@@ -10,6 +10,9 @@ This Python application is powered by Python Flask web framework and the extensi
 + Note: This software is still **work in progress** and under early stage. However, it can already be used as a personal note taking application.
 + Note: Mediawiki is the wiki engine software that powers Wikipedia.
 
+See also:
+
++ [README in Portuguese](./README-portuguese.md) - Portuguese language version of this document. The original documentation was written in English.
 
 
 ### Features Highlights
