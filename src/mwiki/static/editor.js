@@ -516,13 +516,14 @@ function dragOverHandler(ev) {
 
 async function editorPreviewDocument()
 {
-    let code  = editor.getValue();
+    let selection = editor.getSelectedText();
+    let code = selection !== "" ? selection : editor.getValue();
     // Note:  currentWikipage is global variable defined in edit.html template.
     let payload = { "code": code, "page": currentWikiPage };
     let out = await http_post("/api/preview", payload);
     if( out.status != "ok" ){ return;}
  
-    console.log(" [TRACE] out.html = ", out.html);
+    /// console.log(" [TRACE] out.html = ", out.html);
     // let src = 'data:text/html;charset=utf-8,' + encodeURI(out.html); 
 
     let previewWindow = new PopupWindow({
