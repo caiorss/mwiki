@@ -582,6 +582,11 @@ select:focus {
     height: auto;
 }
 
+/*--- Center image ---*/
+.div-wiki-image {
+    text-align: center;
+}
+
 
 /** For desktop systems */
 @media (min-width: 815px)

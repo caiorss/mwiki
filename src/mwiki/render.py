@@ -533,6 +533,8 @@ class HtmlRenderer(AbstractAstRenderer):
         ## Custom Markdown syntax for <br> Html new line
         elif inner == "{nl}":
             html = "\n<br>"
+        elif "div-wiki-image" in inner:
+            html = inner 
         else:
             html = f"""<p>\n{inner}\n</p>"""
         return html
@@ -695,7 +697,9 @@ class HtmlRenderer(AbstractAstRenderer):
             html = html_ + self.render_note(note_name) or ""
             ## print(" [TRACE] html = ", html)
         else:
-            html = f"""<img class="wiki-image anchor" src="/wiki/{src}">"""
+            # inner = "".join([ self.render(n) for n in node.children ])
+            ## Wrap image in a <div> element in order to centralize it.
+            html = """<div class="div-wiki-image"><img class="wiki-image anchor" src="/wiki/%s" alt=""></div>""" % src
         return html
 
     def render_link(self, node: SyntaxTreeNode) -> str:
