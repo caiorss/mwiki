@@ -319,9 +319,28 @@ class AbstractAstRenderer:
         raise NotImplementedError()
 
     def render_image(self, node: SyntaxTreeNode):
+        """Render external images.
+        
+        This abstract method renders the syntax 
+        
+        ```markdown
+        Embed image image1.png in the current page.
+
+        ![](https://www.some-site.com/assets/image1.png)
+        
+        Embed image image2.jpg in the current page.
+
+        ![](/relative/url/to/image.jpg)
+        ```
+        
+        for embeddding external images in the current wiki page.
+        Note that the syntax for embedding internal image is ![[name-of-image.jpeg]] and it is 
+        handled the the abstract method `render_wiki_embed`.
+        """
         raise NotImplementedError()
 
     def render_wiki_embed(self, node: SyntaxTreeNode) -> str:
+        """Render internal resources embedded in a wiki page, including images and other multimedia files."""
         raise NotImplementedError()
 
     def render_code_block(self, node: SyntaxTreeNode) -> str:
