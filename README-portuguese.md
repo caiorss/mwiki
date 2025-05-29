@@ -24,7 +24,7 @@ Este aplicativo Python é alimentado pelo framework web Python Flask e pelo anal
 
 #### Controle de acesso
 
-+ O Wiki possui os seguintes tipos de usuários: *admin*, que pode editar as páginas do Wiki; *guest*, um usuário registrado que pode visualizar páginas mesmo que o Wiki não seja público, mas um usuário convidado não pode editar nenhuma página; e usuários *anônimos* (usuários não logados) que só podem visualizar páginas se a caixa de seleção **público** nas configurações do Wiki (páginas '/settings') estiver habilitada.
++ O Wiki possui os seguintes tipos de usuários: *admin*, que pode editar as páginas do Wiki; *guest* (visitante), um usuário registrado que pode visualizar páginas mesmo que o Wiki não seja público, mas um usuário convidado não pode editar nenhuma página; e usuários *anonymous* (anônimos - usuários não logados/autenticados) que só podem visualizar páginas se a caixa de seleção **público** nas configurações do Wiki (páginas '/settings') estiver habilitada.
 
 + Configurações do wiki público/privado - se a caixa de seleção **público** na página de configurações do MWiki estiver desabilitada, apenas usuários logados poderão visualizar as páginas do wiki e usuários não logados serão redirecionados para a tela de autenticação. Se esta caixa de seleção estiver habilitada, usuários não logados poderão visualizar o wiki. Observe que: somente usuários do tipo administrador podem editar as páginas do wiki e fazer alterações em qualquer conteúdo.
 
@@ -53,7 +53,7 @@ Veja também:
   + https://hea-www.harvard.edu/~fine/Tech/vi.html
 
 
-  #### Linguagem de Maekup(Marcação/Formatação) Wiki
+  #### Linguagem de Markup(Marcação/Formatação) da MWiki
 
 + Formatação de texto:
 + Texto em itálico
@@ -74,11 +74,11 @@ Veja também:
 + Fórmula LaTeX embutida (modo de exibição) com enumeração automática
 + Blocos de código especiais para adicionar macros LaTeX personalizadas
 + Bloco de código em pseudocódigo
-+ Advertência (também conhecida como caixa de chamada) para definição matemática
++ Advertência (também conhecida como caixa de chamada - *admonition*) para definição matemática
 + Advertência para teorema matemático
 + Advertência para exemplos de exercícios resolvidos
 + Seção dobrável para solução de exercícios resolvidos
-+ Seção dobrável para provas de teoremas, usada em advertências de teoremas.
++ Seção dobrável para provas de teoremas, usada em advertências de teoremas (*theorem admonition*).
 + Advertências
 + Advertência de Dica
 + Advertência de Nota
@@ -525,7 +525,7 @@ O seguinte conjunto de softwares ou aplicativos complementares são recomendados
   + https://www.tablesgenerator.com
 + *Detexify*
   + https://detexify.kirelabs.org/classify.html
-  + *Allows to recognize LaTeX symbols by drawing them by hand.*
+  + *Mostra código LaTeX para escrever símbolo matemático desenhado manualmente seja com o mouse/cursor ou com o dedo em navegadoes de dispositivos móveis.*
 + *LaTeX Equation Editor*  
   + https://editor.codecogs.com/
 + *How to write algorithm in Latex*
@@ -535,7 +535,7 @@ O seguinte conjunto de softwares ou aplicativos complementares são recomendados
 
 **Complementos/extensões do Navegadores Web**
 
-+ *LibreWolf* - Bifurcação do navegador Firefox
++ *LibreWolf* - Fork (versão modificada) do navegador Firefox
     + https://librewolf.net/
     + *Navegador Firefox modificado e reforçado para maior segurança, privacidade e proteção contra rastreamento.*
 + *Obsidian Web Clipper* (Addon do Firefox)* \[MELHOR\]
@@ -547,10 +547,10 @@ O seguinte conjunto de softwares ou aplicativos complementares são recomendados
 + *Permitir Clique com o Botão Direito - Reative o clique com o botão direito em sites que o sobrescrevem* (Firefox)
     + https://addons.mozilla.org/en-US/firefox/addon/re-enable-right-click/
     + *A extensão "Permitir Clique com o Botão Direito" modifica alguns métodos do JavaScript para habilitar o menu de contexto original do botão direito quando uma página da web bloqueia intencionalmente o clique com o botão direito em seu conteúdo. A maioria dos navegadores modernos permite que o JavaScript desabilite o menu de contexto padrão quando uma página da web fornece seu próprio menu de contexto personalizado para seu conteúdo (como no Google Docs). No entanto, esse recurso também pode permitir que proprietários de sites desabilitem o menu de contexto do botão direito sem fornecer nenhuma funcionalidade útil. A extensão adiciona um botão à área da barra de ferramentas do navegador do usuário. Clicar no ícone da extensão injeta um pequeno script na página atual para remover o bloqueio do menu de contexto. É importante observar que a extensão não injeta nenhum código por padrão em nenhuma página da web; ela só o faz mediante ação do usuário. Os usuários podem clicar no botão da extensão para liberar a restrição quando um site bloqueia o menu de contexto do botão direito sem oferecer um menu de contexto personalizado.*
-+ *Script Blocker Ultimate* - (Sem Script, Desativar JS)
++ *Script Blocker Ultimate* - (Sem Script, Desativar JS, NOTA: Traduzido da descrição original em inglês.)
     + https://addons.mozilla.org/en-US/firefox/addon/script-blocker-ultimate/
     + *Extensão para alternar a execução de Javascript, que permite desativar e ativar JavaScript.*
-+ *Guias em Estilo de Árvore para Firefox*
++ *Árvore de Tabs para Firefox* (melhor navegação em muitas tabs)
     + https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab
 
 
