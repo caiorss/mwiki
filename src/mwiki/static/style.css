@@ -587,6 +587,10 @@ select:focus {
     text-align: center;
 }
 
+/** Center document title heading */
+.div-heading-h1 {
+    text-align: center;
+}
 
 /** For desktop systems */
 @media (min-width: 815px)
@@ -816,6 +820,48 @@ code {
     display: block;
     margin-top: 10px;
     margin-left: 20px;
+}
+
+
+/** ------- Flashcard Style ------**/
+
+.div-flashcard {
+  background-color: lightblue;
+  border: 10px;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+.div-flashcard label {
+  margin-left: 10px;
+}
+
+.card-entry {
+  background-color: #e4f1f9;
+  border: 20px;
+  border-radius: 15px;
+  padding: 10px;
+  font-size: 1.025rem;
+  font-weight: 550;
+}
+
+.div-flashcard-button-panel {
+    margin-bottom: 15px;
+}
+
+.div-flashcard-button-panel button  {
+    margin-left: 15px;
+}
+
+.flashcard-title {
+   justify-content: center;
+   align-items: center;
+   display: flex;
+   font-size: 1.2rem;
+}
+
+.hidden {
+    display: none;
 }
 
 /** Syntax Highlight Style for Pyhton's Pygment 

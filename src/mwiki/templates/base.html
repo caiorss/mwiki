@@ -221,9 +221,11 @@
 
         <main class="content">
             {% if pagename %}
-            <a class="link-edit" title="Edit page {{title}}" href="/edit/{{page}}">[E]</a>
+            <a class="link-edit link-internal" title="Edit page {{title}}" href="/edit/{{page}}">[E]</a>
             {% endif %}
-            <h1 class="document-heading">{{title}}</h1>
+            <div class="div-heading-h1">
+                <h1 class="document-heading">{{title}}</h1>
+            </div>
             <p class="hidden-mathjax-macros" style="display: none;">
                 $$
                 {{ latex_macros }}
