@@ -696,6 +696,24 @@ class HtmlRenderer(AbstractAstRenderer):
             html_ = f"""<hr>Embedded note: <a class="link-internal-missing" href="{href}" title="{caption}">{note_name}</a>  """
             html = html_ + self.render_note(note_name) or ""
             ## print(" [TRACE] html = ", html)
+        elif src.endswith(".mp4"):
+            html = """ 
+                    <div class="divi-wiki-image">
+                    <video controls width="80%">
+                        <source src="/wiki/{0}" type="video/mp4">
+                        Download the <a href="/wiki/{1}">MP4 Video</a>
+                    </video>
+                    </div>
+                   """.format(src, src)
+        elif src.endswith(".webm"):
+            html = """ 
+                    <div class="divi-wiki-image">
+                    <video controls width="80%">
+                        <source src="/wiki/{0}" type="video/webm">
+                        Download the <a href="/wiki/{1}">WEBM Video</a>
+                    </video>
+                    </div>
+                   """.format(src, src)
         else:
             # inner = "".join([ self.render(n) for n in node.children ])
             ## Wrap image in a <div> element in order to centralize it.
