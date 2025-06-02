@@ -555,6 +555,25 @@ Rendering:
 ![Java's Duke Mascot](/static/example_java_duke_mascot.svg)
 
 
+## Embed Uploaded Video Files
+
+MP4 or WEBM video files can be embedded in the current page by using the syntax. 
+
+```
+![[video-file-to-be-embedded.mp4]]
+```
+
+or
+
+```
+![[video-file-to-be-embedded.webm]]
+```
+
+Embedded video files are rendered as [\<video\>](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video) html5 embedded element with controls for playing the video, including button for start playing the video, button for stopping the video and so on.
+
+NOTE: It is possible to upload video files directly in the wiki editor by clicking at the button with label 'Link to Uploaded File' in the editor toolbar section 'insert'.
+
+
 ## Code Blocks 
 ### Inline code 
 
