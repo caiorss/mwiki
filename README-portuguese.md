@@ -520,14 +520,16 @@ O seguinte conjunto de softwares ou aplicativos complementares são recomendados
 
 **Ferramentas Online**
 
-
 + *Table Generator for Markdown, LaTeX and MediaWiki*
   + https://www.tablesgenerator.com
 + *Detexify*
   + https://detexify.kirelabs.org/classify.html
   + *Mostra código LaTeX para escrever símbolo matemático desenhado manualmente seja com o mouse/cursor ou com o dedo em navegadoes de dispositivos móveis.*
 + *LaTeX Equation Editor*  
-  + https://editor.codecogs.com/
+  + https://editor.codecogs.com
++ *Mathcha.io*
++ https://www.mathcha.io
++ *Ferramenta online para desenho de ilustrações científicas/técnicas, que suporta símbolos LaTeX e possui vários blocos de construção para desenhar diagramas ou esquemas geométricos, elétricos, mecânicos e de ciência da computação.
 + *How to write algorithm in Latex*
   + https://shantoroy.com/latex/how-to-write-algorithm-in-latex
 + *LaTeX/Algorithms - Wikibooks*
@@ -541,7 +543,7 @@ O seguinte conjunto de softwares ou aplicativos complementares são recomendados
 + *Obsidian Web Clipper* (Addon do Firefox)* \[MELHOR\]
     + https://addons.mozilla.org/en-US/firefox/addon/web-clipper-obsidian
     + Extensão que permite aos usuários salvar páginas da web em formato markdown ou transformar partes selecionadas da página em markdown. Esta ferramenta pode ser usada com o MWiki para extrair informações de páginas da web, já que a linguagem de marcação MWiki é compatível com o markdown Obsidian.
-+ *Arquivos da Web* - Busca por versões mais antigas do URL atual do Win Web Archiver, archive.is e outros sites.
++ *Web Archive* - Busca por versões mais antigas do URL atual do Win Web Archiver, archive.is e outros sites.
     + https://addons.mozilla.org/en-US/firefox/addon/view-page-archive/
     + *Visualize versões arquivadas e em cache de páginas da web em vários mecanismos de busca, como Wayback Machine e Archive․is.*
 + *Permitir Clique com o Botão Direito - Reative o clique com o botão direito em sites que o sobrescrevem* (Firefox)
