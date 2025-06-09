@@ -734,6 +734,45 @@ Rendering:
         \end{bmatrix}
 ```
 
+### Cross Reference to LaTeX Equations
+
+Equation cross referencing allows linking previously stated equations in paragraphs, mathematical proofs or defintions. This feature reduces the text verbosity and makes it easier to readers to follow the mathematical reasoning. Note that this feature is provided by MathJax LaTeX rendering engine.
+
+Syntax Example:
+
+````markdown
+
+Pendulum position vector $\mathbf{r}(t)$.
+
+$$
+  \label{eq_pendulum_position_vector}
+  \mathbf{r}(t) = \ell \sin \theta(t) \mathbf{e}_x + \ell \cos \theta(t) \mathbf{e}_y
+$$
+
+
+The velocity of a point mass, a body with negligible dimensions, is given by
+
+$$
+   \label{eq_def_velocity}
+   \mathbf{v}(t) = \frac{d \mathbf{r}}{dt} = \dot{\mathbf{r}}(t)
+$$
+
+
+Compute the velocity of the pendulum point-mass by replacing $\eqref{eq_pendulum_position_vector}$  in $\eqref{eq_def_velocity}$.
+
+$$
+   \mathbf{v}(t) = \frac{d}{dt} [ \ell \sin \theta(t) \mathbf{e}_x + \ell \cos \theta(t) \mathbf{e}_y ]
+$$
+````
+
+Rendering output:
+
+![](images/latex-equation-cross-reference.png)
+
+
+In the rendering output, the velocity equation has the number 8.3, which means that it is the 3rd equations of the current wiki page section 8. The last text displays links to the position and velocity equations, which an user can click to go to the referenced equations.
+
+
 ### Latex Macros
 
 It is possible to define LaTeX macros for writing math expressions in a more concise way
