@@ -95,7 +95,7 @@ Veja documentação detalhada e exemplos em:
 
 ### Animações GIF
 
-**Uso da animação GIF**
+**Animação GIF mostrando usdo do MWiki**
 
 ![](images/mwiki-animation-usage1.gif)
 
@@ -110,7 +110,7 @@ Veja documentação detalhada e exemplos em:
 ![](images/wiki-markdown-preview.gif)
 
 
-### Capturas de Tela
+### Capturas de Tela (Screenshot)
 
 **Captura de Tela 1 do Wiki**
 
@@ -546,8 +546,8 @@ O seguinte conjunto de softwares ou aplicativos complementares são recomendados
     + *Visualize versões arquivadas e em cache de páginas da web em vários mecanismos de busca, como Wayback Machine e Archive․is.*
 + *Permitir Clique com o Botão Direito - Reative o clique com o botão direito em sites que o sobrescrevem* (Firefox)
     + https://addons.mozilla.org/en-US/firefox/addon/re-enable-right-click/
-    + *A extensão "Permitir Clique com o Botão Direito" modifica alguns métodos do JavaScript para habilitar o menu de contexto original do botão direito quando uma página da web bloqueia intencionalmente o clique com o botão direito em seu conteúdo. A maioria dos navegadores modernos permite que o JavaScript desabilite o menu de contexto padrão quando uma página da web fornece seu próprio menu de contexto personalizado para seu conteúdo (como no Google Docs). No entanto, esse recurso também pode permitir que proprietários de sites desabilitem o menu de contexto do botão direito sem fornecer nenhuma funcionalidade útil. A extensão adiciona um botão à área da barra de ferramentas do navegador do usuário. Clicar no ícone da extensão injeta um pequeno script na página atual para remover o bloqueio do menu de contexto. É importante observar que a extensão não injeta nenhum código por padrão em nenhuma página da web; ela só o faz mediante ação do usuário. Os usuários podem clicar no botão da extensão para liberar a restrição quando um site bloqueia o menu de contexto do botão direito sem oferecer um menu de contexto personalizado.*
-+ *Script Blocker Ultimate* - (Sem Script, Desativar JS, NOTA: Traduzido da descrição original em inglês.)
+    + *A extensão "Permitir Clique com o Botão Direito" modifica alguns métodos do JavaScript para habilitar o menu de contexto original do botão direito quando uma página da web bloqueia intencionalmente o clique com o botão direito em seu conteúdo. A maioria dos navegadores modernos permite que o JavaScript desabilite o menu de contexto padrão quando uma página da web fornece seu próprio menu de contexto personalizado para seu conteúdo (como no Google Docs). No entanto, esse recurso também pode permitir que proprietários de sites desabilitem o menu de contexto do botão direito sem fornecer nenhuma funcionalidade útil. A extensão adiciona um botão à área da barra de ferramentas do navegador do usuário. Clicar no ícone da extensão injeta um pequeno script na página atual para remover o bloqueio do menu de contexto. É importante observar que a extensão não injeta nenhum código por padrão em nenhuma página da web; ela só o faz mediante ação do usuário. Os usuários podem clicar no botão da extensão para liberar a restrição quando um site bloqueia o menu de contexto do botão direito sem oferecer um menu de contexto personalizado.* (Sem Script, Desativar JS, NOTA: Traduzido da descrição original em inglês.) 
++ *Script Blocker Ultimate*  
     + https://addons.mozilla.org/en-US/firefox/addon/script-blocker-ultimate/
     + *Extensão para alternar a execução de Javascript, que permite desativar e ativar JavaScript.*
 + *Árvore de Tabs para Firefox* (melhor navegação em muitas tabs)
@@ -559,6 +559,7 @@ O seguinte conjunto de softwares ou aplicativos complementares são recomendados
 + *Speech Note - Flathub* \[Aplicativo Flatpak Linux\] (Tradutor "G00gl3" Offline)
     + https://flathub.org/apps/net.mkiol.SpeechNote
     + Resumo: *O Speech Note permite que você faça, leia e traduza notas em vários idiomas. Ele utiliza Conversão de Texto em Fala, Conversão de Texto em Fala e Tradução Automática para isso. O processamento de texto e voz ocorre totalmente offline, localmente no seu computador, sem usar uma conexão de rede. Sua privacidade é sempre respeitada. Nenhum dado é enviado para a internet.*
+    + NOTA: Requer uso de GPU, o software tem melhor performance/desempenho com GPUs da NVIDIA com CUDA.
 
 
 
