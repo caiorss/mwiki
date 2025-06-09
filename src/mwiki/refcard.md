@@ -703,6 +703,64 @@ Rendering:
           \\  \gamma &  \zeta 
         \end{bmatrix}
 ```
+
+### Cross Reference To LaTeX Equations
+
+Example:
+
+````markdown
+
+Pendulum position vector $\mathbf{r}(t)$.
+
+$$
+  \label{eq_pendulum_position_vector}
+  \mathbf{r}(t) = \ell \sin \theta(t) \mathbf{e}_x + \ell \cos \theta(t) \mathbf{e}_y
+$$
+
+
+The velocity of a point mass, a body with negligible dimensions, is given by
+
+$$
+   \label{eq_def_velocity}
+   \mathbf{v}(t) = \frac{d \mathbf{r}}{dt} = \dot{\mathbf{r}}(t)
+$$
+
+
+Compute the velocity of the pendulum point-mass by replacing $\eqref{eq_pendulum_position_vector}$  in $\eqref{eq_def_velocity}$.
+
+$$
+   \mathbf{v}(t) = \frac{d}{dt} [ \ell \sin \theta(t) \mathbf{e}_x + \ell \cos \theta(t) \mathbf{e}_y ]
+$$
+````
+
+Redering:
+
+:::{note} Rendering Output
+
+Pendulum position vector $\mathbf{r}(t)$.
+
+$$
+  \label{eq_pendulum_position_vector}
+  \mathbf{r}(t) = \ell \sin \theta(t) \mathbf{e}_x + \ell \cos \theta(t) \mathbf{e}_y
+$$
+
+
+The velocity of a point mass, a body with negligible dimensions, is given by
+
+$$
+   \label{eq_def_velocity}
+   \mathbf{v}(t) = \frac{d \mathbf{r}}{dt} = \dot{\mathbf{r}}(t)
+$$
+
+
+Compute the velocity of the pendulum point-mass by replacing $\eqref{eq_pendulum_position_vector}$  in $\eqref{eq_def_velocity}$.
+
+$$
+   \mathbf{v}(t) = \frac{d}{dt} [ \ell \sin \theta(t) \mathbf{e}_x + \ell \cos \theta(t) \mathbf{e}_y ]
+$$
+:::
+
+
 ### Latex Macros
 
 It is possible to define LaTeX macros for writing math expressions in a more concise way
