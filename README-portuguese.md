@@ -185,7 +185,7 @@ Este wiki fornece uma janela pop-up de cartão de referência que fornece exempl
 
 ## Instalação
 
-### Instalação usando o gerenciador de pacotes UV
+### Instalação usando o gerenciador de pacotes UV (1)
 
 [UV](https://github.com/astral-sh/uv) é um gerenciador de pacotes para Python extremamente rápido e recente, que pode até instalar várias versões específicas do interpretador Python sem interromper a instalação do Python usada pelo sistema. O UV também pode instalar ferramentas Python em ambientes isolados sem quebrar a instalação atual do Python.
 
@@ -237,6 +237,78 @@ $ file $(readlink $(which mwiki))
 $ uv tool uninstall mwiki 
 Uninstalled 2 executables: mwiki, mwiki-convert
 ```
+
+### Instalação usando o gerenciador de pacotes UV (2)
+
+Este procedimento de instalação utiliza o gerenciador de pacotes UV para instalar a partir do código-fonte em vez da URL do GitHub.
+
+**PASSO 1:** Clone o repositório.
+
+```sh
+$  git clone https://github.com/caiorss/mwiki 
+```
+
+Entre no diretório do código-fonte.
+
+```sh
+$ cd mwiki
+```
+
+**PASSO 2:** Instalar MWIKI usando UV.
+
+```sh
+$ uv tool install . 
+
+Resolved 36 packages in 1.07s
+Installed 36 packages in 119ms
+ + blinker==1.9.0
+ + cachelib==0.13.0
+ + cffi==1.17.1
+ + click==8.1.8
+ + cryptography==45.0.4
+ + flask==3.1.1
+ + flask-session==0.8.0
+ + flask-sqlalchemy==3.1.1
+ + flask-wtf==1.2.2
+ + frontmatter==3.0.8
+ + greenlet==3.2.3
+ + importlib-metadata==8.7.0
+ + itsdangerous==2.2.0
+ + jinja2==3.1.6
+ + linkify-it-py==2.0.3
+ + markdown-it-py==3.0.0
+ + markupsafe==3.0.2
+ + mdit-py-plugins==0.4.2
+ + mdurl==0.1.2
+ + msgspec==0.19.0
+ + mwiki==0.1 
+ + pillow==11.2.1
+ + pycparser==2.22
+ + pygments==2.19.2
+ + python-dateutil==2.9.0.post0
+ + pyyaml==5.1
+ + six==1.17.0
+ + sqlalchemy==2.0.41
+ + tomli==2.2.1
+ + typing-extensions==4.14.0
+ + uc-micro-py==1.0.3
+ + waitress==3.0.2
+ + watchdog==6.0.0
+ + werkzeug==3.1.3
+ + wtforms==3.2.1
+ + zipp==3.23.0
+Installed 2 executables: mwiki, mwiki-convert
+
+```
+
+**Desinstalar**
+
+
+```sh
+$ uv tool uninstall mwiki 
+Uninstalled 2 executables: mwiki, mwiki-convert
+```
+
 
 ### Instalação usando o gerenciador de pacotes Pipx
 

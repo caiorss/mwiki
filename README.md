@@ -193,7 +193,7 @@ This wiki provides a reference card popup windown that provides examples of the 
 
 ## Installation 
 
-### Installation using UV package manager
+### Installation using UV package manager (1)
 
 [UV](https://github.com/astral-sh/uv) is a newer blazing fast package manager for Python, that can even install multiple specific versions of the Python interpreter without disrupting Python installation used by the system. UV can also install Python tools in isolated environment without breaking the current Python installation. 
 
@@ -240,10 +240,77 @@ $ file $(readlink $(which mwiki))
 
 **Uninstall**
 
+### Installation using UV package manager (2)
+
+This installation procedure uses the UV package manager for installing from the source code instead of github URL.
+
+**STEP 1:** Clone the repository.
+
+```sh
+$  git clone https://github.com/caiorss/mwiki 
+```
+
+Enter the source code directory.
+
+```sh
+$ cd mwiki
+```
+
+**STEP 2:** Install MWIKI using UV.
+
+```sh
+$ uv tool install . 
+
+Resolved 36 packages in 1.07s
+Installed 36 packages in 119ms
+ + blinker==1.9.0
+ + cachelib==0.13.0
+ + cffi==1.17.1
+ + click==8.1.8
+ + cryptography==45.0.4
+ + flask==3.1.1
+ + flask-session==0.8.0
+ + flask-sqlalchemy==3.1.1
+ + flask-wtf==1.2.2
+ + frontmatter==3.0.8
+ + greenlet==3.2.3
+ + importlib-metadata==8.7.0
+ + itsdangerous==2.2.0
+ + jinja2==3.1.6
+ + linkify-it-py==2.0.3
+ + markdown-it-py==3.0.0
+ + markupsafe==3.0.2
+ + mdit-py-plugins==0.4.2
+ + mdurl==0.1.2
+ + msgspec==0.19.0
+ + mwiki==0.1 
+ + pillow==11.2.1
+ + pycparser==2.22
+ + pygments==2.19.2
+ + python-dateutil==2.9.0.post0
+ + pyyaml==5.1
+ + six==1.17.0
+ + sqlalchemy==2.0.41
+ + tomli==2.2.1
+ + typing-extensions==4.14.0
+ + uc-micro-py==1.0.3
+ + waitress==3.0.2
+ + watchdog==6.0.0
+ + werkzeug==3.1.3
+ + wtforms==3.2.1
+ + zipp==3.23.0
+Installed 2 executables: mwiki, mwiki-convert
+
+```
+
+**Uninstall**
+
+
 ```sh
 $ uv tool uninstall mwiki 
 Uninstalled 2 executables: mwiki, mwiki-convert
 ```
+
 
 ### Installation using Pipx pacakge manager 
 
