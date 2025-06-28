@@ -71,7 +71,7 @@ def make_app_server(  host:        str
     @app.route("/user", methods = [M_GET, M_POST])
     @check_login( required = True )
     def route_user_settings():
-        pass 
+        """Panel for updating user account settings.""" 
         user = current_user()
         form = UserSettingsForm()
         if request.method == M_GET:
@@ -91,6 +91,7 @@ def make_app_server(  host:        str
     @app.route("/account/new", methods = [M_GET, M_POST])
     @check_login(required = True)
     def route_user_add():
+        """Form for creating new user accounts."""
         user = current_user()
         if not user.is_admin():
             flask.abort(STATUS_CODE_403_FORBIDDEN)
@@ -122,6 +123,7 @@ def make_app_server(  host:        str
     @app.route("/settings", methods = [M_GET, M_POST])
     @check_login(required = True)
     def route_settings():
+        """Form for changing wiki settings."""
         user = current_user()
         if not user.is_admin():
             flask.abort(403)
@@ -149,6 +151,11 @@ def make_app_server(  host:        str
     @app.route("/pages", methods = [M_GET])
     @check_login()
     def route_pages():
+        """Allows searching or browsing all wiki pages.
+
+        This page provides a form search where users can look 
+        for keywords in all wiki page files (markdown files).
+        """
         query = (request.args.get("search") or "").strip()
         # Possibliity: ?sort=modified, ?sort=name, ?sort=created
         sort  = request.args.get("sort", "")
@@ -198,17 +205,16 @@ def make_app_server(  host:        str
     ## print(" [TRACE] running gunicorn = ", is_gunicorn)
     ## print(" [TRACE] server sofware   = ", server_software)
 
-    @app.route("/check")
-    def hello():
-        return "The server is up and running. OK."
 
     @app.get("/about")
     def route_about():
+        """Show about page."""
         resp = flask.render_template("about.html", title="About MWiki")
         return resp
 
     @app.get("/licenses")
     def route_licenses():
+        """Serve page showing open source licenses of dependencies used in this project."""
         resp = flask.render_template("licenses.html", title="Open Source Licenses")
         return resp
 
@@ -217,12 +223,13 @@ def make_app_server(  host:        str
     def route_wiki_image(filepath):
         print(" [TRACE] path = ", filepath)
         root = IMAGE_PATH ## utils.get_wiki_path("images")
-        print(" [TRACE] root = ", root)
+        ## print(" [TRACE] root = ", root)
         resp = flask.send_from_directory(root, filepath)
         return resp
 
     @app.route("/wiki/math/<file>")
     def route_wiki_math(file):
+        """Server cached SVG image of compiled LaTeX equation."""
         resp = flask.send_from_directory(render.svg_cache_folder, file)    
         return resp
 
@@ -236,6 +243,7 @@ def make_app_server(  host:        str
     @app.route("/source/<path>")
     @check_login( required = True)
     def route_wiki_source(path):
+        """Serve source code of wiki page."""
         mdfile_ = path + ".md"
         page = repository.get_wiki_page(path)
         if not page: flask.abort(STATUS_CODE_404_NOT_FOUND)
@@ -260,6 +268,7 @@ def make_app_server(  host:        str
     @app.route("/wiki/<path>")
     @check_login()
     def route_wiki_page(path: str):
+        """Return rendered wiki pages as html or server files upload by user"""
         # path does not have exntension, it is just the name
         # of the mdfile without any extension
         if "." not in path:
@@ -370,6 +379,7 @@ def make_app_server(  host:        str
     @app.get("/api/wiki") 
     @check_login()
     def api_wiki_pages():
+        """API endpoint that shows list of all wiki pages."""
         pages  = sorted([x.name.split(".md")[0] for  x in base_path.rglob("*.md")])
         resp  = flask.jsonify(pages)
         return resp 
@@ -378,6 +388,7 @@ def make_app_server(  host:        str
     @app.route("/api/wiki/<path>", methods = [M_GET, M_POST, M_DELETE])
     @check_login()
     def api_wiki(path: str):
+        """API endpoint for editing, saving or deleting wiki pages."""
         mdfile_ = path + ".md"
         p: Optional[pathlib.Path] = next(base_path.rglob(mdfile_), None)
         user = current_user()
@@ -410,7 +421,7 @@ def make_app_server(  host:        str
     @app.route("/create/<path>", methods = [M_GET, M_POST])
     @check_login(required = True)
     def route_create(path: str):
-        """Flask http route for creating new wiki pages/notes."""
+        """Http endpoint for creating new wiki pages/notes."""
         user = current_user()
         # Enforce authorization  
         if not user.user_can_edit():
@@ -451,6 +462,7 @@ def make_app_server(  host:        str
     @app.route("/edit/<path>", methods = [M_GET, M_POST])
     @check_login( required = True)
     def route_edit_page(path: str):
+        """Servers Wiki code editor (Ace 9) JavaScript editor."""
         user = current_user()
         # Enforce authorization  - Guest (Read-Only Users) and anonymous
         # users cannot edit the Wiki.
@@ -655,6 +667,7 @@ def make_app_server(  host:        str
 
     @app.get("/")
     def route_index_page():
+        """Server index page '/'"""
         index_file = os.path.join(BASE_PATH, "Index.md")
         response = ""
         if os.path.isfile(index_file):
