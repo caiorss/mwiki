@@ -7,7 +7,8 @@ O MWiki é um **motor wiki** e um software de aplicação web para anotações, 
 Este aplicativo Python é alimentado pelo framework web Python Flask e pelo analisador extensível Markdown-it usado pelo MyST Markdown e pelo projeto Jupyter Book.
 
 + Observação: Este software ainda está **em andamento** e em estágio inicial. No entanto, ele já pode ser usado como um aplicativo de anotações pessoais.
-+ Observação: o Mediawiki é o software de motor wiki que alimenta a Wikipédia.
++ Observação: o Mediawiki é o software de motor wiki usado pela Wikipédia.
+
 
 ### Destaques de Funcionalidades
 
@@ -20,7 +21,7 @@ Este aplicativo Python é alimentado pelo framework web Python Flask e pelo anal
 + Upload de arquivo. Agora, o editor de código wiki possui um botão para inserir um hiperlink para um arquivo carregado. Ao clicar no botão, uma janela pop-up para upload é exibida. Assim que o usuário envia o arquivo, a janela é fechada e um link para o arquivo é inserido no editor.
 + Páginas embutiveis. O conteúdo de uma página wiki pode ser incorporado em outra página wiki usando a sintaxe `![[Nome da página Wiki a ser incorporada]]`
 + Visualização do documento - permite que os usuários visualizem como o texto em markdown de uma página wiki ficará quando renderizado antes de salvá-lo. O botão de pré-visualização do editor também permite visualizar a aparência de um código markdown selecionado de uma página wiki quando renderizado.
-+ Dependências JavaScript de terceiros para uso offline. Por exemplo, o MWiki possui MathJax, pseudocode-JS e Ace9 no código-fonte para uso offline, mesmo quando não há CDN disponível devido à falta de conectividade com a internet ou se o Wiki for usado em um ambiente restrito protegido por firewall.
++ Dependências JavaScript de terceiros para uso offline. Por exemplo, o MWiki possui MathJax, pseudocode-JS e Ace9 embutidos *(vendored)* no código-fonte para uso offline, mesmo quando não há CDN disponível devido à falta de conectividade com a internet ou se o Wiki for usado em um ambiente restrito protegido por firewall.
 
 #### Controle de acesso
 

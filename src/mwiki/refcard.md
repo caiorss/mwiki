@@ -628,6 +628,98 @@ what we want the computer to do.
 
 
 ## LaTeX Math Equations
+
+
+### Equation Enumeration Style 
+
+MWiki supports the following LaTeX equation enumeration styles
+
++ none
+  + Schema: no enumeration, only referenced equations with LaTeX \eqref macro will be enumerated.
++ section  (default)
+  + Schema: `<section-number>.<equation-number>`
++ subsection 
+  + Schema: `<section-number>.<subsection-number>.<equation-number>`
+
+that can be changed by adding the next line to the document front-matter as shown in the following code example. Note that the front-matter is a human-readable human configuration in the markdown code between the lines containing '---' (three dashes) at the beginning of the page.
+
+
+Front-matter example:
+
+````markdown
+```
+---
+description: Description of the document
+equation_enumeration: subection
+  ... ... ... ... ... 
+  ... ... ... ... ... 
+---
+```
+````
+
+Example consider the remaining of the page source code below after the front-matter.
+
++ If the **equation_enumeration** directive is set to **none**, the equations will not be automatically enumerated. 
++ If **equation_enumeration** is set to **section** (default), the number of equation A is set to 1.1, the number of the equation B is set to 1.2, the number of equation C is set to 1.3, the number of D is set to 1.4
++ If **equation_enumeration** is set to **subsection**, the number of equation A is set to 1.1, the number of equation B is set to 1.2, the number of equation C is set to 1.1.1, the number of D is set to 1.1.2, F's number is set to 2.1.1 and G's number is set to 2.1.2. This enumeration style is best suitable for documents with many equations per section.
+
+Remaining of the wiki page source after the front-matter.
+
+````markdown
+## Section 1 
+
+Introduction ....
+
+$$
+   % equation (A)
+   f(x) = x^2 - 2x + 10
+$$
+
+Root of the equation
+
+$$
+   % equation (B)
+   x = ....
+$$
+
+
+### Subsection 1.1
+
+Quadratic formula.
+
+$$
+   % equation (C)
+   x = \frac{-b \pm \sqrt{b^2 - 4ac}}
+$$
+
+Cubic function 
+
+$$
+  % equation (D)
+  f(x) = x^3
+$$
+
+## Section 2
+
+### Section 2.1
+
+Equation 1 of section 2.1
+
+$$
+  % Equation (F)
+  y = 2 x + 10
+$$
+
+Equation 2 of section 2.2
+
+$$
+  % Equation (G)
+   b = y - 10
+$$
+
+````
+
+
 ### Inline 
 
 ```

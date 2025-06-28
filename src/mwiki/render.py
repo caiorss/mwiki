@@ -1,9 +1,10 @@
 """Rendering of MWiki to html and other formats."""
 import glob
+import json
 import re 
 import yaml                     # Python3 stdlib Yaml Parser
 import pathlib
-from typing import Optional
+from typing import Optional, Tuple
 from markdown_it.tree import SyntaxTreeNode
 import urllib.parse
 import os 
@@ -440,6 +441,7 @@ class HtmlRenderer(AbstractAstRenderer):
         self._render_math_svg =  render_math_svg  
         self._embed_math_svg = False
         self._myst_line_comment_enabled = True
+        self._equation_enumeration = "section"
         self._theorem_counter = 1
         """Current theorem number"""
         
@@ -473,6 +475,10 @@ class HtmlRenderer(AbstractAstRenderer):
             , ("{section}", "§")
 
         ]
+
+    @property
+    def equation_enumeration(self):
+        return self._equation_enumeration
 
     def _add_abbreviations(self, text: str) -> str:
         """Replace abbreviation words in a text by <abbr> html5 elements."""
@@ -576,12 +582,14 @@ class HtmlRenderer(AbstractAstRenderer):
             # not (a OR b) = (not a) AND (not B)
             if title.lower() != "overview" and title.lower() != "related":
                 self._count_h2 += 1
-                tex_command =r'<span class="tex-section-command" style="display:none">\(\setSection{%s}\)</span>' % self._count_h2
                 self._count_h3 = 0
+                tex_command = r'<span class="tex-section-command" style="display:none">\(\setSection{%s}\)</span>' % self._count_h2
+                tex_command += "\n" + r'<span class="tex-section-command" style="display:none">\(\setSubSection{%s}\)</span>' % self._count_h3
                 value = f"{self._count_h2} {value}"
         elif tag == "h3":
             self._count_h3 += 1
             self._count_h4 = 0
+            tex_command += "\n" + r'<span class="tex-section-command" style="display:none" data-code="\setSubSection{%s}">\(\setSubSection{%s}\)</span>' % (self._count_h3, self._count_h3)
             value = f"{self._count_h2}.{self._count_h3} {value}"
         elif tag == "h4":
             self._count_h4 += 1
@@ -613,7 +621,7 @@ class HtmlRenderer(AbstractAstRenderer):
             if tag == "h2":
                html = html + """\n<hr class="line-under-heading">""" 
         else:
-            html = f"""<{tag} class="document-heading">{title}</{tag}>"""
+            html = f"""<{tag} class="document-heading">{title}</{tag}>""" 
         # Add horizontal line below heading if it is h2.
         return html  
  
@@ -1095,7 +1103,7 @@ class HtmlRenderer(AbstractAstRenderer):
         assert node.type == "image"
         src = node.attrs.get("src", "")
         inner = "".join([ self.render(n) for n in node.children ])
-        html = f"""<img class="external-image anchor" src="{src}" alt="{inner}" >"""
+        html = """<div class="div-wiki-image"><img class="external-image anchor" src="%s" alt="%s"></div>""" % (src, inner)
         return html 
 
     def render_bullet_list(self, node: SyntaxTreeNode) -> str:
@@ -1270,6 +1278,7 @@ class HtmlRenderer(AbstractAstRenderer):
             print("[ERROR] Failed to parse frontmatter data => \nDetails:", ex)
         abbrs =  data.get("abbreviations", {}) 
         wordlinks = data.get("wordlinks", {})
+        self._equation_enumeration = data.get("equation_enumeration", "section")  
         ## Append abbreviation dictionary 
         for k, v in abbrs.items():
             self._abbreviations[k] = v
@@ -1540,16 +1549,19 @@ def node_to_html(page_name: str, node: SyntaxTreeNode, base_path: str):
     html = __html_render.render(node)
     return html
 
-def pagefile_to_html(pagefile: str, base_path: str):
-    import re
+def pagefile_to_html(pagefile: str, base_path: str) -> Tuple[HtmlRenderer, str]:
     with open(pagefile) as fd:
         source: str = fd.read()
         ## source = re.sub(r"^$$", "\n$$", source) 
         tokens = mparser.MdParser.parse(source)
         ast    = SyntaxTreeNode(tokens)
         page_name = os.path.basename(pagefile)
-        html    = node_to_html(page_name, ast, base_path = base_path)
-        return html
+        renderer = HtmlRenderer(  page_name = page_name
+                            , render_math_svg = False
+                            , base_path = base_path
+                            )
+        html = renderer.render(ast)
+        return renderer, html
 
 def compile_pagefile_(pagefile: str):
     with open(pagefile) as fd:

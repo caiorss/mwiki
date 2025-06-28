@@ -10,6 +10,23 @@
     {% block style %}{% endblock %}
     <!-- MathJax Settings -->
     <script>
+
+    // Possible values: 'none', 'nosection' 'section', 'subsection'
+    //  none      => no enumeration 
+    //  nosection 
+    //      Schema: <equation-number>
+    //      Example: Equations are enumerated as 1, 2, ..., 200
+    //              in the order that they are shown without section or 
+    //              subsection number
+    //  section   
+    //      Schema:  => <section>.<equation-number>
+    //      Exmaple: => 2.1, 2.5, 6.8
+    //  subsection 
+    //      Schema:  => <section>.<subsection>.<equation-number>
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5 
+    //
+    let equation_enumeration = "{{equation_enumeration}}";
+
     MathJax = {
         loader: {load: ['[tex]/tagformat', '[tex]/mathtools', 'output/chtml']}
 
@@ -22,22 +39,35 @@
           // Location of equation numbers
         , tagSide: "right"  
         // Possible values 'ams' or 'all' (all equations are numbered by default)
-        , tags: "all"
+        , tags: equation_enumeration !== "none" ? "all" : "ams"
         //, tags: 'ams'
         , packages: {'[+]': [
                                   'tagformat'
                                 , 'sections'
+                                , 'subsections'
                                 , 'autoload-all'
                             ]}
         , tagformat: {
-          number: (n) => MathJax.config.section + '.' + n
+          number: (n) => { 
+            let nsec = MathJax.config.section;
+            let nsub = MathJax.config.subsection;
+            var out = '';
+            if (nsub === 0 || equation_enumeration == "section") 
+            {
+                out = nsec + '.' + n;
+            } else {
+                out = nsec + '.' + nsub +  '.' + n;
+            }
+            // console.log("Display section = ", out);
+            return out;
+          }
         }
       }
 
      , startup: {
 
             ready() {
-                console.log(" [TRACE] I was called from ready()");
+                // console.log(" [TRACE] I was called from ready()");
                 const Configuration = MathJax._.input.tex.Configuration.Configuration;
                 const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
                 new CommandMap('sections', {
@@ -45,19 +75,50 @@
                     , setSection:  'SetSection'
                 }, {
                      NextSection(parser, name) {
-                        console.log(" [TRACE] Called next section");
+                        // console.log(" [TRACE] Called NextSection()");
                         MathJax.config.section++;
+                        MathJax.config.subsection = 0;
                         parser.tags.counter = parser.tags.allCounter = 0;
                     }
                     , SetSection(parser, name) {
+                        // console.log(" [TRACE] Called SetSection()");
                         const n = parser.GetArgument(name);
                         MathJax.config.section = parseInt(n);
                         parser.tags.counter = parser.tags.allCounter = 0;
                     }
                 });
+                if (equation_enumeration === "subsection")
+                {
+                    new CommandMap('subsections', {
+                          nextSubSection: 'NextSubSection'
+                        , setSubSection:  'SetSubSection'
+                    }, {
+                         NextSubSection(parser, name) {
+                            // console.log(" [TRACE] NextSubSection() called.");
+                            MathJax.config.subsection++;
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                        , SetSubSection(parser, name) {
+                            const n = parser.GetArgument(name);
+                            // console.log(" [TRACE] SetSubSection to ", n);
+                            MathJax.config.subsection = parseInt(n);
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                    });
+                }
+
                 Configuration.create(
-                    'sections', { handler: { macro: ['sections'] } }
+                      'sections', { handler: { macro: ['sections'] } }
                 );
+
+                if( equation_enumeration === "subsection" )
+                {
+                    Configuration.create(
+                        'subsections', { handler: { macro: ['subsections'] } }
+                    );
+
+                }
+
                 MathJax.startup.defaultReady();
                 pseudocode.renderClass("pseudocode", { "lineNumber": true, "scopeLines": true });
                 // This function is provided by main.js.

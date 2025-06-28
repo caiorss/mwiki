@@ -170,14 +170,16 @@ class WikiPage():
         toc = mparser.headings_to_html(root)
         pagefile = str(self.path())
         base_path = str(self._base_path)
-        content = render.pagefile_to_html(pagefile, base_path)
+        renderer, content = render.pagefile_to_html(pagefile, base_path)
         html = flask.render_template(  "content.html"
                                              , title   = self._title 
                                              , page    = self._title
                                              , pagename = self._title 
                                              , content = content
                                              , toc     = toc
-                                             , latex_macros = latex_macros)
+                                             , latex_macros = latex_macros
+                                             , equation_enumeration = renderer.equation_enumeration
+                                             )
         return html
 
     def frontmatter(self):
