@@ -98,6 +98,9 @@ class AbstractAstRenderer:
         self._count_h2 = 0
         """Current count of h2 headline - '# h2 headline level'"""
 
+        self._title = ""
+        """Optional Page Title that may be defined in the document YAML front-matter"""
+
         self._count_h3 = 0
         self._count_h4 = 0
         self._handlers = {
@@ -154,6 +157,10 @@ class AbstractAstRenderer:
             , "footnote_block":             self.render_footnote_block
             , "wiki_tag_inline":            self.render_wiki_tag_inline
         }
+
+    @property
+    def title(self):
+        return self._title
     
     def find_page(self, name: str) -> Optional[pathlib.Path]:
         """Find path to note file, given its name."""
@@ -1276,9 +1283,11 @@ class HtmlRenderer(AbstractAstRenderer):
             data = yaml.safe_load(node.content)
         except yaml.YAMLError as ex:
             print("[ERROR] Failed to parse frontmatter data => \nDetails:", ex)
+        if not self._is_embedded_page:
+            self._title = data.get("title", "")
+            self._equation_enumeration = data.get("equation_enumeration", "section")  
         abbrs =  data.get("abbreviations", {}) 
         wordlinks = data.get("wordlinks", {})
-        self._equation_enumeration = data.get("equation_enumeration", "section")  
         ## Append abbreviation dictionary 
         for k, v in abbrs.items():
             self._abbreviations[k] = v

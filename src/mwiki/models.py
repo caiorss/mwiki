@@ -171,8 +171,9 @@ class WikiPage():
         pagefile = str(self.path())
         base_path = str(self._base_path)
         renderer, content = render.pagefile_to_html(pagefile, base_path)
+        title = renderer.title if renderer.title != "" else self._title
         html = flask.render_template(  "content.html"
-                                             , title   = self._title 
+                                             , title   = title 
                                              , page    = self._title
                                              , pagename = self._title 
                                              , content = content
