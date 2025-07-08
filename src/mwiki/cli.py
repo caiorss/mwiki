@@ -1,3 +1,7 @@
+"""Command Line Handler 
+
+Module responsible for processing command line switches and options.
+"""
 import os
 import os.path 
 import sys
