@@ -2,11 +2,19 @@
 
 ## Visão Geral
 
-O MWiki é um **motor wiki** e um software de aplicação web para anotações, voltado para matemática e pesquisa, projetado para comunicação científica e técnica. Este software de motor wiki possui uma linguagem de marcação leve e rica em semântica, baseada em MyST Markdown, Obsidian Markdown e na linguagem de marcação do motor Media Wiki.
+O MWiki é um **motor wiki** *(wiki engine)* e um software de aplicação web para anotações, voltado para matemática e pesquisa, projetado para comunicação científica e técnica. Este software de motor wiki possui uma linguagem de marcação leve e rica em semântica, baseada em MyST Markdown, Obsidian Markdown e na linguagem de marcação do motor Media Wiki.
 
-Este aplicativo Python é alimentado pelo framework web Python Flask e pelo analisador extensível Markdown-it usado pelo MyST Markdown e pelo projeto Jupyter Book.
+Este aplicativo Python é suportado pelo framework web Python Flask e pelo parser extensível Markdown-it usado pelo MyST Markdown e pelo projeto Jupyter Book.
 
-+ Observação: Este software ainda está **em andamento** e em estágio inicial. No entanto, ele já pode ser usado como um aplicativo de anotações pessoais.
+Aplicações:
++ Documentação
++ Redação Técnica/Científica, especialmente nas áreas STEM (Ciências, Tecnologia, Engenharia e Matemática).
++ Base de Conhecimento Pessoal
++ Preservação do Conhecimento e da Informação
+
+NOTAS:
+
++ Observação: Este software ainda está **em progresso** e em estágio inicial. No entanto, ele já pode ser usado como um aplicativo de anotações pessoais.
 + Observação: o Mediawiki é o software de motor wiki usado pela Wikipédia.
 
 

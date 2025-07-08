@@ -6,6 +6,13 @@ MWiki is a **wiki engine** and note taking web application software geared towar
 
 This Python application is powered by Python Flask web framework and the extensible markdown-it parser used by MyST markdown and the Jupyter Book project. 
 
+Applications:
++ Documentation 
++ Technical/Scientific Writing, specially STEM (Science, technology, engineering, and mathematics) fields.
++ Personal Knowledge Base
++ Knowledge and Information Preservation 
+
+NOTES: 
 
 + Note: This software is still **work in progress** and under early stage. However, it can already be used as a personal note taking application.
 + Note: Mediawiki is the wiki engine software that powers Wikipedia.
