@@ -6,19 +6,26 @@
      class="dropbtn"
      >[Page]</a>
   <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+
+      {% if current_user().is_authenticated() %}
        <a class="sidebar-toggle-button" href="#" onclick="showRefcard();" id="btn-show-refcard" title="Show Reference Card.">Refcard</a>
-        <a class="sidebar-toggle-button" 
+      {% endif %}
+      
+      <a class="sidebar-toggle-button" 
+           href="/source/{{page}}" 
+           title="Display source code of current page."
+           >Source</a>
+                
+      {% if current_user().is_authenticated() %}
+       <a class="sidebar-toggle-button" 
            href="/wiki/{{page}}" 
            title="View this page as html"
                 >View</a>
+
         <a class="sidebar-toggle-button" 
            href="/edit/{{page}}" 
            title="Edit markdown page"
                 >Edit</a>
-        <a class="sidebar-toggle-button" 
-           href="/source/{{page}}" 
-           title="Display source code of current page."
-           >Source</a>
         <a class="sidebar-toggle-button" 
            href="/links/{{page}}" 
            title="Display all external links of this page."
@@ -28,5 +35,6 @@
            title="Delete this page"
            onclick="deletePage('{{page}}')" 
            >Delete</a>
+       {% endif %}
   </div>
 </div>
