@@ -1,14 +1,22 @@
 ---
+title: Mathematics, Calculus and Linear Algebra Reference Card
+
 label: math-calculus-refcard
+
 description: Reference card for math and calculus. This quick reference covers trigonometric identities, derivatives, integrals, statistcs and matrix calculus.
+
 subject: math
-keywords: math, refcard, calculus, derivative, transform, integral, equation, trigonometric, theorem
+
 uuid: 7cdf985e-63f5-419f-bc2f-4da9c09ca2bc
 
 equation_enumeration: subsection
 ---
 
 
+#math #engineering #calculus #latex  #refcard #formula
+
+
+Math and Calculus Cheat Sheet 
 
 ## Related 
 
@@ -789,20 +797,20 @@ $$
 
 
 $$
-  \sum_{k1}^{n} k = \frac{n(n+1)}{2}
+  \sum_{k = 1}^{n} k = \frac{n(n+1)}{2}
 $$
 
 
 $$
- \sum_{k1}^{n} k^2 =  \frac{n(n+1)(2n + 1)}{6}
+ \sum_{k = 1}^{n} k^2 =  \frac{n(n+1)(2n + 1)}{6}
 $$
 
 
 $$
- \sum_{k1}^{n} k^3 = (\frac{n(n+1)}{2})^2
+ \sum_{k = 1}^{n} k^3 = (\frac{n(n+1)}{2})^2
 $$
 
- 
+  
 ## Taylor Series       
 ### Taylor series expansion 
 
@@ -811,7 +819,7 @@ The Taylor series is a expansion of a real function f(x) about a point x  a. Whe
 
 $$
  \begin{split}
-  f(x) &= \sum_{n  0}^{\infty} \frac{f^{(n)}(a)}{n!}(x - a)^n 
+  f(x) &= \sum_{n = 0}^{\infty} \frac{f^{(n)}(a)}{n!}(x - a)^n 
     \\  &= f(a) + f^{(1)}(a)(x - a) 
               + \frac{f^{(2)}(a)}{2!}(x - a)^2 
               + \frac{f^{(3)}(a)}{3!}(x - a)^3 
@@ -825,7 +833,7 @@ The Taylor series expansion is sometimes written as:
 
 $$
   \begin{split}
-  f(x + a)  &= \sum_{n  0}^{\infty} \frac{f^{(n)}(a)}{n!}x^n 
+  f(x + a)  &= \sum_{n = 0}^{\infty} \frac{f^{(n)}(a)}{n!}x^n 
          \\  &= f(a) + f^{(1)}(a)x 
               + \frac{f^{(2)}(a)}{2!} x^2 
               + \frac{f^{(3)}(a)}{3!} x^3 
@@ -839,14 +847,14 @@ where:
  - $f^{(1)}(x) = \dfrac{df}{dx}$  - first order derivative 
  - $f^{(2)}(x) = \dfrac{d^2f}{dx^2}$ - second order derivative 
 
-   
+     
 ### Some Taylor series expansion 
 
 Exponential 
 
 
 $$
-  e^{x}  \sum_{n  0}^{\infty} \frac{x^n}{n!} 
+  e^{x} = \sum_{n = 0}^{\infty} \frac{x^n}{n!} 
         = 1 + x + \frac{1}{2!} x^2 + \frac{1}{3!} 3^2 + \frac{1}{4!} 4^2 + \cdots 
 $$
 
@@ -854,7 +862,7 @@ Consine
 
 
 $$
-  \cos x  \sum_{n  0}^{\infty} \frac{(-1)^n}{(2n)!} x^{2n}
+  \cos x = \sum_{n = 0}^{\infty} \frac{(-1)^n}{(2n)!} x^{2n}
          = 1 - \frac{1}{2!}x^2 + \frac{1}{4!} x^4 - \frac{1}{6!} x^6 + \cdots 
 $$
 
@@ -862,7 +870,7 @@ Sine
 
 
 $$
-  \sin x  \sum_{n  0}^{\infty} \frac{(-1)^n}{(2n + 1)!} x^{2n + 1} 
+  \sin x = \sum_{n = 0}^{\infty} \frac{(-1)^n}{(2n + 1)!} x^{2n + 1} 
          = x -  \frac{1}{3!}x^3 + \frac{1}{5!}x^5 - \frac{1}{7!}x^7 + \cdots 
 $$
 
@@ -870,7 +878,7 @@ Inverse tan or arctan
 
 
 $$
-  \arctan x  \sum_{n  0}^{\infty} \frac{(-1)^n}{2n + 1} x^{2n + 1}
+  \arctan x =  \sum_{n = 0}^{\infty} \frac{(-1)^n}{2n + 1} x^{2n + 1}
             = x - \frac{1}{3} x^3 + \frac{1}{5} x^5 - \frac{1}{7!} x^7 + \cdots
 $$
 
@@ -878,7 +886,7 @@ Natural Logarithm
 
 
 $$
-  \ln 1 + x  \sum_{n1}^{\infty} \frac{x^n}{n}  (-1)^{n+1}
+  \ln(1 + x)  = \sum_{n = 1}^{\infty} \frac{x^n}{n}  (-1)^{n+1}
             =  x - \frac{1}{2} x^2 + \frac{1}{3}x^3 - \frac{1}{4} x^4 + \cdots 
 $$
 
@@ -889,7 +897,7 @@ $$
  \frac{1}{1 + x} = 1 + x + x^2 + x^3 + \cdots 
 $$
 
-
+  
 ### Approximations for small values of x 
 
 Misc Approximation 
@@ -958,9 +966,12 @@ Let $\mathrm{j} = \sqrt{-1}$ be the imaginary unit.
 
 
 Complex Exponential
+
 $$
   e^{\mathrm{j} \theta} = \cos \theta + \mathrm{j} \sin \theta 
 $$
+
+
 and,
 
 $$
@@ -974,7 +985,10 @@ $$
     = \frac{1}{2} (e^{\mathrm{j} \theta} + e^{ - \mathrm{j} \theta}  )
 $$
 
+
 Sine of angle in radians expressed as linear combination of complex exponential 
+
+
 $$
   \cos \theta = 
      \frac{1}{2 \mathrm{j}} 
@@ -1019,7 +1033,7 @@ $$
   \tan(b - a) = \dfrac{ \tan y - \tan x }{\tan x  \tan y + 1 }
 $$
 
-  
+   
 ## Statistical Formulas 
 
 Source: 
@@ -1383,18 +1397,23 @@ The scalar product (dot product) between **a* and *b** is:
 
 
 $$
-  dot(a, b) =  \sum_{i  1}^n a_i . b_i  a . b^T  b^T . a 
+  \mathbf{a} \cdot \mathbf{b} =  \sum_{i = 1}^n a_i  b_i 
+            =  \mathbf{a}^T \mathbf{b}
+            =  \mathbf{b}^T \mathbf{a}
 $$
 
 The L-2 norm or euclidian norm of a vector is given by: 
 
 
 $$
-  \text{norm}(a)  || a ||  \sqrt{ \sum_{i  1}^n a_i^2 }  \sqrt{ a^T . a} = \sqrt{ a . a^T}
+  \text{norm}(\mathbf{a}) 
+    = \| \mathbf{a} \| 
+    = \sqrt{ \sum_{i = 1}^n a_i^2 } 
+    = \sqrt{ \mathbf{a}^T \cdot \mathbf{a}} 
 $$
 
 ## Matrix Calculus
- 
+  
 ### Definitions 
 
 
@@ -1640,4 +1659,4 @@ $$
  
 Where,
   + $\det A$ is the determinant (scalar) of a square matrix A.
-  + $\mathrm{tr}(A)$ is the trace of matrix A, sum of diagonal elements.            
+  + $\mathrm{tr}(A)$ is the trace of matrix A, sum of diagonal elements.             
