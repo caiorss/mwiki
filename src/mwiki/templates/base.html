@@ -242,7 +242,9 @@
                  <a class="sidebar-toggle-button" href="/login?path={{request.path|encode_url}}">Log in</a>
                  {% endif %}
                  {% if  current_user().is_admin() %}
-                 <a class="sidebar-toggle-button" href="/settings">Wiki Settings</a>
+                 <a class="sidebar-toggle-button" href="/settings" 
+                    title="Form for changing web site settings, including description and site name."
+                    >Settings</a>
                  <a class="sidebar-toggle-button" href="/account/new">New Account</a>
                  {% endif %}
                  {% if current_user().is_authenticated() %}
