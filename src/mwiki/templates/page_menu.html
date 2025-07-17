@@ -6,6 +6,10 @@
      class="dropbtn"
      >[Page]</a>
   <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+      <a class="sidebar-toggle-button" href="/pages" 
+         title="Search and list all pages.">Search</a>
+      <a class="sidebar-toggle-button" href="/tags" 
+         title="Browse pages using tags.">Tags</a>
 
       {% if current_user().is_authenticated() %}
        <a class="sidebar-toggle-button" href="#" onclick="showRefcard();" id="btn-show-refcard" title="Show Reference Card.">Refcard</a>
@@ -19,6 +23,7 @@
       {% endif %}
                 
       {% if current_user().is_admin() %}
+
        <a class="sidebar-toggle-button" 
            href="/wiki/{{page}}" 
            title="View this page as html"

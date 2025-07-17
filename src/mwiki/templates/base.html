@@ -234,8 +234,6 @@
                  class="dropbtn"
                  >[Main]</a>
               <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
-                 <a class="sidebar-toggle-button" href="/pages" title="Search and list all pages.">Search</a>
-                 <a class="sidebar-toggle-button" href="/tags" title="Browse pages using tags.">Tags</a>
                  {% if  current_user().is_authenticated()  %}
                  <a class="sidebar-toggle-button" href="/logoff?path={{request.path|encode_url}}">Log off</a>
                  {% else %}
