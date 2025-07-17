@@ -1283,6 +1283,8 @@ class HtmlRenderer(AbstractAstRenderer):
             data = yaml.safe_load(node.content)
         except yaml.YAMLError as ex:
             print("[ERROR] Failed to parse frontmatter data => \nDetails:", ex)
+        if data is None: 
+            return "" 
         if not self._is_embedded_page:
             self._title = data.get("title", "")
             self._equation_enumeration = data.get("equation_enumeration", "section")  
