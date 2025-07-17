@@ -11,16 +11,20 @@
       <a class="sidebar-toggle-button" href="/tags" 
          title="Browse pages using tags.">Tags</a>
 
-      {% if current_user().is_authenticated() %}
-       <a class="sidebar-toggle-button" href="#" onclick="showRefcard();" id="btn-show-refcard" title="Show Reference Card.">Refcard</a>
-      {% endif %}
-     
+    
+     <a class="sidebar-toggle-button" 
+           href="/links/{{page}}" 
+           title="Display all external links of this page."
+           >Links</a>
+      
+
       {% if config_show_source() %}
       <a class="sidebar-toggle-button" 
            href="/source/{{page}}" 
            title="Display source code of current page."
-           >Source</a>
+           >Source</a>      
       {% endif %}
+
                 
       {% if current_user().is_admin() %}
 
@@ -34,10 +38,6 @@
            href="/edit/{{page}}" 
            title="Edit markdown page"
                 >Edit</a>
-        <a class="sidebar-toggle-button" 
-           href="/links/{{page}}" 
-           title="Display all external links of this page."
-           >Links</a>
         <a class="sidebar-toggle-button" 
            href="#" 
            title="Delete this page"
