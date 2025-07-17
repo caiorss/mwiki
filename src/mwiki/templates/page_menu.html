@@ -18,12 +18,13 @@
            >Source</a>
       {% endif %}
                 
-      {% if current_user().is_authenticated() %}
+      {% if current_user().is_admin() %}
        <a class="sidebar-toggle-button" 
            href="/wiki/{{page}}" 
            title="View this page as html"
                 >View</a>
-
+        <a class="sidebar-toggle-button" href="#" 
+                  id="btn-create-note" title="Create new page or note.">New</a>
         <a class="sidebar-toggle-button" 
            href="/edit/{{page}}" 
            title="Edit markdown page"
