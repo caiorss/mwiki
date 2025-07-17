@@ -131,8 +131,9 @@ def make_app_server(  host:        str
         resp = None
         conf = Settings.get_instance()
         if request.method == M_GET:
-            form.public.data = conf.public
             form.sitename.data = conf.sitename
+            form.public.data = conf.public
+            form.show_source.data = conf.show_source
             form.description.data = conf.description   
         if request.method == M_POST:
             form.validate()
@@ -140,6 +141,7 @@ def make_app_server(  host:        str
             conf.sitename = form.sitename.data
             conf.description = form.description.data
             conf.public = form.public.data 
+            conf.show_source = form.show_source.data
             conf.save()
             flask.flash("Wiki settings updated successfully.")
             app.logger.info("Wiki setting updated.")
@@ -242,10 +244,14 @@ def make_app_server(  host:        str
         return out
 
     @app.route("/source/<path>")
-    @check_login( required = True)
+    @check_login( required = False)
     def route_wiki_source(path):
         """Serve source code of wiki page."""
-        mdfile_ = path + ".md"
+        conf = Settings.get_instance()
+        # Only show source code of Wiki page if it is enabled
+        # in the URL endpoint /settings forms.
+        if not conf.show_source:
+            flask.abort(STATUS_CODE_401_UNAUTHORIZED)
         page = repository.get_wiki_page(path)
         if not page: flask.abort(STATUS_CODE_404_NOT_FOUND)
         src = page.read()

@@ -11,6 +11,10 @@ class SettingsForm(fwt.FlaskForm):
                                              " will be able to view the wiki content. Note that "
                                              "only logged in users can edit the wiki."
                                              )
+    show_source =  wt.BooleanField("Show Page Source", 
+                               description = "Provides a button that allows vieweing the Markdown (wiki text) " 
+                                             "source code a wiki"
+                                             )
     submit = wt.SubmitField("Submit")
     sitename = wt.StringField("Wiki Name", validators = [ wtfv.DataRequired() ] )
     description = wt.TextAreaField("Wiki Description") 

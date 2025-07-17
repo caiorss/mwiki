@@ -65,7 +65,8 @@ app.config['SESSION_SQLALCHEMY'] = db
 
 app.jinja_env.filters['encode_url'] = lambda u: urllib.parse.quote_plus(u) 
 app.jinja_env.globals.update(config_sitename = lambda:  Settings.get_instance().sitename)
-app.jinja_env.globals.update(config_description= lambda:  Settings.get_instance().description)
+app.jinja_env.globals.update(config_description = lambda:  Settings.get_instance().description)
+app.jinja_env.globals.update(config_show_source = lambda:  Settings.get_instance().show_source)
 
 csrf = CSRFProtect(app)
 csrf.init_app(app)

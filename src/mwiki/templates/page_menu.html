@@ -10,11 +10,13 @@
       {% if current_user().is_authenticated() %}
        <a class="sidebar-toggle-button" href="#" onclick="showRefcard();" id="btn-show-refcard" title="Show Reference Card.">Refcard</a>
       {% endif %}
-      
+     
+      {% if config_show_source() %}
       <a class="sidebar-toggle-button" 
            href="/source/{{page}}" 
            title="Display source code of current page."
            >Source</a>
+      {% endif %}
                 
       {% if current_user().is_authenticated() %}
        <a class="sidebar-toggle-button" 

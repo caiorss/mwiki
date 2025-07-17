@@ -87,6 +87,9 @@ class Settings(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key = True)
     # Public => Indicates whether the wiki can be viewed (not edited) by everybody.
     public:   so.Mapped[bool] = so.mapped_column(default = False)
+    # Display Page Source => If enabled, the menu page will present a button for 
+    # showing the Markdown code of the current page
+    show_source:   so.Mapped[bool] = so.mapped_column(default = False)
     # Web Site Name 
     sitename: so.Mapped[str] = so.mapped_column(default= "MWiki")
     default_password: so.Mapped[str] = so.mapped_column(nullable=False)
