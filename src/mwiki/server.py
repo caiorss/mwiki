@@ -209,7 +209,8 @@ def make_app_server(  host:        str
     @app.get("/about")
     def route_about():
         """Show about page."""
-        resp = flask.render_template("about.html", title="About MWiki")
+        resp = flask.render_template( "about.html"
+                                     , title = "About " + Settings.get_instance().sitename )
         return resp
 
     @app.get("/licenses")
