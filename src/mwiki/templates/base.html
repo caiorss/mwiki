@@ -49,6 +49,12 @@
                             ]}
         , tagformat: {
           number: (n) => { 
+            if( equation_enumeration === "cont" 
+                || equation_enumeration == "continuous")
+            {
+                return '' + n;
+            }
+
             let nsec = MathJax.config.section;
             let nsub = MathJax.config.subsection;
             var out = '';

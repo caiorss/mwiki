@@ -590,13 +590,18 @@ class HtmlRenderer(AbstractAstRenderer):
             if title.lower() != "overview" and title.lower() != "related":
                 self._count_h2 += 1
                 self._count_h3 = 0
-                tex_command = r'<span class="tex-section-command" style="display:none">\(\setSection{%s}\)</span>' % self._count_h2
-                tex_command += "\n" + r'<span class="tex-section-command" style="display:none">\(\setSubSection{%s}\)</span>' % self._count_h3
+                if self.equation_enumeration != "cont" and self.equation_enumeration != "continuous":
+                    # Reset MathJax/LaTeX equation enumeration every subsection 
+                    # if the 'equation_enumeration_style: <style>' settings in the 
+                    # document frontmatter is set not set to continous or subsection
+                    tex_command = r'<span class="tex-section-command" style="display:none">\(\setSection{%s}\)</span>' % self._count_h2
+                    tex_command += "\n" + r'<span class="tex-section-command" style="display:none">\(\setSubSection{%s}\)</span>' % self._count_h3
                 value = f"{self._count_h2} {value}"
         elif tag == "h3":
             self._count_h3 += 1
             self._count_h4 = 0
-            tex_command += "\n" + r'<span class="tex-section-command" style="display:none" data-code="\setSubSection{%s}">\(\setSubSection{%s}\)</span>' % (self._count_h3, self._count_h3)
+            if self.equation_enumeration != "cont" and self.equation_enumeration != "continuous":
+                tex_command += "\n" + r'<span class="tex-section-command" style="display:none" data-code="\setSubSection{%s}">\(\setSubSection{%s}\)</span>' % (self._count_h3, self._count_h3)
             value = f"{self._count_h2}.{self._count_h3} {value}"
         elif tag == "h4":
             self._count_h4 += 1
@@ -1287,7 +1292,9 @@ class HtmlRenderer(AbstractAstRenderer):
             return "" 
         if not self._is_embedded_page:
             self._title = data.get("title", "")
-            self._equation_enumeration = data.get("equation_enumeration", "section")  
+            enum_style = data.get("equation_enumeration", "section")   
+            enum_style = enum_style if enum_style in ["none", "cont", "continuous", "section", "subsection"] else "section"
+            self._equation_enumeration = enum_style
         abbrs =  data.get("abbreviations", {}) 
         wordlinks = data.get("wordlinks", {})
         ## Append abbreviation dictionary 
