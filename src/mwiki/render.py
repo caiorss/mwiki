@@ -1043,6 +1043,8 @@ class HtmlRenderer(AbstractAstRenderer):
                 else:
                     html = f"""<div class="math-block anchor" {label} > \n$$\n""" \
                         + utils.escape_html(content) + "\n$$\n</div>"
+        elif info == "{comment}":
+            return ""
         ## Graphviz dot language
         elif info == "{dot}":
             content, directives = mparser.get_code_block_directives(node.content)
