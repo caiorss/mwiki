@@ -1,6 +1,6 @@
 [project]
 name = "mwiki"
-version = "0.1"
+version = "0.2"
 readme = "README.md"
 description = "mwiki - Markdown Wiki Server for publishing and accessing Github Markdown-Flavor Documents, MyST (from Jupyter Books) documents and  Obsidian Markdown vaults."
 requires-python = ">=3.8"

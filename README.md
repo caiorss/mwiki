@@ -206,10 +206,24 @@ This wiki provides a reference card popup windown that provides examples of the 
 
 **STEP 1**
 
+Install latest version:
+
 ```sh
 $ uv tool install git+https://github.com/caiorss/mwiki
   ... ... ... ... ... ... ... ... ..
   Installed 2 executables: mwiki, mwiki-convert
+```
+
+Install latest stable release: version v0.2
+
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.2.zip
+```
+
+Install relese version v0.1
+
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.1.zip
 ```
 
 **STEP 2** Run executable mwiki:
@@ -699,8 +713,18 @@ Open the settings page http://localhost:8000/admin and change the Wiki settings.
 
 The following set of companion sotfware or apps are recommended for MWiki as they can provide additional features and improve usage.
 
+
+**Searche Engine**
+
++ https://noai.duckduckgo.com 
+  + Search engine without false and misleading AI summary.
+
+
 **Online Tools**
 
++ *QuickLatex*
+  + https://www.quicklatex.com
+  +  This online tool allows quickly viewing and rendering LaTeX math expressions without needing to install anything. 
 + *Table Generator for Markdown, LaTeX and MediaWiki*
   + https://www.tablesgenerator.com
 + *Detexify*
@@ -744,6 +768,7 @@ The following set of companion sotfware or apps are recommended for MWiki as the
 + *Speech Note - Flathub* \[Linux Flatpak APP\] (Offline "G00gl3 Translator")
   + https://flathub.org/apps/net.mkiol.SpeechNote
   + Brief: *Speech Note let you take, read and translate notes in multiple languages. It uses Speech to Text, Text to Speech and Machine Translation to do so. Text and voice processing take place entirely offline, locally on your computer, without using a network connection. Your privacy is always respected. No data is sent to the Internet.*
+  + WARNING: Automated text translation tools are based on word probability in the same way as the hyped LLM - Large Laguage Models. As a result, they may not be able to accurately translate slangs, jargons, popular sayings and language nuances. Moreover, they are more likely to fail for languages distant from European languages and English. It is also worth noting that some language varieties or dialects, such as the Bavarian German dialect, might exist mostly in spoken form and unfortunately, not exist in significant amount in written form, what makes it harder to automated tools to translate the information.
 
 
 **Screenshot Tools**
@@ -798,3 +823,29 @@ A site-to-site mesh VPN such as **tailscale** can be helpful for self hosting th
   + https://github.com/juanfont/headscale
 
 
+##  Further Reading 
+
++ *If it is worth keeping, save it in Markdown*
+  + https://p.migdal.pl/blog/2025/02/markdown-saves
++ *Scientific Articles*, MyST 
+  + https://mystmd.org/guide/quickstart-myst-documents
++ *R Markdown* 
+  + https://rmarkdown.rstudio.com/
+  + *R Markdown documents are fully reproducible. Use a productive notebook interface to weave together narrative text and code to produce elegantly formatted output. Use multiple languages including R, Python, and SQL.*
++ *MyST syntax cheat sheet*, Jupyter Book
+  + https://jupyterbook.org/en/stable/reference/cheatsheet.html
+  + NOTE: MWiki syntax is mostly compatible with MyST syntax because it uses the same markdown parser developed by Jupyter Book project. Credits should be given to MyST markdown project.
++ *Working with MyST Markdown*, MyST 
+  + https://mystmd.org/guide/quickstart-myst-markdown
++ *Export Static Documents*, MyST 
+  + https://mystmd.org/guide/quickstart-static-exports
++ *Try MyST*, MyST 
+  + https://mystmd.org/sandbox
++ *CommonMark*, MyST 
+  + https://mystmd.org/guide/commonmark
++ *CommonMark Spec*, CommonMark
+  + https://spec.commonmark.org/0.31.2/#introduction
++ *reStructuredText* (Python RST syntax)
+  + https://docutils.sourceforge.io/rst.html
++ *Documentation Audiences*, OpenEdx
+  + <https://docs.openedx.org/en/latest/documentors/concepts/about_doc_audiences.html>

@@ -4,6 +4,52 @@ This section describes the MWiki markup language features, which is based on MyS
 
 TODO: Add screenshot of wiki syntax code examples.
 
+## Comments 
+
+### Single Line Comment
+
+Any line starting with '%' percent sign is regarded as single line comment and not rendered. NOTE: It is the same comment syntax of MyST markdown used by Jupyter Book project.
+
+Example:
+
+````{markdown}
+% single line comment 
+  % Other single line comment
+
+Write something here. This line will be rendered.
+
+% Single line comments are not rendered.
+````
+
+Rendering example from the built-in reference card:
+
+![](images/syntax-single-line-comment.png)
+
+### Multi Line Comment 
+
+Mutli line comments are makdodwn code blocks starting with `{comment}` syntax, for instance:
+
+````markdown
+
+Line here.
+
+```{comment}
+The multi line comments syntax reuses 
+  the syntax of code blocks.
+and are not rendered by the markdown processor.
+```
+
+Some text after.
+
+````
+
+Redendering example from the built-in reference card:
+
+![](./images/syntax-multi-line-comment.png)
+
+
+NOTE that this syntax is used only by MWiki markdown and not implemented neither by GFM - Github-Flavored Mardown nor by MyST markdown.
+
 
 ## Text Formatting 
 
@@ -780,10 +826,19 @@ MWiki supports the following LaTeX equation enumeration styles
 
 + none
   + Schema: no enumeration, only referenced equations with LaTeX \eqref macro will be enumerated.
++ cont or continous 
+  + Schema: `<equaiton-number>`
+  + Example: 20
+  + Description:  In this style, equations are enumerated in the order that they are defined without regarding section or subsection numner. For instance, 1, 2, 3,... 25. It might be a good choice for documents with a small number of equations, for instance, less than 100.
 + section  (default)
   + Schema: `<section-number>.<equation-number>`
-+ subsection 
+  + Example: 3.2
+  + Description: Equation are enumerated according to their section without considering subsections, for instance, equationsof section 3 are enumerated as 3.1, 3.2, 3.20 until section 4 is defined. Then, equations of section 4 are enumerated as 4.1, 4.2, ..., 4.15 and so on. This style might be a good fit for documents with less than 100 equations per section.
++ subsection  
+  + Example:  5.4.20
   + Schema: `<section-number>.<subsection-number>.<equation-number>`
+  + Description: Equation are enumerated according to the section and subsection that they are defined. For instance, equations of subsection 3 of section 5 are enumerate 5.3.1, 5.3.2, ..., until the next section or subsection is defined. If there exists the subsection 4 of section 5, then the equations of this subsection will be enumerated as 5.4.1, 5.4.2, ..., 5.4.10 and etc.
+
 
 that can be changed by adding the next line to the document front-matter as shown in the following code example. Note that the front-matter is a human-readable human configuration in the markdown code between the lines containing '---' (three dashes) at the beginning of the page.
 
@@ -867,6 +922,13 @@ $$
 Screeshot: Example - Equation enumeration settings in the frontmatter.
 
 ![](./images/equation-enumeration-frontmatter.png)
+
+
+Screenshot: Example - Equation enumeration directive **equation_enumeration** set to **continous**.
+
++ NOTE: As it can be seen the following picture, this enumeration style is not suitable for documents with lots of equations.
+
+![](/images/equation-enumeration-continuous.png)
 
 
 Screenshot: Example - Equation enumeration directive **equation_enumeration** in front-matter set to **none**.
