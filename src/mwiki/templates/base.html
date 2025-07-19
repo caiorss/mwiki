@@ -240,6 +240,10 @@
                  class="dropbtn"
                  >[Main]</a>
               <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                 <a class="sidebar-toggle-button" href="#" 
+                    onclick="toggleShortcutKeybindingWinodw();"
+                    title="Display a window showing all keyboard shortcuts, also known as keybindings."
+                 >Keybindings</a>
                  {% if  current_user().is_authenticated()  %}
                  <a class="sidebar-toggle-button" href="/logoff?path={{request.path|encode_url}}">Log off</a>
                  {% else %}

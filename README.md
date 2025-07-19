@@ -104,6 +104,23 @@ View detailed documentation and examples at:
 
 + [Markup Language](./README-Markup-Language.md)
 
+## Keyboard Shortcuts (Keybindings)
+
++ NOTE: It is not necessary to remember those keybindings since there is menu button in the **[Main]** menu, which allows opening the keybind (shortcut) helper window displaying all keybindings.
++ NOTE: It is not avaialable in any stable release yet. However, this feature is available in the unstable release. 
+
+| Shortcut  |     Description                                  |
+| --------- | ------------------------------------------------ |
+| ?         | Toggle keybind (shortcut) helper window.         |
+| ?         | Type ? Question mark again to close this window. |
+| Ctrl /    | Jump to search form.                             |
+| Ctrl e    | Toggle for quick jumpo to Wiki page.             |
+| Ctrl 1    | Go to Index page '/' URL                         |
+| Ctrl 2    | Go to /pages - list of all Wiki pages.           |
+| Ctrl 3    | Go to /tags - list of all tags.                  |
+| Ctrl 5    | Toggle headings of current Wiki page.            |
+| Ctrl 9    | Toggle display all links of current wiki page.   |
+
 ## Demonstration 
 
 ### GIF Animations 
@@ -206,7 +223,7 @@ This wiki provides a reference card popup windown that provides examples of the 
 
 **STEP 1**
 
-Install latest version:
+Install unstable release.
 
 ```sh
 $ uv tool install git+https://github.com/caiorss/mwiki

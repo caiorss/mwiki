@@ -100,6 +100,23 @@ Veja documentação detalhada e exemplos em:
 + [Linguagem de Marcação](./README-Markup-Language.md)
 
 
+## Atalhos de Teclado (Atalhos de Tecla)
+
++ NOTA: Não é necessário lembrar dessas combinações de teclas, pois há um botão de menu no menu **[Main]** (principal em inglês), que permite abrir a janela auxiliar de combinações de teclas (atalho) exibindo todas as atalhose de teclados.
++ NOTA: Ainda não está disponível em nenhuma versão estável *(stable release)*. No entanto, este recurso está disponível na versão instável *(unstable release)*.
+
+| Atalho | Descrição |
+| --------- | ------------------------------------------------ |
+| ? | Alterna a janela auxiliar de atalhos de teclado. |
+| ? | Digite ? Ponto de interrogação novamente para fechar esta janela. |
+| Ctrl / | Ir para o formulário de pesquisa. |
+| Ctrl e | Alterna para um salto rápido para a página Wiki. |
+| Ctrl 1 | Ir para a página de índice '/' URL |
+| Ctrl 2 | Ir para /pages - lista de todas as páginas Wiki. |
+| Ctrl 3 | Ir para /tags - lista de todas as tags. |
+| Ctrl 5 | Alterna os títulos da página Wiki atual. |
+| Ctrl 9 | Alterna a exibição de todos os links da página Wiki atual. |
+
 ## Demonstração
 
 ### Animações GIF
@@ -199,6 +216,8 @@ Este wiki fornece uma janela pop-up de cartão de referência que fornece exempl
 [UV](https://github.com/astral-sh/uv) é um gerenciador de pacotes para Python extremamente rápido e recente, que pode até instalar várias versões específicas do interpretador Python sem interromper a instalação do Python usada pelo sistema. O UV também pode instalar ferramentas Python em ambientes isolados sem quebrar a instalação atual do Python.
 
 **PASSO 1**
+
+Instalar versão instável *(Unstable Release)*.
 
 ```sh
 $ uv tool install git+https://github.com/caiorss/mwiki

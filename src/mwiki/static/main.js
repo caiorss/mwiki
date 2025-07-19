@@ -91,6 +91,17 @@ class PopupWindow
         return this;
     }
 
+    toggle()
+    {
+        if(this._dom.style.visibility === "hidden")
+        {
+           this.show(); 
+        } else {
+            this.close();
+        }
+        return this;
+    }
+
     close()
     {
         this.hide();
@@ -310,6 +321,11 @@ function toggle_sidebar()
     main.classList.toggle("main-visiblity");
 }
 
+function toggleShortcutKeybindingWinodw()
+{
+    keybindDisplayWindow.toggle();
+}
+
 function onClick(anchor, handler)
 {
     let dom = document.querySelector(".toc");
@@ -322,6 +338,7 @@ function onClick(anchor, handler)
 
 var tooltip_window = null;
 var quickOpenWindow = null;
+var keybindDisplayWindow = null;
 
 function isMobileScreen()
 {
@@ -370,6 +387,58 @@ document.addEventListener("DOMContentLoaded", function()
         `
     });
 
+    keybindDisplayWindow = new PopupWindow({
+          title: "Keybindings"
+        , height: "300px"
+        , html: `
+            <table>
+                <tr>
+                    <th>Shortcut</th>
+                    <th>Description</th>
+                </tr>
+            
+                <tr>
+                    <td>?</td>
+                    <td>Toggle keybind (shortcut) helper window.  </td>
+                </tr>
+                 <tr>
+                    <td>?</td>
+                    <td>Type ? Question mark again to close this window.</td>
+                </tr>               
+                <tr>
+                    <td>Ctrl /</td>
+                    <td>Jump to search form.</td>
+                </tr>
+                <tr>
+                    <td>Ctrl e</td>
+                    <td>Toggle for quick jumpo to Wiki page.</td>
+                </tr>
+                <tr>
+                    <td>Ctrl 1</td>
+                    <td>Go to Index page '/' URL</td>
+                </tr>
+                <tr>
+                    <td>Ctrl 2</td>
+                    <td>Go to /pages - list of all Wiki pages.</td>
+                </tr>
+                <tr>
+                    <td>Ctrl 3</td>
+                    <td>Go to /tags - list of all tags.</td>
+                </tr>
+                <tr>
+                    <td>Ctrl 5</td>
+                    <td>Toggle headings of current Wiki page.</td>
+                </tr>
+                <tr>
+                    <td>Ctrl 9</td>
+                    <td>Toggle display all links of current wiki page.</td>
+                </tr>
+    
+
+            </table>
+        `
+    });
+
     let inputQuickOpen = document.querySelector("#prompt-open-page");
     inputQuickOpen.addEventListener("keydown", openWikiPageCallbackKeyDown);
 
@@ -408,7 +477,7 @@ async function quickOpenPage()
         option.value = p;
         datalist.appendChild(option);
     }
-    quickOpenWindow.show();
+    quickOpenWindow.toggle();
 }
 
 function openWikiPageCallback()
@@ -423,7 +492,7 @@ function openWikiPageCallback()
 
 function openWikiPageCallbackKeyDown(event)
 {
-    console.log(" [TRACE] openWikipageCallbackKeyDown called. ");
+    //console.log(" [TRACE] openWikipageCallbackKeyDown called. ");
     if(event.key !== "Enter"){ return; }
     openWikiPageCallback();
 }
@@ -717,3 +786,89 @@ function setHeadingsVisibility(visibility)
 //         });
 //     }
 // });
+
+/** ----- Keyboard Shortcuts ------------------ **/
+
+document.addEventListener("keydown", (event) => {
+
+    console.log(" [TRACE] Keydown Event = ", event);
+
+    // Keybind: '?' toggle keybind/shortcut reminder Window
+    if (event.key == "?")
+    {
+        keybindDisplayWindow.toggle();
+    }
+
+    // Focus on search bar after user types Ctrl+/
+    if (event.ctrlKey && event.key === "/") {
+        console.log(" [TRACE] Ctrl + / pressed Ok. ");
+        let sform = document.querySelector("#search-form")
+        var dom = null;
+        if (sform) {
+            dom = sform.querySelector("#site-search-bar");
+        } else {
+            dom = document.querySelector("#site-search-bar");
+        }
+        dom.focus();
+    }
+    // Open window within current that allows quick switching
+    // to a Wiki page by typing its title.
+    if (event.ctrlKey && event.key === "e") {
+        quickOpenPage();
+
+        let dom = document.querySelector("#prompt-open-page");
+        setTimeout(() => { dom.focus(); }, 500);
+
+    }
+
+    // Keybind Ctrl+2
+    // Open Index page 
+    if (event.ctrlKey && event.key === "1") {
+        // Redirect browser to root URL 
+        window.location.href = "/";
+    }
+
+    // Keybind: Ctrl+2
+    // Open Search Page, containing a search form and 
+    // listing all wiki pages
+    if (event.ctrlKey && event.key === "2") {
+        // Redirect browser to /pages URL
+        window.location.href = "/pages";
+    }
+
+    // Keybind: Ctrl+3
+    // Open Pages that allows navigating by tags 
+    if (event.ctrlKey && event.key === "3") {
+        // Redirect browser to /pages URL
+        window.location.href = "/tags";
+    }
+    
+    
+    // Keybind: Ctrl+5
+    // Toggle headings off current section 
+    // NOTE: Headings are titles of sections or subsections.
+    // This keybinding allows quick navigation in a given Wiki page.
+    if (event.ctrlKey && event.key === "5") {
+        toggleHeadings();
+    }
+
+
+    // Keybind: Ctrl+9
+    // View all links (hyperlinks) URLs of current wiki page
+    if (event.ctrlKey && event.key === "9") {
+        let urlObj = new URL(document.URL);
+        let paths =  urlObj.pathname.split('/')
+        let pageType = paths[1];
+        if(pageType !== "wiki" && pageType !== "links"){
+            return;
+        }
+        let pageType_ =  pageType === "wiki" ? "links" : "wiki";
+        let wikiPageName = paths[2];
+        let url = `/${pageType_}/${wikiPageName}`;
+        window.location.href = url;
+
+    }
+    
+
+
+});
