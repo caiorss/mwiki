@@ -796,6 +796,10 @@ document.addEventListener("keydown", (event) => {
     // Keybind: '?' toggle keybind/shortcut reminder Window
     if (event.key == "?")
     {
+        if(event.target.tagName === "INPUT") { return; }
+        let url = new  URL(document.URL); 
+        // Skip wiki editor page 
+        if( url.pathname.startsWith("/edit/") ){ return; }
         keybindDisplayWindow.toggle();
     }
 
