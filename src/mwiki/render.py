@@ -446,6 +446,7 @@ class HtmlRenderer(AbstractAstRenderer):
         super().__init__(base_path = base_path)
         self._pagefile = page_name
         self._render_math_svg =  render_math_svg  
+        self._section_enumeration = False
         self._embed_math_svg = False
         self._myst_line_comment_enabled = True
         self._equation_enumeration = "section"
@@ -596,16 +597,18 @@ class HtmlRenderer(AbstractAstRenderer):
                     # document frontmatter is set not set to continous or subsection
                     tex_command = r'<span class="tex-section-command" style="display:none">\(\setSection{%s}\)</span>' % self._count_h2
                     tex_command += "\n" + r'<span class="tex-section-command" style="display:none">\(\setSubSection{%s}\)</span>' % self._count_h3
-                value = f"{self._count_h2} {value}"
+                value = f"{self._count_h2} {value}" if self._section_enumeration else value
         elif tag == "h3":
             self._count_h3 += 1
             self._count_h4 = 0
             if self.equation_enumeration != "cont" and self.equation_enumeration != "continuous":
                 tex_command += "\n" + r'<span class="tex-section-command" style="display:none" data-code="\setSubSection{%s}">\(\setSubSection{%s}\)</span>' % (self._count_h3, self._count_h3)
-            value = f"{self._count_h2}.{self._count_h3} {value}"
+            value  =  f"{self._count_h2}.{self._count_h3} {value}" \
+                            if self._section_enumeration else value
         elif tag == "h4":
             self._count_h4 += 1
-            value = f"{self._count_h2}.{self._count_h3}.{self._count_h4} {value}"
+            value =  f"{self._count_h2}.{self._count_h3}.{self._count_h4} {value}" \
+                        if self._section_enumeration else value
         ## Edit link for editing only part
         # of the document 
         next_sibling = None 
@@ -1294,6 +1297,7 @@ class HtmlRenderer(AbstractAstRenderer):
             return "" 
         if not self._is_embedded_page:
             self._title = data.get("title", "")
+            self._section_enumeration  = data.get("section_enumeration", False)
             enum_style = data.get("equation_enumeration", "section")   
             enum_style = enum_style if enum_style in ["none", "cont", "continuous", "section", "subsection"] else "section"
             self._equation_enumeration = enum_style

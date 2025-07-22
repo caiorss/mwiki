@@ -4,6 +4,222 @@ This section describes the MWiki markup language features, which is based on MyS
 
 TODO: Add screenshot of wiki syntax code examples.
 
+
+## Frontmatter (Page Metadata)
+
+The frontmatter is a [YAML](https://en.wikipedia.org/wiki/YAML) section at the beginning of MWiki *.md page file within two triple dashes (---), which contains machine-readable metadata of the current wiki page, including, authors, tags, date, description, abbreviations an dother page settings.
+
+
+Example: consider the wiki page file
+
++ 'NAS - Network Attached Storage Device.md'
+
+whose content is
+
+```md
+---
+author:  John Doe
+date:    2022-06-10
+description: Survey of NAS - Network Attached Storage devices for reliable backup, data replication and file sharing.
+
+---
+
+Describe what is a NAS 
+
++ S.M.A.R.T monitoring of disks.
++ SMB file sharing - SAMBA implementation 
+
+...
+
+![[picture-of-synology-nas.png]]
+
+```
+
+### Section (Heading) Enumeration 
+
+Section enumeration is disabled by default. It can be enabled by adding the following directive to the document frotmatter.
+
+```
+section_enumeration: on
+```
+
+It can also be explicit disabled by adding
+
+```
+section_enumeration: off 
+```
+
+or
+
+```
+section_enumeration: off
+```
+
+**Example**
+
+Consider the folowing sample markdown document
+
+````markdown
+---
+title: Set alternative document title here.
+  ... ... ..... ...
+---
+
+
+## Overview
+## Control Theory 
+  ... ... overview here  ...
+### Time-Domain Specifications
+  ... .... ...
+  ... .... ...
+
+### Second-Order Systems
+
+## PI Controller Desing
+  ... ... ... 
+  ... ... ... ..
+
+## PD Controller Design
+
+    ... ... ... 
+   .... .... ... 
+````
+
+If section enumeration is disabled, this sample document is rendered to HTML as
+
+
+```
+      DOCUMENT TITLE  
+
+Overview
+ ... ... 
+......
+Control Theory 
+  ... ... overview here  ...
+
+  Time-Domain Specifications
+      ... .... ...
+      ... .... ...
+
+  Second-Order Systems
+      ... .... ...
+      ... .... ...
+
+PI Controller Desing
+  ... ... ... 
+  ... ... ... ..
+
+PD Controller Design
+
+  ... ......  ... ...
+```
+
+If section enumeration is enanbled, this sample document is rendered to HTML as
+
+````
+      DOCUMENT TITLE  
+
+Overview
+ ... ... 
+......
+1  Control Theory 
+  ... ... overview here  ...
+
+  1.1  Time-Domain Specifications
+      ... .... ...
+      ... .... ...
+
+  1.2 Second-Order Systems
+      ... .... ...
+      ... .... ...
+
+2 PI Controller Desing
+  ... ... ... 
+  ... ... ... ..
+
+3 PD Controller Design
+
+  ... ......  ... ...
+````
+
+
+
+### Abbreviations
+
+The frontmatter can be used for defining abbreviations of common words. Consider a wiki page whose the frontmatter is
+
+```
+---
+author:      John Doe
+date:        2022-06-10
+description: Survey of NAS - Network Attached Storage devices for reliable backup, data replication and file sharing.
+abbreviations:
+   NAS:  Network Attached Storage Device
+   RAID: Redudant Array of Inexpensive Disks
+   NFS:  Network File System 
+   SMB:  Server Message Block (Windows shares, also known as network shares)
+---
+```
+
+Any word defined in the 'abbreviations' section of a YAML frontmatter of a particular wiki page file, it is replaced by the `<abbr>` html5 element. 
+
+For instance if a text of this wiki page is 
+
+```
+Most NAS devides provide Web UI for quickly 
+creating SMB network shares, windows shared folders.
+```
+
+Then, it will be rendered to html as 
+
+```html
+Most <abbr title="Network Attached Storage Device">NAS</abbr>  
+devides provide Web UI for quickly creating 
+<abbr title="Server Message Block">SMB</abbr> network shares, 
+windows shared folders.
+```
+
+When the mouse is over any abbr text, which has black dashes below it, a pop up window is appears displaying the meaning of the abbreviation. This feature also works on mobile devices, including phones and tablets.
+
+### Wordlinks
+
+The wordlinks feature allows quickly creating hyperlinks for words defined in the **wordlinks** section of a frontmatter of a wiki page. This feature is useful for creating hyperlinks to dictionry definitions or Wikipedia articles related to a particular word. For instance consider the following frontmatter of a Wiki page *.md file.
+
+
+```md
+---
+description: Wiki page (note) description here.
+
+abbreviations:
+    GUI: Graphics User Interface
+
+wordlinks:
+   ZFS:      https://hyperlink-to-wikipedia-of-ZFS
+   TrueNAS:  https://link-to-wikipedia-of-TrueNAS
+
+---
+```
+
+Whenever the word ZFS appears in any MWiki, paragraph, quote or bullet list, it is replaced by a hyperlink whose label is the word 'ZFS' and the URL is the corresponding URL to this word defined wordlist YAML dictionary. 
+
+For instance, the wiki text 
+
+```md
+The file system ZFS is awesome!
+```
+
+is rendered to HTML as 
+
+```html
+The file system
+<a href=" https://hyperlink-to-wikipedia-of-ZFS" ...>ZFS</a>
+is awesome.
+```
+
+The advantage of this feature allows users to turn words of a MWiki page into hyperlinks without modifying the text or defining the hyperlink multiple times as 
+
++  `[word](http://hyperlink-of-this-word)`
+
 ## Comments 
 
 ### Single Line Comment
@@ -1528,111 +1744,7 @@ or
 ```
 
 
-## Frontmatter (Page Metadata)
 
-The frontmatter is a YAML section at the beginning of MWiki *.md page file within two triple dashes (---), which contains machine-readable metadata of the current wiki page, including, authors, tags, date, description, abbreviations, page settings and other data.
-
-
-Example: consider the wiki page file
-
-+ 'NAS - Network Attached Storage Device.md'
-
-whose content is
-
-```md
----
-author:  John Doe
-date:    2022-06-10
-description: Survey of NAS - Network Attached Storage devices for reliable backup, data replication and file sharing.
-
----
-
-Describe what is a NAS 
-
-+ S.M.A.R.T monitoring of disks.
-+ SMB file sharing - SAMBA implementation 
-
-...
-
-![[picture-of-synology-nas.png]]
-
-```
-
-### Abbreviations
-
-The frontmatter can be used for defining abbreviations of common words. Consider a wiki page whose the frontmatter is
-
-```
----
-author:      John Doe
-date:        2022-06-10
-description: Survey of NAS - Network Attached Storage devices for reliable backup, data replication and file sharing.
-abbreviations:
-   NAS:  Network Attached Storage Device
-   RAID: Redudant Array of Inexpensive Disks
-   NFS:  Network File System 
-   SMB:  Server Message Block (Windows shares, also known as network shares)
----
-```
-
-Any word defined in the 'abbreviations' section of a YAML frontmatter of a particular wiki page file, it is replaced by the `<abbr>` html5 element. 
-
-For instance if a text of this wiki page is 
-
-```
-Most NAS devides provide Web UI for quickly 
-creating SMB network shares, windows shared folders.
-```
-
-Then, it will be rendered to html as 
-
-```html
-Most <abbr title="Network Attached Storage Device">NAS</abbr>  
-devides provide Web UI for quickly creating 
-<abbr title="Server Message Block">SMB</abbr> network shares, 
-windows shared folders.
-```
-
-When the mouse is over any abbr text, which has black dashes below it, a pop up window is appears displaying the meaning of the abbreviation. This feature also works on mobile devices, including phones and tablets.
-
-### Wordlinks
-
-The wordlinks feature allows quickly creating hyperlinks for words defined in the **wordlinks** section of a frontmatter of a wiki page. This feature is useful for creating hyperlinks to dictionry definitions or Wikipedia articles related to a particular word. For instance consider the following frontmatter of a Wiki page *.md file.
-
-
-```md
----
-description: Wiki page (note) description here.
-
-abbreviations:
-    GUI: Graphics User Interface
-
-wordlinks:
-   ZFS:      https://hyperlink-to-wikipedia-of-ZFS
-   TrueNAS:  https://link-to-wikipedia-of-TrueNAS
-
----
-```
-
-Whenever the word ZFS appears in any MWiki, paragraph, quote or bullet list, it is replaced by a hyperlink whose label is the word 'ZFS' and the URL is the corresponding URL to this word defined wordlist YAML dictionary. 
-
-For instance, the wiki text 
-
-```md
-The file system ZFS is awesome!
-```
-
-is rendered to HTML as 
-
-```html
-The file system
-<a href=" https://hyperlink-to-wikipedia-of-ZFS" ...>ZFS</a>
-is awesome.
-```
-
-The advantage of this feature allows users to turn words of a MWiki page into hyperlinks without modifying the text or defining the hyperlink multiple times as 
-
-+  `[word](http://hyperlink-of-this-word)`
 
 ## Further Reading 
 
