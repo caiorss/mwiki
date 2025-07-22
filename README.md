@@ -12,6 +12,7 @@ Applications:
 + Personal Knowledge Base
 + Knowledge and Information Preservation 
 
+
 NOTES: 
 
 + Note: This software is still **work in progress** and under early stage. However, it can already be used as a personal note taking application.
@@ -107,7 +108,7 @@ View detailed documentation and examples at:
 ## Keyboard Shortcuts (Keybindings)
 
 + NOTE: It is not necessary to remember those keybindings since there is menu button in the **[Main]** menu, which allows opening the keybind (shortcut) helper window displaying all keybindings.
-+ NOTE: It is not avaialable in any stable release yet. However, this feature is available in the unstable release. 
++ NOTE: Available since release v0.3
 
 | Shortcut  |     Description                                  |
 | --------- | ------------------------------------------------ |
@@ -231,19 +232,29 @@ $ uv tool install git+https://github.com/caiorss/mwiki
   Installed 2 executables: mwiki, mwiki-convert
 ```
 
-Install latest stable release: version v0.2
+Install latest stable release: version v0.3.1
+
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.3.1.zip
+```
+
+Install latest stable release (use hash commit, that cannot be changed after the commit is public): version v0.3.1
+
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/3f4d38a8bc103dee8f89230c6b0a9eefb3083766.zip
+```
+
+Install release v0.2
 
 ```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.2.zip
-```
 
-Install latest stable release (use hash commit, that cannot be changed after the commit is public): version 0.2
+##  OR - (Reproducible installation since commits cannot be changed)
 
-```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/1a3388679af0a6abaec83f6a88415b617e580c83.zip
 ```
 
-Install relese version v0.1
+Install release v0.1
 
 ```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.1.zip

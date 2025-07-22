@@ -103,7 +103,7 @@ Veja documentação detalhada e exemplos em:
 ## Atalhos de Teclado (Atalhos de Tecla)
 
 + NOTA: Não é necessário lembrar dessas combinações de teclas, pois há um botão de menu no menu **[Main]** (principal em inglês), que permite abrir a janela auxiliar de combinações de teclas (atalho) exibindo todas as atalhose de teclados.
-+ NOTA: Ainda não está disponível em nenhuma versão estável *(stable release)*. No entanto, este recurso está disponível na versão instável *(unstable release)*.
++ NOTA: Disponível desde de a versão v0.3.1
 
 | Atalho | Descrição |
 | --------- | ------------------------------------------------ |
@@ -225,15 +225,26 @@ $ uv tool install git+https://github.com/caiorss/mwiki
 Instalou 2 executáveis: mwiki, mwiki-convert
 ```
 
+Instalar a versão estável mais recente: versão v0.3.1
+
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.3.1.zip
+```
+
+Instalar a versão estável mais recente (usando o hash do commit que não tem como ser mudado após o commit ser publico): versão v0.3.1
+
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/3f4d38a8bc103dee8f89230c6b0a9eefb3083766.zip
+```
+
+
 Instalar a versão estável mais recente: versão v0.2
 
 ```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.2.zip
-```
 
-Instalar a versão estável mais recente (usando o hash do commit que não tem como ser mudado após o commit ser publico): versão v0.2
+## OU 
 
-```
 $ uv tool install https://github.com/caiorss/mwiki/archive/1a3388679af0a6abaec83f6a88415b617e580c83.zip
 ```
 
