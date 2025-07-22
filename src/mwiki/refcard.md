@@ -31,6 +31,16 @@ Describe what is a NAS
 
 ```
 
+### Alternative Document Title 
+
+By default, the title of a wiki page is the same as the related mardown file name without the .md file extension. However, it is possible to change a wiki page title by adding the directive 
+
+```
+title:  Name of New title here 
+```
+
+to the document frontmatter.
+
 ### Section (Heading) Enumeration 
 
 Section enumeration is disabled by default. It can be enabled by adding the following directive to the document frotmatter.
@@ -50,6 +60,28 @@ or
 ```
 section_enumeration: off
 ```
+
+
+### Equation Enumeration 
+
+The frontmatter directive 'equation_enumeration' allows changing the equation enumeration style.
+
+```
+equation_enumeration: <style>
+```
+
+The following enumeration styles supported:
+
++ none => no enumeration
+  + Example: N/A - No Applicable
++ cont or continous  
+  + Example: 1, 2, ..., 50
++ section (default)
+  + Example:  2.1, 2.10, ..., 2.10, 3.1, 3.2, ..., 3.25
++ subsection  
+  + Example: 1.2.1, 1.2.2, ..., 1.2.15, 1.3.1, ..., 1.3.15, ....
+
+More details are provided about this feature in the LaTeX section of this document.
 
 
 ### Abbreviations
