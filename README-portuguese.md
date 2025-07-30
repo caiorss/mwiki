@@ -551,7 +551,23 @@ $ git clone https://github.com/caiorss/mwiki mwiki
 $ cd mwiki
 ```
 
-**PASSO 2:** Edite o arquivo config.env.
+Se o repositório já estiver clonado, é possível obter as últimas alterações executando
+
+```sh
+$ git pull
+```
+
+**PASSO 3:** Mude para uma versão estável
+
+```sh
+$ git checkout <<RELASE-VERSION>>
+
+# Por exemplo
+
+$ git checkout v0.31
+```
+
+**PASSO 3:** Edite o arquivo config.env.
 
 
 Arquivo: config.env
@@ -599,7 +615,7 @@ MWIKI_INTERNAL_CA=
 MWIKI_ACME_CA_URL=
 ```
 
-**PASSO 3:** Execute docker-compose ou podman compose para por o sistem no ar (online).
+**PASSO 4:** Execute docker-compose ou podman compose para por o sistem no ar (online).
 
 por o sistem no ar (online) com docker-compose.
 
@@ -613,7 +629,7 @@ Por o sistem no ar (online).
 $ podman-compose --env-file=./config.env up -d 
 ```
 
-**PASSO 4:** Certificados TLS/SSL
+**PASSO 5:** Certificados TLS/SSL
 
 Se o MWiki estiver hospedado em uma máquina com endereço IP estático e público acessível de qualquer lugar na internet e o domínio MWiki apontar para esse endereço IP, o Caddy obterá automaticamente o certificado TLS/SSL da Autoridade Certificadora Let's Encrypt CA.
 
@@ -636,12 +652,124 @@ $ curl -O -k --silent https://<mwiki-website-domain>/root.crt
 
 Veja também:
 
-+ *Set up Certificate Authorities (CAs) in Firefox*
++ *Set up Certificate Authorities (CAs) in Firefox (Configurar Autoridades de Certificação (ACs) no Firefox)*
   + https://support.mozilla.org/en-US/kb/setting-certificate-authorities-firefox
-+ *Installing a Root Certificate Authority in Firefox* 
++ *Installing a Root Certificate Authority in Firefox (Instalando uma Autoridade de Certificação Raiz no Firefox)* 
   + https://chewett.co.uk/blog/854/installing-root-certificate-authority-firefox/
-+ *How to Add a Certificate on Android? Step by Step*
++ *How to Add a Certificate on Android? Step by Step (Como adicionar um certificado no Android? Passo a passo)*
   + https://www.airdroid.com/mdm/add-certificate-android/
+
+
+## Pós-instalação - Acesse o MWiki na rede local
+
+**PASSO 1:**
+
+Obtenha o nome do host do computador onde o mDNS está instalado no Linux, MacOSX ou Windows executando o seguinte comando em um emulador de terminal. No Microsoft Windows, um emulador de terminal pode ser aberto digitando Windows-Key + R e digitando "cmd".
+
+
+```sh
+$ hostname 
+```
+
+e também obter o endereço IP do computador no Microsoft Windows para fins de diagnostico de problemas *(debugging)*.
+
+
+```sh
+$ ipconfig
+```
+
+no Linux, o endereço IP do servidor na rede local pode ser obtido executando.
+
+
+```sh
+# Versões mais antigas de distribuições Linux, BSD e MacOS
+$ ifconfig
+
+## Versões mais recentes de distribuições Linux.
+$ ip addr
+```
+
+**PASSO 2:**
+
+Se o servidor MWiki estiver instalado e em execução e for possível acessá-lo de qualquer computador na rede local com mDSN - Multicast DNS habilitado, abra uma das seguintes URLs em qualquer navegador da web a partir de qualquer dispositivo ou computador na rede local, incluindo smartphones ou tablets.
+
++ http://dummy.local:8080 se o MWiki estiver escutando na porta TCP 8080
++ http://dummy.local se o MWiki estiver escutando na porta 80 (porta HTTP TCP padrão)
++ http://192.168.0.106:8080 se o endereço IP do servidor obtido na etapa 1 for 192.168.0.106 e o MWiki estiver escutando na porta 8080
++ http://192.168.0.106 se o endereço IP do servidor obtido na etapa 1 for 192.168.0.106 e o MWiki estiver escutando na porta 80.
+
+Observações:
+
+1. Observe que *dummy* é o nome do host (nome da rede) do computador que executa o MWiki, obtido na etapa 1 com o comando `$hostname`.
+2. Na maioria das redes corporativas, o tráfego de rede multicast é desabilitado por padrão, enquanto na maioria das redes domésticas, o tráfego de rede multicast, incluindo o DNS multicast, é habilitado por padrão.
+
+O MWiki pode ser iniciado com o comando
+
+```
+$ mwiki server  --wsgi --port=9010 --wikipath=/home/user/path/to/wiki/repository
+```
+
+É recomendável executar o aplicativo usando servidores proxy reversos Caddy ou NGinx, pois eles fornecem criptografia TLS e melhor desempenho para servir arquivos estáticos e lidar com alto tráfego de rede.
+
+**PASSO 3:**
+
+Para acessar o MWiki ou qualquer outro servidor web de outros computadores ou dispositivos, pode ser necessário abrir portas TCP no firewall do sistema operacional.
+
+Abra a porta 8080 no Microsoft Windows (requer a abertura de um terminal com privilégios de administrador).
+
+```sh
+$ netsh firewall add portopening TCP 8080 "MWIki server port"
+```
+
+Abra a porta 8080 no Linux com o Iptables (firewall padrão do Linux, todos os outros firewalls do Linux são wrappers do Iptables).
+
+```sh
+$ sudo iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+```
+
+Abra a porta 8080 no Linux com UFW (Uncomplicated Firewall), usado principalmente por distribuições Linux derivadas do Debian e do Ubuntu.
+
+```sh
+$ sudo ufw allow 8080/tcp
+```
+
+Abra a porta 8080 no Linux com firewalld.
+
+
+```sh
+$ sudo firewall-cmd --add-port=8080/tcp --permanent
+$ sudo firewall-cmd --reload
+```
+
+**Leitura adicional**
+
+
++ *Open TCP Port 80 in Windows Firewall Using Netsh* 
+  + https://www.wiki.mcneel.com/zoo/homenetsh
++ *Linux Open Port 80 (HTTP Web Server Port)*, Vivek Gite (2022), Cyberciti
+  + https://www.cyberciti.biz/faq/linux-iptables-firewall-open-port-80/
++ *5 ways to open a port in Linux explained with examples*, Arun Kumar (2023), FOSS Linux
+  + https://www.fosslinux.com/111811/5-ways-to-open-a-port-in-linux-explained-with-examples.htm
++ *Linux .local domain*
+  + https://en.wikipedia.org/wiki/.local
++ *Linux Open Port: Step-by-Step Guide to Managing Firewall Ports*, Vijaykrishna Ram and Anish Singh Walia, Digital Ocean
+  + https://www.digitalocean.com/community/tutorials/opening-a-port-on-linux
++ *Using mDNS aliases within your home network*, Andrew Dupont (2022)
+  + https://andrewdupont.net/2022/01/27/using-mdns-aliases-within-your-home-network/
++ *How to set up mDNS on an ESP32*
+  + https://lastminuteengineers.com/esp32-mdns-tutorial/
++ *mDNS, hostname.local, and WSL2*, Nelsons' log
+  + https://nelsonslog.wordpress.com/2022/01/06/mdns-hostname-local-and-wsl2/
++ *Multicast DNS (MDNS) on Home Networks*
+  + https://stevessmarthomeguide.com/multicast-dns/
++ *Pros and Cons of Using Multicast DNS*, Networking Interview
+  + https://networkinterview.com/pros-and-cons-of-using-multicast-dns/
++ *Android silently picks up long-awaited mDNS feature*, Anroid Police
+  + https://www.androidpolice.com/android-mdns-local-hostname/
++ *Use network service discovery*, Android Developers
+  + https://developer.android.com/develop/connectivity/wifi/use-nsd
++ *Multicast Application Protocol mDNS for Local Discovery*, Expressif (ESP32) Docs
+  + https://espressif.github.io/esp32-c3-book-en/chapter_8/8.2/8.2.4.html#multicast-application-protocol-mdns-for-local-discovery
 
 
 ## Software e ferramentas complementares 
@@ -690,8 +818,13 @@ O seguinte conjunto de softwares ou aplicativos complementares são recomendados
 + *Script Blocker Ultimate*  
     + https://addons.mozilla.org/en-US/firefox/addon/script-blocker-ultimate/
     + *Extensão para alternar a execução de Javascript, que permite desativar e ativar JavaScript.*
++ *NoScript* 
+    + https://noscript.net/
+    + *Browser extension that blocks scripts by default.*
+    + *Extensão do navegador que bloqueia scripts por padrão.*
 + *Árvore de Tabs para Firefox* (melhor navegação em muitas tabs)
     + https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab
+
 
 
 **Tradução e Conversão de Texto em Fala**
@@ -759,6 +892,11 @@ Uma VPN Mesh Site-to-Site, como a **tailscale**, pode ser útil para hospedar es
 
 + *If it is worth keeping, save it in Markdown*
   + https://p.migdal.pl/blog/2025/02/markdown-saves
++ *Exposing a web service with Cloudflare Tunnel*, Erissa A (2022)
+  + https://erisa.dev/exposing-a-web-service-with-cloudflare-tunnel/
+  + *What if you could host a web service with no ports exposed? With Cloudflare Tunnel, you can!*
+  + COMENTÁRIO: Para quem não confia na Cloudflare, uma VPN mesh Tailscale auto-hospedada é uma escolha melhor. A Tailscale permite estabelecer um túnel criptografado direto de ponta a ponta entre nós clientes Tailscale (máquinas com o cliente Tailscale instalado). Como resultado, qualquer nó em uma rede Tailscale pode acessar qualquer serviço web exposto por outros nós Tailscale. Por exemplo, se um Android ou iPhone tiver um aplicativo cliente Taiscale instalado, é possível navegar em um host web na rede local, possivelmente por trás de um NAT (Network Address Translator), que bloqueia conexões de entrada por padrão, abrindo a URL http://dummy:8080 ou http://dummy.net.ts:8080, onde dummy é o nome do host ou nome Tailscale do computador que hospeda o servidor web. O Tailscale não é útil apenas para acessar servidores web locais de qualquer lugar sem expor nenhuma porta TCP ou UDP à internet, mas também é útil para acessar pastas compartilhadas do Windows (SAMBA/SMB), às vezes chamadas de compartilhamentos do Windows, e máquinas Windows remotamente por meio de VNC ou remote desktop.
+  + COMENTÁRIO: Expor um servidor web local à internet com Taiscale requer a instalação de um cliente tailscale no computador local que hospeda o servidor web e um cliente tailscale no VPS - Virtual Private Server, uma máquina virtual hospedada na nuvem com endereço IP público. Tudo o que é necessário é adicionar uma configuração ao caddy ou nging na máquina remota para encaminhar o tráfego de rede das portas 80 (http) e 443 (https) para o endereço IP tailscale ou nome do host do computador local, por exemplo, dummy.net.ts é o nome do host ou o nome tailscale do computador local é dummy. A função de um servidor tailscale, que deve ser instalado em uma máquina com endereço IP estático e público, é apenas coordenar as conexões entre os clientes. Uma vez estabelecida uma conexão de cliente para cliente, o tráfego de rede entre os clientes não passa pelo servidor.
 + *Scientific Articles*, MyST 
   + https://mystmd.org/guide/quickstart-myst-documents
 + *R Markdown* 

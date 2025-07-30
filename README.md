@@ -548,7 +548,23 @@ $ git clone https://github.com/caiorss/mwiki mwiki
 $ cd mwiki
 ```
 
-**STEP 2:** Edit the config.env file.
+If the repository is already cloned, it is possible to get the latest changes by running
+
+```
+$ git pull
+```
+
+**STEP 2:** Switch to a stable release
+
+```sh
+$ git checkout <<RELASE-VERSION>>
+
+# For instance
+
+$ git checkout v0.31
+```
+
+**STEP 3:** Edit the config.env file.
 
 File: config.env
 
@@ -596,7 +612,7 @@ MWIKI_ACME_CA_URL=
 ```
 
 
-**STEP 3:** Run docker-compose or podman compose for the deployment.
+**STEP 4:** Run docker-compose or podman compose for the deployment.
 
 Deploy with docker-compose.
 
@@ -610,7 +626,7 @@ Deploy with podman-compose.
 $ podman-compose --env-file=./config.env up -d 
 ```
 
-**STEP 4:** TLS/SSL Certificates
+**STEP 5:** TLS/SSL Certificates
 
 If the MWiki is hosted in a machine with static and public IP address reacheable from anywhere on the internet and MWiki domain points to this IP address, Caddy will automatically obtain the TLS/SSL certificate from Let's Encrypt CA - Certificate authority. 
 
@@ -638,6 +654,114 @@ See also:
   + https://chewett.co.uk/blog/854/installing-root-certificate-authority-firefox/
 + *How to Add a Certificate on Android? Step by Step*
   + https://www.airdroid.com/mdm/add-certificate-android/
+
+
+## Post-Installation - Access MWiki in the local network
+
+**STEP 1:** 
+
+Get the hostname of the computer where mDNS is installed on Linux, MacOSX or Windows by running the following command in a terminal emulator. In Microsft Windows, a terminal emulator can be opened by typing Windows-Key + R and entering 'cmd'.
+
+```sh
+$ hostname 
+```
+
+and also get the computer IP address on Microsoft Windows for debugging purposes.
+
+```sh
+$ ipconfig
+```
+
+on Linux the IP address of the server in the local network can be obtained by running.
+
+```sh
+# Older versions of Linux distributions, BSD and MacOSX
+$ ifconfig
+
+## Newer version of Linux distributions
+$ ip addr
+```
+
+**STEP 2:** 
+
+If the MWiki server is installed and running and it is possible to access the server from any computer in the local network with mDSN - Multicast DNS enabled by opening the one the of the following URLs in any web browser from any device or computer in the local network, including smart phones or tablets. 
+
++ http://dummy.local:8080 if MWiki is listening to TCP port 8080
++ http://dummy.local  if MWiki is listening to port 80 (default HTTP TCP port)
++ http://192.168.0.106:8080 if the server IP address obtained in the step 1 is 192.168.0.106 and MWiki is listening to port 8080
++ http://192.168.0.106 if the server IP address obtained in the step 1 is 192.168.0.106 and MWiki is listening to port 80.
+
+Observations:
+
+1. Note that *dummy* is the hostname (network name) of the computer running MWiki obtained in the step 1 with the command `$ hostname`.
+2. In most corporate network, the multicast network traffic is disabled by default, while in most home networks the multicast network traffic, including multicast DNS is enabled by default. 
+
+MWiki can be started with the command
+
+```
+$ mwiki server  --wsgi --port=9010 --wikipath=/home/user/path/to/wiki/repository
+```
+
+It is recommend to run the application using Caddy or NGinx reverse proxy servers as they provide TLS encryption and better performance for serving static files and handling higher network traffic.
+
+**STEP 3:**
+
+In order to be able to access MWiki or any other web server from other computers or devices, it may be necessary to open TCP ports in the operating system firewall.
+
+Open port 8080 in Microsoft Windows (requires opening a terminal with administrator privilegees).
+
+```sh
+$ netsh firewall add portopening TCP 8080 "MWIki server port"
+```
+
+Open port 8080 in Linux with Iptables (Default Linux firewall, all other Linux firewalls are wrappers around Iptables).
+
+```sh
+$ sudo iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+```
+
+Open port 8080 in Linux with UFW (Uncomplicated Firewall), mostly used by Debian and Ubuntu derived Linux distributions.
+
+```sh
+$ sudo ufw allow 8080/tcp
+```
+
+Open port 8080 in Linux with firewalld.
+
+```sh
+$ sudo firewall-cmd --add-port=8080/tcp --permanent
+$ sudo firewall-cmd --reload
+```
+
+**Further Reading**
+
++ *Open TCP Port 80 in Windows Firewall Using Netsh* 
+  + https://www.wiki.mcneel.com/zoo/homenetsh
++ *Linux Open Port 80 (HTTP Web Server Port)*, Vivek Gite (2022), Cyberciti
+  + https://www.cyberciti.biz/faq/linux-iptables-firewall-open-port-80/
++ *5 ways to open a port in Linux explained with examples*, Arun Kumar (2023), FOSS Linux
+  + https://www.fosslinux.com/111811/5-ways-to-open-a-port-in-linux-explained-with-examples.htm
++ *Linux .local domain*
+  + https://en.wikipedia.org/wiki/.local
++ *Linux Open Port: Step-by-Step Guide to Managing Firewall Ports*, Vijaykrishna Ram and Anish Singh Walia, Digital Ocean
+  + https://www.digitalocean.com/community/tutorials/opening-a-port-on-linux
++ *Using mDNS aliases within your home network*, Andrew Dupont (2022)
+  + https://andrewdupont.net/2022/01/27/using-mdns-aliases-within-your-home-network/
++ *How to set up mDNS on an ESP32*
+  + https://lastminuteengineers.com/esp32-mdns-tutorial/
++ *mDNS, hostname.local, and WSL2*, Nelsons' log
+  + https://nelsonslog.wordpress.com/2022/01/06/mdns-hostname-local-and-wsl2/
++ *Multicast DNS (MDNS) on Home Networks*
+  + https://stevessmarthomeguide.com/multicast-dns/
++ *Pros and Cons of Using Multicast DNS*, Networking Interview
+  + https://networkinterview.com/pros-and-cons-of-using-multicast-dns/
++ *Android silently picks up long-awaited mDNS feature*, Anroid Police
+  + https://www.androidpolice.com/android-mdns-local-hostname/
++ *Use network service discovery*, Android Developers
+  + https://developer.android.com/develop/connectivity/wifi/use-nsd
++ *Multicast Application Protocol mDNS for Local Discovery*, Expressif (ESP32) Docs
+  + https://espressif.github.io/esp32-c3-book-en/chapter_8/8.2/8.2.4.html#multicast-application-protocol-mdns-for-local-discovery
+
 
 ## Development 
 
@@ -792,6 +916,9 @@ The following set of companion sotfware or apps are recommended for MWiki as the
 + *Script Blocker Ultimate* - (NoScript, Disable JS)
   + https://addons.mozilla.org/en-US/firefox/addon/script-blocker-ultimate/
   + *Extension for toggling execution of Javascript, which allows disabling and enabling JavaScript.*
++ *NoScript* 
+    + https://noscript.net/
+    + *Browser extension that blocks scripts by default.*
 + *Tree Style Tabs for Firefox*
   + https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab
 
@@ -861,6 +988,11 @@ A site-to-site mesh VPN such as **tailscale** can be helpful for self hosting th
 
 + *If it is worth keeping, save it in Markdown*
   + https://p.migdal.pl/blog/2025/02/markdown-saves
++ *Exposing a web service with Cloudflare Tunnel*, Erissa A (2022)
+  + https://erisa.dev/exposing-a-web-service-with-cloudflare-tunnel/
+  + *What if you could host a web service with no ports exposed? With Cloudflare Tunnel, you can!*
+  + COMMENT: For people who does not trust Cloudflare, a self-hosted Tailscale mesh VPN is a better choice. Tailscale allows establishing a direct end-to-end encrypted tunnel between tailscale client nodes (machines with tailscale client installed). As a result, any node in a taiscale network can access any web service exposed by other tailscale nodes. For instance, if an Android or Iphone has a taiscale client app installed. It is possible to browse a websiste hostead in the local network, possibly behding a NAT - Network Address Translator which blocks incoming connections by default, by opeing the URL http://dummy:8080 or http://dummy.net.ts:8080, where dummy is the hostname or tailscale name of the computer that hosts the web server. Tailscale is not only useful for accessing local web servers from anywhere without exposing any TCP or UDP port to the internet, it is also helpful for accessing windows shared forlders (SAMBA/SMB), sometimes called Windows shares, and Windows Machines remotely through VNC or remote desktop. 
+  + COMMENT: Exposing a local web server to the internet with Taiscale requires installing a tailscale client in the local computer hosting the web server and a tailscale client in the VPS - Virtual Private Server, a virtual machine, hosted on the cloud with public IP address. All it is need is to add a configuration to caddy or nging in the remote machine to forward the network traffic of ports 80 (http) and 443 (https) to the tailscale IP addres or hostname of the local computer, for instance dummy.net.ts is the hostanme or tailscale name of the local computer is dummy. The role of a tailscale server, that must be installed in machine with static and public IP address, is only coordinating connections between clients. Once a connection from client-to-client has been established, the network traffic between clients does not goes thorugh the server. 
 + *Scientific Articles*, MyST 
   + https://mystmd.org/guide/quickstart-myst-documents
 + *R Markdown* 
