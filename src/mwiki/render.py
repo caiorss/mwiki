@@ -625,7 +625,8 @@ class HtmlRenderer(AbstractAstRenderer):
         ## breakpoint()
         if tag == "h2" or tag == "h3":
             pagename = self._pagefile.split(".")[0] if not self._is_embedded_page else self._embedded_page
-            url =  f"/edit/{pagename}?start={line_start}&end={line_end}&anchor={anchor}&page={pagename}"
+            page_link = pagename.replace(" ", "_")
+            url =  f"/edit/{page_link}?start={line_start}&end={line_end}&anchor={anchor}&page={pagename}"
             edit_link = f"""<a class="link-edit" style="display:none" href="{url}" title="Edit heading: {value}" class="edit-button">[E]</a>"""
             ## breakpoint()
             html   = (f"""<div class="div-heading">""" 
@@ -879,7 +880,7 @@ class HtmlRenderer(AbstractAstRenderer):
         ##     href = node.content
         ##     label = href
         html = ""
-        href_ = utils.escape_url(f"/wiki/{href}")
+        href_ = utils.escape_url(f"/wiki/{ href.replace(' ', '_') }")
         if "." not in href:
             match =  self.find_page(href)
             class_name = "link-internal" if match else "link-internal-missing"

@@ -184,8 +184,9 @@ def make_app_server(  host:        str
         sorted_files = [ a for (a, _) in sorted_files ]
         page_to_file = lambda f:  str(f) ##os.path.join(BASE_PATH, f) # + ".md"
         MAX_LEN = 500
-        pages = [  {    "name": f.name.split(".")[0] 
-                     # , "src":  f 
+        pages = [  {    "name": f.name.split(".")[0]
+                      , "link": f.name.split(".")[0].replace(" ", "_")
+
                       , "matches": [ lin[:MAX_LEN] + " ..." 
                                     if len(lin) > MAX_LEN else lin  
                                         for (n, lin) in  search.grep_file(page_to_file(f), query)  ] \
@@ -282,6 +283,7 @@ def make_app_server(  host:        str
         # of the mdfile without any extension
         if "." not in path:
             mdfile_ = path + ".md"
+            path = path.replace("_", " ")
             ##print(f" [TRACE] mdfile_ = {mdfile_} ; base_path = {base_path}")
             ## 
             ### breakpoint()
@@ -472,6 +474,7 @@ def make_app_server(  host:        str
     @check_login( required = True)
     def route_edit_page(path: str):
         """Servers Wiki code editor (Ace 9) JavaScript editor."""
+        path = path.replace("_", " ")
         user = current_user()
         # Enforce authorization  - Guest (Read-Only Users) and anonymous
         # users cannot edit the Wiki.
@@ -493,8 +496,10 @@ def make_app_server(  host:        str
                 content = "\n".join(lines[line_start:line_end]) 
             ## print(" [TRACE] content = ", content)
             resp = flask.render_template(  "edit.html"
-                                         , title = f"Edit page: {path}", 
-                                         page = path, content = content)
+                                         , title = f"Edit page: {path}" 
+                                         , page = path
+                                         , page_link = path.replace(" ", "_")
+                                         , content = content)
             return resp
         assert request.method == M_POST
         data: dict[str, Any] = request.get_json()

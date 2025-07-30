@@ -527,7 +527,7 @@ async function editorPreviewDocument()
     // let src = 'data:text/html;charset=utf-8,' + encodeURI(out.html); 
 
     let previewWindow = new PopupWindow({
-          title: `Preview of: ${currentWikiPage}`
+          title: `Preview of: ${currentWikiPageTitle}`
         , html:   `<iframe id="iframe-preview" 
                            sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation-by-user-activation"
                            srcdoc="${out.html}"  

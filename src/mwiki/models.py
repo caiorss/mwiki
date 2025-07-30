@@ -182,6 +182,7 @@ class WikiPage():
         html = flask.render_template(  "content.html"
                                              , title   = title 
                                              , page    = self._title
+                                             , page_link = self._title.replace(" ", "_")
                                              , pagename = self._title 
                                              , content = content
                                              , toc     = toc
