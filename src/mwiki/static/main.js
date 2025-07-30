@@ -349,6 +349,13 @@ function isMobileScreen()
 
 document.addEventListener("DOMContentLoaded", function()
   {
+
+    // NOTE the cosntant variable FONT_FAMILY_MAIN is defined in the template base.html
+    document.documentElement.style.setProperty('--font-family-main', FONT_FAMILY_MAIN);
+    // Set font of document headings (title) 
+    document.documentElement.style.setProperty('--font-family-title', FONT_FAMILY_TITLE);
+
+
     // Global variable defined in the template base.html
     if( DISPLAY_EDIT_BUTTONS )
     {

@@ -1,4 +1,5 @@
 from typing import Any, Tuple, List, Optional
+import enum 
 from flask_sqlalchemy import SQLAlchemy
 import flask_sqlalchemy as sa 
 import sqlalchemy
@@ -80,6 +81,15 @@ class User(db.Model):
         result = db.session.execute(query).scalars().first()
         return result
 
+class FontFamiliyEnum(enum.Enum):
+    # Default LaTeX font created by professor Donald Knuth
+    computer_modern = "Computer Modern"
+    neo_euler = "Neo Euler"
+    chicago_macos_system6 = "Chicago MacOS"
+    # IBM old-chool monospace that gives back the nolstagic feeling of the typewriter 
+    ibm_plex_mono = "IBM Plex Mono"
+    go_mono = "GO Mono"
+
 class Settings(db.Model):
     """Singleton model class (SQL table) containing site settings.
     """
@@ -99,6 +109,11 @@ class Settings(db.Model):
     default_password: so.Mapped[str] = so.mapped_column(nullable=False)
     # Wiki Site Description 
     description: so.Mapped[str] = so.mapped_column(default="MWiki Website")
+
+    ## main_font: so.Mapped[Optional[FontFamiliyEnum]]
+    main_font: so.Mapped[str] = so.mapped_column(default = FontFamiliyEnum.computer_modern.value)
+    title_font: so.Mapped[str] = so.mapped_column(default = FontFamiliyEnum.computer_modern.value)
+
     date_created:    so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
     date_modified:   so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
 
@@ -111,6 +126,7 @@ class Settings(db.Model):
             password = utils.generate_password(10)
             # Create default settings when the database is initialized
             s = Settings( default_password = password )
+            ## s.main_font = FontFamiliyEnum.computer_modern
             db.session.add(s)
             db.session.commit()
             return s 

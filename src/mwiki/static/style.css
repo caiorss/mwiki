@@ -49,6 +49,54 @@
   src: url('/static/fonts/IBM-Plex-Mono-bold-italic.ttf');
 }
 
+/** Latex font that attempts to mimic a mathematician handwriting in blackboard */
+@font-face {
+  font-family: "Neo Euler";
+  font-weight: normal;
+  font-style:  normal;
+  src: url('/static/fonts/neo-euler.otf');
+}
+
+
+/** Recreation of Susan Kares' Chicago font used by Apple's old Mac OS (System 7) 
+  * from 1984 to 1997. 
+  *****/
+@font-face {
+  font-family: "Chicago MacOS";
+  font-weight: normal;
+  font-style:  normal;
+  src: url('/static/fonts/ChicagoFLF.ttf');
+}
+
+/** See: https://go.dev/blog/go-fonts */
+@font-face {
+  font-family: "GO Mono";
+  font-weight: normal;
+  font-style:  normal;
+  src: url('/static/fonts/Go-Mono.ttf');
+}
+
+@font-face {
+  font-family: "Go Mono";
+  font-weight: bold;
+  font-style:  normal;
+  src: url('/static/Go-Mono-Bold.ttf');
+}
+
+@font-face {
+  font-family: "Go Mono";
+  font-weight: normal;
+  font-style:  italic;
+  src: url('/static/fonts/Go-Mono-Italic.ttf');
+}
+
+@font-face {
+  font-family: "Go Mono";
+  font-weight: bold;
+  font-style:  italic;
+  src: url('/static/fonts/Go-Mono-Bold-Italic.ttf');
+}
+
 
 
 :root {
@@ -64,6 +112,12 @@
     --screen-type: "desktop";
     --link-external-color: blue; /* hsl(0, 100%, 33%); */
     --link-internal-color: blue;
+
+    /* --font-family-main: 'Computer Modern'; */
+    /* --font-family-main: 'Neo Euler'; */
+    --font-family-main: 'Computer Modern';
+    --font-family-title: 'Computer Modern';
+    --font-family-code: 'IBM Plex Mono';
 
     --font-size-h1:  1.800rem;
     --font-size-h2:  1.350rem;
@@ -86,7 +140,7 @@ body {
     color: #544832;
     background-color: var(--bg-main);
     scroll-padding-top: 60px;
-    font-family: 'Computer Modern';
+    font-family: var(--font-family-main);
 }
 
 h1 { 
@@ -99,6 +153,10 @@ main h2 {
 
 main h3 {
     font-size: var(--font-size-h3);
+}
+
+main h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-title);
 }
 
 
@@ -789,7 +847,7 @@ pre {
     padding: 5px;
     margin-top: 8pt     !important;
     margin-bottom: 10px  !important;
-    font-family: "IBM Plex Mono" !important;
+    font-family: var(--font-family-code) !important;
     font-size:  var(--font-size-code);
     line-height: initial;
     overflow-x: auto !important;
@@ -798,13 +856,13 @@ pre {
 }
 
 code {
-    font-family: "IBM Plex Mono" !important;
+    font-family: var(--font-family-code) !important;
     font-size: var(--font-size-code);
 }
 
 .highlight {
     background-color: lightyellow;
-    font-family: "IBM Plex Mono";
+    font-family: var(--font-family-code);
     /* overflow-x: auto; */
     /* overflow-y: auto;  */
 }
@@ -812,7 +870,7 @@ code {
 .source-code {
     background-color: lightyellow;
     display: block;
-    font-family:  "IBM Plex Mono";
+    font-family:  var(--font-family-code);
     overflow-x: auto;
     overflow-y: auto;
 }
