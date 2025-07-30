@@ -73,7 +73,7 @@ csrf.init_app(app)
 db.init_app(app)
 ## session = flask_session.Session(app)
 
-def current_user():
+def current_user() -> User:
     """Get user logged in to the server."""
     obj  = session.get("user") 
     if obj is None or not isinstance(obj, dict) or  obj.get("__class") != "User": 
@@ -89,7 +89,14 @@ def current_user():
               )
     return user 
 
+def display_edit_buttons() -> bool:
+    user = current_user()
+    conf = Settings.get_instance()
+    out =  conf.display_edit_button or user.is_admin()
+    return out
+
 app.jinja_env.globals.update(current_user = current_user)
+app.jinja_env.globals.update(display_edit_buttons = display_edit_buttons)
 
 
 

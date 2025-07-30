@@ -81,7 +81,7 @@ class User(db.Model):
         return result
 
 class Settings(db.Model):
-    """Single-table instance of only one row that contains the Wiki settings.
+    """Singleton model class (SQL table) containing site settings.
     """
     __tablename__ = "settings"
     id: so.Mapped[int] = so.mapped_column(primary_key = True)
@@ -90,6 +90,10 @@ class Settings(db.Model):
     # Display Page Source => If enabled, the menu page will present a button for 
     # showing the Markdown code of the current page
     show_source:   so.Mapped[bool] = so.mapped_column(default = False)
+    # Display edit button [E]. If this setting is enabled, an edit button [X] (CSS class 'link-edit')
+    # will be displayed for all users. If this setting is disabled, the edit button will only be shown
+    # for admins or users with permission for editing.
+    display_edit_button: so.Mapped[bool] = so.mapped_column(default = True)
     # Web Site Name 
     sitename: so.Mapped[str] = so.mapped_column(default= "MWiki")
     default_password: so.Mapped[str] = so.mapped_column(nullable=False)

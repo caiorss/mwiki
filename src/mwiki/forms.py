@@ -15,9 +15,15 @@ class SettingsForm(fwt.FlaskForm):
                                description = "Provides a button that allows vieweing the Markdown (wiki text) " 
                                              "source code a wiki"
                                              )
-    submit = wt.SubmitField("Submit")
+    display_edit_button = wt.BooleanField("Display edit button",
+                                    description = ( 
+                                          "Display the wiki edit button for all users [E]. If this setting is disabled,  "
+                                          "only admin users or users with permission to edit pages will be able to view the edit button."
+                                            ) 
+                                          )
     sitename = wt.StringField("Wiki Name", validators = [ wtfv.DataRequired() ] )
     description = wt.TextAreaField("Wiki Description") 
+    submit = wt.SubmitField("Submit")
 
         
 class UserSettingsForm(fwt.FlaskForm):

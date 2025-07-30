@@ -349,6 +349,14 @@ function isMobileScreen()
 
 document.addEventListener("DOMContentLoaded", function()
   {
+    // Global variable defined in the template base.html
+    if( DISPLAY_EDIT_BUTTONS )
+    {
+        // Make all edit [E] buttons for editing wiki sections visible 
+        for(let q of document.querySelectorAll(".link-edit"))
+        { q.style.display = ""; }
+    }
+
     // Event bubbling
     onClick(".toc", (evt) => {
         if(isMobileScreen() && evt.target.className == "link-sidebar")

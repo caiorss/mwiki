@@ -134,6 +134,7 @@ def make_app_server(  host:        str
             form.sitename.data = conf.sitename
             form.public.data = conf.public
             form.show_source.data = conf.show_source
+            form.display_edit_button.data  = conf.display_edit_button   
             form.description.data = conf.description   
         if request.method == M_POST:
             form.validate()
@@ -142,6 +143,7 @@ def make_app_server(  host:        str
             conf.description = form.description.data
             conf.public = form.public.data 
             conf.show_source = form.show_source.data
+            conf.display_edit_button = form.display_edit_button.data
             conf.save()
             flask.flash("Wiki settings updated successfully.")
             app.logger.info("Wiki setting updated.")
