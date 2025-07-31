@@ -111,6 +111,46 @@
     src: url('/static/fonts/Comorant-Light.woff2');
 }
 
+/** Serif Typeface designed for Google Play books.*/
+@font-face {
+    font-family: "Literata";
+    font-weight: normal;
+    font-style: normal;
+    src: url('/static/fonts/Literata-Regular.ttf');
+}
+
+@font-face {
+    font-family: "Literata";
+    font-weight: normal;
+    font-style: italic;
+    src: url('/static/fonts/Literata-Italic.ttf');
+}
+
+@font-face {
+    font-family: "Literata";
+    font-weight: bold;
+    font-style: normal;
+    src: url('/static/fonts/Literata-Bold.ttf');
+}
+
+
+/** Serif Typeface designed for Google Play books.*/
+@font-face {
+    font-family: "Literata Variable";
+    font-weight: normal;
+    font-style: normal;
+    src: url('/static/fonts/literata-variable-font-opsz.ttf');
+}
+
+/** Serif Typeface designed for Google Play books.*/
+@font-face {
+    font-family: "Literata Variable";
+    font-weight: normal;
+    font-style: italic;
+    src: url('/static/fonts/literata-variable-font-italic-opsz.ttf');
+}
+
+
 
 
 :root {
