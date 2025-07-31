@@ -151,6 +151,15 @@
 }
 
 
+/** A medieval-gothic like typeface */
+@font-face {
+    font-family: "Textura Modern";
+    font-weight: normal;
+    font-style:  normal;
+    src: url('/static/fonts/TexturaModern.ttf');
+}
+
+
 
 
 :root {

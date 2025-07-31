@@ -93,6 +93,7 @@ class FontFamiliyEnum(enum.Enum):
     # nolstagic feeling of the typewriter 
     ibm_plex_mono = "IBM Plex Mono"
     go_mono = "GO Mono"
+    textura_modern = "Textura Modern"
 
 class TitleFontFamily(enum.Enum):
     # Default LaTeX font created by professor Donald Knuth
@@ -107,6 +108,7 @@ class TitleFontFamily(enum.Enum):
     news_reader = "NewsReader"
     literata = "Literata"
     literata_variable = "Literata Variable"
+    textura_modern = "Textura Modern"
 
 
 class Settings(db.Model):
