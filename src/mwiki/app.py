@@ -69,6 +69,7 @@ app.jinja_env.globals.update(config_description = lambda:  Settings.get_instance
 app.jinja_env.globals.update(config_show_source = lambda:  Settings.get_instance().show_source)
 app.jinja_env.globals.update(config_main_font   = lambda:  Settings.get_instance().main_font)
 app.jinja_env.globals.update(config_title_font   = lambda:  Settings.get_instance().title_font)
+app.jinja_env.globals.update(config_vim_emulation = lambda:  Settings.get_instance().vim_emulation)
 
 csrf = CSRFProtect(app)
 csrf.init_app(app)
