@@ -166,7 +166,6 @@
         </div>
     </div>
 
-
 </div>
 
 {% endblock %}
@@ -208,6 +207,7 @@
     currentWikiPage = "{{page_link}}";
     currentWikiPageTitle = "{{page}}";
     console.trace(`Current Wiki page being edited ${currentWikiPage}`);
+    let VIM_EMULATION_ENABLED = "{{ config_vim_emulation() }}" === "True";
 </script>
 <!-- See file:  file://../static/editor.js -->
 <script src="/static/editor.js"></script>

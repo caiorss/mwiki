@@ -22,6 +22,7 @@ class SettingsForm(fwt.FlaskForm):
                                           "only admin users or users with permission to edit pages will be able to view the edit button."
                                             ) 
                                           )
+    vim_emulation = wt.BooleanField("VIM Emulation", description="Enable VIM editor emulation in the Wiki code editor (Ace9).")
     main_font = wt.SelectField("Main Font", choices = [(ch.value, ch.value) for ch  in models.FontFamiliyEnum])
     title_font = wt.SelectField("Title Font", choices = [(ch.value, ch.value) for ch  in models.TitleFontFamily])
     sitename = wt.StringField("Wiki Name", validators = [ wtfv.DataRequired() ] )

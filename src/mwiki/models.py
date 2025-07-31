@@ -85,10 +85,23 @@ class FontFamiliyEnum(enum.Enum):
     # Default LaTeX font created by professor Donald Knuth
     computer_modern = "Computer Modern"
     neo_euler = "Neo Euler"
-    chicago_macos_system6 = "Chicago MacOS"
-    # IBM old-chool monospace that gives back the nolstagic feeling of the typewriter 
+    # IBM old-chool monospace that gives back the 
+    # nolstagic feeling of the typewriter 
     ibm_plex_mono = "IBM Plex Mono"
     go_mono = "GO Mono"
+
+class TitleFontFamily(enum.Enum):
+    # Default LaTeX font created by professor Donald Knuth
+    computer_modern = "Computer Modern"
+    neo_euler = "Neo Euler"
+    chicago_macos_system6 = "Chicago MacOS"
+    # IBM old-chool monospace that gives back the nolstagic
+    # feeling of the typewriter 
+    ibm_plex_mono = "IBM Plex Mono"
+    go_mono = "GO Mono"
+    # Font suitable for title
+    news_reader = "NewsReader"
+
 
 class Settings(db.Model):
     """Singleton model class (SQL table) containing site settings.
@@ -104,6 +117,8 @@ class Settings(db.Model):
     # will be displayed for all users. If this setting is disabled, the edit button will only be shown
     # for admins or users with permission for editing.
     display_edit_button: so.Mapped[bool] = so.mapped_column(default = True)
+    # Enable/disable VIM editor emulation
+    vim_emulation: so.Mapped[bool] = so.mapped_column(default = False)
     # Web Site Name 
     sitename: so.Mapped[str] = so.mapped_column(default= "MWiki")
     default_password: so.Mapped[str] = so.mapped_column(nullable=False)

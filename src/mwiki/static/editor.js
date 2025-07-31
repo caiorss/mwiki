@@ -22,15 +22,24 @@ editor.getSession().setUseWrapMode(true)
 editor.getSession().setWrapLimitRange(60, 60);
 
 /** Vim Emulation */
-editor.setKeyboardHandler("ace/keyboard/vim");
+function editorEnableVimEmulation()
+{
+    editor.setKeyboardHandler("ace/keyboard/vim");
 
-ace.config.loadModule("ace/keyboard/vim", function(m) {
-    var VimApi = require("ace/keyboard/vim").CodeMirror.Vim
-    VimApi.defineEx("write", "w", function(cm, input) {
-        // cm.ace.execCommand("save")
-        editorSaveDocument();
+    ace.config.loadModule("ace/keyboard/vim", function(m) {
+        var VimApi = require("ace/keyboard/vim").CodeMirror.Vim
+        VimApi.defineEx("write", "w", function(cm, input) {
+            // cm.ace.execCommand("save")
+            editorSaveDocument();
+        })
     })
-})
+}
+
+// Global variable defined in template edit.html
+if( VIM_EMULATION_ENABLED )
+{
+    editorEnableVimEmulation();
+}
 
 function editorRedo()
 {
