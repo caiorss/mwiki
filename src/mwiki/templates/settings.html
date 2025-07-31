@@ -11,8 +11,16 @@
 
 {% block content %}
 
+    {% if request.values.get('back') %}
+    <ul>
+        <li>
+            Go back to: <a class="link-internal" href="{{ request.values.get('back') }}">{{ request.values.get('back') }}</a>
+        </li>
+    </ul>
+    {% endif %}
+
 <div class="form-wrapper">
-    <form method="POST" action="/settings">
+    <form method="POST" action="/settings?back={{ request.values.get('back') }}">
         {{ form.csrf_token }}
         <fieldset class="form-field">
             {{ form.sitename.label }}
