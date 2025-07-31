@@ -16,30 +16,32 @@
         {{ form.csrf_token }}
         <fieldset class="form-field">
             {{ form.sitename.label }}
+            <br>
             {{ form.sitename}}
         </fieldset>
         <fieldset class="form-field">
             {{ form.description.label }}
+            <br>
             {{ form.description }}
         </fieldset>
         <fieldset class="form-field">
-            {{ form.public.label }}
             {{ form.public}}
+            {{ form.public.label }}
             {{ form.public.description }}
         </fieldset>
         <fieldset class="form-field">
-            {{ form.display_edit_button.label }}
             {{ form.display_edit_button}}
+            {{ form.display_edit_button.label }}
             {{ form.display_edit_button.description }}
         </fieldset>
         <fieldset class="form-field">
-            {{ form.vim_emulation.label }}
             {{ form.vim_emulation}}
+            {{ form.vim_emulation.label }}
             {{ form.vim_emulation.description }}
         </fieldset>
         <fieldset class="form-field">
-            {{ form.show_source.label }}
             {{ form.show_source}}
+            {{ form.show_source.label }}
             {{ form.show_source.description }}
         </fieldset>
         <fieldset class="form-field">
