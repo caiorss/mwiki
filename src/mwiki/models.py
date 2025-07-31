@@ -84,6 +84,7 @@ class User(db.Model):
 class FontFamiliyEnum(enum.Enum):
     # Default LaTeX font created by professor Donald Knuth
     computer_modern = "Computer Modern"
+    comorant_light = "Comorant Light"
     neo_euler = "Neo Euler"
     # IBM old-chool monospace that gives back the 
     # nolstagic feeling of the typewriter 
