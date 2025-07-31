@@ -25,9 +25,9 @@ class SettingsForm(fwt.FlaskForm):
     vim_emulation = wt.BooleanField("VIM Emulation", description="Enable VIM editor emulation in the Wiki code editor (Ace9).")
     main_font = wt.SelectField("Main Font", choices = [(ch.value, ch.value) for ch  in models.FontFamiliyEnum])
     title_font = wt.SelectField("Title Font", choices = [(ch.value, ch.value) for ch  in models.TitleFontFamily])
-    sitename = wt.StringField("Wiki Name", validators = [ wtfv.DataRequired() ] )
-    description = wt.TextAreaField("Wiki Description") 
-    submit = wt.SubmitField("Submit")
+    sitename = wt.StringField("Website Name", validators = [ wtfv.DataRequired() ] )
+    description = wt.TextAreaField("Website Description") 
+    submit = wt.SubmitField("Update")
 
         
 class UserSettingsForm(fwt.FlaskForm):
