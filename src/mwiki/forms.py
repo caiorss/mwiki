@@ -1,7 +1,7 @@
 import flask_wtf as fwt 
 import wtforms as wt 
 import wtforms.validators as wtfv 
-from .models import FontFamiliyEnum
+import mwiki.models as models
 from . constants import *
 
 
@@ -22,8 +22,8 @@ class SettingsForm(fwt.FlaskForm):
                                           "only admin users or users with permission to edit pages will be able to view the edit button."
                                             ) 
                                           )
-    main_font = wt.SelectField("Main Font", choices = [(ch.value, ch.value) for ch  in FontFamiliyEnum])
-    title_font = wt.SelectField("Title Font", choices = [(ch.value, ch.value) for ch  in FontFamiliyEnum])
+    main_font = wt.SelectField("Main Font", choices = [(ch.value, ch.value) for ch  in models.FontFamiliyEnum])
+    title_font = wt.SelectField("Title Font", choices = [(ch.value, ch.value) for ch  in models.TitleFontFamily])
     sitename = wt.StringField("Wiki Name", validators = [ wtfv.DataRequired() ] )
     description = wt.TextAreaField("Wiki Description") 
     submit = wt.SubmitField("Submit")

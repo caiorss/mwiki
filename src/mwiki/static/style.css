@@ -68,6 +68,15 @@
   src: url('/static/fonts/ChicagoFLF.ttf');
 }
 
+@font-face {
+  font-family: "NewsReader";
+  font-weight: normal;
+  font-style:  normal;
+  src: url('/static/fonts/NewsReader.woff2');
+}
+
+
+
 /** See: https://go.dev/blog/go-fonts */
 @font-face {
   font-family: "GO Mono";
