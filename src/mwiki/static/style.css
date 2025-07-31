@@ -159,6 +159,14 @@
     src: url('/static/fonts/TexturaModern.ttf');
 }
 
+/* Medival gothic like typeface used in Frace */
+@font-face {
+    font-family: "Bastarda";
+    font-weight: normal;
+    font-style:  normal;
+    src: url('/static/fonts/TexturaModern.ttf');
+}
+
 
 
 
