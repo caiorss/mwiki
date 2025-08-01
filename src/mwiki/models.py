@@ -117,6 +117,7 @@ class TitleFontFamily(enum.Enum):
     bastarda = "Bastarda"
     logic_monospace_regular = "Logic Monospace Regular"
     logic_monospace_medium  = "Logic Monospace Medium"
+    graphik_regular_web = "Graphik Regular"
 
 
 class Settings(db.Model):
