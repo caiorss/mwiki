@@ -461,6 +461,10 @@ dd {
     /* background-color: cadetblue; */
 }
 
+.link-edit-admonition {
+    margin-top: -20px;
+}
+
 
 .toc {
     margin-left: -50px;
