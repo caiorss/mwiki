@@ -230,6 +230,10 @@ main h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-family-title);
 }
 
+.img-icon {
+    height: 25px !important;
+}
+
 
 .text-big {
     font-size: 18pt;
@@ -450,8 +454,9 @@ dd {
 
     position: fixed;
     z-index: 1000;
-    margin-bottom: 20px;
     width: 100%;
+    padding-bottom: 30px;
+    margin-top: -20px;
 
     /* background-color: cadetblue; */
 }

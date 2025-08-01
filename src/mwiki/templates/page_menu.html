@@ -4,14 +4,13 @@
      onclick="btnClickHandler(event)" 
      title="Menu containing actions for current page."
      class="dropbtn"
-     >[Page]</a>
+     ><img class="header-icon img-icon" src="/static/icon-page.svg" style="height: 25px;"></a>
   <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
       <a class="sidebar-toggle-button" href="/pages" 
          title="Search and list all pages.">Search</a>
       <a class="sidebar-toggle-button" href="/tags" 
          title="Browse pages using tags.">Tags</a>
-
-    
+          
      <a class="sidebar-toggle-button" 
            href="/links/{{page}}" 
            title="Display all external links of this page."

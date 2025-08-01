@@ -373,11 +373,11 @@ document.addEventListener("DOMContentLoaded", function()
     });
 
     // onClick("#btn-scroll-top", () => scrollToTop());
-    document.querySelector("#btn-scroll-top")
-        .addEventListener("click", scrollToTop);
+    /// document.querySelector("#btn-scroll-top")
+    ///     .addEventListener("click", scrollToTop);
 
-    document.querySelector("#btn-scroll-bottom")
-        .addEventListener("click", scrollToBottom);
+    /// document.querySelector("#btn-scroll-bottom")
+    ///     .addEventListener("click", scrollToBottom);
 
     let last = null;
     onClick(".toc", (event) => {
@@ -401,6 +401,7 @@ document.addEventListener("DOMContentLoaded", function()
         <button onclick="openWikiPageCallback();">Open</button>
         `
     });
+    // console.log(" [TRACE] quickOpenWindow = ", quickOpenWindow);
 
     keybindDisplayWindow = new PopupWindow({
           title: "Keybindings"
@@ -573,9 +574,16 @@ document.addEventListener("click", (event) => {
         event.target.classList.toggle("wiki-image-full");
     }
 
-    if(target.classList[0] == "button-toggle-menu")
+    if(target.classList[0] === "button-toggle-menu" || target.classList[0] === "header-icon" )
     {
-        let dom = event.target.parentElement.querySelector(".menu-dropdown-content");
+        var dom = null;
+        if( event.target.tagName === "IMG" )
+        {
+            dom = event.target.parentElement.parentElement.querySelector(".menu-dropdown-content");
+            console.trace("Image clicked");
+        } else {
+            dom = event.target.parentElement.querySelector(".menu-dropdown-content");
+        }
         // Show menu 
         dom.classList.toggle("menu-hidden");
         _menus.add(dom);
