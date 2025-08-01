@@ -93,6 +93,8 @@ class FontFamiliyEnum(enum.Enum):
     # nolstagic feeling of the typewriter 
     ibm_plex_mono = "IBM Plex Mono"
     go_mono = "GO Mono"
+    logic_monospace_regular = "Logic Monospace Regular"
+    logic_monospace_medium  = "Logic Monospace Medium"
     textura_modern = "Textura Modern"
     bastarda = "Bastarda"
 

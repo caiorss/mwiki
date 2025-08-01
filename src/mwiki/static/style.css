@@ -151,7 +151,7 @@
 }
 
 
-/** A medieval-gothic like typeface */
+/** A medieval-goth like typeface */
 @font-face {
     font-family: "Textura Modern";
     font-weight: normal;
@@ -159,7 +159,7 @@
     src: url('/static/fonts/TexturaModern.ttf');
 }
 
-/* Medival gothic like typeface used in Frace */
+/* Medival goth like typeface used in Frace */
 @font-face {
     font-family: "Bastarda";
     font-weight: normal;
@@ -167,6 +167,23 @@
     src: url('/static/fonts/TexturaModern.ttf');
 }
 
+@font-face {
+    font-family: "Bastarda";
+    font-weight: normal;
+    font-style:  normal;
+    src: url('/static/fonts/TexturaModern.ttf');
+}
+
+
+@font-face {
+    font-family: "Logic Monospace Regular";
+    src: url('/static/fonts/LogicMonospace-Regular.woff2');
+}
+
+@font-face {
+    font-family: "Logic Monospace Medium";
+    src: url('/static/fonts/LogicMonospace-Medium.woff2');
+}
 
 
 
