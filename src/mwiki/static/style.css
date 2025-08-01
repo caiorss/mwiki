@@ -186,6 +186,13 @@
 }
 
 
+@font-face {
+    font-family: "Garamond Pro Regular";
+    src: url('/static/fonts/AGaramondPro-Regular.woff2');
+}
+
+
+
 
 :root {
     /*--- Desktop screen Width ----------------*/

@@ -88,9 +88,10 @@ class FontFamiliyEnum(enum.Enum):
     literata = "Literata"
     # Serif typeface font designed for google books.
     literata_variable = "Literata Variable"
+    garamond_pro_regular = "Garamond Pro Regular"
     neo_euler = "Neo Euler"
     # IBM old-chool monospace that gives back the 
-    # nolstagic feeling of the typewriter 
+    # nolstagic feeling of typewriters.
     ibm_plex_mono = "IBM Plex Mono"
     go_mono = "GO Mono"
     logic_monospace_regular = "Logic Monospace Regular"
@@ -103,6 +104,7 @@ class TitleFontFamily(enum.Enum):
     computer_modern = "Computer Modern"
     neo_euler = "Neo Euler"
     chicago_macos_system6 = "Chicago MacOS"
+    garamond_pro_regular = "Garamond Pro Regular"
     # IBM old-chool monospace that gives back the nolstagic
     # feeling of the typewriter 
     ibm_plex_mono = "IBM Plex Mono"
@@ -113,6 +115,8 @@ class TitleFontFamily(enum.Enum):
     literata_variable = "Literata Variable"
     textura_modern = "Textura Modern"
     bastarda = "Bastarda"
+    logic_monospace_regular = "Logic Monospace Regular"
+    logic_monospace_medium  = "Logic Monospace Medium"
 
 
 class Settings(db.Model):
