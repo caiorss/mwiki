@@ -41,7 +41,7 @@ app = Flask(__name__) ##template_folder="templates")
 
 app.config.update(  SESSION_SERVER_SIDE     = True  
                   , SESSION_TYPE            = "sqlalchemy"
-                  , SESSION_COOKIE_NAME     ="mwiki"
+                  , SESSION_COOKIE_NAME     =  os.getenv("MWIKI_SITENAME", "MWiki")
                   , SESSION_COOKIE_PATH     ='/'
                   # Protect against XSS (Script Injection)
                   , SESSION_COOKIE_HTTPONLY = True 
