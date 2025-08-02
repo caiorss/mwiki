@@ -513,8 +513,52 @@ function openWikiPageCallbackKeyDown(event)
     openWikiPageCallback();
 }
 
+function isElementInViewport (el) {
+
+    // Special bonus for those using jQuery
+    if (typeof jQuery === "function" && el instanceof jQuery) {
+        el = el[0];
+    }
+
+    var rect = el.getBoundingClientRect();
+
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+    );
+}
+
+var timerId = -1;
+
+function lazyLoadImages()
+{
+    // console.log(" [TRACE] Enter function lazyLoadImages(). ");
+    let scrollTop = window.pageYOffset;
+    let imgs = document.querySelectorAll(".lazy-load");
+    if( imgs.length == 0)
+    {
+        clearInterval(timerId);
+        // console.log(' [TRACE] Shutdown image lazy loader');
+        return;
+    }
+    for(let x of imgs )
+    {
+
+        if( isElementInViewport(x) &&  x.parentElement.style.display !== "none")
+        {
+            // console.log(`[TRACE] loading image ${x.dataset.src}`);
+            x.src = x.dataset.src;
+            x.classList.remove("lazy-load");
+        }
+    }
+}
+
+
 
 var refcard_window = null;
+
 
 function showRefcard()
 {
@@ -531,6 +575,9 @@ function showRefcard()
 
 document.addEventListener("mouseover", (event) => {
     let target = event.target;
+
+    // Call function every 500 ms
+    timerId = setInterval(lazyLoadImages, 500);
 
 
     if(target.tagName === "ABBR")
@@ -619,6 +666,7 @@ document.addEventListener("click", (event) => {
         // on this heading
         let link = target.parentElement.querySelector("a");
         link.click();
+        lazyLoadImages();
     }
     if(target.tagName == "H3" && target.parentElement.classList[0] == "div-heading")
     {
@@ -644,6 +692,7 @@ document.addEventListener("click", (event) => {
         // on this heading
         let link = target.parentElement.querySelector("a");
         link.click();
+        lazyLoadImages();
     }
 
 

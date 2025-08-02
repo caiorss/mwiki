@@ -741,7 +741,8 @@ class HtmlRenderer(AbstractAstRenderer):
         else:
             # inner = "".join([ self.render(n) for n in node.children ])
             ## Wrap image in a <div> element in order to centralize it.
-            html = """<div class="div-wiki-image"><img class="wiki-image anchor" src="/wiki/%s" alt=""></div>""" % src
+            ## html = """<div class="div-wiki-image"><img class="wiki-image anchor" src="/wiki/%s" alt=""></div>""" % src
+            html = """<div class="div-wiki-image"><img class="wiki-image lazy-load anchor" data-src="/wiki/%s" alt=""></div>""" % src
         return html
 
     def render_link(self, node: SyntaxTreeNode) -> str:
