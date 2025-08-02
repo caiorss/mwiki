@@ -347,8 +347,39 @@ function isMobileScreen()
     return isMobile;
 }
 
+
+var timerId = -1;
+
+function lazyLoadImages()
+{
+    // console.log(" [TRACE] Enter function lazyLoadImages(). ");
+    let scrollTop = window.pageYOffset;
+    let imgs = document.querySelectorAll(".lazy-load");
+    if( imgs.length == 0)
+    {
+        clearInterval(timerId);
+        // console.log(' [TRACE] Shutdown image lazy loader');
+        return;
+    }
+    for(let x of imgs )
+    {
+
+        if( isElementInViewport(x) &&  x.parentElement.style.display !== "none")
+        {
+            // console.log(`[TRACE] loading image ${x.dataset.src}`);
+            x.src = x.dataset.src;
+            x.classList.remove("lazy-load");
+        }
+    }
+}
+
+
 document.addEventListener("DOMContentLoaded", function()
   {
+    
+    lazyLoadImages();
+    // Call function every 500 ms
+    timerId = setInterval(lazyLoadImages, 500);
 
     // NOTE the cosntant variable FONT_FAMILY_MAIN is defined in the template base.html
     document.documentElement.style.setProperty('--font-family-main', FONT_FAMILY_MAIN);
@@ -530,31 +561,6 @@ function isElementInViewport (el) {
     );
 }
 
-var timerId = -1;
-
-function lazyLoadImages()
-{
-    // console.log(" [TRACE] Enter function lazyLoadImages(). ");
-    let scrollTop = window.pageYOffset;
-    let imgs = document.querySelectorAll(".lazy-load");
-    if( imgs.length == 0)
-    {
-        clearInterval(timerId);
-        // console.log(' [TRACE] Shutdown image lazy loader');
-        return;
-    }
-    for(let x of imgs )
-    {
-
-        if( isElementInViewport(x) &&  x.parentElement.style.display !== "none")
-        {
-            // console.log(`[TRACE] loading image ${x.dataset.src}`);
-            x.src = x.dataset.src;
-            x.classList.remove("lazy-load");
-        }
-    }
-}
-
 
 
 var refcard_window = null;
@@ -575,10 +581,6 @@ function showRefcard()
 
 document.addEventListener("mouseover", (event) => {
     let target = event.target;
-
-    // Call function every 500 ms
-    timerId = setInterval(lazyLoadImages, 500);
-
 
     if(target.tagName === "ABBR")
     {
