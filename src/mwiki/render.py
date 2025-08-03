@@ -722,26 +722,17 @@ class HtmlRenderer(AbstractAstRenderer):
             ## print(" [TRACE] html = ", html)
         elif src.endswith(".mp4"):
             html = """ 
-                    <div class="divi-wiki-image">
-                    <video controls width="80%">
-                        <source src="/wiki/{0}" type="video/mp4">
-                        Download the <a href="/wiki/{1}">MP4 Video</a>
-                    </video>
+                    <div class="div-wiki-image lazy-load-video"  
+                         data-src="/wiki/{0}" data-type="video/mp4">
                     </div>
                    """.format(src, src)
         elif src.endswith(".webm"):
             html = """ 
-                    <div class="divi-wiki-image">
-                    <video controls width="80%">
-                        <source src="/wiki/{0}" type="video/webm">
-                        Download the <a href="/wiki/{1}">WEBM Video</a>
-                    </video>
+                    <div class="div-wiki-image lazy-load-video" 
+                         data-src="/wiki/{0}" data-type="video/webm" >
                     </div>
                    """.format(src, src)
         else:
-            # inner = "".join([ self.render(n) for n in node.children ])
-            ## Wrap image in a <div> element in order to centralize it.
-            ## html = """<div class="div-wiki-image"><img class="wiki-image anchor" src="/wiki/%s" alt=""></div>""" % src
             html = """<div class="div-wiki-image"><img class="wiki-image lazy-load anchor" data-src="/wiki/%s" alt=""></div>""" % src
         return html
 

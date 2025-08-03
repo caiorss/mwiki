@@ -353,14 +353,17 @@ var timerId = -1;
 function lazyLoadImages()
 {
     // console.log(" [TRACE] Enter function lazyLoadImages(). ");
-    let scrollTop = window.pageYOffset;
     let imgs = document.querySelectorAll(".lazy-load");
-    if( imgs.length == 0)
+    let videos = document.querySelectorAll(".lazy-load-video");
+
+    if( imgs.length === 0 && videos.length === 0)
     {
         clearInterval(timerId);
         // console.log(' [TRACE] Shutdown image lazy loader');
         return;
     }
+
+
     for(let x of imgs )
     {
 
@@ -369,6 +372,22 @@ function lazyLoadImages()
             // console.log(`[TRACE] loading image ${x.dataset.src}`);
             x.src = x.dataset.src;
             x.classList.remove("lazy-load");
+        }
+    }
+
+    for(let v of videos)
+    {
+        if( isElementInViewport(v) && v.parentElement.style.display !== "none")
+        {
+            let src = v.dataset.src;
+            let videoType = v.dataset.type;
+            let video = document.createElement("video");
+            video.setAttribute("width", "80%");
+            video.setAttribute("controls", "");
+            video.setAttribute("src", src);
+            video.setAttribute("type", videoType);
+            v.appendChild(video);
+            v.classList.remove("lazy-load-video");
         }
     }
 }
