@@ -467,9 +467,9 @@ class HtmlRenderer(AbstractAstRenderer):
         self._unicode_database = [
               ("(TM)", "™") # Trademark 
             , ("{TM}", "™")  # Trademark 
-            , ("(C)",  "©") # Copyright 
+            ##, ("(C)",  "©") # Copyright 
             , ("{C}",  "©") # Copyright 
-            , ("(R)",  "®") # Registered
+            ##, ("(R)",  "®") # Registered
             , ("{R}",  "®") # Registered
             , ("{deg}", "°")     # Degrees (angle)
             , ("{degrees}", "°") # Degrees (angle)
