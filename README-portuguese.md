@@ -660,7 +660,9 @@ Veja também:
   + https://www.airdroid.com/mdm/add-certificate-android/
 
 
-## Pós-instalação - Acesse o MWiki na rede local
+## Pós-instalação 
+
+### Acesse o MWiki na rede local
 
 **PASSO 1:**
 
@@ -711,6 +713,8 @@ $ mwiki server  --wsgi --port=9010 --wikipath=/home/user/path/to/wiki/repository
 
 É recomendável executar o aplicativo usando servidores proxy reversos Caddy ou NGinx, pois eles fornecem criptografia TLS e melhor desempenho para servir arquivos estáticos e lidar com alto tráfego de rede.
 
+### Abrir Portas de Firewall
+
 **PASSO 3:**
 
 Para acessar o MWiki ou qualquer outro servidor web de outros computadores ou dispositivos, pode ser necessário abrir portas TCP no firewall do sistema operacional.
@@ -741,7 +745,54 @@ $ sudo firewall-cmd --add-port=8080/tcp --permanent
 $ sudo firewall-cmd --reload
 ```
 
-**Leitura adicional**
+### Encaminhamento de Porta SSH (SSH Port Forwarding)
+
+O recurso para colar imagens da área de transferência requer um contexto seguro do navegador, que pode ser obtido executando o servidor MWiki usando um proxy reverso TLS (Transport Layer Security), como o Caddy, ou executando-o em um host local. Uma maneira alternativa de obter um [contexto seguro]((https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts)) sem precisar instalar o NGinx ou o Caddy é usar o encaminhamento de porta local SSH para redirecionar o tráfego de rede da porta TCP local para a porta TCP de uma máquina remota, qualquer computador com um servidor ssh instalado. Por exemplo, se o MWiki estiver executando uma máquina remota cujo nome de host é dummy.local (endereço IPv4 da rede local 192.168.0.115) e que escuta a porta TCP 9090, é possível redirecionar o tráfego de rede da porta local 8080 para a porta 9090 da máquina fictícia com o comando ssh
+
+
+```sh
+$ ssh  -o StrictHostKeyChecking=no  -v -f -N -L  8080:127.0.0.1:9090  myuser@dummy.local
+```
+
+ou
+
+```sh
+$ ssh  -o StrictHostKeyChecking=no  -v -f -N -L  8080:127.0.0.1:9090  myuser@dummy.local -p 2022
+```
+
+Onde:
++ `-v`
+- Significa verboso para melhor diagnóstico de erros.
++ `-f` significa executar ssh em segundo plano sem bloquear o emulador de terminal atual.
++ `-N`
+- Significa sessão não interativa apenas para encaminhamento de porta.
++ `-L 8080:127.0.0.1:9090`
+- Encaminhamento de porta local da porta TCP 8080 da máquina atual para a porta 9090 da máquina remota.
++ `o StrictHostKeyChecking=no`
+- O objetivo desta opção de linha de comando é ignorar a verificação estrita de host (opcional).
++ `-p 2022`
+- Usar a porta ssh 2022 em vez da porta ssh padrão 222.
+
+Após executar este comando, será possível acessar o servidor MWiki abrindo qualquer uma das seguintes URLs em qualquer navegador da web, incluindo Firefox, Safari, Microsoft Edge e etc.
+
++ http://localhost:8080
+
+ou
+
++ http://127.0.0.1:8080
+
+A vantagem dessa abordagem é permitir o acesso ao servidor Wiki mesmo que ele não esteja exposto à internet e todas as portas TCP estejam bloqueadas por qualquer aplicativo de firewall. Este procedimento também é útil para fornecer [contexto seguro](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts), o que permite o uso das APIs da área de transferência [*(clipboard)*](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) dos navegadores da web sem lidar com certificados TLS (Transport Layer Security - PT: Camada de Segurança de Transportes), anteriormente SSL (Secure Socket Layer). Observe que o tráfego de rede entre a máquina remota e a máquina local é criptografado por SSH. Vale mencionar também que um cliente SSH integrado está disponível no Microsoft Windows 10 e no Microsoft Windows 11.
+
+Observe que o nome do host SSH myuser@dummy.local também pode ser:
+
+1. Nome de domínio, por exemplo, my-dummy-machine.net, se este domínio hipotético apontar para o endereço IPv4 público da máquina fictícia.
+2. Nome de domínio mDNS (Multi-cast DNS). Exemplo: dummy.local se o nome do host da máquina for fictício e a rede local permitir DNS multicast. A maioria das redes domésticas permite DNS multicast, porém ele está desabilitado na maioria das redes corporativas.
+3. Nome de domínio DNS mágico da VPN Tailscale (Site-to-Site).
+4. Endereço IPv4 externo, por exemplo, 172.168.115.125 se o MWiki estiver sendo executado em qualquer máquina com endereço IPv4 público (fixo/estático), geralmente uma máquina virtual VPS (Virtual Private Server) em nuvem. Todos os VPS (Virtual Private Server), máquinas virtuais em nuvem, fornecidos pelo Google Cloud, AWS, Digital Ocean e outros provedores de nuvem, têm endereço IPv4 público acessível de qualquer lugar do mundo.
+5. Ipv4 interno para acesso na rede local, por exemplo 192.168.0.115
+
+
+### Leitura adicional
 
 
 + *Open TCP Port 80 in Windows Firewall Using Netsh* 
@@ -764,12 +815,28 @@ $ sudo firewall-cmd --reload
   + https://stevessmarthomeguide.com/multicast-dns/
 + *Pros and Cons of Using Multicast DNS*, Networking Interview
   + https://networkinterview.com/pros-and-cons-of-using-multicast-dns/
-+ *Android silently picks up long-awaited mDNS feature*, Anroid Police
++ *Android silently picks up long-awaited mDNS feature*, Anroid Policy
   + https://www.androidpolice.com/android-mdns-local-hostname/
 + *Use network service discovery*, Android Developers
   + https://developer.android.com/develop/connectivity/wifi/use-nsd
 + *Multicast Application Protocol mDNS for Local Discovery*, Expressif (ESP32) Docs
   + https://espressif.github.io/esp32-c3-book-en/chapter_8/8.2/8.2.4.html#multicast-application-protocol-mdns-for-local-discovery
++ *Tutorial: SSH in Windows Terminal*, Microsoft MSFT
+  + https://learn.microsoft.com/en-us/windows/terminal/tutorials/ssh
++ *Get started with OpenSSH for Windows*, Microsoft MSFT
+  +  https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui&pivots=windows-server-2025
++ *How to Enable and Use Windows 10's New Built-in SSH Commands*, Chris Hoffman (2017), How-To-Geek
+  + https://www.howtogeek.com/336775/how-to-enable-and-use-windows-10s-built-in-ssh-commands/
++ *How to Enable SSH in Windows 10: A Step-by-Step Guide for Beginners*, Matt Jacobs (2024), SupportYourTech
+  + https://www.supportyourtech.com/articles/how-to-enable-ssh-in-windows-10-a-step-by-step-guide-for-beginners/
++ *How to Set up SSH Tunneling (Port Forwarding)*, Linuxise (2020)
+  + https://linuxize.com/post/how-to-setup-ssh-tunneling/
++ *SSH Port Forwarding (SSH Tunneling) Explained*, Vladmir Kaplarevic (2024)
+  + https://phoenixnap.com/kb/ssh-port-forwarding
++ *A Visual Guide to SSH Tunnels: Local and Remote Port Forwarding*, Ixmiuz (2022)
+  + https://iximiuz.com/en/posts/ssh-tunnels/
++ *Tunneling and Port Forwarding*, SSH Handbook
+  + https://www.sshhandbook.com/overview-of-ssh-tunneling/
 
 
 ## Software e ferramentas complementares 

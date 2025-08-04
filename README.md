@@ -656,7 +656,9 @@ See also:
   + https://www.airdroid.com/mdm/add-certificate-android/
 
 
-## Post-Installation - Access MWiki in the local network
+## Post-Installation 
+
+### Access MWiki in the local network
 
 **STEP 1:** 
 
@@ -704,6 +706,8 @@ $ mwiki server  --wsgi --port=9010 --wikipath=/home/user/path/to/wiki/repository
 
 It is recommend to run the application using Caddy or NGinx reverse proxy servers as they provide TLS encryption and better performance for serving static files and handling higher network traffic.
 
+### Open Firewall Ports
+
 **STEP 3:**
 
 In order to be able to access MWiki or any other web server from other computers or devices, it may be necessary to open TCP ports in the operating system firewall.
@@ -733,7 +737,55 @@ $ sudo firewall-cmd --add-port=8080/tcp --permanent
 $ sudo firewall-cmd --reload
 ```
 
-**Further Reading**
+### SSH Port Forwarding
+
+The feature for pasting images from clipboard requires a browser's secure context, which can be obtained by running the MWiki server using a TLS (Transport Layer Security) reverse proxy such as Caddy or running it on localhost. An alternative way to obtain a secure context without dealing with NGinx or Caddy installation is using SSH local port fowarding for redirecting the network traffic of local TCP port to TCP port of a remote machine, any computer with an ssh server installed. For instance, if MWiki is running a remote machine whose hostname is dummy.local (Local network IPv4 address 192.168.0.115) listening the TCP port 9090, it is possible to redirect the network traffic from local port 8080 to the port 9090 of the dummy machine with the ssh command
+
+```sh
+$ ssh  -o StrictHostKeyChecking=no  -v -f -N -L  8080:127.0.0.1:9090  myuser@dummy.local
+```
+
+or
+
+```sh
+$ ssh  -o StrictHostKeyChecking=no  -v -f -N -L  8080:127.0.0.1:9090  myuser@dummy.local -p 2022
+```
+
+Where:
++ `-v` 
+  - It means verbose for better error diagnosing.
++ `-f` means running ssh in background without blocking the current terminal emulator.
++ `-N` 
+  - It means non-interactive session for port forwarding only.
++ `-L  8080:127.0.0.1:9090`
+  - Local port forwarding of TCP port 8080 of current machine to port 9090 of the remote machine.
++ `o StrictHostKeyChecking=no` 
+  - The purpose of this command line option is to ignore strict host checking (optional).
++ `-p 2022`
+  - Use ssh port 2022 instad of default ssh port 222.
+
+After running this command, it will be possible to access the MWiki server by opening the any of the following URLs in any web browser, inclding Firefox, Safari, Microsoft Edge and etc.
+
+
++ http://localhost:8080
+
+or
+
++ http://127.0.0.1:8080
+
+
+The advantage of this approach is allowing access to the Wiki server even if it is not exposed to the internet and all TCP ports are blocked by any firewall application. This procedure is also helpful for providing [secure context](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts), which allows using the [clipboard](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) APIs (Application Programming Interfaces) of web browsers without dealing with TLS (Transport Layer Security), former SSL (Secure Socket Layer), certificates. Note that the network traffic between the remote machine and local machine is encrypted by SSH. It is also worth mentioning that a built-in SSH client is available in Microsoft Windows 10 and Microsft Windows 11.
+
+Note that the SSH hostname myuser@dummy.local could also be:
+
+1. Domain name for instance, my-dummy-machine.net, if this hypothetical domain points the dummy machine public Ipv4 address. 
+2. mDNS (Multi-cast DNS) domain name. Example: dummy.local if the machine hostname is dummy and the local network allows multi-cast DNS. Most home networks allow multicast DNS, however it is disabled in most corporate networks.
+3. Tailscale (Site-To-Site) VPN magic DNS domain name. 
+4. External Ipv4 address, for instance 172.168.115.125 if the MWiki is running in any machine with public (fixed/static) IPv4 adress, often cloud VPS - Virtual Private Server virtual machine. All VPS (Virtual Private Server), cloud virtual machines, provided by Google Cloud, AWS, Digital Ocean and other cloud providers have public IPv4 address reacheable from anywhere around the world.
+5. Internal Ipv4 for accessing in the local network, for instance 192.168.0.115
+
+
+### Further Reading about SSH, mDNS and Firewall Settings
 
 + *Open TCP Port 80 in Windows Firewall Using Netsh* 
   + https://www.wiki.mcneel.com/zoo/homenetsh
@@ -755,12 +807,29 @@ $ sudo firewall-cmd --reload
   + https://stevessmarthomeguide.com/multicast-dns/
 + *Pros and Cons of Using Multicast DNS*, Networking Interview
   + https://networkinterview.com/pros-and-cons-of-using-multicast-dns/
-+ *Android silently picks up long-awaited mDNS feature*, Anroid Police
++ *Android silently picks up long-awaited mDNS feature*, Anroid Policy
   + https://www.androidpolice.com/android-mdns-local-hostname/
 + *Use network service discovery*, Android Developers
   + https://developer.android.com/develop/connectivity/wifi/use-nsd
 + *Multicast Application Protocol mDNS for Local Discovery*, Expressif (ESP32) Docs
   + https://espressif.github.io/esp32-c3-book-en/chapter_8/8.2/8.2.4.html#multicast-application-protocol-mdns-for-local-discovery
++ *Tutorial: SSH in Windows Terminal*, Microsoft MSFT
+  + https://learn.microsoft.com/en-us/windows/terminal/tutorials/ssh
++ *Get started with OpenSSH for Windows*, Microsoft MSFT
+  +  https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui&pivots=windows-server-2025
++ *How to Enable and Use Windows 10's New Built-in SSH Commands*, Chris Hoffman (2017), How-To-Geek
+  + https://www.howtogeek.com/336775/how-to-enable-and-use-windows-10s-built-in-ssh-commands/
++ *How to Enable SSH in Windows 10: A Step-by-Step Guide for Beginners*, Matt Jacobs (2024), SupportYourTech
+  + https://www.supportyourtech.com/articles/how-to-enable-ssh-in-windows-10-a-step-by-step-guide-for-beginners/
++ *How to Set up SSH Tunneling (Port Forwarding)*, Linuxise (2020)
+  + https://linuxize.com/post/how-to-setup-ssh-tunneling/
++ *SSH Port Forwarding (SSH Tunneling) Explained*, Vladmir Kaplarevic (2024)
+  + https://phoenixnap.com/kb/ssh-port-forwarding
++ *A Visual Guide to SSH Tunnels: Local and Remote Port Forwarding*, Ixmiuz (2022)
+  + https://iximiuz.com/en/posts/ssh-tunnels/
++ *Tunneling and Port Forwarding*, SSH Handbook
+  + https://www.sshhandbook.com/overview-of-ssh-tunneling/
+
 
 
 ## Development 
