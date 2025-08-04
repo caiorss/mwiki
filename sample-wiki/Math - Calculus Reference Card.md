@@ -7,14 +7,14 @@ description: Reference card for math and calculus. This quick reference covers t
 
 subject: math
 
-uuid: 7cdf985e-63f5-419f-bc2f-4da9c09ca2bc
+uuid: 7cdf985e-63f5-419f-bc2f-4da9c09ca2bcI
 
+section_enumeration: on
 equation_enumeration: subsection
 ---
 
 
 #math #engineering #calculus #latex  #refcard #formula
-
 
 Math and Calculus Cheat Sheet 
 
@@ -61,35 +61,57 @@ Terminology:
 + Remarks
 + Theorems
 
-## Physical Units 
+## Physical Units and SI Prefixes
 
-**Metric Prefixes**
 
-| prefix     | factor        |     | prefix     | factor         |
-| ---------- | ------------- | --- | ---------- | -------------- |
-| exa        | $10^{18}$ (E) |     | atto       | $10^{-18}$ (a) |
-| peta       | $10^{15}$ (P) |     | femto      | $10^{-15}$ (f) |
-| tera       | $10^{12}$ (P) |     | pico       | $10^{-12}$ (p) |
-| giga       | $10^9$ (G)    |     | nano       | $10^{-9}$ (n)  |
-| mega       | $10^6$ (M)    |     | micro      | $10^{-6}$ (u)  |
-| kilo       | $10^3$ (k)    |     | milli      | $10^{-3}$ (m)  |
-| hector     | $10^2$ (h)    |     | centi      | $10^{-2}$ (c)  |
-| deca       | $10^1$ (m)    |     | centi      | $10^{-1}$ (d)  |
-| N/A - None | $10^0$ (1)    |     | N/A - None | $10^0$ (1)     |
+**Fundamental Units of S.I System**
 
-**Physical Units**
+| Physical Quantity | Unit     | Symbol |
+|-------------------|----------|--------|
+| Length            | metre    | $m$    |
+| Mass              | Kilogram | $Kg$   |
+| Time              | Seconds  | $s$    |
+| Temperature       | Kelvin   | $K$    |
+| Planar Angle      | Radian   | $\text{rad}$ |
 
-| System           | Unit name | Suffix | In meters |
-| ---------------- | --------- | ------ | --------- |
-|                  | Meter     | m      | 1.0       |
-|                  |           |        |           |
-| Imperial         | Foot      | ft     | 0.3048    |
-| Imperial         | Inch      | in     | 0.0254    |
-| Nautical Mile    |           |        |           |
-| Terrestrial Mile |           |        |           |
-|                  |           |        |           |
+**Main S.I Units**
 
-## Fundamental Polynomial Equations
+| Physical Quantity | Unit     | Symbol |
+|-------------------|----------|--------|
+| Force             | metre    | $m$    |
+| Work              | Joule    | $J$, $N.m$ |
+| Energy            | Joule    | $J$, $N.m$ |
+| Power             | Watt     | $W$        |
+| Area              | square metre | $m^2$ |
+| Volume            | cubic metre  | $m^3$ |
+| Pressure          | Pascal       | $Pa$  |
+| Stress            | Pascal       | $Pa$  |
+| Velocity/Speed    | meters per seconds | $m/s$ |
+| Acceleration      | meters per square seconds | $m/s^2$ | 
+| Angular velocity      | radians per seconds | $rad/s$
+| Angular acceleration  | radians per square seconds | $rad/s^2$ |
+| Momentum (linear)  | Kilogram metre per second | $Kg m / s$ | 
+| Torque (Moment)  |  Newton mere | $N.m$ | 
+| Density          | Kilogram/metre{sup}`3` | $Kg/m^3$ | 
+
+
+**S.I Prefixes**
+
+| Multiplication Factor | Prefix | Symbol | 
+|-----------------------|--------|--------|
+| $10^{12}$             | Tera   | $T$    |
+| $10^{9}$              | Giga   | $G$    |
+| $10^{6}$              | Mega   | $M$    |
+| $10^{3}$              | kilo   | $k$    |
+| $10^{2}$              | hecto  | $h$    | 
+| $10^{1}$              | deca   | $da$   |
+| $10^{-1}$             | deci   | $d$    |
+| $10^{-2}$             | centi  | $c$    |
+| $10^{-3}$             | milli  | $m$    |
+| $10^{-6}$             | micro  | $\mu$  | 
+| $10^{-9}$             | nano   | $n$    |
+| $10^{-12}$            | pico   | $p$    | 
+## Fundamental Curves
 
 ### Line Function  
 
@@ -313,10 +335,286 @@ eqq = r[1][0]
  c := u9*(u1*y2 + u3*y3 + u5*y1 - u6*y3 - u7*y2 - u8*y1)
 ```
 
+### Circle Equation 
+
+The equation of circle with center at point $\mathbf{r}_o = (x_o, y_o)$ and radius $\rho$ can be stated in vector form as as 
+
+$$
+  \| \mathbf{r} - \mathbf{r}_o \| = \rho
+$$
+
+in algebraic form this equation is
+
+$$
+  (x - x_o)^2 + (y - y_o)^2 = \rho^2
+$$
+
+```{proof}
+
+$$
+\notag
+   \| \mathbf{r} - \mathbf{r_o} \|^2 = \rho^2
+$$
+
+$$
+\notag
+   \| (x, y) - (x_o, y_o)  \|^2 = \rho^2
+$$
+
+$$
+\notag
+  \| (x - x_o, y - y_o) \|^2 = \rho^2
+$$
+
+Hence,
+
+$$
+\notag
+   (x - x_o)^2 + (y - y_o)^2 = \rho^2
+$$
+```
+
+or in less concise form
+
+$$
+   x^2 + y^2 + Dx + Ey + F = 0
+$$
+
+Where,
+
++ $E = -2 x_o$
++ $F = -2 y_o$
++ $F = x_o^2 + y_o^2 - \rho^2$
+
+**Finding the circle that passes through three points**
+
+Given the points $\mathbf{r}_1 = (x_1, y_1)$, $\mathbf{r}_2 = (x_2, y_2)$, and $\mathbf{r}_3 = (x_3, y_3)$, it is possible to find the equation of the circle that passes through those points in the form $x^2 + y^2 + Dx + Ey + F = 0$ by solving the following system of equations for the parameters $D$, $E$ and $F$.
+
+$$
+\begin{bmatrix}
+        x_1 & y_1 & 1
+    \\  x_2 & y_2 & 1
+    \\  x_3 & y_3 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    D \\ E \\ F
+\end{bmatrix}
+= 
+\begin{bmatrix}
+        -(x_1^2 + y_1^2)
+    \\  -(x_2^2 + y_2^2)
+    \\  -(x_3^2 + y_3^2)
+\end{bmatrix}
+$$
+
+or in terse form
+
+$$
+\begin{bmatrix}
+         |      &    |       &    |
+  \\ \mathbf{x} & \mathbf{y} & \mathbf{1}_3 
+  \\     |      &    |       &    |
+\end{bmatrix}
+\begin{bmatrix}
+    D \\ E \\ F
+\end{bmatrix}
+= - (\mathbf{x}.^2 + \, \mathbf{y}.^2)
+$$
+
+where
++ $\mathbf{x} = (x_1, x_2, x_3)$ (column vector)
++ $\mathbf{y} = (y_1, y_2, y_3)$ (column vector)
++ $\mathbf{x}.^2 = (x_1^2, x_2^2, x_3^2)$ - element-wise square of vector elements instead of square of matrix. NOTE: That many technical and scientific programming languages, including, APL, R (Rlang), Matlab and Fortran and Python/numpy uses functions that are applied to all elements of a matrix or vector. For instance, in Matlab or Python's Numpy, if v is vector v = [v1, v2, ..., v3], the function sin(v) will return [ sin(v1), ..., sin(v3)]. Although this type vectorized operations are common, there is no standard mathematical notation for denoting them.
+
+The position of circle center $\mathbf{r}_o = (x_o, y_o)$ and the radius $\rho$ can be found as
+
+$$
+        x_o = - \frac{1}{2} D 
+  \quad y_o = -\frac{1}{2} E
+  \quad \rho^2 = x_o^2 + y_o^2 - F
+$$
+
+**Example** [(qd-edu-hk)](https://qc.edu.hk/math/Advanced%20Level/circle%20given%203%20points.htm)
+
+Find the equation of the circle passing through the points
+P(2,1), Q(0,5), R(-1,2).
+
+Solution in Python's numpy
+
+````{solution}
+
+Import numpy
+
+```python
+import numpy as np
+import linalg as nl
+```
+
+Define the input data.
+
+```python
+x = np.array([2, 0, -1])
+y = np.array([1, 5,  2])
+```
+
+Create coefficients array of the linear system.
+
+```python
+A = np.c_[x, y, np.ones(3)]
+
+>> A
+array([[ 2.,  1.,  1.],
+       [ 0.,  5.,  1.],
+       [-1.,  2.,  1.]])
+```
+
+Define vector of constants. NOTE: the method call .reshape(-1, 1) is used for ensure that $\mathbf{b}$ is a column vector with shape (2, 1).
+
+```python
+b = -(x**2 + y**2).reshape(-1, 1)
+
+>> b
+array([[ -5],
+       [-25],
+       [ -5]])
+```
+
+Solve the system of equations $A \mathbf{x} = \mathbf{b}$.
+
+```python
+coeffs = nl.solve(A, b)
+
+>> coeffs
+array([[-2.],
+       [-6.],
+       [ 5.]])
+```
+
+Find the parameters, $D$, $E$ and $F$.
+
+```python
+D, E, F = coeffs
+
+>> D, E, F
+(np.float64(-2.0), np.float64(-6.0), np.float64(5.0))
+```
+
+Determine $x_o$, $y_o$, the position of the circle center and its radius $\rho$.
+
+```python
+xo = -1/2 * D
+yo = -1/2 * E
+rho_square = xo**2 + yo**2 - F
+
+>> np.array([xo, yo, rho_square])
+array([1., 3., 5.])
+```
+
+Circle radius $\rho$.
+
+```python
+rho = np.sqrt(rho_square)
+
+>> rho
+np.float64(2.23606797749979)
+```
+
+So, for this set of points 
+
++ $D = -2$
++ $E = -6$
++ $F =  5$
++ $x_o = 1$
++ $y_o = 3$
++ $\rho^2 = 5$
++ $\rho = \sqrt{5}$
+
+This result can be confirmed by defining the function
+
+```python
+f = lambda x, y: (x - xo)**2 + (y - yo)**2 - rho_square 
+```
+
+and applying it to $\mathbf{x}$ and $\mathbf{y}$.
+
+```python
+>> f(x, y)
+array([0., 0., 0.])
+```
+
+Hence, the equation of the circle passing through the given three points is 
+
+$$
+\notag
+   x^2 + y^2 - 2x - 6y + 5 = 0
+$$
+
+or
+
+$$
+\notag
+  (x - 1)^2 + (y - 3)^2 = 5
+$$
 
 
+````
 
-## Trigonometric Functions 
+Solution 2 in Python's Numpy.
+
+````{solution}
+
+Import numpy
+
+```python
+import numpy as np
+import numpy.linalg as nl
+```
+
+Define helper function.
+
+```python
+def find_circle_params(r1, r2, r3):
+    x1, y1 = r1
+    x2, y2 = r2
+    x3, y3 = r3
+    x = np.array([x1, x2, x3])
+    y = np.array([y1, y2, y3])
+    A = np.c_[x, y, np.ones(3)]
+    b = -(x**2 + y**2)
+    coeffs = nl.solve(A, b)
+    D = float(coeffs[0])
+    E = float(coeffs[1])
+    F = float(coeffs[2])
+    xo = -D/2
+    yo = -E/2
+    radius = np.sqrt(xo**2 + yo**2 - F)
+    radius = float(radius)
+    return xo, yo, radius
+```
+
+Input parameters
+
+```python
+r1 = (2, 1)
+r2 = (0, 5)
+r3 = (-1, 2)
+
+```
+Find the circle that fits the points.
+
+```python
+xo, yo, radius = find_circle_params(r1, r2, r3)
+xo, yo, radius**2
+(1.0, 3.0, 5.000000000000001)
+```
+
+
+````
+
+
+## Trigonometric Functions and Identities
+      
+### Trigonometric Functions
 
 **Basic Trigonometric Identities**
 
@@ -386,9 +684,92 @@ $$
 | 270     | $(3/2) \pi$ | -1           | 0            | $-\infty$    |
 | 360     | $2\pi$      | 0            | 1            | 0            |
 
- 
+### Trigonometric Identities
+
+ **Sine and Cosine Relation** 
+
+
+$$
+  (\sin \theta)^2 + (\cos \theta)^2 = 1
+$$
+
+
+ **Euler's Equation and Complex Numbers** 
+
+Let $\mathrm{j} = \sqrt{-1}$ be the imaginary unit. 
+
+
+Complex Exponential
+
+$$
+  e^{\mathrm{j} \theta} = \cos \theta + \mathrm{j} \sin \theta 
+$$
+
+
+and,
+
+$$
+e^{-\mathrm{j \theta}} = \cos \theta - \mathrm{j} \sin \theta
+$$
+
+Cosine of angle in radians expressed as linear combination of complex exponential 
+
+$$
+  \cos \theta 
+    = \frac{1}{2} (e^{\mathrm{j} \theta} + e^{ - \mathrm{j} \theta}  )
+$$
+
+
+Sine of angle in radians expressed as linear combination of complex exponential 
+
+
+$$
+  \cos \theta = 
+     \frac{1}{2 \mathrm{j}} 
+       (e^{\mathrm{j}  \theta} + e^{ - \mathrm{j}  \theta}  )
+$$
+
+Derivative of complex exponential with respect to angle in radians.
+
+
+$$
+  \frac{d}{d \theta} e^{j \theta} = j \cdot e^{j \theta}
+$$
+
+
+ **Functions Symmetry** 
+
+
+$$
+  \cos(-x) = \cos(x)
+$$
+
+
+$$
+  \sin(-x) = -\sin(x)
+$$
+
+
+ **Trigonometric expansions** 
+
+
+$$
+  \cos (a + b) = \cos a \cdot \cos b - \sin a  \sin b
+$$
+
+
+$$
+  \sin (a + b) = \sin a \cdot \cos b - \sin a  \cos b
+$$
+
+
+$$
+  \tan(b - a) = \dfrac{ \tan y - \tan x }{\tan x  \tan y + 1 }
+$$
+
+
 ## Derivatives  
-            
+             
 ### Derivative Rules
 
 | Function                                             | Derivative                                                                        | Description                                       |
@@ -789,7 +1170,7 @@ $$
 $$
 
 
-## Sums 
+## Sums of Series
 
 
  - Reference: Dan Stefanica, *A Primer for Mathematics of Financial
@@ -807,10 +1188,10 @@ $$
 
 
 $$
- \sum_{k = 1}^{n} k^3 = (\frac{n(n+1)}{2})^2
+ \sum_{k = 1}^{n} k^3 = \left(\frac{n(n+1)}{2} \right)^2
 $$
 
-  
+   
 ## Taylor Series       
 ### Taylor series expansion 
 
@@ -937,8 +1318,6 @@ $$
  
 ### References 
 
-References: 
-
  + *Wolfram MathWorld* 
 	 + <http://mathworld.wolfram.com/TaylorSeries.html>
  + *Wikipedia - Taylor Series* 
@@ -949,91 +1328,225 @@ References:
 	 + <http://www.astro.umd.edu/~hamilton/ASTR498/expansions.pdf>
  
 
-## Trigonometric Identities and Expansions 
 
+    
+## Multivariate Calculus
+ 
+### Gradient Vector
 
- **Sine and Cosine Relation** 
-
-
-$$
-  (\sin \theta)^2 + (\cos \theta)^2 = 1
-$$
-
-
- **Euler's Equation and Complex Numbers** 
-
-Let $\mathrm{j} = \sqrt{-1}$ be the imaginary unit. 
-
-
-Complex Exponential
+Consider a scalar-valued function $f$ of two variables $f = f(x, y) \in \mathbb{R}$, the gradient of this function is the vector
 
 $$
-  e^{\mathrm{j} \theta} = \cos \theta + \mathrm{j} \sin \theta 
+   \nabla f =  \frac{\partial f}{\partial \mathbf{r}}
+    =
+     \dfrac{\partial f}{\partial x} \hat{\mathbf{x}} 
+   + \dfrac{\partial f}{\partial y} \hat{\mathbf{y}}
+   = 
+    \begin{bmatrix}
+          \dfrac{\partial f}{\partial x}
+       \\ \dfrac{\partial f}{\partial y}
+    \end{bmatrix}
+$$
+
+Where $\hat{\mathbf{x}}$ is the unit vector of $x$ axis, $\hat{\mathbf{y}}$ is the unit vector of the $y$ axis and $\nabla$ is the operator
+
+$$
+  \nabla = 
+     \dfrac{\partial}{\partial x} \hat{\mathbf{x}} 
+   + \dfrac{\partial}{\partial y} \hat{\mathbf{y}}
+$$
+
+or in matrix form,
+
+$$
+  \nabla =
+    \begin{bmatrix}
+          \dfrac{\partial f}{\partial x}
+       \\ \dfrac{\partial f}{\partial y}
+    \end{bmatrix}
+$$
+
+In some text books, the $x$ axis unit vector is referred as $i$ or $\mathbf{i}$ and the $y$ axis unit vector is referred as $j$ or $\mathbf{j}$. Those notations are avoided due to the possible confusion since $i$ is sometimes used to referrer to either electrical current or the imaginary unit $i = \sqrt{-1}$ and the letter $j$ is also used in electrical engineering for denoting the imaginary unit $j = \sqrt{-1}$.
+
+### Directional Derivative
+
+The directional derivative $ D_{\mathbf{u}} f$ in the direction $\mathbf{u}$ of a function $z = f(x, y)$ of two variables, which represents a surface in space, is given by
+
+$$
+  D_{\mathbf{u}} f = \nabla f \cdot \hat{\mathbf{u}}
+        = \frac{\partial f}{\partial x} u_x
+        + \frac{\partial f}{\partial y} u_y
+    
+$$
+
+or
+
+$$
+  D_{\mathbf{u}} f =  \| \nabla f \| \| \mathbf{u} \| \cos \theta
+$$
+
+Where $\mathbf{u} = (u_x, u_y)$ and $\theta$ is the angle betwen $\mathbf{u}$ and the gradient vector $\nabla f$. The directional derivative has the highest positive value when $\theta = 0$ in the direction of the gradient vector. The direction of the highest decrease of the directional derivative is in the opposite direction of the gradient vector when $\theta = \pi$ (180 degrees).
+
+
+
+### Change of Variables and Jacobian Matrix in a Plane
+
+Let $(x, y)$ be the cartesian coordinates of a plance, a 2-dimensional space, where $x = x(u, v)$ and $y = y(u, v)$.
+
+The ***jacobian matrix*** of this variable transformation is defined as
+
+$$
+    J = \begin{bmatrix}
+              \dfrac{ \partial \mathbf{r} }{\partial u}
+            & \dfrac{ \partial \mathbf{r} }{\partial v}
+        \end{bmatrix}
+      =
+       \begin{bmatrix}
+               \nabla_{(u, v)}^T x
+            \\ \nabla_{(u, v)}^T y 
+        \end{bmatrix}
+      =
+        \begin{bmatrix}
+               \dfrac{ \partial{x} }{ \partial u}
+            &  \dfrac{ \partial{x} }{ \partial v}
+         \\    \dfrac{ \partial{y} }{ \partial u}
+            &  \dfrac{ \partial{y} }{ \partial v}
+        \end{bmatrix}
+$$
+
+Where 
++ $\mathbf{r} = (x, y)$ is the position vector, which is a 2 by 1 column matrix (column vector);
++ $\nabla_{(u, v)}^T x$ is the transpose of the gradient of the scalar $x$ with respect to the vector $(u, v)$.
++ $\nabla_{(u, v)}^T y$ is the trnaspose of the graident of the scalar $y$ with respec to the vector $(u, v)$.
+
+**Area Double Integral**
+
+The area in double integral is given by
+
+$$
+  A = \iint dA = \iint dx \, dy 
+    = \iint | \det J | \, du \, dv
 $$
 
 
-and,
+**Area Differential**
+
+The area differential is given by
 
 $$
-e^{-\mathrm{j \theta}} = \cos \theta - \mathrm{j} \sin \theta
+  dA = dx \, dy = | \det J | \, du \, dv
 $$
+ 
+where $| \det J |$ is absolute value of the determinant of the jacobian matrix.
 
-Cosine of angle in radians expressed as linear combination of complex exponential 
+**Area in Polar Coordinates**
 
-$$
-  \cos \theta 
-    = \frac{1}{2} (e^{\mathrm{j} \theta} + e^{ - \mathrm{j} \theta}  )
-$$
+Planar cartesian coordinates $(x, y)$ can be turned into polar coordinates as $(\theta, r)$, where 
 
++ $x = x(\theta, r) = r \cos \theta$ 
++ $y = y(\theta, r) = r \sin \theta$
 
-Sine of angle in radians expressed as linear combination of complex exponential 
-
-
-$$
-  \cos \theta = 
-     \frac{1}{2 \mathrm{j}} 
-       (e^{\mathrm{j}  \theta} + e^{ - \mathrm{j}  \theta}  )
-$$
-
-Derivative of complex exponential with respect to angle in radians.
-
+Compute the partial derivative of $\mathbf{r} = (x, y)$ vector with respec to $\theta$.
 
 $$
-  \frac{d}{d \theta} e^{j \theta} = j \cdot e^{j \theta}
+ \frac{\partial \mathbf{r} }{\partial \theta} 
+        = \frac{\partial}{\partial \theta}
+          \begin{bmatrix}
+            r \cos \theta \\ r \sin \theta          
+          \end{bmatrix}
+        = 
+          \begin{bmatrix}
+            - r \sin \theta \\ r \cos \theta          
+          \end{bmatrix}
+          
 $$
 
-
- **Functions Symmetry** 
-
+Compute the partial derivative of $\mathbf{r} = (x, y)$ vector with respec to $\theta$.
 
 $$
-  \cos(-x) = \cos(x)
+ \frac{\partial \mathbf{r} }{\partial r} 
+        = \frac{\partial}{\partial r}
+          \begin{bmatrix}
+            r \cos \theta \\ r \sin \theta          
+          \end{bmatrix}
+        = 
+          \begin{bmatrix}
+             \cos \theta \\  \sin \theta          
+          \end{bmatrix}
+          
 $$
 
+Determine the jacobian matrix
 
 $$
-  \sin(-x) = -\sin(x)
+  J = \begin{bmatrix}
+            \dfrac{\partial \mathbf{r} }{\partial \theta}
+         &  \dfrac{\partial \mathbf{r} }{\partial r} 
+      \end{bmatrix}
 $$
 
-
- **Trigonometric expansions** 
-
-
 $$
-  \cos (a + b) = \cos a \cdot \cos b - \sin a  \sin b
-$$
-
-
-$$
-  \sin (a + b) = \sin a \cdot \cos b - \sin a  \cos b
+  J =  
+     \begin{bmatrix}
+           - r \sin \theta  & \cos \theta
+        \\   r \cos \theta  & \sin \theta
+     \end{bmatrix}
 $$
 
+Compute the determinant of the jacobian matrix.
 
 $$
-  \tan(b - a) = \dfrac{ \tan y - \tan x }{\tan x  \tan y + 1 }
+  \det J = (- r \sin \theta) (\sin \theta) - (r \cos \theta) (\cos \theta)
 $$
 
-   
+$$
+  \det J = - r \sin^2 \theta - r \cos^2 \theta 
+$$
+
+$$
+  \det J = -r (\sin^2 \theta + \cos^2 \theta)
+$$
+
+$$
+  \det J = -r
+$$
+
+The ara differential in polar coordinates is given by
+
+$$
+  dA = | \det J | \, d\theta \, dr
+$$
+
+$$
+  dA = | - r | \, d\theta \, dr
+$$
+
+$$
+ dA = r \, \d\theta \, dr
+$$
+
+Then, the area of a region in polara coordinates is
+
+$$
+  A = \iint dA = \iint  r \, \d\theta \, dr
+$$ 
+
+### Change of Variables and Jacobian Matrix in a Space
+
+### Derivative Chain Rule
+ 
+ 
+
+### See also
+
++ *Change of variables and Jacobians*
+  + https://www.staff.city.ac.uk/o.castro-alvaredo/teaching/jacobians
++ *The Jacobian for Polar and Spherical Coordinates*, Department of Mathematics, Oregon State University (1996)
+  + https://sites.science.oregonstate.edu/math/home/programs/undergrad/CalculusQuestStudyGuides/vcalc/jacpol/jacpol.html
++ *3.8: Jacobians*, Larry Green, Lake Tajoe Community College
+  + <https://math.libretexts.org/Bookshelves/Calculus/Supplemental_Modules_(Calculus)/Vector_Calculus/3%3A_Multiple_Integrals/3.8%3A_Jacobians>
+
+
 ## Statistical Formulas 
 
 Source: 
@@ -1097,8 +1610,8 @@ $$
    \text{Var}( \pmb{X} + \pmb{Y}) =  \text{Var}( \pmb{X} ) + \text{Var}( \pmb{Y} ) + 2 \text{Cov}( \pmb{X},\pmb{Y})
 $$
 
-
-## Linear algebra                        
+ 
+## Linear algebra                          
 ### Notation 
 
 General: 
@@ -1619,6 +2132,7 @@ $$
        = \frac{\partial}{\partial x} (v^t . v)
        = 2 v^T \frac{\partial v}{\partial x}
 $$
+
 ### Useful  gradients 
 
 Reference: [Imperial College of London](<https://www.doc.ic.ac.uk/~dfg/ProbabilisticInference/InferenceAndMachineLearningNotes.pdf>) and (Petersen and Pederson, 2012) 
@@ -1659,4 +2173,4 @@ $$
  
 Where,
   + $\det A$ is the determinant (scalar) of a square matrix A.
-  + $\mathrm{tr}(A)$ is the trace of matrix A, sum of diagonal elements.             
+  + $\mathrm{tr}(A)$ is the trace of matrix A, sum of diagonal elements.              
