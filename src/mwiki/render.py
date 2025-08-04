@@ -1089,6 +1089,27 @@ class HtmlRenderer(AbstractAstRenderer):
               </pre>
             </div>
             """
+        elif info.startswith("{figure}"):
+            image = utils.strip_prefix("{figure}", info).strip()
+            if image.startswith("![[") and image.endswith("]]"):
+                image = image =  "/wiki/" + image.strip("![]")
+            content, directives = mparser.get_code_block_directives(node.content)
+            # Image caption 
+            caption = content.strip()
+            # Name is a label - unique identifier for cross referencing with hyperlinks.
+            name = directives.get("name", "")
+            # Alternative text for acessibility (Optional)
+            alt = directives.get("alt", "")
+            # Image height (Optional)
+            height = f"height={u}" if (u := directives.get("height")) else ""
+            # Image width (Optional)
+            width = f"height={u}" if (u := directives.get("width")) else ""
+            ## Rendering of this node
+            html = ("""<div class="div-wiki-image" div-figure>""" 
+                    """<img id="figure-%s" class="wiki-image lazy-load anchor" data-src="%s" alt="%s" %s %s>""" 
+                    """<p class="figure-caption"><strong>Figure %d:</strong> %s</p>"""
+                    """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption)
+            self._figure_counter += 1
         elif info == "{example}":
             code = node.content
             ast  = mparser.parse_source(code)
