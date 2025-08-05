@@ -478,10 +478,22 @@ async function handleUploadFormSubmit(event)
         let fileLabel = document.querySelector("#fileLabel");
         let value = fileLabel.value;
         var output = "";
-        if(value !== ""){
-            output = `[[${filename}|${value}]]`
+        if( filename.endsWith(".png") || filename.endsWith(".jpg") 
+            || filename.endsWith(".jpeg") || filename.endsWith(".bmp"))
+        {
+            output =   (`\`\`\`{figure} ![[${filename}]]`
+                                + "\n:name: "
+                                + "\n:alt: "
+                                + "\n"
+                                + `\n${value}`
+                                + "\n```"
+                        );
         } else {
-            output = `[[${filename}]]`
+            if (value !== "") {
+                output = `[[${filename}|${value}]]`
+            } else {
+                output = `[[${filename}]]`
+            }
         }
         editorInsertTextArCursor(output);
         // Automatically save document after uploading file
