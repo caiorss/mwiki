@@ -209,13 +209,19 @@ async function pasteImage(event) {
               , data: event.target.result
         };
         if(payload.data == null){
-          console.log(" [TRACE] Null payload");
+          // console.log(" [TRACE] Null payload");
           return;
         }
-        console.log(" [TRACE] Payload = ", payload);
+        /// console.log(" [TRACE] Payload = ", payload);
         let out = await http_post("/paste", payload);
-        console.log(" Output = ", out);
-        editorInsertTextArCursor(`![[${fileName}]]`);
+        /// console.log(" Output = ", out);
+        editorInsertTextArCursor(`\`\`\`{figure} ![[${fileName}]]`
+                                + "\n:name: "
+                                + "\n:alt: Optional Alt text (alternative) text for accessibility"
+                                + "\n"
+                                + "\nOptional Figure caption here."
+                                + "\n```"
+                                );
         // Automatically save document after pasting any image.
         ///// editorSaveDocument();
       };
