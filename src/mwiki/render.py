@@ -103,6 +103,10 @@ class AbstractAstRenderer:
 
         self._count_h3 = 0
         self._count_h4 = 0
+
+        self._figure_counter = 1
+        """Counter of figures (images with metadata). """
+
         self._handlers = {
               "root":                       self.render_root
             , "text":                       self.render_text
@@ -442,7 +446,11 @@ class HtmlRenderer(AbstractAstRenderer):
     This class compiles .md wiki page files to html.
     """
 
-    def __init__(self, page_name = "", render_math_svg = False, embed_math_svg = False, base_path: str = ""):
+    def __init__(self, page_name = ""
+                     , render_math_svg = False
+                     , embed_math_svg = False
+                     , base_path: str = ""
+                     , preview: bool = False):
         super().__init__(base_path = base_path)
         self._pagefile = page_name
         self._render_math_svg =  render_math_svg  
@@ -452,6 +460,8 @@ class HtmlRenderer(AbstractAstRenderer):
         self._equation_enumeration = "section"
         self._theorem_counter = 1
         """Current theorem number"""
+
+        self._preview = preview
         
         self._abbreviations = {}
         """Dictionary/hash map/hash database of of abbreviations defined in the wiki page frontmatter.."""
@@ -721,19 +731,42 @@ class HtmlRenderer(AbstractAstRenderer):
             html = html_ + self.render_note(note_name) or ""
             ## print(" [TRACE] html = ", html)
         elif src.endswith(".mp4"):
-            html = """ 
-                    <div class="div-wiki-image lazy-load-video"  
-                         data-src="/wiki/{0}" data-type="video/mp4">
-                    </div>
-                   """.format(src, src)
+            if self._preview:
+                html = """
+                <div class="divi-wiki-image">
+                    <video controls width="80%">
+                        <source src="/wiki/%s" type="video/mp4">
+                        Download the <a href="/wiki/%s}">MP4 Video</a>
+                    </video>
+                </div>
+                """ % (src, src)
+            else:
+                html = """ 
+                        <div class="div-wiki-image lazy-load-video"  
+                             data-src="/wiki/{0}" data-type="video/mp4">
+                        </div>
+                       """.format(src, src)
         elif src.endswith(".webm"):
-            html = """ 
+            if self._preview:
+                html = """
+                <div class="divi-wiki-image">
+                    <video controls width="80%">
+                        <source src="/wiki/%s" type="video/webm">
+                        Download the <a href="/wiki/%s}">WEBM4 Video</a>
+                    </video>
+                </div>
+                """ % (src, src)
+            else:
+                html = """ 
                     <div class="div-wiki-image lazy-load-video" 
                          data-src="/wiki/{0}" data-type="video/webm" >
                     </div>
                    """.format(src, src)
         else:
-            html = """<div class="div-wiki-image"><img class="wiki-image lazy-load anchor" data-src="/wiki/%s" alt=""></div>""" % src
+            if self._preview:
+                html = """<div class="div-wiki-image"><img class="wiki-image anchor" src="/wiki/%s" alt=""></div>""" % src
+            else:
+                html = """<div class="div-wiki-image"><img class="wiki-image lazy-load anchor" data-src="/wiki/%s" alt=""></div>""" % src
         return html
 
     def render_link(self, node: SyntaxTreeNode) -> str:
@@ -1105,10 +1138,16 @@ class HtmlRenderer(AbstractAstRenderer):
             # Image width (Optional)
             width = f"height={u}" if (u := directives.get("width")) else ""
             ## Rendering of this node
-            html = ("""<div class="div-wiki-image" div-figure>""" 
-                    """<img id="figure-%s" class="wiki-image lazy-load anchor" data-src="%s" alt="%s" %s %s>""" 
-                    """<p class="figure-caption"><strong>Figure %d:</strong> %s</p>"""
-                    """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption)
+            if not self._preview:
+                html = ("""<div class="div-wiki-image" div-figure>""" 
+                        """<img id="figure-%s" class="wiki-image lazy-load anchor" data-src="%s" alt="%s" %s %s>""" 
+                        """<p class="figure-caption"><strong>Figure %d:</strong> %s</p>"""
+                        """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption)
+            else:
+                html = ("""<div class="div-wiki-image" div-figure>""" 
+                        """<img id="figure-%s" class="wiki-image  anchor" src="%s" alt="%s" %s %s>""" 
+                        """<p class="figure-caption"><strong>Figure %d:</strong> %s</p>"""
+                        """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption)
             self._figure_counter += 1
         elif info == "{example}":
             code = node.content

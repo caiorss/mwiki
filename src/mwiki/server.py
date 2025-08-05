@@ -600,7 +600,7 @@ def make_app_server(  host:        str
         content = data.get("code", "") 
         ### content = utils.read_resource(mwiki, "refcard.md")
         ast = mparser.parse_source(content)
-        builder = render.HtmlRenderer(base_path=BASE_PATH)
+        builder = render.HtmlRenderer(base_path=BASE_PATH, preview = True)
         html_ = builder.render(ast)
         html = flask.render_template(  
                                           "standalone.html"
