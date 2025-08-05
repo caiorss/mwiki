@@ -1,6 +1,12 @@
 
 This is the index page. The first page shown by MWiki.
 
+## Links to Internal Pages
+
++ [[Math - Calculus Reference Card]]
++ [[Linux SysRq Key and OOM System Recovery]]
++ [[Open Source Licenses]]
+
 ## Bookmarks
 
 + [Triple product](https://en.wikipedia.org/wiki/Triple_product)
@@ -70,14 +76,15 @@ Hyperlinks to internal pages that still does not exist will be shown in red, whi
 
 ## Images 
 
-Picture of Java Duke Mascot (External Image):
+Image of Java Duke Mascot (External Image):
 
 ```markdown
 ![Java's Duke Mascot](/static/example_java_duke_mascot.svg)
 ```
 
 ![Java's Duke Mascot](/static/example_java_duke_mascot.svg)
-   
+
+
 Internal Image:
 
 + [[logo-java-coffee-cup.png]]
@@ -88,6 +95,7 @@ Internal Image:
 
 ![[logo-java-coffee-cup.png]]  
  
+
  
 Copying and pasting images.
 
@@ -103,8 +111,49 @@ For instance, this Python logo image whose MWiki markdown is
 corresponds to the file
 
 + `./sample-wiki/pasted/pasted-image-1743470376610.png`
+
+
+## Figure 
+
+**Figure of Java Duke Mascot (External Image)**
+
+````markdown
+
+```{figure} /static/example_java_duke_mascot.svg
+:alt: Java duke mascot, one of the symbols of the Java programming language.
+
+Java's Duke mascot
+```
+````
+
+```{figure} /static/example_java_duke_mascot.svg
+:alt: Java duke mascot, one of the symbols of the Java programming language.
+
+Java's Duke mascot
+```
+
+**Internal Figure**
+
+
+````markdown
+```{figure} ![[logo-java-coffee-cup.png]]
+:name: unique-identifier-of-the-image-optional
+:height: 200px
+:alt: An iconic symbol of the Java programming language. Note the alt text should provide a detailed description of the image for better accessibility.
+
+Java coffee cup symbol. 
+```
+````
+
  
-## Math 
+```{figure} ![[logo-java-coffee-cup.png]]
+:name: unique-identifier-of-the-image-optional
+:height: 200px
+:alt: An iconic symbol of the Java programming language. Note the alt text should provide a detailed description of the image for better accessibility.
+
+Java coffee cup symbol. 
+```
+## Math  
 ### Definition 
 
 :::{def} Inverse Matrix 
@@ -227,4 +276,4 @@ Rendering:
 \ENDPROCEDURE
 \end{algorithmic}
 \end{algorithm}
-```  
+```   
