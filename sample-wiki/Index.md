@@ -120,6 +120,7 @@ corresponds to the file
 ````markdown
 
 ```{figure} /static/example_java_duke_mascot.svg
+:width: 200px
 :alt: Java duke mascot, one of the symbols of the Java programming language.
 
 Java's Duke mascot
@@ -127,6 +128,7 @@ Java's Duke mascot
 ````
 
 ```{figure} /static/example_java_duke_mascot.svg
+:height: 200px
 :alt: Java duke mascot, one of the symbols of the Java programming language.
 
 Java's Duke mascot
@@ -152,7 +154,7 @@ Java coffee cup symbol.
 :alt: An iconic symbol of the Java programming language. Note the alt text should provide a detailed description of the image for better accessibility.
 
 Java coffee cup symbol. 
-```
+```    
 ## Math  
 ### Definition 
 
@@ -276,4 +278,4 @@ Rendering:
 \ENDPROCEDURE
 \end{algorithmic}
 \end{algorithm}
-```   
+```    
