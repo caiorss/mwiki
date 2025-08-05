@@ -1511,7 +1511,7 @@ $$
   \det J = -r
 $$
 
-The ara differential in polar coordinates is given by
+The area differential in polar coordinates is given by
 
 $$
   dA = | \det J | \, d\theta \, dr
@@ -1525,10 +1525,12 @@ $$
  dA = r \, \d\theta \, dr
 $$
 
-Then, the area of a region in polara coordinates is
+Therefore, the area of a region in polar coordinates is
 
 $$
+\boxed{
   A = \iint dA = \iint  r \, \d\theta \, dr
+}
 $$ 
 
 ### Change of Variables and Jacobian Matrix in a Space
