@@ -847,6 +847,68 @@ Rendering:
 ![Java's Duke Mascot](/static/example_java_duke_mascot.svg)
 
 
+## Figures 
+
+Figures are images with metadata, including automatic enumeration with optional attributes such as caption (also known as label), unique identifier and alt text (alternative text) for better accessibility.
+
+### Figure of external image
+
+A figure of an external image uses URL (Universal Resource Locator) for external images possibly loaded from other websites. In the following example the image `example_java_duke_mascot.svg` is loaded from a external URL of a ficticious web site `https://some-web-site.com`.
+
+Example:
+
+````markdown
+```{figure} https://some-web-site.com/pictures/example_java_duke_mascot.svg
+:width: 200px
+:alt: Java duke mascot, one of the symbols of the Java programming language.
+
+Java's Duke mascot
+```
+````
+
+Rendering:
+
+![](./images/example-rendering-external-figure.png)
+
+
+### Figure of Internal Image
+
+Example: 
+
+````markdown
+```{figure} ![[logo-java-coffee-cup.png]]
+:name: unique-identifier-of-the-image-optional
+:height: 200px
+:alt: An iconic symbol of the Java programming language. Note the alt text should provide a detailed description of the image for better accessibility.
+
+Java coffee cup symbol. 
+```
+````
+
+Rendering:
+
+![](./images/example-rendering-internal-figure.png)
+
+
+Note that internal images can be uploaded by copying and pasting images to the MWiki code editor or by manual upload using the editor button with label 'Link to Uploaded File'. 
+
+
+Uploading images by copying and pasting images:
+
+Now when an user pastes an image from the clipboard in the wiki editor with Ctrl+V or by clicking with mouse right button for opening the context menu and clicking at paste, the image is uploaded to the server and the editor inserts the following template code for a figure containing a reference to the pasted image `pasted-image-1754432753336.jpg`.
+
+````markdown
+```{figure} ![[pasted-image-1754432753336.jpg]]
+:name: 
+:alt: Optional Alt text (alternative) text for accessibility
+
+Optional Figure caption here.
+```
+````
+
+Then, then user can change the label/caption, optional alt text, optiona name (unique) identifier for cross referencing and also add the attributes `:width: 150px` or `height: 100px`.
+
+
 ## Embed Uploaded Video Files
 
 MP4 or WEBM video files can be embedded in the current page by using the syntax. 
