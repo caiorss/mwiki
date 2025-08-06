@@ -13,7 +13,11 @@ Applications:
 + Knowledge and Information Preservation 
 
 
-NOTES: 
+**Changelog:**
+
++ [./docs/changelog.md](./docs/changelog.md)
+
+**NOTES:**
 
 + Note: This software is still **work in progress** and under early stage. However, it can already be used as a personal note taking application.
 + Note: Mediawiki is the wiki engine software that powers Wikipedia.
@@ -990,6 +994,8 @@ The following set of companion sotfware or apps are recommended for MWiki as the
 + *Mathcha.io*
   + https://www.mathcha.io
   + *Online tool for scientific/technical illustration drawing, which supports LaTeX symbols and has many building blocks for drawing geometric, electrical, mechanical and computer science diagrams or schemas. 
++ *Plurimath - Convert between multiple math representation languages*
+  + https://www.plurimath.org/
 + *How to write algorithm in Latex*
   + https://shantoroy.com/latex/how-to-write-algorithm-in-latex
 + *LaTeX/Algorithms - Wikibooks*
@@ -1112,3 +1118,13 @@ A site-to-site mesh VPN such as **tailscale** can be helpful for self hosting th
   + https://docutils.sourceforge.io/rst.html
 + *Documentation Audiences*, OpenEdx
   + <https://docs.openedx.org/en/latest/documentors/concepts/about_doc_audiences.html>
++ *Rendering Math in HTML: MathML, MathML Core, and AsciiMath*, Andrew Lock (2024)
+  + https://andrewlock.net/rendering-math-in-html-mathml-mathml-core-and-asciimath/
++ *Latex, MATHML, and tex4ht: Tools for Creating Accessible Documents (a brief tutorial)*, Jacek Polewczak 
+  + https://www.csun.edu/~hcmth008/mathml/acc_tutorial.html
++ *MathML in Web Browsers - A joint effort to add native MathML-Core support to web browsers*, Igalia
+  + https://mathml.igalia.com/
++ *MathJax - render math on the Web on all browsers*, Murray Bourne (2011), Interactive Mathematics
+  + https://www.intmath.com/blog/mathematics/mathjax-render-math-on-the-web-on-all-browsers-5703
++ *Exploring cross-browser math equations using MathML or LaTeX with MathJax*, Scott Hanselman (2014)
+  + https://www.hanselman.com/blog/exploring-crossbrowser-math-equations-using-mathml-or-latex-with-mathjax

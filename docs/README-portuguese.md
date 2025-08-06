@@ -12,7 +12,13 @@ Aplicações:
 + Base de Conhecimento Pessoal
 + Preservação do Conhecimento e da Informação
 
-NOTAS:
+
+**Registro de Mudanças (Changelog):**
+
++ [./docs/changelog.md](./docs/changelog.md)
+
+
+**NOTAS:**
 
 + Observação: Este software ainda está **em progresso** e em estágio inicial. No entanto, ele já pode ser usado como um aplicativo de anotações pessoais.
 + Observação: o Mediawiki é o software de motor wiki usado pela Wikipédia.
@@ -893,7 +899,9 @@ O seguinte conjunto de softwares ou aplicativos complementares são recomendados
 + *Mathcha.io*
 + https://www.mathcha.io
 + *Ferramenta online para desenho de ilustrações científicas/técnicas, que suporta símbolos LaTeX e possui vários blocos de construção para desenhar diagramas ou esquemas geométricos, elétricos, mecânicos e de ciência da computação.
-+ *How to write algorithm in Latex*
++ *Plurimath - Converte entre múltiplas linguagens de representação matemática*
+  + https://www.plurimath.org/
++ *How to write algorithm in Latex (Como escrever algoritmos em LaTeX)*
   + https://shantoroy.com/latex/how-to-write-algorithm-in-latex
 + *LaTeX/Algorithms - Wikibooks*
   + https://en.wikibooks.org/wiki/LaTeX/Algorithms
@@ -987,9 +995,9 @@ Uma VPN Mesh Site-to-Site, como a **tailscale**, pode ser útil para hospedar es
 
 ## Leitura Adicional 
 
-+ *If it is worth keeping, save it in Markdown*
++ *If it is worth keeping, save it in Markdown (Se vale a pena manter, salve em Markdown)*
   + https://p.migdal.pl/blog/2025/02/markdown-saves
-+ *Exposing a web service with Cloudflare Tunnel*, Erissa A (2022)
++ *Exposing a web service with Cloudflare Tunnel (Expondo um serviço web com o Tunnel Cloudflare)*, Erissa A (2022)
   + https://erisa.dev/exposing-a-web-service-with-cloudflare-tunnel/
   + *What if you could host a web service with no ports exposed? With Cloudflare Tunnel, you can!*
   + COMENTÁRIO: Para quem não confia na Cloudflare, uma VPN mesh Tailscale auto-hospedada é uma escolha melhor. A Tailscale permite estabelecer um túnel criptografado direto de ponta a ponta entre nós clientes Tailscale (máquinas com o cliente Tailscale instalado). Como resultado, qualquer nó em uma rede Tailscale pode acessar qualquer serviço web exposto por outros nós Tailscale. Por exemplo, se um Android ou iPhone tiver um aplicativo cliente Taiscale instalado, é possível navegar em um host web na rede local, possivelmente por trás de um NAT (Network Address Translator), que bloqueia conexões de entrada por padrão, abrindo a URL http://dummy:8080 ou http://dummy.net.ts:8080, onde dummy é o nome do host ou nome Tailscale do computador que hospeda o servidor web. O Tailscale não é útil apenas para acessar servidores web locais de qualquer lugar sem expor nenhuma porta TCP ou UDP à internet, mas também é útil para acessar pastas compartilhadas do Windows (SAMBA/SMB), às vezes chamadas de compartilhamentos do Windows, e máquinas Windows remotamente por meio de VNC ou remote desktop.
@@ -1016,3 +1024,13 @@ Uma VPN Mesh Site-to-Site, como a **tailscale**, pode ser útil para hospedar es
   + https://docutils.sourceforge.io/rst.html
 + *Documentation Audiences*, OpenEdx
   + <https://docs.openedx.org/en/latest/documentors/concepts/about_doc_audiences.html>
++ *Rendering Math in HTML: MathML, MathML Core, and AsciiMath*, Andrew Lock (2024)
+  + https://andrewlock.net/rendering-math-in-html-mathml-mathml-core-and-asciimath/
++ *Latex, MATHML, and tex4ht: Tools for Creating Accessible Documents (a brief tutorial)*, Jacek Polewczak 
+  + https://www.csun.edu/~hcmth008/mathml/acc_tutorial.html
++ *MathML in Web Browsers - A joint effort to add native MathML-Core support to web browsers*, Igalia
+  + https://mathml.igalia.com/
++ *MathJax - render math on the Web on all browsers*, Murray Bourne (2011), Interactive Mathematics
+  + https://www.intmath.com/blog/mathematics/mathjax-render-math-on-the-web-on-all-browsers-5703
++ *Exploring cross-browser math equations using MathML or LaTeX with MathJax*, Scott Hanselman (2014)
+  + https://www.hanselman.com/blog/exploring-crossbrowser-math-equations-using-mathml-or-latex-with-mathjax
