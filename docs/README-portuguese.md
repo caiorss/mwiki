@@ -117,9 +117,13 @@ Veja documentação detalhada e exemplos em:
 | Ctrl 5 | Alterna os títulos da página Wiki atual. |
 | Ctrl 9 | Alterna a exibição de todos os links da página Wiki atual. |
 
+
 ## Demonstração
 
 ### Animações GIF
+
+NOTA: Embora as animações GIF estejam desatualizadas devido às principais mudanças no layout e na interface do usuário, as funcionalidades apresentadas permanecem as mesmas.
+
 
 **Animação GIF mostrando usdo do MWiki**
 
@@ -166,13 +170,13 @@ Página de configurações do MWiki.
 
 **Captura de Tela 6 do Wiki**
 
-Captura de tela do menu global.
+Captura de tela do menu principal *(main menu)*.
 
 ![](images/screen6.png)
 
 **Captura de tela 7 do Wiki**
 
-Captura de tela do menu de páginas que permite executar ações na página atual do Wiki.
+Captura de tela do menu de página *(page menu)*.
 
 ![](images/screen7.png)
 
@@ -196,7 +200,7 @@ O Wiki possui um mecanismo de busca integrado que permite a busca por palavras-c
 
 Este wiki fornece uma janela pop-up de cartão de referência que fornece exemplos da linguagem de marcação MWiki (markdown personalizado).
 
-(1) Abra o cartão de referência.
+(1) O cartão de referência pode ser aberto clicando no botão 'Reference Card' na barra de ferramentas do editor.
 
 ![](images/refcard1.png)
 
@@ -795,6 +799,8 @@ Observe que o nome do host SSH myuser@dummy.local também pode ser:
 ### Leitura adicional
 
 
+**Configurações de Firewalll**
+
 + *Open TCP Port 80 in Windows Firewall Using Netsh* 
   + https://www.wiki.mcneel.com/zoo/homenetsh
 + *Linux Open Port 80 (HTTP Web Server Port)*, Vivek Gite (2022), Cyberciti
@@ -805,6 +811,10 @@ Observe que o nome do host SSH myuser@dummy.local também pode ser:
   + https://en.wikipedia.org/wiki/.local
 + *Linux Open Port: Step-by-Step Guide to Managing Firewall Ports*, Vijaykrishna Ram and Anish Singh Walia, Digital Ocean
   + https://www.digitalocean.com/community/tutorials/opening-a-port-on-linux
+
+
+**mDNS - Multicast DNS and Network Discovery - Zeroconf/Bonjour**
+
 + *Using mDNS aliases within your home network*, Andrew Dupont (2022)
   + https://andrewdupont.net/2022/01/27/using-mdns-aliases-within-your-home-network/
 + *How to set up mDNS on an ESP32*
@@ -821,6 +831,25 @@ Observe que o nome do host SSH myuser@dummy.local também pode ser:
   + https://developer.android.com/develop/connectivity/wifi/use-nsd
 + *Multicast Application Protocol mDNS for Local Discovery*, Expressif (ESP32) Docs
   + https://espressif.github.io/esp32-c3-book-en/chapter_8/8.2/8.2.4.html#multicast-application-protocol-mdns-for-local-discovery
++ *Avahi (software)*, Wikipedia
+  + https://en.wikipedia.org/wiki/Avahi_%28software%29
+  + Brief: *Avahi is a free zero-configuration networking (zeroconf) implementation, including a system for multicast DNS and DNS Service Discovery. It is licensed under the GNU Lesser General Public License (LGPL). Avahi is a system that enables programs to publish and discover services and hosts running on a local network. For example, a user can plug a computer into a network and have Avahi automatically advertise the network services running on its machine, facilitating user access to those services.* (Wikipedia)
++ *Avahi*, ArchLinux Wiki
+  + https://wiki.archlinux.org/title/Avahi
+  + Brief: *Avahi is a free Zero-configuration networking (zeroconf) implementation, including a system for multicast DNS/DNS-SD service discovery. It allows programs to publish and discover services and hosts running on a local network with no specific configuration. For example you can plug into a network and instantly find printers to print to, files to look at and people to talk to. It is licensed under the GNU Lesser General Public License (LGPL).* (ArchLinux Wiki)
++ *How to Properly Disable Avahi-Daemon*, Ashish Khadka (2024), Baeldung
+  + https://www.baeldung.com/linux/avahi-daemon-disable
++ *Network service discovery with an Avahi container*, Radu Zaharia (2022)
+  + https://blog.raduzaharia.com/network-service-discovery-with-an-avahi-container-3dfdce4f1c75
++ *Avahi - Daemon - WebOS Internals*
+  + https://www.webos-internals.org/wiki/Avahi
++ *Unveiling Linux Avahi: A Comprehensive Guide*, LinuxVox (2025)
+  + https://linuxvox.com/blog/linux-avahi/
+
+
+
+**SSH - Secure Shell Server**
+
 + *Tutorial: SSH in Windows Terminal*, Microsoft MSFT
   + https://learn.microsoft.com/en-us/windows/terminal/tutorials/ssh
 + *Get started with OpenSSH for Windows*, Microsoft MSFT
@@ -837,6 +866,7 @@ Observe que o nome do host SSH myuser@dummy.local também pode ser:
   + https://iximiuz.com/en/posts/ssh-tunnels/
 + *Tunneling and Port Forwarding*, SSH Handbook
   + https://www.sshhandbook.com/overview-of-ssh-tunneling/
+
 
 
 ## Software e ferramentas complementares 
