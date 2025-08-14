@@ -534,16 +534,20 @@ document.addEventListener("DOMContentLoaded", function()
 });
 
 
+let pageList = [];
+
 async function quickOpenPage()
 {
     let pages = await httpRequest("GET", "/api/wiki");
     // console.log(" [TRCCE] pages = ", pages);
     let datalist = document.querySelector("#quick-pagelist");
     datalist.replaceChildren();
+    pageListt = [];
     for(let p of pages)
     {
         let option = document.createElement("option");
         option.value = p;
+        pageList.push(p);
         datalist.appendChild(option);
     }
     quickOpenWindow.toggle();
@@ -555,7 +559,12 @@ function openWikiPageCallback()
     let selectedPage = input.value;
     input.value = "";
     quickOpenWindow.close();
-    redirect(`/wiki/${selectedPage}`);
+    if( pageList.find(x => x === selectedPage) )
+    {
+        redirect(`/wiki/${selectedPage}`);
+    } else {
+        redirect(`/pages?search=` + encodeURI(selectedPage))
+    }
 }
 
 
