@@ -539,6 +539,7 @@ async function quickOpenPage()
     let pages = await httpRequest("GET", "/api/wiki");
     // console.log(" [TRCCE] pages = ", pages);
     let datalist = document.querySelector("#quick-pagelist");
+    datalist.replaceChildren();
     for(let p of pages)
     {
         let option = document.createElement("option");
