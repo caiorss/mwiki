@@ -139,6 +139,7 @@ def make_app_server(  host:        str
             form.description.data = conf.description   
             form.main_font.data = conf.main_font
             form.title_font.data = conf.title_font
+            form.code_font.data = conf.code_font
         if request.method == M_POST:
             form.validate()
             app.logger.info(f"Form data = {form.data}")    
@@ -148,6 +149,7 @@ def make_app_server(  host:        str
             conf.show_source = form.show_source.data
             conf.main_font = form.main_font.data
             conf.title_font = form.title_font.data
+            conf.code_font = form.code_font.data 
             conf.display_edit_button = form.display_edit_button.data
             conf.vim_emulation = form.vim_emulation.data
             conf.save()
