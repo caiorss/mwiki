@@ -96,6 +96,7 @@ class FontFamiliyEnum(enum.Enum):
     go_mono = "GO Mono"
     logic_monospace_regular = "Logic Monospace Regular"
     logic_monospace_medium  = "Logic Monospace Medium"
+    commit_mono = "Commit Mono"
     textura_modern = "Textura Modern"
     bastarda = "Bastarda"
 
@@ -106,6 +107,7 @@ class CodeFontFamily(enum.Enum):
     go_mono = "GO Mono"
     logic_monospace_regular = "Logic Monospace Regular"
     logic_monospace_medium  = "Logic Monospace Medium"
+    commit_mono = "Commit Mono"
     
 
 class TitleFontFamily(enum.Enum):
@@ -126,6 +128,7 @@ class TitleFontFamily(enum.Enum):
     bastarda = "Bastarda"
     logic_monospace_regular = "Logic Monospace Regular"
     logic_monospace_medium  = "Logic Monospace Medium"
+    commit_mono = "Commit Mono"
     graphik_regular_web = "Graphik Regular"
 
 

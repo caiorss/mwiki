@@ -197,6 +197,38 @@
     src: url('/static/fonts/Graphik-Regular-Web.woff2');
 }
 
+@font-face {
+    font-family: "Commit Mono";
+    font-weight: normal;
+    font-style:  normal;
+    src: url('/static/fonts/CommitMono-400-Regular.otf');
+}
+
+
+@font-face {
+    font-family: "Commit Mono";
+    font-weight: normal;
+    font-style:  italic;
+    src: url('/static/fonts/CommitMono-400-Italic.otf');
+}
+
+
+@font-face {
+    font-family: "Commit Mono";
+    font-weight:  bold;
+    font-style:  normal;
+    src: url('/static/fonts/CommitMono-700-Regular.otf');
+}
+
+
+@font-face {
+    font-family: "Commit Mono";
+    font-weight:  bold;
+    font-style:   italic;
+    src: url('/static/fonts/CommitMono-700-Italic.otf');
+}
+
+
 
 
 
