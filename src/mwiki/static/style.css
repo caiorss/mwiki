@@ -314,6 +314,28 @@
     src: url('/static/fonts/JuliaMono-Bold.woff2');
 }
 
+@font-face {
+    font-family: "Julia Mono Light";
+    font-weight: normal;
+    font-style:  normal;
+    src: url('/static/fonts/JuliaMono-Light.woff2');
+}
+
+@font-face {
+    font-family: "Julia Mono Light";
+    font-weight: normal;
+    font-style:  italic;
+    src: url('/static/fonts/JuliaMono-LightItalic.woff2');
+}
+
+@font-face {
+    font-family: "Julia Mono Light";
+    font-weight: bold;
+    font-style:  normal;
+    src: url('/static/fonts/JuliaMono-Bold.woff2');
+}
+
+
 
 
 :root {

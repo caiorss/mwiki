@@ -98,6 +98,7 @@ class FontFamiliyEnum(enum.Enum):
     logic_monospace_medium  = "Logic Monospace Medium"
     commit_mono = "Commit Mono"
     julia_mono = "Julia Mono"
+    julia_mono_light = "Julia Mono Light"
     libertinus_mono = "Libertinus Mono"
     libertinus_sans = "Libertinus Sans"
     libertinus_serif = "Libertinus Serif"
@@ -114,6 +115,7 @@ class CodeFontFamily(enum.Enum):
     commit_mono = "Commit Mono"
     libertinus_mono = "Libertinus Mono"
     julia_mono = "Julia Mono"
+    julia_mono_light = "Julia Mono Light"
 
 class TitleFontFamily(enum.Enum):
     # Default LaTeX font created by professor Donald Knuth
@@ -134,6 +136,8 @@ class TitleFontFamily(enum.Enum):
     logic_monospace_regular = "Logic Monospace Regular"
     logic_monospace_medium  = "Logic Monospace Medium"
     commit_mono = "Commit Mono"
+    julia_mono = "Julia Mono"
+    julia_mono_light = "Julia Mono Light"
     libertinus_mono = "Libertinus Mono"
     libertinus_sans = "Libertinus Sans"
     libertinus_serif = "Libertinus Serif"
