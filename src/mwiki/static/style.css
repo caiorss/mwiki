@@ -994,6 +994,7 @@ pre {
     line-height: initial;
     overflow-x: auto !important;
     overflow-y: auto !important;
+    padding-bottom: 15px;
     /** max-height: 400px;  */  /** TODO @TODO  Enable this property later. */
 }
 
