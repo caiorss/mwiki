@@ -1,5 +1,6 @@
 from typing import Any, Tuple, List, Optional
 import enum 
+import json
 from flask_sqlalchemy import SQLAlchemy
 import flask_sqlalchemy as sa 
 import sqlalchemy
@@ -193,6 +194,7 @@ class Settings(db.Model):
 
     def save(self):
         """Update database entry"""
+        self.date_modified = datetime.datetime.now(datetime.timezone.utc)           
         db.session.add(self)
         db.session.commit()
 
@@ -225,12 +227,25 @@ class WikiPage():
 
     def __init__(self, base_path: pathlib.Path, path: pathlib.Path, title: str):
         self._base_path = base_path
+        self._cache: pathlib.Path = base_path / ".data/cache"
         self._title = title 
+        # Create cache directory if it does not exist yet.
+        self._cache.mkdir(exist_ok=True)
+        self._path = self.path()
     
     def path(self):
         """Get path of Wiki page file"""
         p = next(self._base_path.rglob(self._title + ".md"), None)
         return p
+
+    def _cache_html_file(self) -> pathlib.Path:
+        ## breakpoint()
+        p = self._path
+        rel = self._cache / p.relative_to(self._base_path)
+        folder =  rel.parent
+        folder.mkdir(exist_ok = True)
+        cpath = folder / rel.name.replace(".md", ".html")
+        return cpath
 
     def read(self) -> str:
         """Get markdown content of wiki page file."""
@@ -243,9 +258,37 @@ class WikiPage():
         path = self.path()
         path.write_text(text)
 
-    def render_html(self, latex_macros = "") -> str:
-        """Render MWiki page to html"""
+    def is_dirty(self):
+        """Returns true if cached html needs update """
+        out = self._cache_html_file()
+        src = self._path
+        src_time = src.lstat().st_mtime
+        out_time = out.lstat().st_mtime if out.exists() else 0
+        res =  src_time > out_time \
+            or datetime.datetime.utcfromtimestamp(out_time) < Settings.get_instance().date_modified
+        if res:
+            return True
+        # Json metadata file about wiki page containing dependencies (list of embedded wiki pages)
+        info = out.parent / out.name.replace(".html", ".json")
+        if not info.exists():
+            return res
+        deps = []
+        with open(str(info), "r") as fd:
+            deps = json.load(fd)
+        for x in deps:
+            p = self._base_path / x
+            if p.exists() and p.lstat().st_mtime > out_time:
+                return True
+        return False
+
+
+    def _update_cached_html(self, latex_macros = "" ):
+        ## breakpoint()
+        if not self.is_dirty():
+            return
+        out = self._cache_html_file()
         text = self.read()
+        ## print(" [TRACE] Updating cache = " + str(out))
         headings = mparser.get_headings(text)
         root = mparser.make_headings_hierarchy(headings)
         toc = mparser.headings_to_html(root)
@@ -253,17 +296,31 @@ class WikiPage():
         base_path = str(self._base_path)
         renderer, content = render.pagefile_to_html(pagefile, base_path)
         title = renderer.title if renderer.title != "" else self._title
+        info = out.parent / out.name.replace(".html", ".json")
+        dependencies = [ str(x.relative_to(self._base_path)) for x in renderer.dependencies]
+        if dependencies != []:
+            with open(str(info), "w") as fd:
+                json.dump(dependencies, fd)
+        else:
+            if info.exists(): info.unlink()
         html = flask.render_template(  "content.html"
-                                             , title   = title 
+                                             , title   = title
                                              , page    = self._title
                                              , page_link = self._title.replace(" ", "_")
-                                             , pagename = self._title 
+                                             , pagename = self._title
                                              , content = content
                                              , toc     = toc
                                              , latex_macros = latex_macros
                                              , equation_enumeration = renderer.equation_enumeration
                                              )
-        return html
+        out.write_text(html)
+
+    def render_html(self, latex_macros = "") -> str:
+        """Render MWiki page to html"""
+        out = self._cache_html_file()
+        self._update_cached_html(latex_macros)
+        data = out.read_text()
+        return data
 
     def frontmatter(self):
         """Return wikipage metadata"""

@@ -4,7 +4,7 @@ import json
 import re 
 import yaml                     # Python3 stdlib Yaml Parser
 import pathlib
-from typing import Optional, Tuple
+from typing import Optional, Tuple, List 
 from markdown_it.tree import SyntaxTreeNode
 import urllib.parse
 import os 
@@ -107,6 +107,9 @@ class AbstractAstRenderer:
         self._figure_counter = 1
         """Counter of figures (images with metadata). """
 
+        self._dependecies: List[pathlib.Path] = []
+        """List of embedded markdown pages (md -markdown files) in this page"""
+
         self._handlers = {
               "root":                       self.render_root
             , "text":                       self.render_text
@@ -165,6 +168,10 @@ class AbstractAstRenderer:
     @property
     def title(self):
         return self._title
+
+    @property
+    def dependencies(self):
+        return self._dependecies
     
     def find_page(self, name: str) -> Optional[pathlib.Path]:
         """Find path to note file, given its name."""
@@ -182,6 +189,7 @@ class AbstractAstRenderer:
         p = self.find_page(name)
         if not p: return "" 
         if not p.is_file(): return ""
+        self._dependecies.append(p)
         source = p.read_text()
         tokens = mparser.MdParser.parse(source)
         ast    = SyntaxTreeNode(tokens)       
