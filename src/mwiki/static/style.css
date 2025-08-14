@@ -293,6 +293,26 @@
     src: url('/static/fonts/LibertinusMono-Regular.woff2');
 }
 
+@font-face {
+    font-family: "Julia Mono";
+    font-weight: normal;
+    font-style:  normal;
+    src: url('/static/fonts/JuliaMono-Regular.woff2');
+}
+
+@font-face {
+    font-family: "Julia Mono";
+    font-weight: normal;
+    font-style:  italic;
+    src: url('/static/fonts/JuliaMono-RegularItalic.woff2');
+}
+
+@font-face {
+    font-family: "Julia Mono";
+    font-weight: bold;
+    font-style:  normal;
+    src: url('/static/fonts/JuliaMono-Bold.woff2');
+}
 
 
 
