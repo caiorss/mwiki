@@ -99,6 +99,7 @@ class FontFamiliyEnum(enum.Enum):
     commit_mono = "Commit Mono"
     libertinus_mono = "Libertinus Mono"
     libertinus_sans = "Libertinus Sans"
+    libertinus_serif = "Libertinus Serif"
     textura_modern = "Textura Modern"
     bastarda = "Bastarda"
 
@@ -133,6 +134,8 @@ class TitleFontFamily(enum.Enum):
     commit_mono = "Commit Mono"
     libertinus_mono = "Libertinus Mono"
     libertinus_sans = "Libertinus Sans"
+    libertinus_serif = "Libertinus Serif"
+    libertinus_serif_display = "Libertinus Serif Display"
     graphik_regular_web = "Graphik Regular"
 
 class Settings(db.Model):

@@ -252,6 +252,40 @@
     src: url('/static/fonts/LibertinusSans-Bold.woff2');
 }
 
+@font-face {
+    font-family: "Libertinus Serif";
+    font-weight: normal;
+    font-style:  normal;
+    src: url('/static/fonts/LibertinusSerif-Regular.woff2');
+}
+
+@font-face {
+    font-family: "Libertinus Serif";
+    font-weight: normal;
+    font-style:  italic;
+    src: url('/static/fonts/LibertinusSerif-Italic.woff2');
+}
+
+@font-face {
+    font-family: "Libertinus Serif";
+    font-weight: bold;
+    font-style:  normal;
+    src: url('/static/fonts/LibertinusSerif-Bold.woff2');
+}
+
+
+@font-face {
+    font-family: "Libertinus Serif";
+    font-weight: bold;
+    font-style:  italic;
+    src: url('/static/fonts/LibertinusSerif-BoldItalic.woff2');
+}
+
+@font-face {
+    font-family: "Libertinus Serif Display";
+    src: url('/static/fonts/LibertinusSerifDisplay-Regular.woff2');
+}
+
 
 
 @font-face {
