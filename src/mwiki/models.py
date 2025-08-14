@@ -97,6 +97,7 @@ class FontFamiliyEnum(enum.Enum):
     logic_monospace_regular = "Logic Monospace Regular"
     logic_monospace_medium  = "Logic Monospace Medium"
     commit_mono = "Commit Mono"
+    libertinus_mono = "Libertinus Mono"
     textura_modern = "Textura Modern"
     bastarda = "Bastarda"
 
@@ -108,7 +109,7 @@ class CodeFontFamily(enum.Enum):
     logic_monospace_regular = "Logic Monospace Regular"
     logic_monospace_medium  = "Logic Monospace Medium"
     commit_mono = "Commit Mono"
-    
+    libertinus_mono = "Libertinus Mono"
 
 class TitleFontFamily(enum.Enum):
     # Default LaTeX font created by professor Donald Knuth
@@ -129,10 +130,8 @@ class TitleFontFamily(enum.Enum):
     logic_monospace_regular = "Logic Monospace Regular"
     logic_monospace_medium  = "Logic Monospace Medium"
     commit_mono = "Commit Mono"
+    libertinus_mono = "Libertinus Mono"
     graphik_regular_web = "Graphik Regular"
-
-
-
 
 class Settings(db.Model):
     """Singleton model class (SQL table) containing site settings.

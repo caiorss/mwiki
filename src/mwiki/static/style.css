@@ -228,6 +228,10 @@
     src: url('/static/fonts/CommitMono-700-Italic.otf');
 }
 
+@font-face {
+    font-family: "Libertinus Mono";
+    src: url('/static/fonts/LibertinusMono-Regular.woff2');
+}
 
 
 
