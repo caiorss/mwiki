@@ -228,6 +228,32 @@
     src: url('/static/fonts/CommitMono-700-Italic.otf');
 }
 
+
+@font-face {
+    font-family: "Libertinus Sans";
+    font-weight: normal;
+    font-style:  normal;
+    src: url('/static/fonts/LibertinusSans-Regular.woff2');
+}
+
+
+@font-face {
+    font-family: "Libertinus Sans";
+    font-weight: normal;
+    font-style:  italic;
+    src: url('/static/fonts/LibertinusSans-Italic.woff2');
+}
+
+
+@font-face {
+    font-family: "Libertinus Sans";
+    font-weight: bold;
+    font-style:  normal;
+    src: url('/static/fonts/LibertinusSans-Bold.woff2');
+}
+
+
+
 @font-face {
     font-family: "Libertinus Mono";
     src: url('/static/fonts/LibertinusMono-Regular.woff2');
