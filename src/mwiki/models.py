@@ -99,6 +99,15 @@ class FontFamiliyEnum(enum.Enum):
     textura_modern = "Textura Modern"
     bastarda = "Bastarda"
 
+
+class CodeFontFamily(enum.Enum):
+    """Font families for code (source code). They must be monospace typefaces."""
+    ibm_plex_mono = "IBM Plex Mono"
+    go_mono = "GO Mono"
+    logic_monospace_regular = "Logic Monospace Regular"
+    logic_monospace_medium  = "Logic Monospace Medium"
+    
+
 class TitleFontFamily(enum.Enum):
     # Default LaTeX font created by professor Donald Knuth
     computer_modern = "Computer Modern"
@@ -118,6 +127,8 @@ class TitleFontFamily(enum.Enum):
     logic_monospace_regular = "Logic Monospace Regular"
     logic_monospace_medium  = "Logic Monospace Medium"
     graphik_regular_web = "Graphik Regular"
+
+
 
 
 class Settings(db.Model):
@@ -145,6 +156,7 @@ class Settings(db.Model):
     ## main_font: so.Mapped[Optional[FontFamiliyEnum]]
     main_font: so.Mapped[str] = so.mapped_column(default = FontFamiliyEnum.computer_modern.value)
     title_font: so.Mapped[str] = so.mapped_column(default = FontFamiliyEnum.computer_modern.value)
+    code_font: so.Mapped[str] = so.mapped_column(default = CodeFontFamily.ibm_plex_mono.value )
 
     date_created:    so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
     date_modified:   so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)

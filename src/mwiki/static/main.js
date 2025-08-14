@@ -402,6 +402,8 @@ document.addEventListener("DOMContentLoaded", function()
 
     // NOTE the cosntant variable FONT_FAMILY_MAIN is defined in the template base.html
     document.documentElement.style.setProperty('--font-family-main', FONT_FAMILY_MAIN);
+    // set code font (typeface). NOte: this constant is defined in the file base.html
+    document.documentElement.style.setProperty('--font-family-code', FONT_FAMILY_CODE);
     // Set font of document headings (title) 
     document.documentElement.style.setProperty('--font-family-title', FONT_FAMILY_TITLE);
 
