@@ -561,7 +561,8 @@ function openWikiPageCallback()
     quickOpenWindow.close();
     if( pageList.find(x => x === selectedPage) )
     {
-        redirect(`/wiki/${selectedPage}`);
+        let page = selectedPage.replaceAll(" ", "_");
+        redirect(`/wiki/${page}`);
     } else {
         redirect(`/pages?search=` + encodeURI(selectedPage))
     }
