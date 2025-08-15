@@ -235,11 +235,14 @@ async function httpRequest(method, url, body)
                     //  const CSRF_TOKEN = "{{ csrf_token() }}";
                     , 'X-CSRFToken':       CSRF_TOKEN
                     };
-    const res = await fetch(url, { "method": method
-                                    , "headers": headers 
-                                    , body: JSON.stringify(body) })
-                            .catch(networkErrorHandler)
-                            ;
+    var payload  ={  "method": method
+     , "headers": headers
+    };
+    if(body !== null ){
+        payload["body"] = JSON.stringify(body);
+    }
+    const res = await fetch(url, payload)
+                            .catch(networkErrorHandler);
     let httpErrorCodes = {
           404: "404 - Not found"
         , 403: "403 - Forbidden (Autorization)"
@@ -393,7 +396,23 @@ function lazyLoadImages()
 }
 
 
-document.addEventListener("DOMContentLoaded", function()
+var user_data = null;
+
+async function displayEditButtons()
+{
+    let data = await httpRequest("GET", "/api/auth", null);
+    user_data = data;
+    if( data.show_buttons )
+    {
+        console.log(" [TRACE] show buttons ok. ");
+        // Make all edit  buttons (pencil icons) of wiki sections visible
+        for(let q of document.querySelectorAll(".link-edit"))
+        { q.style.display = ""; }
+    }
+}
+
+
+document.addEventListener("DOMContentLoaded", async function()
   {
     
     lazyLoadImages();
@@ -407,14 +426,7 @@ document.addEventListener("DOMContentLoaded", function()
     // Set font of document headings (title) 
     document.documentElement.style.setProperty('--font-family-title', FONT_FAMILY_TITLE);
 
-
-    // Global variable defined in the template base.html
-    if( DISPLAY_EDIT_BUTTONS )
-    {
-        // Make all edit [E] buttons for editing wiki sections visible 
-        for(let q of document.querySelectorAll(".link-edit"))
-        { q.style.display = ""; }
-    }
+    displayEditButtons();
 
     // Event bubbling
     onClick(".toc", (evt) => {

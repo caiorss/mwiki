@@ -443,6 +443,21 @@ def make_app_server(  host:        str
         else:
             flask.abort(STATUS_CODE_405_METHOD_NOT_ALLOWED) 
 
+    @app.route("/api/auth", methods = [M_GET])
+    def api_auth():
+        user = current_user()
+        conf = Settings.get_instance()
+        data = {    "is_admin": user.is_admin()
+                  , "is_authenticated": user.is_authenticated()
+                  , "is_anonymous": user.is_anonymous()
+                  , "type": user.type
+                  , "active": user.active or False
+                  , "username": user.username
+                  , "show_buttons": conf.display_edit_button or user.is_admin()
+                  }
+        out = flask.jsonify(data)
+        return out
+
     @app.route("/create/<path>", methods = [M_GET, M_POST])
     @check_login(required = True)
     def route_create(path: str):
