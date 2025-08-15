@@ -248,6 +248,12 @@ Instalar a versão estável mais recente: versão v0.5
 $ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.5.zip
 ```
 
+Instalar a versão estável mais recente v0.5 usando o hash de commit (reproduzível e imutável).
+
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/e433a7c903be82919996fdd1f2f114bfb2c43497.zip
+```
+
 Instalar a versão: versão v0.4
 
 
