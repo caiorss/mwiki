@@ -24,7 +24,7 @@ class PopupWindow
         this._dom.style.padding = "10px";
         if(!visible){ this.hide() };
         let code = `<h2 class="window-title">${title}</h2> <button class="btn-window-close">[X]</button><hr>`;
-        console.log(" [TRACE] code = ", code);
+        // console.log(" [TRACE] code = ", code);
         this._dom.innerHTML = code;
         this._dom.innerHTML += html; 
         let self = this;
@@ -317,7 +317,7 @@ addEventListener("DOMContentLoaded", (ev) => {
 
 function toggle_sidebar()
 {
-    console.log(" [TRACE] Toggle side bar");
+    /// console.log(" [TRACE] Toggle side bar");
     let sidebar = document.querySelector(".sidebar");
     sidebar.classList.toggle("sidebar-visibility");
     let main = document.querySelector(".main");
@@ -404,7 +404,7 @@ async function displayEditButtons()
     user_data = data;
     if( data.show_buttons )
     {
-        console.log(" [TRACE] show buttons ok. ");
+        /// console.log(" [TRACE] show buttons ok. ");
         // Make all edit  buttons (pencil icons) of wiki sections visible
         for(let q of document.querySelectorAll(".link-edit"))
         { q.style.display = ""; }
@@ -748,14 +748,14 @@ document.addEventListener("click", (event) => {
 
 function scrollToTop()
 {
-    console.log(" [TRACE] I was called.");
+    /// console.log(" [TRACE] I was called.");
     let domMain = document.querySelector(".main");
     domMain.scrollTo({top: 0});
 }
 
 function scrollToBottom()
 {
-    console.log(" [TRACE] I was called.");
+    /// console.log(" [TRACE] I was called.");
     let domMain = document.querySelector(".main");
     // domMain.scrollTo({top: 0});
     domMain.scrollTop = domMain.scrollHeight;
@@ -801,8 +801,8 @@ function btnClickHandler(event) {
 
 function menuClicked(event) {
     let target = event.target;
-    console.log(" [TRACE] target = ", event.target);
-    let parent = event.target.parentElement;
+    /// console.log(" [TRACE] target = ", event.target);
+    // let parent = event.target.parentElement;
     console.log(" [TRACE] parent = ", parent);
     /** 
      *  CSS Class 
@@ -814,7 +814,7 @@ function menuClicked(event) {
     parent.classList.toggle("show");
 
     let href = target.href.split("#")[1];
-    console.log(" [TRACE] target.href = ", href);
+    // console.log(" [TRACE] target.href = ", href);
 
     // if( href === "home" )
     // {  
@@ -909,7 +909,7 @@ function setHeadingsVisibility(visibility)
 
 document.addEventListener("keydown", (event) => {
 
-    console.log(" [TRACE] Keydown Event = ", event);
+    // console.log(" [TRACE] Keydown Event = ", event);
 
     // Keybind: '?' toggle keybind/shortcut reminder Window
     if (event.key == "?")
@@ -923,7 +923,7 @@ document.addEventListener("keydown", (event) => {
 
     // Focus on search bar after user types Ctrl+/
     if (event.ctrlKey && event.key === "/") {
-        console.log(" [TRACE] Ctrl + / pressed Ok. ");
+        /// console.log(" [TRACE] Ctrl + / pressed Ok. ");
         let sform = document.querySelector("#search-form")
         var dom = null;
         if (sform) {
