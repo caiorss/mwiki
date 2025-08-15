@@ -421,7 +421,7 @@ def make_app_server(  host:        str
             out = ""
             ## breakpoint()
             if p: 
-                out = flask.jsonify({ "status": "error", "error": "Note already exists"})
+                out = flask.jsonify({ "status": "error", "error": "File already exists"})
             else: 
                 p_ = base_path.joinpath(mdfile_)
                 p_.touch()    
