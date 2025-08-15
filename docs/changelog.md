@@ -1,5 +1,22 @@
 # Changelog 
 
+## Release v0.5
+
+
++ Implement site settings for changing code font.
+   + Implement settings form option that allows the admin to change the default code font (monospace font/typeface).
++ Implement caching of markdown-to-html compilation.
+  + Implement caching of markdown-to-html compilation, which allows faster page response and less server load (CPU usage) as the markdown files of wiki pages (notes)  are recompiled only when they are modified or when some dependency changes.
++ Add new monospace fonts/typefaces, including Commint Mono, Julia Mono, Julia Mono Light, Libertinus Mono, Libertinus Sans and Libertinus Serif. In this version, the following code (monospace) fonts are available: IBM Plex Mono; Go mono; Logic Monospace Regular; Logic Monospace Medium; Commint Mono; Julia Mono; Julia Mono Light and Libertinus Mono.
++ The popup window "quick open" now search page if input does not match user input.
+   + The popup window "Quick Open Wiki Page", that allows quickly switching to other wiki page by providing a user input text entry with title completion, now searches the terms entered by the user if they do not match any wiki page title.
++ Wiki pages (notes) with spaces in the file name are regarded as the same as pages with underline in the file name.
+  + After this change, the files  'Cloud Computing.md' abd 'Cloud_Computing.md' are regarded as the same file, consequentely the wiki pages 'Cloud Computing' and 'Cloud_Computing' are also regarded as the wiki page (note). This approach improves compatibility with Wikis or note taking applications  that use underline in file name and Wikis that use space in the file name.
++  Bugfix - Fix datalist DOM elment of popup window "Quick Open Wiki Page".
++  Bugfix - Function openWikiPageCallback() now uses underline '_' characters in the url instead of spaces.
++  Bugfix - Fix the display of edit buttons (pencil icons) due to architecture changes.
+   + Passing server data to the page via template no longer works because cached pages are served directly from the compilation output (html files). As a result, a rest api endpoint /api/auth was implemented for allowing the client-side to obtain the configuration data for modify the page without markdown recompilation on every request.
+
 ## Release v0.4
 
 + Use underline in URLs instead of whitespace.

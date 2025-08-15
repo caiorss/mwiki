@@ -148,6 +148,13 @@ NOTA: Embora as animações GIF estejam desatualizadas devido às principais mud
 
 ### Capturas de Tela (Screenshot)
 
+
+**Tela de Login (Autenticação)**
+
+Se o wiki estiver configurado como não público nos formulários de configuração, o usuário será redirecionado para o formulário de autenticação. O redirecionamento para este formulário também ocorre se o usuário tentar acessar qualquer página que exija autenticação.
+
+![](docs/images/login-screen.png)
+
 **Captura de Tela 1 do Wiki**
 
 Esta página do Wiki, cujo URL relativo é /wiki/Linear%20Algebra%20New, é gerada pelo processamento do arquivo 'Linear Algebra New.md'.
@@ -235,20 +242,24 @@ $ uv tool install git+https://github.com/caiorss/mwiki
 Instalou 2 executáveis: mwiki, mwiki-convert
 ```
 
-Instalar a versão estável mais recente: versão v0.4
+Instalar a versão estável mais recente: versão v0.5
+
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.5.zip
+```
+
+Instalar a versão: versão v0.4
+
 
 ```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.4.zip
-```
 
-Instalar a versão estável mais recente (usando o hash do commit que não tem como ser mudado após o commit ser publico): versão v0.4
+#ou 
 
-
-```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/a7d898080f8549d82fd8eb2766822cefeb776e1e.zip
 ``` 
 
-Instalar a versão estável mais recente: versão v0.3.1
+Instalar a versão: versão v0.3.1
 
 ```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.3.1.zip
@@ -259,7 +270,7 @@ $ uv tool install https://github.com/caiorss/mwiki/archive/3f4d38a8bc103dee8f892
 ```
 
 
-Instalar a versão estável mais recente: versão v0.2
+Instalar a versão: versão v0.2
 
 ```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.2.zip
@@ -938,10 +949,13 @@ O seguinte conjunto de softwares ou aplicativos complementares são recomendados
     + https://noscript.net/
     + *Browser extension that blocks scripts by default.*
     + *Extensão do navegador que bloqueia scripts por padrão.*
-+ *Árvore de Tabs para Firefox* (melhor navegação em muitas tabs)
++ *Tree-Style Tabs (Árvore de Tabs para Firefox)* (melhor navegação em muitas tabs)
     + https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab
-
-
++ *YouTube No Translation (addons.mozilla.org)*
+  + https://addons.mozilla.org/en-US/firefox/addon/youtube-no-translation/
++ *Cookie AutoDelete* (Para melhor privacidade e menos rastreamento)
+  + https://addons.mozilla.org/en-US/firefox/addon/cookie-autodelete/
+  + *Controle seus cookies! Esta WebExtension é inspirada nos Cookies Autodestrutivos. Quando uma aba é fechada, todos os cookies que não estão sendo utilizados são excluídos automaticamente. Mantenha aqueles em que você confia (para sempre/até reiniciar) e exclua os demais. Contêineres suportados.* (Tradução)
 
 **Tradução e Conversão de Texto em Fala**
 
@@ -1008,6 +1022,10 @@ Uma VPN Mesh Site-to-Site, como a **tailscale**, pode ser útil para hospedar es
 
 + *If it is worth keeping, save it in Markdown (Se vale a pena manter, salve em Markdown)*
   + https://p.migdal.pl/blog/2025/02/markdown-saves
++ *Why I prefer human-readable file formats*
+  + https://adele.pollux.casa/gemlog/2025-08-04_why_I_prefer_human-readble_file_formats.gmi
++ *How I use Tailscale*, Chris Smith (2025)
+  + https://chameth.com/how-i-use-tailscale/
 + *Exposing a web service with Cloudflare Tunnel (Expondo um serviço web com o Tunnel Cloudflare)*, Erissa A (2022)
   + https://erisa.dev/exposing-a-web-service-with-cloudflare-tunnel/
   + *What if you could host a web service with no ports exposed? With Cloudflare Tunnel, you can!*
