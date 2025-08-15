@@ -291,6 +291,7 @@ def make_app_server(  host:        str
         # of the mdfile without any extension
         if "." not in path:
             mdfile_ = path + ".md"
+            path_ = path
             path = path.replace("_", " ")
             ##print(f" [TRACE] mdfile_ = {mdfile_} ; base_path = {base_path}")
             ## 
@@ -309,7 +310,12 @@ def make_app_server(  host:        str
                                              , latex_macros = latex_macros
                                              )
                 return response
-            page = repository.get_wiki_page(title = path) 
+            # The files  'Cloud Computing.md' abd 'Cloud_Computing.md'
+            # are regarded as the same file, consequentely the wiki pages 'Cloud Computing'
+            # and 'Cloud_Computing' are also regarded as the wiki page (note). This approach
+            # improves compatibility with Wikis or note taking applications  that use underline
+            # in file name and Wikis that use space in the file name.
+            page = repository.get_wiki_page(title = path) or repository.get_wiki_page(title = path_)
             ## print(" [TRACE] matches = ", matches)
             # ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
             if not page:
