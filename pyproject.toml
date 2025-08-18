@@ -7,27 +7,28 @@ requires-python = ">=3.8"
 license = { text = "AGPL - GNU Afero" }
 ## authors = [ (name = "dummy", email = "user@mail") ]
 dependencies = [
-          'flask'
           #"flask==3.0.3"
-        , "flask-session"
-        , "flask-sqlalchemy"
-        , "flask_wtf"
-        , "frontmatter"
-        # , 'frontmatter==3.0.8"
-        , "markdown-it-py"
-        #, "markdown-it-py==3.0.0"
-        , "markdown-it-py[plugins]==3.0.0"
-        , "linkify-it-py"
-        , "pygments"
-        #, "click==8.1.7"
-        , "click"
-        , "cryptography"
-        , "tomli"
-        , "python-dateutil"
-        , "waitress"
-        , "watchdog"
-        #, "gurnicorn"
-        , "Pillow"
+          'flask',
+          "flask-session",
+          "flask-sqlalchemy",
+          "flask_wtf",
+          # , 'frontmatter==3.0.8"
+          "frontmatter",
+          #, "markdown-it-py==3.0.0"
+          "markdown-it-py",
+          "markdown-it-py[plugins]==3.0.0",
+          "linkify-it-py",
+          #, "click==8.1.7"
+          "pygments",
+          "click",
+          "cryptography",
+          "tomli",
+          "python-dateutil",
+          "waitress",
+          #, "gurnicorn"
+          "watchdog",
+          "Pillow",
+          "whoosh>=2.7.4",
 ]
 
 

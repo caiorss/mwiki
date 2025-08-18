@@ -177,12 +177,12 @@ def make_app_server(  host:        str
         if query == "":
             files = [(f, 1) for f in files_ ]
         else:
-            files = [(f, score) for f in files_ 
-                        if (score := search.file_contains(str(f), query)) != 0 ]
+            DUMMY_VALUE = 10
+            files = [(f, DUMMY_VALUE) for f in search.search_text(pathlib.Path(BASE_PATH), query)]
                      ##and utils.file_contains(os.path.join(BASE_PATH, f), query)]
         sorted_files = []
         if sort == "" or sort == "score":
-            sorted_files = sorted(files, key = lambda x: x[1], reverse = True)
+            sorted_files = files  # sorted(files, key = lambda x: x[1], reverse = True)
         elif  sort == "name":
             sorted_files = sorted(files, key = lambda x: x[0].name)
         elif sort == "modified":
@@ -434,10 +434,13 @@ def make_app_server(  host:        str
                 out = flask.jsonify({ "status": "ok", "error": ""})
             return out
         elif request.method == M_DELETE:
-            if not p: flask.abort(STATUS_CODE_404_NOT_FOUND)
-            if not user.user_can_edit(): flask.abort(STATUS_CODE_403_FORBIDDEN)
+            if not p:
+                flask.abort(STATUS_CODE_404_NOT_FOUND)
+            if not user.user_can_edit():
+                flask.abort(STATUS_CODE_403_FORBIDDEN)
             ## Remove file 
             p.unlink()
+            search.index_delete_page(base_path, p)
             out = flask.jsonify({ "status": "ok", "error": ""})
             return out
         else:
@@ -485,13 +488,14 @@ def make_app_server(  host:        str
             if submit_yes == "YES":
                 content = (   "---"
                              f"\ntitle:       {path}"
-                             f"\nlable:       {label}"
+                             f"\nlabel:       {label}"
                              f"\ndescription: {description}"
                              f"\nkeywords:    {keywords}"
                              "\n---\n\n"
                           )
                 page_path = base_path.joinpath(path + ".md")
                 page_path.write_text(content)
+                search.add_index_page(base_path, page_path)
                 out = flask.redirect(f"/wiki/{path}")
             else:
                 out = flask.redirect(f"/")
@@ -560,6 +564,8 @@ def make_app_server(  host:        str
                     text = "\n".join(lines)
                 ## match.write_text(text)                    
                 page.write(text)
+            # Update search index
+            search.update_index_page(base_path, page.path())
             out = { "status": "ok", "error": "" }
         resp = flask.jsonify(out)
         return resp

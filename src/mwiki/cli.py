@@ -18,6 +18,7 @@ import multiprocessing
 import mwiki.utils as utils
 from mwiki.server import make_app_server
 import mwiki.convert
+import mwiki.search as search
 from . import render
 from .models import User, Settings
 from .app import db, app 
@@ -179,6 +180,10 @@ def server(  host:       str
         if len(_login) != 2:
             ### print("Error expected login in format --login=<USERNAME>;<PASSWORD>")
             exit(1)
+    # Add all markdown files (Wiki pages) to the search index database (powered by Whoosh Python library)
+    base_path = pathlib.Path(_wikipath)
+    if not search.search_index_exists(base_path):
+        search.index_markdown_files(base_path)
     if wsgi:
         _loginp = f"{_username},{_password}" if _username != "" else None
         os.environ["SERVER_SOFTWARE"] = "waitress"
