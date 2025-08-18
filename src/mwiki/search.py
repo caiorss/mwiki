@@ -258,7 +258,7 @@ def update_index_page_(writer, base_path: pathlib.Path, mwiki_page_file: pathlib
 def update_index_page(base_path: pathlib.Path, mwiki_page_file: pathlib.Path):
     """Update a search index metadata of MWiki markdown page file."""
     index_dir = base_path / _SEARCH_INDEX_PATH
-    ix = create_in(str(index_dir), schema)
+    ix = open_dir(str(index_dir))
     writer = ix.writer()
     update_index_page_(writer, base_path, mwiki_page_file)
     writer.commit()
@@ -267,7 +267,7 @@ def add_index_page(base_path: pathlib.Path, mwiki_page_file: pathlib.Path):
     """Add MWiki page to search index."""
     afile = mwiki_page_file
     index_dir = base_path / _SEARCH_INDEX_PATH
-    ix = create_in(str(index_dir), schema)
+    ix = open_dir(str(index_dir), schema)
     writer = ix.writer()
     data    = _get_frontmatter(afile)
     title   =  data.get("title") or afile.name.split(".")[0]
