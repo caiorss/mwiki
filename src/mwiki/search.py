@@ -86,8 +86,9 @@ _NORMALIZATION_DATABASE = {
 
 def normalize_text(text: str) -> str:
     """Remove accents, such as ú or ç for making searching easier."""
-    out = (text 
+    out = (text
                 .replace("ã", "a")
+                .replace("õ", "o")
                 .replace("á", "a")
                 .replace("à", "a")
                 .replace("â", "a")
@@ -98,6 +99,12 @@ def normalize_text(text: str) -> str:
                 .replace("ê", "e")
                 .replace("ú", "u")
                 .replace("ç", "c")
+                .replace("ä", "a")
+                .replace("Ä", "A")
+                .replace("û", "u")
+                .replace("ü", "u")
+                .replace("ö", "o")
+                .replace("ß", "ss")
             )
     return out
 
@@ -229,7 +236,7 @@ def index_page_(writer, base_path: pathlib.Path, mwiki_page_file: pathlib.Path):
     content = afile.read_text()
     writer.add_document(  title = title
                         , description = data.get("description", "")
-                        , content = content
+                        , content = normalize_text(content)
                         , path = path
                         )
 
@@ -243,7 +250,7 @@ def update_index_page_(writer, base_path: pathlib.Path, mwiki_page_file: pathlib
     print(" [TRACE] Updateing document " + str(afile))
     writer.update_document(  title = title
                         , description = data.get("description", "")
-                        , content = content
+                        , content = normalize_text(content)
                         , path = path
                         )
 
@@ -268,7 +275,7 @@ def add_index_page(base_path: pathlib.Path, mwiki_page_file: pathlib.Path):
     content = afile.read_text()
     writer.add_document(  title = title
                            , description = data.get("description", "")
-                           , content = content
+                           , content = normalize_text(content)
                            , path = path
                           )
     writer.commit()
@@ -306,7 +313,9 @@ def search_text(base_path: pathlib.Path, query: str):
     with ix.searcher() as searcher:
         ##query_parser = QueryParser("content", ix.schema)
         query_parser = MultifieldParser(_fileds, schema = ix.schema, group = qparser.OrGroup)
-        aquery = query_parser.parse(query)
+        query_parser.add_plugin(qparser.FuzzyTermPlugin())
+        _query = normalize_text(query)
+        aquery = query_parser.parse(_query)
         results_ = searcher.search(aquery, limit = 20)
         results = list(results_)
         for r in results:
