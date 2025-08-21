@@ -1,3 +1,7 @@
+/* Settings for the JavaScript code editor Ace9
+ *
+ ********************************************************/
+
 let editor = ace.edit("editor");
 editor.setTheme("ace/theme/monokai");
 editor.session.setMode("ace/mode/markdown");
@@ -216,10 +220,6 @@ async function pasteImage(event) {
         let out = await http_post("/paste", payload);
         /// console.log(" Output = ", out);
         editorInsertTextArCursor(`\`\`\`{figure} ![[${fileName}]]`
-                                + "\n:name: "
-                                + "\n:alt: Optional Alt text (alternative) text for accessibility"
-                                + "\n"
-                                + "\nOptional Figure caption here."
                                 + "\n```"
                                 );
         // Automatically save document after pasting any image.
