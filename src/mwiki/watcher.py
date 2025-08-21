@@ -9,7 +9,9 @@ from watchdog.observers import Observer
 from watchdog.events import LoggingEventHandler
 import watchdog.events as events
 import mwiki as mw
+import pathlib
 import mwiki.utils as utils
+import mwiki.search as search
 from .mparser import parse_file, SyntaxTreeNode
 from mwiki.app import MWIKI_REPOSITORY_PATH
 
@@ -32,6 +34,8 @@ class Event(LoggingEventHandler):
         
     def dispatch(self, event):
         if event.event_type == "modified" and event.src_path.endswith(".md"):
+            print(f" [TRACE] Updating searching index of {event.src_path}")
+            search.update_index_page(pathlib.Path(mwiki_path), pathlib.Path(event.src_path))
             print(" [TRACE] Updating tags.")
             update_tags_index()
 

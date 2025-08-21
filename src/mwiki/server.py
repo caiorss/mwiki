@@ -565,7 +565,9 @@ def make_app_server(  host:        str
                 ## match.write_text(text)                    
                 page.write(text)
             # Update search index
-            search.update_index_page(base_path, page.path())
+            # NOTE: The search index is updated by the module mwiki.watcher outside the
+            # request-response cycle. The module watcher detects files changed in the data repository
+            # and updates the search index.
             out = { "status": "ok", "error": "" }
         resp = flask.jsonify(out)
         return resp
