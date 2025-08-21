@@ -23,6 +23,8 @@ class SettingsForm(fwt.FlaskForm):
                                             ) 
                                           )
     vim_emulation = wt.BooleanField("VIM Emulation", description="Enable VIM editor emulation in the Wiki code editor (Ace9).")
+    show_licenses = wt.BooleanField("Show Licenses", description="Displays menu option showing 'Licenses' that shows all open"
+																 "Source licenses used by this project.")
     main_font = wt.SelectField("Main Font", choices = [(ch.value, ch.value) for ch  in models.FontFamiliyEnum])
     code_font = wt.SelectField("Code Font", choices = [(ch.value, ch.value) for ch  in models.CodeFontFamily])
     title_font = wt.SelectField("Title Font", choices = [(ch.value, ch.value) for ch  in models.TitleFontFamily])

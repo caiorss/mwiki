@@ -159,6 +159,11 @@ class Settings(db.Model):
     # will be displayed for all users. If this setting is disabled, the edit button will only be shown
     # for admins or users with permission for editing.
     display_edit_button: so.Mapped[bool] = so.mapped_column(default = True)
+    ## Display open source licenses
+    # If enabled shows a menu option that displays all open source licenses of dependencies used by
+    # this project and information about this server.
+    # server and displaying
+    show_licenses: so.Mapped[bool] = so.mapped_column(default = True)
     # Enable/disable VIM editor emulation
     vim_emulation: so.Mapped[bool] = so.mapped_column(default = False)
     # Web Site Name 

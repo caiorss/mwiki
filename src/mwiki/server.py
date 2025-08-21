@@ -140,6 +140,7 @@ def make_app_server(  host:        str
             form.main_font.data = conf.main_font
             form.title_font.data = conf.title_font
             form.code_font.data = conf.code_font
+            form.show_licenses.data = conf.show_licenses
         if request.method == M_POST:
             form.validate()
             app.logger.info(f"Form data = {form.data}")    
@@ -152,6 +153,7 @@ def make_app_server(  host:        str
             conf.code_font = form.code_font.data 
             conf.display_edit_button = form.display_edit_button.data
             conf.vim_emulation = form.vim_emulation.data
+            conf.show_licenses = form.show_licenses.data 
             conf.save()
             flask.flash("Wiki settings updated successfully.")
             app.logger.info("Wiki setting updated.")
