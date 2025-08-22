@@ -1,5 +1,18 @@
 # Changelog 
 
+
+## Release v0.5.1
+
++ Implement fast and efficient full text search.
+  + Implement fast and efficient full text search, similar to web search engine using Python Whoosh library.  + Improve full text search by normalizing words and adding the fuzzy match plugin.
++ Update search index outside the http request-response transaction.
+  + Now the Python Woosh search index is updated outside the request-response cycle for speeding up the server response.  The module mwiki.watcher watches the file system and detects modified markdown files and updates the search index database of Python Woosh full-text search engine.
++ Implement checkbox show licenses (enabled by default) in the settings form.
+  + If this checkbox is eanbled, a menu option whith the label 'Licenses' is added to the main menu. When clicked this menu option redirects to a page showin the license of this project AGPL (GNU Afero) and the licenses of all depedencies used by this project giving credit to other projects and open source developers.
++ Change code for {figure} block of pasted image inserted in the editor.
++ The http route /licenses is only available if show_licenses flags is enabled.
++ Add Python Whoosh to open source licenses template page.
+
 ## Release v0.5
 
 
@@ -39,14 +52,14 @@
 + Implement figure syntax for images with metadata, including caption/label, alt text (alternative text) for better accessibility, unique identifier and automatic enumeration. It is similar to MyST markdown figure syntax.
 +  Editor now uses figure syntax when pasting an image instead of the old image syntax.
 
-### Release v0.3.1
+## Release v0.3.1
 
 + Implement optional section enumeration.
 + Implement Keyboard shortcuts for quick navigation.
 + Disable annoying pull-down-to-refresh behavior in mobile browsers.
 
 
-### Release v0.2
+## Release v0.2
 
 +  Centralize document title heading h1.
 + Bugfix - Display Links menu items of Page menu for all users, including anonymous users.  
@@ -98,7 +111,7 @@
   + This commit makes it possible to install this application with pipx and Poetry with newer versions of Python.  In addition, unlike Gunicorn, waitress WSGI sever also works on Microsoft Windows.
 
 
-### Release v0.1
+## Release v0.1
 
 + First release.
 + Implement of MyST comments.

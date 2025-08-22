@@ -29,6 +29,7 @@ Aplicações:
 #### Funcionalidades Wiki
 
 + Wiki baseado em arquivo: todas as páginas Wiki são armazenadas como arquivos Markdown, como o motor wiki Moin Moin e o Dokuwiki. No entanto, ele usa um banco de dados de arquivos SQLite ou qualquer banco de dados completo para fins de gerenciamento do sistema.
++ Pesquisa de texto completo *(full text search)* que permite consultas de pesquisa complexas semelhantes aos mecanismos/motores de busca da web.
 + Suporta MyST Markdown, GFM (Github-Flavored Markdown Support), subconjunto da sintaxe Obsidian Markdown, subconjunto da linguagem de marcação Mediawiki e HTML embutido.
 + Páginas escritas em linguagem de marcação baseada em Markdown em vez de HTML, o que permite que qualquer pessoa não programadora escreva documentos científicos e técnicos que são renderizados em HTML.
 + Botões para editar seções específicas do documento, semelhantes aos botões de edição de seções do Mediawiki.
@@ -242,15 +243,26 @@ $ uv tool install git+https://github.com/caiorss/mwiki
 Instalou 2 executáveis: mwiki, mwiki-convert
 ```
 
-Instalar a versão estável mais recente: versão v0.5
+Instalar a versão estável mais recente: versão v0.5.1
+
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.5.1.zip
+```
+
+Instalar a versão estável mais recente v0.5.1 usando o hash de commit (reproduzível e imutável).
+
+```sh
+
+```
+
+Instalar a versão: versão v0.5
+
 
 ```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.5.zip
-```
 
-Instalar a versão estável mais recente v0.5 usando o hash de commit (reproduzível e imutável).
+## Or
 
-```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/e433a7c903be82919996fdd1f2f114bfb2c43497.zip
 ```
 
@@ -702,6 +714,9 @@ Veja também:
 
 ### Acesse o MWiki na rede local
 
+AVISO: Este procedimento não é seguro em redes locais não confiáveis, como Wi-Fi público, sem criptografia SSL/TLS ou criptografia SSH se o encaminhamento de porta for usado, pois qualquer pessoa na rede local usando um sniffer de rede, incluindo W1r3sh4rk, pode interceptar qualquer tráfego de rede não criptografado.
+
+
 **PASSO 1:**
 
 Obtenha o nome do host do computador onde o mDNS está instalado no Linux, MacOSX ou Windows executando o seguinte comando em um emulador de terminal. No Microsoft Windows, um emulador de terminal pode ser aberto digitando Windows-Key + R e digitando "cmd".
@@ -785,7 +800,7 @@ $ sudo firewall-cmd --reload
 
 ### Encaminhamento de Porta SSH (SSH Port Forwarding)
 
-O recurso para colar imagens da área de transferência requer um contexto seguro do navegador, que pode ser obtido executando o servidor MWiki usando um proxy reverso TLS (Transport Layer Security), como o Caddy, ou executando-o em um host local. Uma maneira alternativa de obter um [contexto seguro]((https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts)) sem precisar instalar o NGinx ou o Caddy é usar o encaminhamento de porta local SSH para redirecionar o tráfego de rede da porta TCP local para a porta TCP de uma máquina remota, qualquer computador com um servidor ssh instalado. Por exemplo, se o MWiki estiver executando uma máquina remota cujo nome de host é dummy.local (endereço IPv4 da rede local 192.168.0.115) e que escuta a porta TCP 9090, é possível redirecionar o tráfego de rede da porta local 8080 para a porta 9090 da máquina fictícia com o comando ssh
+O recurso para colar imagens da área de transferência requer um contexto seguro do navegador, que pode ser obtido executando o servidor MWiki usando um proxy reverso TLS (Transport Layer Security), como o Caddy, ou executando-o em um host local. Uma maneira alternativa de obter um [contexto seguro]((https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts)) sem precisar instalar o NGinx ou o Caddy é usar o encaminhamento de porta local SSH para redirecionar o tráfego de rede da porta TCP local para a porta TCP de uma máquina remota, qualquer computador com um servidor ssh instalado. Por exemplo, se o MWiki estiver executando uma máquina remota cujo nome de host é dummy.local (endereço IPv4 da rede local 192.168.0.115) e que escuta a porta TCP 9090, é possível redirecionar o tráfego de rede da porta local 8080 para a porta 9090 da máquina dummy com o comando ssh
 
 
 ```sh

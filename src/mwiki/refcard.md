@@ -1342,6 +1342,23 @@ Rendering:
    4. Element 3.4
 4. Element 4
 
+
+### List of Checkboxes / List of Tasks
+
+Example:
+
+```markdown
++ [x] Implement full text search.
++ [ ] Implement a revision control system.
+```
+
+Rendering:
+
++ [x] Implement full text search.
++ [ ] Implement a revision control system.
+
+
+
 ### Definition Lists 
 
 Example: 

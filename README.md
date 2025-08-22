@@ -32,6 +32,7 @@ See also:
 #### Wiki Features 
 
 + File-based Wiki: all Wiki pages are stored as Markdown files like Moin Moin wiki engine and Dokuwiki. However, it uses SQLite file database or a any full-featured database for system management purposes. 
++ Full text search which allows complex search queries similar to web search engines.
  + Supports MyST Markdown, GFM (Github-Flavored Markdown Support), subset of Obsidian Markdown syntax, subset of Mediawiki markup language and inline HTML.
  + Pages written in Markdown-based markup language instead of HTML, which allows to any non programmers to write scientific and technical documents that are rendered to html. 
  + Buttons for editing specific document sections similar to Media wiki section editing buttons. 
@@ -245,15 +246,25 @@ $ uv tool install git+https://github.com/caiorss/mwiki
   Installed 2 executables: mwiki, mwiki-convert
 ```
 
-Install latest stable release: version v0.5
+Install latest stable release: version v0.5.1
+
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.5.1.zip
+```
+
+Install latest stable release v0.51 using the commit hash (reproducible and immutable).
+
+```sh
+
+```
+
+Install release: version v0.5
 
 ```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.5.zip
-```
 
-Install latest stable release v0.5 using the commit hash (reproducible and immutable).
+## Or
 
-```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/e433a7c903be82919996fdd1f2f114bfb2c43497.zip
 ```
 
@@ -694,6 +705,9 @@ See also:
 ## Post-Installation 
 
 ### Access MWiki in the local network
+
+WARNING: This procedure is not safe on untrusted local networks, such as public Wifis, without SSL/TLS encryption or SSH encryption if port forwarding is used, as anyone in the local network using a network sniffer, including W1r3sh4rk, may intercept any non encrypted network traffic.
+
 
 **STEP 1:** 
 
