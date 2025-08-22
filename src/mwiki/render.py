@@ -1130,6 +1130,8 @@ class HtmlRenderer(AbstractAstRenderer):
               </pre>
             </div>
             """
+        # Render figure (pictures/images) with metadata including
+        # height, width, alt text,
         elif info.startswith("{figure}"):
             image = utils.strip_prefix("{figure}", info).strip()
             if image.startswith("![[") and image.endswith("]]"):
