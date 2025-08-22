@@ -22,68 +22,6 @@ _ENGLISH_STOP_WORDS = [
              , "those", "a", "an" 
              ]
 
-## Database for normalization of English words  
-_NORMALIZATION_DATABASE = {
-       "scripts":  "script"
-    ,  "sources":  "source"
-     , "networks": "network"
-     , "networking": "network"
-     , "identifiers": "identifiers"
-     , "objects": "object"
-     , "countries":  "country"
-     , "people":  "person"
-     , "men":  "man"
-     , "women": "woman"
-     , "guys":   "guy"
-     , "girls":  "girl"
-     , "gurls":  "girl"
-     , "children": "child"
-     , "leaves": "leaf"
-     , "choices": "choice"
-     , "ports":  "port"
-     , "gateway": "gate"
-     , "mathematics": "math"
-     , "arrays": "array"
-     , "matrices": "matrix"
-     , "vectors":  "vector"
-     , "formulas": "formula"
-     , "formulae": "formula"
-     , "engines":  "engine"
-     , "systems":  "system"
-     , "services":  "service"
-     , "projects": "project"
-     , "packages": "package"
-     , "features": "feature"
-     , "functions": "function"
-     , "methods":   "method"
-     , "protocols":  "protocol"
-     , "classes":      "class"
-     , "dependencies": "dependency"
-     , "IDs":          "id"
-     , "ids":          "id"
-     , "APIs":         "api"
-     , "apps":         "app"
-     , "jobs":         "job"
-     , "tasks":        "task"
-     , "listing":       "list"
-     ,  "lists":        "list"
-     , "debugging":    "debug"
-     , "logging":      "log"
-     , "libraries":    "library"
-     , "libs":         "library"
-     , "lib":          "library"
-     , "diseases":     "disease"
-     , "employees":    "employee"
-     , "universities": "university"
-     , "schools":      "school"
-     , "U.K.":         "UK"
-     , "U.K":          "UK"
-     , "U.S.":         "US"
-     , "U.S":          "US"
-}
-
-
-
 def normalize_text(text: str) -> str:
     """Remove accents, such as ú or ç for making searching easier."""
     out = (text
@@ -106,12 +44,6 @@ def normalize_text(text: str) -> str:
                 .replace("ö", "o")
                 .replace("ß", "ss")
             )
-    return out
-
-def normalize_words(text: str) -> str:
-    out = text 
-    for word in _NORMALIZATION_DATABASE.keys():
-        out = re.sub(r"\b%s\b" % word, _NORMALIZATION_DATABASE[word], out)
     return out
 
 
@@ -144,7 +76,7 @@ def file_contains(fileName: str, query: str, opt = "and_all", flag_normalize_wor
         # the server.
         while line := fd.readline():
             line_ = normalize_text(line.lower())
-            line_ = normalize_words(line_) if flag_normalize_words else line_
+            ## line_ = normalize_words(line_) if flag_normalize_words else line_
             # Ignore case
             if opt == "exact" and query in line_ :
                 result = True
