@@ -255,7 +255,7 @@ $ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.5.1.zip
 Install latest stable release v0.51 using the commit hash (reproducible and immutable).
 
 ```sh
-
+$ uv tool install https://github.com/caiorss/mwiki/archive/239eeab1a5e52ec7ed8ad941866bb3292052fa09.zip
 ```
 
 Install release: version v0.5
