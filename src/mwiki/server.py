@@ -231,6 +231,9 @@ def make_app_server(  host:        str
     @app.get("/licenses")
     def route_licenses():
         """Serve page showing open source licenses of dependencies used in this project."""
+        conf = Settings.get_instance()
+        if not conf.show_licenses:
+            flask.abort(STATUS_CODE_404_NOT_FOUND)
         resp = flask.render_template("licenses.html", title="Open Source Licenses")
         return resp
 
