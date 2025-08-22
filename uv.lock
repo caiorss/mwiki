@@ -694,7 +694,7 @@ wheels = [
 
 [[package]]
 name = "mwiki"
-version = "0.5"
+version = "0.51"
 source = { editable = "." }
 dependencies = [
     { name = "click" },
