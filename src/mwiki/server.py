@@ -141,6 +141,8 @@ def make_app_server(  host:        str
             form.title_font.data = conf.title_font
             form.code_font.data = conf.code_font
             form.show_licenses.data = conf.show_licenses
+            form.default_locale.data = conf.default_locale
+            form.use_default_locale.data = conf.use_default_locale
         if request.method == M_POST:
             form.validate()
             app.logger.info(f"Form data = {form.data}")    
@@ -154,11 +156,18 @@ def make_app_server(  host:        str
             conf.display_edit_button = form.display_edit_button.data
             conf.vim_emulation = form.vim_emulation.data
             conf.show_licenses = form.show_licenses.data 
+            conf.default_locale = form.default_locale.data
+            conf.use_default_locale = form.use_default_locale.data
             conf.save()
             flask.flash("Wiki settings updated successfully.")
             app.logger.info("Wiki setting updated.")
             flask.redirect("/settings")
-        resp  = flask.render_template("settings.html", form = form, title = "Wiki Settings")
+        page_title_i18n_tag = "settings-page-title"
+        resp  = flask.render_template(	  "settings.html"
+										, form = form
+										, title = "Wiki Settings"
+										, page_title_i18n_tag = page_title_i18n_tag
+										)
         return resp
 
     ##@auth_basic(is_authhenticated)
@@ -205,9 +214,15 @@ def make_app_server(  host:        str
                       , "metadata": mparser.get_pagefile_metadata( page_to_file(f))
                    } 
                  for f in sorted_files ]
-        title = f"Search results for \"{query}\"" if query != "" else "All pages"
+        ##title = f"Search results for \"{query}\"" if query != "" else "All pages"
+        
+        # [i18n] in English: 'Search results for"
+        title = f"[i18n] \"{query}\"" if query != "" else "All pages"
+        page_title_i18n_tag = "title-search-results-page" \
+			if query != "" else "title-listing-all-pages"
         response = flask.render_template( "listing.html"
                                          , title = title
+										 , page_title_i18n_tag = page_title_i18n_tag
                                          , pages = pages
                                          , size  = len(pages)
                                          , query = query
@@ -225,7 +240,8 @@ def make_app_server(  host:        str
     def route_about():
         """Show about page."""
         resp = flask.render_template( "about.html"
-                                     , title = "About " + Settings.get_instance().sitename )
+									 , page_title_i18n_tag = "about-page-title"
+                                     , title = "[i18n] " + Settings.get_instance().sitename )
         return resp
 
     @app.get("/licenses")
@@ -278,7 +294,8 @@ def make_app_server(  host:        str
         ## html = mparser.fill_template(f"Source of '{page}.md'", content, toc = "", query = "")
         html = flask.render_template("source.html"
                                      , page = path 
-                                     , title = f"Source: {path}"
+                                     , title = f"[i18n]: {path}"
+                                     , page_title_i18n_tag = "source-page-title"
                                      , content = content)
         return html
 
@@ -534,7 +551,8 @@ def make_app_server(  host:        str
                 content = "\n".join(lines[line_start:line_end]) 
             ## print(" [TRACE] content = ", content)
             resp = flask.render_template(  "edit.html"
-                                         , title = f"Edit page: {path}" 
+                                         , title = f"[i18n]: {path}"
+                                         , page_title_i18n_tag = "edit-page-title"
                                          , page = path
                                          , page_link = path.replace(" ", "_")
                                          , content = content)

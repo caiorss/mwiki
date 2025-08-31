@@ -25,6 +25,10 @@ class SettingsForm(fwt.FlaskForm):
     vim_emulation = wt.BooleanField("VIM Emulation", description="Enable VIM editor emulation in the Wiki code editor (Ace9).")
     show_licenses = wt.BooleanField("Show Licenses", description="Displays menu option showing 'Licenses' that shows all open"
 																 "Source licenses used by this project.")
+    use_default_locale = wt.BooleanField("Default Locale", description=("Always use default locale regardless of" " user's preferred locale provided by the web browser.") )
+    default_locale = wt.SelectField("default_locale", choices = [ ("en-US", "en-US - American English")
+															     ,("pt-BR", "pt-BR - Brazilian Portuguese") ]
+															     )
     main_font = wt.SelectField("Main Font", choices = [(ch.value, ch.value) for ch  in models.FontFamiliyEnum])
     code_font = wt.SelectField("Code Font", choices = [(ch.value, ch.value) for ch  in models.CodeFontFamily])
     title_font = wt.SelectField("Title Font", choices = [(ch.value, ch.value) for ch  in models.TitleFontFamily])

@@ -5,7 +5,7 @@
             <div id="page-search">
                 <form id="search-form" class="form-style" action="/pages" mehtod="GET">
                     <fieldset>
-                        <legend>Search pages</legend>
+                        <legend data-i18n="search-form-label">Search pages</legend>
                         <div class="field">
                             <input class="style-form-input" 
                                    type="search" id="site-search-bar" 
@@ -14,32 +14,32 @@
                                    value="{{query}}" />
                         </div>
                         <div class="field">
-                            <input type="submit" class="style-form-button" value="Search" />
-                            <input type="button"  class="style-form-button" value="Clear" onclick="clearFormEntries('#search-form');" />
-                            <input type="button"  class="style-form-button" onclick="redirect('/pages');" value="All" title="List all pages" />
+                            <input data-i18n="search-form-search-button-label" type="submit" class="style-form-button" value="Search" />
+                            <input data-i18n="search-form-clear-button-label" type="button"  class="style-form-button" value="Clear" onclick="clearFormEntries('#search-form');" />
+                            <input data-i18n="search-form-all-button-label" type="button"  class="style-form-button" onclick="redirect('/pages');" value="All" title="List all pages" />
                         </div>
                     </fieldset>
                 </form>
         </div>
 
         <div class="div-sort">
-            <strong>Sort by:</strong>
+            <strong data-i18n="search-results-sort-by-label">Sort by:</strong>
             <div class="div-sort-content">
-                <a class="link-internal" title="Sort by score" 
+                <a data-i18n="sort-by-score-link-button" class="link-internal" title="Sort by score" 
                     href="/pages?search={{query}}&sort=score">Score</a>
-                <a class="link-internal" title="Sort by name" 
+                <a data-i18n="sort-by-name-link-button" class="link-internal" title="Sort by name" 
                     href="/pages?search={{query}}&sort=name">Name</a>
-                <a class="link-internal" title="Sort by modified time in reverse order"
+                <a data-i18n="sort-by-modified-time-link-buttton" class="link-internal" title="Sort by modified time in reverse order"
                     href="/pages?search={{query}}&sort=modified">Modified</a>
-                <a class="link-internal" title="Sort by created time in reverse order"
+                <a data-i18n="sort-by-created-time-link-button" class="link-internal" title="Sort by created time in reverse order"
                     href="/pages?search={{query}}&sort=created">Created</a>
             </div>
         </div>
 
        <div>
-        <h2>Pages</h2>
+        <h2 data-i18n="search-results-h2-label">Pages</h2>
 
-        Results: {{ size }}
+        <label data-i18n="number-of-search-results-label">Results</label>: {{ size }}
         <hr>
 
         {% for p in pages %}
@@ -74,7 +74,7 @@
 
                 {% if p.matches %}
                 <details>
-                    <summary>Search matches</summary>
+                    <summary data-i18n="search-matches-label">Search matches</summary>
                     <ul>
                         {% for m in p.matches %}
                         <li><span class="search-item">{{ m }}</span></li>

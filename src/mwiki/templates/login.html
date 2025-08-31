@@ -79,6 +79,13 @@
             }
                            
         </style>
+        <script>
+            const FONT_FAMILY_MAIN = "{{ config_main_font() }}";
+			const FONT_FAMILY_TITLE = "{{ config_title_font() }}";
+			const FONT_FAMILY_CODE = "{{ config_code_font() }}";
+            const CSRF_TOKEN = "{{ csrf_token() }}";
+        </script>
+        <script type="text/javascript" src="/static/main.js"></script>
     </head>
     <body>
         <div class="login-wrapper">
@@ -86,17 +93,17 @@
                 <h1 class="login-title title is-1">{{ config_sitename() }} Login</h1>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <div class="field" >
-                    <label for="username">User name</label>
+                    <label for="username" data-i18n="username-label" >User name</label>
                     <br>
-                    <input type="text" name="username" placeholder="Enter your username"></input>
+                    <input type="text" data-i18n="username-placeholder" name="username" placeholder="Enter your username"></input>
                 </div>
                 <div class="field">
-                    <label for="password">Password</label>
+                    <label for="password" data-i18n="password-label">Password</label>
                     <br>
-                    <input type="password" name="password" placeholder="Enter your password"></input>
+                    <input type="password" data-i18n="password-placeholder" name="password" placeholder="Enter your password"></input>
                 </div>
                 <div class="field">
-                    <input type="submit" class="login-button button is success" name="submit" value="LOGIN">
+                    <input type="submit" data-i18n="login-button" class="login-button button is success" name="submit" value="LOGIN">
                 </div>
             </form>
         </div>

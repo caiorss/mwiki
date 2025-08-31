@@ -645,7 +645,7 @@ class HtmlRenderer(AbstractAstRenderer):
             pagename = self._pagefile.split(".")[0] if not self._is_embedded_page else self._embedded_page
             page_link = pagename.replace(" ", "_")
             url =  f"/edit/{page_link}?start={line_start}&end={line_end}&anchor={anchor}&page={pagename}"
-            edit_link = f"""<a class="link-edit" style="display:none" href="{url}" title="Edit heading: {value}" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>"""
+            edit_link = f"""<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="{url}" title="[i18n]: {value}" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>"""
             ## breakpoint()
             html   = (f"""<div class="div-heading">""" 
                       f""" \n<{tag} id="{anchor}" class="document-heading anchor">{value} {link}</{tag}>"""
@@ -1151,12 +1151,12 @@ class HtmlRenderer(AbstractAstRenderer):
             if not self._preview:
                 html = ("""<div class="div-wiki-image" div-figure>""" 
                         """<img id="figure-%s" class="wiki-image lazy-load anchor" data-src="%s" alt="%s" %s %s>""" 
-                        """<p class="figure-caption"><strong>Figure %d:</strong> %s</p>"""
+                        """<p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> %d: %s</p>"""
                         """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption)
             else:
                 html = ("""<div class="div-wiki-image" div-figure>""" 
                         """<img id="figure-%s" class="wiki-image  anchor" src="%s" alt="%s" %s %s>""" 
-                        """<p class="figure-caption"><strong>Figure %d:</strong> %s</p>"""
+                        """<p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> %d: %s</p>"""
                         """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption)
             self._figure_counter += 1
         elif info == "{example}":

@@ -115,6 +115,315 @@ class PopupWindow
     }
 }
 
+translationsi18n = 
+{
+    "en-US": {
+		  "locale": 				  "English"
+		, "locale-name-native":       "American (USA) English"
+		, "settings-page-title":      "Wiki Settings" 
+		, "source-page-title":        "Source Code"
+		, "sidebar-toggle-button":    { "title": "Toggle sidebar." }
+		, "button-toggle-sections":   { "title": "Fold/Unfold all sections." }
+		, "main-menu":                { "title": "Main menu" }
+		, "pages-menu":               { "title": "Menu containing actions for current page." } 
+		, "home-page-button":         { "title": "Go to the initial page (index)" }
+		, "menu-item-view-label":     "View"
+		, "menu-item-edit-label":     "Edit"
+		, "tags-menu-item-label":     { "label": "Tags", "title": "Browse pages using tags." }
+		, "menu-item-delete-label":   { "label": "Delete", "title": "Delete this wiki page" }
+		, "menu-item-source-label":   { "label": "Source", "title": "Display source code of current wiki page." }
+		, "links-menu-item-label":    { "label": "Links", "title": "Display all external and internal links of this wiki page." }
+		, "login-button": 			  "LOGIN"
+		, "username-label": 		  "User Name"
+		, "username-placeholder": 	  "Enter your username"
+        , "password-label": 		  "Password"
+        , "password-placeholder":     "Enter your password"
+        , "keybindings-menu-item":    
+			{  "label": "Keybindings"
+			 , "title": "Display a window showing all keyboard shortcuts, also known as keybindings."
+			}
+		, "login-menu-item-label": 	  "Log in"
+		, "logoff-menu-item-label":   "Log off"
+        , "settings-menu-item-label": {  "label": "Settings"
+										,"title": "Form for changing web site settings, including description and site name."
+									  }
+        , "about-menu-item-label":    "About"
+        , "new-account-menu-item-label": "New Account"
+        , "user-settings-item-label": "My Account"
+        , "licenses-menu-item-label": 
+				{  "label": "Licenses"
+				 , "title": "Licenses of open source libraries used by this project."
+				}
+		, "edit-section-button": { "title": "Edit section" }
+		, "search-entry-placeholder": "Search"
+		, "search-menu-item-label" :  "Search"
+        , "sidebar-search-label":     "Search"
+        , "sidebar-table-of-contentes-label": "Contents"
+		, "figure-prefix-label": "Figure"
+		, "title-listing-all-pages":   "All pages"
+		, "title-search-results-page": "Search results for"
+		, "search-form-label":  "Search pages"
+		, "search-form-search-button-label": "Search"
+		, "search-form-clear-button-label": "Clear"
+		, "search-form-all-button-label":  "All"
+		, "search-results-sort-by-label":  "Sort by"
+		, "search-results-h2-label":  "Pages"
+		, "number-of-search-results-label": "Results"
+		, "sort-by-score-link-button":          { "label": "Score", "title": "Sort by score." }
+		, "sort-by-name-link-button":           { "label": "Name",  "title": "Sort by name (alphabetic order)" }
+		, "sort-by-modified-time-link-buttton": { "label": "Modified", "title": "Sort by modified time" }
+		, "sort-by-created-time-link-button":   { "label": "Created", "title": "Sort by created time" }
+		, "search-matches-label": "Search matches"
+		, "settings-page-go-back-label": "Go back to"
+		, "settings-update-button": "Update"
+		, "settings-sitename-label": "Website Name"
+		, "settings-website-description-label": "Website Description"
+		, "settings-public-checkbox-label": "Public"
+		, "settings-display-edit-button-checkbox-label": "Diplay edit button"
+		, "settings-vim-emulation-checkbox-label":       "Vim Emulation"
+		, "settings-show-source-checkbox-label":         "Show Page Source"
+		, "settings-show-licenses-checkbox-label":       "Show Licenses"
+		, "settings-main-font-label":  					 "Main Font"
+		, "settings-title-font-label": 					 "Title Font"
+		, "settings-code-font-label":  					 "Code Font"
+		, "settings-show-licenses-checkbox-description": "Displays menu option showing 'Licenses' that shows all open Source licenses used by this project."
+		, "settings-show-source-checkbox-description":   "Provides a button that allows viewing the Markdown (wiki text) source code a wiki"
+		, "settings-vim-emulation-checkbox-description": "Enable VIM editor emulation in the Wiki code editor (Ace9)"
+		, "settings-display-edit-button-checkbox-description": "Display the wiki edit button for all users [E]. If this setting is disabled,  only admin users or users with permission to edit pages will be able to view the edit button."
+		, "settings-public-checkbox-description": "If enabled, everybody including non logged in users will be able to view the wiki content. Note that only logged in users can edit the wiki." 
+		, "settings-default-locale-label":               "Default Locale"
+		, "settings-use-default-locale-checkbox-label":  "Use default locale/language"
+		, "settings-use-default-locale-description": "Always use the default locale (language) regardless of the user preferred language provided by the web browser."
+		, "about-page-title":          "About"
+		, "edit-page-title":           "Editing Page"
+		, "edit-page-toolbar-title":   "Editor Toolbar"
+		, "edit-page-h3-insert-label": "Insert"
+		, "edit-page-h3-actions-label": "Actions"
+		, "edit-page-document-status-label": "Document not saved yet"
+		, "edit-page-back-button": {  "label": "Back"
+									, "title": "Switch to document view mode and exit editing mode."}
+
+		, "edit-page-preview-button": { 
+									      "label": "Preview"
+										, "title": "View how page will look like before saving."
+									  }
+		, "edit-page-save-button":  {
+										  "label": "Save"
+										, "title": "Save document and switch to view mode."
+									}
+		, "edit-page-undo-button": "Undo"
+		, "edit-page-redo-button": "Redo"
+		, "edit-page-refcard-button": {
+										  "label": "Reference Card"
+										, "title": "Displays reference card containing examples about the markdown syntax."
+									  }
+		, "edit-page-insert-link-button": {
+											  "label": "Link to Wiki page" 
+											 ,"title": "Insert hyperlink to existing wiki page at current cursor position."
+
+											}
+		, "edit-page-upload-button": "Link to Uploaded File"
+		, "edit-page-insert-latex-equation": "LateX Equation"
+		, "edit-page-insert-latex-non-numbered-button": "Non Numbered LaTex Equation"
+		, "edit-page-insert-theorem-button": "Theorem"
+		, "edit-page-insert-details-button": "Details"
+		, "edit-page-clipboard-h3-label": "Clipboard Options"
+		, "edit-page-p-clipobard": "Select the clipboard pasting mode"
+	}
+   ,"pt-BR": {
+		  "locale":                   "Brazilian Portuguese"
+		, "locale-name-native": 	  "Português Brasileiro"
+		, "settings-page-title":      "Configurações da Wiki" 
+		, "source-page-title":        "Código Fonte"
+		, "sidebar-toggle-button":    { "title": "Abre ou fecha barra lateral." }
+		, "button-toggle-sections":   { "title": "Dobrar/Desdobrar todas as seções." }
+		, "main-menu":                { "title": "Menu principal" }
+		, "pages-menu":               { "title": "Menu contendo ações para a página atual." } 
+		, "home-page-button":         { "title": "Ir para a página inicial (Index)" }
+		, "menu-item-view-label":     "Ver"
+		, "menu-item-edit-label":     "Editar"
+		, "tags-menu-item-label":     { "label": "Tags", "title": "Navegar pelas páginas usando tags." }
+		, "menu-item-delete-label":   { "label": "Deletar", "title":  "Excluir esta página wiki"}
+		, "menu-item-source-label":   { "label": "Fonte", "title": "Exibir código-fonte da página wiki atual." }
+		, "links-menu-item-label":    { "label": "Links", "title": "Exibir todos os links externos e internos desta página wiki." }
+		, "login-button": 			  "LOGAR"
+		, "username-label":			  "Nome de Usuário"
+		, "username-placeholder":     "Entre com o nome de usuário"
+        , "password-label": 	      "Senha"
+        , "password-placeholder":     "Entre com a senha"
+        , "keybindings-menu-item":    
+				{   "label": "Altalhos"
+				  , "title": "Exibe uma janela mostrando todos os atalhos de teclado, também conhecidos como combinações de teclas (keybindings)."
+				 }
+		, "login-menu-item-label":    "Autenticar"
+        , "settings-menu-item-label": 
+			{   "label": "Configurações"
+			  , "title": "Formulário para alterar as configurações do site, incluindo descrição e nome do site."
+			}
+		, "logoff-menu-item-label":   "Sair"
+        , "about-menu-item-label":    "Sobre"
+        , "new-account-menu-item-label": "Nova Conta"
+        , "user-settings-item-label": "Minha Conta"
+        , "licenses-menu-item-label": 
+			{ 
+			    "label": "Licenças"
+			  , "title": "Licenças de bibliotecas de código aberto usadas por este projeto."
+			}
+		, "edit-section-button": 	  { "title": "Editar seção" }
+		, "search-entry-placeholder": "Buscar"
+		, "search-menu-item-label":   "Buscar"
+        , "sidebar-search-label":     "Buscar"
+        , "sidebar-table-of-contentes-label": "Conteúdo"
+		, "figure-prefix-label":  "Figura"
+		, "title-listing-all-pages":   "Todas Páginas"
+		, "title-search-results-page": "Resultados de busca para"
+		, "search-form-label":  "Buscar páginas"
+		, "search-form-search-button-label": "Buscar"
+		, "search-form-clear-button-label": "Limpar"
+		, "search-form-all-button-label":  "Todas"
+		, "search-results-sort-by-label":  "Ordenar por"
+		, "search-results-h2-label":  "Páginas"
+		, "number-of-search-results-label": "Resultados"
+		, "sort-by-score-link-button":          { "label": "Pontuação",  "title": "Ordenar por pontuação." }
+		, "sort-by-name-link-button":           { "label": "Nome",       "title": "Ordenar por nome (ordem alfabetica)" }
+		, "sort-by-modified-time-link-buttton": { "label": "Modificado", "title": "Ordernar por tempo modificado." }
+		, "sort-by-created-time-link-button":   { "label": "Criado",    "title": "Ordenar por tempo criado." }
+		, "search-matches-label": "Correspondências de pesquisa"
+		, "settings-page-go-back-label": "Voltar para"
+		, "settings-update-button": "Atualizar"
+		, "settings-sitename-label": "Nome do Website"
+		, "settings-website-description-label": "Descrição do Website"
+		, "settings-public-checkbox-label": "Público"
+		, "settings-display-edit-button-checkbox-label": "Mostrar botão editar"
+		, "settings-vim-emulation-checkbox-label":       "Emulação do Vim"
+		, "settings-show-source-checkbox-label":         "Mostrar Código de Fonte de Página"
+		, "settings-show-licenses-checkbox-label":       "Mostrar Licenças"
+		, "settings-main-font-label":  					 "Fonte Principal"
+		, "settings-title-font-label": 					 "Fonte de Título"
+		, "settings-code-font-label": 					 "Fonte de Código"
+		, "settings-show-licenses-checkbox-description": "Exibe a opção de menu 'Licenças' que mostra todas as licenças de código aberto usadas por este projeto."
+		, "settings-show-source-checkbox-description":   "Fornece um botão que permite visualizar o código-fonte Markdown (texto wiki) de um wiki"
+		, "settings-vim-emulation-checkbox-description": "Habilitar emulação do editor VIM no editor de código Wiki (Ace9)."
+		, "settings-display-edit-button-checkbox-description": "Exibir o botão de edição do wiki para todos os usuários [E]. Se esta configuração estiver desabilitada, somente usuários administradores ou usuários com permissão para editar páginas poderão visualizar o botão de edição."
+		, "settings-public-checkbox-description": 		 "Se habilitado, todos, incluindo usuários não logados, poderão visualizar o conteúdo do wiki. Observe que somente usuários logados podem editar o wiki."
+		, "settings-default-locale-label":               "Idioma/locale padrão"
+		, "settings-use-default-locale-checkbox-label":  "Usar idioma/locale padrão"
+		, "settings-use-default-locale-description": 	 "Sempre usar o idioma padrão (default locale), independentemente do idioma preferido do usuário fornecido pelo navegador da web."
+		, "about-page-title":          "Sobre"
+		, "edit-page-title":           "Editando Página"
+		, "edit-page-toolbar-title":   "Barra de Ferramentas do Editor"
+		, "edit-page-h3-insert-label": "Inserir"
+		, "edit-page-h3-actions-label": "Ações"
+		, "edit-page-document-status-label": "Document não salvo ainda."
+		, "edit-page-back-button": {  "label": "Voltar"
+									, "title": "Switch to document view mode and exit editing mode."}
+
+		, "edit-page-preview-button": { 
+									      "label": "Visualização"
+										, "title": "Veja como a página ficará antes de salvar."
+									  }
+		, "edit-page-save-button":  {
+										  "label": "Salvar"
+										, "title": "Salve o documento e alterne para o modo de visualização."
+									}
+		, "edit-page-undo-button": "Desfazer"
+		, "edit-page-redo-button": "Refazer"
+		, "edit-page-refcard-button": {
+										  "label": "Cartão de Referência"
+										, "title": "Exibe um cartão de referência contendo exemplos sobre a sintaxe do markdown."
+									  }
+		, "edit-page-insert-link-button": {
+											  "label": "Link para página da Wiki" 
+											 ,"title": "Inserir hiperlink para uma página wiki existente na posição atual do cursor."
+
+											}
+		, "edit-page-upload-button": "Link para Arquivo Subido"
+		, "edit-page-insert-latex-equation": "Equação LateX"
+		, "edit-page-insert-latex-non-numbered-button": "Equação LaTeX não numerada."
+		, "edit-page-insert-theorem-button": "Teorema"
+		, "edit-page-insert-details-button": "Detalhes"
+		, "edit-page-clipboard-h3-label": "Opções da Área de Transferência"
+		, "edit-page-p-clipobard": "Selecione o modo de colar da área de transferência"
+	}
+
+};
+
+
+function setLocaleI18n(locale)
+{
+	let translations = translationsi18n[locale];
+	if( !translations )
+	{
+		console.error(`Locale ${locale} not found in the i18n translation database.`);
+		return;
+	}
+	let oldLocale = localStorage.getItem("locale");
+	if(oldLocale !== locale )
+	{
+		localStorage.setItem("locale", locale);
+		if(oldLocale){ location.reload(); }
+	}
+	
+	let elements = document.querySelectorAll("[data-i18n]");
+	for(let elem of elements)
+	{
+		let tag = elem.getAttribute("data-i18n");
+		let value_ = translations[tag];
+		if( !value_){ continue; }
+		let value = value_.label || value_;
+		// console.log(`tag = ${tag} ; value = "${value}" ; elem = `, elem);
+		if( value_.title )
+		{
+			if( elem.title.includes("[i18n]") )
+			{
+				elem.title = elem.title.replace("[i18n]", value_.title);
+			} else {
+				elem.title = value_.title;
+			}
+		}
+		if( elem.tagName === "INPUT" 
+			&& (elem.type === "password" || elem.type === "text"
+                || elem.type === "search"))
+		{
+			elem.placeholder = value;
+			continue;
+		}
+		if( elem.tagName === "INPUT" && (elem.type === "submit" || elem.type == "button"))
+		{
+			elem.value = value;
+			continue;
+		}
+		if( value_.title && !value_.label ){ continue; }
+		// elem.textContent = value;
+		if( elem.textContent.includes("[i18n]") )
+		{
+			elem.textContent = elem.textContent.replace("[i18n]", value);
+		} else {
+			elem.textContent = value;
+		}
+	}
+	
+}
+
+
+function doTranslationI18N()
+{
+	// var locale = localStorage.getItem("locale");
+	if( USE_DEFAULT_LOCALE ){
+		// alert("Use default locale");
+		setLocaleI18n(DEFAULT_LOCALE);
+		return;
+	} 
+	// Attempt to get locale from navigator
+	let userLocale = navigator.language;
+	if( translationsi18n[userLocale] ){
+		setLocaleI18n(userLocale); 
+	} else {
+		setLocaleI18n(DEFAULT_LOCALE);
+	}
+}
+
+
 function popupYesNo(title, message, handler)
 {
     let html_ = `
@@ -157,6 +466,7 @@ function popupInput(title, message, label, handler)
     });
     pwindow.show();
 }
+
 
 function popupMessage(title, message, options)
 {
@@ -214,6 +524,7 @@ function popupIframe (title, url, options)
     if(!hidden){ pwindow.show(); }
     return pwindow;
 }
+
 
 
 
@@ -415,6 +726,8 @@ async function displayEditButtons()
 document.addEventListener("DOMContentLoaded", async function()
   {
     
+    doTranslationI18N();
+    
     lazyLoadImages();
     // Call function every 500 ms
     timerId = setInterval(lazyLoadImages, 500);
@@ -524,7 +837,9 @@ document.addEventListener("DOMContentLoaded", async function()
 
 
     let btnCreateNote = document.querySelector("#btn-create-note");
-    btnCreateNote.addEventListener("click", () => {
+    if( btnCreateNote )
+    {
+		btnCreateNote.addEventListener("click", () => {
         popupInput(
                   "New Note"
                 , "Enter the name of the note be created."
@@ -537,8 +852,9 @@ document.addEventListener("DOMContentLoaded", async function()
                     } 
                     redirect(`/edit/${noteName}`);
                 });
-    });
-
+		});
+	}
+	
     if( isMobileScreen() ) { setHeadingsVisibility(false); }
     _visibilityFlag =  !isMobileScreen();
     // setHeadingsVisibility(false);

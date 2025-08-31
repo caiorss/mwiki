@@ -164,8 +164,13 @@ class Settings(db.Model):
     # this project and information about this server.
     # server and displaying
     show_licenses: so.Mapped[bool] = so.mapped_column(default = True)
+    # Always use default locale regardless of user preferred locale provided
+    # by the web browser.
+    use_default_locale: so.Mapped[bool] = so.mapped_column(default = True)
     # Enable/disable VIM editor emulation
     vim_emulation: so.Mapped[bool] = so.mapped_column(default = False)
+	# Default language/locale => The default English is the American English locale (en-US)
+    default_locale: so.Mapped[str] = so.mapped_column( default = "en-US" )
     # Web Site Name 
     sitename: so.Mapped[str] = so.mapped_column(default= "MWiki")
     default_password: so.Mapped[str] = so.mapped_column(nullable=False)
