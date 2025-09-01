@@ -223,7 +223,9 @@ translationsi18n =
 											 ,"title": "Insert hyperlink to existing wiki page at current cursor position."
 
 											}
-		, "edit-page-upload-button": "Link to Uploaded File"
+		, "edit-page-upload-button": {  "label": "Link to Uploaded File"
+									   , "title": "Upload file and insert link to it at current cursor position in the editor."
+									 }
 		, "edit-page-insert-latex-equation": "LateX Equation"
 		, "edit-page-insert-latex-non-numbered-button": "Non Numbered LaTex Equation"
 		, "edit-page-insert-theorem-button": "Theorem"
@@ -339,7 +341,9 @@ translationsi18n =
 											 ,"title": "Inserir hiperlink para uma página wiki existente na posição atual do cursor."
 
 											}
-		, "edit-page-upload-button": "Link para Arquivo Subido"
+		, "edit-page-upload-button": {   "label": "Link para Arquivo Subido"
+									   , "title": "Sobe arquivo (faz upload) e insire link para ele na posição atual do cursor no editor."
+									 }
 		, "edit-page-insert-latex-equation": "Equação LateX"
 		, "edit-page-insert-latex-non-numbered-button": "Equação LaTeX não numerada."
 		, "edit-page-insert-theorem-button": "Teorema"
