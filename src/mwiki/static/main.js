@@ -361,7 +361,7 @@ function setLocaleI18n(locale)
 	if(oldLocale !== locale )
 	{
 		localStorage.setItem("locale", locale);
-		if(oldLocale){ location.reload(); }
+		// if(oldLocale){ location.reload(); }
 	}
 	
 	let elements = document.querySelectorAll("[data-i18n]");
