@@ -129,6 +129,7 @@ translationsi18n =
 		, "home-page-button":         { "title": "Go to the initial page (index)" }
 		, "menu-item-view-label":     "View"
 		, "menu-item-edit-label":     "Edit"
+		, "menu-item-new-label":      { "label": "New", "title": "Create new Wiki page" }
 		, "tags-menu-item-label":     { "label": "Tags", "title": "Browse pages using tags." }
 		, "menu-item-delete-label":   { "label": "Delete", "title": "Delete this wiki page" }
 		, "menu-item-source-label":   { "label": "Source", "title": "Display source code of current wiki page." }
@@ -242,6 +243,7 @@ translationsi18n =
 		, "home-page-button":         { "title": "Ir para a página inicial (Index)" }
 		, "menu-item-view-label":     "Ver"
 		, "menu-item-edit-label":     "Editar"
+		, "menu-item-new-label":      { "label": "Nova", "title": "Criar nova página Wiki" }
 		, "tags-menu-item-label":     { "label": "Tags", "title": "Navegar pelas páginas usando tags." }
 		, "menu-item-delete-label":   { "label": "Deletar", "title":  "Excluir esta página wiki"}
 		, "menu-item-source-label":   { "label": "Fonte", "title": "Exibir código-fonte da página wiki atual." }
