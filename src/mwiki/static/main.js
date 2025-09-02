@@ -115,6 +115,8 @@ class PopupWindow
     }
 }
 
+// I18N Internationalization for the Website GUI - Graphics User Interface.
+// It allows adding new localization without changing the UI code.
 translationsi18n = 
 {
     "en-US": {
@@ -423,7 +425,16 @@ function doTranslationI18N()
 		return;
 	} 
 	// Attempt to get locale from navigator
-	let userLocale = navigator.language;
+	var userLocale = navigator.language;
+	// Set all English locales to en-US (US English) as this 
+	// is the only English locale available
+	if( userLocale.startsWith("en-") ){
+		userLocale = "en-US";
+	} 
+	// Set all portuguese locales to pt-BR (Brazilian Portuguese)
+	if( userLocale.startsWith("pt-") ){
+		userLocale = "pt-BR";
+	}
 	if( translationsi18n[userLocale] ){
 		setLocaleI18n(userLocale); 
 	} else {
