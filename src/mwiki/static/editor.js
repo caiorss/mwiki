@@ -389,30 +389,27 @@ document.onpaste = pasteImage;
 
 uploadWindow = new PopupWindow({
        title: "Upload File"
+    ,  titleI18nTag: "upload-form-window-title"
     ,  html: `
 
         <form id="uploadForm" action="/api/upload" method="POST">
             <input type="hidden" name="csrf_token" value="${CSRF_TOKEN}">
             <div class="field">
-                <label for="fileLabel">Link Label</label>
+                <label data-i18n="upload-form-file-link-label" for="fileLabel">Link Label</label>
                 <input name="fileLabel" id="fileLabel" title="Enter label of file link. (Optional)"></fileLabel>
             </div>
             <div class="field">
-                <label for="fileInput">Choose a file</label>
+                <label data-i18n="upload-form-choose-file-label" for="fileInput">Choose a file</label>
                 <input type="file" id="fileInput" name="file" required>
             </div>
             <br>
             <div class="field">
-                <button type="submit" name="submit">Upload</button>
+                <button data-i18n="upload-form-submit-button" type="submit" name="submit">Upload</button>
             </div>
         </form>
-        <p id="upload-status">Ready to upload file.</p>
-        <p>
-            This form allows uploading files and inserting 
-            hyperlinkt to it at current cursor position in 
-            the wiki code editor. NOTE: The file link label 
-            is optional, if it is empty, it the file name will
-            be used as the link label.
+        <p data-i18n="upload-status-label" id="upload-status">Ready to upload file.</p>
+        <p data-i18n="upload-form-instruction">
+            This form allows uploading files and inserting link to it at current cursor position in the wiki code editor. NOTE: The file link label is optional. If it is empty, the file name will be used as the link label.
         </p>
     `
 });

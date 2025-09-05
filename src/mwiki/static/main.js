@@ -10,6 +10,7 @@ class PopupWindow
         let left = options.left || "30%";
         let zIndex = options.zIndex || "1000";
         let visible = options.visible || false;
+        let windowI18NTitleTag = options.titleI18nTag || "";
         this._html = html;
         this._dom = document.createElement("div");
         document.body.appendChild(this._dom);
@@ -23,7 +24,7 @@ class PopupWindow
         this._dom.style.background = "aliceblue";
         this._dom.style.padding = "10px";
         if(!visible){ this.hide() };
-        let code = `<h2 class="window-title">${title}</h2> <button class="btn-window-close">[X]</button><hr>`;
+        let code = `<h2 data-i18n="${windowI18NTitleTag}" class="window-title">${title}</h2> <button class="btn-window-close">[X]</button><hr>`;
         // console.log(" [TRACE] code = ", code);
         this._dom.innerHTML = code;
         this._dom.innerHTML += html; 
@@ -235,6 +236,12 @@ translationsi18n =
 		, "edit-page-insert-details-button": "Details"
 		, "edit-page-clipboard-h3-label": "Clipboard Options"
 		, "edit-page-p-clipobard": "Select the clipboard pasting mode"
+        , "upload-form-window-title": "File Upload"
+        , "upload-form-file-link-label": "Link Label"
+        , "upload-form-choose-file-label": "Choose a file"
+        , "upload-form-submit-button":  "Upload"
+        , "upload-status-label": "Ready to upload file."
+        , "upload-form-instruction": "This form allows uploading files and inserting link to it at current cursor position in the wiki code editor. NOTE: The file link label is optional. If it is empty, the file name will be used as the link label."
 	}
    ,"pt-BR": {
 		  "locale":                   "Brazilian Portuguese"
@@ -354,6 +361,13 @@ translationsi18n =
 		, "edit-page-insert-details-button": "Detalhes"
 		, "edit-page-clipboard-h3-label": "Opções da Área de Transferência"
 		, "edit-page-p-clipobard": "Selecione o modo de colar da área de transferência"
+        , "upload-form-window-title": "Subir Arquivo (Upload)"
+        , "upload-form-file-link-label": "Rótulo do link."
+        , "upload-form-choose-file-label": "Escolha um arquivo."
+        , "upload-form-submit-button":  "Enviar"
+        , "upload-status-label": "Pronto para enviar arquivo."
+        , "upload-form-instruction": "Este formulário permite o upload de arquivos e a inserção de um link para eles na posição atual do cursor no editor de código wiki. NOTA: O rótulo do link do arquivo é opcional. Se estiver vazio, o nome do arquivo será usado como rótulo do link."
+
 	}
 
 };
