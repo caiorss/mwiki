@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
 {% block topbar_buttons %}
+<!--
     <a  class="sidebar-toggle-button" 
         href="/source/{{page}}" 
         title="Display source code of current page.">Source</a>
     <a  class="sidebar-toggle-button" 
         href="/edit/{{page}}" 
         title="Edit markdown page">Edit</a>
+-->
 {% endblock %}
 
 {% block toc  %}
@@ -14,31 +16,34 @@
 {% endblock %}
 
 {% block content %}
-    <p> The page <strong>'{{pagename}}'</strong> does not 
-        exist yet, would you like to create it?
-    </p>
     <hr>
     <form class="form-style" action="/create/{{pagename}}" method="POST">
         <fieldset>
-            <legend>Create new page:</legend>
+            <legend data-i18n="create-page-form-legend">Create new page</legend>
             <div class="field">
                 <p>
-                <label for="label">Label (Optional)</label>
+                <label data-i18n="create-page-form-optional-label" for="label">Label (Optional)</label>
                 <input class="style-form-input" type="text" name="label" pattern="^\S+$" placeholder="Enter the page label (unique-identifier, whithout whitespaces)" />
                 </p>
             </div>
                 <p>
-                <label for="description">Description (Optional)</label>
+                <label data-i18n="create-page-form-description" for="description">Description (Optional)</label>
                 <input class="style-form-input"  type="text" name="description" placeholder="Enter page/note description" />
                 </p>
             <div class="field">
-                <label for="keywords">Keywords (Optional)</label>
+                <label data-i18n="create-page-form-keywords-label" for="keywords">Keywords (Optional)</label>
                 <input class="style-form-input" type="text" name="keywords" placeholder="Enter keywords of this page." />
             </div>
             <div>
+            <!--
                 <input type="submit" class="style-form-button" name="submit-yes" value="YES" />
                 <input type="submit" class="style-form-button" name="submit-no"  value="NO" />
-                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            -->
+
+                <input data-i18n="create-page-form-create-button" type="submit" class="style-form-button" name="submit-yes" value="Create" />
+                <input data-i18n="create-page-form-cancel-button" type="submit" class="style-form-button" name="submit-no"  value="Cancel" />
+
+               <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             </div>
         </fieldset>
     </form>

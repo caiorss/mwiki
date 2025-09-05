@@ -498,16 +498,18 @@ def make_app_server(  host:        str
             out = flask.redirect(f"/wiki/{path}")
             return out
         if request.method == M_GET:
-            out = flask.render_template("create.html", title = f"Creating page '{path}'", pagename = path)
+            out = flask.render_template("create.html"
+                                        , page_title_i18n_tag = "creating-page-title"
+                                        ,  title = f"[i18n] '{path}'", pagename = path)
         elif request.method == M_POST:
             ## _page        = flask.request.form.get("page", "") 
             label       = flask.request.form.get("label", "") 
             description = flask.request.form.get("description", "") 
             keywords    = flask.request.form.get("keywords", "") 
-            submit_yes  = flask.request.form.get("submit-yes", "") 
+            submit_yes  = flask.request.form.get("submit-yes")
             ##submit_no   = flask.request.form.get("submit-no", "") 
             ## breakpoint()
-            if submit_yes == "YES":
+            if submit_yes is not None:
                 content = (   "---"
                              f"\ntitle:       {path}"
                              f"\nlabel:       {label}"

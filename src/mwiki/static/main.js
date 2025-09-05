@@ -249,6 +249,14 @@ translationsi18n =
         , "delete-page-form-title":    "Delete page."
         , "delete-page-form-question": "Are you really sure you want to delete the page"
         , "delete-page-form-warning":  "WARNING: This action cannot be reversed."
+        , "creating-page-title": "Creating page"
+        , "create-page-form-legend":         "Create new page"
+        , "create-page-form-optional-label": "Label (Optional)"
+        , "create-page-form-description":    "Description (Optional)"
+        , "create-page-form-keywords-label": "keywords (Optional)"
+        , "create-page-form-create-button":  "Create"
+        , "create-page-form-cancel-button":  "Cancel"
+
 	}
    ,"pt-BR": {
 		  "locale":                   "Brazilian Portuguese"
@@ -379,6 +387,14 @@ translationsi18n =
         , "delete-page-form-title": "Excluir página."
         , "delete-page-form-question": "Você tem certeza de que deseja excluir a página?"
         , "delete-page-form-warning": "AVISO: Esta ação não pode ser revertida."
+        , "creating-page-title": "Criando página"
+        , "create-page-form-legend":           "Criar nova página"
+        , "create-page-form-optional-label":   "Rótulo (Opcional)"
+        , "create-page-form-description":      "Descrição (Opcional)"
+        , "create-page-form-keywords-label":   "Palavras-chave (Opcional)"
+        , "create-page-form-create-button":    "Criar"
+        , "create-page-form-cancel-button":    "Cancelar"
+
 	}
 
 };
