@@ -150,8 +150,8 @@ schema = Schema(  title       = TEXT(stored=True, field_boost = 4.0)
                 , path        = ID(stored=True, unique = True)
                 )
 
-storage = RamStorage()
-index = storage.create_index(schema)
+## storage = RamStorage()
+## index = storage.create_index(schema)
 
 
 def search_index_exists(base_path: pathlib.Path) -> bool:
@@ -199,17 +199,9 @@ def add_index_page(base_path: pathlib.Path, mwiki_page_file: pathlib.Path):
     """Add MWiki page to search index."""
     afile = mwiki_page_file
     index_dir = base_path / _SEARCH_INDEX_PATH
-    ix = open_dir(str(index_dir), schema)
+    ix = open_dir(str(index_dir))
     writer = ix.writer()
-    data    = _get_frontmatter(afile)
-    title   =  data.get("title") or afile.name.split(".")[0]
-    path    = str(afile.relative_to(base_path))
-    content = afile.read_text()
-    writer.add_document(  title = title
-                           , description = data.get("description", "")
-                           , content = normalize_text(content)
-                           , path = path
-                          )
+    index_page_(writer, base_path, afile)
     writer.commit()
 
 def index_delete_page(base_path: pathlib.Path, mwiki_page_file: pathlib.Path):
