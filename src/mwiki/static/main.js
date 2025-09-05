@@ -120,9 +120,13 @@ class PopupWindow
 // It allows adding new localization without changing the UI code.
 translationsi18n = 
 {
+    // NOTE: Actually, it is international English using US-English (American English)
+    // spelling.
     "en-US": {
 		  "locale": 				  "English"
 		, "locale-name-native":       "American (USA) English"
+        , "button-yes-label":         "Yes"
+        , "button-no-label":          "No"
 		, "settings-page-title":      "Wiki Settings" 
 		, "source-page-title":        "Source Code"
 		, "sidebar-toggle-button":    { "title": "Toggle sidebar." }
@@ -242,10 +246,15 @@ translationsi18n =
         , "upload-form-submit-button":  "Upload"
         , "upload-status-label": "Ready to upload file."
         , "upload-form-instruction": "This form allows uploading files and inserting link to it at current cursor position in the wiki code editor. NOTE: The file link label is optional. If it is empty, the file name will be used as the link label."
+        , "delete-page-form-title":    "Delete page."
+        , "delete-page-form-question": "Are you really sure you want to delete the page"
+        , "delete-page-form-warning":  "WARNING: This action cannot be reversed."
 	}
    ,"pt-BR": {
 		  "locale":                   "Brazilian Portuguese"
 		, "locale-name-native": 	  "Português Brasileiro"
+        , "button-yes-label":         "Sim"
+        , "button-no-label":          "Não"
 		, "settings-page-title":      "Configurações da Wiki" 
 		, "source-page-title":        "Código Fonte"
 		, "sidebar-toggle-button":    { "title": "Abre ou fecha barra lateral." }
@@ -367,7 +376,9 @@ translationsi18n =
         , "upload-form-submit-button":  "Enviar"
         , "upload-status-label": "Pronto para enviar arquivo."
         , "upload-form-instruction": "Este formulário permite o upload de arquivos e a inserção de um link para eles na posição atual do cursor no editor de código wiki. NOTA: O rótulo do link do arquivo é opcional. Se estiver vazio, o nome do arquivo será usado como rótulo do link."
-
+        , "delete-page-form-title": "Excluir página."
+        , "delete-page-form-question": "Você tem certeza de que deseja excluir a página?"
+        , "delete-page-form-warning": "AVISO: Esta ação não pode ser revertida."
 	}
 
 };
@@ -456,13 +467,35 @@ function doTranslationI18N()
 	}
 }
 
+function geti18nTranslation(key)
+{
+	var userLocale = navigator.language;
+	// Set all English locales to en-US (US English) as this
+	// is the only English locale available
+	if( userLocale.startsWith("en-") ){
+		userLocale = "en-US";
+	}
+	// Set all portuguese locales to pt-BR (Brazilian Portuguese)
+	if( userLocale.startsWith("pt-") ){
+		userLocale = "pt-BR";
+	}
+	if( USE_DEFAULT_LOCALE ){
+		// alert("Use default locale");
+		userLocale = DEFAULT_LOCALE;
+	}
+    let value = translationsi18n[userLocale][key];
+    return value;
+}
+
 
 function popupYesNo(title, message, handler)
 {
+    let buttonYesLabel = geti18nTranslation("button-yes-label");
+    let buttonNoLabel = geti18nTranslation("button-no-label");
     let html_ = `
         <p>${message}</p>
-        <button class="btn-yes">Yes</button>
-        <button class="btn-no">No</button>
+        <button class="btn-yes">${buttonYesLabel}</button>
+        <button class="btn-no">${buttonNoLabel}</button>
     `;
     let pwindow = new PopupWindow({
           title:  title
@@ -1112,9 +1145,12 @@ function scrollToBottom()
 
 function deletePage(pagename)
 {
-    let message =  (  `Are you sure you really want to delete the page: "${pagename}"?` 
-                    + "WARNING: This action cannot be reversed." );
-    popupYesNo("Delete page?", message, async () => {
+    const deletePageFormTitle = geti18nTranslation("delete-page-form-title");
+    const deleteFormQuestion = geti18nTranslation("delete-page-form-question");
+    const deleteFormWarning = geti18nTranslation("delete-page-form-warning");
+    let message =  (  `${deleteFormQuestion}: "${pagename}"?`
+                    + deleteFormWarning );
+    popupYesNo(deletePageFormTitle, message, async () => {
            let resp = await httpRequest("DELETE", `/api/wiki/${pagename}`);
            if (resp.status === "error"){
                popupMessage("Error", resp.error); 
