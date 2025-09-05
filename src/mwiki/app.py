@@ -10,7 +10,7 @@ import flask
 import base64
 from flask import Flask, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from sqlalchemy.exc import IntegrityError, OperationalError
 import flask_session
 import flask_wtf as fwt 
 from flask_wtf.csrf import CSRFProtect
@@ -129,9 +129,12 @@ with app.app_context():
     conf.public = PUBLIC 
     db.session.add(conf)
     db.session.commit()
-    if not created:
-        db.session.add(user)
-        db.session.commit()
+    try:
+        if not created:
+            db.session.add(user)
+            db.session.commit()
+    except (IntegrityError, OperationalError) as ex:
+        print(ex)
     admin = User.get_user_by_username("admin")    
     if admin.password is None:
         password = conf.default_password
