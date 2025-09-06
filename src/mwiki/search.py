@@ -254,7 +254,7 @@ def update_index_page_(writer, base_path: pathlib.Path, mwiki_page_file: pathlib
     title   =  data.get("title") or afile.name.split(".")[0]
     path    = str(afile.relative_to(base_path))
     content = afile.read_text()
-    print(" [TRACE] Updateing document " + str(afile))
+    print(" [TRACE] Updating search index for document " + str(afile))
     writer.update_document(  title = title
                         , description = data.get("description", "")
                         , content = normalize_text(content)
