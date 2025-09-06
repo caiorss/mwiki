@@ -256,6 +256,8 @@ translationsi18n =
         , "create-page-form-keywords-label": "keywords (Optional)"
         , "create-page-form-create-button":  "Create"
         , "create-page-form-cancel-button":  "Cancel"
+        , "quick-open-window-title":         "Quick Open Wiki Page"
+        , "quick-open-page-open-button":     "Open"
 
 	}
    ,"pt-BR": {
@@ -394,7 +396,8 @@ translationsi18n =
         , "create-page-form-keywords-label":   "Palavras-chave (Opcional)"
         , "create-page-form-create-button":    "Criar"
         , "create-page-form-cancel-button":    "Cancelar"
-
+        , "quick-open-window-title":         "Abertura rápida de Página Wiki"
+        , "quick-open-page-open-button":     "Abrir"
 	}
 
 };
@@ -849,15 +852,19 @@ document.addEventListener("DOMContentLoaded", async function()
 
     tooltip_window = popupMessage("Abbreviation", "" 
                                   , {hidden: true, height: "100px", zIndex: "2000"});
-
+    // English Label: "Quick Open Wiki Page"
+    let windowTitle = geti18nTranslation("quick-open-window-title");
+    // English Label: "Open"
+    let openButtonLabel = geti18nTranslation("quick-open-page-open-button");
     quickOpenWindow = new PopupWindow({
-           title: "Quick Open Wiki Page"
+           title: windowTitle
+        ,  titleI18nTag: "quick-open-window-title"
         ,  height: "100px"
         ,  html: `
         <input id="prompt-open-page" name="select-page" 
               list="quick-pagelist" >
         <datalist id="quick-pagelist"></datalist>
-        <button onclick="openWikiPageCallback();">Open</button>
+        <button data-i18n="quick-open-page-open-button" onclick="openWikiPageCallback();">${openButtonLabel}</button>
         `
     });
     // console.log(" [TRACE] quickOpenWindow = ", quickOpenWindow);
@@ -944,7 +951,7 @@ document.addEventListener("DOMContentLoaded", async function()
 });
 
 
-let pageList = [];
+var pageList = [];
 
 async function quickOpenPage()
 {
