@@ -1103,7 +1103,7 @@ class HtmlRenderer(AbstractAstRenderer):
             content, directives = mparser.get_code_block_directives(node.content)
             label = f'id="{u}"' if (u := directives.get("label")) else ""
             html = f"""<blockquote {label} >\n{utils.escape_html(content)}\n</blockquote>"""
-        elif info == "{solution}" or info == "{proof}" or info.startswith("{foldable}"):
+        elif info == "{solution}" or info == "{proof}" or info.startswith("{foldable}") or info.startswith("{example}"):
             ## breakpoint()
             content, directives = mparser.get_code_block_directives(node.content)
             label      = f'id="{u}"' if (u := directives.get("label")) else ""
@@ -1115,7 +1115,9 @@ class HtmlRenderer(AbstractAstRenderer):
                 title = "Foldable" if (x := info[len("{foldable}"):].strip().capitalize()) == "" \
                           else x
             i18nTagsDB = {  "{solution}": "foldable-math-solution-block-label"
-                        , "{proof}":    "foldable-math-proof-block-label" }
+                          , "{proof}":    "foldable-math-proof-block-label"
+                          , "{example}":  "foldable-math-example-block-label"
+                         }
             i18nTag = i18nTagsDB.get(info)
             inner_html = self.render(ast)
             html = f"""<details {label}>\n<summary><u data-i18n="{i18nTag}" class="solution-label">{title}</u></summary>\n\n<div class="foldable-block" style="{background}">{inner_html}</div>\n</details>"""
