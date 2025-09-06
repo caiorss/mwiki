@@ -1116,7 +1116,7 @@ class HtmlRenderer(AbstractAstRenderer):
                 title = "Foldable" if (x := info[len("{foldable}"):].strip().capitalize()) == "" \
                           else x
             inner_html = self.render(ast)
-            html = f"""<details {label}>\n<summary><u class="solution-label">{title}</u></summary>\n\n<div class="foldable-block" style="{background}">{inner_html}</div>\n</details>"""
+            html = f"""<details {label}>\n<summary><u data-i18n="foldable-solution-block-label" class="solution-label">{title}</u></summary>\n\n<div class="foldable-block" style="{background}">{inner_html}</div>\n</details>"""
         elif info == "{latex_macro}":
             html = f""" 
             <div class="hidden-mathjax-macros user-macros" style="display: none;">

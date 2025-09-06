@@ -258,6 +258,7 @@ translationsi18n =
         , "create-page-form-cancel-button":  "Cancel"
         , "quick-open-window-title":         "Quick Open Wiki Page"
         , "quick-open-page-open-button":     "Open"
+        , "foldable-solution-block-label":   "Solution"
 
 	}
    ,"pt-BR": {
@@ -398,6 +399,8 @@ translationsi18n =
         , "create-page-form-cancel-button":    "Cancelar"
         , "quick-open-window-title":         "Abertura rápida de Página Wiki"
         , "quick-open-page-open-button":     "Abrir"
+        , "foldable-solution-block-label":   "Solução"
+
 	}
 
 };
