@@ -43,6 +43,16 @@ def normalize_text(text: str) -> str:
                 .replace("ü", "u")
                 .replace("ö", "o")
                 .replace("ß", "ss"))
+    # Normalize Danish and Norwegian alphabets to English Alphabet
+    # See:
+    #  + https://en.wikipedia.org/wiki/Danish_and_Norwegian_alphabet
+    out = (out
+            .replace("Å", "A")
+            .replace("å", "a")
+            .replace("Æ", "AE")
+            .replace("æ", "ae")
+            .replace("Ø", "O")
+            .replace("ø", "o"))
     # Normalize letters of Polish Latin Alphabet to
     # Letters of English Alphabet in order to make the
     # search more comprehensive. This normalization allows
