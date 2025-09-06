@@ -226,5 +226,5 @@ def watch_():
 
 
 if __name__ == "__main__":
-    watch_()
+    watch()
 
