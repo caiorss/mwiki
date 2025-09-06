@@ -258,8 +258,9 @@ translationsi18n =
         , "create-page-form-cancel-button":  "Cancel"
         , "quick-open-window-title":         "Quick Open Wiki Page"
         , "quick-open-page-open-button":     "Open"
-        , "foldable-solution-block-label":   "Solution"
-
+        , "foldable-math-solution-block-label":   "Solution"
+        , "foldable-math-proof-block-label":      "Proof"
+        , "foldable-math-example-block-label":    "Example"
 	}
    ,"pt-BR": {
 		  "locale":                   "Brazilian Portuguese"
@@ -399,8 +400,9 @@ translationsi18n =
         , "create-page-form-cancel-button":    "Cancelar"
         , "quick-open-window-title":         "Abertura rápida de Página Wiki"
         , "quick-open-page-open-button":     "Abrir"
-        , "foldable-solution-block-label":   "Solução"
-
+        , "foldable-math-solution-block-label":   "Solução"
+        , "foldable-math-proof-block-label":      "Prova"
+        , "foldable-math-example-block-label":    "Exemplo"
 	}
 
 };

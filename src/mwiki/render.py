@@ -1087,7 +1087,6 @@ class HtmlRenderer(AbstractAstRenderer):
             content, directives = mparser.get_code_block_directives(node.content)
             label = f'id="{u}"' if (u := directives.get("label")) else ""
             html = f"""<pre {label} class="graphviz-dot" >\n{content}\n</pre>\n"""                   
-
         ## Mermaid JS Diagram (Flowchart, Sequence Diagram and so on.)
         elif info == "{mermaid}":
             content, directives = mparser.get_code_block_directives(node.content)
@@ -1115,8 +1114,11 @@ class HtmlRenderer(AbstractAstRenderer):
                 # Remove prefix
                 title = "Foldable" if (x := info[len("{foldable}"):].strip().capitalize()) == "" \
                           else x
+            i18nTagsDB = {  "{solution}": "foldable-math-solution-block-label"
+                        , "{proof}":    "foldable-math-proof-block-label" }
+            i18nTag = i18nTagsDB.get(info)
             inner_html = self.render(ast)
-            html = f"""<details {label}>\n<summary><u data-i18n="foldable-solution-block-label" class="solution-label">{title}</u></summary>\n\n<div class="foldable-block" style="{background}">{inner_html}</div>\n</details>"""
+            html = f"""<details {label}>\n<summary><u data-i18n="{i18nTag}" class="solution-label">{title}</u></summary>\n\n<div class="foldable-block" style="{background}">{inner_html}</div>\n</details>"""
         elif info == "{latex_macro}":
             html = f""" 
             <div class="hidden-mathjax-macros user-macros" style="display: none;">
