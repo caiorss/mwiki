@@ -1,4 +1,5 @@
 from typing import Any, Tuple, List, Optional
+import os
 import enum 
 import json
 from flask_sqlalchemy import SQLAlchemy
@@ -20,6 +21,43 @@ import flask
 
 ## db = SQLAlchemy(app)
 db = SQLAlchemy()
+
+
+class Config:
+    """Singletion containg wiki settings
+
+    NOTE: Instances of this class should only be modified
+    during the application initialization.
+    """
+    def __init__(self):
+        self._path: str = os.environ.get("MWIKI_PATH", ".")
+        self._debug: bool = False
+        self._host: str = os.environ.get("MWIKI_HOST", "0.0.0.0")
+        self._port: int = utils.parse_int(os.getenv("MWIKI_PORT", "8000")) or 8000
+
+    @property
+    def debug(self) -> bool:
+        return self._debug
+
+    @property
+    def port(self) -> int:
+        return self._port
+
+    @property
+    def host(self) -> str:
+        """Returns the host IP address that the server will listen for.
+        The default host is 0.0.0.0 (Listen to all network interfaces)
+        """
+        return self._host
+
+    @property
+    def path(self) -> str:
+        return self._path
+
+    def set_path(self, path_: str):
+        self._path = path_
+
+MwikiConfig = Config()
 
 
 class User(db.Model):
