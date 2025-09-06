@@ -15,12 +15,15 @@ import flask
 import logging
 from mwiki.server import make_app_server
 from . import utils
+from mwiki.models import MwikiConfig
 ##from .app import app
 
 
-host = os.getenv("HOST", "0.0.0.0")
+#host = os.getenv("HOST", "0.0.0.0")
 port = utils.parse_int(os.getenv("PORT", "8000")) or 8000
-wikipath = os.getenv("WIKIPATH", ".")
+#wikipath = os.getenv("MWIKI_PATH", ".")
+wikipath = MwikiConfig.path
+host = MwikiConfig.host
 debug = os.getenv("DEBUG", "false") == "true"
 login = os.getenv("LOGIN", "")
 _login = login.split(",")

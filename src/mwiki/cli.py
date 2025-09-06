@@ -19,6 +19,8 @@ import mwiki.utils as utils
 from mwiki.server import make_app_server
 import mwiki.convert
 import mwiki.search as search
+import mwiki.watcher
+import mwiki.models
 from . import render
 from .models import User, Settings
 from .app import db, app 
@@ -189,6 +191,7 @@ def server(  host:       str
         os.environ["SERVER_SOFTWARE"] = "waitress"
         os.environ["WIKIPATH"] = _wikipath
         os.environ["MWIKI_PATH"] = _wikipath
+        mwiki.models.MwikiConfig.set_path(_wikipath)
         pyexecutable = sys.executable
         procWatcher =  subprocess.Popen([  pyexecutable
                                       ,"-m" , "mwiki.watcher"
