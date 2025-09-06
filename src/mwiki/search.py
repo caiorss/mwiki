@@ -42,8 +42,73 @@ def normalize_text(text: str) -> str:
                 .replace("û", "u")
                 .replace("ü", "u")
                 .replace("ö", "o")
-                .replace("ß", "ss")
-            )
+                .replace("ß", "ss"))
+    # Normalize letters of Polish Latin Alphabet to
+    # Letters of English Alphabet in order to make the
+    # search more comprehensive. This normalization allows
+    # searching polish text or Polish names without typing
+    # any letter of Polish alphabet using only letters of
+    # English alphabet without any diactrict or special punctuation marks.
+    # See:
+    #  + https://en.wikipedia.org/wiki/Polish_alphabet
+    #  + https://simple.wikipedia.org/wiki/Polish_alphabet
+    out = (out
+                .replace("ą", "a")
+                .replace("ć", "c")
+                .replace("ę", "e")
+                .replace("ó", "o")
+                .replace("ź", "z")
+                .replace("ż", "z")
+                .replace("ł", "l")
+                .replace("ń", "n")
+                .replace("ś", "s")
+                .replace("Ą", "A")
+                .replace("Ć", "C")
+                .replace("Ę", "E")
+                .replace("Ł", "L")
+                .replace("Ń", "N")
+                .replace("Ó", "O")
+                .replace("Ś", "S")
+                .replace("Ź", "Z"))
+    # Normalization of Turkish Latin alphabet to English Latin Alphabet
+    # See:
+    #  + https://en.wikipedia.org/wiki/Turkish_alphabet
+    #  + https://en.wikipedia.org/wiki/Common_Turkic_alphabet
+    out = (out
+                .replace("ç", "c")
+                .replace("ğ", "g")
+                .replace("i", "i")
+                .replace("ı", "i")
+                .replace("ö", "o")
+                .replace("ü", "u")
+                .replace("I", "I")
+                .replace("Ç", "C")
+                .replace("Ğ", "G")
+                .replace("Ö", "O")
+                .replace("Ü", "U")
+                .replace("Ū", "U")
+                .replace("ū", "u")
+                .replace("ş", "s")
+                .replace("Ş", "S")
+                .replace("Ə", "E")
+                .replace("ə", "e")
+                .replace("Ñ", "N")
+                .replace("ñ", "n"))
+    # Normalize letters of Serbo-Croatian Alphabet to English Latin Alphabet
+    # See:
+    #  + https://en.wikipedia.org/wiki/Gaj%27s_Latin_alphabet
+    out = (out
+                .replace("č", "c")
+                .replace("ć", "c")
+                .replace("Č", "C")
+                .replace("Ć", "C")
+                .replace("ž", "Z")
+                .replace("ž", "Z")
+                .replace("Đ", "D")
+                .replace("đ", "d")
+                .replace("š", "s")
+                .replace("Š", "S")
+           )
     return out
 
 
