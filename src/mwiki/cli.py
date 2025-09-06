@@ -224,6 +224,19 @@ def server(  host:       str
 
 
 @cli1.command()
+@click.option("--wikipath", default = "", help = "Path to wiki directory, default '.' current directory.")
+def watch(wikipath: str):
+    """Start watcher process manually for debugging purposes.
+    """
+    _wikipath = utils.expand_path( wikipath ) \
+                if  wikipath != "" else os.environ.get("MWIKI_PATH", ".")
+    mwiki.models.MwikiConfig.set_path(_wikipath)
+    #os.environ["SERVER_SOFTWARE"] = "waitress"
+    ## os.environ["WIKIPATH"] = _wikipath
+    os.environ["MWIKI_PATH"] = _wikipath
+    mwiki.watcher.watch()
+
+@cli1.command()
 @click.option("-p", "--path", default = None, 
                 help = ( "Path to folder containing *.md files." )
                 )
