@@ -554,6 +554,7 @@ def make_app_server(  host:        str
             ## print(" [TRACE] content = ", content)
             resp = flask.render_template(  "edit.html"
                                          , title = f"[i18n]: {path}"
+                                         # Eglish title: "Editing: <WikiPageName>"
                                          , page_title_i18n_tag = "edit-page-title"
                                          , page = path
                                          , page_link = path.replace(" ", "_")
