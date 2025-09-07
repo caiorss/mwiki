@@ -1143,6 +1143,10 @@ class HtmlRenderer(AbstractAstRenderer):
             content, directives = mparser.get_code_block_directives(node.content)
             # Image caption 
             caption = content.strip()
+            caption_ast =  mparser.parse_source(caption)
+            assert caption_ast.children[0].type == "paragraph"
+            captiona_ast_inline = caption_ast.children[0].children[0]
+            caption_html = self.render(captiona_ast_inline)
             # Name is a label - unique identifier for cross referencing with hyperlinks.
             name = directives.get("name", "")
             # Alternative text for acessibility (Optional)
@@ -1156,12 +1160,12 @@ class HtmlRenderer(AbstractAstRenderer):
                 html = ("""<div class="div-wiki-image" div-figure>""" 
                         """<img id="figure-%s" class="wiki-image lazy-load anchor" data-src="%s" alt="%s" %s %s>""" 
                         """<p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> %d: %s</p>"""
-                        """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption)
+                        """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption_html)
             else:
                 html = ("""<div class="div-wiki-image" div-figure>""" 
                         """<img id="figure-%s" class="wiki-image  anchor" src="%s" alt="%s" %s %s>""" 
                         """<p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> %d: %s</p>"""
-                        """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption)
+                        """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption_html)
             self._figure_counter += 1
         elif info == "{example}":
             code = node.content
