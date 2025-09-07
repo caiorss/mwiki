@@ -4,6 +4,18 @@
     {% include 'page_menu.html' %}
 {% endblock %}
 
+{% block topbar_buttons_last %}
+    <a  data-i18n="edit-page-save-icon-button"
+        href="#"
+        onclick="editorSaveDocument();"
+        title="Save document and switch to view mode."
+                >
+                <img class="img-icon" style="height: 25px;"
+                     src="/static/icon-save-all.svg">
+                </a>
+{% endblock %}
+
+
 {% block jslibs %}
 {% endblock %}
 

@@ -220,6 +220,7 @@ translationsi18n =
 										  "label": "Save"
 										, "title": "Save document and switch to view mode."
 									}
+        , "edit-page-save-icon-button": { "title": "Save document and switch to view mode." }
 		, "edit-page-undo-button": "Undo"
 		, "edit-page-redo-button": "Redo"
 		, "edit-page-refcard-button": {
@@ -363,8 +364,9 @@ translationsi18n =
 									  }
 		, "edit-page-save-button":  {
 										  "label": "Salvar"
-										, "title": "Salve o documento e alterne para o modo de visualização."
+										, "title": "Salvar o documento e alternar para o modo de visualização."
 									}
+        , "edit-page-save-icon-button": { "title": "Salvar o documento e alternar para o modo de visualização." }
 		, "edit-page-undo-button": "Desfazer"
 		, "edit-page-redo-button": "Refazer"
 		, "edit-page-refcard-button": {
