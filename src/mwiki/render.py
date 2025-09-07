@@ -1305,12 +1305,12 @@ class HtmlRenderer(AbstractAstRenderer):
         admonition_title = utils.strip_prefix("{" + admonition_type + "}", node.info).strip()
         _title = f"<strong>({admonition_title})</strong>" if admonition_title != "" else ""
         if admonition_type == "def":
-            admonition_title = f"DEFINITION: {_title}" 
+            admonition_title = f'<label class="admonition-tag" data-i18n="admonition-math-defintion-label">DEFINITION</label>: {_title}'
         elif admonition_type == "theorem":
-            admonition_title = f"THEOREM {self._theorem_counter}: {_title}" 
+            admonition_title = f'<label class="admonition-tag" data-i18n="admonition-math-theorem-label">THEOREM</label> {self._theorem_counter}: {_title}'
             self._theorem_counter += 1
         elif admonition_type == "example":
-            admonition_title = f'<strong>Example:</strong> {admonition_title}'
+            admonition_title = f'<strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: {admonition_title}'
         elif admonition_type == "details":
             admonition_title = admonition_title.title()
         else:

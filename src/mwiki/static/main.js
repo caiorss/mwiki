@@ -261,6 +261,9 @@ translationsi18n =
         , "foldable-math-solution-block-label":   "Solution"
         , "foldable-math-proof-block-label":      "Proof"
         , "foldable-math-example-block-label":    "Example"
+        , "admonition-math-defintion-label":      "DEFINITION"
+        , "admonition-math-theorem-label":        "THEOREM"
+        , "admonition-math-example-label":        "Example"
 	}
    ,"pt-BR": {
 		  "locale":                   "Brazilian Portuguese"
@@ -403,6 +406,9 @@ translationsi18n =
         , "foldable-math-solution-block-label":   "Solução"
         , "foldable-math-proof-block-label":      "Prova"
         , "foldable-math-example-block-label":    "Exemplo"
+        , "admonition-math-defintion-label":      "DEFINIÇÃO"
+        , "admonition-math-theorem-label":        "TEOREMA"
+        , "admonition-math-example-label":        "Exemplo"
 	}
 
 };
