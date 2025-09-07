@@ -265,6 +265,7 @@ translationsi18n =
         , "admonition-math-defintion-label":      "DEFINITION"
         , "admonition-math-theorem-label":        "THEOREM"
         , "admonition-math-example-label":        "Example"
+        , "abbreviation-window-title":            "Abbreviation"
 	}
    ,"pt-BR": {
 		  "locale":                   "Brazilian Portuguese"
@@ -411,6 +412,7 @@ translationsi18n =
         , "admonition-math-defintion-label":      "DEFINIÇÃO"
         , "admonition-math-theorem-label":        "TEOREMA"
         , "admonition-math-example-label":        "Exemplo"
+        , "abbreviation-window-title":            "Abreviação"
 	}
 
 };
@@ -863,7 +865,8 @@ document.addEventListener("DOMContentLoaded", async function()
         last = tg;
     });
 
-    tooltip_window = popupMessage("Abbreviation", "" 
+    let tooltipWindowTitle = geti18nTranslation("abbreviation-window-title");
+    tooltip_window = popupMessage(tooltipWindowTitle, ""
                                   , {hidden: true, height: "100px", zIndex: "2000"});
     // English Label: "Quick Open Wiki Page"
     let windowTitle = geti18nTranslation("quick-open-window-title");
@@ -1049,7 +1052,9 @@ document.addEventListener("mouseover", (event) => {
         // Lazy Initialization
         if( tooltip_window == null )
         {
-            tooltip_window = popupMessage("Abbreviation", "" 
+            // English title "Abrreviation"
+            let title = geti18nTranslation("abbreviation-window-title");
+            tooltip_window = popupMessage(title, ""
                                       , {hidden: true, height: "100px", zIndex: "2000"});
         }
         let tooltip = `${target.innerText}: ${target.title}`; 
@@ -1058,6 +1063,8 @@ document.addEventListener("mouseover", (event) => {
     } else {
         if(tooltip_window != null){ tooltip_window.close(); }
     }
+
+
 
 });
 
