@@ -1144,9 +1144,11 @@ class HtmlRenderer(AbstractAstRenderer):
             # Image caption 
             caption = content.strip()
             caption_ast =  mparser.parse_source(caption)
-            assert caption_ast.children[0].type == "paragraph"
-            captiona_ast_inline = caption_ast.children[0].children[0]
-            caption_html = self.render(captiona_ast_inline)
+            captiona_ast_inline = None
+            if len(caption_ast.children) >= 1:
+                assert caption_ast.children[0].type == "paragraph"
+                captiona_ast_inline = caption_ast.children[0].children[0]
+            caption_html = caption if captiona_ast_inline is None else self.render(captiona_ast_inline)
             # Name is a label - unique identifier for cross referencing with hyperlinks.
             name = directives.get("name", "")
             # Alternative text for acessibility (Optional)
