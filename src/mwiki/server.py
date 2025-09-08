@@ -628,7 +628,8 @@ def make_app_server(  host:        str
                 href = node.content
                 internal_links.append(href)
         resp = flask.render_template("links.html"
-                                       , title = f"Links of page: {path}"
+                                       , title = f"[i18n] {path}"
+                                       , page_title_i18n_tag = "links-page-title"
                                        , page = path
                                        , links = links
                                        , internal_links = internal_links

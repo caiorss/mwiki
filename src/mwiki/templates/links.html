@@ -9,8 +9,8 @@
 {% endblock %}
 
 {% block content %}
-    <strong>Page:</strong> <a class="link-internal" href="/wiki/{{page}}">{{ page }}</a>
-    <h2>Internal Hyperlinks</h2>
+    <strong data-i18n="links-page-strong-label">Page</strong>: <a class="link-internal" href="/wiki/{{page}}">{{ page }}</a>
+    <h2 data-i18n="links-page-internal-links-h2">Internal Hyperlinks</h2>
     
     <ul>
     {% for x in internal_links %}
@@ -18,7 +18,7 @@
     {% endfor %}
     </ul>
 
-    <h2>External Hyperlinks</h2>
+    <h2 data-i18n="links-page-external-links-h2">External Hyperlinks</h2>
     <ul>
     {% for x in links %}
         <li><a href="{{x.href}}" 

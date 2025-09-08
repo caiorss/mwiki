@@ -266,6 +266,10 @@ translationsi18n =
         , "admonition-math-theorem-label":        "THEOREM"
         , "admonition-math-example-label":        "Example"
         , "abbreviation-window-title":            "Abbreviation"
+        , "links-page-title":                     "Links of"
+        , "links-page-strong-label":              "Page"
+        , "links-page-internal-links-h2":         "Internal Links"
+        , "links-page-external-links-h2":         "External Links"
 	}
    ,"pt-BR": {
 		  "locale":                   "Brazilian Portuguese"
@@ -413,6 +417,10 @@ translationsi18n =
         , "admonition-math-theorem-label":        "TEOREMA"
         , "admonition-math-example-label":        "Exemplo"
         , "abbreviation-window-title":            "Abreviação"
+        , "links-page-title":                     "Links de"
+        , "links-page-strong-label":              "Página"
+        , "links-page-internal-links-h2":         "Links Internos"
+        , "links-page-external-links-h2":         "Links Externos"
 	}
 
 };
