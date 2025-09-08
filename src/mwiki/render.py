@@ -110,6 +110,8 @@ class AbstractAstRenderer:
         self._dependecies: List[pathlib.Path] = []
         """List of embedded markdown pages (md -markdown files) in this page"""
 
+        self._internal_links: List[str] = []
+
         self._handlers = {
               "root":                       self.render_root
             , "text":                       self.render_text
@@ -170,9 +172,15 @@ class AbstractAstRenderer:
         return self._title
 
     @property
-    def dependencies(self):
+    def dependencies(self) -> List[pathlib.Path]:
+        """Return list of MWiki pages embedded in the current page."""
         return self._dependecies
     
+    @property
+    def internal_links(self) -> List[str]:
+        """Return list of internal links"""
+        return self._internal_links
+
     def find_page(self, name: str) -> Optional[pathlib.Path]:
         """Find path to note file, given its name."""
         mdfile_ = name + ".md"
@@ -915,6 +923,7 @@ class HtmlRenderer(AbstractAstRenderer):
         html = ""
         href_ = utils.escape_url(f"/wiki/{ href.replace(' ', '_') }")
         if "." not in href:
+            self._internal_links.append(href)
             match =  self.find_page(href)
             class_name = "link-internal" if match else "link-internal-missing"
             description = ""

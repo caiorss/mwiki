@@ -274,7 +274,7 @@ class WikiPage():
     """Model class representing a wiki page markdown file."""
 
     def __init__(self, base_path: pathlib.Path, path: pathlib.Path, title: str):
-        self._base_path = base_path
+        self._base_path: pathlib.Path = base_path
         self._cache: pathlib.Path = base_path / ".data/cache"
         self._title = title 
         # Create cache directory if it does not exist yet.
@@ -307,7 +307,7 @@ class WikiPage():
         path.write_text(text)
 
     def is_dirty(self):
-        """Returns true if cached html needs update """
+        """Returns true if cached html needs update (be recompiled)."""
         out = self._cache_html_file()
         src = self._path
         src_time = src.lstat().st_mtime
@@ -321,11 +321,26 @@ class WikiPage():
         if not info.exists():
             return res
         deps = []
+        links = []
         with open(str(info), "r") as fd:
-            deps = json.load(fd)
+            data = json.load(fd)
+            # Recompile the markdown page if using an older version
+            # of the json metadata file.
+            if "dependencies" not in data and "links" not in data:
+                ## print(" [TRACE] Recompile page due to older version of info json file.")
+                return True
+            deps = data.get("dependencies", [])
+            links = data.get("links", [])
         for x in deps:
             p = self._base_path / x
             if p.exists() and p.lstat().st_mtime > out_time:
+                return True
+        for entry in links:
+            exists = entry.get("exists", False)
+            afile   = self._base_path / (entry.get("link") + ".md")
+            if exists and not afile.exists():
+                return True
+            if not exists and afile.exists():
                 return True
         return False
 
@@ -345,10 +360,20 @@ class WikiPage():
         renderer, content = render.pagefile_to_html(pagefile, base_path)
         title = renderer.title if renderer.title != "" else self._title
         info = out.parent / out.name.replace(".html", ".json")
+        ###breakpoint()
+        # List eof embedded pages
         dependencies = [ str(x.relative_to(self._base_path)) for x in renderer.dependencies]
-        if dependencies != []:
+        ## List of internal links pointed by this Wiki page
+        internal_links = [ {  "link":    x
+                            , "exists":  (self._base_path / (x + ".md")).exists() }
+                            for x in renderer._internal_links ]
+        if dependencies != [] or internal_links != []:
+            data = {
+                      "dependencies": dependencies
+                    , "links":        internal_links
+                }
             with open(str(info), "w") as fd:
-                json.dump(dependencies, fd)
+                json.dump(data, fd)
         else:
             if info.exists(): info.unlink()
         html = flask.render_template(  "content.html"
