@@ -1678,6 +1678,28 @@ Rendering:
 + {abbr}`HTML (Hypertext Markup Language)` is a declarative language.
 
 
+### Text Notes 
+
+This MyST role (not available by default in MyST) allows adding notes to text that are displayed in a popup window in a similar way to the abbr MyST role for abbreviations.
+
+Syntax:
+
+````markdown
+{note}`[TERM or SENTENCE] ([NOTE])`
+````
+
+For instance, consider the following markdown code 
+
+````markdown
++ A python {note}`dictionary (This data structure is a hash table)` has type Dict[key, value].
+````
+
+which is rendered as 
+
++ A python {note}`dictionary (This data structure is a hash table)` has type Dict[key, value].
+
+The term "dictionary" is displayed with underline dots. When the user clicks at this text, a popup window containing the note "This data structure is a hash table" is shown to the user.
+
 ### Math Role for Inline LaTeX
 
 ```
