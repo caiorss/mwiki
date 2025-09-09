@@ -1,5 +1,34 @@
 # Changelog 
 
+## Release v0.6
+
+
++ Refactor watcher module for using polling instead watchdog module for improving realibility.
+  + This refactoring was needed due to the buggy behavior of watchdog module (library). In addition, there are many reports that this module may not work well on Micrsoft Windows and sometimes fail to work on Linux.
++ Implement normalization of other latin alphabets to english Alphabet (Improve Search).
+   + This commit implements normalization of other latin alphabets variants to English latin alphabet, including Polish latin alphabet, Turkish Latin Alphabet and Serbo-Croatian alphabet. This feature allows searching for words written in other latin alphabet variants using only letters of English alphabet. For instance, it is possible to search for the Polish word Władysław by typing "Wladyslaw" instead "Władysław", whose letters are not available in an english keyboard layout. If a Wiki page contains a word such as "Władysław" or other words written using letters of Polish, Turkish or Serbo-croatian alphaet, the letters are not available in English are turned into English equivalent letters. For example, the word "Władysław" is recorded as "Wladyslaw" in the search index database. If the user types the word in Polish letters "Władysław" in the search form, the word it is turned into "Wladyslaw". As a result, the search results will contain all pages with "Wladyslaw" or "Władysław" word.
++ Improve search - Normalize Danish and Norwegian alphabets to English alphabet.
++ Implement internationalization (i18n) infrastructure for adding multiple locales to the UI - User Interface without changing any part of the code. The UI - User Interface supports the following locales, en-US (American English) and pt-BR (Brazilian Portuguese). But, it is possible to add new languages by editing only a JSON global variable.
++ Implement UI localization to Portuguese language (Brazilian Portuguese). The default language of the user interface is English (American English spelling). However, it is possible to change the default locale/language in the settings form.
++ Normalize English locales to en-US (American English) and Portuguese locales to pt-BR (Brazilian Portuguese).
+    + Map all english locales provided by the web browser to en-US ) and all portuguese locales to pt-BR (Brazilian Portuguese). In the future, more locales of other languages or different dialects of the same language can be added. 
++ Fix css style of the log in form for mobile devices.
++ Improve look and feel of the login form (also known as sig in or authentication form).
++ Improve appearance of the settings form.
++ Improve look and feel of the popup window for insert link to a wiki page.
++ Accessibility improvement - Use figure caption as alt text if no alt text is provided.
++ Performance improvment - Recompile markdown file if any link depency is changed.
+  + Details: If a page contains an internal to hyperlink to a Wiki page `[Mass Moment of Internetia Tensor]]` and the corresponding     markdown page does not exist yet the link will be red. If this page corresponding to this link is created and the page referencing this link is refreshed, it will be recompiled for updating the cached html. After recompilation the link will become green.
++ Implement custom MyST role for adding notes to text.
++ implement save icon button in the editor page header.
+   + This diskette icon allows quickly saving a Wiki page document in a mobile device with small screen.
++ Update reference card - add example about  Note MyST role.
++ Bugfix - Create search index directory if it does not exist yet.
++ Bugfix - Fix equation enumeration undefined javascript bug in the preview window.
++ Bugfix - Fix the behavior of the popup window for displaying abbreviations of `<abbr>` htm5 elements in mobile devices. 
++ Bugfix - Fix back link of the settings page.
+
+
 
 ## Release v0.5.1
 
