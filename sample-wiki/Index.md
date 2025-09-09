@@ -6,7 +6,8 @@ This is the index page. The first page shown by MWiki.
 + [[Math - Calculus Reference Card]]
 + [[Linux SysRq Key and OOM System Recovery]]
 + [[Open Source Licenses]]
-
++ [[Internationalization i18n and Localization i10n concepts]]
+ 
 ## Bookmarks
 
 + [Triple product](https://en.wikipedia.org/wiki/Triple_product)
