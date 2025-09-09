@@ -175,8 +175,13 @@ function noSubmitForm(event)
     return false;
 }
 
+// "Insert Link to Wiki Page"
+let insertPageWindowTitle = geti18nTranslation("insert-link-popup-window-title");
+// "Insert"
+let insertPageButtonLabel = geti18nTranslation("insert-link-popup-window-insert-button");
+
 let selectPageWindow = new PopupWindow({
-       title: "Insert Link to Wiki Page"
+       title:  insertPageWindowTitle
     ,  height: "100px"
     ,  html: `
     <form class="insert-link-form">
@@ -185,7 +190,7 @@ let selectPageWindow = new PopupWindow({
             <datalist id="pagelist"></datalist>
         </fieldset>
         <fieldset>
-            <button class="primary-button" type="button" onclick="insertLinkToPageCallback();">Insert</button>
+            <button class="primary-button" type="button" onclick="insertLinkToPageCallback();">${insertPageButtonLabel}</button>
         </fieldset>
    </form>
    `

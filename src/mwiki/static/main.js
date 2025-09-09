@@ -284,6 +284,8 @@ translationsi18n =
         , "new-note-popup-window-title":          "New Note"
         , "new-note-popup-window-label":          "Name"
         , "new-note-popup-window-instruction":    "Enter the name of the note be created."
+        , "insert-link-popup-window-title":          "Insert Link to a Wiki Page"
+        , "insert-link-popup-window-insert-button": "Insert"
 
 	}
    ,"pt-BR": {
@@ -440,7 +442,8 @@ translationsi18n =
         , "new-note-popup-window-title":          "Nova Nota"
         , "new-note-popup-window-label":          "Nome"
         , "new-note-popup-window-instruction":    "Digite o nome da nota a ser criada."
-
+        , "insert-link-popup-window-title":          "Inserir Link para uma Página Wiki"
+        , "insert-link-popup-window-insert-button": "Inserir"
 	}
 
 };
@@ -1284,7 +1287,7 @@ function menuClicked(event) {
     let target = event.target;
     /// console.log(" [TRACE] target = ", event.target);
     // let parent = event.target.parentElement;
-    console.log(" [TRACE] parent = ", parent);
+        // console.log(" [TRACE] parent = ", parent);
     /** 
      *  CSS Class 
      * 

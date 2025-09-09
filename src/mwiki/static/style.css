@@ -1039,6 +1039,10 @@ main thead th {
   background-color: #fbfafa;
 }
 
+.insert-link-form input {
+    width: 100%;
+}
+
 /** For desktop systems */
 @media (min-width: 815px)
 {
