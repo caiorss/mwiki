@@ -1808,6 +1808,22 @@ Rendering:
 
 + The math expression  {math}`x^2 - 10x + 20` the previous function.
 
+### Text Notes 
+
+This MyST role (not available by default in MyST) allows adding notes to text that are displayed in a popup window in a similar way to the abbr MyST role for abbreviations.
+
+Syntax:
+
+````markdown
+{note}`[TERM or SENTENCE] ([NOTE])`
+````
+
+The term "dictionary" of the following markdown code is rendered with underline dots. When the user clicks at this text, a popup window containing the note "This data structure is a hash table" is shown to the user. The text of the markdown code is rendered as "A python dictionary has type Dict[key, value].".
+
+````markdown
++ A python {note}`dictionary (This data structure is a hash table)` has type Dict[key, value].
+````
+
 ###  Subscript  Role  
 
 ```
