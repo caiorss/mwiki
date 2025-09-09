@@ -351,6 +351,9 @@
     --screen-type: "desktop";
     --link-external-color: blue; /* hsl(0, 100%, 33%); */
     --link-internal-color: blue;
+    --form-background-color: #fbfcfc;
+    --form-border-color: #cfd5e2;
+    --primary-button-background-color: #0172ad;
 
     /* --font-family-main: 'Computer Modern'; */
     /* --font-family-main: 'Neo Euler'; */
@@ -367,6 +370,11 @@
     --font-size-text: 0.720rem;
     --font-size-code: 0.700rem;
     --font-size-sidebar: 0.850rem;
+
+    --code-block-background-color: rgb(243, 244.5, 246.75);
+
+    /* Magnifier icon */
+    --icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(136, 145, 164)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
 }
 
 /** Disable annoying pull-down-to-refresh in mobile web browsers. */
@@ -583,6 +591,7 @@ dd {
 }
 
 
+
 .sidebar-toggle-button {
     height: 50px;
     padding: 0 15px;
@@ -676,10 +685,6 @@ blockquote p {
 }
 
 
-table {
-    /* background-color: #fffebc; */
-    margin-bottom: 20px;
-}
 
 .div-page-info {
   /* background: #FFFFE0; */
@@ -904,6 +909,121 @@ select:focus {
     text-align: center;
 }
 
+
+.login-form {
+    border: 2px solid;
+    padding: 20px;
+    border-radius: 2rem;
+}
+
+fieldset {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    margin-bottom: 1rem;
+}
+
+fieldset label {
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+    color: #414449 !important;
+}
+
+fieldset input[type="checkbox"] {
+    padding: 0;
+    accent-color: var(--primary-button-background-color);
+}
+
+fieldset select {
+    margin-top: 1.5rem;
+    background-color: var(--form-background-color);
+    border-radius 0.25rem;
+    width: 100%;
+    border: 0.5px var(--form-border-color) solid;
+    height: 3.0rem;
+    padding: 15px;
+}
+
+/* fieldset input[type="submit"] */
+.primary-button {
+    background: var(--primary-button-background-color);
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 0px;
+    height: 2rem;
+    min-width: 10rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+
+input:focus, textarea:focus, select:focus {
+    border: 1px solid blue;
+
+}
+
+fieldset input[type="text"], input[type="textarea"], input[type="password"] {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+    width: 90%;
+    background-color: var(--form-background-color) !important;
+    font-weight: 500 !important;
+}
+
+
+fieldset textarea {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    width: 95% !important;
+    background-color: var(--form-background-color) !important;
+    height: 160px;
+    resize: none;
+
+}
+
+input[type="search"] {
+    background-image: var(--icon-search);
+    background-repeat: no-repeat;
+    padding-inline-start: 1.75rem;
+    height: 2.2rem;
+    border-radius: 20px;
+}
+
+table {
+    /* background-color: #fffebc; */
+    margin-bottom: 20px;
+}
+
+
+main :where(table) {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-indent: 0;
+}
+
+main td, th {
+    padding: 0.5rem;
+    border-bottom: 0.1875rem solid rgb(231, 234, 239.5);
+    text-align: start;
+    color: #373c44;
+}
+
+main thead th {
+  font-weight: 600;
+  border-width: 0.1875rem;
+  background-color: #fbfafa;
+}
+
 /** For desktop systems */
 @media (min-width: 815px)
 {
@@ -1091,7 +1211,7 @@ select:focus {
 
 
 pre {
-    background-color: lightyellow;
+    background-color: var(--code-block-background-color);
     padding: 5px;
     margin-top: 8pt     !important;
     margin-bottom: 10px  !important;
@@ -1117,7 +1237,7 @@ code {
 }
 
 .source-code {
-    background-color: lightyellow;
+    background-color: var(--code-block-background-color);
     display: block;
     font-family:  var(--font-family-code);
     overflow-x: auto;
