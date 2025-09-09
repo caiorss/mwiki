@@ -695,6 +695,11 @@ blockquote p {
   border-radius: 5px;
 }
 
+.popup-message-text {
+    font-size: 1rem;
+}
+
+
 .admonition {
     padding: 10px;
     border: 5px;
