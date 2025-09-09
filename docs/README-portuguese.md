@@ -36,6 +36,7 @@ Aplicações:
 + Upload de arquivo. Agora, o editor de código wiki possui um botão para inserir um hiperlink para um arquivo carregado. Ao clicar no botão, uma janela pop-up para upload é exibida. Assim que o usuário envia o arquivo, a janela é fechada e um link para o arquivo é inserido no editor.
 + Páginas embutiveis. O conteúdo de uma página wiki pode ser incorporado em outra página wiki usando a sintaxe `![[Nome da página Wiki a ser incorporada]]`
 + Visualização do documento - permite que os usuários visualizem como o texto em markdown de uma página wiki ficará quando renderizado antes de salvá-lo. O botão de pré-visualização do editor também permite visualizar a aparência de um código markdown selecionado de uma página wiki quando renderizado.
++ Interface do usuário com suporte para **internacionalização** (i18N) e **localização (i10N)**. O idioma padrão da interface do usuário pode ser alterado nas configurações do formulário. Por enquanto, apenas os idiomas inglês (inglês internacional com ortografia americana) e português (português do Brasil) estão disponíveis. No entanto, novos idiomas ou localidades podem ser adicionados sem alterar a base de código.
 + Dependências JavaScript de terceiros para uso offline. Por exemplo, o MWiki possui MathJax, pseudocode-JS e Ace9 embutidos *(vendored)* no código-fonte para uso offline, mesmo quando não há CDN disponível devido à falta de conectividade com a internet ou se o Wiki for usado em um ambiente restrito protegido por firewall.
 
 #### Controle de acesso
@@ -150,11 +151,16 @@ NOTA: Embora as animações GIF estejam desatualizadas devido às principais mud
 ### Capturas de Tela (Screenshot)
 
 
-**Tela de Login (Autenticação)**
+**Tela de Login (Autenticação, Log in)**
 
-Se o wiki estiver configurado como não público nos formulários de configuração, o usuário será redirecionado para o formulário de autenticação. O redirecionamento para este formulário também ocorre se o usuário tentar acessar qualquer página que exija autenticação.
+Se o wiki estiver configurado como não público nos formulários de configurações, o usuário será redirecionado para o formulário de autenticação. O redirecionamento para este formulário também ocorre se o usuário tentar acessar qualquer página que exija autenticação. Observe que o nome padrão do site é MWiki. Neste caso, o nome do site é definido como WNotes. Ele pode ser alterado no formulário de login.
 
-![](docs/images/login-screen.png)
+![](images/login-screen.png)
+
+Tela de autenticação localizada em Português.
+
+![](images/login-screen-localized.png)
+
 
 **Captura de Tela 1 do Wiki**
 
@@ -176,11 +182,15 @@ Editor de código MWiki com tecnologia Javascript Ace9.
 
 ![](images/screen4.png)
 
-**Captura de Tela 5 do Wiki**
+**Captura de Tela 5 do Wiki (Configurações)**
 
 Página de configurações do MWiki.
 
 ![](images/screen5.png)
+
+Página de configurações do MWiki localizada para o português.
+
+![](images/screen5-localized-settings.png)
 
 **Captura de Tela 6 do Wiki**
 
@@ -190,9 +200,10 @@ Captura de tela do menu principal *(main menu)*.
 
 **Captura de tela 7 do Wiki**
 
-Captura de tela do menu de página *(page menu)*.
+Captura de tela do menu de página *(page menu)*. Nota: este menu esta também disponível em Português como muitas outras telas.
 
 ![](images/screen7.png)
+
 
 **Captura de tela 8 do Wiki**
 
@@ -210,6 +221,10 @@ O Wiki possui um mecanismo de busca integrado que permite a busca por palavras-c
 
 ![](images/screen10.png)
 
+Screenshot do motor de buscas *(search engine)* em português.
+
+![](images/screen10-localized.png)
+
 **Captura de Tela 11 do Wiki - Cartão de Referência**
 
 Este wiki fornece uma janela pop-up de cartão de referência que fornece exemplos da linguagem de marcação MWiki (markdown personalizado).
@@ -217,6 +232,10 @@ Este wiki fornece uma janela pop-up de cartão de referência que fornece exempl
 (1) O cartão de referência pode ser aberto clicando no botão 'Reference Card' na barra de ferramentas do editor.
 
 ![](images/refcard1.png)
+
+(1) O cartão de referência pode ser aberto clicando no botão 'Cartão de Referência' na barra de ferramentas do editor se a interface estiver configurada para o português.
+
+![](images/refcard1-localized.png)
 
 (2) Cartão de referência com todas as seções dobradas.
 
@@ -1051,7 +1070,7 @@ Uma VPN Mesh Site-to-Site, como a **tailscale**, pode ser útil para hospedar es
   + https://erisa.dev/exposing-a-web-service-with-cloudflare-tunnel/
   + *What if you could host a web service with no ports exposed? With Cloudflare Tunnel, you can!*
   + COMENTÁRIO: Para quem não confia na Cloudflare, uma VPN mesh Tailscale auto-hospedada é uma escolha melhor. A Tailscale permite estabelecer um túnel criptografado direto de ponta a ponta entre nós clientes Tailscale (máquinas com o cliente Tailscale instalado). Como resultado, qualquer nó em uma rede Tailscale pode acessar qualquer serviço web exposto por outros nós Tailscale. Por exemplo, se um Android ou iPhone tiver um aplicativo cliente Taiscale instalado, é possível navegar em um host web na rede local, possivelmente por trás de um NAT (Network Address Translator), que bloqueia conexões de entrada por padrão, abrindo a URL http://dummy:8080 ou http://dummy.net.ts:8080, onde dummy é o nome do host ou nome Tailscale do computador que hospeda o servidor web. O Tailscale não é útil apenas para acessar servidores web locais de qualquer lugar sem expor nenhuma porta TCP ou UDP à internet, mas também é útil para acessar pastas compartilhadas do Windows (SAMBA/SMB), às vezes chamadas de compartilhamentos do Windows, e máquinas Windows remotamente por meio de VNC ou remote desktop.
-  + COMENTÁRIO: Expor um servidor web local à internet com Taiscale requer a instalação de um cliente tailscale no computador local que hospeda o servidor web e um cliente tailscale no VPS - Virtual Private Server, uma máquina virtual hospedada na nuvem com endereço IP público. Tudo o que é necessário é adicionar uma configuração ao caddy ou nging na máquina remota para encaminhar o tráfego de rede das portas 80 (http) e 443 (https) para o endereço IP tailscale ou nome do host do computador local, por exemplo, dummy.net.ts é o nome do host ou o nome tailscale do computador local é dummy. A função de um servidor tailscale, que deve ser instalado em uma máquina com endereço IP estático e público, é apenas coordenar as conexões entre os clientes. Uma vez estabelecida uma conexão de cliente para cliente, o tráfego de rede entre os clientes não passa pelo servidor.
+  + COMENTÁRIO: Expor um servidor web local à internet com Taiscale requer a instalação de um cliente tailscale no computador local que hospeda o servidor web e um cliente tailscale no VPS - Virtual Private Server, uma máquina virtual hospedada na nuvem com endereço IP público. Tudo o que é necessário é adicionar uma configuração ao Caddy ou Nginx na máquina remota para encaminhar o tráfego de rede das portas 80 (http) e 443 (https) para o endereço IP tailscale ou nome do host do computador local, por exemplo, dummy.net.ts é o nome do host ou o nome tailscale do computador local é dummy. A função de um servidor tailscale, que deve ser instalado em uma máquina com endereço IP estático e público, é apenas coordenar as conexões entre os clientes. Uma vez estabelecida uma conexão de cliente para cliente, o tráfego de rede entre os clientes não passa pelo servidor.
 + *Scientific Articles*, MyST 
   + https://mystmd.org/guide/quickstart-myst-documents
 + *R Markdown* 

@@ -39,6 +39,7 @@ See also:
  + File upload. Now the wiki code editor has a button for inserting a hyperlink to an uploaded file. When the button is clicked, a popup window for upload is shown. Once the user sends the file, the window is closed and a link to the file is inserted in the editor.
  + Embeddable pages. The contents of a wiki page can be embedded in another wiki page by using the syntax `![[Name of Wiki page to be embedded]]`
  + Document preview - allows users viewing how a wiki page markdown text will look like when rendered before saving it. The editor's preview button also allows viewing how a selected markdown code of a wiki page looks like when rendered.
+ + User Interface with support for internationalization (i18N) and localization (i10N). The default language of the user interface can be changed in the form settings. For a while, only English (International English with American spelling) and Portuguese (Brazilian Portuese) languages are available. However, new language or locale can be added without changing the codebase. 
  + Vendored third-party JavaScript dependencies for offline usage. For instance, MWiki has MathJax, pseudocode-JS, and Ace9 in the source code for offline usage even when no CDN is available due to lack of internet connectivity or if the Wiki is used in rescrited environment behind a firewall. 
 
 
@@ -153,7 +154,7 @@ NOTE: Although the GIF animations are outdated due to the major layout and UI - 
 
 **Login Screen**
 
-If the wiki is configured in the settings forms as non public, the user will be redirected to the authentication form. Redirection to this form also happens if the user attempts to access any page requiring authentication.
+If the wiki is configured in the settings forms as non public, the user will be redirected to the authentication form. Redirection to this form also happens if the user attempts to access any page requiring authentication. Note that the default site name is MWiki. In this case the site name is set to WNotes. It can be changed in the log in form. 
 
 ![](docs/images/login-screen.png)
 
@@ -178,7 +179,7 @@ MWiki code editor powered by Ace9 Javascript code editor.
 
 ![](docs/images/screen4.png)
 
-**Wiki Screenshot 5**
+**Wiki Screenshot 5 (Settings)**
 
 MWiki settings page.
 
@@ -199,6 +200,10 @@ Page menu screenshot.
 **Wiki Screenshot 8**
 
 It is possible to fold all Wiki headings for fast navigation on mobile devices or desktop by clicking at the '(F)' button on the top navigation bar.
+
+1. Clique aqui para dobrar/desdrobrar todos cabeçalhos (títulos) e as correspondentes seções.
+2. Clique no lapiz para editar apenas a seção do documento correspondente a este cabeçalho.
+3. Clique neste cabeçalho/título para dobrar/desdobrar esta seção.
 
 ![](docs/images/screen8.png)
 
@@ -1144,7 +1149,7 @@ A site-to-site mesh VPN such as **tailscale** can be helpful for self hosting th
   + https://erisa.dev/exposing-a-web-service-with-cloudflare-tunnel/
   + *What if you could host a web service with no ports exposed? With Cloudflare Tunnel, you can!*
   + COMMENT: For people who does not trust Cloudflare, a self-hosted Tailscale mesh VPN is a better choice. Tailscale allows establishing a direct end-to-end encrypted tunnel between tailscale client nodes (machines with tailscale client installed). As a result, any node in a taiscale network can access any web service exposed by other tailscale nodes. For instance, if an Android or Iphone has a taiscale client app installed. It is possible to browse a websiste hostead in the local network, possibly behding a NAT - Network Address Translator which blocks incoming connections by default, by opeing the URL http://dummy:8080 or http://dummy.net.ts:8080, where dummy is the hostname or tailscale name of the computer that hosts the web server. Tailscale is not only useful for accessing local web servers from anywhere without exposing any TCP or UDP port to the internet, it is also helpful for accessing windows shared forlders (SAMBA/SMB), sometimes called Windows shares, and Windows Machines remotely through VNC or remote desktop. 
-  + COMMENT: Exposing a local web server to the internet with Taiscale requires installing a tailscale client in the local computer hosting the web server and a tailscale client in the VPS - Virtual Private Server, a virtual machine, hosted on the cloud with public IP address. All it is need is to add a configuration to caddy or nging in the remote machine to forward the network traffic of ports 80 (http) and 443 (https) to the tailscale IP addres or hostname of the local computer, for instance dummy.net.ts is the hostanme or tailscale name of the local computer is dummy. The role of a tailscale server, that must be installed in machine with static and public IP address, is only coordinating connections between clients. Once a connection from client-to-client has been established, the network traffic between clients does not goes thorugh the server. 
+  + COMMENT: Exposing a local web server to the internet with Taiscale requires installing a tailscale client in the local computer hosting the web server and a tailscale client in the VPS - Virtual Private Server, a virtual machine, hosted on the cloud with public IP address. All it is need is to add a configuration to Caddy or Nginx in the remote machine to forward the network traffic of ports 80 (http) and 443 (https) to the tailscale IP addres or hostname of the local computer, for instance dummy.net.ts is the hostanme or tailscale name of the local computer is dummy. The role of a tailscale server, that must be installed in machine with static and public IP address, is only coordinating connections between clients. Once a connection from client-to-client has been established, the network traffic between clients does not goes thorugh the server. 
 + *Scientific Articles*, MyST 
   + https://mystmd.org/guide/quickstart-myst-documents
 + *R Markdown* 
