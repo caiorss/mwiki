@@ -27,7 +27,7 @@ class SettingsForm(fwt.FlaskForm):
 																 "Source licenses used by this project.")
     use_default_locale = wt.BooleanField("Default Locale", description=("Always use default locale regardless of" " user's preferred locale provided by the web browser.") )
     default_locale = wt.SelectField("default_locale", choices = [ ("en-US", "en-US - American English")
-															     ,("pt-BR", "pt-BR - Brazilian Portuguese") ]
+															     ,("pt-BR", "pt-BR - Português Brasileiro (Brazilian Portuguese) ") ]
 															     )
     main_font = wt.SelectField("Main Font", choices = [(ch.value, ch.value) for ch  in models.FontFamiliyEnum])
     code_font = wt.SelectField("Code Font", choices = [(ch.value, ch.value) for ch  in models.CodeFontFamily])
