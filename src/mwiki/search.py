@@ -265,6 +265,7 @@ def update_index_page_(writer, base_path: pathlib.Path, mwiki_page_file: pathlib
 def update_index_page(base_path: pathlib.Path, mwiki_page_file: pathlib.Path):
     """Update a search index metadata of MWiki markdown page file."""
     index_dir = base_path / _SEARCH_INDEX_PATH
+    ## breakpoint()
     ix = open_dir(str(index_dir))
     writer = ix.writer()
     update_index_page_(writer, base_path, mwiki_page_file)
@@ -293,7 +294,9 @@ def index_markdown_files(base_path: pathlib.Path):
     markdown_file_list = base_path.rglob("*.md")
     index_dir = base_path / _SEARCH_INDEX_PATH
     if not index_dir.exists():
-        index_dir.mkdir()
+        data_dir = base_path / ".data"
+        data_dir.mkdir(exist_ok = True)
+        index_dir.mkdir(exist_ok = True)
     ix = create_in(str(index_dir), schema)
     writer = ix.writer()
     for afile in markdown_file_list:
