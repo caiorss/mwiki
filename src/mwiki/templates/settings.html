@@ -23,11 +23,14 @@
 <div class="form-wrapper">
     <form method="POST" action="/settings?back={{ request.values.get('back') }}">
         <input id="csrf_token" name="csrf_token" type="hidden" value="{{ csrf_token() }}">
+
+        <div class="grid">
         <fieldset class="form-field">
             <label data-i18n="settings-sitename-label" for="sitename">Website Name</label>
             <br>
             <input id="sitename" name="sitename" required="" type="text" value="{{ form.sitename.data }}">
         </fieldset>
+        </div>
         <fieldset class="form-field">
             <label data-i18n="settings-website-description-label" for="description">Website Description</label>
             <br>
@@ -102,7 +105,7 @@
             <label data-i18n="settings-title-font-label" for="title_font">Title Font</label>
 			{{ form.title_font }}
         </fieldset>
-        <input data-i18n="settings-update-button" id="submit" name="submit" type="submit" value="Update">
+        <input class="primary-button" data-i18n="settings-update-button" id="submit" name="submit" type="submit" value="Update">
     </form>
 </div>
 
