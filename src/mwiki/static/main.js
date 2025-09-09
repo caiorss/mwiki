@@ -281,6 +281,10 @@ translationsi18n =
         , "links-page-strong-label":              "Page"
         , "links-page-internal-links-h2":         "Internal Links"
         , "links-page-external-links-h2":         "External Links"
+        , "new-note-popup-window-title":          "New Note"
+        , "new-note-popup-window-label":          "Name"
+        , "new-note-popup-window-instruction":    "Enter the name of the note be created."
+
 	}
    ,"pt-BR": {
 		  "locale":                   "Brazilian Portuguese"
@@ -433,6 +437,10 @@ translationsi18n =
         , "links-page-strong-label":              "Página"
         , "links-page-internal-links-h2":         "Links Internos"
         , "links-page-external-links-h2":         "Links Externos"
+        , "new-note-popup-window-title":          "Nova Nota"
+        , "new-note-popup-window-label":          "Nome"
+        , "new-note-popup-window-instruction":    "Digite o nome da nota a ser criada."
+
 	}
 
 };
@@ -564,12 +572,19 @@ function popupYesNo(title, message, handler)
 
 function popupInput(title, message, label, handler)
 {
+    let buttonYesLabel = geti18nTranslation("button-yes-label");
+    let buttonNoLabel = geti18nTranslation("button-no-label");
     let html_ = `
-        <p class="popup-message-text">${message}</p>
-        <label>${label}</label><input type="text" class="popup-input" required="required" />
-        <br><br>
-        <button class="btn-yes">Yes</button>
-        <button class="btn-no">No</button>
+        <form>
+          <fieldset>
+                <p class="popup-message-text">${message}</p>
+                <label>${label}</label><input type="text" class="popup-input" required="required" />
+                </fieldset>
+            <fieldset>
+                <button class="primary-button btn-yes">${buttonYesLabel}</button>
+                <button class="primary-button btn-no">${buttonNoLabel}</button>
+            </fieldset>
+        </form>
     `;
     let pwindow = new PopupWindow({
           title:  title
@@ -964,11 +979,17 @@ document.addEventListener("DOMContentLoaded", async function()
     let btnCreateNote = document.querySelector("#btn-create-note");
     if( btnCreateNote )
     {
+        // New Note
+        let title = geti18nTranslation("new-note-popup-window-title");
+        // Name
+        let label = geti18nTranslation("new-note-popup-window-label");
+        // Enter the name of the note be created.
+        let instruction = geti18nTranslation("new-note-popup-window-instruction");
 		btnCreateNote.addEventListener("click", () => {
         popupInput(
-                  "New Note"
-                , "Enter the name of the note be created."
-                , "Name"
+                  title
+                , instruction
+                , label
                 , async (noteName) => {
                     let resp = await http_post(`/api/wiki/${noteName}`);
                     if (resp.status === "error"){
