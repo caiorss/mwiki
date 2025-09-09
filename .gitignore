@@ -39,3 +39,6 @@ deploy.env
 *.pem 
 tags_cache.json
 .data/*
+*/.data/*
+*.data 
+search_index/*
