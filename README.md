@@ -251,15 +251,24 @@ $ uv tool install git+https://github.com/caiorss/mwiki
   Installed 2 executables: mwiki, mwiki-convert
 ```
 
-Install latest stable release: version v0.5.1
+Install latest stable release: version v0.6
+
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.6.zip
+```
+
+Install latest stable release v0.6 using the commit hash (reproducible and immutable).
+
+```sh
+```
+
+Install release: version v0.5.1
 
 ```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.5.1.zip
-```
 
-Install latest stable release v0.51 using the commit hash (reproducible and immutable).
+## Or
 
-```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/239eeab1a5e52ec7ed8ad941866bb3292052fa09.zip
 ```
 
