@@ -32,6 +32,16 @@ class PopupWindow
         this.onClick(".btn-window-close", () => self.close());
     }
 
+    setTitle(title)
+    {
+        let x= this._dom.querySelector(".window-title");
+        if(!x){
+            console.error(`DOM element of CSS class 'window-title' not found.`);
+            return;
+        }
+        x.textContent = title;
+    }
+
     setMessage(message)
     {
         let x =  this._dom.querySelector(".popup-message-text");
@@ -259,6 +269,7 @@ translationsi18n =
         , "create-page-form-cancel-button":  "Cancel"
         , "quick-open-window-title":         "Quick Open Wiki Page"
         , "quick-open-page-open-button":     "Open"
+        , "popup-window-note-myst-role-title":    "Note"
         , "foldable-math-solution-block-label":   "Solution"
         , "foldable-math-proof-block-label":      "Proof"
         , "foldable-math-example-block-label":    "Example"
@@ -410,6 +421,7 @@ translationsi18n =
         , "create-page-form-cancel-button":    "Cancelar"
         , "quick-open-window-title":         "Abertura rápida de Página Wiki"
         , "quick-open-page-open-button":     "Abrir"
+        , "popup-window-note-myst-role-title":    "Nota"
         , "foldable-math-solution-block-label":   "Solução"
         , "foldable-math-proof-block-label":      "Prova"
         , "foldable-math-example-block-label":    "Exemplo"
@@ -1065,7 +1077,9 @@ document.addEventListener("mouseover", (event) => {
             tooltip_window = popupMessage(title, ""
                                       , {hidden: true, height: "100px", zIndex: "2000"});
         }
+        let title = geti18nTranslation("abbreviation-window-title");
         let tooltip = `${target.innerText}: ${target.title}`; 
+        tooltip_window.setTitle(title);
         tooltip_window.setMessage(tooltip);
         tooltip_window.show();
     } else {
@@ -1085,9 +1099,22 @@ document.addEventListener("click", (event) => {
     if(target.tagName === "ABBR")
     {
          let tooltip = `${target.innerText}: ${target.title}`;
+         let title = geti18nTranslation("abbreviation-window-title");
+         tooltip_window.setTitle(title);
          tooltip_window.setMessage(tooltip);
          tooltip_window.show();
          return;
+    }
+
+    if(target.classList[0] === "myst-note-role")
+    {
+        let term = target.innerText;
+        let note = target.dataset.note;
+        // English title: "Note"
+        let title = geti18nTranslation("popup-window-note-myst-role-title") || "Note";
+        tooltip_window.setTitle(title)
+        tooltip_window.setMessage(note);
+        tooltip_window.show();
     }
 
     // Toggle zoom images (expand to 100% width) when they are clicked

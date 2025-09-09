@@ -951,6 +951,7 @@ class HtmlRenderer(AbstractAstRenderer):
         role = node.meta.get("name", "")
         content = utils.escape_html(node.content)
         html = ""
+        # MyST Underline role
         if role == "u":
             html = f"""<u>{content}</u>"""
         ## MyST math role. Exmaple: {math}`f(x) = \sqrt{x^2 - 10x}`
@@ -970,8 +971,18 @@ class HtmlRenderer(AbstractAstRenderer):
                 return content
             abbreviation = match.group(1)
             description  = match.group(2)
-            html = f'<abbr title="{description}">{abbreviation}</abbr>'
+            html = '<abbr title="%s">%s</abbr>' % (description, abbreviation)
             # TODO Finish later
+        # MyST role for adding note/observation or explanation to some word, set words or sentence.
+        # Syntax: {note}`[TERM] ([NOTE])`
+        #  The python dictionary is {note}`hash table (This data structure is unordered.)`.
+        elif role == "note":
+            match = re.match(r"(.*)\((.*)\)", content)
+            if not match:
+                return content
+            term = match.group(1).strip()
+            note  = match.group(2).strip()
+            html = '<span class="myst-note-role" data-note="%s">%s</span>' % (note, term)
         elif role == "big":
             html = f'<span class="text-big">{content}</span>'
         elif role == "big-bold":

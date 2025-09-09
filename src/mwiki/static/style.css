@@ -699,6 +699,16 @@ blockquote p {
     font-size: 1rem;
 }
 
+abbr {
+    cursor: pointer;
+}
+
+
+.myst-note-role {
+    cursor: pointer;
+    text-decoration: underline dotted #6f6f6f 2px;
+}
+
 
 .admonition {
     padding: 10px;
