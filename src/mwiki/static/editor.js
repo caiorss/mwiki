@@ -167,15 +167,32 @@ async function insertLinkToPage()
     selectPageWindow.show();
 }
 
+function noSubmitForm(event)
+{
+    console.log(" [TRACE] noSubmitForm called ok.")
+    event.preventDefault();
+    insertLinkToPageCallback();
+    return false;
+}
+
 let selectPageWindow = new PopupWindow({
        title: "Insert Link to Wiki Page"
     ,  height: "100px"
     ,  html: `
-    <input id="prompt-select-page" name="select-page" list="pagelist">
-    <datalist id="pagelist"></datalist>
-    <button onclick="insertLinkToPageCallback();">Insert</button>
-    `
+    <form class="insert-link-form">
+        <fieldset>
+            <input type="search" id="prompt-select-page" name="select-page" list="pagelist">
+            <datalist id="pagelist"></datalist>
+        </fieldset>
+        <fieldset>
+            <button class="primary-button" type="button" onclick="insertLinkToPageCallback();">Insert</button>
+        </fieldset>
+   </form>
+   `
 });
+
+document.querySelector(".insert-link-form").addEventListener("submit", noSubmitForm)
+
 
 function insertLinkToPageCallback()
 {
