@@ -885,10 +885,10 @@ document.addEventListener("DOMContentLoaded", async function()
         ,  titleI18nTag: "quick-open-window-title"
         ,  height: "100px"
         ,  html: `
-        <input id="prompt-open-page" name="select-page" 
+        <input type="search" id="prompt-open-page" name="select-page"
               list="quick-pagelist" >
         <datalist id="quick-pagelist"></datalist>
-        <button data-i18n="quick-open-page-open-button" onclick="openWikiPageCallback();">${openButtonLabel}</button>
+        <button class="primary-button" data-i18n="quick-open-page-open-button" onclick="openWikiPageCallback();">${openButtonLabel}</button>
         `
     });
     // console.log(" [TRACE] quickOpenWindow = ", quickOpenWindow);
