@@ -1081,17 +1081,14 @@ _menus = new Set();
 
 document.addEventListener("click", (event) => {
     let target = event.target; 
-    // if(target.tagName === "ABBR")
-    // {
 
-    //     event.preventDefault();
-    //     let tooltip = `${target.innerText}: ${target.title}`; 
-    //     tooltip_window.setMessage(tooltip);
-    //     tooltip_window.show();
-    //     // popupMessage("Abbreviation", tooltip, { closeOnBlur: true });
-    // } else {
-    //     tooltip_window.close();
-    // }
+    if(target.tagName === "ABBR")
+    {
+         let tooltip = `${target.innerText}: ${target.title}`;
+         tooltip_window.setMessage(tooltip);
+         tooltip_window.show();
+         return;
+    }
 
     // Toggle zoom images (expand to 100% width) when they are clicked
     if(target.classList[0] == "wiki-image")
