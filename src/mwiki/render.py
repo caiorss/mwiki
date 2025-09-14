@@ -1123,24 +1123,32 @@ class HtmlRenderer(AbstractAstRenderer):
             content, directives = mparser.get_code_block_directives(node.content)
             label = f'id="{u}"' if (u := directives.get("label")) else ""
             html = f"""<blockquote {label} >\n{utils.escape_html(content)}\n</blockquote>"""
-        elif info == "{solution}" or info == "{proof}" or info.startswith("{foldable}") or info.startswith("{example}"):
+        elif info.startswith("{solution}") or info == "{proof}" or info.startswith("{foldable}") or info.startswith("{example}"):
             ## breakpoint()
             content, directives = mparser.get_code_block_directives(node.content)
             label      = f'id="{u}"' if (u := directives.get("label")) else ""
             background = f'background:{u};' if (u := directives.get("background")) else ""
+            ## breakpoint()
             ast =  mparser.parse_source(content)
-            title = info.strip("{}").capitalize()
+            title = ""
+            tag = ""
+            if (m :=  re.match(r"\{(.+?)\}\s(.+)", info)) is not None:
+                tag, title = m.groups()
+            else:
+                tag = info.strip("{}")
+                title = ""
             if info.startswith("{foldable}"):
                 # Remove prefix
                 title = "Foldable" if (x := info[len("{foldable}"):].strip().capitalize()) == "" \
                           else x
-            i18nTagsDB = {  "{solution}": "foldable-math-solution-block-label"
-                          , "{proof}":    "foldable-math-proof-block-label"
-                          , "{example}":  "foldable-math-example-block-label"
+            tag = tag.capitalize()
+            i18nTagsDB = {  "solution": "foldable-math-solution-block-label"
+                          , "proof":    "foldable-math-proof-block-label"
+                          , "example":  "foldable-math-example-block-label"
                          }
-            i18nTag = i18nTagsDB.get(info)
+            i18nTag = i18nTagsDB.get(tag.lower())
             inner_html = self.render(ast)
-            html = f"""<details {label}>\n<summary><u data-i18n="{i18nTag}" class="solution-label">{title}</u></summary>\n\n<div class="foldable-block" style="{background}">{inner_html}</div>\n</details>"""
+            html = f"""<div class="foldabel-block-div"><details {label}>\n<summary><u class="solution-label"><label data-i18n="{i18nTag}">{tag}</label> {title}</u></summary>\n\n<div class="foldable-block" style="{background}">{inner_html}</div>\n</details></div>"""
         elif info == "{latex_macro}":
             html = f""" 
             <div class="hidden-mathjax-macros user-macros" style="display: none;">
@@ -1191,13 +1199,42 @@ class HtmlRenderer(AbstractAstRenderer):
                         """<p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> %d: %s</p>"""
                         """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption_html)
             self._figure_counter += 1
-        elif info == "{example}":
-            code = node.content
-            ast  = mparser.parse_source(code)
-            inner = self.render(ast)
-            html  =  "<strong>Example</strong>"
-            html += f"""\n<pre>\n<code class="language-markdown">{code}</code>\n</pre>"""
-            html += f"\n<strong>Redering</strong><br>{inner}" 
+        elif info == "{flashcard}":
+            code = node.content 
+            data = None 
+            try:
+                data = json.loads(node.content) 
+                title = data.get("title", "")
+                entries = data.get("entries", [])
+                html = ""
+                k = 0
+                n = len(entries)
+                for card in entries:
+                    if len(card) < 1:
+                        return "<b>Flashcard error: each entry must be an array of size 2</b>" 
+                    front = card[0] # Contains the question 
+                    back  = card[1] # Contains the response 
+                    style = "hidden" if k != 0 else ""
+                    html += ("""<div class="card-entry %s" data-index="%s">\n""" % (style , k)
+                                + """<button class="btn-show-card">show</button>""" 
+                                + """<label class="label-card-front">(%d/%d) %s</label>""" % (k+1, n, front) 
+                                + """<p class="card-answer hidden">ANSWER: %s</p>""" % back 
+                                + """</div>""")
+                    k = k + 1
+                html = (  """<div class="div-flashcard" onclick="onFlashcardClickHandler(event)" data-size="%s">""" % len(entries)
+                        + """<div><b class="flashcard-title">%s</b></div>""" % title
+                        + """<div class="div-flashcard-button-panel">""" 
+                            + """<button class="btn-flashcard-view">View</button>""" 
+                            + """<button class="btn-flashcard-prev">Prev</button>""" 
+                            + """<button class="btn-flashcard-next">Next</button>""" 
+                            + """<input type="checkbox" name="random" /><label for="random">Random</label>"""
+                            + """</div>""" 
+                            
+                        + """<div class="flashcard-entries">\n""" +  html  + """\n</div>"""
+                        + """</div>"""
+                        )
+            except json.decoder.JSONDecorderError as ex:
+                html = "<b>Flash card error: bad json syntax</b>"
         else:
             code = utils.highlight_code(node.content, language = info)
             html = f"""<pre>\n<code class="language-{info.strip()}">{code}</code>\n</pre>"""
