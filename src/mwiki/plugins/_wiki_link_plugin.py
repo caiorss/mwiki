@@ -170,7 +170,7 @@ rules: dict[str, dict[str, list[RuleDictType]]] = {
            {
                 #### "name": "math_inline",
                  "name": "wikilink_inline"
-               , "rex": re.compile(r"\[\[(.+)\]\]")
+               , "rex": re.compile(r"\[\[(.+?)\]\]")
                , "tmpl": """<a href="/wiki/{0}" class="link-internal" >{0}</a>"""
                , "tag": "[["
                , "pre": wikilink_pre
