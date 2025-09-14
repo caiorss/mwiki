@@ -901,6 +901,15 @@ img.admonition-icon {
     padding: 10px;
 }
 
+.foldabel-block-div {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.foldabel-block-div summary {
+    cursor: pointer;
+}
+
 input:focus,
 textarea:focus,
 select:focus {
