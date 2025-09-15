@@ -514,8 +514,17 @@ async function handleUploadFormSubmit(event)
         let fileLabel = document.querySelector("#fileLabel");
         let value = fileLabel.value;
         var output = "";
-        if( filename.endsWith(".png") || filename.endsWith(".jpg") 
-            || filename.endsWith(".jpeg") || filename.endsWith(".bmp"))
+        if( filename.endsWith(".png")
+            || filename.endsWith(".apng")
+            || filename.endsWith(".jpg")
+            || filename.endsWith(".jpeg")
+            || filename.endsWith(".webp")
+            || filename.endsWith(".bmp")
+            || filename.endsWith(".avif")
+            || filename.endsWith(".ico")
+            || filename.endsWith(".svg")
+            )
+
         {
             output =   (`\`\`\`{figure} ![[${filename}]]`
                                 + "\n:name: "
