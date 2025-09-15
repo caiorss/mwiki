@@ -526,13 +526,21 @@ async function handleUploadFormSubmit(event)
             )
 
         {
-            output =   (`\`\`\`{figure} ![[${filename}]]`
+            output =   `\`\`\`{figure} ![[${filename}]]`
                                 + "\n:name: "
                                 + "\n:alt: "
                                 + "\n"
                                 + `\n${value}`
                                 + "\n```"
-                        );
+                       ;
+        } else if( filename.endsWith(".webm") || filename.endsWith(".mp4") )
+        {
+            output =   `\`\`\`{video} ![[${filename}]]`
+                                + "\n:name: "
+                                + "\n:alt: "
+                                + "\n"
+                                + `\n${value}`
+                                + "\n```";
         } else {
             if (value !== "") {
                 output = `[[${filename}|${value}]]`

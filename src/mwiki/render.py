@@ -107,6 +107,9 @@ class AbstractAstRenderer:
         self._figure_counter = 1
         """Counter of figures (images with metadata). """
 
+        self._video_counter = 1
+        """Counter of videos (videos with metadata)"""
+
         self._dependecies: List[pathlib.Path] = []
         """List of embedded markdown pages (md -markdown files) in this page"""
 
@@ -1167,7 +1170,7 @@ class HtmlRenderer(AbstractAstRenderer):
         elif info.startswith("{figure}"):
             image = utils.strip_prefix("{figure}", info).strip()
             if image.startswith("![[") and image.endswith("]]"):
-                image = image =  "/wiki/" + image.strip("![]")
+                image =  "/wiki/" + image.strip("![]")
             content, directives = mparser.get_code_block_directives(node.content)
             # Image caption 
             caption = content.strip()
@@ -1199,6 +1202,52 @@ class HtmlRenderer(AbstractAstRenderer):
                         """<p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> %d: %s</p>"""
                         """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption_html)
             self._figure_counter += 1
+        elif info.startswith("{video}"):
+            video = utils.strip_prefix("{video}", info).strip()
+            x = video.split(".")
+            video_extension = "" if len(x) == 0 else x[-1]
+            if video.startswith("![[") and video.endswith("]]"):
+                video =  "/wiki/" + video.strip("![]")
+            content, directives = mparser.get_code_block_directives(node.content)
+            # Image caption
+            caption = content.strip()
+            caption_ast =  mparser.parse_source(caption)
+            captiona_ast_inline = None
+            if len(caption_ast.children) >= 1:
+                if caption_ast.children[0].type == "paragraph":
+                    captiona_ast_inline = caption_ast.children[0].children[0]
+                else:
+                    captiona_ast_inline = caption_ast.children[0]
+            caption_html = caption if captiona_ast_inline is None else self.render(captiona_ast_inline)
+            # Name is a label - unique identifier for cross referencing with hyperlinks.
+            name = directives.get("name", "")
+            # Alternative text for acessibility (Optional)
+            alt = directives.get("alt", caption)
+            # Image height (Optional)
+            height = f"height={u}" if (u := directives.get("height")) else ""
+            # Image width (Optional)
+            width = f"height={u}" if (u := directives.get("width")) else ""
+            ## Rendering of this node
+            if not self._preview:
+                html =  """
+                        <div class="div-wiki-image">
+                            <div class="lazy-load-video" data-src="%s"  data-type="video/%s" data-alt="%s">
+                            </div>
+                            <p class="video-caption"><label data-i18n="video-prefix-label">Video</label> %d: %s</p>
+                        </div>
+                        """ % (video, video_extension, alt, self._video_counter, caption_html)
+            else:
+                html =  """
+                <div class="divi-wiki-image">
+                    <video controls width="80%">
+                        <source src="%s" type="video/%s">
+                        Download the <a href="%s">%s Video</a>
+                    </video>
+                    <p class="video-caption"><label data-i18n="video-prefix-label">Video</label> %d: %s</p>
+                </div>
+                        """ % (video, video_extension, video, video_extension
+                               , self._video_counter, caption)
+            self._video_counter += 1
         elif info == "{flashcard}":
             code = node.content 
             data = None 
