@@ -23,8 +23,23 @@ _ENGLISH_STOP_WORDS = [
              ]
 
 def normalize_text(text: str) -> str:
-    """Remove accents, such as ú or ç for making searching easier."""
-    out = (text
+    """Remove accents, such as ú or ç for making searching easier.
+
+    Example: The word 'Citroën' (French Car brand) is stored in
+    the search index database as 'Citroen' instead of 'Citroën'
+    due to be easier to write "Citroen" with an English keyboard layout
+    or any non french keyboard layout. Therefore, searching for
+    'Citroën' or 'Citroen' yields the same search results.
+
+    See:
+    + https://en.wikipedia.org/wiki/Diacritic
+
+    """
+    # Turn the whole text to lower case
+    out = text.lower()
+    # Those accents or diactricts are common in
+    # Spanish, French and Portuguese
+    out = (out
                 .replace("ã", "a")
                 .replace("õ", "o")
                 .replace("á", "a")
@@ -40,9 +55,35 @@ def normalize_text(text: str) -> str:
                 .replace("ä", "a")
                 .replace("Ä", "A")
                 .replace("û", "u")
+                ## German Umlaut
                 .replace("ü", "u")
                 .replace("ö", "o")
                 .replace("ß", "ss"))
+    # Normalize Ligatures and Diactricts of the French Latin Alphabet
+    # to letter sof the English Alphabet.
+    #
+    # See:
+    # + https://en.wikipedia.org/wiki/French_orthography
+    # + https://en.wikipedia.org/wiki/Circumflex_in_French
+    out = (out
+            .replace("æ", "ae")
+            .replace("œ", "oe")
+            .replace("Æ", "AE")
+            .replace("Œ", "OE")
+            .replace("ç", "c")
+            .replace("à", "a")
+            .replace("â", "a")
+            .replace("î", "i")
+            .replace("ï", "i")
+            .replace("û", "u")
+            .replace("ô", "o")
+            .replace("ê", "e")
+            .replace("è", "e")
+            .replace("ë", "e")
+            .replace("ÿ", "y")
+            .replace("É", "E")
+
+           )
     # Normalize Danish and Norwegian alphabets to English Alphabet
     # See:
     #  + https://en.wikipedia.org/wiki/Danish_and_Norwegian_alphabet
