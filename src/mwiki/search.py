@@ -40,6 +40,7 @@ def normalize_text(text: str) -> str:
     # Those accents or diactricts are common in
     # Spanish, French and Portuguese
     out = (out
+                .replace("ñ", "n") # Spanish letter
                 .replace("ã", "a")
                 .replace("õ", "o")
                 .replace("á", "a")
