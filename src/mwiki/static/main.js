@@ -286,6 +286,9 @@ translationsi18n =
         , "new-note-popup-window-instruction":    "Enter the name of the note be created."
         , "insert-link-popup-window-title":          "Insert Link to a Wiki Page"
         , "insert-link-popup-window-insert-button": "Insert"
+        , "statusbar-upload-image-waiting-text": "Uploading image to server. Wait ..."
+        , "statusbar-upload-image-finished-text": "Imagem uploaded successfully."
+        , "statusbar-upload-image-error-text": "Error: failed to upload image."
 
 	}
    ,"pt-BR": {
@@ -444,6 +447,11 @@ translationsi18n =
         , "new-note-popup-window-instruction":    "Digite o nome da nota a ser criada."
         , "insert-link-popup-window-title":          "Inserir Link para uma Página Wiki"
         , "insert-link-popup-window-insert-button": "Inserir"
+        , "statusbar-upload-image-waiting-text": "Enviando imagem ao servidor. Esper..."
+        , "statusbar-upload-image-finished-text": "Imagem enviada com sucesso."
+        , "statusbar-upload-image-error-text":    "Error: falha de envio de imagem."
+
+
 	}
 
 };

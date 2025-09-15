@@ -2,6 +2,7 @@
  *
  ********************************************************/
 
+
 let editor = ace.edit("editor");
 editor.setTheme("ace/theme/monokai");
 editor.session.setMode("ace/mode/markdown");
@@ -68,6 +69,13 @@ function editorViewDocument()
     redirectUrl(url);
 }
 
+function setStatusbarText(text)
+{
+    let statusbar = document.querySelector("#status-info");
+    statusbar.textContent = text;
+
+}
+
 async function editorSaveDocument()
 {
     let code  = editor.getValue();
@@ -85,8 +93,6 @@ async function editorSaveDocument()
     let out = await http_post(document.URL, payload);
     console.log(" [RESULT] of saving operation = ", out)
     let status = out["status"];
-    let statusbar = document.querySelector("#status-info");
-
     let currentdate = new Date(); 
     let datetime = currentdate.getDate() + "/"
             + (currentdate.getMonth()+1)  + "/" 
@@ -101,10 +107,11 @@ async function editorSaveDocument()
         // Redirect to corresponding wiki page
         // and heading 
         document.location.href = url;
-        statusbar.textContent = `Saved at ${datetime}.`
+        setStatusbarText(`Saved at ${datetime}.`);
     } else {
         console.log("Status Error = ", out);
-        statusbar.textContent = `Failed to reach the server at ${datetime}.`    }
+        setStatusbarText(`Failed to reach the server at ${datetime}.`);
+    }
 }
 
 
@@ -214,6 +221,14 @@ function notImplemented()
     alert("ERROR: Not implemented yet.");
 }
 
+var uploadImageFlag = false;
+// English message:  `Uploading image to server. Wait ...`
+const StatusbarMessageImageUploadWaiting = geti18nTranslation("statusbar-upload-image-waiting-text");
+const StatusBarMessageImageUploadFinished = geti18nTranslation("statusbar-upload-image-finished-text");
+const StatusBarMessageImageUploadError = geti18nTranslation("statusbar-upload-image-error-text");
+
+
+
 /** Note: It only works on secure context with HTTPS or localhost */
 async function pasteImage(event) {
   try {
@@ -238,9 +253,10 @@ async function pasteImage(event) {
           // console.log(" [TRACE] Null payload");
           return;
         }
-        /// console.log(" [TRACE] Payload = ", payload);
+        setStatusbarText(StatusbarMessageImageUploadWaiting);
         let out = await http_post("/paste", payload);
         /// console.log(" Output = ", out);
+        setStatusbarText(StatusBarMessageImageUploadFinished);
         editorInsertTextArCursor(`\`\`\`{figure} ![[${fileName}]]`
                                 + "\n```"
                                 );
@@ -252,7 +268,8 @@ async function pasteImage(event) {
       // destinationImage.src = b64blob;
     }
   } catch (error) {
-    console.log(error.message);
+        console.log(error.message);
+        setStatusbarText(StatusBarMessageImageUploadError);
   }
 }
 
