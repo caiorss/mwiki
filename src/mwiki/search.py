@@ -33,6 +33,9 @@ def normalize_text(text: str) -> str:
 
     See:
     + https://en.wikipedia.org/wiki/Diacritic
+    + https://en.wikipedia.org/wiki/Spanish_orthography
+    + https://en.wikipedia.org/wiki/Portuguese_orthography
+    + https://portuguesepedia.com/portuguese-alphabet
 
     """
     # Turn the whole text to lower case
@@ -84,6 +87,48 @@ def normalize_text(text: str) -> str:
             .replace("ÿ", "y")
             .replace("É", "E")
 
+           )
+    # Normalize Vietnamese latin Alphabet to English Alphabet.
+    # Note the Vietnamese latin Alphabet is based on the French Latin alphabet.
+    #
+    # See:
+    # +  https://en.wikipedia.org/wiki/Vietnamese_alphabet
+    # + https://en.wikipedia.org/wiki/Vietnamese_punctuation
+    #
+    # Example: The vietnamese word "người" is stored in the search index
+    # database as "nguoi".
+    out = (out
+            .replace("à", "a")
+            .replace("á", "a")
+            .replace("ă", "a")
+            .replace("â", "a")
+            .replace("ả", "a")
+            .replace("ã", "a")
+            .replace("ằ", "a")
+            .replace("ằ", "a")
+            .replace("ặ", "a")
+            .replace("ạ", "a")
+            .replace("ắ", "a")
+            .replace("ê", "e")
+            .replace("ế", "e")
+            .replace("ệ", "e")
+            .replace("ô", "o")
+            .replace("ơ", "o")
+            .replace("ờ", "o")
+            .replace("ò", "o")
+            .replace("ổ", "o")
+            .replace("ư", "u")
+            .replace("ủ", "u")
+            .replace("ữ", "u")
+            .replace("đ", "d")
+            .replace("ý", "y")
+            .replace("ỳ", "y")
+            .replace("ỹ", "y")
+            .replace("ỷ", "y")
+            .replace("ỵ", "y")
+            .replace("ị", "i")
+            .replace("ì", "i")
+            .replace("ĩ", "i")
            )
     # Normalize Danish and Norwegian alphabets to English Alphabet
     # See:
