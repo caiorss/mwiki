@@ -223,9 +223,9 @@ function notImplemented()
 
 var uploadImageFlag = false;
 // English message:  `Uploading image to server. Wait ...`
-const StatusbarMessageImageUploadWaiting = geti18nTranslation("statusbar-upload-image-waiting-text");
+const StatusbarMessageImageUploadWaiting  = geti18nTranslation("statusbar-upload-image-waiting-text");
 const StatusBarMessageImageUploadFinished = geti18nTranslation("statusbar-upload-image-finished-text");
-const StatusBarMessageImageUploadError = geti18nTranslation("statusbar-upload-image-error-text");
+const StatusBarMessageImageUploadError    = geti18nTranslation("statusbar-upload-image-error-text");
 
 
 
@@ -269,7 +269,7 @@ async function pasteImage(event) {
     }
   } catch (error) {
         console.log(error.message);
-        setStatusbarText(StatusBarMessageImageUploadError);
+        // setStatusbarText(StatusBarMessageImageUploadError);
   }
 }
 
@@ -433,18 +433,17 @@ uploadWindow = new PopupWindow({
 
         <form id="uploadForm" action="/api/upload" method="POST">
             <input type="hidden" name="csrf_token" value="${CSRF_TOKEN}">
-            <div class="field">
+            <fieldset">
                 <label data-i18n="upload-form-file-link-label" for="fileLabel">Link Label</label>
-                <input name="fileLabel" id="fileLabel" title="Enter label of file link. (Optional)"></fileLabel>
-            </div>
-            <div class="field">
-                <label data-i18n="upload-form-choose-file-label" for="fileInput">Choose a file</label>
+                <input type="text" name="fileLabel" id="fileLabel" title="Enter label of file link. (Optional)"></fileLabel>
+            </fieldset>
+            <fieldset>
+                <label data-i18n="upload-form-choose-file-label" for="file">Choose a file</label>
                 <input type="file" id="fileInput" name="file" required>
-            </div>
-            <br>
-            <div class="field">
-                <button data-i18n="upload-form-submit-button" type="submit" name="submit">Upload</button>
-            </div>
+            </fieldset>
+            <fielset>
+                <button class="primary-button" data-i18n="upload-form-submit-button" type="submit" name="submit">Upload</button>
+            </fieldset>
         </form>
         <p data-i18n="upload-status-label" id="upload-status">Ready to upload file.</p>
         <p data-i18n="upload-form-instruction">
@@ -495,7 +494,7 @@ async function handleUploadFormSubmit(event)
     const res = await fetch(url, fetchOptions)
                             .catch(networkErrorHandler);
         
-    console.log(" dom = ", dom);
+    // console.log(" dom = ", dom);
     var result = null;
     // alert("Not implemented");
     if (!res.ok)
@@ -504,7 +503,7 @@ async function handleUploadFormSubmit(event)
               "status": "error"
             , "error": httpErrorCodes[res.status]
         }
-        console.log(" [TRACE] message = ", result);
+        // console.log(" [TRACE] message = ", result);
         dom.innerText = 'ERROR: Failed to upload file';
     } else {
         dom.innerText = 'Upload successful';
