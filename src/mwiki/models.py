@@ -143,6 +143,7 @@ class FontFamiliyEnum(enum.Enum):
     libertinus_serif = "Libertinus Serif"
     textura_modern = "Textura Modern"
     bastarda = "Bastarda"
+    crimson = "Crimson"
 
 
 class CodeFontFamily(enum.Enum):
@@ -160,6 +161,7 @@ class TitleFontFamily(enum.Enum):
     # Default LaTeX font created by professor Donald Knuth
     computer_modern = "Computer Modern"
     neo_euler = "Neo Euler"
+    crimson = "Crimson"
     chicago_macos_system6 = "Chicago MacOS"
     garamond_pro_regular = "Garamond Pro Regular"
     # IBM old-chool monospace that gives back the nolstagic

@@ -336,6 +336,29 @@
 }
 
 
+@font-face {
+    font-family: "Crimson";
+    font-weight: normal;
+    font-style:  normal;
+    src: url('/static/fonts/crimson-roman.woff');
+}
+
+@font-face {
+    font-family: "Crimson";
+    font-weight: normal;
+    font-style:  italic;
+    src: url('/static/fonts/crimson-italic.woff');
+}
+
+@font-face {
+    font-family: "Crimson";
+    font-weight: bold;
+    font-style:  normal;
+    src: url('/static/fonts/crimson-bold.woff');
+}
+
+
+
 
 
 :root {
