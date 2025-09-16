@@ -63,6 +63,43 @@ def normalize_text(text: str) -> str:
                 .replace("ü", "u")
                 .replace("ö", "o")
                 .replace("ß", "ss"))
+    # Normalize letters, diactricts and Ligatures of old English and old Norse latin alphabet to Modern English alphabet.
+    #
+    # See:
+    # + https://en.wikipedia.org/wiki/Old_English_Latin_alphabet
+    # + https://en.wikipedia.org/wiki/Old_Norse_orthography
+    # + https://en.wikipedia.org/wiki/Old_Norse#Old_Icelandic
+    out = (out
+            .replace("Æ", "ae")
+            .replace("æ", "ae")
+            .replace("Ƿ", "p")
+            .replace("Ð", "D")
+            .replace("ð", "d")
+            .replace("ø", "o")
+            .replace("ǫ", "o")
+            .replace("þ", "th")
+            .replace("ý", "y")
+            .replace("í", "i")
+            .replace("ö", "o")
+            .replace("ſ", "s")
+            .replace("ꝩ", "v")
+            .replace("n͛", "n")
+            .replace("h̅", "h")
+            .replace("ꝛ", "r")
+            # DO NOT Confuse this old norse letter with the greek letter tau.
+            .replace("ꞇ", "t")
+           )
+    # Normalize Sweedish alphabet and its diactricts to english alphabet
+    #
+    # See:
+    # + https://en.wikipedia.org/wiki/Swedish_alphabet
+    out = (out
+           .replace("å", "a")
+           .replace("Å", "a")
+           .replace("Ä", "a")
+           .replace("Ö", "o")
+           .replace("ö", "o")
+           )
     # Normalize Ligatures and Diactricts of the French Latin Alphabet
     # to letter sof the English Alphabet.
     #
