@@ -335,6 +335,16 @@
     src: url('/static/fonts/JuliaMono-Bold.woff2');
 }
 
+@font-face {
+    font-family: 'Range';
+    src: url('/static/fonts/range-regular-webfont.woff');
+}
+
+@font-face {
+    font-family: 'Range Mono';
+    src: url('/static/fonts/range-mono-medium-webfont.woff');
+}
+
 
 @font-face {
     font-family: "Crimson";

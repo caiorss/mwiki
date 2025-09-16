@@ -123,6 +123,7 @@ class User(db.Model):
 class FontFamiliyEnum(enum.Enum):
     # Default LaTeX font created by professor Donald Knuth
     computer_modern = "Computer Modern"
+    crimson = "Crimson"
     comorant_light = "Comorant Light"
     literata = "Literata"
     # Serif typeface font designed for google books.
@@ -141,9 +142,10 @@ class FontFamiliyEnum(enum.Enum):
     libertinus_mono = "Libertinus Mono"
     libertinus_sans = "Libertinus Sans"
     libertinus_serif = "Libertinus Serif"
+    range_font = "Range"
+    range_mono = "Range Mono"
     textura_modern = "Textura Modern"
     bastarda = "Bastarda"
-    crimson = "Crimson"
 
 
 class CodeFontFamily(enum.Enum):
@@ -156,6 +158,8 @@ class CodeFontFamily(enum.Enum):
     libertinus_mono = "Libertinus Mono"
     julia_mono = "Julia Mono"
     julia_mono_light = "Julia Mono Light"
+    range_mono = "Range Mono"
+
 
 class TitleFontFamily(enum.Enum):
     # Default LaTeX font created by professor Donald Knuth
@@ -183,6 +187,8 @@ class TitleFontFamily(enum.Enum):
     libertinus_sans = "Libertinus Sans"
     libertinus_serif = "Libertinus Serif"
     libertinus_serif_display = "Libertinus Serif Display"
+    range_mono = "Range Mono"
+    range_font = "Range"
     graphik_regular_web = "Graphik Regular"
 
 class Settings(db.Model):
