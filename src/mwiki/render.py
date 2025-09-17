@@ -512,6 +512,8 @@ class HtmlRenderer(AbstractAstRenderer):
                      , preview: bool = False):
         super().__init__(base_path = base_path)
         self._pagefile = page_name
+        self._page_path: Optional[pathlib.Path] = self.find_page(page_name.split(".")[0])
+        assert self._page_path is not None
         self._render_math_svg =  render_math_svg  
         self._section_enumeration = False
         self._embed_math_svg = False
@@ -671,6 +673,10 @@ class HtmlRenderer(AbstractAstRenderer):
     def render_heading(self, node: SyntaxTreeNode) -> str:
         """Render markdown heading #, ## ... to html heading <h1>, <h2> and etc.       
         """
+        ##print(f" [TRACE] redender_heading => self._pagefile = {self._pagefile}")
+        # Unix timestamp of last update of source file
+        timestamp = int(100000 * self._page_path.lstat().st_mtime)
+        print(f" [TRACE] Timestamp of last file update = {timestamp}")
         title  = node.children[0].content.strip()
         anchor = "H_" + title.replace(" ", "_")
         value  = utils.escape_html(title)
@@ -726,7 +732,7 @@ class HtmlRenderer(AbstractAstRenderer):
         if tag == "h2" or tag == "h3":
             pagename = self._pagefile.split(".")[0] if not self._is_embedded_page else self._embedded_page
             page_link = pagename.replace(" ", "_")
-            url =  f"/edit/{page_link}?start={line_start}&end={line_end}&anchor={anchor}&page={pagename}"
+            url =  f"/edit/{page_link}?start={line_start}&end={line_end}&anchor={anchor}&page={pagename}&timestamp={timestamp}"
             edit_link = f"""<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="{url}" title="[i18n]: {value}" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>"""
             ## breakpoint()
             html   = (f"""<div class="div-heading">""" 

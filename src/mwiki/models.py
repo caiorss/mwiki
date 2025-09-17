@@ -294,11 +294,18 @@ class WikiPage():
         # Create cache directory if it does not exist yet.
         self._cache.mkdir(exist_ok=True)
         self._path = self.path()
+        self._timestamp = 0
         self._debug = debug
+
+    @property
+    def timestamp(self):
+        return self._timestamp
     
-    def path(self):
+    def path(self) -> Optional[pathlib.Path]:
         """Get path of Wiki page file"""
         p = next(self._base_path.rglob(self._title + ".md"), None)
+        if p is not None:
+            self._timestamp =  int(100000 * p.lstat().st_mtime)
         return p
 
     def _cache_html_file(self) -> pathlib.Path:

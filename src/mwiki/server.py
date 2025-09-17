@@ -540,11 +540,14 @@ def make_app_server(  host:        str
         mdfile_ = path + ".md"
         line_start = utils.parse_int(request.args.get("start"))
         line_end   = utils.parse_int(request.args.get("end"))
+        timestamp  = utils.parse_int(request.args.get("timestamp"))
         page = repository.get_wiki_page(title = path)
         if not page:
             flask.abort(STATUS_CODE_404_NOT_FOUND)
         ## match = next(base_path.rglob(mdfile_), None)
         if request.method == M_GET:
+            if timestamp is None or timestamp < page.timestamp:
+                return flask.redirect("/wiki/" + path.replace(" ", "_"))
             ## content = match.read_text() 
             content = page.read()
             ## breakpoint()
