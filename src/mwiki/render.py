@@ -15,6 +15,8 @@ from . import mparser
 
 _STOP_SENTINEL = "{{STOP}}"
 
+FOOTNOTES_DIV_FORWARD_REFERENCE = "{{{@FOOTNOTES-DIV-FOWARD-REFERENCE-TAG}}}"
+
 
 def get_yoututbe_video_id(video_url_or_id: str) -> str:
     """Get video ID of a youtube video URL. 
@@ -518,6 +520,8 @@ class HtmlRenderer(AbstractAstRenderer):
         self._theorem_counter = 1
         """Current theorem number"""
 
+        self._footnotes_html_rendering = ""
+
         self._preview = preview
         
         self._abbreviations = {}
@@ -589,9 +593,17 @@ class HtmlRenderer(AbstractAstRenderer):
         ## Render footnotes foward references
         counter = 0
         for note in self._footnotes:
-            forward_reference = "{{{@FOOTNOTE-FORWARD-REFERENCE-%d}}}" % (counter + 1)
+            n = counter + 1
+            forward_reference = "{{{@FOOTNOTE-FORWARD-REFERENCE-%d}}}" % n
             html = html.replace(forward_reference, self._footnotes[counter])
+            #block = '\n <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-%d">[%d]</a> %s</p>' % (n, n, note)
             counter += 1
+        #
+        # Resolve forward reference to footnotes listing
+        #
+        # ```{footnotes}
+        # ```
+        html = html.replace(FOOTNOTES_DIV_FORWARD_REFERENCE, self._footnotes_html_rendering)
         return html
     
     def render_text(self, node: SyntaxTreeNode) -> str:
@@ -1292,6 +1304,9 @@ class HtmlRenderer(AbstractAstRenderer):
                         """ % (video, video_extension, video, video_extension
                                , self._video_counter, caption)
             self._video_counter += 1
+        ## Render list of footnotes hyperlinks
+        elif info == "{footnotes}":
+            html = FOOTNOTES_DIV_FORWARD_REFERENCE
         elif info == "{flashcard}":
             code = node.content 
             data = None 
@@ -1505,24 +1520,34 @@ class HtmlRenderer(AbstractAstRenderer):
         return html
     
     def render_footnote_block(self, node: SyntaxTreeNode) -> str:
-        assert len( node.children ) >= 1
-        footnote = node.children[0]
-        assert footnote.type == "footnote"
-        paragraph = footnote[0]
-        assert paragraph.type == "paragraph"
-        inline = paragraph[0]
-        assert inline.type == "inline"
-        inline_html = self.render(inline)
-        self._footnotes.append(inline_html)
-        self._footnotes_counter += 1
+        counter = 0
+        number_footnotes = len(node.children)
+        block = '\n<div class="footnotes-div"><p>Number of footnotes: %d</p>' % number_footnotes
+        for child in node.children:
+            n = counter + 1
+            #footnote = child.children[0]
+            paragraph = child.children[0]
+            assert paragraph.type == "paragraph"
+            inline = paragraph[0]
+            assert inline.type == "inline"
+            inline_html = self.render(inline)
+            self._footnotes.append(inline_html)
+            block += '\n <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-%d">[%d]</a> %s</p>' % (n, n, inline_html)
+            ## print(f" [DEBUG] Footnote{self._footnotes_counter} = {inline_html} ")
+            counter += 1
+        block += "\n</div>"
+        self._footnotes_html_rendering = block
         return ""
 
     def render_footnote_ref(self, node: SyntaxTreeNode) -> str:
+        ## breakpoint()
         html = """<a href="#" id="footnote-reference-link-%d" class="link-internal"><sup class="footnote-reference" data-counter="%d" data-footnote="{{{@FOOTNOTE-FORWARD-REFERENCE-%d}}}">[%d]</sup></a>""" \
             % (self._footnotes_counter
               , self._footnotes_counter, self._footnotes_counter
               , self._footnotes_counter
               )
+        self._footnotes_counter += 1
+        ## print(f" [DEBUG] footnote_ref = {html}")
         return html
 
     def render_frontmatter(self, node: SyntaxTreeNode) -> str:
