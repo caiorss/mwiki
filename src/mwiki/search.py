@@ -40,6 +40,9 @@ def normalize_text(text: str) -> str:
     """
     # Turn the whole text to lower case
     out = text.lower()
+    # Normalize escaped characters
+    out = out.replace(r"\.", ".") \
+             .replace(r"\:", ":")
     # Those accents or diactricts are common in
     # Spanish, French and Portuguese
     out = (out
