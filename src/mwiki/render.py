@@ -1518,8 +1518,8 @@ class HtmlRenderer(AbstractAstRenderer):
         return ""
 
     def render_footnote_ref(self, node: SyntaxTreeNode) -> str:
-        html = """<a href="#footnote-reference-link-%d" id="footnote-reference-link-%d" class="link-internal"><sup class="footnote-reference" data-counter="%d" data-footnote="{{{@FOOTNOTE-FORWARD-REFERENCE-%d}}}">[%d]</sup></a>""" \
-            % ( self._footnotes_counter, self._footnotes_counter
+        html = """<a href="#" id="footnote-reference-link-%d" class="link-internal"><sup class="footnote-reference" data-counter="%d" data-footnote="{{{@FOOTNOTE-FORWARD-REFERENCE-%d}}}">[%d]</sup></a>""" \
+            % (self._footnotes_counter
               , self._footnotes_counter, self._footnotes_counter
               , self._footnotes_counter
               )
