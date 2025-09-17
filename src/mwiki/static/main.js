@@ -131,7 +131,8 @@ class PopupWindow
 translationsi18n = 
 {
     // NOTE: Actually, it is international English using US-English (American English)
-    // spelling.
+    // spelling. By international English, it means English without idiomatic expression
+    // and local regional expressions.
     "en-US": {
 		  "locale": 				  "English"
 		, "locale-name-native":       "American (USA) English"
@@ -195,6 +196,7 @@ translationsi18n =
 		, "sort-by-created-time-link-button":   { "label": "Created", "title": "Sort by created time" }
 		, "search-matches-label": "Search matches"
 		, "settings-page-go-back-label": "Go back to"
+        , "settings-page-successful-update-message": "Wiki settings updated successfully."
 		, "settings-update-button": "Update"
 		, "settings-sitename-label": "Website Name"
 		, "settings-website-description-label": "Website Description"
@@ -358,6 +360,7 @@ translationsi18n =
 		, "sort-by-created-time-link-button":   { "label": "Criado",    "title": "Ordenar por tempo criado." }
 		, "search-matches-label": "Correspondências de pesquisa"
 		, "settings-page-go-back-label": "Voltar para"
+        , "settings-page-successful-update-message": "Configurações da Wiki atualizadas com sucesso."
 		, "settings-update-button": "Atualizar"
 		, "settings-sitename-label": "Nome do Website"
 		, "settings-website-description-label": "Descrição do Website"

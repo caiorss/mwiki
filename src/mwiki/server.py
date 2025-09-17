@@ -114,7 +114,7 @@ def make_app_server(  host:        str
             new_user = User( username = username, email = email, password = password, type = type)
             db.session.add(new_user)
             db.session.commit()
-            flask.flash("Error: User created successfully. Ok.")
+            flask.flash("User created successfully. Ok.")
             app.logger.info("User created ok.")
             return flask.redirect("/account/new")
         resp  = flask.render_template("add_user.html", form = form, title = "Add User")
@@ -159,7 +159,7 @@ def make_app_server(  host:        str
             conf.default_locale = form.default_locale.data
             conf.use_default_locale = form.use_default_locale.data
             conf.save()
-            flask.flash("Wiki settings updated successfully.")
+            flask.flash('<span data-i18n="settings-page-successful-update-message">Wiki settings updated successfully.</span>')
             app.logger.info("Wiki setting updated.")
             flask.redirect("/settings")
         page_title_i18n_tag = "settings-page-title"
