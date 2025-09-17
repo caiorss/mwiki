@@ -367,8 +367,10 @@
     src: url('/static/fonts/crimson-bold.woff');
 }
 
-
-
+@font-face {
+    font-family: "Bricolage Grotesque";
+    src: url('/static/fonts/bricolage-grotesque-latin-normal.woff2');
+}
 
 
 :root {

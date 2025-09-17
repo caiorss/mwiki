@@ -144,6 +144,7 @@ class FontFamiliyEnum(enum.Enum):
     libertinus_serif = "Libertinus Serif"
     range_font = "Range"
     range_mono = "Range Mono"
+    bricolage_grotesque = "Bricolage Grotesque"
     textura_modern = "Textura Modern"
     bastarda = "Bastarda"
 
@@ -189,6 +190,7 @@ class TitleFontFamily(enum.Enum):
     libertinus_serif_display = "Libertinus Serif Display"
     range_mono = "Range Mono"
     range_font = "Range"
+    bricolage_grotesque = "Bricolage Grotesque"
     graphik_regular_web = "Graphik Regular"
 
 class Settings(db.Model):
