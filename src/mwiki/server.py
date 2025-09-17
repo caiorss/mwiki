@@ -30,7 +30,7 @@ from . import utils
 from . import mparser
 from . import render
 from . import search 
-from . models import db, User, Settings, BookmarkedPage, WikiPage, WikiRepository
+from . models import db, User, Settings, BookmarkedPage, WikiPage, WikiRepository, MwikiConfig
 from . models import is_database_created
 from . login import add_login
 from . forms import UserAddForm, UserSettingsForm, SettingsForm
@@ -65,7 +65,7 @@ def make_app_server(  host:        str
         (USERNAME, PASSWORD) = login
 
     check_login = add_login(app, DO_LOGIN, USERNAME, PASSWORD)
-    repository = WikiRepository(wikipath)
+    repository = WikiRepository(wikipath, debug = MwikiConfig.debug)
 
 
     @app.route("/user", methods = [M_GET, M_POST])

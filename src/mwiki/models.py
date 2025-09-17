@@ -54,6 +54,9 @@ class Config:
     def path(self) -> str:
         return self._path
 
+    def enable_debug(self):
+        self._debug = True
+
     def set_path(self, path_: str):
         self._path = path_
 
@@ -283,13 +286,14 @@ def is_database_created() -> bool:
 class WikiPage():
     """Model class representing a wiki page markdown file."""
 
-    def __init__(self, base_path: pathlib.Path, path: pathlib.Path, title: str):
+    def __init__(self, base_path: pathlib.Path, path: pathlib.Path, title: str, debug: bool = False):
         self._base_path: pathlib.Path = base_path
         self._cache: pathlib.Path = base_path / ".data/cache"
         self._title = title 
         # Create cache directory if it does not exist yet.
         self._cache.mkdir(exist_ok=True)
         self._path = self.path()
+        self._debug = debug
     
     def path(self):
         """Get path of Wiki page file"""
@@ -318,6 +322,8 @@ class WikiPage():
 
     def is_dirty(self):
         """Returns true if cached html needs update (be recompiled)."""
+        if self._debug:
+            return True
         out = self._cache_html_file()
         src = self._path
         src_time = src.lstat().st_mtime
@@ -359,6 +365,7 @@ class WikiPage():
         ## breakpoint()
         if not self.is_dirty():
             return
+        ## print(" [TRACE] Recompiling page %s" % str(self._path))
         out = self._cache_html_file()
         text = self.read()
         ## print(" [TRACE] Updating cache = " + str(out))
@@ -425,9 +432,10 @@ class WikiPage():
 
 class WikiRepository():
     
-    def __init__(self, wikipath: str):
+    def __init__(self, wikipath: str, debug = False):
         self._wikipath = wikipath
         self._base_path =  pathlib.Path(wikipath)
+        self._debug = debug
 
     def find_page(self, title: str) -> Optional[pathlib.Path]:
         """Get path to Wiki page"""
@@ -439,7 +447,7 @@ class WikiRepository():
         path = self.find_page(title)
         if path is None: 
             return None 
-        wikipage = WikiPage(base_path = self._base_path, path = path, title = title)
+        wikipage = WikiPage(base_path = self._base_path, path = path, title = title, debug = self._debug)
         return wikipage
         
 

@@ -173,6 +173,8 @@ def server(  host:       str
         _secret_key = server.get("secret_key", None)
         #make_app_server(_host, _port, _debug, _login, _wikipath, _random_ssl, _secret_key)
     _wikipath = utils.expand_path(_wikipath)
+    if debug:
+        mwiki.models.MwikiConfig.enable_debug()
     if not os.path.isdir(_wikipath):
         print("ERROR: Expected an existing wiki directory files (markdown repository).")
         print(f"Directory {_wikipath} not found.")
