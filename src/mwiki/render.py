@@ -92,23 +92,27 @@ class AbstractAstRenderer:
         within the current wiki.
         """
 
-        self._count_h1 = 0
-        """Current count of h1 headline - '# h1 headline level'"""
+        self._count_h1: int = 0
+        """Current count of h1 headline - '## h1 headline level'"""
 
-        self._count_h2 = 0
-        """Current count of h2 headline - '# h2 headline level'"""
+        self._count_h2: int = 0
+        """Current count of h2 headline - '### h2 headline level'"""
 
-        self._title = ""
+        self._title: int = ""
         """Optional Page Title that may be defined in the document YAML front-matter"""
 
-        self._count_h3 = 0
-        self._count_h4 = 0
+        self._count_h3: int = 0
+        self._count_h4: int = 0
 
-        self._figure_counter = 1
+        self._figure_counter: int = 1
         """Counter of figures (images with metadata). """
 
-        self._video_counter = 1
+        self._video_counter: int = 1
         """Counter of videos (videos with metadata)"""
+
+        self._footnotes_counter: int = 1
+
+        self._footnotes: List[str] = []
 
         self._dependecies: List[pathlib.Path] = []
         """List of embedded markdown pages (md -markdown files) in this page"""
