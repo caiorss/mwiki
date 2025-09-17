@@ -403,6 +403,40 @@ class AbstractAstRenderer:
         raise NotImplementedError()
 
     def render_myst_role(self, node: SyntaxTreeNode) -> str:
+        """Render MySt role syntax.
+
+        MyST roles are syntax MyST markdown constructs with the format
+
+        ```
+        {role-name}`inline text with metadata.`
+        ```
+
+        This function renders the following MyST role syntax:
+
+        Abbreviation:
+
+        ```
+        {abbr}`abbreviation (explanation here)`
+        ```
+
+        Underline Text
+        ```
+        {u}`Underline Text here`
+        ```
+
+        Inline LaTeX math text (Rendered by MathJax)
+        ```
+        {math}`f(x) = x^2 - 10x + 2`
+        ```
+
+        Youtube embedded video
+
+        ```
+        {youtube}`https://video-url`
+        {youtube}`VIDEO-ID-HERE`
+        ```
+
+        """
         raise NotImplementedError() 
 
     def render_dl (self, node: SyntaxTreeNode) -> str:
