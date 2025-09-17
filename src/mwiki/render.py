@@ -1505,7 +1505,7 @@ class HtmlRenderer(AbstractAstRenderer):
         return html
     
     def render_footnote_block(self, node: SyntaxTreeNode) -> str:
-        assert len( node.children ) == 1
+        assert len( node.children ) >= 1
         footnote = node.children[0]
         assert footnote.type == "footnote"
         paragraph = footnote[0]
