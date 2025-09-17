@@ -520,6 +520,12 @@ class HtmlRenderer(AbstractAstRenderer):
         self._theorem_counter = 1
         """Current theorem number"""
 
+        self._needs_mathjax = False
+        """Flag used for only including MathJax in the html template
+        if it is necessary to render equation. MathaJax is only
+        loaded in the template base.html if this flag is True.
+        """
+
         self._footnotes_html_rendering = ""
 
         self._preview = preview
@@ -554,6 +560,15 @@ class HtmlRenderer(AbstractAstRenderer):
             , ("{section}", "§")
 
         ]
+
+
+    @property
+    def needs_mathjax(self) -> bool:
+        """Returns true if mathjax needs to be included in the template base.html
+        The purpose of this flag is allowing lazy load of MathJax for
+        increasing the page loading speed.
+        """
+        return self._needs_mathjax
 
     @property
     def equation_enumeration(self):
@@ -769,6 +784,7 @@ class HtmlRenderer(AbstractAstRenderer):
         if self._render_math_svg:
             html = _latex_to_html(content, inline = False)
         else:
+            self._needs_mathjax = True
             html = """<div class="math-block anchor"> \n$$\n""" \
                  + utils.escape_html(content) + "\n$$\n</div>"
         return html 
@@ -780,6 +796,7 @@ class HtmlRenderer(AbstractAstRenderer):
         if self._render_math_svg:
             html = _latex_to_html(node.content, inline = True)
         else:
+            self._needs_mathjax = True
             html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
         return html
 
@@ -790,6 +807,7 @@ class HtmlRenderer(AbstractAstRenderer):
         if self._render_math_svg:
             html = _latex_to_html(node.content, inline = True)
         else:
+            self._needs_mathjax = True
             html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
         ## html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
         return html 
@@ -1149,6 +1167,7 @@ class HtmlRenderer(AbstractAstRenderer):
             if self._render_math_svg:
                 html = _latex_to_html(content, inline = False)
             else:
+                self._needs_mathjax = True
                 # Algorithm code block 
                 if content.strip().startswith(r"\begin{algorithm}"):
                     content, directives = mparser.get_code_block_directives(node.content)

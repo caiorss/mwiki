@@ -152,8 +152,10 @@
     }
 
     </script>
-    <script src="/static/mathjax/es5/tex-chtml.js" id="MathJax-script" async></script>
 
+    {% if mathjax_enabled %}
+        <script src="/static/mathjax/es5/tex-chtml.js" id="MathJax-script" async></script>
+    {% endif %}
 <!--
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml-full.js"
         integrity="sha256-kbAFUDxdHwlYv01zraGjvjNZayxKtdoiJ38bDTFJtaQ="

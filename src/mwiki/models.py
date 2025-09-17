@@ -408,6 +408,7 @@ class WikiPage():
                                              , content = content
                                              , toc     = toc
                                              , latex_macros = latex_macros
+                                             , mathjax_enabled = renderer.needs_mathjax
                                              , equation_enumeration = renderer.equation_enumeration
                                              )
         out.write_text(html)
