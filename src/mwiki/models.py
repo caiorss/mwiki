@@ -22,7 +22,7 @@ import flask
 ## db = SQLAlchemy(app)
 db = SQLAlchemy()
 
-CACHE_FILE_FORMAT_VERSION = "0.1"
+CACHE_FILE_FORMAT_VERSION = "0.1.1"
 
 class Config:
     """Singletion containg wiki settings
@@ -408,16 +408,17 @@ class WikiPage():
         else:
             if info.exists(): info.unlink()
         html = flask.render_template(  "content.html"
-                                             , title   = title
-                                             , page    = self._title
-                                             , page_link = self._title.replace(" ", "_")
-                                             , pagename = self._title
-                                             , content = content
-                                             , toc     = toc
-                                             , latex_macros = latex_macros
-                                             , mathjax_enabled = renderer.needs_mathjax
-                                             , equation_enumeration = renderer.equation_enumeration
-                                             )
+                                      , title           = title
+                                      , page            = self._title
+                                      , page_link       = self._title.replace(" ", "_")
+                                      , pagename        = self._title
+                                      , content         = content
+                                      , toc             = toc
+                                      , latex_macros    = latex_macros
+                                      , mathjax_enabled = renderer.needs_mathjax
+                                      , timestamp       = self.timestamp
+                                      , equation_enumeration = renderer.equation_enumeration
+                                    )
         out.write_text(html)
 
     def render_html(self, latex_macros = "") -> str:
