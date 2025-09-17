@@ -22,6 +22,7 @@ import flask
 ## db = SQLAlchemy(app)
 db = SQLAlchemy()
 
+CACHE_FILE_FORMAT_VERSION = "0.1"
 
 class Config:
     """Singletion containg wiki settings
@@ -340,6 +341,11 @@ class WikiPage():
         links = []
         with open(str(info), "r") as fd:
             data = json.load(fd)
+            # Recompile markdown file if the version in the
+            # metadata file does not match the expected version.
+            file_format_version = data.get("version", "")
+            if file_format_version != CACHE_FILE_FORMAT_VERSION:
+                return True
             # Recompile the markdown page if using an older version
             # of the json metadata file.
             if "dependencies" not in data and "links" not in data:
@@ -386,7 +392,8 @@ class WikiPage():
                             for x in renderer._internal_links ]
         if dependencies != [] or internal_links != []:
             data = {
-                      "dependencies": dependencies
+                      "version":      CACHE_FILE_FORMAT_VERSION
+                    , "dependencies": dependencies
                     , "links":        internal_links
                 }
             with open(str(info), "w") as fd:
