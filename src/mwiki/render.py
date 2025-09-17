@@ -586,6 +586,12 @@ class HtmlRenderer(AbstractAstRenderer):
             if node_html == _STOP_SENTINEL:
                 break
             html += node_html + "\n\n" 
+        ## Render footnotes foward references
+        counter = 0
+        for note in self._footnotes:
+            forward_reference = "{{{@FOOTNOTE-FORWARD-REFERENCE-%d}}}" % (counter + 1)
+            html = html.replace(forward_reference, self._footnotes[counter])
+            counter += 1
         return html
     
     def render_text(self, node: SyntaxTreeNode) -> str:
@@ -1499,12 +1505,25 @@ class HtmlRenderer(AbstractAstRenderer):
         return html
     
     def render_footnote_block(self, node: SyntaxTreeNode) -> str:
-        print(" [WARNING] Note implemented html rendering for foot_note_block = ", node)
+        assert len( node.children ) == 1
+        footnote = node.children[0]
+        assert footnote.type == "footnote"
+        paragraph = footnote[0]
+        assert paragraph.type == "paragraph"
+        inline = paragraph[0]
+        assert inline.type == "inline"
+        inline_html = self.render(inline)
+        self._footnotes.append(inline_html)
+        self._footnotes_counter += 1
         return ""
 
     def render_footnote_ref(self, node: SyntaxTreeNode) -> str:
-        print(" [WARNING] Note implemented html rendering for foot_note_block = ", node)
-        return ""
+        html = """<a href="#footnote-reference-link-%d" id="footnote-reference-link-%d" class="link-internal"><sup class="footnote-reference" data-counter="%d" data-footnote="{{{@FOOTNOTE-FORWARD-REFERENCE-%d}}}">[%d]</sup></a>""" \
+            % ( self._footnotes_counter, self._footnotes_counter
+              , self._footnotes_counter, self._footnotes_counter
+              , self._footnotes_counter
+              )
+        return html
 
     def render_frontmatter(self, node: SyntaxTreeNode) -> str:
         data = {}

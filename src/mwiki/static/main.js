@@ -290,6 +290,7 @@ translationsi18n =
         , "statusbar-upload-image-waiting-text": "Uploading image to server. Wait ..."
         , "statusbar-upload-image-finished-text": "Imagem uploaded successfully."
         , "statusbar-upload-image-error-text": "Error: failed to upload image."
+        , "popup-window-footnote-title":          "Footnote"
 
 	}
    ,"pt-BR": {
@@ -452,7 +453,7 @@ translationsi18n =
         , "statusbar-upload-image-waiting-text": "Enviando imagem ao servidor. Esper..."
         , "statusbar-upload-image-finished-text": "Imagem enviada com sucesso."
         , "statusbar-upload-image-error-text":    "Error: falha de envio de imagem."
-
+        , "popup-window-footnote-title":          "Nota de Rodapé"
 
 	}
 
@@ -1098,11 +1099,14 @@ function showRefcard()
 }
 
 
+var lastToolTipTarget = "";
+
 document.addEventListener("mouseover", (event) => {
     let target = event.target;
 
     if(target.tagName === "ABBR")
     {
+        lastToolTipTarget = "ABBR";
         // Lazy Initialization
         if( tooltip_window == null )
         {
@@ -1117,7 +1121,10 @@ document.addEventListener("mouseover", (event) => {
         tooltip_window.setMessage(tooltip);
         tooltip_window.show();
     } else {
-        if(tooltip_window != null){ tooltip_window.close(); }
+        if(tooltip_window != null && lastToolTipTarget === "ABBR")
+        {
+            tooltip_window.close();
+        }
     }
 
 
@@ -1150,6 +1157,21 @@ document.addEventListener("click", (event) => {
         tooltip_window.setMessage(note);
         tooltip_window.show();
     }
+
+    if(target.classList[0] === "footnote-reference")
+    {
+        lastToolTipTarget = "footnote-reference";
+        let note = target.dataset.footnote;
+        let counter = target.dataset.counter;
+        // English title: "Note"
+        var title = geti18nTranslation("popup-window-footnote-title") || "Footnote";
+        title = title + " " + counter;
+        tooltip_window.setTitle(title)
+        tooltip_window.setMessage(note);
+        tooltip_window.show();
+        return;
+    }
+
 
     // Toggle zoom images (expand to 100% width) when they are clicked
     if(target.classList[0] == "wiki-image")
@@ -1232,6 +1254,10 @@ document.addEventListener("click", (event) => {
         lazyLoadImages();
     }
 
+    if( lastToolTipTarget === "footnote-reference")
+    {
+        tooltip_window.close();
+    }
 
 });
 
