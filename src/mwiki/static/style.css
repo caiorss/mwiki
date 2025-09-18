@@ -627,7 +627,6 @@ dd {
 }
 
 
-
 .sidebar-toggle-button {
     height: 50px;
     padding: 0 15px;
@@ -636,6 +635,11 @@ dd {
     color: cadetblue;
     text-decoration: none;
     cursor: pointer;
+}
+
+
+.menu-dropdown-content  .sidebar-toggle-button:hover {
+    background-color: lightgreen !important;;
 }
 
 
@@ -1087,6 +1091,9 @@ main thead th {
 .insert-link-form input {
     width: 100%;
 }
+
+
+
 
 /** For desktop systems */
 @media (min-width: 815px)
