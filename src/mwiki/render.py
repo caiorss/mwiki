@@ -513,8 +513,9 @@ class HtmlRenderer(AbstractAstRenderer):
         super().__init__(base_path = base_path)
         self._pagefile = page_name
         self._page_path: Optional[pathlib.Path] = self.find_page(page_name.split(".")[0])
-        self._timestemap = int(100000 * self._page_path.lstat().st_mtime)
-        assert self._page_path is not None
+        self._timestemap = int(100000 * self._page_path.lstat().st_mtime) \
+                                if self._page_path is not None else 0
+        ## assert self._page_path is not None
         self._render_math_svg =  render_math_svg  
         self._section_enumeration = False
         self._embed_math_svg = False
