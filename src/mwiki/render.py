@@ -1357,7 +1357,9 @@ class HtmlRenderer(AbstractAstRenderer):
         ## Render list of footnotes hyperlinks
         elif info == "{footnotes}":
             html = FOOTNOTES_DIV_FORWARD_REFERENCE
-        elif info == "{flashcard}":
+        # Disable flashcard if-else branch while the flashcard
+        # feature is not ready yet.
+        elif False and info == "{flashcard}":
             code = node.content 
             data = None 
             try:
