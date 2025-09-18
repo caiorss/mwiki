@@ -1185,8 +1185,32 @@ class HtmlRenderer(AbstractAstRenderer):
                 else:
                     html = f"""<div class="math-block anchor" {label} > \n$$\n""" \
                         + utils.escape_html(content) + "\n$$\n</div>"
-        elif info == "{comment}":
-            return ""
+        # Render multi-line comment blocks
+        #
+        # Example 1:
+        #
+        #  ```{comment}
+        #  The content here is not rendered because it is just
+        #  a comment or some markdown that is still not ready
+        #  to be published yet.
+        #  ```
+        #
+        # Exaple 2:
+        #
+        # ```{comment} on
+        # The content here will be rendered due to the on
+        # command in this code block.
+        # ```
+        #
+        elif info.startswith("{comment}"):
+            command = utils.strip_prefix("{comment}", info).strip()
+            if command == "on":
+                ast =  mparser.parse_source(node.content)
+                html = self.render(ast)
+            elif command == "off":
+                html = ""
+            else:
+                html = ""
         ## Graphviz dot language
         elif info == "{dot}":
             content, directives = mparser.get_code_block_directives(node.content)
