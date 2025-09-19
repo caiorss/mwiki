@@ -3,7 +3,7 @@ name = "mwiki"
 version = "0.6"
 readme = "README.md"
 description = "mwiki - Markdown Wiki Server for publishing and accessing Github Markdown-Flavor Documents, MyST (from Jupyter Books) documents and  Obsidian Markdown vaults."
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = { text = "AGPL - GNU Afero" }
 ## authors = [ (name = "dummy", email = "user@mail") ]
 dependencies = [
@@ -12,13 +12,10 @@ dependencies = [
           "flask-session",
           "flask-sqlalchemy",
           "flask_wtf",
-          # , 'frontmatter==3.0.8"
           "frontmatter",
-          #, "markdown-it-py==3.0.0"
           "markdown-it-py",
-          "markdown-it-py[plugins]==3.0.0",
+          "markdown-it-py[plugins]",
           "linkify-it-py",
-          #, "click==8.1.7"
           "pygments",
           "click",
           "cryptography",
@@ -67,9 +64,8 @@ flask-sqlalchemy = "*"
 flask-wtf = "*"
 frontmatter = "*"
 #  , 'frontmatter==3.0.8'
-markdown-it-py = {extras = ["plugins"], version = "^3.0.0"}
-##markdown-it-py = "*"
-###"markdown-it-py[linkify, plugins]" = "*"
+###markdown-it-py = {extras = ["plugins"], version = "^3.0.0"}
+markdown-it-py = {extras = ["plugins"], version = "*"}
 linkify-it-py = "*"
 ##mdit-py-plugins = "*"
 pygments = "*"
@@ -83,7 +79,7 @@ tomli = "*"
 #python-dateutil = ">=2.9.0.post0"
 python-dateutil = "*"
 # WSGI Server alternative to Gunicorn
-waitress = "^3.0.2"
+waitress = "*"
 watchdog = "*"
 Pillow = "*"
 
