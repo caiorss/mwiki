@@ -508,6 +508,14 @@ a.link-internal-missing {
     color: #b31d28;
 }
 
+a.footnote-link {
+    font-size: 0.8rem;
+    color: blue;
+    /* Hand cursor */
+    cursor: pointer;
+    text-decoration-line: none;
+}
+
 a.link-toc {
     color: blue;
 }
