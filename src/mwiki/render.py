@@ -1038,6 +1038,10 @@ class HtmlRenderer(AbstractAstRenderer):
         # MyST Underline role
         if role == "u":
             html = f"""<u>{content}</u>"""
+        # Raw it means that the code r`<hello word>` or {raw}`<hello world>`
+        # will be rendered as it is '<hello world>' being intepreted as html tag.
+        elif role == "r" or role == "raw":
+            html = content
         ## MyST math role. Exmaple: {math}`f(x) = \sqrt{x^2 - 10x}`
         elif role == "math":
             html = f"""<span class="math-inline">\\({content}\\)</span>"""
