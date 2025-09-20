@@ -823,9 +823,13 @@ class HtmlRenderer(AbstractAstRenderer):
         html = ""
         if "." not in src:
             note_name = src 
-            href = utils.escape_url(f"/wiki/{note_name}")
-            caption = f"The page '{note_name}' does not exist yet. Click on it to create the page." 
-            html_ = f"""<hr>Embedded note: <a class="link-internal-missing" href="{href}" title="{caption}">{note_name}</a>  """
+            match = self.find_page(note_name)
+            ##class_name = "link-internal" if match else "link-internal-missing"
+            html_ = ""
+            if not match:
+                href = utils.escape_url(f"/wiki/{note_name}")
+                caption = f"The page '{note_name}' does not exist yet. Click on this link to create this page."
+                html_ = f"""Embedded note: <a class="link-internal-missing" href="{href}" title="{caption}">{note_name}</a>  """
             html = html_ + self.render_note(note_name) or ""
             ## print(" [TRACE] html = ", html)
         elif src.endswith(".mp4"):
