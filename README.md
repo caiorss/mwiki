@@ -261,6 +261,7 @@ Install latest stable release v0.7 using the commit hash (reproducible and immut
 
 
 ```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/846468ff566248b88a20ae5ab93073d20443e889.zip
 ```
 
 Install release: version v0.6
