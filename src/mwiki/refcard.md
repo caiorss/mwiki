@@ -852,7 +852,56 @@ Optional Figure caption here.
 
 Then, then user can change the label/caption, optional alt text, optiona name (unique) identifier for cross referencing and also add the attributes `:width: 150px` or `height: 100px`.
 
-## Video Blocks
+
+## Videos
+
+### Embed Youtube Video 
+
+Embed Youtube video given its ID (Unique Identifier) or URL.
+
+Syntax: 
+
+```
+{youtube}`<VIDEO-URL-OR-ID>`
+```
+
+**Example**
+
+Embed video *3 Hours of Most Common Logical Fallacies to Fall Asleep To*, whose URL is 
+
++ https://www.youtube.com/watch?v=bNE4uBMsnP0
+
+
+Code example:
+
+```
+{youtube}`https://www.youtube.com/watch?v=bNE4uBMsnP0`
+
+or
+
+{youtube}`bNE4uBMsnP0`
+```
+
+### Embed Uploaded Video Files
+
+MP4 or WEBM video files can be embedded in the current page by using the syntax. 
+
+```
+![[video-file-to-be-embedded.mp4]]
+```
+
+or
+
+```
+![[video-file-to-be-embedded.webm]]
+```
+
+Embedded video files are rendered as [\<video\>](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video) html5 embedded element with controls for playing the video, including button for start playing the video, button for stopping the video and so on.
+
+NOTE: It is possible to upload video files directly in the wiki editor by clicking at the button with label 'Link to Uploaded File' in the editor toolbar section 'insert'.
+
+
+### Video Blocks
 
 Video blocks `{video}` are similar to `{figure}` blocks, they allow embeding videos with metadata.
 
@@ -1458,6 +1507,8 @@ Rendering:
 
 ### Footnotes listing
 
+The following code lists all footnotes of current wiki page.
+
 ````markdown
 ```{footnotes}
 ```
@@ -1722,7 +1773,8 @@ Syntax:
 
 ### Raw Text 
 
-Renders text to itself without being interpreted to anything and without any escaper character.
+This MyST role renders a text to itself without the text being interpreted to anything and without any escape character.
+
 
 Syntax:
 
@@ -1833,33 +1885,6 @@ Rendering:
 
 + The 7{sup}`th` element.
 
-### Embed Youtube Video 
-
-Embed Youtube video given its ID (Unique Identifier) or URL.
-
-Syntax: 
-
-```
-{youtube}`<VIDEO-URL-OR-ID>`
-```
-
-**Example**
-
-Embed video *3 Hours of Most Common Logical Fallacies to Fall Asleep To*, whose URL is 
-
-+ https://www.youtube.com/watch?v=bNE4uBMsnP0
-
-
-Code example:
-
-```
-{youtube}`https://www.youtube.com/watch?v=bNE4uBMsnP0`
-
-or
-
-{youtube}`bNE4uBMsnP0`
-```
-
 
 ## Further Reading 
 
@@ -1869,3 +1894,4 @@ or
 + https://myst-parser.readthedocs.io/en/latest/syntax/math.html
 + https://markdown-it-py.readthedocs.io/en/latest/architecture.html
 + https://mystmd.org/guide/glossaries-and-terms
+

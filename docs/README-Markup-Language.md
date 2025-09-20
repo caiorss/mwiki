@@ -293,8 +293,23 @@ Redendering example from the built-in reference card:
 
 ![](./images/syntax-multi-line-comment.png)
 
+Multi line comments can also be written using the command on for rendering the markdown code enclosed in the comment block without needing to delete the `{comment}` tag and the backticks surrounding the code.
 
-NOTE that this syntax is used only by MWiki markdown and not implemented neither by GFM - Github-Flavored Mardown nor by MyST markdown.
+````markdown
+Line here.
+
+```{comment} on 
+The multi line comments syntax reuses 
+  the syntax of code blocks.
+and are not rendered by the markdown processor.
+```
+
+Some text after.
+````
+
+The tag `{command}` can also be written as `{command} off` for disabling the rendering/display of the enclosed code. 
+
+NOTE: that this syntax is used only by MWiki markdown and not implemented neither by GFM - Github-Flavored Mardown nor by MyST markdown. However, this idea can easily be copied to other markdown implementations. 
 
 
 ## Text Formatting 
@@ -908,8 +923,29 @@ Optional Figure caption here.
 
 Then, then user can change the label/caption, optional alt text, optiona name (unique) identifier for cross referencing and also add the attributes `:width: 150px` or `height: 100px`.
 
+## Videos
 
-## Embed Uploaded Video Files
+### Embed Youtube Youtube Video
+
+Embed Youtube video given its ID (Unique Identifier) or URL.
+
+Syntax: 
+
+```
+{youtube}`<VIDEO-URL-OR-ID>`
+```
+
+Example: Embed video [3 Hours of Most Common Logical Fallacies to Fall Asleep To](https://www.youtube.com/watch?v=bNE4uBMsnP0&t=30s)
+
+```
+{youtube}`https://www.youtube.com/watch?v=bNE4uBMsnP0`
+
+or
+
+{youtube}`bNE4uBMsnP0`
+```
+
+### Embed Uploaded Video Files
 
 MP4 or WEBM video files can be embedded in the current page by using the syntax. 
 
@@ -926,6 +962,33 @@ or
 Embedded video files are rendered as [\<video\>](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video) html5 embedded element with controls for playing the video, including button for start playing the video, button for stopping the video and so on.
 
 NOTE: It is possible to upload video files directly in the wiki editor by clicking at the button with label 'Link to Uploaded File' in the editor toolbar section 'insert'.
+
+
+### Video Blocks
+
+Video blocks with `{video}` are similar to {figure} blocks, they allow embeding videos with metadata such as label/caption. 
+
+The Syntax for internal videos uploaded to the Wiki. This code is auomtically inserted in the editor after successful upload of a webm or mp4 video.
+
+````markdown
+```{video}  ![[name-of-internal-video.webm]]
+:name: Unique ID - Identifier.
+:alt: Alt text, video description optional metadata.
+    
+Video caption (also known as label)
+```
+````
+
+Syntax for external videos. 
+
+````markdown
+```{video}  https://somedomain.com/files/video.mp4
+:name: Unique ID - Identifier.
+:alt: Alt text, video description optional metadata.
+
+Video caption (also known as label)
+```
+````
 
 
 ## Code Blocks 
@@ -1509,6 +1572,84 @@ WWW
    : World Wide Web 
 
 
+## Footnotes
+
+Syntax 1: Compatible with MyST markdown and Obsidian markdown.
+
+```markdown
++ The motor speed is 300 rmp^[revolutions per minute].
+```
+
+Rendering:
+
+```markdown
++ The motor speed is 300 rmp^[revolutions per minute].
+```
+
+The syntax 2: Only used by MWiki, but it does not conflict with any markdown syntax such as `[label](http://some-site.com)`. As a result, this syntax does not need escape characters.
+
+Rendering Example: When a footnote reference link is clicked, its content is shown to in a popup window that is automatically closed when one clicks outside.
+
+![](./images/footnotes-example1.png)
+  
+
+### Foonotes Listing
+
+The following code lists all footnotes of current wiki page.
+
+````markdown
+```{footnotes}
+```
+````
+
+Example:
+
+````markdown
+## Footnotes
+
+```{footnotes}
+```
+````
+
+Rendering:
+
+![](./images/footnotes-example2.png)
+
+Note that the footnote link is on the left side of each line in the previous figure and the corresponding label is on the right of each footnote link. 
+
+Complete code of this example:
+
+`````markdown
+## Title of section 1
+
+Syntax 1: Compatible with MyST markdown and Obsidian markdown.
+
+```markdown
++ The motor speed is 300 rmp^[revolutions per minute].
+```
+
+Rendering:
+
++ The motor speed is 300 rmp^[revolutions per minute].
+
+
+Syntax 2: Only used by MWiki, but it does not conflict with any markdown syntax such as `[label](http://some-site.com)`. As a result, this syntax does not need escape characters.
+
+```markdown
++ Ship speed is about 30 knots^{Nautical miles per hour}.
+```
+
+Rendering:
+
++ Ship speed is about 30 knots^{Nautical miles per hour}.
+
+## Footnotes
+
+```{footnotes}
+``` 
+`````
+
+
 ## Admonitions (Callout Boxes) 
 ### Info Admonition 
 
@@ -1760,6 +1901,34 @@ Syntax:
 {rolename}`text content here`
 ```
 
+## Raw Text Role
+
+This MyST role renders a text to itself without the text being interpreted to anything and without any escape character.
+
+Syntax:
+
+```markdown
+{r}`enclosed text` or {raw}`enclosed text`
+```
+
+
+Example:
+
+```markdown
++ {r}`<a href="https://site.com">label</a>`
+```
+
+
+Rendering:
+
+```
+    <a href="https://site.com">label</a>
+```
+
+Note that the markdown rendered to the enclosed text within backticks "`" and not interpreted as a hyperlink.
+
+
+
 ### Underline text 
 
 Makes a any text underline.
@@ -1845,27 +2014,6 @@ Superscript Roles:
 Rendering:
 
 + The 7{sup}`th` element.
-
-### Embed Youtube Youtube Video
-
-Embed Youtube video given its ID (Unique Identifier) or URL.
-
-Syntax: 
-
-```
-{youtube}`<VIDEO-URL-OR-ID>`
-```
-
-Example: Embed video [3 Hours of Most Common Logical Fallacies to Fall Asleep To](https://www.youtube.com/watch?v=bNE4uBMsnP0&t=30s)
-
-```
-{youtube}`https://www.youtube.com/watch?v=bNE4uBMsnP0`
-
-or
-
-{youtube}`bNE4uBMsnP0`
-```
-
 
 
 
