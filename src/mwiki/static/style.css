@@ -372,6 +372,27 @@
     src: url('/static/fonts/bricolage-grotesque-latin-normal.woff2');
 }
 
+@font-face {
+    font-family: "Munson";
+    font-weight: normal;
+    font-style:  normal;
+    src: url('/static/fonts/munson-roman.woff2');
+}
+
+@font-face {
+    font-family: "Munson";
+    font-weight: normal;
+    font-style:  italic;
+    src: url('/static/fonts/munson-italic.woff2');
+}
+
+
+@font-face {
+    font-family: "Munson";
+    font-weight: bold;
+    src: url('/static/fonts/munson-bold.woff2');
+}
+
 
 :root {
     /*--- Desktop screen Width ----------------*/

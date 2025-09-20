@@ -134,6 +134,7 @@ class FontFamiliyEnum(enum.Enum):
     literata_variable = "Literata Variable"
     garamond_pro_regular = "Garamond Pro Regular"
     neo_euler = "Neo Euler"
+    munson = "Munson"
     # IBM old-chool monospace that gives back the 
     # nolstagic feeling of typewriters.
     ibm_plex_mono = "IBM Plex Mono"
@@ -181,6 +182,7 @@ class TitleFontFamily(enum.Enum):
     news_reader = "NewsReader"
     literata = "Literata"
     literata_variable = "Literata Variable"
+    munson = "Munson"
     textura_modern = "Textura Modern"
     bastarda = "Bastarda"
     logic_monospace_regular = "Logic Monospace Regular"
