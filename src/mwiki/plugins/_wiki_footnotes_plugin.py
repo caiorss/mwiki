@@ -155,12 +155,16 @@ rules: dict[str, dict[str, list[RuleDictType]]] = {
     MAIN_DELIMITER: {
         "inline": [
            {
-                #### "name": "math_inline",
                  "name": "wiki_footnote"
                , "rex": re.compile(r"\^{\s*(.*?)\s*}")
                , "tmpl": """<empty>"""
                , "tag": "^{"
-               ##, "pre": wikilink_pre
+           }
+        , {
+                 "name": "wiki_footnote"
+               , "rex": re.compile(r"\^\[\s*(.*?)\s*\]")
+               , "tmpl": """<empty>"""
+               , "tag": "^["
            }
 
         ]
