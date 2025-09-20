@@ -706,13 +706,25 @@ class HtmlRenderer(AbstractAstRenderer):
         # of the document 
         next_sibling = None 
         line_start = node.map[0]
-        ##breakpoint()
+        def heading_level(n):
+            if n.type != "heading":
+                return -1
+            level = int(n.tag.strip("h"))
+            return level
+        #if title == "Section 1.2":
+        #    breakpoint()
         for x in node.siblings:
+            if x.type == "heading" and id(x) != id(node) \
+                and heading_level(node) > heading_level(x) \
+                    and x.map[1] >= line_start:
+                next_sibling = x
+                break
             if x.tag == node.tag \
                 and id(x) != id(node) and x.map[1] >= line_start:
                 next_sibling = x 
                 break
         assert id(next_sibling) != id(node)
+        ##breakpoint()
         line_end   = next_sibling.map[1] - 1 if next_sibling else "end"
         ## assert line_start <= line_end
         ## breakpoint()
