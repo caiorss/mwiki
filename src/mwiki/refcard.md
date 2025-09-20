@@ -195,7 +195,7 @@ Write something here. This line will be rendered.
 
 ### Multi Line Comment 
 
-Mutli line comments are code blocks of the type:
+Mutli line comments are code blocks with `{comment}` tag.
 
 ````markdown
 
@@ -224,6 +224,26 @@ and are not rendered by the markdown processor.
 Some text after.
 
 :::
+
+
+Multi line comments can also be written using the command **on** for rendering the markdown code enclosed in the comment block without needing to delete the `{comment}` tag and the backticks surrounding the code.
+
+
+````markdown
+
+Line here.
+
+```{comment} on 
+The multi line comments syntax reuses 
+  the syntax of code blocks.
+and are not rendered by the markdown processor.
+```
+
+Some text after.
+
+````
+
+The tag `{command}` can also be written as `{command} off` for enabling the rendering/display of the enclosed code.
 
 
 ## Text Formating 
@@ -832,8 +852,32 @@ Optional Figure caption here.
 
 Then, then user can change the label/caption, optional alt text, optiona name (unique) identifier for cross referencing and also add the attributes `:width: 150px` or `height: 100px`.
 
+## Video Blocks
+
+Video blocks `{video}` are similar to `{figure}` blocks, they allow embeding videos with metadata.
+
+Syntax for internal videos uploaded to the Wiki. This code is auomtically inserted in the editor after successful upload of a webm or mp4 video.
+
+````markdown
+```{video}  ![[name-of-internal-video.webm]]
+:name: Unique ID - Identifier.
+:alt: Alt text, video description optional metadata.
+    
+Video caption (also known as label)
+```
+````
+
+Syntax for external videos.
 
 
+````markdown
+```{video}  https://somedomain.com/files/video.mp4
+:name: Unique ID - Identifier.
+:alt: Alt text, video description optional metadata.
+
+Video caption (also known as label)
+```
+````
 
 ## Code Blocks 
 ### Inline code 
@@ -1389,6 +1433,41 @@ WWW
    : World Wide Web 
 
 
+## Footnotes 
+
+### Footnote Reference 
+
+Syntax 1: Compatible with MyST markdown and Obsidian markdown.
+
+```markdown
++ The motor speed is 300 rmp^[revolutions per minute].
+```
+
+Rendering:
+
++ The motor speed is 300 rmp^[revolutions per minute].
+
+Syntax 2: Only used by MWiki, but it does not conflict with any markdown syntax such as `[label](http://some-site.com)`.
+
+```markdown
++ Ship speed is about 30 knots^{Nautical miles per hour}.
+```
+
+Rendering:
++ Ship speed is about 30 knots^{Nautical miles per hour}.
+
+### Footnotes listing
+
+````markdown
+```{footnotes}
+```
+````
+
+Rendering:
+
+```{footnotes}
+```
+
 ## Admonitions (Callout Boxes) 
 ### Info Admonition 
 
@@ -1630,6 +1709,7 @@ $$
 ```
 :::
 
+
 ## MyST Roles 
 
 The MyST Roles are similar to MyST directives, but they are single line. Exmaple:
@@ -1639,6 +1719,27 @@ Syntax:
 ```
 {rolename}`text content here`
 ```
+
+### Raw Text 
+
+Renders text to itself without being interpreted to anything and without any escaper character.
+
+Syntax:
+
+````markdown
+{r}`enclosed text` or {raw}`enclosed text`
+````
+
+Example: 
+```markdown
++ {r}`<a href="https://site.com">label</a>`
+```
+
+Rendering:
+
++ {r}`<a href="https://site.com">label</a>`
+
+Note that the markdown rendered to the enclosed text within backticks "`" and not interpreted as a hyperlink.
 
 ### Underline text 
 
