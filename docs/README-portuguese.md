@@ -254,7 +254,8 @@ Este wiki fornece uma janela pop-up de cartão de referência que fornece exempl
 
 **PASSO 1**
 
-Instalar versão instável *(Unstable Release)*.
+Instalar versão estável  mais recente. NOTA: agora a linha de desenvolvimento mestra *master branch* contém apenas código estável.
+
 
 ```sh
 $ uv tool install git+https://github.com/caiorss/mwiki
@@ -262,17 +263,28 @@ $ uv tool install git+https://github.com/caiorss/mwiki
 Instalou 2 executáveis: mwiki, mwiki-convert
 ```
 
-Instalar a versão estável mais recente: versão v0.6
+Instalar a versão estável mais recente: versão v0.7
+
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.7.zip
+```
+
+Instale a versão estável mais recente v0.7 usando o hash de commit (reproduzível e imutável).
+
+```sh
+
+```
+
+Instalar a versão: versão v0.51
 
 ```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.6.zip
-```
 
-Instalar a versão estável mais recente v0.6 usando o hash de commit (reproduzível e imutável).
+## Ou
 
-```sh
 $ uv tool iinstall https://github.com/caiorss/mwiki/archive/cb5d6855890d218d18d142447c0b562b6ef3afb3.zip
 ```
+
 
 Instalar a versão: versão v0.51
 

@@ -243,7 +243,7 @@ This wiki provides a reference card popup windown that provides examples of the 
 
 **STEP 1**
 
-Install unstable release.
+Install lastest stable release. NOTE: Now the master branch only contains stable code.
 
 ```sh
 $ uv tool install git+https://github.com/caiorss/mwiki
@@ -251,17 +251,29 @@ $ uv tool install git+https://github.com/caiorss/mwiki
   Installed 2 executables: mwiki, mwiki-convert
 ```
 
-Install latest stable release: version v0.6
+Install latest stable release: version v0.7
+
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.7.zip
+```
+
+Install latest stable release v0.7 using the commit hash (reproducible and immutable).
+
+
+```sh
+```
+
+Install release: version v0.6
 
 ```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.6.zip
-```
 
-Install latest stable release v0.6 using the commit hash (reproducible and immutable).
+# or
 
-```sh
 $ uv tool iinstall https://github.com/caiorss/mwiki/archive/cb5d6855890d218d18d142447c0b562b6ef3afb3.zip
 ```
+
+
 
 Install release: version v0.5.1
 
