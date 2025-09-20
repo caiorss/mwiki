@@ -3,7 +3,8 @@
 
 ## Release v0.7
 
-+ Update Python minimum required version to 3.9 and remove version pinning for updating dependencies. Note that the version of depedencies are still fixed in the lockfiles. 
++ Update Python minimum required version to 3.9 and remove version pinning for updating dependencies. Note that the version of depedencies are still fixed in the lockfiles for supply chain security purposes. 
++ Delete poetry.lock - lock file of poetry package manager because now this project will only use UV package manager.
 + Improve upload form style.
 + Improve usability - use pointer cursor for section headings.
 + Add new fonts/typeface choices in the settings form: Crimson, Muson,  Bricolage Grotesque, range and range mono fonts/typefaces.
