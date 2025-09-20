@@ -1,5 +1,42 @@
 # Changelog 
 
+
+## Release v0.7
+
++ Update Python minimum required version to 3.9 and remove version pinning for updating dependencies. Note that the version of depedencies are still fixed in the lockfiles. 
++ Improve upload form style.
++ Improve usability - use pointer cursor for section headings.
++ Add new fonts/typeface choices in the settings form: Crimson, Muson,  Bricolage Grotesque, range and range mono fonts/typefaces.
++ Enhance user feedback when uploading pasted image.
+  + Improve user feedback by showing in the status bar whether the system is still uploading the pasted image from clipboard and also whether the upload was successful.
++ Insert figure block `{figure}` (images with metadata) upon upload of other image formats including webp, apng, bmp, avif, ico and svg.
++ Refresh page if its timestamp is greater than the edit button timestamp.
+  + When the user clicks at the pencil icon,  on the left side of a wiki page section header, and the timestamp provided in the pencion icon hyperlink is older than the page timestamp, the page is reloaded in order to ensure that the user is always editing the most up-to-date wiki page file.
++  Feature - Extend syntax of {comment} block for toggling rendering of enclosed code. The `{comment}` block syntax was extended with commands "on" and "off" for toggling the rendering/display of the enclosed markdown code without needing the removal of the backticks and tag `{comment}`. This feature is useful for toggling the display of content that is not ready to be published.
++ Recompile markdown if the version of metadata file does not match the expected version.
++ Implement MyST role raw ````{r}`text```` and ````{raw}`text`````. Due to compatibility with Github Flavored Markdown, angle brackets may be interpreted as html tags which may not be desirable. MyST raw role ```{r}`enclosed text```` or ```{raw}`enclosed text```` solves this issue by rendering the text to iself. For instance the markdown ```{r}`<a href="https://site.com">label</a>```` code is rendered to `<a href="https://site.com">label</a>` without monospace font/typeafce instead of being rendered to a html hyperlink.
++ Implement footnote reference `term1^[footnote here]` - syntax compatible with MyST markdown and Obsidian.
++ Implement footnote reference `term^{footnote here}` - custom MWiki syntax. However, the advantage of this syntax is the lack of conflict with markdown constructs such as hyperlinks `[label](http://some-site.com).` 
++ Implement footnotes listing syntax using code blocks with tag `{footnotes}`. This construct lists all footnotes of current page and hyperlinks to the corresponding footnotes references in the document.
++ Implement `{video}` blocks for embeding videos with metadata, such as caption below the video with enumeration.
++ Improve rendering of embedded pages.
++ Add i18n internationalization of the form successful update message.
++ Only load mathjax in the template base.html when necessary for making page loading faster.
++ Improve sytle of foldable blocks such as `{example}`, `{solution}` and `{proof}`.
++ Improve search - normalize escape characters `\.` and `\:`.
+   + The domain name of websites such as somedomain.org is parsed as URL by default. When this behavior is not desirable, the URL is written as `somedomain\.org`. However, this breaks the search as searching for somedomain.org yields no result. The solution for this issue added by this commit is to to turn the escaped character `"\."` into `"."` and `"\:"` into `":"` when storing the text in the search index database for full text search.
++ Improve search - Normalize spanish diactric (ñ) n tilde to n.
++ Improve search - normalize diactrics and ligatures of french latin alphabet.
+  + Letters, ligatures and diactrics of French latin alphabet are now normalized to equivalent letters of English alphabet in order to enhance for french words with an english keyboard layout or a non french keyboard layout.
++ Improve search by normalizing diactrics, accents and chracters from Old English, Old Norse, Icelandic and Sweedish alphabets to corresponding letters of the English Alphabet.
++ Improve search - normalize Vietnamese latin alphabet to English Alphabet.
+  + Normalize letters, symbols and diactrics of the Vietnamese latin alphabet to English alphabet for improving the search engine. This feature allows searching for vietnamese words using an English keyboard layout. For instance, the vietnamese word "người" is stored in the search index database as "nguoi" instead of being stored as "người". So, searching for "nguoi" or "người" yields the same search results. As a result, this approach makes it easier to search for vietnamese words using an English keyboard layout or non vietnamese keyboard layouts.
++ Bugfix - Fix regex of markdown_it_parser plugin for wiki links.
+  + The parser failed to recognize wiki internal links
+    when there were two wiki links in the same line, for instance, the
+    parser failed to recognize `See about [[Unix]] and [[Linux]]` due to use of greedy regex quantifier star `(*)` instead of star  followed by question mark `(*?)`.
++ Bugfix - Fix pencil hyperlinks in section headers for editing corresponding sections.
+
 ## Release v0.6
 
 
