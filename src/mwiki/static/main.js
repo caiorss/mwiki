@@ -385,9 +385,9 @@ translationsi18n =
 		, "edit-page-toolbar-title":   "Barra de Ferramentas"
 		, "edit-page-h3-insert-label": "Inserir"
 		, "edit-page-h3-actions-label": "Ações"
-		, "edit-page-document-status-label": "Document não salvo ainda."
+		, "edit-page-document-status-label": "Documento não salvo ainda."
 		, "edit-page-back-button": {  "label": "Voltar"
-									, "title": "Switch to document view mode and exit editing mode."}
+									, "title": "Alternar para o modo de visualização de documento e sair do modo de edição."}
 
 		, "edit-page-preview-button": { 
 									      "label": "Visualização"
