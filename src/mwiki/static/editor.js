@@ -78,6 +78,14 @@ function setStatusbarText(text)
 
 async function editorSaveDocument()
 {
+    // console.log(" [TRACE] Enter editorSaveDocument function.");
+    let currentdate = new Date();
+    let datetime = currentdate.getDate() + "/"
+            + (currentdate.getMonth()+1)  + "/"
+            + currentdate.getFullYear() + " @ "
+            + currentdate.getHours() + ":"
+            + currentdate.getMinutes() + ":"
+            + currentdate.getSeconds();
     let code  = editor.getValue();
     // console.log("Current page ", page);
     // console.log("Editor content = \n", code);
@@ -90,17 +98,16 @@ async function editorSaveDocument()
                    , "start":   lineStart
                    , "end":     lineEnd 
                 };
+    setStatusbarText(`Saving document at ${datetime}. Wait ...`);
+    // Disable save buttons whiling saving the document and waiting a server response.
+    let btn1 = document.querySelector("[data-i18n='edit-page-save-button']");
+    let btn2 = document.querySelector("[data-i18n='edit-page-save-icon-button']");
+    if(btn1){ btn1.setAttribute("disabled", false); }
+    if(btn2){ btn2.setAttribute("onclick", ""); }
+    // console.log(" [TRACE] Saving document. Wait ...");
     let out = await http_post(document.URL, payload);
-    console.log(" [RESULT] of saving operation = ", out)
+    // console.log(" [RESULT] of saving operation = ", out);
     let status = out["status"];
-    let currentdate = new Date(); 
-    let datetime = currentdate.getDate() + "/"
-            + (currentdate.getMonth()+1)  + "/" 
-            + currentdate.getFullYear() + " @ "  
-            + currentdate.getHours() + ":"  
-            + currentdate.getMinutes() + ":" 
-            + currentdate.getSeconds();
-
     if(status == "ok"){
         // Note:  currentWikipage is global variable defined in edit.html template.
         let url = `/wiki/${currentWikiPage}#${anchor}`
@@ -111,6 +118,9 @@ async function editorSaveDocument()
     } else {
         console.log("Status Error = ", out);
         setStatusbarText(`Failed to reach the server at ${datetime}.`);
+        // Enable save buttons again
+        if(btn1){ btn1.setAttribute("disabled", true); }
+        if(btn2){ btn2.setAttribute("onclick", "editorSaveDocument();"); }
     }
 }
 
