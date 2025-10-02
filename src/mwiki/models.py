@@ -142,6 +142,9 @@ class FontFamiliyEnum(enum.Enum):
     logic_monospace_regular = "Logic Monospace Regular"
     logic_monospace_medium  = "Logic Monospace Medium"
     commit_mono = "Commit Mono"
+    dinweb_light = "DINWeb-Light"
+    dinweb_medium = "DINWeb-Medium"
+    dinweb_balck = "DINWeb-Black"
     julia_mono = "Julia Mono"
     julia_mono_light = "Julia Mono Light"
     libertinus_mono = "Libertinus Mono"
@@ -198,6 +201,9 @@ class TitleFontFamily(enum.Enum):
     range_font = "Range"
     bricolage_grotesque = "Bricolage Grotesque"
     graphik_regular_web = "Graphik Regular"
+    dinweb_light = "DINWeb-Light"
+    dinweb_medium = "DINWeb-Medium"
+    dinweb_balck = "DINWeb-Black"
 
 class Settings(db.Model):
     """Singleton model class (SQL table) containing site settings.

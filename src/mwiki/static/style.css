@@ -393,6 +393,22 @@
     src: url('/static/fonts/munson-bold.woff2');
 }
 
+@font-face {
+    font-family: "DINWeb-Light";
+    src: url('/static/fonts/DINWeb-Light.woff')
+}
+
+@font-face {
+    font-family: "DINWeb-Medium";
+    src: url('/static/fonts/DINWeb-Medium.woff')
+}
+
+@font-face {
+    font-family: "DINWeb-Black";
+    src: url('/static/fonts/DINWeb-Black.woff')
+}
+
+
 
 :root {
     /*--- Desktop screen Width ----------------*/
