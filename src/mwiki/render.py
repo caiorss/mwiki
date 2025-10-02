@@ -231,7 +231,8 @@ class AbstractAstRenderer:
             if "container_" in node.type:
                 result = self.render_container(node)
             else: 
-                raise RuntimeError(f"Rendering not implemented for node type '{node.type}' => node = {node} ")
+                print(f" [WARNING] Rendering not implemented for node type '{node.type}' => node = {node} ")
+                return ""
         else:
             result = handler(node)
         return result
