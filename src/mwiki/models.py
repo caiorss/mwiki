@@ -138,6 +138,8 @@ class FontFamiliyEnum(enum.Enum):
     # IBM old-chool monospace that gives back the 
     # nolstagic feeling of typewriters.
     ibm_plex_mono = "IBM Plex Mono"
+    # nolstagic font mimics typewriters in old documents with ink leakage.
+    jackwrite = "Jackwrite"
     go_mono = "GO Mono"
     logic_monospace_regular = "Logic Monospace Regular"
     logic_monospace_medium  = "Logic Monospace Medium"
@@ -179,6 +181,9 @@ class TitleFontFamily(enum.Enum):
     crimson = "Crimson"
     chicago_macos_system6 = "Chicago MacOS"
     garamond_pro_regular = "Garamond Pro Regular"
+    # nolstagic font mimics typewriters in old documents with ink leakage.
+    jackwrite = "Jackwrite"
+    jackwrite_bold = "Jackwrite Bold"
     # IBM old-chool monospace that gives back the nolstagic
     # feeling of the typewriter 
     ibm_plex_mono = "IBM Plex Mono"
