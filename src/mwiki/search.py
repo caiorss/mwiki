@@ -246,6 +246,25 @@ def normalize_text(text: str) -> str:
                 .replace("š", "s")
                 .replace("Š", "S")
            )
+    # Normalize letters of Czesh Alphabet to English Latin Alphabet
+    # See:
+    # - https://en.wikipedia.org/wiki/Czech_orthography
+    out = (out
+                .replace("á", "a")
+                .replace("č", "c")
+                .replace("ď", "d")
+                .replace("é", "e")
+                .replace("ě", "e")
+                .replace("ň", "n")
+                .replace("ř", "r")
+                .replace("š", "s")
+                .replace("ť", "t")
+                .replace("ú", "u")
+                .replace("ů", "u")
+                .replace("ý", "y")
+                .replace("ž", "z")
+                .replace("í", "i")
+           )
     return out
 
 
