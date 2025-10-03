@@ -408,6 +408,11 @@
     src: url('/static/fonts/DINWeb-Black.woff')
 }
 
+@font-face {
+    font-family: "Peachi Medium";
+    src: url('/static/fonts/peachi-medium.woff2')
+}
+
 
 
 :root {
