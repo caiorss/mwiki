@@ -413,6 +413,10 @@
     src: url('/static/fonts/peachi-medium.woff2')
 }
 
+@font-face {
+    font-family: "Fondamento";
+    src: url('/static/fonts/fondamento-regular.woff2')
+}
 
 
 :root {
