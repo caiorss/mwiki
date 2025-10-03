@@ -275,6 +275,24 @@ def normalize_text(text: str) -> str:
                 .replace("ħ", "h")
                 .replace("ż", "z")
            )
+    # Normalize Romanian and Istro-Romanian alphabets letters to English alphabet
+    # See:
+    # - https://en.wikipedia.org/wiki/Romanian_alphabet
+    # - https://en.wikipedia.org/wiki/Istro-Romanian_alphabet
+    out = (out
+            .replace("ș", "s")
+            .replace("î", "i")
+            .replace("â", "a")
+            .replace("å", "a")
+            .replace("ă", "a")
+            .replace("ț", "t")
+            .replace("ĭ", "i")
+            .replace("ğ", "g")
+            .replace("č", "c")
+            .replace("ń", "n")
+            .replace("ǔ", "u")
+            .replace("ę", "e")
+           )
     return out
 
 
