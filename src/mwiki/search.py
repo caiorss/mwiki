@@ -246,7 +246,7 @@ def normalize_text(text: str) -> str:
                 .replace("š", "s")
                 .replace("Š", "S")
            )
-    # Normalize letters of Czesh Alphabet to English Latin Alphabet
+    # Normalize letters of the Czesh Alphabet to English Latin Alphabet
     # See:
     # - https://en.wikipedia.org/wiki/Czech_orthography
     out = (out
@@ -264,6 +264,16 @@ def normalize_text(text: str) -> str:
                 .replace("ý", "y")
                 .replace("ž", "z")
                 .replace("í", "i")
+           )
+    # Normalize Maltese Alphabet letters to English alphabet.
+    # See:
+    # - https://en.wikipedia.org/wiki/Maltese_alphabet
+    out = (out
+                .replace("ċ", "c")
+                .replace("č", "c")
+                .replace("ġ", "g")
+                .replace("ħ", "h")
+                .replace("ż", "z")
            )
     return out
 
