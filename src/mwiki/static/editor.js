@@ -23,8 +23,15 @@ editor.setOptions({
 
 });
 
-editor.getSession().setUseWrapMode(true)
+//editor.getSession().setUseWrapMode(true)
 editor.getSession().setWrapLimitRange(60, 60);
+
+let lineWrappingCheckbox = document.querySelector("#editor-line-wrapping-checkbox");
+editor.getSession().setUseWrapMode(lineWrappingCheckbox.checked);
+
+lineWrappingCheckbox.addEventListener("click", () => {
+    editor.getSession().setUseWrapMode(lineWrappingCheckbox.checked);
+});
 
 /** Vim Emulation */
 function editorEnableVimEmulation()

@@ -254,6 +254,8 @@ translationsi18n =
 		, "edit-page-insert-details-button": "Details"
 		, "edit-page-clipboard-h3-label": "Clipboard Options"
 		, "edit-page-p-clipobard": "Select the clipboard pasting mode"
+        , "edit-page-line-wrapping-checkbox":  { "title": "Toggle editor line wrapping." }
+        , "edit-page-line-wrapping-checkbox-label":  "Line wrapping."
         , "upload-form-window-title": "File Upload"
         , "upload-form-file-link-label": "Link Label"
         , "upload-form-choose-file-label": "Choose a file"
@@ -418,6 +420,8 @@ translationsi18n =
 		, "edit-page-insert-details-button": "Detalhes"
 		, "edit-page-clipboard-h3-label": "Opções da Área de Transferência"
 		, "edit-page-p-clipobard": "Selecione o modo de colar da área de transferência"
+        , "edit-page-line-wrapping-checkbox":  { "title": "Alternar quebra de linha do editor." }
+        , "edit-page-line-wrapping-checkbox-label":  "Quebra de linha"
         , "upload-form-window-title": "Subir Arquivo (Upload)"
         , "upload-form-file-link-label": "Rótulo do link."
         , "upload-form-choose-file-label": "Escolha um arquivo."
