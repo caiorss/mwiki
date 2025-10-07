@@ -613,7 +613,7 @@ function popupInput(title, message, label, handler)
     });
     pwindow.onWindowClick( (className) => {
         let entry = pwindow.value(".popup-input"); 
-        if(className == "btn-yes" && entry)
+        if(className.includes("btn-yes") && entry)
         { 
             handler(entry); 
             pwindow.close(); 
@@ -1011,13 +1011,15 @@ document.addEventListener("DOMContentLoaded", async function()
                   title
                 , instruction
                 , label
-                , async (noteName) => {
-                    let resp = await http_post(`/api/wiki/${noteName}`);
-                    if (resp.status === "error"){
-                        popupMessage("Error", resp.error); 
-                        return;
-                    } 
-                    redirect(`/edit/${noteName}`);
+                , (noteName) => {
+                    //let resp = await http_post(`/api/wiki/${noteName}`);
+                    //if (resp.status === "error"){
+                    //    popupMessage("Error", resp.error); 
+                    //    return;
+                    //} 
+                    let url =  `/create/${noteName}`;
+                    //alert("Redirecting to URL: " + url);
+                    redirect(url);
                 });
 		});
 	}
