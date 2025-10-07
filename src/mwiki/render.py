@@ -533,6 +533,8 @@ class HtmlRenderer(AbstractAstRenderer):
 
         self._needs_graphviz = False
 
+        self._needs_latex_algorithm = False
+
         self._footnotes_html_rendering = ""
 
         self._preview = preview
@@ -584,6 +586,10 @@ class HtmlRenderer(AbstractAstRenderer):
         when needed.
         """
         return self._needs_graphviz
+
+    @property
+    def needs_latex_algorithm(self) -> bool:
+        return self._needs_latex_algorithm
 
 
     @property
@@ -1195,6 +1201,7 @@ class HtmlRenderer(AbstractAstRenderer):
                 self._needs_mathjax = True
                 # Algorithm code block 
                 if content.strip().startswith(r"\begin{algorithm}"):
+                    self._needs_latex_algorithm = True
                     content, directives = mparser.get_code_block_directives(node.content)
                     label = f'id="{u}"' if (u := directives.get("label")) else ""
                     #content_ = utils.escape_html(content)
@@ -1216,9 +1223,17 @@ class HtmlRenderer(AbstractAstRenderer):
         # Exaple 2:
         #
         # ```{comment} on
-        # The content here will be rendered due to the on
+        # The content here will be rendered due to the ON
         # command in this code block.
         # ```
+        #
+        # Exaple 3:
+        #
+        # ```{comment} off
+        # The content here will note be rendered due to the OFF
+        # command in this code block.
+        # ```
+        #
         #
         elif info.startswith("{comment}"):
             command = utils.strip_prefix("{comment}", info).strip()
@@ -1243,6 +1258,7 @@ class HtmlRenderer(AbstractAstRenderer):
             html = f"""<pre {label} class="mermaid" >\n{content}\n</pre>\n"""                   
         # Compatible with Obsidian's pseudo-code plugin
         elif info == "pseudo" or info == "{pseudo}":
+            self._needs_latex_algorithm = True
             content, directives = mparser.get_code_block_directives(node.content)
             label = f'id="{u}"' if (u := directives.get("label")) else ""
             #content_ = utils.escape_html(content)

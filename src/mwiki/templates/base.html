@@ -152,11 +152,13 @@
     }
 
     </script>
-    {% if mathjax_enabled %}
+    {% if mathjax_enabled or latex_algorithm %}
         <script src="/static/mathjax/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <script src="/static/pseudocode.min.js"></script>
+    {% endif %}
+    {% if latex_algorithm %}
         <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
         <link rel="stylesheet" href="/static/pseudocode.min.css">
-    <script src="/static/pseudocode.min.js"></script>
     {% endif %}
 <!--
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml-full.js"

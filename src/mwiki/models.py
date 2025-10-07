@@ -425,16 +425,17 @@ class WikiPage():
         else:
             if info.exists(): info.unlink()
         html = flask.render_template(  "content.html"
-                                      , title           = title
-                                      , page            = self._title
-                                      , page_link       = self._title.replace(" ", "_")
-                                      , pagename        = self._title
-                                      , content         = content
-                                      , toc             = toc
-                                      , latex_macros    = latex_macros
-                                      , mathjax_enabled = renderer.needs_mathjax
-                                      , graphviz_enabled = renderer.needs_graphviz
-                                      , timestamp       = self.timestamp
+                                      , title                = title
+                                      , page                 = self._title
+                                      , page_link            = self._title.replace(" ", "_")
+                                      , pagename             = self._title
+                                      , content              = content
+                                      , toc                  = toc
+                                      , latex_macros         = latex_macros
+                                      , mathjax_enabled      = renderer.needs_mathjax
+                                      , graphviz_enabled     = renderer.needs_graphviz
+                                      , latex_algorithm      = renderer.needs_latex_algorithm
+                                      , timestamp            = self.timestamp
                                       , equation_enumeration = renderer.equation_enumeration
                                     )
         out.write_text(html)
