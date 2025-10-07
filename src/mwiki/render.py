@@ -531,6 +531,8 @@ class HtmlRenderer(AbstractAstRenderer):
         loaded in the template base.html if this flag is True.
         """
 
+        self._needs_graphviz = False
+
         self._footnotes_html_rendering = ""
 
         self._preview = preview
@@ -574,6 +576,15 @@ class HtmlRenderer(AbstractAstRenderer):
         increasing the page loading speed.
         """
         return self._needs_mathjax
+
+    @property
+    def needs_graphviz(self) -> bool:
+        """Returns true if graphviz needs to be included in the template base.html
+        This property is used for lazy loading of graphviz. Which is only loaded
+        when needed.
+        """
+        return self._needs_graphviz
+
 
     @property
     def equation_enumeration(self):
@@ -1220,6 +1231,7 @@ class HtmlRenderer(AbstractAstRenderer):
                 html = ""
         ## Graphviz dot language
         elif info == "{dot}":
+            self._needs_graphviz = True
             content, directives = mparser.get_code_block_directives(node.content)
             label = f'id="{u}"' if (u := directives.get("label")) else ""
             html = f"""<pre {label} class="graphviz-dot" >\n{content}\n</pre>\n"""                   

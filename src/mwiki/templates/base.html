@@ -175,10 +175,14 @@
     <!-- Additional Javascript libraries -->
     {% endblock %}
 
-    <!-- Graphviz Rendering Engine (WASM Build) 
+
+    {% if graphviz_enabled %}
+    <!-- Graphviz Rendering Engine (WASM Build)
         From: https://viz-js.com/api/
      -->
     <script src="/static/viz/node_modules/@viz-js/viz/lib/viz-standalone.js"></script>
+    {% endif %}
+
     <script>
         const CSRF_TOKEN = "{{ csrf_token() }}";
 

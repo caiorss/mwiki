@@ -433,6 +433,7 @@ class WikiPage():
                                       , toc             = toc
                                       , latex_macros    = latex_macros
                                       , mathjax_enabled = renderer.needs_mathjax
+                                      , graphviz_enabled = renderer.needs_graphviz
                                       , timestamp       = self.timestamp
                                       , equation_enumeration = renderer.equation_enumeration
                                     )
