@@ -65,12 +65,25 @@
                 <fieldset class="field">
                     <label for="password" data-i18n="password-label">Password</label>
                     <br>
-                    <input type="password" data-i18n="password-placeholder" name="password" placeholder="Enter your password"></input>
+                    <input id="password-input-field" type="password" data-i18n="password-placeholder" name="password" placeholder="Enter your password"></input>
+                </fieldset>
+                <fieldset class="field">
+                    <input type="checkbox" id="show-password-checkbox"
+                           name="show-password-checkbox"
+                          data-i18n="login-form-show-password-checkbox">
+                    <label data-i18n="login-form-show-password-label">Display password</label>
                 </fieldset>
                 <fieldset class="field">
                     <input  class="primary-button" type="submit" data-i18n="login-button" class="login-button button is success" name="submit" value="LOGIN">
                 </fieldset>
             </form>
         </div>
+        <script>
+            let passwordCheckbox = document.querySelector("#show-password-checkbox");
+            let passwordInput = document.querySelector("#password-input-field");
+            passwordCheckbox.addEventListener("click", (event) => {
+                passwordInput.type =  passwordCheckbox.checked ? "text" : "password";
+            });
+        </script
     </body>
 </htm>
