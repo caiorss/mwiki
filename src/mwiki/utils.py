@@ -3,6 +3,9 @@ import os
 import sys
 import re
 import unicodedata
+import hmac
+import hashlib
+import datetime
 from typing import IO, Any, List, Dict, Optional, Tuple 
 import urllib.parse
 from pygments import highlight
@@ -288,6 +291,41 @@ def generate_password(size: int = 20) -> str:
                      .choice( string.ascii_uppercase + string.digits) 
                               for _ in range(size))
     return result 
+
+
+def hmac_signature(secret: str, message: str) -> str:
+    """Generate hmac signature of a particular message
+    NOTE: HMAC stands for Hash-Based Message Authentication Code
+    """
+    signature = hmac.new( secret.encode("utf8")
+                         , message.encode("utf8")
+                         , hashlib.sha256).hexdigest()
+    return signature
+
+def hmac_compare(secret: str, message: str, expected_signature: str) -> bool:
+    """Check whether a message is valid given its hmac signature"""
+    signature = hmac_signature(secret, message)
+    is_valid = hmac.compare_digest(signature, expected_signature)
+    return is_valid
+
+def now_utc_timestamp() -> int:
+    utc = datetime.timezone.utc
+    now = datetime.datetime.now(utc).timestamp()
+    out = int(now)
+    return out
+
+def now_utc_timestamp_add_minutes(minutes: int) -> int:
+    utc = datetime.timezone.utc
+    now = datetime.datetime.now(utc)
+    out = now + datetime.timedelta(minutes = minutes)
+    out = int(out.timestamp())
+    return out
+
+def timestamp_has_expired(timestamp: int) -> bool:
+    """Return true if the timestamp has expired."""
+    now = now_utc_timestamp()
+    has_expired = timestamp - now < 0
+    return has_expired
 
 class TempSSLCert:
 

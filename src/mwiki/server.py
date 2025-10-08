@@ -47,7 +47,8 @@ def make_app_server(  host:        str
                     , random_ssl:  bool = False
                     , secret_key:  Optional[str] = None 
                    ):
-    app.config["SECRET_KEY"] = models.get_secret_key()
+    secret_key = models.get_secret_key()
+    app.config["SECRET_KEY"] = secret_key
     ##secret_key = get_secret_key(APPNAME) if secret_key is None else secret_key
     # Specify a custom directory for storing session files
     ### app.config['SECRET_KEY'] = secret_key
@@ -748,6 +749,35 @@ def make_app_server(  host:        str
         afile.save(path)
         out = flask.jsonify({ "status": "ok", "error": "", "file": filename})
         return out
+
+    @app.get("/auth")
+    def route_auth():
+        """Passwordless authentication using token in a similar way to Jupyter Notebook"""
+        if session.get("loggedin") == True:
+            return flask.redirect("/")
+        timestamp = utils.parse_int(request.args.get("timestamp"))
+        signature = request.args.get("signature")
+        user = request.args.get("user")
+        # print(f" [TRACE] timestamp = {timestamp}")
+        # print(f" [TRACE] signature = {signature}")
+        # print(f" [TRACE] user      = {user} ")
+        # print(f" [TRACE] secret key = {secret_key}")
+        if not user or not signature or not timestamp:
+            flask.abort(STATUS_CODE_403_FORBIDDEN)
+        message = "authentication:" + user + "/" + str(timestamp)
+        # print(" [TRACE] message = ", message)
+        if not utils.hmac_compare(secret_key, message, signature):
+            # print(" [TRACE] Signature not valid.")
+            flask.abort(STATUS_CODE_403_FORBIDDEN)
+        if utils.timestamp_has_expired(timestamp):
+            # print(" [TRACE] timestamp expired")
+            flask.abort(STATUS_CODE_403_FORBIDDEN)
+        user_ = User.get_user_by_username(user)
+        if not user_:
+            flask.abort(STATUS_CODE_403_FORBIDDEN)
+        session["user"] = user_.to_Dict()
+        session["loggedin"] = True
+        return flask.redirect("/")
 
     @app.get("/")
     def route_index_page():

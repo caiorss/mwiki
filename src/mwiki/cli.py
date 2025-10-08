@@ -21,6 +21,7 @@ import mwiki.convert
 import mwiki.search as search
 import mwiki.watcher
 import mwiki.models
+import mwiki.utils as utils
 from . import render
 from .models import User, Settings
 from .app import db, app 
@@ -238,6 +239,8 @@ def watch(wikipath: str):
     os.environ["MWIKI_PATH"] = _wikipath
     mwiki.watcher.watch()
 
+
+
 @cli1.command()
 @click.option("-p", "--path", default = None, 
                 help = ( "Path to folder containing *.md files." )
@@ -297,6 +300,32 @@ def manage(admin_password = None, sitename = None):
             settings.sitename = sitename
             settings.save()
             print(f" [*] Site name changed to: {sitename}")
+
+
+@cli1.command()
+@click.option("--wikipath", default = None, help = "Path to wiki directory, default '.' current directory.")
+@click.option("--user", default = "admin", help = "Username to authenticate.")
+def auth(wikipath: Optional[str], user: str):
+    """Create URL for authentication without password. The URL is valid for 1 minute."""
+    MWIKI_URL = os.getenv("MWIKI_URL", "http://localhost:8000")
+    wikipath = wikipath or os.getenv("MWIKI_PATH")
+    if wikipath is None:
+        print("Error expected --wikipath=./path-to-wiki or MWIKI_PATH environment variable set to this path.")
+        exit(1)
+    wikipath = utils.expand_path(wikipath)
+    mwiki.models.MwikiConfig.set_path(wikipath)
+    secret_key = mwiki.models.get_secret_key()
+    ## print(" [TRACE] secret_key = ", secret_key)
+    timestamp = utils.now_utc_timestamp_add_minutes(1)
+    message = "authentication:" + user + "/" + str(timestamp)
+    signature = utils.hmac_signature(secret_key, message)
+    url = f"{MWIKI_URL}/auth?user={user}&timestamp={timestamp}&signature={signature}"
+    print("Copy and paste the following URL in the web browser to authenticate.")
+    print()
+    print(" ", url)
+    print()
+    print("NOTE: This URL is only valid for 1 minute.")
+    print("NOTE: If MWiki URL is not correct, set the environment variable $MWIKI_URL to the app URL. For instance, in bash Unix shell $ export MWIKI_URL=https://mydomain.com before running this comamnd again.")
 
 @cli1.command()
 @click.option("-f", "--file", default = None, 
