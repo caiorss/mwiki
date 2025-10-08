@@ -15,6 +15,7 @@ import flask
 import logging
 from mwiki.server import make_app_server
 from . import utils
+import mwiki.models as models
 from mwiki.models import MwikiConfig
 ##from .app import app
 
@@ -28,7 +29,8 @@ debug = os.getenv("DEBUG", "false") == "true"
 login = os.getenv("LOGIN", "")
 _login = login.split(",")
 _login =  x if len( x := login.split(","))  == 2 else None
-secret_key = os.getenv("SECRET_KEY")
+secret_key = models.get_secret_key()
+##secret_key = os.getenv("SECRET_KEY")
 
 
 app = make_app_server(  host     = host

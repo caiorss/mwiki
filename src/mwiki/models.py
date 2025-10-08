@@ -8,6 +8,7 @@ import sqlalchemy
 from sqlalchemy import ForeignKey
 import sqlalchemy.orm as so 
 import datetime
+import secrets
 from werkzeug.security import generate_password_hash, check_password_hash
 import yaml.scanner
 from . import utils
@@ -23,6 +24,8 @@ import flask
 db = SQLAlchemy()
 
 CACHE_FILE_FORMAT_VERSION = "0.1.1"
+
+
 
 class Config:
     """Singletion containg wiki settings
@@ -63,6 +66,23 @@ class Config:
 
 MwikiConfig = Config()
 
+def get_secret_key():
+    """Obtain secret key and create it if the key does not exist yet.
+
+    The secret key is stored the wiki repository file appkey.txt
+    whose path is $WIKI_REPOSITORY_PATH./data/appkey.txt
+    """
+    base_path = pathlib.Path(MwikiConfig.path) / ".data"
+    ##print(" [TRACE] base_path = ", base_path)
+    base_path.mkdir( exist_ok = True )
+    keyfile   = base_path / "appkey.txt"
+    # Automatically generate unique private key per wiki repository
+    if not keyfile.is_file():
+        _secret_key = secrets.token_hex(16)
+        keyfile.write_text(_secret_key)
+    secret_key = keyfile.read_text()
+    ### print(" [TRACE] secret_key = ", secret_key)
+    return secret_key
 
 class User(db.Model):
     __tablename__ = "user"

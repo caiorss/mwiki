@@ -6,6 +6,7 @@ import re
 import pathlib
 import secrets
 import urllib.parse
+import time
 ## from bottle import route, run
 ## from bottle import static_file, route, auth_basic, request
 import flask 
@@ -30,6 +31,7 @@ from . import utils
 from . import mparser
 from . import render
 from . import search 
+import mwiki.models as models
 from . models import db, User, Settings, BookmarkedPage, WikiPage, WikiRepository, MwikiConfig
 from . models import is_database_created
 from . login import add_login
@@ -45,10 +47,10 @@ def make_app_server(  host:        str
                     , random_ssl:  bool = False
                     , secret_key:  Optional[str] = None 
                    ):
-
-    secret_key = get_secret_key(APPNAME) if secret_key is None else secret_key
+    app.config["SECRET_KEY"] = models.get_secret_key()
+    ##secret_key = get_secret_key(APPNAME) if secret_key is None else secret_key
     # Specify a custom directory for storing session files
-    app.config['SECRET_KEY'] = secret_key 
+    ### app.config['SECRET_KEY'] = secret_key
     flask_session.Session(app)
     ### WEBSOCKET: sock = Sock(app)
     BASE_PATH = wikipath ## utils.get_wiki_path()
@@ -564,6 +566,7 @@ def make_app_server(  host:        str
                                          , content = content)
             return resp
         assert request.method == M_POST
+        # Simulate a delay of 5 seconds
         data: dict[str, Any] = request.get_json()
         content = data.get("content", "") 
         out = {}
@@ -779,7 +782,9 @@ def make_app_server(  host:        str
 ##    ##else:
 ##        app.run(host = host, port = port, debug = debug)
 
-def get_secret_key(appname: str) -> str:
+
+
+def get_secret_key_(appname: str) -> str:
     KEYFILE = "appkey"
     fkey =  utils.project_data_path(appname, KEYFILE)
     secret_key = ""

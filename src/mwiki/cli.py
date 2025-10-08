@@ -186,6 +186,7 @@ def server(  host:       str
             exit(1)
     # Add all markdown files (Wiki pages) to the search index database (powered by Whoosh Python library)
     base_path = pathlib.Path(_wikipath)
+    mwiki.models.MwikiConfig.set_path(_wikipath)
     if not search.search_index_exists(base_path):
         search.index_markdown_files(base_path)
     if wsgi:
@@ -193,7 +194,6 @@ def server(  host:       str
         os.environ["SERVER_SOFTWARE"] = "waitress"
         os.environ["WIKIPATH"] = _wikipath
         os.environ["MWIKI_PATH"] = _wikipath
-        mwiki.models.MwikiConfig.set_path(_wikipath)
         pyexecutable = sys.executable
         procWatcher =  subprocess.Popen([  pyexecutable
                                       ,"-m" , "mwiki.watcher"
