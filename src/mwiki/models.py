@@ -140,6 +140,11 @@ class FontFamiliyEnum(enum.Enum):
     ibm_plex_mono = "IBM Plex Mono"
     # nolstagic font mimics typewriters in old documents with ink leakage.
     jackwrite = "Jackwrite"
+    # Font that mimics Epson's dot-matrix font used in the 1980's for
+    # printing code in computer magazines.
+    dotmatrix = "Epson DotMatrix"
+    dotmatrix_duo = "Epson DotMatrixDuo"
+    dotmatrix_var_duo = "Epson DotMatrixVarDuo"
     go_mono = "GO Mono"
     logic_monospace_regular = "Logic Monospace Regular"
     logic_monospace_medium  = "Logic Monospace Medium"
@@ -172,6 +177,10 @@ class CodeFontFamily(enum.Enum):
     julia_mono = "Julia Mono"
     julia_mono_light = "Julia Mono Light"
     range_mono = "Range Mono"
+    # Font that mimics Epson's dot-matrix font used in the 1980's for
+    # printing code in computer magazines.
+    dotmatrix = "Epson DotMatrix"
+    dotmatrix_duo = "Epson DotMatrixDuo"
 
 
 class TitleFontFamily(enum.Enum):
@@ -187,6 +196,11 @@ class TitleFontFamily(enum.Enum):
     # IBM old-chool monospace that gives back the nolstagic
     # feeling of the typewriter 
     ibm_plex_mono = "IBM Plex Mono"
+    # Font that mimics Epson's dot-matrix font used in the 1980's for
+    # printing code in computer magazines designed by Stefan Schmidt.
+    dotmatrix = "Epson DotMatrix"
+    dotmatrix_duo = "Epson DotMatrixDuo"
+    dotmatrix_var_duo = "Epson DotMatrixVarDuo"
     go_mono = "GO Mono"
     # Font suitable for title
     news_reader = "NewsReader"
@@ -213,6 +227,7 @@ class TitleFontFamily(enum.Enum):
     dinweb_light = "DINWeb-Light"
     dinweb_medium = "DINWeb-Medium"
     dinweb_balck = "DINWeb-Black"
+
 
 class Settings(db.Model):
     """Singleton model class (SQL table) containing site settings.

@@ -429,6 +429,104 @@
 }
 
 
+/* --- Font that mimics Epson's dot-matrix font used in the 1980's for
+ * printing code in computer magazines.
+*/
+@font-face {
+    font-family: "Epson DotMatrix";
+    font-weight: normal;
+    font-style:  normal;
+    src: url('/static/fonts/DotMatrix-Regular.otf');
+}
+
+@font-face {
+    font-family: "Epson DotMatrix";
+    font-weight: normal;
+    font-style:  italic;
+    src: url('/static/fonts/DotMatrix-Italic.otf');
+}
+
+@font-face {
+    font-family: "Epson DotMatrix";
+    font-weight: bold;
+    font-style:  normal;
+    src: url('/static/fonts/DotMatrix-Bold.otf');
+}
+
+
+@font-face {
+    font-family: "Epson DotMatrix";
+    font-weight: bold;
+    font-style:  italic;
+    src: url('/static/fonts/DotMatrix-BoldItalic.otf');
+}
+
+/* --- Font that mimics Epson's dot-matrix font used in the 1980's for
+ * printing code in computer magazines.
+*/
+@font-face {
+    font-family: "Epson DotMatrixDuo";
+    font-weight: normal;
+    font-style:  normal;
+    src: url('/static/fonts/DotMatrixDuo-CondensedRegular.otf');
+}
+
+@font-face {
+    font-family: "Epson DotMatrixDuo";
+    font-weight: normal;
+    font-style:  italic;
+    src: url('/static/fonts/DotMatrixDuo-CondensedItalic.otf');
+}
+
+@font-face {
+    font-family: "Epson DotMatrixDuo";
+    font-weight: bold;
+    font-style:  normal;
+    src: url('/static/fonts/DotMatrixDuo-CondensedBold.otf');
+}
+
+
+@font-face {
+    font-family: "Epson DotMatrixDuo";
+    font-weight: bold;
+    font-style:  italic;
+    src: url('/static/fonts/DotMatrixDuo-CondensedBoldItalic.otf');
+}
+
+/* --- Font that mimics Epson's dot-matrix font used in the 1980's for
+ * printing code in computer magazines.
+*/
+@font-face {
+    font-family: "Epson DotMatrixVarDuo";
+    font-weight: normal;
+    font-style:  normal;
+    src: url('/static/fonts/DotMatrixVarDuo-Regular.otf');
+}
+
+@font-face {
+    font-family: "Epson DotMatrixVarDuo";
+    font-weight: normal;
+    font-style:  italic;
+    src: url('/static/fonts/DotMatrixVarDuo-Italic.otf');
+}
+
+@font-face {
+    font-family: "Epson DotMatrixVarDuo";
+    font-weight: bold;
+    font-style:  normal;
+    src: url('/static/fonts/DotMatrixVarDuo-Bold.otf');
+}
+
+
+@font-face {
+    font-family: "Epson DotMatrixVarDuo";
+    font-weight: bold;
+    font-style:  italic;
+    src: url('/static/fonts/DotMatrixVarDuo-BoldItalic.otf');
+}
+
+
+
 
 :root {
     /*--- Desktop screen Width ----------------*/
