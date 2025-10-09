@@ -5,7 +5,12 @@ import re
 import unicodedata
 import hmac
 import hashlib
+import json
 import datetime
+import base64
+import json.decoder
+import binascii
+from typing import Optional
 from typing import IO, Any, List, Dict, Optional, Tuple 
 import urllib.parse
 from pygments import highlight
@@ -203,6 +208,52 @@ def read_resource(module: Package, resource_file: str) -> str:
         data =  fd.read()
     return data
 
+
+def base64_encode(text: str) -> str:
+    data = text.encode("utf-8")
+    out = base64.b64encode(data).decode("utf-8")
+    return out
+
+def base64_decode(base64str: str) -> str:
+    out = base64.b64decode(base64str).decode("utf-8")
+    return out
+
+def encode_json_to_base64(obj: any) -> str:
+    """Encode jsonable data base64 string.
+
+    Usage example:
+
+    >>> data = {"timestamp": 1005205, "user": "dummy"}
+    >>> out = encode_json_to_base64(data)
+    >>> out
+    'eyJ0aW1lc3RhbXAiOiAxMDA1MjA1LCAidXNlciI6ICJkdW1teSJ9'
+    """
+    json_str: str = json.dumps(obj)
+    data = json_str.encode("utf-8")
+    out = base64.b64encode(data).decode("utf-8")
+    return out
+
+def decode_json_from_base64(base64str: str) -> Optional[any]:
+    """Decode jsonable data from base64 string.
+
+    Usage example:
+
+    >>> data = {"timestamp": 1005205, "user": "dummy"}
+    >>> out = encode_json_to_base64(data)
+    >>> out
+    'eyJ0aW1lc3RhbXAiOiAxMDA1MjA1LCAidXNlciI6ICJkdW1teSJ9'
+    >>> decode_json_from_base64(out)
+    {'timestamp': 1005205, 'user': 'dummy'}
+
+    """
+    data = None
+    try:
+        json_str = base64.b64decode(base64str).decode("utf-8")
+        data = json.loads(json_str)
+    except (binascii.Error, json.decoder.JSONDecodeError, UnicodeDecodeError) as ex:
+        pass
+    return data
+
 def escape_html(code) -> str:
     """Escape html code."""
     code = code.replace("&", "&amp;")\
@@ -213,6 +264,7 @@ def escape_html(code) -> str:
     return code
 
 def escape_url(url: str) -> str:
+    """Encode URL"""
     q = urllib.parse.quote(url)
     return q
 

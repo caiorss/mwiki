@@ -649,7 +649,7 @@ def make_app_server(  host:        str
         """URL endpoint /tags for browsing all wiki tags.
         """
         tags = []
-        print(" [TRACE] tags_cache_file = ", tags_cache_file)
+        ## print(" [TRACE] tags_cache_file = ", tags_cache_file)
         if tags_cache_file.exists():
             with open(tags_cache_file) as fd:
                 data = json.load(fd)
@@ -750,34 +750,38 @@ def make_app_server(  host:        str
         out = flask.jsonify({ "status": "ok", "error": "", "file": filename})
         return out
 
-    @app.get("/auth")
+    @app.route("/auth", methods = [M_POST, M_GET])
     def route_auth():
-        """Passwordless authentication using token in a similar way to Jupyter Notebook"""
-        if session.get("loggedin") == True:
-            return flask.redirect("/")
-        timestamp = utils.parse_int(request.args.get("timestamp"))
-        signature = request.args.get("signature")
-        user = request.args.get("user")
-        # print(f" [TRACE] timestamp = {timestamp}")
-        # print(f" [TRACE] signature = {signature}")
-        # print(f" [TRACE] user      = {user} ")
-        # print(f" [TRACE] secret key = {secret_key}")
-        if not user or not signature or not timestamp:
-            flask.abort(STATUS_CODE_403_FORBIDDEN)
-        message = "authentication:" + user + "/" + str(timestamp)
+        """Passwordless authentication using token in a similar way to Jupyter Lab
+
+        The authentication token, that is valid for 1 minute, can
+        be generated with the command:
+
+        $ mwiki auth --user=admin --wikipath=/path/to/markdown-files-repository
+        """
+        token = ""
+        if request.method == M_GET:
+            token = request.args.get("token", "")
+        elif request.method == M_POST:
+            token =  flask.request.form.get("token") or ""
+        else:
+            # THis line should never be executed.
+            raise RuntimeError("Invalid state.")
+        path = request.args.get("path", "/")
+        data = utils.decode_json_from_base64(token) or {}
+        user      = data.get("user", "")
+        salt      = data.get("salt", "")
+        timestamp = data.get("expiration", 0)
+        signature = data.get("signature", "")
+        message = user + "/" + str(timestamp) + "/" + str(salt)
         # print(" [TRACE] message = ", message)
-        if not utils.hmac_compare(secret_key, message, signature):
-            # print(" [TRACE] Signature not valid.")
-            flask.abort(STATUS_CODE_403_FORBIDDEN)
-        if utils.timestamp_has_expired(timestamp):
-            # print(" [TRACE] timestamp expired")
-            flask.abort(STATUS_CODE_403_FORBIDDEN)
+        signature_is_valid = utils.hmac_compare(secret_key, message, signature)
+        not_expired = not utils.timestamp_has_expired(timestamp)
         user_ = User.get_user_by_username(user)
-        if not user_:
-            flask.abort(STATUS_CODE_403_FORBIDDEN)
-        session["user"] = user_.to_Dict()
-        session["loggedin"] = True
-        return flask.redirect("/")
+        if signature_is_valid and not_expired and user_ is not None:
+            session["user"] = user_.to_Dict()
+            session["loggedin"] = True
+        return flask.redirect(path)
 
     @app.get("/")
     def route_index_page():

@@ -5,6 +5,7 @@ Module responsible for processing command line switches and options.
 import os
 import os.path 
 import sys
+import random
 import pathlib
 import subprocess
 import tomli 
@@ -317,12 +318,18 @@ def auth(wikipath: Optional[str], user: str):
     secret_key = mwiki.models.get_secret_key()
     ## print(" [TRACE] secret_key = ", secret_key)
     timestamp = utils.now_utc_timestamp_add_minutes(1)
-    message = "authentication:" + user + "/" + str(timestamp)
+    salt = random.randint(1, 1000)
+    message = user + "/" + str(timestamp) + "/" + str(salt)
     signature = utils.hmac_signature(secret_key, message)
-    url = f"{MWIKI_URL}/auth?user={user}&timestamp={timestamp}&signature={signature}"
+    data = { "user": user, "salt": salt, "expiration": timestamp, "signature": signature}
+    authtoken = utils.encode_json_to_base64(data)
+    url = f"{MWIKI_URL}/auth?token={ utils.escape_url(authtoken) }"
     print("Copy and paste the following URL in the web browser to authenticate.")
     print()
     print(" ", url)
+    print()
+    print(f"Or paste the following token in the log in form {MWIKI_URL} ")
+    print(" \n", authtoken)
     print()
     print("NOTE: This URL is only valid for 1 minute.")
     print("NOTE: If MWiki URL is not correct, set the environment variable $MWIKI_URL to the app URL. For instance, in bash Unix shell $ export MWIKI_URL=https://mydomain.com before running this comamnd again.")
