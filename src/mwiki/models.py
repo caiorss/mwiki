@@ -23,7 +23,7 @@ import flask
 ## db = SQLAlchemy(app)
 db = SQLAlchemy()
 
-CACHE_FILE_FORMAT_VERSION = "0.1.1"
+CACHE_FILE_FORMAT_VERSION = "0.1.2"
 
 
 

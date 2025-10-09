@@ -51,7 +51,7 @@ class PopupWindow
                               Failed to set popup window messasge.`) ;
             return;
         }
-        x.textContent = message;
+        x.innerHTML = message;
     }
 
     onWindowClick(handler)
@@ -124,6 +124,16 @@ class PopupWindow
     {
         this._dom.remove();
     }
+}
+
+/** Unescape/decode Html code.*/
+function htmlUnescape(htmlStr) {
+    htmlStr = htmlStr.replace(/&lt;/g , "<");
+    htmlStr = htmlStr.replace(/&gt;/g , ">");
+    htmlStr = htmlStr.replace(/&quot;/g , "\"");
+    htmlStr = htmlStr.replace(/&#39;/g , "\'");
+    htmlStr = htmlStr.replace(/&amp;/g , "&");
+    return htmlStr;
 }
 
 // I18N Internationalization for the Website GUI - Graphics User Interface.
@@ -1174,7 +1184,7 @@ document.addEventListener("click", (event) => {
     if(target.classList[0] === "footnote-reference")
     {
         lastToolTipTarget = "footnote-reference";
-        let note = target.dataset.footnote;
+        let note = htmlUnescape(target.dataset.footnote);
         let counter = target.dataset.counter;
         // English title: "Note"
         var title = geti18nTranslation("popup-window-footnote-title") || "Footnote";

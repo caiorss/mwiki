@@ -1614,7 +1614,7 @@ class HtmlRenderer(AbstractAstRenderer):
         return html
     
     def render_footnote_block(self, node: SyntaxTreeNode) -> str:
-        breakpoint()
+        ## breakpoint()
         counter = 0
         number_footnotes = len(node.children)
         block = '\n<div class="footnotes-div"><p>Number of footnotes: %d</p>' % number_footnotes
@@ -1635,7 +1635,6 @@ class HtmlRenderer(AbstractAstRenderer):
         return ""
 
     def render_footnote_ref(self, node: SyntaxTreeNode) -> str:
-        ## breakpoint()
         ast = mparser.parse_source(node.content)
         #breakpoint()
         if ast.type == "root" and ast.children[0].type == "paragraph":
@@ -1644,12 +1643,12 @@ class HtmlRenderer(AbstractAstRenderer):
         html = """<a href="#" id="footnote-reference-link-%d" class="footnote-link"><sup class="footnote-reference" data-counter="%d" data-footnote="%s">[%d]</sup></a>""" \
             % ( self._footnotes_counter
               , self._footnotes_counter
-              , inline_html
+              , utils.escape_html(inline_html)
               , self._footnotes_counter
               )
         self._footnotes.append(inline_html)
         self._footnotes_counter += 1
-        ## print(f" [DEBUG] footnote_ref = {html}")
+        print(f" [DEBUG] footnote_ref = {html}")
         return html
 
     def render_frontmatter(self, node: SyntaxTreeNode) -> str:
