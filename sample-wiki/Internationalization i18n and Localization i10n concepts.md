@@ -1,9 +1,10 @@
 ---
 title:       Internationalization i18n and Localization i10n concepts
 label:       
-description: Study about how to build an internationalization infrastructure for adding localization to a software without changing the source code allowing the contribution of non programmers.
+description: 
 keywords:    
 ---
+
 
 ## Terminology of Internationalization
 
@@ -56,7 +57,7 @@ QA Testing
  
 ## Internationalization Issues
 
-```{figure} ![[pasted-image-1757439080745.jpg]]
+```{figure} ![[pasted-image-1755972975940.jpg]]
 World Regional Languages
 ```
 
@@ -70,8 +71,8 @@ Brainstorm of Major Internationalization Issues
 + Optimization 
   + Localization strings (text) served or renderend in the front-end (client side).
   + Localization strigns (text) served or rendered in the backend (server side).
-  + Lazy loading locatization strings
-  + Load only what is needed
+  + Lazy loading locatization strings.
+  + Load only what is needed.
 + Language Issues
     + Date Format
     + Pluralization
@@ -87,10 +88,178 @@ Brainstorm of Major Internationalization Issues
   
 ## Common Mistakes
 
-+ Country Flag does not represent a language. For instance do not use the Brazilian flag for representing the Portuguese language.
-+ There are more than one dialect and spelling of the same language. For instance, some words in American English and British English have different spellings, i.e *internationalization* (American English) and *internationalisation* (British English). That is the reason why country flags should not be used for representing a language.
-+ Do not use IP address or user geographic location for selecting the language or locale used by a website. The language should be selected based on the user preference indicated by the http header [Accept-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Accept-Language) and the graphicsuser interface should always have a button or selection box allowing the user to switch the language.
+
++ Country Flag does not represent a language. For instance, the Brazilian flag should not be used for representing the Portuguese language.
++ There are more than one dialect and spelling of the same language. For instance, some words in American English and British English have different spellings, i.e *internationalization* (American English) and *internationalisation* (British English). That is the reason why country flags should not be used for representing  languages.
++ Localization must not only specific for a particular language. It should also be specific for each country and **standardized dialect of a language**, such as American English, British English, European Portuguese or Brazilian Portuguese. For instance, despite the American English be ubiuitous on the internet, most English speaking countries other than USA or Phillipines use British English spelling and languages contructs derived from this English dialect. The British English spelling is also widely used on continental Europe by non English speaking countries, including Germany, France, Portugal, Netherlands and so on.
++ Do not use IP address or user geographic location for selecting the language or locale used by a website. The language should be selected based on the user preference indicated by the http header [Accept-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Accept-Language) and the graphicsuser interface should always have a button or selection box allowing the user to switch the language. On Linux Desktop applications, the environment variable LANG is commonly used for obtaining the user desired language. This variable is set during Linux installation of Linux desktop distributions to the language chosen by the user.
++ Some reasons to avoid using IP address, geographic location or country for choosing the UI - User Interface language are: some countries may have multiple official languages or multiple spoken languages; nowadays, people travels and may not be able speak the local language; even a native speakers may not want read in his or her own native language. 
+   
   
+## Common Locales
+
+| Country      | Locale Code          | Language Name                                   | 
+|------------- | -------------------- | ----------------------------------------------- |
+| UK           | en-UK                | British English (UK - United Kingdom)           |
+| USA          | en-US                | American/USA English                            |
+| Ireland      | en-IE                | Irish English                                   |
+| Canada       | en-CA                | Canadian English                                |
+| Canada       | ca_FR                | Canadian French (Français Canadien)             |
+| Australia    | en-AU                | Australian English                              | 
+| New Zealand  | en-NZ                | New Zealand English                             |
+| Singapore    | en-SG                | Singaporean English                             |
+| Hong Kong    | en-HK                | Hong Kong English                               |
+| South Africa | en-ZA                | South African English                           |  
+| South Africa | af-ZA                | Afrikaans (based on Dutch language)             |
+| Phillipines  | en-PH                | Phillipines English (based on American English) |
+| India        | en-IN                | Indian English                                  |
+| India        | hi_IN                | Hindi (Hindustani)                              |
+| Germany      | de_DE                | German (Deutsch)                                |
+| Austria      | de_AT                | Austrian German (Österreichisches Deutsch)      |
+| Switzerland  | de_CH                | Switzerland German (Schweizerdeutsch)           |
+| Switzerland  | fr_CH                | Switzerland French  (Suisse français)           |
+| Switzerland  | it_CH                | Switzerland Italian                             |
+| France       | fr_FR                | French (Français)                               |
+| Italy        | it_IT                | Italian (Italiano)                              |
+| Greece       | el_GR                | Modern Greek                                    | 
+| Cyprus       | el_CY                | Modern Greek of Cyprus                          |
+| Spain        | es_ES                | Spanish (Español)                               |
+| Spain        | ca_ES                | Catalan (Catalán in Spanish)                    |   
+| Spain        | eu-ES                | Basque (Non indo-european language)             |
+| Spain        | gl-ES                | Galician (Sister language of Portuguese)        |
+| Mexico       | es_MX                | Mexican Spanish (Español mexicano)              |
+| USA          | es-US                | American/USA Spanish                            |
+| Puerto Rico  | es_PR                | Puerto Rico Spanish (USA)                       |
+| Argentina    | es_AR                | Argentinian Spanish (Español argentino)         |
+| Uruguay      | es_UY                | Uruguayian Spanish (Español uruguayo)           |
+| Chile        | es_CL                | Chilean Spanish (Español chileno)                |
+| Colombia     | es_CO                | Colombian Spanish (Español colombiano)          |
+| Peru         | es_PE                | Peruvian Spanish (Español peruano)              |
+| Ecuador      | es_EC                | Ecuadorian Spanish (Español ecuatoriano)        |
+| Panama       | es_PA                | Panamenian Spanish (Español panameño)           |
+| Venezuela    | es_VE                | Venezuelan Spanish (Español venezolano)         |
+| Portugal     | pt_PT                | European Portuguese (Português Europeu)         |
+| Brasil       | pt_BR                | Brazilian Portuguese (Português Brasileiro)     |                    
+| Capte Verde  | pt_CV                | Cape Verde Portuguese (Português de Cabo Verde) |                                        |
+| China        | zh_CN                | Chinese (Mandarin Chinese of Mainland China)    | 
+| Hong Kong    | zh_HK                | Hong Kong Chinese                               |
+| Taiwan       | zh_TW                | Taiwan Chinese                                  |
+  
+NOTE:
+1. Most English variants around the world are based on the British English and uses the British spelling. The American English spelling is only used by USA and Phillipines.
+2. India does not have any official language and Hindi is not the official language of India. Moreover, the majority of Indian population does not speak Hindi.
+3. Hong Kong is not country. It is a SAR - Special Administrative Region of mainland China. 
+4. Puerto Rico is USA non incorporated territory. So, it is not a country.
+
+**Change User Interface Language on Linux**
+
+It is possible to change the UI interface language of some application on Linux on command line by setting the environment variable LANG to the desired locale code. For instance, the following temporarily changes the Kwrite KDE text editor language to Swiss German even if the default language used during the Linux distribution installation was not German. This feature is useful for language learners for obtaining the common terminology used for localizing applications to a particular language.
+
+```sh
+env LANG=de_CH kwrite
+```
+
+Lanch kwite with language set to Swiss German detached from terminal (without blocking the terminal emulator).
+
+```sh
+$ env LANG=de_US.UTF-8 kwrite 1> /dev/null 2> /dev/null & disown
+```
+
+Explanation:
+
++ `1> /dev/null` redirects the kwrite process' stdout (standard output) to Linux pseudo file /dev/null.
++ `2> /dev/null` redirects the kwrite process' stderr (standard error output) to Linux pseudo file /dev/null.
++ `& disown` => Detach kwrite process from the terminal in order run this application as a daemon (background process/service) and to avoid blocking the terminal emulator and terminating the kwrite process if the terminal is closed.
+
+**See**
+
++ *Country Code Language List*
+  + https://www.fincher.org/Utilities/CountryLanguageList.shtml
++ *ISO-3166 Country Codes and ISO-639 Language Codes*, Oracle Docs
+  + https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html
++ *Standard locale names*, Microsoft
+  + https://learn.microsoft.com/en-us/globalization/locale/standard-locale-names
++ *ISO Country and Language Codes: The Definitive Guide*
+  + https://centus.com/blog/iso-language-codes
+            
+## Falsehoods Many Programmers Believe About Names
+
+1. Names are only written using ascii characters. Counterexample: "João".
+2. Names does not contain hyphen (-) or apostrophe (') characters. Counterexample: O'neil - common irish surname.
+3. A person may have only two names, a given name and surname (family name). Counterexample: the full name of Brazil's emperor [Pedro II of Brazil](https://en.wikipedia.org/wiki/Pedro_II_of_Brazil) was "Pedro de Alcântara João Carlos Leopoldo Salvador Bibiano Francisco Xavier de Paula Leocádio Miguel Gabriel Rafael".
+4. People do not change their names, surnames or email. 
+5. People will never have identical names.
+6. The name or surname has at least 3 characters. Counterexample: "Wu".
+7. The full name is limited to 100 characters length.
+8. I will never need to deal with foreign names in my database.
+9. Names with the same spelling are always written in the same way with the same spelling. Counterexample: There are several different Japanese names that sounds as ["Akira"](<https://en.wikipedia.org/wiki/Akira_(given_name)>) and are romanized (written in latin script) as that, although they are written using different Kanji symbols and have different meanings. 
+10. People have at least one surname. Countereraxmple: In some countries, such as Indonesia and Japan some people may have a single given name and no surname. Members of Japanese royalty do not have surnames or family names. Sukarno, the first president of Indonesia did not have any surname. His full name was just "Sukarno".
+
+**See also:**
+
++ *Personal names around the world*, W3C
+  + https://www.w3.org/International/questions/qa-personal-names
+  + *How do people's names differ around the world, and what are the implications of those differences on the design of forms, databases, ontologies, etc. for the Web?*
++ *Legal name*, Wikipedia
+  + https://en.wikipedia.org/wiki/Legal_name
++ *Middle name*, Wikipedia
+  + https://en.wikipedia.org/wiki/Middle_name
++ *Name change*, Wikipedia
+  + https://en.wikipedia.org/wiki/Name_change
++ *Surname*, Wikipedia
+  + https://en.wikipedia.org/wiki/Surname
++ *Maiden and married names*, Wikipedia
+  + https://en.wikipedia.org/wiki/Maiden_and_married_names
++ *Patronymic surname*, Wikipedia
+  + https://en.wikipedia.org/wiki/Patronymic_surname
++ *A basic guide to using Asian names*, Asia Media Centre
+  + https://www.asiamediacentre.org.nz/features/a-guide-to-using-asian-names
++ *Chinese Naming Conventions - Chinese Culture*, Cultural Atlas
+  + https://culturalatlas.sbs.com.au/chinese-culture/chinese-culture-naming
++ *Japanese Naming Conventions - Japanese Culture*, Cultural Atlas
+  + https://culturalatlas.sbs.com.au/japanese-culture/japanese-culture-naming
++ *Wikipedia:Naming conventions (Chinese)*
+  + https://en.wikipedia.org/wiki/Wikipedia:Naming_conventions_(Chinese)
++ *East Slavic name*, Wikipedia
+  + https://en.wikipedia.org/wiki/East_Slavic_name
++ *Spanish naming customs*, Wikipedia
+  + https://en.wikipedia.org/wiki/Spanish_naming_customs
++ *Naming customs of Hispanic America*, Wikipedia
+  + https://en.wikipedia.org/wiki/Naming_customs_of_Hispanic_America
++ *Arabic name*, Wikipedia
+  + https://en.wikipedia.org/wiki/Arabic_name
++ *How Arabic Names Work: A Guide to Ism, Nasab, Laqab, Nisba, and Kunya*
+  + https://arabic-for-nerds.com/translation/how-are-family-names-constructed-in-arabic/
++ *Mononym*, Wikipedia (People with no surname, just a single name)
+  + https://en.wikipedia.org/wiki/Mononym
++ *List of legally mononymous people*, Wikipedia (List of people whose full legal name does not have surname or family name such as members of Japanese royal family)
+  + <https://en.wikipedia.org/wiki/List_of_legally_mononymous_people>
++ *O'Neill (surname)*, Wikipedia
+  + https://en.wikipedia.org/wiki/O%27Neill_(surname)
++ *Akira (given Japanese name)*, Wikipedia
+  + <https://en.wikipedia.org/wiki/Akira_(given_name)>   
+## American English Vs British English 
+
+| American English    | British English      |
+| ------------------- | -------------------- |
+| internalization     | internationalisation |
+| localization        | localisation         |
+| program             | programme            |
+| center              | centre               |
+| color               | colour               |
+| favor               | favour               |
+| favorite            | favourite            |
+| labor               | labour               |
+| defense             | defence              |
+| ofense              | ofence               |
+| shop                | shoppe               |
+| shopping mall, mall | shopping centre      |
+| tires               | tyres                |
+| while               | while, whilst        |  
+| football            | American football    |   
+| soccer              | football             |  
+| roomates            | rommates, flatmates  |  
+| fall                | autumn               | 
 ## Software Libraries
 
 JavaScript
@@ -104,6 +273,9 @@ Python
 
 + *Internationalization and localization*, Wikipedia
   + https://en.wikipedia.org/wiki/Internationalization_and_localization
++ *Personal names around the world*, W3C
+  + https://www.w3.org/International/questions/qa-personal-names
+  + *How do people's names differ around the world, and what are the implications of those differences on the design of forms, databases, ontologies, etc. for the Web?*
 + *Internationalization and Localization in Flask Apps*, Reintech Media
   + https://reintech.io/blog/internationalization-localization-flask-apps
 + *The Flask Mega-Tutorial, Part XIII: I18n and L10n*, Miguel Grinberg
@@ -115,6 +287,9 @@ Python
   + https://www.w3.org/International/questions/qa-i18n
 + *Mastering Localisation (l10n) and Internationalisation (i18n) in Modern Frontend Development*, Nitin Mangrule
   + https://medium.com/@ndmangrule/mastering-localisation-l10n-and-internationalisation-i18n-in-modern-frontend-development-3ec3c6751e58
++ *GNU gettext Manual*
+  + https://www.gnu.org/software/gettext/manual/gettext.html
+  + *This manual documents the GNU gettext tools and the GNU libintl library, version 0.26.*
 + *GNU gettext*, GNU Project
   + https://www.gnu.org/software/gettext/
   + Brief: * Usually, programs are written and documented in English, and use English at execution time for interacting with users. This is true not only from within GNU, but also in a great deal of proprietary and free software. Using a common language is quite handy for communication between developers, maintainers and users from all countries. On the other hand, most people are less comfortable with English than with their own native language, and would rather be using their mother tongue for day to day's work, as far as possible. Many would simply love seeing their computer screen showing a lot less of English, and far more of their own language. GNU gettext is an important step for the GNU Translation Project, as it is an asset on which we may build many other steps. This package offers to programmers, translators, and even users, a well integrated set of tools and documentation. Specifically, the GNU gettext utilities are a set of tools that provides a framework to help other GNU packages produce multi-lingual messages. These tools include a set of conventions about how programs should be written to support message catalogs, a directory and file naming organization for the message catalogs themselves, a runtime library supporting the retrieval of translated messages, and a few stand-alone programs to massage in various ways the sets of translatable strings, or already translated strings. A special GNU Emacs mode also helps interested parties in preparing these sets, or bringing them up to date.*
@@ -167,4 +342,4 @@ Python
   + *Next.js enables you to configure the routing and rendering of content to support multiple languages. Making your site adaptive to different locales includes translated content (localization) and internationalized routes.*
 + *k-yak / stati18n Public* (2014)
   + https://github.com/k-yak/stati18n
- 
+    
