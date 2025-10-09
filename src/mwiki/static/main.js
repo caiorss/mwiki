@@ -425,8 +425,8 @@ translationsi18n =
 											 ,"title": "Inserir hiperlink para uma página wiki existente na posição atual do cursor."
 
 											}
-		, "edit-page-upload-button": {   "label": "Link para Arquivo Subido"
-									   , "title": "Sobe arquivo (faz upload) e insire link para ele na posição atual do cursor no editor."
+		, "edit-page-upload-button": {   "label": "Link para arquivo enviado"
+									   , "title": "Envia/sobe arquivo (faz upload) e insire link para ele na posição atual do cursor no editor."
 									 }
 		, "edit-page-insert-latex-equation": "Equação LateX"
 		, "edit-page-insert-latex-non-numbered-button": "Equação LaTeX não numerada."
