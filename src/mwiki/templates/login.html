@@ -107,12 +107,12 @@
             </div>
             <div>
                 <details>
-                    <summary data-i18n="login-form-token-authentication-summary">Token Authentication</summary>
+                    <summary data-i18n="login-form-token-auth-summary-label">Token Authentication</summary>
                     <form action="/auth?path={{path}}">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <fieldset>
-                            <label for="token">Authentication Token Login</label>
-                            <input type="text" name="token" placeholder="Paste the authentication token" required>
+                            <label for="token" data-i18n="login-form-token-label">Authentication token</label>
+                            <input type="text" name="token" data-i18n="login-form-token-input" placeholder="Paste the authentication token" required>
                         </fieldset>
                         <fieldset class="field">
                             <input  class="primary-button" type="submit" data-i18n="login-button" class="login-button button is success" name="submit" value="LOG IN">

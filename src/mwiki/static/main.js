@@ -170,6 +170,9 @@ translationsi18n =
         , "password-placeholder":     "Enter your password"
         , "login-form-show-password-label": "Display password"
         , "login-form-show-password-checkbox": { "title": "Toggle password display." }
+        , "login-form-token-auth-summary-label": "Token Authentication"
+        , "login-form-token-label":              "Authentication token"
+        , "login-form-token-input":              "Paste the authentication token"
         , "keybindings-menu-item":    
 			{  "label": "Keybindings"
 			 , "title": "Display a window showing all keyboard shortcuts, also known as keybindings."
@@ -336,6 +339,9 @@ translationsi18n =
         , "password-placeholder":     "Entre com a senha"
         , "login-form-show-password-label": "Mostrar senha"
         , "login-form-show-password-checkbox": { "title": "Alternar exibição de senha." }
+        , "login-form-token-auth-summary-label": "Autenticação com Token"
+        , "login-form-token-label": "Token de autenticação"
+        , "login-form-token-input": "Cole o token de autenticação"
         , "keybindings-menu-item":    
 				{   "label": "Altalhos"
 				  , "title": "Exibe uma janela mostrando todos os atalhos de teclado, também conhecidos como combinações de teclas (keybindings)."
