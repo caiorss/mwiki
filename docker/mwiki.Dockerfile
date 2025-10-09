@@ -7,6 +7,7 @@ RUN groupadd -r mwiki && useradd -r -g mwiki mwiki
 # Set PYTHONPATH environment variable in order 
 # to be able to find Python modules
 ENV PYTHONPATH=/app
+ENV MWIKI_PATH=/wiki 
 RUN mkdir -p /app && mkdir -p /wiki 
 COPY requirements.txt /app
 RUN pip3 install -r /app/requirements.txt  --progress-bar=off 
