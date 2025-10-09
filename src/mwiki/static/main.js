@@ -163,7 +163,7 @@ translationsi18n =
 		, "menu-item-delete-label":   { "label": "Delete", "title": "Delete this wiki page" }
 		, "menu-item-source-label":   { "label": "Source", "title": "Display source code of current wiki page." }
 		, "links-menu-item-label":    { "label": "Links", "title": "Display all external and internal links of this wiki page." }
-		, "login-button": 			  "LOGIN"
+		, "login-button": 			  "LOG IN"
 		, "username-label": 		  "User Name"
 		, "username-placeholder": 	  "Enter your username"
         , "password-label": 		  "Password"

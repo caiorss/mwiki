@@ -2,7 +2,7 @@
 <htm>
     <head>
         <meta charset="UTF-8">
-        <title>Login Screen | {{ config_sitename() }}</title>
+        <title>Login form | {{ config_sitename() }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" href="/static/style.css">
@@ -20,7 +20,19 @@
                 font-size: 1.2rem;
             }
 
+            /*
             .login-wrapper {
+                display:         flex;
+                justify-content: center;
+                align-items:     center;
+                min-height:      40vh;
+            }
+            */
+
+        .   .login-form {
+                border:          2px solid;
+                padding:         20px;
+                border-radius:   2rem;
                 display:         flex;
                 justify-content: center;
                 align-items:     center;
@@ -29,6 +41,20 @@
 
             .login-form {
                 width: 500px;
+            }
+
+            .wrapper {
+                background-color: green !important;
+            }
+
+            summary {
+                font-size: 1.5rem;
+                cursor: pointer;
+                width: 100%;
+            }
+
+            details {
+                display: inline;
             }
 
             /** For mobile devices with small screen */
@@ -53,8 +79,9 @@
         <script type="text/javascript" src="/static/main.js"></script>
     </head>
     <body>
-        <div class="login-wrapper">
-            <form action="/login?path={{path}}" method="post" class="login-form box">
+        <div class="login-form">
+            <div>
+            <form action="/login?path={{path}}" method="post" class="box">
                 <h1 class="login-form-h1">{{ config_sitename() }} Login</h1>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <fieldset class="field" >
@@ -74,16 +101,33 @@
                     <label data-i18n="login-form-show-password-label">Display password</label>
                 </fieldset>
                 <fieldset class="field">
-                    <input  class="primary-button" type="submit" data-i18n="login-button" class="login-button button is success" name="submit" value="LOGIN">
+                    <input  class="primary-button" type="submit" data-i18n="login-button" class="login-button button is success" name="submit" value="LOG IN">
                 </fieldset>
             </form>
-        </div>
+            </div>
+            <div>
+                <details>
+                    <summary data-i18n="login-form-token-authentication-summary">Token Authentication</summary>
+                    <form action="/auth?path={{path}}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <fieldset>
+                            <label for="token">Authentication Token Login</label>
+                            <input type="text" name="token" placeholder="Paste the authentication token" required>
+                        </fieldset>
+                        <fieldset class="field">
+                            <input  class="primary-button" type="submit" data-i18n="login-button" class="login-button button is success" name="submit" value="LOG IN">
+                        </fieldset>
+                    </form>
+                </details>
+            </div>
+        <div>
+
         <script>
             let passwordCheckbox = document.querySelector("#show-password-checkbox");
             let passwordInput = document.querySelector("#password-input-field");
             passwordCheckbox.addEventListener("click", (event) => {
                 passwordInput.type =  passwordCheckbox.checked ? "text" : "password";
             });
-        </script
+        </script>
     </body>
 </htm>
