@@ -126,6 +126,19 @@ class PopupWindow
     }
 }
 
+function localStorageSet(key, value)
+{
+    localStorage.setItem(key, JSON.stringify(value));
+}
+
+function localStorageGet(key)
+{
+    let valueStr = localStorage.getItem(key);
+    if(!valueStr){ return null; }
+    let data = JSON.parse(valueStr);
+    return data;
+}
+
 /** Unescape/decode Html code.*/
 function htmlUnescape(htmlStr) {
     htmlStr = htmlStr.replace(/&lt;/g , "<");
@@ -228,10 +241,16 @@ translationsi18n =
 		, "settings-vim-emulation-checkbox-description": "Enable VIM editor emulation in the Wiki code editor (Ace9)"
 		, "settings-display-edit-button-checkbox-description": "Display the wiki edit button for all users [E]. If this setting is disabled,  only admin users or users with permission to edit pages will be able to view the edit button."
 		, "settings-public-checkbox-description": "If enabled, everybody including non logged in users will be able to view the wiki content. Note that only logged in users can edit the wiki." 
-		, "settings-default-locale-label":               "Default Locale"
-		, "settings-use-default-locale-checkbox-label":  "Use default locale/language"
-		, "settings-use-default-locale-description": "Always use the default locale (language) regardless of the user preferred language provided by the web browser."
-		, "about-page-title":          "About"
+
+        , "popup-window-change-language-menu-launcher": { "label": "Language"
+                                                          , "title": "Open form that allows overriding the current user interface language." }
+        , "popup-window-change-language": "Change the User Interface Language"
+        , "popup-window-change-language-label1": "Set the user interface language."
+        , "popup-window-change-language-label2": "This form allows overriding the current UI - User Interface language."
+        , "popup-window-change-language-change-button": "Change"
+        , "popup-window-change-language-close-button":  "Close"
+
+        , "about-page-title":          "About"
 		, "edit-page-title":           "Editing"
 		, "edit-page-toolbar-title":   "Toolbar"
 		, "edit-page-h3-insert-label": "Insert"
@@ -404,7 +423,14 @@ translationsi18n =
 		, "settings-default-locale-label":               "Idioma/locale padrão"
 		, "settings-use-default-locale-checkbox-label":  "Usar idioma/locale padrão"
 		, "settings-use-default-locale-description": 	 "Sempre usar o idioma padrão (default locale), independentemente do idioma preferido do usuário fornecido pelo navegador da web."
-		, "about-page-title":          "Sobre"
+        , "popup-window-change-language-menu-launcher": { "label": "Idioma"
+                                                          , "title": "Formulário que permite sobrepor/mudar o idioma atual da interface do usuário." }
+        , "popup-window-change-language": "Alterar o idioma da interface do usuário"
+        , "popup-window-change-language-label1": "Definir o Idioma da Interface do usuário."
+        , "popup-window-change-language-label2": "Este formulário permite substituir/sobrepor o idioma atual da interface do usuário."
+        , "popup-window-change-language-change-button": "Mudar"
+        , "popup-window-change-language-close-button":  "Fechar"
+        , "about-page-title":          "Sobre"
 		, "edit-page-title":           "Editando"
 		, "edit-page-toolbar-title":   "Barra de Ferramentas"
 		, "edit-page-h3-insert-label": "Inserir"
@@ -490,21 +516,23 @@ translationsi18n =
 
 };
 
+const KEY_USER_LOCALE = "user_locale";
 
 function setLocaleI18n(locale)
 {
-	let translations = translationsi18n[locale];
+	var translations = translationsi18n[locale];
 	if( !translations )
 	{
-		console.error(`Locale ${locale} not found in the i18n translation database.`);
-		return;
+        // Fallback to the primary locale
+        translations = translationsi18n["en-US"];
 	}
-	let oldLocale = localStorage.getItem("locale");
+	/* let oldLocale = localStorage.getItem("locale");
 	if(oldLocale !== locale )
 	{
 		localStorage.setItem("locale", locale);
 		// if(oldLocale){ location.reload(); }
 	}
+	*/
 	
 	let elements = document.querySelectorAll("[data-i18n]");
 	for(let elem of elements)
@@ -547,32 +575,37 @@ function setLocaleI18n(locale)
 	
 }
 
+function normalizeI18nLocale(userLocale)
+{
+    var locale = "";
+	// Set all English locales to en-US (US English) as this
+	// is the only English locale available. However, more
+    // english locales can be added later if it is required.
+	if( userLocale.startsWith("en-") ){
+		locale = "en-US";
+	}
+	// Set all portuguese locales to pt-BR (Brazilian Portuguese)
+	if( userLocale.startsWith("pt-") ){
+		locale = "pt-BR";
+	}
+	return locale;
+}
+
+function getCurrentLocale()
+{
+    let locale = localStorageGet(KEY_USER_LOCALE)
+                || DEFAULT_LOCALE
+                || normalizeI18nLocale(navigator.language);
+    return locale;
+}
 
 function doTranslationI18N()
 {
-	// var locale = localStorage.getItem("locale");
-	if( USE_DEFAULT_LOCALE ){
-		// alert("Use default locale");
-		setLocaleI18n(DEFAULT_LOCALE);
-		return;
-	} 
-	// Attempt to get locale from navigator
-	var userLocale = navigator.language;
-	// Set all English locales to en-US (US English) as this 
-	// is the only English locale available
-	if( userLocale.startsWith("en-") ){
-		userLocale = "en-US";
-	} 
-	// Set all portuguese locales to pt-BR (Brazilian Portuguese)
-	if( userLocale.startsWith("pt-") ){
-		userLocale = "pt-BR";
-	}
-	if( translationsi18n[userLocale] ){
-		setLocaleI18n(userLocale); 
-	} else {
-		setLocaleI18n(DEFAULT_LOCALE);
-	}
+    let locale = getCurrentLocale();
+    setLocaleI18n(locale);
 }
+
+
 
 function geti18nTranslation(key)
 {
@@ -834,6 +867,8 @@ var tooltip_window = null;
 var quickOpenWindow = null;
 var keybindDisplayWindow = null;
 
+var changeLanguageForm = null;
+
 function isMobileScreen()
 {
     let screenType = getComputedStyle(document.body).getPropertyValue("--screen-type");
@@ -906,7 +941,6 @@ async function displayEditButtons()
 document.addEventListener("DOMContentLoaded", async function()
   {
     
-    doTranslationI18N();
     
     lazyLoadImages();
     // Call function every 500 ms
@@ -964,6 +998,44 @@ document.addEventListener("DOMContentLoaded", async function()
         `
     });
     // console.log(" [TRACE] quickOpenWindow = ", quickOpenWindow);
+
+    changeLanguageForm = new PopupWindow({
+       title: "Change the User Interface Language"
+    ,  titleI18nTag: "popup-window-change-language"
+    ,  html: `
+        <p data-i18n="popup-window-change-language-label1">Set the user interface language.</p>
+        <fieldset>
+            <select id="select-user-locale" name="user_locale">
+                <option selected="" value="en-US">en-US - American English</option>
+                <option value="pt-BR">pt-BR - Português Brasileiro (Brazilian Portuguese) </option>
+            </select>
+        </fieldset>
+        <fieldset>
+            <button data-i18n="popup-window-change-language-change-button"
+                    id="btn-change-ui-language" class="primary-button">Change</button>
+            <button  data-i18n="popup-window-change-language-close-button"
+                     id="btn-close-ui-language" class="primary-button" onclick="changeLanguageForm.toggle();">Close</button>
+        </fieldset>
+        <p data-i18n="popup-window-change-language-label2">
+        This form allows overriding the current UI - User Interface language.
+        </p>
+    `
+    });
+
+    let localeEntry = document.querySelector("#select-user-locale");
+    let locale = getCurrentLocale();
+    localeEntry.value = locale;
+
+    let btnSetLanguage = document.querySelector("#btn-change-ui-language");
+    btnSetLanguage.addEventListener("click", function(event){
+        let item = localeEntry.item(localeEntry.selectedIndex);
+        let locale = item.value;
+        setLocaleI18n(locale);
+        // Persist user locale
+        localStorageSet(KEY_USER_LOCALE, locale);
+    });
+
+
 
     keybindDisplayWindow = new PopupWindow({
           title: "Keybindings"
@@ -1051,7 +1123,9 @@ document.addEventListener("DOMContentLoaded", async function()
     if( isMobileScreen() ) { setHeadingsVisibility(false); }
     _visibilityFlag =  !isMobileScreen();
     // setHeadingsVisibility(false);
-          
+
+    // Translate ser interface I18N
+    doTranslationI18N();
 });
 
 
@@ -1403,6 +1477,8 @@ function toggleHeadings()
 }
 
 
+
+
 function setHeadingsVisibility(visibility)
 {
     let nodes_ =  document.querySelectorAll(".div-heading");
@@ -1543,7 +1619,9 @@ document.addEventListener("keydown", (event) => {
         window.location.href = url;
 
     }
-    
 
 
 });
+
+
+

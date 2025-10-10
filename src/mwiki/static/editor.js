@@ -34,18 +34,6 @@ lineWrappingCheckbox.addEventListener("click", () => {
 });
 
 
-function localStorageSet(key, value)
-{
-    localStorage.setItem(key, JSON.stringify(value));
-}
-
-function localStorageGet(key)
-{
-    let valueStr = localStorage.getItem(key);
-    if(!valueStr){ return null; }
-    let data = JSON.parse(valueStr);
-    return data;
-}
 
 const KEY_USER_VIM_EMULATED_ENABLED = "vim_emulation_enabled";
 let vimEditorEmulation = document.querySelector("#editor-vim-emulation-checkbox");
