@@ -271,6 +271,8 @@ translationsi18n =
 		, "edit-page-p-clipobard": "Select the clipboard pasting mode"
         , "edit-page-line-wrapping-checkbox":  { "title": "Toggle editor line wrapping." }
         , "edit-page-line-wrapping-checkbox-label":  "Line wrapping."
+        , "edit-page-vim-emulation-checkbox":     { "title": "Toggle emulation of Vim editor keybindings." }
+        , "edit-page-vim-emulation-checkbox-label": "Vim editor emulation"
         , "upload-form-window-title": "File Upload"
         , "upload-form-file-link-label": "Link Label"
         , "upload-form-choose-file-label": "Choose a file"
@@ -442,6 +444,8 @@ translationsi18n =
 		, "edit-page-p-clipobard": "Selecione o modo de colar da área de transferência"
         , "edit-page-line-wrapping-checkbox":  { "title": "Alternar quebra de linha do editor." }
         , "edit-page-line-wrapping-checkbox-label":  "Quebra de linha"
+        , "edit-page-vim-emulation-checkbox":   { "title": "Alternar (ativa/desativa) a emulação de atalhos de teclado do editor Vim." }
+        , "edit-page-vim-emulation-checkbox-label": "Emulação do editor Vim"
         , "upload-form-window-title": "Subir Arquivo (Upload)"
         , "upload-form-file-link-label": "Rótulo do link."
         , "upload-form-choose-file-label": "Escolha um arquivo."

@@ -33,25 +33,56 @@ lineWrappingCheckbox.addEventListener("click", () => {
     editor.getSession().setUseWrapMode(lineWrappingCheckbox.checked);
 });
 
-/** Vim Emulation */
-function editorEnableVimEmulation()
+
+function localStorageSet(key, value)
+{
+    localStorage.setItem(key, JSON.stringify(value));
+}
+
+function localStorageGet(key)
+{
+    let valueStr = localStorage.getItem(key);
+    if(!valueStr){ return null; }
+    let data = JSON.parse(valueStr);
+    return data;
+}
+
+const KEY_USER_VIM_EMULATED_ENABLED = "vim_emulation_enabled";
+let vimEditorEmulation = document.querySelector("#editor-vim-emulation-checkbox");
+let userVimEmulationEnabled = localStorageGet(KEY_USER_VIM_EMULATED_ENABLED);
+
+
+let isVimEnabled = (VIM_EMULATION_ENABLED && userVimEmulationEnabled == null) || userVimEmulationEnabled;
+vimEditorEmulation.checked = isVimEnabled;
+
+if( isVimEnabled )
 {
     editor.setKeyboardHandler("ace/keyboard/vim");
+} else {
+    editor.setKeyboardHandler("ace/keyboard/vscode");
+}
 
-    ace.config.loadModule("ace/keyboard/vim", function(m) {
-        var VimApi = require("ace/keyboard/vim").CodeMirror.Vim
-        VimApi.defineEx("write", "w", function(cm, input) {
+vimEditorEmulation.addEventListener("click", (event) => {
+    if( vimEditorEmulation.checked )
+    {
+        editor.setKeyboardHandler("ace/keyboard/vim");
+    } else {
+        editor.setKeyboardHandler("ace/keyboard/vscode");
+    }
+    localStorageSet(KEY_USER_VIM_EMULATED_ENABLED, vimEditorEmulation.checked);
+});
+
+
+
+ace.config.loadModule("ace/keyboard/vim", function(m) {
+    let VimApi = require("ace/keyboard/vim").CodeMirror.Vim
+    VimApi.defineEx("write", "w", function(cm, input) {
             // cm.ace.execCommand("save")
             editorSaveDocument();
-        })
-    })
-}
+    });
+});
 
-// Global variable defined in template edit.html
-if( VIM_EMULATION_ENABLED )
-{
-    editorEnableVimEmulation();
-}
+
 
 function editorRedo()
 {
