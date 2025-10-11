@@ -1648,7 +1648,7 @@ class HtmlRenderer(AbstractAstRenderer):
               )
         self._footnotes.append(inline_html)
         self._footnotes_counter += 1
-        print(f" [DEBUG] footnote_ref = {html}")
+        ## print(f" [DEBUG] footnote_ref = {html}")
         return html
 
     def render_frontmatter(self, node: SyntaxTreeNode) -> str:
