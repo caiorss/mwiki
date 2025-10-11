@@ -452,6 +452,16 @@
     src: url('/static/fonts/cmu-sans-serif-bold.woff');
 }
 
+@font-face {
+    font-family: "Saira Thin Normal";
+    src: url('/static/fonts/saira-latin-thin.woff2');
+}
+
+
+@font-face {
+    font-family: "Saira Thin Bold";
+    src: url('/static/fonts/saira-latin-thin-bold.woff2');
+}
 
 
 /* --- Font that mimics Epson's dot-matrix font used in the 1980's for

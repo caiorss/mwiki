@@ -251,7 +251,8 @@ class TitleFontFamily(enum.Enum):
     dinweb_light = "DINWeb-Light"
     dinweb_medium = "DINWeb-Medium"
     dinweb_balck = "DINWeb-Black"
-
+    saira_thin_normal  = "Saira Thin Normal"
+    saira_thin_bold    = "Saira Thin Bold"
 
 class Settings(db.Model):
     """Singleton model class (SQL table) containing site settings.
