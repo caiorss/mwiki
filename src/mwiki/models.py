@@ -147,6 +147,7 @@ class User(db.Model):
 class FontFamiliyEnum(enum.Enum):
     # Default LaTeX font created by professor Donald Knuth
     computer_modern = "Computer Modern"
+    cmu_concrete    = "CMU Concrete"
     crimson = "Crimson"
     comorant_light = "Comorant Light"
     literata = "Literata"
@@ -206,6 +207,7 @@ class CodeFontFamily(enum.Enum):
 class TitleFontFamily(enum.Enum):
     # Default LaTeX font created by professor Donald Knuth
     computer_modern = "Computer Modern"
+    cmu_concrete    = "CMU Concrete"
     neo_euler = "Neo Euler"
     crimson = "Crimson"
     chicago_macos_system6 = "Chicago MacOS"

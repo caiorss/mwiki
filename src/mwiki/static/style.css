@@ -428,6 +428,21 @@
     src: url('/static/fonts/JackwriteBold.woff2')
 }
 
+@font-face {
+    font-family: "CMU Concrete";
+    font-style: normal;
+    src: url('/static/fonts/cmu-concrete-regular.woff');
+}
+
+
+@font-face {
+    font-family: "CMU Concrete";
+    font-style: italic;
+    src: url('/static/fonts/cmu-concrete-regular.woff');
+}
+
+
+
 
 /* --- Font that mimics Epson's dot-matrix font used in the 1980's for
  * printing code in computer magazines.
