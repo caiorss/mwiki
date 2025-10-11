@@ -441,6 +441,16 @@
     src: url('/static/fonts/cmu-concrete-regular.woff');
 }
 
+@font-face {
+    font-family: "CMU Sans Serif";
+    src: url('/static/fonts/cmu-sans-serif-regular.woff');
+}
+
+@font-face {
+    font-family: "CMU Sans Serif";
+    font-weight: bold;
+    src: url('/static/fonts/cmu-sans-serif-bold.woff');
+}
 
 
 

@@ -148,6 +148,7 @@ class FontFamiliyEnum(enum.Enum):
     # Default LaTeX font created by professor Donald Knuth
     computer_modern = "Computer Modern"
     cmu_concrete    = "CMU Concrete"
+    cmu_sans_serif  = "CMU Sans Serif"
     crimson = "Crimson"
     comorant_light = "Comorant Light"
     literata = "Literata"
@@ -208,6 +209,7 @@ class TitleFontFamily(enum.Enum):
     # Default LaTeX font created by professor Donald Knuth
     computer_modern = "Computer Modern"
     cmu_concrete    = "CMU Concrete"
+    cmu_sans_serif  = "CMU Sans Serif"
     neo_euler = "Neo Euler"
     crimson = "Crimson"
     chicago_macos_system6 = "Chicago MacOS"
