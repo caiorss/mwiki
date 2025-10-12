@@ -39,6 +39,12 @@ from . forms import UserAddForm, UserSettingsForm, SettingsForm
 from . constants import *
 from .app import app, current_user
 
+# This variable is set to true if gunicorn WSGI server is being used.
+server_software =  os.environ.get("SERVER_SOFTWARE", "")
+is_gunicorn = "gunicorn" in server_software or "waitress" in server_software
+
+
+ 
 def make_app_server(  host:        str
                     , port:        int
                     , debug:       bool
@@ -232,10 +238,7 @@ def make_app_server(  host:        str
                                          )
         return response
 
-    # This variable is set to true if gunicorn WSGI server is being used.
-    server_software =  os.environ.get("SERVER_SOFTWARE", "")
-    is_gunicorn = "gunicorn" in server_software or "waitress" in server_software
-    ## print(" [TRACE] running gunicorn = ", is_gunicorn)
+   ## print(" [TRACE] running gunicorn = ", is_gunicorn)
     ## print(" [TRACE] server sofware   = ", server_software)
 
 
@@ -308,6 +311,7 @@ def make_app_server(  host:        str
     base_path = pathlib.Path(BASE_PATH)
     tags_cache_file = base_path.joinpath(".data/tags_cache.json")
 
+
     @app.route("/wiki/<path>")
     @check_login()
     def route_wiki_page(path: str):
@@ -352,80 +356,9 @@ def make_app_server(  host:        str
         # Dont' show source code of markdown file
         if path.endswith(".md"):
             flask.abort(STATUS_CODE_404_NOT_FOUND)
-        # Seach file in any directory in basepath recursively 
-        # In the future this code can be optimized using some sort 
-        # of caching or search index for speeding up 
-        # the response.
-        ## print(" [TRACE] filePath (528) = ", path)
-        ## breakpoint()
-        g = base_path.rglob(path) 
-        match: Optional[pathlib.Path] = next(g, None)
-        if not match:
-            flask.abort(404)
-        relpath = match.relative_to(base_path)
-        relpath_ = str(relpath)
-        # DO NOT server the sqlite database or the .data and other hidden directories
-        if relpath_ == "database.sqlite" or relpath_.startswith(".data") or relpath_.startswith("."):
-            flask.abort(STATUS_CODE_404_NOT_FOUND)
-        ## print(f" [TRACE] relpath = {path} ; match = {match}")
-        resp = None
-        ###  Render org-mode file 
-        if path.endswith(".org"):
-            content = match.read_text()
-            builder = render.HtmlRenderer(base_path=BASE_PATH)
-            ast = mparser.parse_source(content)
-            html = builder.render(ast)
-            ### ast = mparser.make_headings_hierarchy(headings)
-            # ## breakpoint()
-            ## toc = mparser.headings_to_html(root)
-            response = flask.render_template(  "content.html"
-                                             , title   = path
-                                             , page    = path
-                                             , content = html
-                                             ## , toc     = toc
-                                             , latex_macros = latex_macros
-                                             )
-            return response
-        if not is_gunicorn:
-            resp = flask.send_from_directory(BASE_PATH, relpath)
-        else:
-            ## Get file mime type
-            mtype, _ = mimetypes.guess_type(match.name, strict = False)
-            mtype = mtype or "application/octect-stream"
-            ## breakpoint()
-            if os.getenv("MWIKI_X_ACCEL_REDIRECT"):
-                resp = flask.Response(response = None, status = 200)
-                resp.headers.add("X-Accel-Redirect", relpath)
-                resp.headers.add("Content-Type", mtype)
-                return resp 
-            ## Get last modified time (formatted as string)
-            pattern  = "%a, %d %b %Y %H:%M:%S %Z"
-            last_modfied_timestamp = match.stat().st_mtime
-            last_modified          = time.strftime(pattern, time.gmtime(last_modfied_timestamp))
-            ifModifiedSince = flask.request.headers.get("If-Modified-Since", None)
-            dtime = int(parsedate(ifModifiedSince).timestamp()) if ifModifiedSince is not None else None
-            resp = None
-            if dtime is not None and dtime <= int(last_modfied_timestamp):
-                    ## print(" [TRACE] Return (304) status code, NOT modified")
-                    resp = flask.Response(response= None, mimetype=mtype, content_type=mtype, status = 304) 
-            else:
-                ## print(" [TRACE] mtype = ", mtype)
-                ## print(" [TRACE] sending file response = ", match)
-                fd = match.open("rb")
-                resp = flask.Response(response = fd, mimetype = mtype, content_type = mtype)
-            # Enable cache and Cache never expires
-            ## resp.headers.add("Cache-Control", "max-age")  
-            # Disable cache 
-            ## resp.headers.add("Cache-Control", "no-cache")  
-            resp.headers.add("Content-Type", mtype)
-            resp.headers.add("Content-Length",       match.stat().st_size)
-            resp.headers.add("Last-Modified",        last_modified)
-            resp.headers.add("vary",                 "Accept-Enconding")
-            resp.headers.add("Content-Disposition", f"inline; filename={ match.name }")
-        return resp 
-        # Attempt to server static file 
-
-
+        out = serve_static_file(base_path, path)
+        return out 
+            
     @app.get("/api/wiki") 
     @check_login()
     def api_wiki_pages():
@@ -816,7 +749,79 @@ def make_app_server(  host:        str
 ##    ##else:
 ##        app.run(host = host, port = port, debug = debug)
 
-
+def serve_static_file(base_path: pathlib.Path, path: str):
+    # Seach file in any directory in basepath recursively 
+    # In the future this code can be optimized using some sort 
+    # of caching or search index for speeding up 
+    # the response.
+    ## print(" [TRACE] filePath (528) = ", path)
+    ## breakpoint()
+    BASE_PATH = str(base_path)
+    g = base_path.rglob(path) 
+    match: Optional[pathlib.Path] = next(g, None)
+    if not match:
+        flask.abort(404)
+    relpath = match.relative_to(base_path)
+    relpath_ = str(relpath)
+    # DO NOT server the sqlite database or the .data and other hidden directories
+    if relpath_ == "database.sqlite" or relpath_.startswith(".data") or relpath_.startswith("."):
+        flask.abort(STATUS_CODE_404_NOT_FOUND)
+    ## print(f" [TRACE] relpath = {path} ; match = {match}")
+    resp = None
+    ###  Render org-mode file 
+    if path.endswith(".org"):
+        content = match.read_text()
+        builder = render.HtmlRenderer(base_path=BASE_PATH)
+        ast = mparser.parse_source(content)
+        html = builder.render(ast)
+        ### ast = mparser.make_headings_hierarchy(headings)
+        # ## breakpoint()
+        ## toc = mparser.headings_to_html(root)
+        response = flask.render_template(  "content.html"
+                                         , title   = path
+                                         , page    = path
+                                         , content = html
+                                         ## , toc     = toc
+                                         , latex_macros = latex_macros
+                                         )
+        return response
+    if not is_gunicorn:
+        resp = flask.send_from_directory(BASE_PATH, relpath)
+    else:
+        ## Get file mime type
+        mtype, _ = mimetypes.guess_type(match.name, strict = False)
+        mtype = mtype or "application/octect-stream"
+        ## breakpoint()
+        if os.getenv("MWIKI_X_ACCEL_REDIRECT"):
+            resp = flask.Response(response = None, status = 200)
+            resp.headers.add("X-Accel-Redirect", relpath)
+            resp.headers.add("Content-Type", mtype)
+            return resp 
+        ## Get last modified time (formatted as string)
+        pattern  = "%a, %d %b %Y %H:%M:%S %Z"
+        last_modfied_timestamp = match.stat().st_mtime
+        last_modified          = time.strftime(pattern, time.gmtime(last_modfied_timestamp))
+        ifModifiedSince = flask.request.headers.get("If-Modified-Since", None)
+        dtime = int(parsedate(ifModifiedSince).timestamp()) if ifModifiedSince is not None else None
+        resp = None
+        if dtime is not None and dtime <= int(last_modfied_timestamp):
+                ## print(" [TRACE] Return (304) status code, NOT modified")
+                resp = flask.Response(response= None, mimetype=mtype, content_type=mtype, status = 304) 
+        else:
+            ## print(" [TRACE] mtype = ", mtype)
+            ## print(" [TRACE] sending file response = ", match)
+            fd = match.open("rb")
+            resp = flask.Response(response = fd, mimetype = mtype, content_type = mtype)
+        # Enable cache and Cache never expires
+        ## resp.headers.add("Cache-Control", "max-age")  
+        # Disable cache 
+        ## resp.headers.add("Cache-Control", "no-cache")  
+        resp.headers.add("Content-Type", mtype)
+        resp.headers.add("Content-Length",       match.stat().st_size)
+        resp.headers.add("Last-Modified",        last_modified)
+        resp.headers.add("vary",                 "Accept-Enconding")
+        resp.headers.add("Content-Disposition", f"inline; filename={ match.name }")
+    return resp
 
 def get_secret_key_(appname: str) -> str:
     KEYFILE = "appkey"
