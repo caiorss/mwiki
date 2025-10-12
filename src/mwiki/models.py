@@ -489,6 +489,15 @@ class WikiPage():
         data = out.read_text()
         return data
 
+    def compile(self, latex_macros = "") -> pathlib.Path:
+        """Compile wiki page and return path to html cached filed."""
+        html_path = self._cache_html_file()
+        if self.is_dirty():
+            self._update_cached_html(latex_macros)
+        ##out = html_path.relative_to(self._base_path) 
+        return html_path  
+        
+
     def frontmatter(self):
         """Return wikipage metadata"""
         out = {  "title":   ""

@@ -351,8 +351,10 @@ def make_app_server(  host:        str
                 ## flask.abort(404) 
                 out = flask.redirect(f"/create/{path}")
                 return out
-            response = page.render_html(latex_macros = latex_macros)
-            return response
+            path_ = page.compile()
+            # print(" [TRACE] path_ = ", path_)
+            out = serve_static_file(base_path, path_)
+            return out 
         # Dont' show source code of markdown file
         if path.endswith(".md"):
             flask.abort(STATUS_CODE_404_NOT_FOUND)
@@ -749,27 +751,31 @@ def make_app_server(  host:        str
 ##    ##else:
 ##        app.run(host = host, port = port, debug = debug)
 
-def serve_static_file(base_path: pathlib.Path, path: str):
+def serve_static_file(base_path: pathlib.Path, path: str | pathlib.Path):
     # Seach file in any directory in basepath recursively 
     # In the future this code can be optimized using some sort 
     # of caching or search index for speeding up 
     # the response.
     ## print(" [TRACE] filePath (528) = ", path)
-    ## breakpoint()
+    # breakpoint()
+    match: Optional[pathlib.Path] = None 
     BASE_PATH = str(base_path)
-    g = base_path.rglob(path) 
-    match: Optional[pathlib.Path] = next(g, None)
-    if not match:
-        flask.abort(404)
+    if isinstance(path, pathlib.Path):
+        match = path
+    else:
+        g = base_path.rglob(path) 
+        match: Optional[pathlib.Path] = next(g, None)
+        if not match:
+            flask.abort(404)
     relpath = match.relative_to(base_path)
-    relpath_ = str(relpath)
+    name = relpath.name 
     # DO NOT server the sqlite database or the .data and other hidden directories
-    if relpath_ == "database.sqlite" or relpath_.startswith(".data") or relpath_.startswith("."):
+    if name == "database.sqlite" or name.startswith(".data") or name.startswith("."):
         flask.abort(STATUS_CODE_404_NOT_FOUND)
     ## print(f" [TRACE] relpath = {path} ; match = {match}")
     resp = None
     ###  Render org-mode file 
-    if path.endswith(".org"):
+    if name.endswith(".org"):
         content = match.read_text()
         builder = render.HtmlRenderer(base_path=BASE_PATH)
         ast = mparser.parse_source(content)
