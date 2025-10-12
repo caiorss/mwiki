@@ -117,6 +117,7 @@ class AbstractAstRenderer:
         self._footnotes: List[str] = []
 
         self._description: str = ""
+        self._author: str = ""
 
         self._dependecies: List[pathlib.Path] = []
         """List of embedded markdown pages (md -markdown files) in this page"""
@@ -179,12 +180,16 @@ class AbstractAstRenderer:
         }
 
     @property
-    def title(self):
+    def title(self) -> str:
         return self._title
 
     @property
-    def description(self):
+    def description(self) -> str:
         return self._description
+
+    @property
+    def author(self) -> str:
+        return self._author
 
     @property
     def dependencies(self) -> List[pathlib.Path]:
@@ -1666,8 +1671,9 @@ class HtmlRenderer(AbstractAstRenderer):
         if data is None: 
             return "" 
         if not self._is_embedded_page:
-            self._title = data.get("title", "")
+            self._title       = data.get("title", "")
             self._description = data.get("description", "")
+            self._author      = data.get("author", "")
             self._section_enumeration  = data.get("section_enumeration", False)
             enum_style = data.get("equation_enumeration", "section")   
             enum_style = enum_style if enum_style in ["none", "cont", "continuous", "section", "subsection"] else "section"

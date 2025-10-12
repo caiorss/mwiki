@@ -470,6 +470,7 @@ class WikiPage():
                                       , page_link            = self._title.replace(" ", "_")
                                       , pagename             = self._title
                                       , page_description     = renderer.description
+                                      , page_author          = renderer.author
                                       , content              = content
                                       , toc                  = toc
                                       , latex_macros         = latex_macros
