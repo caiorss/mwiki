@@ -23,7 +23,7 @@ import flask
 ## db = SQLAlchemy(app)
 db = SQLAlchemy()
 
-CACHE_FILE_FORMAT_VERSION = "0.1.3"
+CACHE_FILE_FORMAT_VERSION = "0.1.4"
 
 
 
@@ -469,6 +469,7 @@ class WikiPage():
                                       , page                 = self._title
                                       , page_link            = self._title.replace(" ", "_")
                                       , pagename             = self._title
+                                      , page_description     = renderer.description
                                       , content              = content
                                       , toc                  = toc
                                       , latex_macros         = latex_macros
