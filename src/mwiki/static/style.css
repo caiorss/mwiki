@@ -438,7 +438,7 @@
 @font-face {
     font-family: "CMU Concrete";
     font-style: italic;
-    src: url('/static/fonts/cmu-concrete-regular.woff');
+    src: url('/static/fonts/cmu-concrete-italic.woff');
 }
 
 @font-face {
