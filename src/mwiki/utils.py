@@ -8,7 +8,9 @@ import hashlib
 import json
 import datetime
 import base64
+import shutil
 import json.decoder
+import pathlib
 import binascii
 from typing import Optional
 from typing import IO, Any, List, Dict, Optional, Tuple 
@@ -208,7 +210,26 @@ def read_resource(module: Package, resource_file: str) -> str:
         data =  fd.read()
     return data
 
+def get_path_to_resource_file(module: Package, resource_file: str) -> pathlib.Path:
+    module_path = pathlib.Path(module.__file__).resolve().parent
+    path = module_path / resource_file
+    return path 
 
+def copy_resource_file(module: Package, resource_file: str, dest: pathlib.Path):
+    src = get_path_to_resource_file(module,resource_file)
+    shutil.copy(src, dest)
+
+def copy_resource_files_ext(module: Package, file_extesion: str, dest: pathlib.Path):
+    """Copy all module resource files to destination folder."""
+    module_path = pathlib.Path(module.__file__).resolve().parent
+    files       = module_path.glob(file_extesion)
+    for f in files:
+        shutil.copy(f, dest)
+    
+
+def copy_folder(src, dest):
+    shutil.copytree(src, dest, dirs_exist_ok = True)
+    
 def base64_encode(text: str) -> str:
     data = text.encode("utf-8")
     out = base64.b64encode(data).decode("utf-8")

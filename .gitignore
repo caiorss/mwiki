@@ -12,6 +12,7 @@ __pycache__
 *.kate-swp
 *.pem
 .vscode/*
+out/*
 build/*
 dist/*
 dependency_links.text/*

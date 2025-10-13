@@ -9,9 +9,12 @@ import random
 import pathlib
 import subprocess
 import tomli 
+import shutil
 from pprint import pprint
 from typing import Optional, Tuple, List 
 import click
+import flask 
+import jinja2
 ##import waitress
 ## from click.decorators import commmand 
 ## from gunicorn.app.wsiapp import run 
@@ -20,7 +23,9 @@ import mwiki.utils as utils
 from mwiki.server import make_app_server
 import mwiki.convert
 import mwiki.search as search
+import mwiki.mparser as mparser
 import mwiki.watcher
+import mwiki.render as render
 import mwiki.models
 import mwiki.utils as utils
 from . import render
@@ -241,7 +246,377 @@ def watch(wikipath: str):
     mwiki.watcher.watch()
 
 
+fonts_database  = [
+    {
+          "key":     "computer-modern"
+        , "family":  "Computer Modern"
+        , "regular": "computer-modern-normal.ttf"
+        , "italic":  "computer-modern-italic.ttf"
+        , "bold":    "computer-modern-bold.ttf"
+    }
+   ,{
+          "key":          "ibm-plex-mono"
+        , "family":       "IBM Plex Mono"
+        , "regular":      "IBM-computer-modern-normal.ttf"
+        , "italic":       "computer-modern-italic.ttf"
+        , "bold":         "computer-modern-bold.ttf"
+        , "bold-italic":  "computer-modern-bold.ttf"
+    }
+   ,{
+          "key":     "chicago"
+        , "family":  "Chicago MacOS"
+        , "regular": "ChicagoFLF.ttf"
+    }
+   ,{
+          "key":     "news-reader"
+        , "family":  "NewsReader"
+        , "regular":  "NewsReader.woff2"
+    }
+   ,{
+          "key":          "literata"
+        , "family":       "Literata"
+        , "regular":      "Literata-Regular.ttf"
+        , "italic":       "Literata-Italic.ttf"
+        , "bold":         "Literata-Bold.ttf"
+    }
+   ,{
+          "key":         "literata-variable"
+        , "family":      "Literata-Regular" 
+        , "regular":     "literata-variable-font-opsz.ttf" 
+        , "italic":      "literata-variable-font-italic-opsz.ttf" 
+    }
+   ,{
+         "key":          "commint-mono"
+       , "family":       "Commit Mono"
+       , "regular":      "CommitMono-400-Regular.otf"
+       , "italic":       "CommitMono-400-Italic.otf"
+       , "bold":         "CommitMono-700-Regular.otf"
+       , "bold-italic":  "CommitMono-700-Italic.otf"
+    }
+    ,{
+         "key":    "logic-monospace-regular"
+       , "family":  "Logic Monospace Regular"
+       , "regular": "LogicMonospace-Regular.woff2"
+    }
+    ,
+    {
+         "key":    "logic-monospace-medium"
+       , "family": "Logic Monospace Medium"
+    }
+   ,{
+         "key":   "libertinus-mono"
+       , "family": "Libertinus Mono"
+       , "regular": "LibertinusMono-Regular.woff2"
+   }
+   ,{
+        "key":         "commint-mono"
+      , "family":      "Commint Mono"
+      , "regular":     "CommitMono-400-Regular.otf"
+      , "italic":      "CommitMono-400-Italic.otf"
+      , "bold":        "CommitMono-700-Regular.otf"
+      , "bold-italic": "CommitMono-700-Italic.otf"
+    
+    }
+   ,{
+        "key":     "crimson"
+      , "family":  "Crimson"
+      , "regular": "crimson-roman.woff"
+      , "italic":  "crimson-italic.woff"
+      , "bold":    "crimson-bold.woff"
+        
+    }
 
+   ,{
+        "key":     "munson"
+      , "family":  "Munson"
+      , "regular": "munson-roman.woff2"
+      , "italic":  "munson-italic.woff2"
+      , "bold":    "munson-bold.woff2"
+    }
+   ,{
+        "key":     "jackwrite"
+      , "family":  "Jackwrite"
+      , "regular": "Jackwrite.woff2"
+   }
+
+   ,{
+        "key":     "jackwrite-bold"
+      , "family":  "Jackwrite Bold"
+      , "regular": "JackwriteBold.woff2"
+   }
+   ,{
+       "key":    "cmu-concrete"
+      ,"family": "CMU Concrete"
+      ,"regular": "cmu-concrete-regular.woff"
+      ,"italic": "cmu-concrete-italic.woff"
+   }
+
+   ,{
+       "key":    "cmu-sans-serif"
+      ,"family": "CMU Sans Serif"
+      ,"regular": "cmu-sans-serif-regular.woff"
+      ,"italic":  "cmu-sans-serif-bold.woff"
+   }
+   
+]
+
+def get_font_data(font_key: str):
+    for x in fonts_database:
+        key = x.get("key", "")
+        ## print(" [TRACE] key = ", key)
+        if key == font_key:
+            return x 
+    return None
+
+
+def copy_font_files(font_key: str, dest: pathlib.Path):
+    data = get_font_data(font_key)
+    if not data:
+        return
+    regular = data.get("regular")
+    italic = data.get("italic")
+    bold = data.get("bold")
+    bold_italic = data.get("bold-italic")
+    if regular:
+       f = utils.get_path_to_resource_file(mwiki, "static/fonts/" + regular) 
+       if not f.exists():
+           raise RuntimeError(f"File {f} not found")
+       shutil.copy(f, dest)
+    if italic:
+       f = utils.get_path_to_resource_file(mwiki, "static/fonts/" + italic) 
+       if not f.exists():
+           raise RuntimeError(f"File {f} not found")
+       shutil.copy(f, dest)
+    if bold:
+       f = utils.get_path_to_resource_file(mwiki, "static/fonts/" + bold) 
+       if not f.exists():
+           raise RuntimeError(f"File {f} not found")
+       shutil.copy(f, dest)
+    if bold_italic:
+       f = utils.get_path_to_resource_file(mwiki, "static/fonts/" + bold_italic) 
+       if not f.exists():
+           raise RuntimeError(f"File {f} not found")
+       shutil.copy(f, dest)
+       
+
+def render_font_data(key):
+    data = get_font_data(key)
+    if not data:
+        return ""
+    family = data.get("family")
+    has_italic = "italic" in data
+    has_bold   = "bold" in data
+    has_bold_italic = "bold-italic" in data
+    code = """
+@font-face {
+    font-family: '{{family}}';
+    {% if has_italic %}
+    font-style: {{font_style}};
+    {% endif %}
+    {% if has_bold %}
+    font-weight: {{font_weight}};
+    {% endif %}
+    src: url('/static/fonts/{{file}}');
+}
+    """
+    tpl = jinja2.Template(code)
+    font_face_regular = tpl.render(  family = family
+                                   , has_italic = has_italic
+                                   , has_bold = has_bold
+                                   , has_bold_italic = has_bold_italic
+                                   , file = data.get("regular")
+                                   , font_style = "normal"
+                                   , font_weight = "normal"
+                               )
+    font_face_italic = ""
+    if has_italic:
+        font_face_italic = tpl.render(
+                                     family = family
+                                   , has_italic = has_italic
+                                   , has_bold = has_bold
+                                   , has_bold_italic = has_bold_italic
+                                   , file = data.get("regular")
+                                   , font_style = "italic"
+                                   , font_weight = "normal"
+                               )
+    
+    font_face_bold = ""
+    if has_bold:
+        font_face_bold = tpl.render(
+                                     family = family
+                                   , has_italic = has_italic
+                                   , has_bold = has_bold
+                                   , has_bold_italic = has_bold_italic
+                                   , file = data.get("bold")
+                                   , font_style = "normal"
+                                   , font_weight = "bold"
+                               )
+    font_face_bold_italic = ""
+    if has_bold_italic:
+        font_face_bold_italic = tpl.render(
+                                     family = family
+                                   , has_italic = has_italic
+                                   , has_bold = has_bold
+                                   , has_bold_italic = has_bold_italic
+                                   , file = data.get("bold-italic")
+                                   , font_style = "italic"
+                                   , font_weight = "bold"
+                               )
+    out = font_face_regular 
+    out = out + "\n\n" + font_face_italic if font_face_italic != "" else out
+    out = out + "\n\n" + font_face_bold   if font_face_bold   != "" else out
+    out = out + "\n\n" + font_face_bold_italic   if font_face_bold_italic != "" else out
+    return out 
+
+
+
+@cli1.command()
+@click.option("--wikipath", default = None, 
+                help = ( "Path to folder containing *.md files." )
+                )
+@click.option("-o", "--output", default = None, 
+                help = ( "Directory that will contain the compilation output (default value ./out)." )
+                )
+@click.option("--website-name", default = "MWiki", help="Name of the static website (default value 'MWiki').") 
+@click.option("--locale", default = "en-US", help="Default locale of the user interface. (Default value 'en-US')") 
+@click.option("--icon", default = None, help="Favicon of the static website. (Default value MWiki icon)") 
+@click.option("--main-font", default = "literata", help="Main font used in document text.") 
+@click.option("--code-font", default = "libertinus-mono", help="Code monospace used in code blocks.") 
+@click.option("--title-font", default = "news-reader", help="Title font used in document section headings.") 
+@click.option("--list-fonts", default = False, help="List all available fonts.") 
+def compile(  wikipath: Optional[str], output: Optional[str]
+            , website_name: str
+            , locale: str
+            , icon
+            , main_font
+            , code_font 
+            , title_font
+            , list_fonts
+            ):
+    """Compile a MWiki repository to a static website."""
+    if list_fonts:
+        print("%30s%30s"  % ("KEY", "FONT FAMILY"))            
+        for fdata in fonts_database:
+            key = fdata.get("key", "")
+            family = fdata.get("family", "")
+            print("%30s%30s" % (key, family))
+        exit(0)
+    if not wikipath:
+        print("Error expected path to wiki folder --wikipath=/path/to/repository")
+        exit(1)
+    out = pathlib.Path(output) if output else pathlib.Path("./out")
+    out.mkdir(exist_ok = True)
+    root = pathlib.Path(wikipath)
+    if not root.exists():
+        print(f"Error not found {root.resolve()}")
+        exit(1)
+    # mwiki.models.MwikiConfig.set_path(wikipath)
+    base_path = str(wikipath)
+    # secret_key = mwiki.models.get_secret_key()
+    # app.config["SECRET_KEY"] = secret_key
+    print(" [*] Compiling ", root)
+    pages = root.rglob("*.md")
+    static = out / "static"
+    static.mkdir(exist_ok = True)
+    mwiki.utils.copy_resource_files_ext(mwiki, "static/*.svg", static)
+    mwiki.utils.copy_resource_file(mwiki, "static/main.js", static )
+    mwiki.utils.copy_resource_file(mwiki, "static/static_style.css", static )
+    images = out / "images"
+    pasted = out / "pasted"
+    src_upload = root / "upload"
+    src_images = root / "images"
+    src_pasted = root / "pasted"
+    if src_images.exists():
+        images.mkdir(exist_ok = True)
+        mwiki.utils.copy_folder(src_images, images)
+    if src_pasted.exists():
+        pasted.mkdir(exist_ok = True)
+        mwiki.utils.copy_folder(src_pasted, pasted)
+    if src_upload.exists():
+        mwiki.utils.copy_folder(src_upload, out / "upload")
+    icon_mimetypes_database = {
+          "ico":   "image/x-icon"
+        , "png":   "image/png"
+        , "jpg":   "image/jpeg"
+        , "jpgeg": "image/jpeg"
+        , "svg":   "image/svg+xml"
+    }
+    icon_mimetype = "image/x-icon"
+    icon_path = ""
+    if icon is not None:
+        p = pathlib.Path(icon)
+        if not p.is_file():
+            print(f"Error not found icon file: {p} ")
+            exit(1)
+        print(" [*] Using favicon ", icon)
+        shutil.copy(p, out)
+        icon_path = str(p.name)
+        extension = str(p.name).split(".")[0].strip(".")
+        icon_mimetype = icon_mimetypes_database.get(extension) or icon_mimetype
+    template  = utils.read_resource(mwiki, "templates/static.html")
+    tpl = jinja2.Template(template)
+    font_face_main_font =  render_font_data(main_font)
+    # print(" [TRACE] font_face_main_font = \n", font_face_main_font)
+    font_face_title_font = render_font_data(title_font)
+    fonts = out / "static/fonts"
+    fonts.mkdir(exist_ok = True)
+    copy_font_files(main_font, fonts)
+    copy_font_files(title_font, fonts)
+    copy_font_files(code_font, fonts)
+    main_font_family  = (get_font_data(main_font) or {}).get("family") 
+    title_font_family = (get_font_data(title_font) or {}).get("family")  
+    code_font_family  = (get_font_data(code_font) or {}).get("family")  
+    print(" [*] Main font  family: ", main_font_family)
+    print(" [*] Title Font Family: ", title_font_family)
+    print(" [*]  Code Font Family: ", code_font_family)
+      
+    for p in pages:
+        outfile = out / str(p.relative_to(root))\
+                .replace("Index", "index")\
+                .replace(".md", ".html")\
+                .replace(" ", "_")
+        print(f" [*] Compiling {p} to {outfile}")
+        pagefile = str(p)
+        renderer, content = render.pagefile_to_html(pagefile, base_path, static_compilation = True)
+        title = renderer.title if renderer.title != "" else str(p.name ).split(".")[0]
+        # Generate table of contents 
+        page_source = p.read_text()
+        headings = mparser.get_headings(page_source)
+        root_ = mparser.make_headings_hierarchy(headings)
+        toc = mparser.headings_to_html(root_)
+      
+        # print(" [TRACE] needs pseudocode_js ", renderer.needs_latex_algorithm)
+        env = {
+                 "title":                title.replace("about", "About")
+               , "page":                 title
+               , "page_link":            title.replace(" ", "_")
+               , "pagename":             title
+               , "main_font":            main_font_family  
+               , "title_font":           title_font_family
+               , "font_face_main":       font_face_main_font
+               , "font_face_title":      font_face_title_font
+               , "favicon":              icon_path 
+               , "favicon_mimetype":     icon_mimetype
+               , "page_description":     renderer.description
+               , "page_author":          renderer.author
+               , "toc":                  toc 
+               , "content":              content               
+               , "mathjax_enabled":      renderer.needs_mathjax
+               , "graphviz_enabled":     renderer.needs_graphviz 
+               , "latex_algorithm":      renderer.needs_latex_algorithm
+               , "equation_enumeration": renderer.equation_enumeration
+               , "config_sitename":      lambda: website_name 
+               , "config_main_font":     lambda: main_font_family
+               , "config_code_font":     lambda: code_font_family
+               , "config_title_font":    lambda: title_font_family
+               , "default_locale":       lambda: locale
+               , "use_default_locale":   lambda: True
+              }
+        html = tpl.render(env)
+        outfile.write_text(html)
+        
+ 
+ 
 @cli1.command()
 @click.option("-p", "--path", default = None, 
                 help = ( "Path to folder containing *.md files." )
@@ -249,7 +624,7 @@ def watch(wikipath: str):
 @click.option("-f", "--file", default = None, 
                 help = ( "Path to *.md file to be compiled." )
                 )
-def compile(path: Optional[str], file: Optional[str]):
+def compile_latex(path: Optional[str], file: Optional[str]):
     """Compile Latex Formulas of .md file or folder to SVG images.
     The images are stored in the cache folder.
     """

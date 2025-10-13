@@ -751,7 +751,7 @@ def make_app_server(  host:        str
 ##    ##else:
 ##        app.run(host = host, port = port, debug = debug)
 
-def serve_static_file(base_path: pathlib.Path, path: str | pathlib.Path):
+def serve_static_file(base_path: pathlib.Path, path):
     # Seach file in any directory in basepath recursively 
     # In the future this code can be optimized using some sort 
     # of caching or search index for speeding up 

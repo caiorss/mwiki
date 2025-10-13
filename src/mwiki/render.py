@@ -74,10 +74,13 @@ class AbstractAstRenderer:
     which raise NonImplementedError exceptions.
     """
 
-    def __init__(self, document = "", base_path = "", embed_page = False):
+    def __init__(self, document = "", base_path = "", embed_page = False, static_compilation = False):
         # Path to the notes repository
         self._base_path: pathlib.Path = pathlib.Path(base_path)
         """Root directory of current MWiki repository"""
+
+        self._static_compilation: bool = static_compilation
+        """Flag that indicates whether the markdown file is being compiled to html."""
 
         self._is_embedded_page: bool = embed_page
         """Flag which indicates whether the current page is embedded within another wiki page."""
@@ -205,6 +208,11 @@ class AbstractAstRenderer:
         """Find path to note file, given its name."""
         mdfile_ = name + ".md"
         match = next(self._base_path.rglob(mdfile_), None)
+        return match 
+
+    def find_file(self, name: str) -> Optional[pathlib.Path]:
+        """Attempt to find file in the wiki repository."""
+        match = next(self._base_path.rglob(name), None)
         return match 
 
     def page_exists(self, name: str) -> bool:
@@ -521,8 +529,9 @@ class HtmlRenderer(AbstractAstRenderer):
                      , render_math_svg = False
                      , embed_math_svg = False
                      , base_path: str = ""
+                     , static_compilation = False
                      , preview: bool = False):
-        super().__init__(base_path = base_path)
+        super().__init__(base_path = base_path, static_compilation = static_compilation)
         self._pagefile = page_name
         self._page_path: Optional[pathlib.Path] = self.find_page(page_name.split(".")[0])
         self._timestemap = int(100000 * self._page_path.lstat().st_mtime) \
@@ -860,44 +869,51 @@ class HtmlRenderer(AbstractAstRenderer):
                 caption = f"The page '{note_name}' does not exist yet. Click on this link to create this page."
                 html_ = f"""Embedded note: <a class="link-internal-missing" href="{href}" title="{caption}">{note_name}</a>  """
             html = html_ + self.render_note(note_name) or ""
-            ## print(" [TRACE] html = ", html)
-        elif src.endswith(".mp4"):
+            return html
+        path = "/wiki/" + src  
+        if self._static_compilation:
+            match = self.find_file(src)
+            path = str(match.relative_to(self._base_path)) if match else path 
+        if src.endswith(".mp4"):
             if self._preview:
                 html = """
                 <div class="divi-wiki-image">
                     <video controls width="80%">
-                        <source src="/wiki/%s" type="video/mp4">
-                        Download the <a href="/wiki/%s}">MP4 Video</a>
+                        <source src="%s" type="video/mp4">
+                        Download the <a href="%s">MP4 Video</a>
                     </video>
                 </div>
-                """ % (src, src)
+                """ % (path, path)
             else:
                 html = """ 
                         <div class="div-wiki-image lazy-load-video"  
-                             data-src="/wiki/{0}" data-type="video/mp4">
+                             data-src="{0}" data-type="video/mp4">
                         </div>
-                       """.format(src, src)
+                       """.format(path, path)
         elif src.endswith(".webm"):
             if self._preview:
                 html = """
                 <div class="divi-wiki-image">
                     <video controls width="80%">
-                        <source src="/wiki/%s" type="video/webm">
-                        Download the <a href="/wiki/%s}">WEBM4 Video</a>
+                        <source src="%s" type="video/webm">
+                        Download the <a href="%s">Webm Video</a>
                     </video>
                 </div>
-                """ % (src, src)
+                """ % (path, path)
             else:
                 html = """ 
                     <div class="div-wiki-image lazy-load-video" 
-                         data-src="/wiki/{0}" data-type="video/webm" >
+                         data-src="{0}" data-type="video/webm" >
                     </div>
-                   """.format(src, src)
+                   """.format(path, path)
         else:
             if self._preview:
-                html = """<div class="div-wiki-image"><img class="wiki-image anchor" src="/wiki/%s" alt=""></div>""" % src
+                html = """<div class="div-wiki-image"><img class="wiki-image anchor" src="%s" alt=""></div>""" \
+                    % path
             else:
-                html = """<div class="div-wiki-image"><img class="wiki-image lazy-load anchor" data-src="/wiki/%s" alt=""></div>""" % src
+                html = """<div class="div-wiki-image"><img class="wiki-image lazy-load anchor" data-src="%s" alt=""></div>""" \
+                    % path
+        ## print(" [TRACE] render_embed => html = \n", html)
         return html
 
     def render_link(self, node: SyntaxTreeNode) -> str:
@@ -1037,6 +1053,7 @@ class HtmlRenderer(AbstractAstRenderer):
         ##     label = href
         html = ""
         href_ = utils.escape_url(f"/wiki/{ href.replace(' ', '_') }")
+        # breakpoint()
         if "." not in href:
             self._internal_links.append(href)
             match =  self.find_page(href)
@@ -1045,9 +1062,19 @@ class HtmlRenderer(AbstractAstRenderer):
             if match:
                 data = mparser.get_pagefile_metadata(match) or {}
                 description = data.get("description", "")
+            if match and self._static_compilation:
+                href_ = str(match.relative_to(self._base_path))\
+                    .replace(" ", "_")\
+                    .replace("Index", "index")\
+                    .replace(".md", ".html")
+                href_ = utils.escape_url(href_)
             # In this case, href refers to a Wiki page (has no extension)
             html = f"""<a href="{href_}" class="{class_name} wiki-link" title="{description}">{label}</a>"""
         else:
+            if self._static_compilation:
+                match = self.find_file(href) 
+                # print(" [TRACE] add link to file = ", match)
+                href_ = str( match.relative_to(self._base_path) ) if match else "#"
             # In this case, href refers to some file, that is opened in a new tab 
             html = f"""<a href="{href_}" target="_blank" class="link-internal wiki-link">{label}</a>"""
         return html 
@@ -1269,11 +1296,13 @@ class HtmlRenderer(AbstractAstRenderer):
             html = f"""<pre {label} class="mermaid" >\n{content}\n</pre>\n"""                   
         # Compatible with Obsidian's pseudo-code plugin
         elif info == "pseudo" or info == "{pseudo}":
+            self._needs_mathjax = True
             self._needs_latex_algorithm = True
             content, directives = mparser.get_code_block_directives(node.content)
             label = f'id="{u}"' if (u := directives.get("label")) else ""
-            #content_ = utils.escape_html(content)
-            html = f"""<pre {label} class="pseudocode" >\n{content}\n</pre>\n"""
+            content_ = utils.escape_html(content)
+            html = f"""<pre {label} class="pseudocode" >\n{content_}\n</pre>\n"""
+            #print(" [DEBUG] algorithm block = \n", html)
         elif info == "{quote}":
             content, directives = mparser.get_code_block_directives(node.content)
             label = f'id="{u}"' if (u := directives.get("label")) else ""
@@ -1322,7 +1351,13 @@ class HtmlRenderer(AbstractAstRenderer):
         elif info.startswith("{figure}"):
             image = utils.strip_prefix("{figure}", info).strip()
             if image.startswith("![[") and image.endswith("]]"):
-                image =  "/wiki/" + image.strip("![]")
+                #breakpoint()
+                if not self._static_compilation:
+                    image =  "/wiki/" + image.strip("![]")
+                else:
+                    file = image.strip("![]")
+                    match = self.find_file(file)
+                    image = str(match.relative_to(self._base_path)) if match else "#"
             content, directives = mparser.get_code_block_directives(node.content)
             # Image caption 
             caption = content.strip()
@@ -1950,7 +1985,7 @@ def node_to_html(page_name: str, node: SyntaxTreeNode, base_path: str):
     html = __html_render.render(node)
     return html
 
-def pagefile_to_html(pagefile: str, base_path: str) -> Tuple[HtmlRenderer, str]:
+def pagefile_to_html(pagefile: str, base_path: str, static_compilation = False) -> Tuple[HtmlRenderer, str]:
     with open(pagefile) as fd:
         source: str = fd.read()
         ## source = re.sub(r"^$$", "\n$$", source) 
@@ -1960,6 +1995,7 @@ def pagefile_to_html(pagefile: str, base_path: str) -> Tuple[HtmlRenderer, str]:
         renderer = HtmlRenderer(  page_name = page_name
                             , render_math_svg = False
                             , base_path = base_path
+                            , static_compilation = static_compilation
                             )
         html = renderer.render(ast)
         return renderer, html
