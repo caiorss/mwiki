@@ -351,9 +351,10 @@ def make_app_server(  host:        str
                 ## flask.abort(404) 
                 out = flask.redirect(f"/create/{path}")
                 return out
-            path_ = page.compile()
+            html = page.render_html()
+            return html
             # print(" [TRACE] path_ = ", path_)
-            out = serve_static_file(base_path, path_)
+            ##out = serve_static_file(base_path, path_)
             return out 
         # Dont' show source code of markdown file
         if path.endswith(".md"):
@@ -794,6 +795,9 @@ def serve_static_file(base_path: pathlib.Path, path):
     if not is_wsgi:
         resp = flask.send_from_directory(BASE_PATH, relpath)
     else:
+        ##print(" [TRACE] Enter line 798 - wsgi static file serving => match.name = ", match.name)
+        #if match.name.endswith(".html"):
+        #    breakpoint()
         ## Get file mime type
         mtype, _ = mimetypes.guess_type(match.name, strict = False)
         mtype = mtype or "application/octect-stream"
@@ -805,14 +809,19 @@ def serve_static_file(base_path: pathlib.Path, path):
             return resp 
         ## Get last modified time (formatted as string)
         pattern  = "%a, %d %b %Y %H:%M:%S %Z"
-        last_modfied_timestamp = match.stat().st_mtime
-        last_modified          = time.strftime(pattern, time.gmtime(last_modfied_timestamp))
+        #last_modfied_timestamp = match.stat().st_mtime
+        last_modified_time =  datetime.datetime.fromtimestamp(match.stat().st_mtime, tz = datetime.timezone.utc).timestamp()
+        last_modified_str       = time.strftime(pattern, time.gmtime(last_modified_time))
         ifModifiedSince = flask.request.headers.get("If-Modified-Since", None)
         dtime = int(parsedate(ifModifiedSince).timestamp()) if ifModifiedSince is not None else None
         resp = None
-        if dtime is not None and dtime <= int(last_modfied_timestamp):
+        if dtime is not None and dtime >= last_modified_time:
                 ## print(" [TRACE] Return (304) status code, NOT modified")
-                resp = flask.Response(response= None, mimetype=mtype, content_type=mtype, status = 304) 
+                resp = flask.Response(  response= None
+                                      , mimetype=mtype
+                                      , content_type=mtype
+                                      , status = 304
+                                      ) 
         else:
             ## print(" [TRACE] mtype = ", mtype)
             ## print(" [TRACE] sending file response = ", match)
@@ -824,7 +833,7 @@ def serve_static_file(base_path: pathlib.Path, path):
         ## resp.headers.add("Cache-Control", "no-cache")  
         resp.headers.add("Content-Type", mtype)
         resp.headers.add("Content-Length",       match.stat().st_size)
-        resp.headers.add("Last-Modified",        last_modified)
+        resp.headers.add("Last-Modified",        last_modified_str )
         resp.headers.add("vary",                 "Accept-Enconding")
         resp.headers.add("Content-Disposition", f"inline; filename={ match.name }")
     return resp
