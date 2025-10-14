@@ -302,12 +302,40 @@ fonts_database  = [
     {
          "key":    "logic-monospace-medium"
        , "family": "Logic Monospace Medium"
+       , "regular": "LogicMonospace-Medium.woff2"
+    }
+   ,{
+          "key":     "garamond-pro"
+        , "family":  "Garamond Pro Regular"
+        , "regular": "AGaramondPro-Regular.woff2"   
     }
    ,{
          "key":   "libertinus-mono"
        , "family": "Libertinus Mono"
        , "regular": "LibertinusMono-Regular.woff2"
-   }
+    }
+   ,{
+           "key": "julia-mono"
+         , "family":  "Julia Mono"
+         , "regular": "JuliaMono-Regular.woff2"  
+         , "italic":  "JuliaMono-RegularItalic.woff2"  
+         , "bold":    "JuliaMono-Bold.woff2"  
+    }
+   ,{
+          "key":          "libertinus-sans"
+        , "family":       "Libertinus Sans"
+        , "regular":      "LibertinusSans-Regular.woff2"
+        , "italic":       "LibertinusSans-Italic.woff2"
+        , "bold":         "LibertinusSanas-Bold.woff2"
+    }
+    ,{
+          "key":          "libertinus-serif"
+        , "family":       "Libertinus Serif"
+        , "regular":      "LibertinusSerif-Regular.woff2"
+        , "italic":       "LibertinusSerif-Italic.woff2"
+        , "bold":         "LibertinusSerif-Bold.woff2"
+        , "bold-italic":  "LibertinusSerif-BoldItalic.woff2"
+    }    
    ,{
         "key":         "commint-mono"
       , "family":      "Commint Mono"
@@ -317,6 +345,16 @@ fonts_database  = [
       , "bold-italic": "CommitMono-700-Italic.otf"
     
     }
+   ,{
+          "key":      "range-mono"
+        , "family":   "Range Mono"
+        , "regular":  "range-mono-medium-webfont.woff"
+    }
+   ,{
+          "key":      "range"
+        , "family":   "Range"
+        , "regular":  "range-regular-webfont.woff"
+    }    
    ,{
         "key":     "crimson"
       , "family":  "Crimson"
@@ -357,7 +395,50 @@ fonts_database  = [
       ,"regular": "cmu-sans-serif-regular.woff"
       ,"italic":  "cmu-sans-serif-bold.woff"
    }
-   
+   ,{
+        "key":    "peachi-medium"
+      , "family": "Peachi Medium"   
+      , "regular": "peachi-medium.woff2"
+    }
+   ,{
+        "key":     "fondamento"
+      , "family":  "Fondamento"   
+      , "regular": "fondamento-regular.woff2"
+   }   
+   ,{
+         "key":     "bricolage-grotesque"
+       , "family":  "Bricolage Grotesque"
+       , "regular": "bricolage-grotesque-latin-normal.woff2"
+   }
+   ,{
+          "key":    "saira-thin-normal"
+        , "family": "Saira Thin Normal"
+        , "regular": "saira-latin-thin.woff2"
+    }
+
+    ,{
+          "key":    "saira-thin-bold"
+        , "family": "Saira Thin Bold"
+        , "regular": "saira-latin-thin-bold.woff2"
+    }
+    ,{
+         "key":     "dinweb-light"
+       , "family":  "DINWeb-Light"
+       , "regular": 'DINWeb-Light.woff'
+    }
+    ,{
+         "key":      "dinweb-medium"
+       , "family":   "DINWeb-Medium"
+       , "regular":  "DINWeb-Medium.woff"
+        
+    }
+    ,{
+        "key":     "dinweb-black"
+      , "family":  "DINWeb-Black"
+      , "regular": "DINWeb-Black.woff"
+        
+    }
+    
 ]
 
 def get_font_data(font_key: str):
@@ -483,7 +564,7 @@ def render_font_data(key):
 @click.option("--main-font", default = "literata", help="Main font used in document text.") 
 @click.option("--code-font", default = "libertinus-mono", help="Code monospace used in code blocks.") 
 @click.option("--title-font", default = "news-reader", help="Title font used in document section headings.") 
-@click.option("--list-fonts", default = False, help="List all available fonts.") 
+@click.option("--list-fonts", is_flag = True, help="List all available fonts.") 
 def compile(  wikipath: Optional[str], output: Optional[str]
             , website_name: str
             , locale: str
