@@ -41,7 +41,7 @@ from .app import app, current_user
 
 # This variable is set to true if gunicorn WSGI server is being used.
 server_software =  os.environ.get("SERVER_SOFTWARE", "")
-is_gunicorn = "gunicorn" in server_software or "waitress" in server_software
+is_wsgi = "gunicorn" in server_software or "waitress" in server_software
 
 
  
@@ -791,7 +791,7 @@ def serve_static_file(base_path: pathlib.Path, path):
                                          , latex_macros = latex_macros
                                          )
         return response
-    if not is_gunicorn:
+    if not is_wsgi:
         resp = flask.send_from_directory(BASE_PATH, relpath)
     else:
         ## Get file mime type
