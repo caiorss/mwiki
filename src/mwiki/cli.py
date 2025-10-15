@@ -565,14 +565,17 @@ def render_font_data(key):
 @click.option("--code-font", default = "libertinus-mono", help="Code monospace used in code blocks.") 
 @click.option("--title-font", default = "news-reader", help="Title font used in document section headings.") 
 @click.option("--list-fonts", is_flag = True, help="List all available fonts.") 
-def compile(  wikipath: Optional[str], output: Optional[str]
-            , website_name: str
-            , locale: str
-            , icon
-            , main_font
-            , code_font 
-            , title_font
-            , list_fonts
+@click.option("--allow-language-switch", is_flag = True, help = "Allow end-user to switch the user interface language.")
+def compile(  wikipath:              Optional[str]
+            , output:                Optional[str]
+            , website_name:          str
+            , locale:                str
+            , icon:                  Optional[str]
+            , main_font:             str 
+            , code_font:             str 
+            , title_font:            str 
+            , list_fonts:            bool 
+            , allow_language_switch: bool
             ):
     """Compile a MWiki repository to a static website."""
     if list_fonts:
