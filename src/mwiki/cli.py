@@ -598,7 +598,10 @@ def compile(  wikipath:              Optional[str]
     base_path = str(wikipath)
     # secret_key = mwiki.models.get_secret_key()
     # app.config["SECRET_KEY"] = secret_key
-    print(" [*] Compiling ", root)
+    print("Compiling wiki repository\n - ", root.resolve())
+    print()
+    print("Generating static website at\n - ", out.resolve())
+    print()
     pages = root.rglob("*.md")
     static = out / "static"
     static.mkdir(exist_ok = True)
@@ -650,10 +653,16 @@ def compile(  wikipath:              Optional[str]
     main_font_family  = (get_font_data(main_font) or {}).get("family") 
     title_font_family = (get_font_data(title_font) or {}).get("family")  
     code_font_family  = (get_font_data(code_font) or {}).get("family")  
-    print(" [*] Main font  family: ", main_font_family)
-    print(" [*] Title Font Family: ", title_font_family)
-    print(" [*]  Code Font Family: ", code_font_family)
-      
+    print()
+    print("Compilation Settings")
+    print()
+    print(" [*] Allow language switch: ", allow_language_switch)
+    print(" [*]     Main font  family: ", main_font_family)
+    print(" [*]     Title Font Family: ", title_font_family)
+    print(" [*]      Code Font Family: ", code_font_family)
+    print()
+    print("Status:")
+    print()
     for p in pages:
         outfile = out / str(p.relative_to(root))\
                 .replace("Index", "index")\
@@ -668,13 +677,13 @@ def compile(  wikipath:              Optional[str]
         headings = mparser.get_headings(page_source)
         root_ = mparser.make_headings_hierarchy(headings)
         toc = mparser.headings_to_html(root_)
-      
-        # print(" [TRACE] needs pseudocode_js ", renderer.needs_latex_algorithm)
+             # print(" [TRACE] needs pseudocode_js ", renderer.needs_latex_algorithm)
         env = {
                  "title":                title.replace("about", "About")
                , "page":                 title
                , "page_link":            title.replace(" ", "_")
                , "pagename":             title
+               , "allow_language_switch": allow_language_switch
                , "main_font":            main_font_family  
                , "title_font":           title_font_family
                , "font_face_main":       font_face_main_font
@@ -698,6 +707,8 @@ def compile(  wikipath:              Optional[str]
               }
         html = tpl.render(env)
         outfile.write_text(html)
+    print(" [*] Compilation terminated successfully ok.")
+    exit(0)
         
  
  
