@@ -387,10 +387,10 @@ def now_utc_timestamp() -> int:
     out = int(now)
     return out
 
-def now_utc_timestamp_add_minutes(minutes: int) -> int:
+def now_utc_timestamp_add_timedelta(minutes: int = 0, seconds: int = 0) -> int:
     utc = datetime.timezone.utc
     now = datetime.datetime.now(utc)
-    out = now + datetime.timedelta(minutes = minutes)
+    out = now + datetime.timedelta(minutes = minutes, seconds = seconds)
     out = int(out.timestamp())
     return out
 

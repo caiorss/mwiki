@@ -91,6 +91,38 @@ def debughook(etype, value, tb):
     pdb.pm() # post-mortem debugger
 
 
+def generate_login_token_url(wikipath: Optional[str], user: str):
+    """Create URL for authentication without password. The token is valid for 20 seconds."""
+    MWIKI_URL = os.getenv("MWIKI_URL", "http://localhost:8000")
+    wikipath = wikipath or os.getenv("MWIKI_PATH")
+    if wikipath is None:
+        print("Error expected --wikipath=./path-to-wiki or MWIKI_PATH environment variable set to this path.")
+        exit(1)
+    wikipath = utils.expand_path(wikipath)
+    mwiki.models.MwikiConfig.set_path(wikipath)
+    secret_key = mwiki.models.get_secret_key()
+    ## print(" [TRACE] secret_key = ", secret_key)
+    timestamp = utils.now_utc_timestamp_add_timedelta(minutes = 0, seconds = 20)
+    salt = random.randint(1, 1000)
+    message = user + "/" + str(timestamp) + "/" + str(salt)
+    signature = utils.hmac_signature(secret_key, message)
+    data = { "user": user, "salt": salt, "expiration": timestamp, "signature": signature}
+    authtoken = utils.encode_json_to_base64(data)
+    url = f"{MWIKI_URL}/auth?token={ utils.escape_url(authtoken) }"
+    print("Copy and paste the following URL in the web browser to authenticate.")
+    print()
+    print(" ", url)
+    print()
+    print(f"Or paste the following token in the log in form {MWIKI_URL} ")
+    print(" \n", authtoken)
+    print()
+    print("NOTE: This URL is only valid for 20 seconds.")
+    print("NOTE: If MWiki URL is not correct, set the environment variable $MWIKI_URL to the app URL."
+           "For instance, in bash Unix shell $ export MWIKI_URL=https://mydomain.com before "
+           "running this comamnd again." )
+    print()
+
+
 @click.group()
 def cli1():
     pass
@@ -126,6 +158,8 @@ def cli1():
                          ))
 @click.option("--pdb", is_flag = True, 
                 help = ( "Enable post-mortem debugger." ))
+@click.option("--auth", is_flag = True, help = "Create 20 seconds authenticatiion token and URL for passwordless login. (default user 'admin')")
+@click.option("--auth-user", default = "admin", help = "Default user for the login token. (default admin)")
 def server(  host:       str
            , port:       int
            , debug:      bool
@@ -136,6 +170,8 @@ def server(  host:       str
            , secret_key: Optional[str]
            , pdb:        bool
            , wsgi:       bool
+           , auth:       bool
+           , auth_user:  str 
            ):
     """Run the mwiki server."""
     _login = None  
@@ -180,6 +216,10 @@ def server(  host:       str
         _secret_key = server.get("secret_key", None)
         #make_app_server(_host, _port, _debug, _login, _wikipath, _random_ssl, _secret_key)
     _wikipath = utils.expand_path(_wikipath)
+
+    if auth:
+        generate_login_token_url(_wikipath, auth_user)
+    
     if debug:
         mwiki.models.MwikiConfig.enable_debug()
     if not os.path.isdir(_wikipath):
@@ -598,8 +638,7 @@ def compile(  wikipath:              Optional[str]
     base_path = str(wikipath)
     # secret_key = mwiki.models.get_secret_key()
     # app.config["SECRET_KEY"] = secret_key
-    print("Compiling wiki repository\n - ", root.resolve())
-    print()
+    print("Compithling wiki repository\n - ", root.resolve())
     print("Generating static website at\n - ", out.resolve())
     print()
     pages = root.rglob("*.md")
@@ -777,32 +816,18 @@ def manage(admin_password = None, sitename = None):
 @click.option("--wikipath", default = None, help = "Path to wiki directory, default '.' current directory.")
 @click.option("--user", default = "admin", help = "Username to authenticate.")
 def auth(wikipath: Optional[str], user: str):
-    """Create URL for authentication without password. The URL is valid for 1 minute."""
-    MWIKI_URL = os.getenv("MWIKI_URL", "http://localhost:8000")
+    """Create token and url for authentication without password. The URL is valid for 20 seconds."""
     wikipath = wikipath or os.getenv("MWIKI_PATH")
     if wikipath is None:
-        print("Error expected --wikipath=./path-to-wiki or MWIKI_PATH environment variable set to this path.")
+        print("Error extepected --wikipath or enviroment variable $MWIKI_PATH")
         exit(1)
-    wikipath = utils.expand_path(wikipath)
-    mwiki.models.MwikiConfig.set_path(wikipath)
-    secret_key = mwiki.models.get_secret_key()
-    ## print(" [TRACE] secret_key = ", secret_key)
-    timestamp = utils.now_utc_timestamp_add_minutes(1)
-    salt = random.randint(1, 1000)
-    message = user + "/" + str(timestamp) + "/" + str(salt)
-    signature = utils.hmac_signature(secret_key, message)
-    data = { "user": user, "salt": salt, "expiration": timestamp, "signature": signature}
-    authtoken = utils.encode_json_to_base64(data)
-    url = f"{MWIKI_URL}/auth?token={ utils.escape_url(authtoken) }"
-    print("Copy and paste the following URL in the web browser to authenticate.")
-    print()
-    print(" ", url)
-    print()
-    print(f"Or paste the following token in the log in form {MWIKI_URL} ")
-    print(" \n", authtoken)
-    print()
-    print("NOTE: This URL is only valid for 1 minute.")
-    print("NOTE: If MWiki URL is not correct, set the environment variable $MWIKI_URL to the app URL. For instance, in bash Unix shell $ export MWIKI_URL=https://mydomain.com before running this comamnd again.")
+    if not pathlib.Path(wikipath).resolve().is_dir():
+        print(f"Error directory not found: {wikipath}")
+        exit(1)
+    generate_login_token_url(wikipath, user)
+    exit(0)
+
+
 
 @cli1.command()
 @click.option("-f", "--file", default = None, 
