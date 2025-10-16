@@ -1124,7 +1124,7 @@ Status:
  [*] Compilation terminated successfully ok.
 ```
 
-Inspect the generated static websiste.
+Inspect the generated static website.
 
 ```sh
 $ tree out
@@ -1217,7 +1217,7 @@ $ uv run mwiki compile --wikipath=./sample-wiki \
                 --output=./dist
 ```
 
-Finally, deploying the static websiste requires commiting the changes in the ./dist directory and pushing it to remote.
+Finally, deploying the static website requires commiting the changes in the ./dist directory and pushing it to remote.
 
 ```sh
 $ cd dist
