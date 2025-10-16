@@ -13,13 +13,12 @@
     <meta name="description" content="{{page_description}}" />
     <meta name=generator content="MWiki">
     {% if page_author %} <meta name="author" content="{{page_author}}"> {% endif %}
-
+   
     
    <style>
-        {{font_face_main}}
-
-        {{font_face_title}}
-
+{{font_face_main}}
+{{font_face_code}}
+{{font_face_title}}
 
 :root {
     /*--- Desktop screen Width ----------------*/
@@ -73,7 +72,7 @@
         
     </style>
   
-    <link rel="stylesheet" href="/static/static_style.css">
+    <link rel="stylesheet" href="{{root_url}}/static/static_style.css">
 
    
 
@@ -268,7 +267,7 @@
         }, false);
         
     </script>
-    <script type="text/javascript" src="/static/main.js"></script>
+    <script type="text/javascript" src="{{root_url}}/static/main.js"></script>
 
 </head>
 
@@ -286,9 +285,9 @@
     </aside>
     <div class="main main-shift">
         <header class="header">
-            <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/static/hamburger-menu.svg" style="height: 25px;"/> </a>
+            <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="{{root_url}}/static/hamburger-menu.svg" style="height: 25px;"/> </a>
             <a data-i18n="home-page-button" class="sidebar-toggle-button" 
-			   title="Go to home page (Index)" href="/"><img class="img-icon" src="/static/icon-home.svg"></a>
+			   title="Go to home page (Index)" href="{{root_url}}"><img class="img-icon" src="{{root_url}}/static/icon-home.svg"></a>
             <div class="dropdown">
               <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button" 
                  href="#" 
@@ -308,7 +307,7 @@
                     onclick="toggleShortcutKeybindingWinodw();"
                     title="Display a window showing all keyboard shortcuts, also known as keybindings."
                  >Keybindings</a>
-                 <a data-i18n="about-menu-item-label" class="sidebar-toggle-button" href="/about.html">About</a>
+                 <a data-i18n="about-menu-item-label" class="sidebar-toggle-button" href="{{root_url}}/about.html">About</a>
               </div>
             </div>
 
@@ -317,7 +316,7 @@
                  onclick="toggleHeadings();"
                  id="btn-scroll-bottom" 
                  title="Fold/Unfold all sections."
-                 ><img class="img-icon" src="/static/dots-vertical.svg" ></a> 
+                 ><img class="img-icon" src="{{root_url}}/static/dots-vertical.svg" ></a> 
             <!-- 
              <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
                  href="#" 
@@ -332,10 +331,6 @@
         </header>
 
         <main class="content">
-            {% if pagename %}
-            <a class="link-edit link-internal" style="display:none" title="Edit page {{title}}" href="/edit/{{page_link}}?timestamp={{timestamp}}"><img class="img-icon" src="/static/pencil.svg"></a>
-            {% endif %}
-
             <div class="div-heading-h1">
                 <h1 data-i18n="{{page_title_i18n_tag}}" class="document-heading">{{title}}</h1>
             </div>

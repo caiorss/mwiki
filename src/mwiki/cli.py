@@ -32,57 +32,6 @@ from . import render
 from .models import User, Settings
 from .app import db, app 
 
-
-###  # Check whether the OS is a Unix-like operating system
-###  if utils.is_os_linux_or_bsd() or utils.is_os_macos():
-###      from gunicorn.app.wsgiapp import WSGIApplication
-###  else:
-###      print("WARNING: Cannot run using gunicorn on Microsoft Windows OS\n" 
-###            "Use another WSGI server.")
-###  
-###  class StandaloneApplication(WSGIApplication):
-###      def __init__(self, app_uri, options=None):
-###          self.options = options or {}
-###          self.app_uri = app_uri
-###          super().__init__()
-###  
-###      def load_config(self):
-###          config = {
-###              key: value
-###              for key, value in self.options.items()
-###              if key in self.cfg.settings and value is not None
-###          }
-###          for key, value in config.items():
-###              self.cfg.set(key.lower(), value)
-###  
-###  
-###  def gunicorn_runner(  host:      str
-###                      , port:      int
-###                      , wikipath:  str
-###                      , login:     Optional[str] = None
-###                      , secret_key: Optional[str] = None 
-###                      ):
-###      options = {
-###            "bind": f"{host}:{port}"
-###          , "workers": (multiprocessing.cpu_count() * 2) + 1
-###          ## "worker_class": "uvicorn.workers.UvicornWorker",
-###      }
-###      environemnt = {
-###            "HOST":        host 
-###          , "PORT":        str(port)
-###          , "LOGIN":       login
-###          , "SECRET_KEY":  secret_key
-###          , "WIKIPATH":    wikipath
-###      }
-###      ### print(" [TRACE] wikipath = ", wikipath)
-###      for (variable, value) in environemnt.items():
-###          ## print(f" [TRACE] variable = {variable} ; value = {value}")
-###          if value is not None: os.environ[variable] = value
-###      ## See module: mwiki/wsgi, related to file mwiki/wsgi.py 
-###      # the inputs of this module are environment variables
-###      sapp = StandaloneApplication("mwiki.wsgi:app", options)
-###      sapp.run()
-
 def debughook(etype, value, tb):
     import pdb
     import traceback
@@ -520,7 +469,7 @@ def copy_font_files(font_key: str, dest: pathlib.Path):
        shutil.copy(f, dest)
        
 
-def render_font_data(key):
+def render_font_data(key, root: str = ""):
     data = get_font_data(key)
     if not data:
         return ""
@@ -528,6 +477,7 @@ def render_font_data(key):
     has_italic = "italic" in data
     has_bold   = "bold" in data
     has_bold_italic = "bold-italic" in data
+    root = "" if root == "/" else root
     code = """
 @font-face {
     font-family: '{{family}}';
@@ -537,7 +487,7 @@ def render_font_data(key):
     {% if has_bold %}
     font-weight: {{font_weight}};
     {% endif %}
-    src: url('/static/fonts/{{file}}');
+    src: url('{{root}}/static/fonts/{{file}}');
 }
     """
     tpl = jinja2.Template(code)
@@ -548,6 +498,7 @@ def render_font_data(key):
                                    , file = data.get("regular")
                                    , font_style = "normal"
                                    , font_weight = "normal"
+                                   , root = root
                                )
     font_face_italic = ""
     if has_italic:
@@ -556,9 +507,10 @@ def render_font_data(key):
                                    , has_italic = has_italic
                                    , has_bold = has_bold
                                    , has_bold_italic = has_bold_italic
-                                   , file = data.get("regular")
+                                   , file = data.get("italic")
                                    , font_style = "italic"
                                    , font_weight = "normal"
+                                   , root = root
                                )
     
     font_face_bold = ""
@@ -571,6 +523,7 @@ def render_font_data(key):
                                    , file = data.get("bold")
                                    , font_style = "normal"
                                    , font_weight = "bold"
+                                   , root = root
                                )
     font_face_bold_italic = ""
     if has_bold_italic:
@@ -582,6 +535,7 @@ def render_font_data(key):
                                    , file = data.get("bold-italic")
                                    , font_style = "italic"
                                    , font_weight = "bold"
+                                   , root = root
                                )
     out = font_face_regular 
     out = out + "\n\n" + font_face_italic if font_face_italic != "" else out
@@ -599,6 +553,7 @@ def render_font_data(key):
                 help = ( "Directory that will contain the compilation output (default value ./out)." )
                 )
 @click.option("--website-name", default = "MWiki", help="Name of the static website (default value 'MWiki').") 
+@click.option("--root-url", default = "/", help="Root URL that the static website will be deployed to.  (default value '/').") 
 @click.option("--locale", default = "en-US", help="Default locale of the user interface. (Default value 'en-US')") 
 @click.option("--icon", default = None, help="Favicon of the static website. (Default value MWiki icon)") 
 @click.option("--main-font", default = "literata", help="Main font used in document text.") 
@@ -609,6 +564,7 @@ def render_font_data(key):
 def compile(  wikipath:              Optional[str]
             , output:                Optional[str]
             , website_name:          str
+            , root_url:              str 
             , locale:                str
             , icon:                  Optional[str]
             , main_font:             str 
@@ -634,13 +590,17 @@ def compile(  wikipath:              Optional[str]
     if not root.exists():
         print(f"Error not found {root.resolve()}")
         exit(1)
+    if root_url != "/" and root_url.endswith("/"):
+        root_url = "/" + root_url.strip("/")
     # mwiki.models.MwikiConfig.set_path(wikipath)
     base_path = str(wikipath)
     # secret_key = mwiki.models.get_secret_key()
     # app.config["SECRET_KEY"] = secret_key
-    print("Compithling wiki repository\n - ", root.resolve())
+    print("Root URL\n - ", root_url)
+    print("Compiling wiki repository\n - ", root.resolve())
     print("Generating static website at\n - ", out.resolve())
     print()
+    root_url = "" if root_url == "/" else root_url
     pages = root.rglob("*.md")
     static = out / "static"
     static.mkdir(exist_ok = True)
@@ -681,9 +641,10 @@ def compile(  wikipath:              Optional[str]
         icon_mimetype = icon_mimetypes_database.get(extension) or icon_mimetype
     template  = utils.read_resource(mwiki, "templates/static.html")
     tpl = jinja2.Template(template)
-    font_face_main_font =  render_font_data(main_font)
+    font_face_main_font =  render_font_data(main_font, root = root_url)
     # print(" [TRACE] font_face_main_font = \n", font_face_main_font)
-    font_face_title_font = render_font_data(title_font)
+    font_face_title_font = render_font_data(title_font, root = root_url)
+    font_face_code_font = render_font_data(code_font, root = root_url)
     fonts = out / "static/fonts"
     fonts.mkdir(exist_ok = True)
     copy_font_files(main_font, fonts)
@@ -709,7 +670,11 @@ def compile(  wikipath:              Optional[str]
                 .replace(" ", "_")
         print(f" [*] Compiling {p} to {outfile}")
         pagefile = str(p)
-        renderer, content = render.pagefile_to_html(pagefile, base_path, static_compilation = True)
+        renderer, content = render.pagefile_to_html(  pagefile
+                                                    , base_path
+                                                    , static_compilation = True
+                                                    , root_url = root_url
+                                                    )
         title = renderer.title if renderer.title != "" else str(p.name ).split(".")[0]
         # Generate table of contents 
         page_source = p.read_text()
@@ -721,11 +686,13 @@ def compile(  wikipath:              Optional[str]
                  "title":                title.replace("about", "About")
                , "page":                 title
                , "page_link":            title.replace(" ", "_")
+               , "root_url":             root_url
                , "pagename":             title
                , "allow_language_switch": allow_language_switch
                , "main_font":            main_font_family  
                , "title_font":           title_font_family
                , "font_face_main":       font_face_main_font
+               , "font_face_code":       font_face_code_font
                , "font_face_title":      font_face_title_font
                , "favicon":              icon_path 
                , "favicon_mimetype":     icon_mimetype

@@ -74,14 +74,29 @@ class AbstractAstRenderer:
     which raise NonImplementedError exceptions.
     """
 
-    def __init__(self, document = "", base_path = "", embed_page = False, static_compilation = False):
+    def __init__(  self
+                 , document = ""
+                 , base_path = ""
+                 , embed_page = False
+                 , static_compilation = False
+                 , root_url: str = "/"):
         # Path to the notes repository
+        self._root_url = root_url if root_url != "/" else ""
+        """Websiste Root URL (default'/')"""
+
+        if root_url != "/" and not root_url.endswith("/"):
+            self._root_url = self._root_url + "/"
+        if root_url == "/":
+            self._root_url = ""
+
+        #print(" [TRACE] root_url = ", root_url)
+        
         self._base_path: pathlib.Path = pathlib.Path(base_path)
         """Root directory of current MWiki repository"""
 
         self._static_compilation: bool = static_compilation
         """Flag that indicates whether the markdown file is being compiled to html."""
-
+        
         self._is_embedded_page: bool = embed_page
         """Flag which indicates whether the current page is embedded within another wiki page."""
 
@@ -530,8 +545,16 @@ class HtmlRenderer(AbstractAstRenderer):
                      , embed_math_svg = False
                      , base_path: str = ""
                      , static_compilation = False
-                     , preview: bool = False):
-        super().__init__(base_path = base_path, static_compilation = static_compilation)
+                     , preview: bool = False
+                     , root_url: str = "/"
+                 ):
+        super().__init__(  base_path          = base_path
+                         , static_compilation = static_compilation
+                         , root_url           = root_url
+                     )
+        if root_url == "/":
+            self._root_url = ""
+        
         self._pagefile = page_name
         self._page_path: Optional[pathlib.Path] = self.find_page(page_name.split(".")[0])
         self._timestemap = int(100000 * self._page_path.lstat().st_mtime) \
@@ -873,7 +896,7 @@ class HtmlRenderer(AbstractAstRenderer):
         path = "/wiki/" + src  
         if self._static_compilation:
             match = self.find_file(src)
-            path = str(match.relative_to(self._base_path)) if match else path 
+            path = self._root_url + str(match.relative_to(self._base_path)) if match else path 
         if src.endswith(".mp4"):
             if self._preview:
                 html = """
@@ -1357,7 +1380,7 @@ class HtmlRenderer(AbstractAstRenderer):
                 else:
                     file = image.strip("![]")
                     match = self.find_file(file)
-                    image = str(match.relative_to(self._base_path)) if match else "#"
+                    image = self._root_url + str(match.relative_to(self._base_path)) if match else "#"
             content, directives = mparser.get_code_block_directives(node.content)
             # Image caption 
             caption = content.strip()
@@ -1394,7 +1417,15 @@ class HtmlRenderer(AbstractAstRenderer):
             x = video.split(".")
             video_extension = "" if len(x) == 0 else x[-1]
             if video.startswith("![[") and video.endswith("]]"):
-                video =  "/wiki/" + video.strip("![]")
+                # video =  "/wiki/" + video.strip("![]")
+                if not self._static_compilation:
+                    video =  "/wiki/" + video.strip("![]")
+                else:
+                    file = video.strip("![]")
+                    match = self.find_file(file)
+                    video = self._root_url + str(match.relative_to(self._base_path)) \
+                            if match else "#"
+                
             content, directives = mparser.get_code_block_directives(node.content)
             # Image caption
             caption = content.strip()
@@ -1499,6 +1530,8 @@ class HtmlRenderer(AbstractAstRenderer):
     def render_image(self, node: SyntaxTreeNode):
         assert node.type == "image"
         src = node.attrs.get("src", "")
+        if src.startswith("/"):
+            src = self._root_url + src 
         inner = "".join([ self.render(n) for n in node.children ])
         html = """<div class="div-wiki-image"><img class="external-image anchor" src="%s" alt="%s"></div>""" % (src, inner)
         return html 
@@ -1985,7 +2018,7 @@ def node_to_html(page_name: str, node: SyntaxTreeNode, base_path: str):
     html = __html_render.render(node)
     return html
 
-def pagefile_to_html(pagefile: str, base_path: str, static_compilation = False) -> Tuple[HtmlRenderer, str]:
+def pagefile_to_html(pagefile: str, base_path: str, static_compilation = False, root_url = "/") -> Tuple[HtmlRenderer, str]:
     with open(pagefile) as fd:
         source: str = fd.read()
         ## source = re.sub(r"^$$", "\n$$", source) 
@@ -1996,6 +2029,7 @@ def pagefile_to_html(pagefile: str, base_path: str, static_compilation = False) 
                             , render_math_svg = False
                             , base_path = base_path
                             , static_compilation = static_compilation
+                            , root_url = root_url 
                             )
         html = renderer.render(ast)
         return renderer, html
