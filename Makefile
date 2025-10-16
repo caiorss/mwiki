@@ -2,6 +2,30 @@
 run:
 	poetry run python -m mdwiki
 
+
+# Generate sample static websiste by compiling the repository ./sample-wiki
+gh-pages:
+	uv run mwiki compile --wikipath=./sample-wiki \
+		--website-name=MBook \
+		--main-font=cmu-concrete \
+		--title-font=chicago \
+		--code-font=libertinus-mono \
+		--allow-language-switch \
+		--root-url=/mwiki \
+		--output=./dist
+
+
+# Generate sample static websiste for testing by compiling the wiki
+# repository ./sample-wikki
+static:
+	uv run mwiki compile --wikipath=./sample-wiki \
+		--website-name=MBook \
+		--main-font=cmu-concrete \
+		--title-font=chicago \
+		--code-font=libertinus-mono \
+		--allow-language-switch \
+		--output=./out
+
 # Build Docker container image 
 docker: docker-build.log 
 
