@@ -1,6 +1,46 @@
 # Changelog 
 
 
+## Release v0.8
+
+
++ Created checkbox for toggling password display in the login form. dth usage.
++ Created editor line wrapping checkbox.
+   + Implement editor checkbox for toggling line wrapping which, may be desirable when editing long lines that needs alignment, such as wide tables.
++ Added editor checkbox that allows users to override Vim emulation default settings.
+   + The settings form has a checkbox that alllows enabling or disabling emulation for all users. The checkbox added to the editor page allows users to override the default Vim emulation settings and persist the user-specific configuration in the browser's local storage. The checkbox makes toggling Vim emulation faster as users no longer have to lose their focus to enable or disabling Vim keybindings by opening the settings form page.
++ Implemented popup window that allows users to override the current locale.
+    + This change improves the i18n internationalizatioin infrastructure by  addding the item "Language" to the main menu for opening a form that allows users to quickly switch the current user interface language. The user language setting is unique for each user and persisted in the browser local storage. If there is no user locale/language setting in the local storage, then the system attempts to get the user locale from the JavaScript navigator.language API when the checkbox "always use default language/locale" is disabled. When the previous checkbox is enabled, the UI language is the default one set by the admin in the settings form. Note that even if the checkbox "always use the default language" is enabled, each user is still able to switch the user interface language during his or her session
++ Implement file uploading by dragging and dropping.
+   + Implement file upload by dragging and dropping files from the desktop to the Wiki editor. When a file is dragged and dropped on the editor, the upload popup window is shown and the user can click at the button upload, change the file name or cancel the operation.
++ Disable save buttons while saving the document.
+  + Save buttons are disabled while saving the document in order to avoid multiple concurrent request and idempotency issues that could cause data loss in  aslow connection if an user attempted to click any save button multiple times. If the http post request fails, the save buttons are enabled again.
++ Improve portuguese localization related to edit-page-upload-button i18n key.
++ Implemented magic link for passwordless authentication.
+  + The command $ mwiki auth generates a sign in link that also allows authentication without password by copying and pasting the link. The magic login link is valid for 1 minute and uses HMAC signature to ensure its authenticity and integrity.  This feature is similar to Jupyter server token URL login, that allows logging in to a Jupyter Lab server by pasting the magic link in some web browser.
++ Added flag --auth to the command $ mwiki server command for passwordless login.
+  + When the flag --auth is added to the command $ mwiki server, a login token and login URL for passwordless authentication are printed in ther terminal before starting the server. Both the token and the URL are valid for 20 seconds and can be used for fast authentication as admin without password. The authentication is endpoint cannot be manipulated be non authorized users as it uses a random numer salt and HMAC digital signature. +  Secret key is now stored in the wiki repository.
+    + Before this change, the secret key was stored in special folders for application data sepecific for each operating system. Now the secret key is stored in the file $WIKI_REPOSITORY/.data/appkey.txt. The key is a uniquely generated random hexadecimal string during the wiki initialization and is unique per MWiki deployment.
++ Implemented lazy loading of the library pseudocodeJS.
+   + Now the library pseudocodeJS, for rendering LaTeX pseudocode blocks of algorithms, is only loaded when there is at least one pseudocode block in the markdown code. This code change improves the page loading speed and reduces bandwidth.
++ Implemented Graphviz lazy loading.
+   + The graphviz library, for redering graph diagrams written in graphviz dot language, is now loaded only when needed. This modification ensures faster page speed loading and less bandwidth costs.
++ Created static website generator.
+  + Implement comamnd line $ mwiki compile that compiles the whole MWiki markdown repository to a static website that can be easily deployed by copying and pasting files to a static file web server. Static files can also be served using Caddy, NGinx, github or gitlab repository.
++ Implemented rendering of "author" attribute in the YAML frontmatter to html `<meta>` tag. The author attribute in  the YAML frontmatter `athor: John Doe` is rendered to `<meta name="author" content="John Doe">`.
++  Page description attribute in the YAML frontmater, for instance `description description here.` is compiled to the html meta tag `<meta name="description>description here">`.
++ Added new fonts (typefaces) choices in the settings form: Jackwrite, Jackwrite Bold (font that mimics typewriter text with leaked ink in an old sheet of paper), medieval font Fondamento, DINWeb, CMU Concrete, CMU Sans Serif, peachi medium, saira thin and saira thin bold. Added Epson dotmatrix 1980's/80's nostalgia fonts, that mimics Epson dotmatrix fonts popular in the 1980s for printing code in computer magazines.
++ Improve search - normalize Romanian and Istro-Romanian alphabets letters to English alphabet. 
++ Improve search - normalize Maltese Alphabet letters to English alphabet.
++ Improve search - normalize letters of the Czesh alphabet to English alphabet.
++ Bugfix - Fix the label of the login button.
++ Bugfix - Add missing required html attributes in the login form.
++ Bugfix - Fix menu button for creating new note.
++ Bugfix - display warning for AST element without renderer function.  
+    + A "Rendering not implementd" warning is issued instead of throwing an exception when there is no implementation of renderer method for a markdown element.
+    
+
+
 ## Release v0.7
 
 + Update Python minimum required version to 3.9 and remove version pinning for updating dependencies. Note that the version of depedencies are still fixed in the lockfiles for supply chain security purposes. 
