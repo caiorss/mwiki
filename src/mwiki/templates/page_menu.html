@@ -1,0 +1,48 @@
+<div class="dropdown">
+  <a data-i18n="pages-menu" class="sidebar-toggle-button" 
+     href="#" 
+     onclick="btnClickHandler(event)" 
+     title="Menu containing actions for current page."
+     class="dropbtn"
+     ><img class="header-icon img-icon" src="/static/icon-page.svg" style="height: 25px;"></a>
+  <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+      <a class="sidebar-toggle-button" href="/pages" 
+		 data-i18n="search-menu-item-label"
+         title="Search and list all pages.">Search</a>
+      <a data-i18n="tags-menu-item-label" class="sidebar-toggle-button" href="/tags" 
+         title="Browse pages using tags.">Tags</a>
+          
+     <a data-i18n="links-menu-item-label" class="sidebar-toggle-button" 
+           href="/links/{{page}}" 
+           title="Display all external and internal links of this wiki page."
+           >Links</a> 
+      
+      
+      {% if config_show_source() %}
+      <a data-i18n="menu-item-source-label" class="sidebar-toggle-button" 
+           href="/source/{{page}}" 
+           title="Display source code of current wiki page."
+           >Source</a>      
+      {% endif %}
+
+                
+      {% if current_user().is_admin() %}
+
+       <a data-i18n="menu-item-view-label" class="sidebar-toggle-button" 
+           href="/wiki/{{page}}" 
+           title="View this page as html"
+                >View</a>
+        <a data-i18n="menu-item-new-label" class="sidebar-toggle-button" href="#" 
+                  id="btn-create-note" title="Create new page or note.">New</a>
+        <a data-i18n="menu-item-edit-label" class="sidebar-toggle-button" 
+           href="/edit/{{page}}?timestamp={{timestamp}}"
+           title="Edit markdown page"
+                >Edit</a>
+        <a data-i18n="menu-item-delete-label" class="sidebar-toggle-button" 
+           href="#" 
+           title="Delete this page"
+           onclick="deletePage('{{page}}')" 
+           >Delete</a>
+       {% endif %}
+  </div>
+</div>

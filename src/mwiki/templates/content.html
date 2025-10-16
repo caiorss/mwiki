@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block topbar_buttons %}
+    {% include 'page_menu.html' %}
+{% endblock %}
+
+{% block toc  %}
+    {{ toc|safe }}
+{% endblock %}
+
+{% block content %}
+    {{ content|safe }}
+{% endblock %}
+

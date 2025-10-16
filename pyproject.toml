@@ -1,0 +1,88 @@
+[project]
+name = "mwiki"
+version = "0.8"
+readme = "README.md"
+description = "mwiki - Markdown Wiki Server for publishing and accessing Github Markdown-Flavor Documents, MyST (from Jupyter Books) documents and  Obsidian Markdown vaults."
+requires-python = ">=3.9"
+license = { text = "AGPL - GNU Afero" }
+## authors = [ (name = "dummy", email = "user@mail") ]
+dependencies = [
+          #"flask==3.0.3"
+          'flask',
+          "flask-session",
+          "flask-sqlalchemy",
+          "flask_wtf",
+          "frontmatter",
+          "markdown-it-py",
+          "markdown-it-py[plugins]",
+          "linkify-it-py",
+          "pygments",
+          "click",
+          "cryptography",
+          "tomli",
+          "python-dateutil",
+          "waitress",
+          #, "gurnicorn"
+          "watchdog",
+          "Pillow",
+          "whoosh>=2.7.4",
+]
+
+
+[tool.setuptools.packages.find]
+where = ["./src"]
+include = ["mwiki", "mwiki.plugins"]
+exclude = ["**__pycache__**"]
+
+# Package data from all directories and sub-directories
+[tool.setuptools.package-data]
+"*" = [ "*.html", "*.css", "*.js" ]
+
+
+
+[tool.poetry]
+name = "mwiki"
+version = "0.1.0"
+# package-mode = false
+description = "mwiki - Markdown Wiki Server for publishing and accessing Github Markdown-Flavor Documents, MyST (from Jupyter Books) documents and  Obsidian Markdown vaults."
+packages = [{include = "mwiki", from = "src"} ]
+authors = [ "Caio Rodrigues"]
+readme = "README.md"
+keywords  = ["wiki", "myst", "markdown", "markdup", "obsidian"]
+
+[tool.poetry.scripts]
+mwiki            = "mwiki.cli:main"
+"mwiki-convert"  = "mwiki.convert:main"
+## run    = "mdwiki.cli:main"
+
+[tool.poetry.dependencies]
+python = ">=3.9"
+flask  = "*"
+#flask  = ">=3.0.3"
+flask-session = "*"
+flask-sqlalchemy = "*"
+flask-wtf = "*"
+frontmatter = "*"
+#  , 'frontmatter==3.0.8'
+###markdown-it-py = {extras = ["plugins"], version = "^3.0.0"}
+markdown-it-py = {extras = ["plugins"], version = "*"}
+linkify-it-py = "*"
+##mdit-py-plugins = "*"
+pygments = "*"
+#click = ">=8.1.7"
+click = "*"
+cryptography = "*"
+#cryptography = "*"
+tomli = "*"
+#gunicorn = ">=23.0.0"
+### gunicorn = "*"
+#python-dateutil = ">=2.9.0.post0"
+python-dateutil = "*"
+# WSGI Server alternative to Gunicorn
+waitress = "*"
+watchdog = "*"
+Pillow = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

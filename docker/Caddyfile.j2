@@ -1,0 +1,111 @@
+# Cadyfile template, which can be processed by 
+# configen.py Python script for generating 
+# a caddy configuration file.
+#
+{
+    debug 
+    log  {
+        format json 
+        output stderr 
+    }
+    admin  0.0.0.0:2019
+ 
+    {% if MWIKI_INTERNAL_CA %}
+    # Turns this caddy instance into a certificate authority 
+    # which can issue certificate for each server block URL.
+    # 
+    # If a server block uses 'import ca_url' directive,  
+    # a URL endpoint https://<domain>/root.crt will be created 
+    # where the user can download the root CA certificate 
+    # of this custom certificate authority and install them 
+    # on web browsers, phones and so on.
+    #
+    pki {
+        ca lab {
+            name "Lab CA - Certificate Authority"
+        }
+    }
+    {% endif %}
+
+    {% if MWIKI_ACME_CA_URL %}
+    # Uses the ACME service for this custom certificate authority
+    # for obtain certificates for each server block
+    acme_ca       {{MWIKI_ACME_CA_URL}} 
+    acme_ca_root  /etc/ssl/certs/root.crt 
+    {% endif %}
+
+}
+
+
+(ca_url) {
+
+    # Endpoint for downloading root CA certificate
+	#  $ curl -k -L -o root.crt https://<DOMAIN>/root.crt
+	handle_path /root.crt  {
+           redir {scheme}://{host}/pki/root.crt
+	}
+
+	# Interface, which allows downloading the root  CA certificate root.crt 
+	# The certificate can be downloaded with:
+	#
+	#  $ curl -k -o root.cert http://<domain>/certroot/root.crt 
+	#
+	# where the <domain> can be 
+	#  $  
+	#
+    handle_path /pki/* {
+       root * /data/caddy/pki/authorities/local/
+       file_server browse {
+         hide *.key *.log *.info */.*
+       }
+    }
+
+}
+
+{{MWIKI_WEBSITE}} {
+
+    # Enable file compression
+    encode zstd gzip
+
+    {% if MWIKI_INTERNAL_CA %}
+    tls {
+        issuer internal {
+            ca lab
+        }
+    }
+
+    import ca_url
+    {% endif %}
+
+
+    handle_path /-test-server {
+       respond "Running reverse-proxy OK."
+    }  
+    
+    handle_path /static {
+       root * /static/
+       file_server
+    }
+
+
+    intercept {
+       @accel header X-Accel-Redirect *
+        handle_response @accel {
+           root * /wiki
+           method * GET 
+           rewrite {resp.header.X-Accel-Redirect}
+           file_server
+        }
+    }
+    
+    #reverse_proxy 172.17.0.1:8000 
+    reverse_proxy {{MWIKI_SERVER_ADDR}}:{{MWIKI_SERVER_PORT}} {
+        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-For {remote}
+        header_up X-Real-IP {remote}
+    }
+}
+
+
+#------------ Snippets ----------------#
+

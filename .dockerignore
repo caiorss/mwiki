@@ -1,0 +1,12 @@
+notes
+pages
+notes/*
+pages/*
+.git
+.git/*
+.images
+images/*
+__pycache__
+__pycache__/*
+build
+build/*

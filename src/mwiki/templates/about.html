@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block topbar_buttons %}
+{% endblock %}
+
+{% block toc  %}
+    {{ toc|safe }}
+{% endblock %}
+
+{% block content %}
+
+{{ config_description() }}
+
+{% endblock %}
+

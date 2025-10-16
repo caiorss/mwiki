@@ -1,0 +1,65 @@
+# Instructions for running this docker-compose file:
+#----------------------------------------------------------------
+# STEP 1) Edit the ./config.env file and set the environment 
+#         variables.
+#
+# STEP 2) Launch this file using either podman or docker
+# 
+# Using podman-compose (Podman instead of docker)
+#  $ podman-compose --env-file=./config.env up -d  --force-recreate
+# 
+# Using docker-compose 
+#  $ podman-compose --env-file=./config.env up -d  --force-recreate
+#
+# STEP 3) View logs
+#  $ docker logs -f caddy
+#  $ podman logs -f caddy
+#  $ docker logs -f mwiki   
+#  $ podman logs -f mwiki
+#
+#--------------------------------------------------------------------#
+services:
+  mwiki-server:
+    container_name: mwiki
+    image: mwiki-server
+    restart: unless-stopped
+    build:  
+      context: .
+      dockerfile: ./docker/mwiki.Dockerfile
+    volumes:
+      - ${MWIKI_PATH}:/wiki
+    environment:
+      - MWIKI_ADMIN_PASSWORD=${MWIKI_ADMIN_PASSWORD} 
+      - MWIKI_SITENAME=${MWIKI_SITENAME} 
+      - MWIKI_PUBLIC=${MWIKI_PUBLIC}
+      - MWIKI_X_ACCEL_REDIRECT=true
+  # Reverse proxy 
+  caddy:
+    container_name: caddy
+    # image: caddy:latest
+    build:
+      context: . 
+      dockerfile: ./docker/Caddy.Dockerfile
+    restart: unless-stopped
+    ports:
+      - 80:80               
+      - 443:443             
+      - 127.0.0.1:2019:2019 
+    volumes:
+      - caddy-config:/config
+      - caddy-data:/data
+      #- ./root.crt:/etc/ssl/certs/root.crt 
+      - ./docker/Caddyfile.j2:/etc/Caddyfile.tpl
+      - ./src/mwiki/static:/static
+      - ${MWIKI_PATH}:/wiki 
+    environment:
+      - MWIKI_WEBSITE=${MWIKI_WEBSITE}         # Domain where caddy runs 
+      - MWIKI_SERVER_ADDR=${MWIKI_SERVER_ADDR} # address of Python WSGI server 
+      - MWIKI_SERVER_PORT=${MWIKI_SERVER_PORT} # TCP port of Python WSGI server
+      - MWIKI_INTERNAL_CA=${MWIKI_INTERNAL_CA} # If set to non-null uses an internal CA
+      - MWIKI_ACME_CA_URL=${MWIKI_ACME_CA_URL} # URL of ACME service of a custom or internal certificate authority.
+
+# Volumes for data persistence
+volumes:
+  caddy-config:
+  caddy-data:

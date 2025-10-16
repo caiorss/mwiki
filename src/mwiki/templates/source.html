@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block topbar_buttons %}
+    {% include 'page_menu.html' %}
+{% endblock %}
+
+{% block toc  %}
+    {{ toc|safe }}
+{% endblock %}
+
+{% block content %}
+    {{ content|safe }}
+{% endblock %}
+
+{% block style %}
+<style>
+    .highlight {
+        max-height: none !important;
+    }
+
+    .highlight pre {
+        overflow-wrap: break-word;
+        word-break: break-word;
+        text-wrap: balance;
+    }
+ 
+</style>
+{% endblock %}

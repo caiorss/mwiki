@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+    <title>MWiki - {{title}}</title>
+    <link rel="stylesheet" href="/static/style.css"> 
+    <style>
+        .link-edit {
+            visibility: hidden;
+        }
+    </style> 
+    <script>
+        let documentType = "{{document_type}}";
+    </script>
+    
+    <!-- MathJax Settings -->
+    <script>
+    let DISPLAY_EDIT_BUTTONS  = "{{ display_edit_buttons() }}" === "True";
+    let FONT_FAMILY_MAIN = "{{ config_main_font() }}"
+    let FONT_FAMILY_TITLE = "{{ config_title_font() }}"
+
+    // Possible values: 'none', 'nosection' 'section', 'subsection'
+    //  none      => no enumeration 
+    //  nosection 
+    //      Schema: <equation-number>
+    //      Example: Equations are enumerated as 1, 2, ..., 200
+    //              in the order that they are shown without section or 
+    //              subsection number
+    //  section   
+    //      Schema:  => <section>.<equation-number>
+    //      Exmaple: => 2.1, 2.5, 6.8
+    //  subsection 
+    //      Schema:  => <section>.<subsection>.<equation-number>
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5 
+    //
+    let equation_enumeration = "{{equation_enumeration}}";
+
+    MathJax = {
+        loader: {load: ['[tex]/tagformat', '[tex]/mathtools', 'output/chtml']}
+
+      , section: 1
+      , tex: {
+          inlineMath: [['$','$'], ['\\(','\\)']]
+        , displayMath: [['$$','$$'], ['\\[','\\]']]
+        , processEscapes: true
+        , processEnvironments: true
+          // Location of equation numbers
+        , tagSide: "right"  
+        // Possible values 'ams' or 'all' (all equations are numbered by default)
+        , tags: equation_enumeration !== "none" ? "all" : "ams"
+        //, tags: 'ams'
+        , packages: {'[+]': [
+                                  'tagformat'
+                                , 'sections'
+                                , 'subsections'
+                                , 'autoload-all'
+                            ]}
+        , tagformat: {
+          number: (n) => { 
+            if( equation_enumeration === "cont" 
+                || equation_enumeration == "continuous")
+            {
+                return '' + n;
+            }
+
+            let nsec = MathJax.config.section;
+            let nsub = MathJax.config.subsection;
+            var out = '';
+            if (nsub === 0 || equation_enumeration == "section") 
+            {
+                out = nsec + '.' + n;
+            } else {
+                out = nsec + '.' + nsub +  '.' + n;
+            }
+            // console.log("Display section = ", out);
+            return out;
+          }
+        }
+      }
+
+     , startup: {
+
+            ready() {
+                // console.log(" [TRACE] I was called from ready()");
+                const Configuration = MathJax._.input.tex.Configuration.Configuration;
+                const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+                new CommandMap('sections', {
+                      nextSection: 'NextSection'
+                    , setSection:  'SetSection'
+                }, {
+                     NextSection(parser, name) {
+                        // console.log(" [TRACE] Called NextSection()");
+                        MathJax.config.section++;
+                        MathJax.config.subsection = 0;
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                    , SetSection(parser, name) {
+                        // console.log(" [TRACE] Called SetSection()");
+                        const n = parser.GetArgument(name);
+                        MathJax.config.section = parseInt(n);
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                });
+
+                equation_enumeration = "subsection";
+
+                if (equation_enumeration === "subsection")
+                {
+                    new CommandMap('subsections', {
+                          nextSubSection: 'NextSubSection'
+                        , setSubSection:  'SetSubSection'
+                    }, {
+                         NextSubSection(parser, name) {
+                            // console.log(" [TRACE] NextSubSection() called.");
+                            MathJax.config.subsection++;
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                        , SetSubSection(parser, name) {
+                            const n = parser.GetArgument(name);
+                            // console.log(" [TRACE] SetSubSection to ", n);
+                            MathJax.config.subsection = parseInt(n);
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                    });
+                }
+
+                Configuration.create(
+                      'sections', { handler: { macro: ['sections'] } }
+                );
+
+                if( equation_enumeration === "subsection" )
+                {
+                    Configuration.create(
+                        'subsections', { handler: { macro: ['subsections'] } }
+                    );
+
+                }
+
+                MathJax.startup.defaultReady();
+                pseudocode.renderClass("pseudocode", { "lineNumber": true, "scopeLines": true });
+                // This function is provided by main.js.
+                if( isMobileScreen() ) { setHeadingVisibility(false); }
+                /// setHeadingsVisibility(false)
+            }
+        }
+    , chtml: {
+        /// displayAlign: "left"
+      }
+    // options for when overflow is linebreak
+    , linebreaks: {             
+        inline:           true,   // true for browser-based breaking of inline equations
+        width:            '100%', // a fixed size or a percentage of the container width
+        lineleading:      .2,     // the default lineleading in em units
+        LinebreakVisitor: null,   // The LinebreakVisitor to use
+    },
+
+    }
+    </script>
+    
+    <script src="/static/mathjax/es5/tex-chtml.js" id="MathJax-script" async></script>
+
+    <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
+    <link rel="stylesheet" href="/static/pseudocode.min.css">
+    <script src="/static/pseudocode.min.js"></script>
+    <!--
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js"> </script>
+    -->
+
+    {% block jslibs %}
+    <!-- Additional Javascript libraries -->
+    {% endblock %}
+
+    {% if document_type != "preview" %}
+        <script type="text/javascript" src="/static/main.js"></script>
+    {% endif %}
+
+</head>
+
+<body>
+    <div class="main">
+        <div class="content">
+            <h1 class="document-heading">{{title}}</h1>
+            <p class="hidden-mathjax-macros" style="display: none;">
+                $$
+                {{ latex_macros }}
+                $$
+            </p>
+            {{ content|safe }} 
+        </div>
+    </div>
+    <script>
+            /** Fuction provided by main.js */
+            if( documentType !== "preview")
+            {
+                console.trace("Toggling headings");
+                toggleHeadings();
+                //alert("Not prevew");
+            } 
+            pseudocode.renderClass("pseudocode", { "lineNumber": 1 });
+    </script>
+</body>
+
+</html>
