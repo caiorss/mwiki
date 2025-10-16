@@ -1,0 +1,4729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+    
+    <title data-i18n="">MBook - Mathematics, Calculus and Linear Algebra Reference Card</title>
+    <meta name="description" content="Reference card for math and calculus. This quick reference covers trigonometric identities, derivatives, integrals, statistcs and matrix calculus." />
+    <meta name=generator content="MWiki">
+    
+
+    
+   <style>
+        
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: normal;
+    
+    
+    src: url('/static/fonts/cmu-concrete-regular.woff');
+}
+    
+
+
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: italic;
+    
+    
+    src: url('/static/fonts/cmu-concrete-regular.woff');
+}
+    
+
+        
+@font-face {
+    font-family: 'Bricolage Grotesque';
+    
+    
+    src: url('/static/fonts/bricolage-grotesque-latin-normal.woff2');
+}
+    
+
+
+:root {
+    /*--- Desktop screen Width ----------------*/
+    --screen-width-desktop: 850px;
+
+    /* --bg-sidebar: #F2EACA; */  /* #F7F4ED; */
+    --bg-sidebar: white;  /* #F7F4ED; */
+    /* --bg-main:   #F2EACA ; */
+    --bg-main: white;
+    --typography-main-line-height: 1.7em;
+    --typography-main-leter-spacing: 0.5px;
+    --screen-type: "desktop";
+    --link-external-color: blue; /* hsl(0, 100%, 33%); */
+    --link-internal-color: blue;
+    --form-background-color: #fbfcfc;
+    --form-border-color: #cfd5e2;
+    --primary-button-background-color: #0172ad;
+
+    /* --font-family-main: 'Computer Modern'; */
+    /* --font-family-main: 'Neo Euler'; */
+    /***
+    --font-family-main: 'monospace';
+    --font-family-title: 'Sans Serif';
+    --font-family-code: 'monospace';
+    **/
+
+    
+    --font-family-main: 'CMU Concrete';
+    
+    
+    --font-family-title: 'Bricolage Grotesque';
+    
+
+    --font-size-h1:  1.800rem;
+    --font-size-h2:  1.350rem;
+    --font-size-h3:  1.125rem;
+    --font-size-h4:  1.000rem;
+    --font-size-h5:  0.875rem;
+    --font-size-h6:  0.750rem;
+    --font-size-text: 0.720rem;
+    --font-size-code: 0.700rem;
+    --font-size-sidebar: 0.850rem;
+
+    --code-block-background-color: rgb(243, 244.5, 246.75);
+
+    /* Magnifier icon */
+    --icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(136, 145, 164)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+}
+
+
+        
+    </style>
+  
+    <link rel="stylesheet" href="/static/static_style.css">
+
+   
+
+    
+    
+    <!-- MathJax Settings -->
+    <script>
+
+    let FONT_FAMILY_MAIN = "CMU Concrete"
+    let FONT_FAMILY_TITLE = "Bricolage Grotesque"
+    let FONT_FAMILY_CODE = "Libertinus Mono"
+    let DEFAULT_LOCALE = "en-US";
+	  let USE_DEFAULT_LOCALE = "True" === "True";
+    let CSRF_TOKEN = ""
+    const STATIC_COMPILATION = true;
+	
+    // Possible values: 'none', 'nosection' 'section', 'subsection'
+    //  none      => no enumeration 
+    //  nosection 
+    //      Schema: <equation-number>
+    //      Example: Equations are enumerated as 1, 2, ..., 200
+    //              in the order that they are shown without section or 
+    //              subsection number
+    //  section   
+    //      Schema:  => <section>.<equation-number>
+    //      Exmaple: => 2.1, 2.5, 6.8
+    //  subsection 
+    //      Schema:  => <section>.<subsection>.<equation-number>
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5 
+    //
+    let equation_enumeration = "subsection";
+
+    MathJax = {
+        loader: {load: ['[tex]/tagformat', '[tex]/mathtools', 'output/chtml']}
+
+      , section: 1
+      , tex: {
+          inlineMath: [['$','$'], ['\\(','\\)']]
+        , displayMath: [['$$','$$'], ['\\[','\\]']]
+        , processEscapes: true
+        , processEnvironments: true
+          // Location of equation numbers
+        , tagSide: "right"  
+        // Possible values 'ams' or 'all' (all equations are numbered by default)
+        , tags: equation_enumeration !== "none" ? "all" : "ams"
+        //, tags: 'ams'
+        , packages: {'[+]': [
+                                  'tagformat'
+                                , 'sections'
+                                , 'subsections'
+                                , 'autoload-all'
+                            ]}
+        , tagformat: {
+          number: (n) => { 
+            if( equation_enumeration === "cont" 
+                || equation_enumeration == "continuous")
+            {
+                return '' + n;
+            }
+
+            let nsec = MathJax.config.section;
+            let nsub = MathJax.config.subsection;
+            var out = '';
+            if (nsub === 0 || equation_enumeration == "section") 
+            {
+                out = nsec + '.' + n;
+            } else {
+                out = nsec + '.' + nsub +  '.' + n;
+            }
+            // console.log("Display section = ", out);
+            return out;
+          }
+        }
+      }
+
+     , startup: {
+
+            ready() {
+                // console.log(" [TRACE] I was called from ready()");
+                const Configuration = MathJax._.input.tex.Configuration.Configuration;
+                const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+                new CommandMap('sections', {
+                      nextSection: 'NextSection'
+                    , setSection:  'SetSection'
+                }, {
+                     NextSection(parser, name) {
+                        // console.log(" [TRACE] Called NextSection()");
+                        MathJax.config.section++;
+                        MathJax.config.subsection = 0;
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                    , SetSection(parser, name) {
+                        // console.log(" [TRACE] Called SetSection()");
+                        const n = parser.GetArgument(name);
+                        MathJax.config.section = parseInt(n);
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                });
+                if (equation_enumeration === "subsection")
+                {
+                    new CommandMap('subsections', {
+                          nextSubSection: 'NextSubSection'
+                        , setSubSection:  'SetSubSection'
+                    }, {
+                         NextSubSection(parser, name) {
+                            // console.log(" [TRACE] NextSubSection() called.");
+                            MathJax.config.subsection++;
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                        , SetSubSection(parser, name) {
+                            const n = parser.GetArgument(name);
+                            // console.log(" [TRACE] SetSubSection to ", n);
+                            MathJax.config.subsection = parseInt(n);
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                    });
+                }
+
+                Configuration.create(
+                      'sections', { handler: { macro: ['sections'] } }
+                );
+
+                if( equation_enumeration === "subsection" )
+                {
+                    Configuration.create(
+                        'subsections', { handler: { macro: ['subsections'] } }
+                    );
+
+                }
+
+                MathJax.startup.defaultReady();
+                pseudocode.renderClass("pseudocode", { "lineNumber": true, "scopeLines": true });
+                // This function is provided by main.js.
+                if( isMobileScreen() ) { setHeadingVisibility(false); }
+                /// setHeadingsVisibility(false)
+            }
+        }
+    , chtml: {
+        /// displayAlign: "left"
+      }
+    // options for when overflow is linebreak
+    , linebreaks: {             
+        inline:           true,   // true for browser-based breaking of inline equations
+        width:            '100%', // a fixed size or a percentage of the container width
+        lineleading:      .2,     // the default lineleading in em units
+        LinebreakVisitor: null,   // The LinebreakVisitor to use
+    },
+
+    }
+    </script>
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml-full.js"
+        integrity="sha256-kbAFUDxdHwlYv01zraGjvjNZayxKtdoiJ38bDTFJtaQ="
+        crossorigin="anonymous">
+    </script>
+    
+
+    
+
+
+    
+    <!-- Additional Javascript libraries -->
+    
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", (event) => {
+            // Select graphviz code blocks 
+            let lst = document.querySelectorAll(".graphviz-dot");
+            for(let x of lst){
+
+                Viz.instance().then(function(viz) {
+                    // console.log("[TRACE] x = ", x);
+                    let code = x.innerText;
+                    // console.log(" [TRACE] code = ", code);
+                    let svg = viz.renderSVGElement(code);
+                    // console.log(" [TRACE] svg = ", svg);
+                    x.replaceWith(svg); 
+                    // x.outerHTML = svg;
+                    /// document.getElementById("graph").appendChild(svg);
+                });
+
+
+            }
+        }, false);
+        
+    </script>
+    <script type="text/javascript" src="/static/main.js"></script>
+
+</head>
+
+<body>
+    <aside class="sidebar sidebar-visibility">
+
+        
+        <h2 data-i18n="sidebar-table-of-contentes-label">Contents</h2>
+        
+        <div class="toc">
+            <!-- Table of contents template placeholder -->
+            <ol><ol>
+<li><a href="#H_Related" class="link-sidebar" >Related</a>
+</li><li><a href="#H_Overview" class="link-sidebar" >Overview</a>
+</li><li><a href="#H_Physical_Units_and_SI_Prefixes" class="link-sidebar" >Physical Units and SI Prefixes</a>
+</li><li><a href="#H_Fundamental_Curves" class="link-sidebar" >Fundamental Curves</a>
+<ol>
+<li><a href="#H_Line_Function" class="link-sidebar" >Line Function</a>
+</li><li><a href="#H_Quadratic_Equation_and_Quadratic_Curve" class="link-sidebar" >Quadratic Equation and Quadratic Curve</a>
+</li><li><a href="#H_Circle_Equation" class="link-sidebar" >Circle Equation</a>
+</li>
+</ol></li><li><a href="#H_Trigonometric_Functions_and_Identities" class="link-sidebar" >Trigonometric Functions and Identities</a>
+<ol>
+<li><a href="#H_Trigonometric_Functions" class="link-sidebar" >Trigonometric Functions</a>
+</li><li><a href="#H_Trigonometric_Identities" class="link-sidebar" >Trigonometric Identities</a>
+</li>
+</ol></li><li><a href="#H_Derivatives" class="link-sidebar" >Derivatives</a>
+<ol>
+<li><a href="#H_Derivative_Rules" class="link-sidebar" >Derivative Rules</a>
+</li><li><a href="#H_Basic_Derivatives" class="link-sidebar" >Basic Derivatives</a>
+</li><li><a href="#H_Derivative_of_Inverse_Function" class="link-sidebar" >Derivative of Inverse Function</a>
+</li><li><a href="#H_Chain_Rule" class="link-sidebar" >Chain Rule</a>
+</li><li><a href="#H_Tangent_Line_Equation" class="link-sidebar" >Tangent Line Equation</a>
+</li>
+</ol></li><li><a href="#H_Integrals" class="link-sidebar" >Integrals</a>
+</li><li><a href="#H_Sums_of_Series" class="link-sidebar" >Sums of Series</a>
+</li><li><a href="#H_Taylor_Series" class="link-sidebar" >Taylor Series</a>
+<ol>
+<li><a href="#H_Taylor_series_expansion" class="link-sidebar" >Taylor series expansion</a>
+</li><li><a href="#H_Some_Taylor_series_expansion" class="link-sidebar" >Some Taylor series expansion</a>
+</li><li><a href="#H_Approximations_for_small_values_of_x" class="link-sidebar" >Approximations for small values of x</a>
+</li><li><a href="#H_References" class="link-sidebar" >References</a>
+</li>
+</ol></li><li><a href="#H_Multivariate_Calculus" class="link-sidebar" >Multivariate Calculus</a>
+<ol>
+<li><a href="#H_Gradient_Vector" class="link-sidebar" >Gradient Vector</a>
+</li><li><a href="#H_Directional_Derivative" class="link-sidebar" >Directional Derivative</a>
+</li><li><a href="#H_Change_of_Variables_and_Jacobian_Matrix_in_a_Plane" class="link-sidebar" >Change of Variables and Jacobian Matrix in a Plane</a>
+</li><li><a href="#H_Change_of_Variables_and_Jacobian_Matrix_in_a_Space" class="link-sidebar" >Change of Variables and Jacobian Matrix in a Space</a>
+</li><li><a href="#H_Derivative_Chain_Rule" class="link-sidebar" >Derivative Chain Rule</a>
+</li><li><a href="#H_See_also" class="link-sidebar" >See also</a>
+</li>
+</ol></li><li><a href="#H_Statistical_Formulas" class="link-sidebar" >Statistical Formulas</a>
+</li><li><a href="#H_Linear_algebra" class="link-sidebar" >Linear algebra</a>
+<ol>
+<li><a href="#H_Notation" class="link-sidebar" >Notation</a>
+</li><li><a href="#H_Special_matrices" class="link-sidebar" >Special matrices</a>
+</li>
+</ol></li><li><a href="#H_Types_of_matrices" class="link-sidebar" >Types of matrices</a>
+<ol>
+<li><a href="#H_Matrix_Operations_Rules" class="link-sidebar" >Matrix Operations Rules</a>
+</li><li><a href="#H_Column_vector_properties" class="link-sidebar" >Column vector properties</a>
+</li>
+</ol></li><li><a href="#H_Matrix_Calculus" class="link-sidebar" >Matrix Calculus</a>
+<ol>
+<li><a href="#H_Definitions" class="link-sidebar" >Definitions</a>
+</li><li><a href="#H_Derivate_of_a_scalar_with_respect_to_a_vector" class="link-sidebar" >Derivate of a scalar with respect to a vector</a>
+</li><li><a href="#H_Derivate_of_a_vector_with_respect_to_a_scalar" class="link-sidebar" >Derivate of a vector with respect to a scalar</a>
+</li><li><a href="#H_Derivate_of_a_vector_with_respect_to_a_vector" class="link-sidebar" >Derivate of a vector with respect to a vector</a>
+</li><li><a href="#H_Derivate_rules_for_matrices_and_vectors" class="link-sidebar" >Derivate rules for matrices and vectors</a>
+</li><li><a href="#H_Useful__gradients" class="link-sidebar" >Useful  gradients</a>
+</li>
+</ol></li>
+</ol></ol>
+        </div>
+
+    </aside>
+    <div class="main main-shift">
+        <header class="header">
+            <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/static/hamburger-menu.svg" style="height: 25px;"/> </a>
+            <a data-i18n="home-page-button" class="sidebar-toggle-button" 
+			   title="Go to home page (Index)" href="/"><img class="img-icon" src="/static/icon-home.svg"></a>
+            <div class="dropdown">
+              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button" 
+                 href="#" 
+                 title="Main menu."
+                 class="dropbtn"
+                 >
+                <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
+                </a>
+              <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                
+                   <a data-i18n="keybindings-menu-item" class="sidebar-toggle-button" href="#"
+                    onclick="toggleShortcutKeybindingWinodw();"
+                    title="Display a window showing all keyboard shortcuts, also known as keybindings."
+                 >Keybindings</a>
+                 <a data-i18n="about-menu-item-label" class="sidebar-toggle-button" href="/about.html">About</a>
+              </div>
+            </div>
+
+            <a data-i18n="button-toggle-sections" class="sidebar-toggle-button"
+                 href="#" 
+                 onclick="toggleHeadings();"
+                 id="btn-scroll-bottom" 
+                 title="Fold/Unfold all sections."
+                 ><img class="img-icon" src="/static/dots-vertical.svg" ></a> 
+            <!-- 
+             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
+                 href="#" 
+                 onclick="quickOpenPage();"
+                 id="btn-scroll-bottom" 
+                 title="Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry."
+                 >
+               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E"> 
+                </a>
+            --> 
+              
+        </header>
+
+        <main class="content">
+            
+            <a class="link-edit link-internal" style="display:none" title="Edit page Mathematics, Calculus and Linear Algebra Reference Card" href="/edit/Mathematics,_Calculus_and_Linear_Algebra_Reference_Card?timestamp="><img class="img-icon" src="/static/pencil.svg"></a>
+            
+
+            <div class="div-heading-h1">
+                <h1 data-i18n="" class="document-heading">Mathematics, Calculus and Linear Algebra Reference Card</h1>
+            </div>
+            <p class="hidden-mathjax-macros" style="display: none;">
+                $$
+                
+                $$
+            </p>
+            
+
+<p>
+<a href="/pages?search=%23math" class="link-internal">#math</a>  <a href="/pages?search=%23engineering" class="link-internal">#engineering</a>  <a href="/pages?search=%23calculus" class="link-internal">#calculus</a>  <a href="/pages?search=%23latex" class="link-internal">#latex</a>   <a href="/pages?search=%23refcard" class="link-internal">#refcard</a>  <a href="/pages?search=%23formula" class="link-internal">#formula</a> 
+</p>
+
+<p>
+Math and Calculus Cheat Sheet
+</p>
+
+<div class="div-heading"> 
+<h2 id="H_Related" class="document-heading anchor">Related <a class="link-heading" href="#H_Related">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=20&end=30&anchor=H_Related&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: Related" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+<a href="index.html" class="link-internal wiki-link" title="">Index</a> 
+</li>
+<li>
+<a href="/wiki/LaTeX_Refcard" class="link-internal-missing wiki-link" title="">LaTeX Refcard</a> 
+</li>
+<li>
+<a href="/wiki/Matlab%28Octave%29_Programming" class="link-internal-missing wiki-link" title="">Matlab(Octave) Programming</a> 
+</li>
+<li>
+<a href="/wiki/Linear_Algebra" class="link-internal-missing wiki-link" title="">Linear Algebra</a> 
+</li>
+<li>
+<a href="/wiki/Discrete_Mathematics" class="link-internal-missing wiki-link" title="">Discrete Mathematics</a> 
+</li>
+<li>
+<a href="/wiki/Signals_and_Systems" class="link-internal-missing wiki-link" title="">Signals and Systems</a> 
+</li>
+<li>
+<a href="/wiki/Jupyter_Notebook" class="link-internal-missing wiki-link" title="">Jupyter Notebook</a> 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Overview" class="document-heading anchor">Overview <a class="link-heading" href="#H_Overview">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=30&end=63&anchor=H_Overview&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<p>
+<strong>Tooling</strong>
+</p>
+
+<ul class="">
+<li>
+Python SymPy Computer Algebra System <ul class="">
+<li>
+<a href="https://live.sympy.org/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://live.sympy.org/</a> 
+</li>
+</ul>
+</li>
+<li>
+<strong>Mathics</strong> - Lightweight Alternative to Mathematics built on-top of Pyhthon/SymPy <ul class="">
+<li>
+<a href="http://mathics.github.io"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >http://mathics.github.io</a> 
+</li>
+<li>
+<a href="http://mathics.github.io/docs/mathics-1.0.pdf"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >http://mathics.github.io/docs/mathics-1.0.pdf</a> 
+</li>
+<li>
+<a href="https://github.com/mathics/Mathics/wiki/Installing"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://github.com/mathics/Mathics/wiki/Installing</a> 
+</li>
+<li>
+<a href="https://github.com/mathics/mathics"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://github.com/mathics/mathics</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+<strong>Logic and Proof</strong>
+</p>
+
+<p>
+Terminology:
+</p>
+
+<ul class="">
+<li>
+Algorithms 
+</li>
+<li>
+Axioms 
+</li>
+<li>
+Conjectures 
+</li>
+<li>
+Corollaries 
+</li>
+<li>
+Criteria 
+</li>
+<li>
+Definitions 
+</li>
+<li>
+Examples 
+</li>
+<li>
+Lemmas 
+</li>
+<li>
+Observations 
+</li>
+<li>
+Properties 
+</li>
+<li>
+Propositions 
+</li>
+<li>
+Proofs 
+</li>
+<li>
+Remarks 
+</li>
+<li>
+Theorems 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Physical_Units_and_SI_Prefixes" class="document-heading anchor">1 Physical Units and SI Prefixes <a class="link-heading" href="#H_Physical_Units_and_SI_Prefixes">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=63&end=113&anchor=H_Physical_Units_and_SI_Prefixes&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 1 Physical Units and SI Prefixes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{1}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+<strong>Fundamental Units of S.I System</strong>
+</p>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Physical Quantity</th>
+ 
+<th>Unit</th>
+ 
+<th>Symbol</th>
+</tr>
+</thead>
+ 
+<tbody>
+
+<tr>
+
+<td>Length</td>
+ 
+<td>metre</td>
+ 
+<td><span class="math-inline">\(m\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Mass</td>
+ 
+<td>Kilogram</td>
+ 
+<td><span class="math-inline">\(Kg\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Time</td>
+ 
+<td>Seconds</td>
+ 
+<td><span class="math-inline">\(s\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Temperature</td>
+ 
+<td>Kelvin</td>
+ 
+<td><span class="math-inline">\(K\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Planar Angle</td>
+ 
+<td>Radian</td>
+ 
+<td><span class="math-inline">\(\text{rad}\)</span></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<strong>Main S.I Units</strong>
+</p>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Physical Quantity</th>
+ 
+<th>Unit</th>
+ 
+<th>Symbol</th>
+</tr>
+</thead>
+ 
+<tbody>
+
+<tr>
+
+<td>Force</td>
+ 
+<td>metre</td>
+ 
+<td><span class="math-inline">\(m\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Work</td>
+ 
+<td>Joule</td>
+ 
+<td><span class="math-inline">\(J\)</span>, <span class="math-inline">\(N.m\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Energy</td>
+ 
+<td>Joule</td>
+ 
+<td><span class="math-inline">\(J\)</span>, <span class="math-inline">\(N.m\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Power</td>
+ 
+<td>Watt</td>
+ 
+<td><span class="math-inline">\(W\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Area</td>
+ 
+<td>square metre</td>
+ 
+<td><span class="math-inline">\(m^2\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Volume</td>
+ 
+<td>cubic metre</td>
+ 
+<td><span class="math-inline">\(m^3\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Pressure</td>
+ 
+<td>Pascal</td>
+ 
+<td><span class="math-inline">\(Pa\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Stress</td>
+ 
+<td>Pascal</td>
+ 
+<td><span class="math-inline">\(Pa\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Velocity/Speed</td>
+ 
+<td>meters per seconds</td>
+ 
+<td><span class="math-inline">\(m/s\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Acceleration</td>
+ 
+<td>meters per square seconds</td>
+ 
+<td><span class="math-inline">\(m/s^2\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Angular velocity</td>
+ 
+<td>radians per seconds</td>
+ 
+<td><span class="math-inline">\(rad/s\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Angular acceleration</td>
+ 
+<td>radians per square seconds</td>
+ 
+<td><span class="math-inline">\(rad/s^2\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Momentum (linear)</td>
+ 
+<td>Kilogram metre per second</td>
+ 
+<td><span class="math-inline">\(Kg m / s\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Torque (Moment)</td>
+ 
+<td>Newton mere</td>
+ 
+<td><span class="math-inline">\(N.m\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Density</td>
+ 
+<td>Kilogram/metre<sup>3</sup></td>
+ 
+<td><span class="math-inline">\(Kg/m^3\)</span></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<strong>S.I Prefixes</strong>
+</p>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Multiplication Factor</th>
+ 
+<th>Prefix</th>
+ 
+<th>Symbol</th>
+</tr>
+</thead>
+ 
+<tbody>
+
+<tr>
+
+<td><span class="math-inline">\(10^{12}\)</span></td>
+ 
+<td>Tera</td>
+ 
+<td><span class="math-inline">\(T\)</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(10^{9}\)</span></td>
+ 
+<td>Giga</td>
+ 
+<td><span class="math-inline">\(G\)</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(10^{6}\)</span></td>
+ 
+<td>Mega</td>
+ 
+<td><span class="math-inline">\(M\)</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(10^{3}\)</span></td>
+ 
+<td>kilo</td>
+ 
+<td><span class="math-inline">\(k\)</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(10^{2}\)</span></td>
+ 
+<td>hecto</td>
+ 
+<td><span class="math-inline">\(h\)</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(10^{1}\)</span></td>
+ 
+<td>deca</td>
+ 
+<td><span class="math-inline">\(da\)</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(10^{-1}\)</span></td>
+ 
+<td>deci</td>
+ 
+<td><span class="math-inline">\(d\)</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(10^{-2}\)</span></td>
+ 
+<td>centi</td>
+ 
+<td><span class="math-inline">\(c\)</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(10^{-3}\)</span></td>
+ 
+<td>milli</td>
+ 
+<td><span class="math-inline">\(m\)</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(10^{-6}\)</span></td>
+ 
+<td>micro</td>
+ 
+<td><span class="math-inline">\(\mu\)</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(10^{-9}\)</span></td>
+ 
+<td>nano</td>
+ 
+<td><span class="math-inline">\(n\)</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(10^{-12}\)</span></td>
+ 
+<td>pico</td>
+ 
+<td><span class="math-inline">\(p\)</span></td>
+</tr>
+</tbody>
+</table>
+
+<div class="div-heading"> 
+<h2 id="H_Fundamental_Curves" class="document-heading anchor">2 Fundamental Curves <a class="link-heading" href="#H_Fundamental_Curves">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=113&end=614&anchor=H_Fundamental_Curves&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 2 Fundamental Curves" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{2}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Line_Function" class="document-heading anchor">2.1 Line Function <a class="link-heading" href="#H_Line_Function">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=115&end=148&anchor=H_Line_Function&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 2.1 Line Function" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+A general line equation has the following format, where <span class="math-inline">\(\alpha\)</span> is the line slope or anglular coefficient and <span class="math-inline">\(\beta\)</span> is the intercept of the line and the Y axis when x = 0.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  y = f(x) = \alpha x + \beta
+
+$$
+</div>
+
+<p>
+Given two points of this line equations <span class="math-inline">\((x_1, \, y_1)\)</span> and <span class="math-inline">\((x_2, \, y_2)\)</span>, the line equation can be found by using,
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+   y - y_1 = \frac{y_2 - y_1}{x_2 - x_1}(x - x_1)
+
+$$
+</div>
+
+<p>
+so, the line slope coefficient <span class="math-inline">\(\alpha\)</span> is given by,
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+   \alpha = \frac{y_2 - y_1}{x_2 - x_1}
+
+$$
+</div>
+
+<p>
+and the coefficient <span class="math-inline">\(\beta\)</span> can be determined as:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \beta = - \alpha x_1 + y_1
+
+$$
+</div>
+
+<p>
+The solution of the line equation <span class="math-inline">\(f(x) = 0\)</span>, is the point x where this curve intercepts the <span class="math-inline">\(X\)</span> axis or <span class="math-inline">\(y = 0\)</span>. It is observable that this point is:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  x = - \beta / \alpha
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Quadratic_Equation_and_Quadratic_Curve" class="document-heading anchor">2.2 Quadratic Equation and Quadratic Curve <a class="link-heading" href="#H_Quadratic_Equation_and_Quadratic_Curve">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=148&end=337&anchor=H_Quadratic_Equation_and_Quadratic_Curve&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 2.2 Quadratic Equation and Quadratic Curve" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+A quadratic cuve has the format <span class="math-inline">\(\eqref{EqQuadratic}\)</span>, where <span class="math-inline">\(a \in \mathbb{R}\)</span>, <span class="math-inline">\(b \in \mathbb{R}\)</span> and <span class="math-inline">\(c \in \mathbb{R}\)</span>.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \label{EqQuadratic}
+  f(x) = a x^2 + b x + c
+
+$$
+</div>
+
+<p>
+<strong>Solution of Quadratic Equation</strong>
+</p>
+
+<p>
+The solution of the quadtratic equation <span class="math-inline">\(f(x) = 0\)</span> can be found as:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\begin{cases}
+   x &amp;= \underbrace{ \dfrac{-b \pm \sqrt{\Delta}}{2a} }_{\text{real roots}} \in \mathbb{R} 
+     \quad &amp;\text{if } \Delta \geq 0
+   
+
+  \\ x &amp;= \underbrace{
+         \dfrac{-b \pm \mathrm{j} \sqrt{-\Delta}}{2a} }_{\text{complex conjugate roots}} \in \mathbb{C}
+     \quad &amp;\text{if } \Delta &lt; 0
+\end{cases}
+
+$$
+</div>
+
+<p>
+Where <span class="math-inline">\(\Delta\)</span> is given by:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\Delta = b^2 - 4ac 
+
+$$
+</div>
+
+<p>
+<strong>Determine Quadratic Equation from Points</strong>
+</p>
+
+<p>
+Given three distinct points <span class="math-inline">\((x_1, \, y_1)\)</span>, <span class="math-inline">\((x_2, \, y_2)\)</span> and <span class="math-inline">\((x_3, \, y_3)\)</span> of a quadratic cuve <span class="math-inline">\(f(x) = ax^2 + bx + c\)</span>, the coefficients of the quatratic curve that intercepts those points can be determined by solving the following linear system for the column vector <span class="math-inline">\([a \, b \, c]^T\)</span>.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\begin{bmatrix}
+      x_1^2 &amp; x_1 &amp; 1 
+   \\ x_2^2 &amp; x_2 &amp; 1
+   \\ x_3^2 &amp; x_3 &amp; 1
+\end{bmatrix}
+
+\begin{bmatrix}
+  a \\ b \\ c
+\end{bmatrix}
+
+= 
+
+\begin{bmatrix}
+  y_1 \\ y_2 \\ y_3
+\end{bmatrix}
+
+$$
+</div>
+
+
+<br>
+
+<p>
+<strong>Solve the equation in Python's Sympy</strong>
+</p>
+
+<p>
+Since this linear system is small, it is worth solving it in symbolic form in order to be able to implement it as software.
+</p>
+
+<p>
+Import Sympy and enable pretty printing.
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sympy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+<span class="n">sp</span><span class="o">.</span><span class="n">init_printing</span><span class="p">()</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Create symbols and matrices.
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;x1 x2 x3 y1 y2 y3 a b c&quot;</span><span class="p">)</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([[</span><span class="n">x1</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">x2</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">x3</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">])</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Create the equation object. Solve <code>A * x = y</code> indirectly by converting this equation to sympy standard format <code>eqrhs: A * x - y</code>, that solves <code>eqrhs == 0</code> or <code>A * x - y == 0</code> for x, vector of variables a, b and c.
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="n">eq</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span>
+ 
+<span class="o">&gt;&gt;&gt;</span> <span class="n">eq</span>
+<span class="err">⎡</span>    <span class="mi">2</span>                <span class="err">⎤</span>
+<span class="err">⎢</span><span class="n">a</span><span class="err">⋅</span><span class="n">x</span><span class="err">₁</span>  <span class="o">+</span> <span class="n">b</span><span class="err">⋅</span><span class="n">x</span><span class="err">₁</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">y</span><span class="err">₁⎥</span>
+<span class="err">⎢</span>                     <span class="err">⎥</span>
+<span class="err">⎢</span>    <span class="mi">2</span>                <span class="err">⎥</span>
+<span class="err">⎢</span><span class="n">a</span><span class="err">⋅</span><span class="n">x</span><span class="err">₂</span>  <span class="o">+</span> <span class="n">b</span><span class="err">⋅</span><span class="n">x</span><span class="err">₂</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">y</span><span class="err">₂⎥</span>
+<span class="err">⎢</span>                     <span class="err">⎥</span>
+<span class="err">⎢</span>    <span class="mi">2</span>                <span class="err">⎥</span>
+<span class="err">⎣</span><span class="n">a</span><span class="err">⋅</span><span class="n">x</span><span class="err">₃</span>  <span class="o">+</span> <span class="n">b</span><span class="err">⋅</span><span class="n">x</span><span class="err">₃</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">y</span><span class="err">₃⎦</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Solve the equation system for a, b and c.
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="n">sols</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">solve</span><span class="p">([</span><span class="n">eq</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">eq</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eq</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sols</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
+  <span class="o">-</span><span class="n">x</span><span class="err">₁⋅</span><span class="n">y</span><span class="err">₂</span> <span class="o">+</span> <span class="n">x</span><span class="err">₁⋅</span><span class="n">y</span><span class="err">₃</span> <span class="o">+</span> <span class="n">x</span><span class="err">₂⋅</span><span class="n">y</span><span class="err">₁</span> <span class="o">-</span> <span class="n">x</span><span class="err">₂⋅</span><span class="n">y</span><span class="err">₃</span> <span class="o">-</span> <span class="n">x</span><span class="err">₃⋅</span><span class="n">y</span><span class="err">₁</span> <span class="o">+</span> <span class="n">x</span><span class="err">₃⋅</span><span class="n">y</span><span class="err">₂</span>   
+<span class="err">───────────────────────────────────────────────────</span>
+  <span class="mi">2</span>        <span class="mi">2</span>           <span class="mi">2</span>        <span class="mi">2</span>     <span class="mi">2</span>           <span class="mi">2</span>
+<span class="n">x</span><span class="err">₁</span> <span class="err">⋅</span><span class="n">x</span><span class="err">₂</span> <span class="o">-</span> <span class="n">x</span><span class="err">₁</span> <span class="err">⋅</span><span class="n">x</span><span class="err">₃</span> <span class="o">-</span> <span class="n">x</span><span class="err">₁⋅</span><span class="n">x</span><span class="err">₂</span>  <span class="o">+</span> <span class="n">x</span><span class="err">₁⋅</span><span class="n">x</span><span class="err">₃</span>  <span class="o">+</span> <span class="n">x</span><span class="err">₂</span> <span class="err">⋅</span><span class="n">x</span><span class="err">₃</span> <span class="o">-</span> <span class="n">x</span><span class="err">₂⋅</span><span class="n">x</span><span class="err">₃</span> 
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sols</span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
+  <span class="mi">2</span>        <span class="mi">2</span>        <span class="mi">2</span>        <span class="mi">2</span>        <span class="mi">2</span>        <span class="mi">2</span>   
+<span class="n">x</span><span class="err">₁</span> <span class="err">⋅</span><span class="n">y</span><span class="err">₂</span> <span class="o">-</span> <span class="n">x</span><span class="err">₁</span> <span class="err">⋅</span><span class="n">y</span><span class="err">₃</span> <span class="o">-</span> <span class="n">x</span><span class="err">₂</span> <span class="err">⋅</span><span class="n">y</span><span class="err">₁</span> <span class="o">+</span> <span class="n">x</span><span class="err">₂</span> <span class="err">⋅</span><span class="n">y</span><span class="err">₃</span> <span class="o">+</span> <span class="n">x</span><span class="err">₃</span> <span class="err">⋅</span><span class="n">y</span><span class="err">₁</span> <span class="o">-</span> <span class="n">x</span><span class="err">₃</span> <span class="err">⋅</span><span class="n">y</span><span class="err">₂</span>
+<span class="err">───────────────────────────────────────────────────</span>
+  <span class="mi">2</span>        <span class="mi">2</span>           <span class="mi">2</span>        <span class="mi">2</span>     <span class="mi">2</span>           <span class="mi">2</span>
+<span class="n">x</span><span class="err">₁</span> <span class="err">⋅</span><span class="n">x</span><span class="err">₂</span> <span class="o">-</span> <span class="n">x</span><span class="err">₁</span> <span class="err">⋅</span><span class="n">x</span><span class="err">₃</span> <span class="o">-</span> <span class="n">x</span><span class="err">₁⋅</span><span class="n">x</span><span class="err">₂</span>  <span class="o">+</span> <span class="n">x</span><span class="err">₁⋅</span><span class="n">x</span><span class="err">₃</span>  <span class="o">+</span> <span class="n">x</span><span class="err">₂</span> <span class="err">⋅</span><span class="n">x</span><span class="err">₃</span> <span class="o">-</span> <span class="n">x</span><span class="err">₂⋅</span><span class="n">x</span><span class="err">₃</span> 
+ 
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sols</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+  <span class="mi">2</span>           <span class="mi">2</span>              <span class="mi">2</span>           <span class="mi">2</span>        <span class="mi">2</span>              <span class="mi">2</span>   
+<span class="n">x</span><span class="err">₁</span> <span class="err">⋅</span><span class="n">x</span><span class="err">₂⋅</span><span class="n">y</span><span class="err">₃</span> <span class="o">-</span> <span class="n">x</span><span class="err">₁</span> <span class="err">⋅</span><span class="n">x</span><span class="err">₃⋅</span><span class="n">y</span><span class="err">₂</span> <span class="o">-</span> <span class="n">x</span><span class="err">₁⋅</span><span class="n">x</span><span class="err">₂</span> <span class="err">⋅</span><span class="n">y</span><span class="err">₃</span> <span class="o">+</span> <span class="n">x</span><span class="err">₁⋅</span><span class="n">x</span><span class="err">₃</span> <span class="err">⋅</span><span class="n">y</span><span class="err">₂</span> <span class="o">+</span> <span class="n">x</span><span class="err">₂</span> <span class="err">⋅</span><span class="n">x</span><span class="err">₃⋅</span><span class="n">y</span><span class="err">₁</span> <span class="o">-</span> <span class="n">x</span><span class="err">₂⋅</span><span class="n">x</span><span class="err">₃</span> <span class="err">⋅</span><span class="n">y</span><span class="err">₁</span>
+<span class="err">─────────────────────────────────────────────────────────────────────</span>
+           <span class="mi">2</span>        <span class="mi">2</span>           <span class="mi">2</span>        <span class="mi">2</span>     <span class="mi">2</span>           <span class="mi">2</span>         
+         <span class="n">x</span><span class="err">₁</span> <span class="err">⋅</span><span class="n">x</span><span class="err">₂</span> <span class="o">-</span> <span class="n">x</span><span class="err">₁</span> <span class="err">⋅</span><span class="n">x</span><span class="err">₃</span> <span class="o">-</span> <span class="n">x</span><span class="err">₁⋅</span><span class="n">x</span><span class="err">₂</span>  <span class="o">+</span> <span class="n">x</span><span class="err">₁⋅</span><span class="n">x</span><span class="err">₃</span>  <span class="o">+</span> <span class="n">x</span><span class="err">₂</span> <span class="err">⋅</span><span class="n">x</span><span class="err">₃</span> <span class="o">-</span> <span class="n">x</span><span class="err">₂⋅</span><span class="n">x</span><span class="err">₃</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Generate the LaTeX expression for the values of a, b and c.
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">latex</span><span class="p">(</span><span class="n">sols</span><span class="p">[</span><span class="n">a</span><span class="p">]))</span>
+\<span class="n">frac</span><span class="p">{</span><span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">2</span><span class="p">}}{</span><span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}}</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">latex</span><span class="p">(</span><span class="n">sols</span><span class="p">[</span><span class="n">b</span><span class="p">]))</span>
+\<span class="n">frac</span><span class="p">{</span><span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">2</span><span class="p">}}{</span><span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}}</span>
+
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">latex</span><span class="p">(</span><span class="n">sols</span><span class="p">[</span><span class="n">c</span><span class="p">]))</span>
+\<span class="n">frac</span><span class="p">{</span><span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">1</span><span class="p">}}{</span><span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}}</span>
+</pre></div>
+</code>
+</pre>
+
+
+<br>
+
+<p>
+Solution:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\begin{split}
+   a &amp;=  \frac{- x_{1} y_{2} + x_{1} y_{3} + x_{2} y_{1} - x_{2} y_{3} - x_{3} y_{1} + x_{3} y_{2}}{x_{1}^{2} x_{2} - x_{1}^{2} x_{3} - x_{1} x_{2}^{2} + x_{1} x_{3}^{2} + x_{2}^{2} x_{3} - x_{2} x_{3}^{2}}
+ 
+ \\ b &amp;= \frac{x_{1}^{2} y_{2} - x_{1}^{2} y_{3} - x_{2}^{2} y_{1} + x_{2}^{2} y_{3} + x_{3}^{2} y_{1} - x_{3}^{2} y_{2}}{x_{1}^{2} x_{2} - x_{1}^{2} x_{3} - x_{1} x_{2}^{2} + x_{1} x_{3}^{2} + x_{2}^{2} x_{3} - x_{2} x_{3}^{2}}
+
+ \\ c &amp;= \frac{x_{1}^{2} x_{2} y_{3} - x_{1}^{2} x_{3} y_{2} - x_{1} x_{2}^{2} y_{3} + x_{1} x_{3}^{2} y_{2} + x_{2}^{2} x_{3} y_{1} - x_{2} x_{3}^{2} y_{1}}{x_{1}^{2} x_{2} - x_{1}^{2} x_{3} - x_{1} x_{2}^{2} + x_{1} x_{3}^{2} + x_{2}^{2} x_{3} - x_{2} x_{3}^{2}}
+\end{split}
+
+$$
+</div>
+
+<p>
+Code Generation using CSE - Common Subexpression Elimination:
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([</span><span class="n">sols</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">sols</span><span class="p">[</span><span class="n">b</span><span class="p">],</span> <span class="n">sols</span><span class="p">[</span><span class="n">c</span><span class="p">]])</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">u</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">numbered_symbols</span><span class="p">(</span><span class="s2">&quot;u&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">cse</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">symbols</span> <span class="o">=</span> <span class="n">u</span><span class="p">)</span>
+
+<span class="c1"># --- Intermediate Variables -------#</span>
+<span class="k">for</span> <span class="n">var</span><span class="p">,</span> <span class="n">expr</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2"> := </span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+ <span class="n">u0</span> <span class="o">:=</span> <span class="n">x3</span><span class="o">**</span><span class="mi">2</span>
+ <span class="n">u1</span> <span class="o">:=</span> <span class="n">u0</span><span class="o">*</span><span class="n">x1</span>
+ <span class="n">u2</span> <span class="o">:=</span> <span class="n">x1</span><span class="o">**</span><span class="mi">2</span>
+ <span class="n">u3</span> <span class="o">:=</span> <span class="n">u2</span><span class="o">*</span><span class="n">x2</span>
+ <span class="n">u4</span> <span class="o">:=</span> <span class="n">x2</span><span class="o">**</span><span class="mi">2</span>
+ <span class="n">u5</span> <span class="o">:=</span> <span class="n">u4</span><span class="o">*</span><span class="n">x3</span>
+ <span class="n">u6</span> <span class="o">:=</span> <span class="n">u4</span><span class="o">*</span><span class="n">x1</span>
+ <span class="n">u7</span> <span class="o">:=</span> <span class="n">u2</span><span class="o">*</span><span class="n">x3</span>
+ <span class="n">u8</span> <span class="o">:=</span> <span class="n">u0</span><span class="o">*</span><span class="n">x2</span>
+ <span class="n">u9</span> <span class="o">:=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">u1</span> <span class="o">+</span> <span class="n">u3</span> <span class="o">+</span> <span class="n">u5</span> <span class="o">-</span> <span class="n">u6</span> <span class="o">-</span> <span class="n">u7</span> <span class="o">-</span> <span class="n">u8</span><span class="p">)</span>
+   
+<span class="n">eqq</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># --------- Final Variables -------#</span>
+<span class="o">&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; a := </span><span class="si">{</span><span class="n">eqq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+ <span class="n">a</span> <span class="o">:=</span> <span class="n">u9</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">x1</span><span class="o">*</span><span class="n">y2</span> <span class="o">+</span> <span class="n">x1</span><span class="o">*</span><span class="n">y3</span> <span class="o">+</span> <span class="n">x2</span><span class="o">*</span><span class="n">y1</span> <span class="o">-</span> <span class="n">x2</span><span class="o">*</span><span class="n">y3</span> <span class="o">-</span> <span class="n">x3</span><span class="o">*</span><span class="n">y1</span> <span class="o">+</span> <span class="n">x3</span><span class="o">*</span><span class="n">y2</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; b := </span><span class="si">{</span><span class="n">eqq</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+ <span class="n">b</span> <span class="o">:=</span> <span class="n">u9</span><span class="o">*</span><span class="p">(</span><span class="n">u0</span><span class="o">*</span><span class="n">y1</span> <span class="o">-</span> <span class="n">u0</span><span class="o">*</span><span class="n">y2</span> <span class="o">+</span> <span class="n">u2</span><span class="o">*</span><span class="n">y2</span> <span class="o">-</span> <span class="n">u2</span><span class="o">*</span><span class="n">y3</span> <span class="o">-</span> <span class="n">u4</span><span class="o">*</span><span class="n">y1</span> <span class="o">+</span> <span class="n">u4</span><span class="o">*</span><span class="n">y3</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; c := </span><span class="si">{</span><span class="n">eqq</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+ <span class="n">c</span> <span class="o">:=</span> <span class="n">u9</span><span class="o">*</span><span class="p">(</span><span class="n">u1</span><span class="o">*</span><span class="n">y2</span> <span class="o">+</span> <span class="n">u3</span><span class="o">*</span><span class="n">y3</span> <span class="o">+</span> <span class="n">u5</span><span class="o">*</span><span class="n">y1</span> <span class="o">-</span> <span class="n">u6</span><span class="o">*</span><span class="n">y3</span> <span class="o">-</span> <span class="n">u7</span><span class="o">*</span><span class="n">y2</span> <span class="o">-</span> <span class="n">u8</span><span class="o">*</span><span class="n">y1</span><span class="p">)</span>
+</pre></div>
+</code>
+</pre>
+
+<div class="div-heading"> 
+<h3 id="H_Circle_Equation" class="document-heading anchor">2.3 Circle Equation <a class="link-heading" href="#H_Circle_Equation">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=337&end=614&anchor=H_Circle_Equation&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 2.3 Circle Equation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<p>
+The equation of circle with center at point <span class="math-inline">\(\mathbf{r}_o = (x_o, y_o)\)</span> and radius <span class="math-inline">\(\rho\)</span> can be stated in vector form as as
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \| \mathbf{r} - \mathbf{r}_o \| = \rho
+
+$$
+</div>
+
+<p>
+in algebraic form this equation is
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  (x - x_o)^2 + (y - y_o)^2 = \rho^2
+
+$$
+</div>
+
+<div class="foldabel-block-div"><details >
+<summary><u class="solution-label"><label data-i18n="foldable-math-proof-block-label">Proof</label> </u></summary>
+
+<div class="foldable-block" style=""><div class="math-block anchor"> 
+$$
+
+\notag
+   \| \mathbf{r} - \mathbf{r_o} \|^2 = \rho^2
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+\notag
+   \| (x, y) - (x_o, y_o)  \|^2 = \rho^2
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+\notag
+  \| (x - x_o, y - y_o) \|^2 = \rho^2
+
+$$
+</div>
+
+<p>
+Hence,
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\notag
+   (x - x_o)^2 + (y - y_o)^2 = \rho^2
+
+$$
+</div>
+
+</div>
+</details></div>
+
+<p>
+or in less concise form
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+   x^2 + y^2 + Dx + Ey + F = 0
+
+$$
+</div>
+
+<p>
+Where,
+</p>
+
+<ul class="">
+<li>
+<span class="math-inline">\(E = -2 x_o\)</span> 
+</li>
+<li>
+<span class="math-inline">\(F = -2 y_o\)</span> 
+</li>
+<li>
+<span class="math-inline">\(F = x_o^2 + y_o^2 - \rho^2\)</span> 
+</li>
+</ul>
+
+<p>
+<strong>Finding the circle that passes through three points</strong>
+</p>
+
+<p>
+Given the points <span class="math-inline">\(\mathbf{r}_1 = (x_1, y_1)\)</span>, <span class="math-inline">\(\mathbf{r}_2 = (x_2, y_2)\)</span>, and <span class="math-inline">\(\mathbf{r}_3 = (x_3, y_3)\)</span>, it is possible to find the equation of the circle that passes through those points in the form <span class="math-inline">\(x^2 + y^2 + Dx + Ey + F = 0\)</span> by solving the following system of equations for the parameters <span class="math-inline">\(D\)</span>, <span class="math-inline">\(E\)</span> and <span class="math-inline">\(F\)</span>.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\begin{bmatrix}
+        x_1 &amp; y_1 &amp; 1
+    \\  x_2 &amp; y_2 &amp; 1
+    \\  x_3 &amp; y_3 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+    D \\ E \\ F
+\end{bmatrix}
+= 
+\begin{bmatrix}
+        -(x_1^2 + y_1^2)
+    \\  -(x_2^2 + y_2^2)
+    \\  -(x_3^2 + y_3^2)
+\end{bmatrix}
+
+$$
+</div>
+
+<p>
+or in terse form
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\begin{bmatrix}
+         |      &amp;    |       &amp;    |
+  \\ \mathbf{x} &amp; \mathbf{y} &amp; \mathbf{1}_3 
+  \\     |      &amp;    |       &amp;    |
+\end{bmatrix}
+\begin{bmatrix}
+    D \\ E \\ F
+\end{bmatrix}
+= - (\mathbf{x}.^2 + \, \mathbf{y}.^2)
+
+$$
+</div>
+
+<p>
+where
+</p>
+
+<ul class="">
+<li>
+<span class="math-inline">\(\mathbf{x} = (x_1, x_2, x_3)\)</span> (column vector) 
+</li>
+<li>
+<span class="math-inline">\(\mathbf{y} = (y_1, y_2, y_3)\)</span> (column vector) 
+</li>
+<li>
+<span class="math-inline">\(\mathbf{x}.^2 = (x_1^2, x_2^2, x_3^2)\)</span> - element-wise square of vector elements instead of square of matrix. NOTE: That many technical and scientific programming languages, including, APL, R (Rlang), Matlab and Fortran and Python/numpy uses functions that are applied to all elements of a matrix or vector. For instance, in Matlab or Python's Numpy, if v is vector v = [v1, v2, ..., v3], the function sin(v) will return [ sin(v1), ..., sin(v3)]. Although this type vectorized operations are common, there is no standard mathematical notation for denoting them. 
+</li>
+</ul>
+
+<p>
+The position of circle center <span class="math-inline">\(\mathbf{r}_o = (x_o, y_o)\)</span> and the radius <span class="math-inline">\(\rho\)</span> can be found as
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+        x_o = - \frac{1}{2} D 
+  \quad y_o = -\frac{1}{2} E
+  \quad \rho^2 = x_o^2 + y_o^2 - F
+
+$$
+</div>
+
+<p>
+<strong>Example</strong> <a href="https://qc.edu.hk/math/Advanced%20Level/circle%20given%203%20points.htm"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >(qd-edu-hk)</a>
+</p>
+
+<p>
+Find the equation of the circle passing through the pointsP(2,1), Q(0,5), R(-1,2).
+</p>
+
+<p>
+Solution in Python's numpy
+</p>
+
+<div class="foldabel-block-div"><details >
+<summary><u class="solution-label"><label data-i18n="foldable-math-solution-block-label">Solution</label> </u></summary>
+
+<div class="foldable-block" style=""><p>
+Import numpy
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">linalg</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nl</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Define the input data.
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span>  <span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Create coefficients array of the linear system.
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">A</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mf">2.</span><span class="p">,</span>  <span class="mf">1.</span><span class="p">,</span>  <span class="mf">1.</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mf">0.</span><span class="p">,</span>  <span class="mf">5.</span><span class="p">,</span>  <span class="mf">1.</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span>  <span class="mf">2.</span><span class="p">,</span>  <span class="mf">1.</span><span class="p">]])</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Define vector of constants. NOTE: the method call .reshape(-1, 1) is used for ensure that <span class="math-inline">\(\mathbf{b}\)</span> is a column vector with shape (2, 1).
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">b</span>
+<span class="n">array</span><span class="p">([[</span> <span class="o">-</span><span class="mi">5</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mi">25</span><span class="p">],</span>
+       <span class="p">[</span> <span class="o">-</span><span class="mi">5</span><span class="p">]])</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Solve the system of equations <span class="math-inline">\(A \mathbf{x} = \mathbf{b}\)</span>.
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="n">coeffs</span> <span class="o">=</span> <span class="n">nl</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">coeffs</span>
+<span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mf">2.</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">6.</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mf">5.</span><span class="p">]])</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Find the parameters, <span class="math-inline">\(D\)</span>, <span class="math-inline">\(E\)</span> and <span class="math-inline">\(F\)</span>.
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="n">D</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">coeffs</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">D</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">F</span>
+<span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="o">-</span><span class="mf">6.0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="mf">5.0</span><span class="p">))</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Determine <span class="math-inline">\(x_o\)</span>, <span class="math-inline">\(y_o\)</span>, the position of the circle center and its radius <span class="math-inline">\(\rho\)</span>.
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="n">xo</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">D</span>
+<span class="n">yo</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">E</span>
+<span class="n">rho_square</span> <span class="o">=</span> <span class="n">xo</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">yo</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">F</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">xo</span><span class="p">,</span> <span class="n">yo</span><span class="p">,</span> <span class="n">rho_square</span><span class="p">])</span>
+<span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">])</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Circle radius <span class="math-inline">\(\rho\)</span>.
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rho_square</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">rho</span>
+<span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="mf">2.23606797749979</span><span class="p">)</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+So, for this set of points
+</p>
+
+<ul class="">
+<li>
+<span class="math-inline">\(D = -2\)</span> 
+</li>
+<li>
+<span class="math-inline">\(E = -6\)</span> 
+</li>
+<li>
+<span class="math-inline">\(F =  5\)</span> 
+</li>
+<li>
+<span class="math-inline">\(x_o = 1\)</span> 
+</li>
+<li>
+<span class="math-inline">\(y_o = 3\)</span> 
+</li>
+<li>
+<span class="math-inline">\(\rho^2 = 5\)</span> 
+</li>
+<li>
+<span class="math-inline">\(\rho = \sqrt{5}\)</span> 
+</li>
+</ul>
+
+<p>
+This result can be confirmed by defining the function
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">xo</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">yo</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">rho_square</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+and applying it to <span class="math-inline">\(\mathbf{x}\)</span> and <span class="math-inline">\(\mathbf{y}\)</span>.
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Hence, the equation of the circle passing through the given three points is
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\notag
+   x^2 + y^2 - 2x - 6y + 5 = 0
+
+$$
+</div>
+
+<p>
+or
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\notag
+  (x - 1)^2 + (y - 3)^2 = 5
+
+$$
+</div>
+
+</div>
+</details></div>
+
+<p>
+Solution 2 in Python's Numpy.
+</p>
+
+<div class="foldabel-block-div"><details >
+<summary><u class="solution-label"><label data-i18n="foldable-math-solution-block-label">Solution</label> </u></summary>
+
+<div class="foldable-block" style=""><p>
+Import numpy
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy.linalg</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nl</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Define helper function.
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">find_circle_params</span><span class="p">(</span><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">):</span>
+    <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">r1</span>
+    <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">r2</span>
+    <span class="n">x3</span><span class="p">,</span> <span class="n">y3</span> <span class="o">=</span> <span class="n">r3</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">])</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">])</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">coeffs</span> <span class="o">=</span> <span class="n">nl</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">coeffs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">coeffs</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">xo</span> <span class="o">=</span> <span class="o">-</span><span class="n">D</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">yo</span> <span class="o">=</span> <span class="o">-</span><span class="n">E</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">xo</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">yo</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">F</span><span class="p">)</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">xo</span><span class="p">,</span> <span class="n">yo</span><span class="p">,</span> <span class="n">radius</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Input parameters
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="n">r1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">r3</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Find the circle that fits the points.
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="n">xo</span><span class="p">,</span> <span class="n">yo</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="n">find_circle_params</span><span class="p">(</span><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">)</span>
+<span class="n">xo</span><span class="p">,</span> <span class="n">yo</span><span class="p">,</span> <span class="n">radius</span><span class="o">**</span><span class="mi">2</span>
+<span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">5.000000000000001</span><span class="p">)</span>
+</pre></div>
+</code>
+</pre>
+
+</div>
+</details></div>
+
+<div class="div-heading"> 
+<h2 id="H_Trigonometric_Functions_and_Identities" class="document-heading anchor">3 Trigonometric Functions and Identities <a class="link-heading" href="#H_Trigonometric_Functions_and_Identities">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=614&end=770&anchor=H_Trigonometric_Functions_and_Identities&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 3 Trigonometric Functions and Identities" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{3}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Trigonometric_Functions" class="document-heading anchor">3.1 Trigonometric Functions <a class="link-heading" href="#H_Trigonometric_Functions">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=616&end=686&anchor=H_Trigonometric_Functions&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 3.1 Trigonometric Functions" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+<strong>Basic Trigonometric Identities</strong>
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\cos^2 \alpha + \sin^2 \alpha = 1
+
+$$
+</div>
+
+<p>
+<strong>Euler's Identity</strong>
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+   e^{j \theta} = \cos\theta + j \sin \theta
+
+$$
+</div>
+
+<p>
+Note: <span class="math-inline">\(j = \sqrt{-1}\)</span> imaginary unit and <span class="math-inline">\(\theta\)</span> is the angle in radians.
+</p>
+
+<p>
+<strong>Half Angle Trigonometric Identities</strong>
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\begin{split}
+      \sin \frac{\alpha}{2} &amp;= \pm \sqrt{ \frac{1 - \cos \alpha}{2}  }
+   \\ \cos \frac{\alpha}{2} &amp;= \pm \sqrt{ \frac{1 + \cos \alpha}{2}}
+   \\ \tan \frac{\alpha}{2} &amp;= \frac{1 - \cos \alpha}{\sin \alpha} 
+                            = \frac{\sin \alpha}{ 1 + \cos \alpha}
+\end{split}
+
+$$
+</div>
+
+<p>
+<strong>Double Angle Formulas Trigonometric Identities</strong>
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\begin{split}
+     \sin 2 \alpha &amp;= 2 \sin \alpha \cos \alpha
+  \\ \cos 2 \alpha &amp;= \cos^2 \alpha - \sin^2 \alpha
+  \\ \cos 2 \alpha &amp;= 1 - 2 \sin^2 \alpha
+  \\ \tan 2 \alpha &amp;= \frac{ 2 \tan \alpha }{ 1 - \tan^2 \alpha }
+\end{split}
+
+$$
+</div>
+
+<p>
+<strong>Properties</strong>
+</p>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Properties</th>
+ 
+<th></th>
+</tr>
+</thead>
+ 
+<tbody>
+
+<tr>
+
+<td></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><strong>Symmetry Properties</strong></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Cosine is an even function (pt: função par)</td>
+ 
+<td><span class="math-inline">\(\cos (-x) = \cos (x)\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Sine is a odd function (pt: função impar)</td>
+ 
+<td><span class="math-inline">\(\sin (-x) = - \sin(x)\)</span></td>
+</tr>
+ 
+<tr>
+
+<td></td>
+ 
+<td><span class="math-inline">\(\sin (\pi/2 - x) = \sin(90 - x) = \cos x\)</span></td>
+</tr>
+ 
+<tr>
+
+<td></td>
+ 
+<td><span class="math-inline">\(\cos (\pi/2 - x) = \cos(90 - x) = \sin x\)</span></td>
+</tr>
+ 
+<tr>
+
+<td></td>
+ 
+<td><span class="math-inline">\(\cos (\pi/2 - x) = \cos(90 - x) = \sin x\)</span></td>
+</tr>
+ 
+<tr>
+
+<td><strong>Arc Operations</strong></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Sin of the sum of angles</td>
+ 
+<td><span class="math-inline">\(\sin(x + y) = \sin x . \cos y + \cos x . \sin y\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>Cos of the sum of angles</td>
+ 
+<td><span class="math-inline">\(\cos(x + y) = \cos x . \cos y - \sin x . \sin y\)</span></td>
+</tr>
+ 
+<tr>
+
+<td></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><strong>Identities</strong></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Pythagorean identity</td>
+ 
+<td><span class="math-inline">\((\sin x)^2 + (\cos x)^2 = 1\)</span></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<strong>Notable angles</strong>
+</p>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Degrees</th>
+ 
+<th>Randians</th>
+ 
+<th>Sin</th>
+ 
+<th>Cos</th>
+ 
+<th>Tan</th>
+</tr>
+</thead>
+ 
+<tbody>
+
+<tr>
+
+<td>0</td>
+ 
+<td>0</td>
+ 
+<td>0</td>
+ 
+<td>1</td>
+ 
+<td>0</td>
+</tr>
+ 
+<tr>
+
+<td>30</td>
+ 
+<td><span class="math-inline">\(\pi/6\)</span></td>
+ 
+<td>1/2</td>
+ 
+<td><span class="math-inline">\(\sqrt{3}/2\)</span></td>
+ 
+<td><span class="math-inline">\(\sqrt{3}/3\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>45</td>
+ 
+<td><span class="math-inline">\(\pi/4\)</span></td>
+ 
+<td><span class="math-inline">\(\sqrt{2}/2\)</span></td>
+ 
+<td><span class="math-inline">\(\sqrt{2}/2\)</span></td>
+ 
+<td>1</td>
+</tr>
+ 
+<tr>
+
+<td>60</td>
+ 
+<td><span class="math-inline">\(\pi/3\)</span></td>
+ 
+<td><span class="math-inline">\(\sqrt{3}/2\)</span></td>
+ 
+<td>1/2</td>
+ 
+<td><span class="math-inline">\(\sqrt{3}\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>90</td>
+ 
+<td><span class="math-inline">\(\pi/2\)</span></td>
+ 
+<td>1</td>
+ 
+<td>0</td>
+ 
+<td><span class="math-inline">\(\infty\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>180</td>
+ 
+<td><span class="math-inline">\(\pi\)</span></td>
+ 
+<td>0</td>
+ 
+<td>-1</td>
+ 
+<td>0</td>
+</tr>
+ 
+<tr>
+
+<td>270</td>
+ 
+<td><span class="math-inline">\((3/2) \pi\)</span></td>
+ 
+<td>-1</td>
+ 
+<td>0</td>
+ 
+<td><span class="math-inline">\(-\infty\)</span></td>
+</tr>
+ 
+<tr>
+
+<td>360</td>
+ 
+<td><span class="math-inline">\(2\pi\)</span></td>
+ 
+<td>0</td>
+ 
+<td>1</td>
+ 
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+<div class="div-heading"> 
+<h3 id="H_Trigonometric_Identities" class="document-heading anchor">3.2 Trigonometric Identities <a class="link-heading" href="#H_Trigonometric_Identities">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=686&end=770&anchor=H_Trigonometric_Identities&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 3.2 Trigonometric Identities" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+<strong>Sine and Cosine Relation</strong>
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  (\sin \theta)^2 + (\cos \theta)^2 = 1
+
+$$
+</div>
+
+<p>
+<strong>Euler's Equation and Complex Numbers</strong>
+</p>
+
+<p>
+Let <span class="math-inline">\(\mathrm{j} = \sqrt{-1}\)</span> be the imaginary unit.
+</p>
+
+<p>
+Complex Exponential
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  e^{\mathrm{j} \theta} = \cos \theta + \mathrm{j} \sin \theta 
+
+$$
+</div>
+
+<p>
+and,
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+e^{-\mathrm{j \theta}} = \cos \theta - \mathrm{j} \sin \theta
+
+$$
+</div>
+
+<p>
+Cosine of angle in radians expressed as linear combination of complex exponential
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \cos \theta 
+    = \frac{1}{2} (e^{\mathrm{j} \theta} + e^{ - \mathrm{j} \theta}  )
+
+$$
+</div>
+
+<p>
+Sine of angle in radians expressed as linear combination of complex exponential
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \cos \theta = 
+     \frac{1}{2 \mathrm{j}} 
+       (e^{\mathrm{j}  \theta} + e^{ - \mathrm{j}  \theta}  )
+
+$$
+</div>
+
+<p>
+Derivative of complex exponential with respect to angle in radians.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \frac{d}{d \theta} e^{j \theta} = j \cdot e^{j \theta}
+
+$$
+</div>
+
+<p>
+<strong>Functions Symmetry</strong>
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \cos(-x) = \cos(x)
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+  \sin(-x) = -\sin(x)
+
+$$
+</div>
+
+<p>
+<strong>Trigonometric expansions</strong>
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \cos (a + b) = \cos a \cdot \cos b - \sin a  \sin b
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+  \sin (a + b) = \sin a \cdot \cos b - \sin a  \cos b
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+  \tan(b - a) = \dfrac{ \tan y - \tan x }{\tan x  \tan y + 1 }
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h2 id="H_Derivatives" class="document-heading anchor">4 Derivatives <a class="link-heading" href="#H_Derivatives">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=770&end=1058&anchor=H_Derivatives&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 4 Derivatives" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{4}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Derivative_Rules" class="document-heading anchor">4.1 Derivative Rules <a class="link-heading" href="#H_Derivative_Rules">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=772&end=788&anchor=H_Derivative_Rules&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 4.1 Derivative Rules" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Function</th>
+ 
+<th>Derivative</th>
+ 
+<th>Description</th>
+</tr>
+</thead>
+ 
+<tbody>
+
+<tr>
+
+<td>f(x)</td>
+ 
+<td><span class="math-inline">\(\dot{f}(x) = \dfrac{df}{dx}\)</span></td>
+ 
+<td>Derivative of generic function</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(r(x) = c\)</span></td>
+ 
+<td>0</td>
+ 
+<td>Derivative of constant</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(c f(x)\)</span></td>
+ 
+<td><span class="math-inline">\(c \dfrac{df}{dx}\)</span></td>
+ 
+<td>Function multiplied by constant</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(c + f(x)\)</span></td>
+ 
+<td><span class="math-inline">\(\dfrac{df}{dx}\)</span></td>
+ 
+<td>Function added to constant</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(f(x) + g(x)\)</span></td>
+ 
+<td><span class="math-inline">\(\dfrac{df}{dx} + \dfrac{dg}{dx}\)</span></td>
+ 
+<td>Sum of functions</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(f(x) g(x)\)</span></td>
+ 
+<td><span class="math-inline">\(f \dfrac{f}{dx} + g \dfrac{df}{dx}\)</span></td>
+ 
+<td>Product of functions</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(f(u(x))\)</span></td>
+ 
+<td><span class="math-inline">\(\left[\dfrac{d}{du} f(u) \right] \dfrac{du}{dx} = \dfrac{df}{du} \dfrac{du}{dx}\)</span></td>
+ 
+<td>Chain Rule</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(\dfrac{1}{f(x)}\)</span></td>
+ 
+<td><span class="math-inline">\(-\dfrac{1}{f^2} \dfrac{df}{dx}\)</span></td>
+ 
+<td>Dertivative of function</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(\dfrac{g}{f}\)</span></td>
+ 
+<td><span class="math-inline">\(\dfrac{f \dot{g} - g \dot{f}}{f^2}\)</span></td>
+ 
+<td>Derivative of ratio</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(f^{-1}(x)\)</span></td>
+ 
+<td><span class="math-inline">\(\left. \left[ \dfrac{d}{dy} f(y) \right]^{-1}    \right\vert_{y = f^{-1}(x)}\)</span></td>
+ 
+<td>Derivative of inverse function</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(\left. \dfrac{d}{dx} f^{-1}(x) \right\vert_{x = a}\)</span></td>
+ 
+<td><span class="math-inline">\(\left. \left[ \dfrac{d}{dy} f(y) \right]^{-1}    \right\vert_{y = f^{-1}(a)}\)</span></td>
+ 
+<td>Derivative of inverse function evaluated at x = a</td>
+</tr>
+</tbody>
+</table>
+
+<div class="div-heading"> 
+<h3 id="H_Basic_Derivatives" class="document-heading anchor">4.2 Basic Derivatives <a class="link-heading" href="#H_Basic_Derivatives">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=788&end=814&anchor=H_Basic_Derivatives&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 4.2 Basic Derivatives" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Function f(x)</th>
+ 
+<th>Derivative</th>
+ 
+<th></th>
+</tr>
+</thead>
+ 
+<tbody>
+
+<tr>
+
+<td><span class="math-inline">\(x\)</span></td>
+ 
+<td>1</td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(x^2\)</span></td>
+ 
+<td><span class="math-inline">\(2x\)</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(x^3\)</span></td>
+ 
+<td><span class="math-inline">\(3 x^2\)</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(x^p\)</span></td>
+ 
+<td><span class="math-inline">\(p x^{p - 1}\)</span></td>
+ 
+<td><span class="math-inline">\(p \in \mathbb{R}\)</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(1/x\)</span></td>
+ 
+<td><span class="math-inline">\(-1/x^2\)</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(\sqrt{x}\)</span></td>
+ 
+<td><span class="math-inline">\(\dfrac{1}{2 \sqrt{x}}\)</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(e^x\)</span></td>
+ 
+<td><span class="math-inline">\(e^x\)</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(e^{a x}\)</span></td>
+ 
+<td><span class="math-inline">\(a e^{a x}\)</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(a^x\)</span></td>
+ 
+<td><span class="math-inline">\(a^x \ln a\)</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(e^{f(x)}\)</span></td>
+ 
+<td><span class="math-inline">\(e^{f(x)} f(x) \dot{f}(x)\)</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(\ln x\)</span></td>
+ 
+<td><span class="math-inline">\(1/x\)</span></td>
+ 
+<td>Derivative of natural logarithm base <span class="math-inline">\(\mathrm{e}\)</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(\log_a x\)</span></td>
+ 
+<td><span class="math-inline">\(\dfrac{1}{x \ln a}\)</span></td>
+ 
+<td>Derivative of logarithm of base a</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(\sin x\)</span></td>
+ 
+<td><span class="math-inline">\(\cos x\)</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(\cos x\)</span></td>
+ 
+<td><span class="math-inline">\(- \sin x\)</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(\tan x\)</span></td>
+ 
+<td><span class="math-inline">\(\sec^2 x\)</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(\sec x\)</span></td>
+ 
+<td><span class="math-inline">\(\sec x \tan x\)</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(\sin^{-1}(x)\)</span></td>
+ 
+<td><span class="math-inline">\(\dfrac{1}{\sqrt{1 - x^2}}\)</span></td>
+ 
+<td>arc sine</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(\cos^{-1}(x)\)</span></td>
+ 
+<td><span class="math-inline">\(-\dfrac{1}{\sqrt{1 - x^2}}\)</span></td>
+ 
+<td>arc cosine</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\(\tan^{-1}(x)\)</span></td>
+ 
+<td><span class="math-inline">\(\dfrac{1}{1 + x^2}\)</span></td>
+ 
+<td>arc tangent or arctan</td>
+</tr>
+</tbody>
+</table>
+
+<div class="div-heading"> 
+<h3 id="H_Derivative_of_Inverse_Function" class="document-heading anchor">4.3 Derivative of Inverse Function <a class="link-heading" href="#H_Derivative_of_Inverse_Function">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=814&end=931&anchor=H_Derivative_of_Inverse_Function&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 4.3 Derivative of Inverse Function" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<p>
+Derivative of inverse function <span class="math-inline">\(f^{-1}(x)\)</span> of <span class="math-inline">\(f(x)\)</span> at <span class="math-inline">\(x = a\)</span>.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+ \notag
+ 
+  \left. \dfrac{d}{dx} f^{-1}(x) 
+      \right\vert_{\displaystyle x = a} 
+ 
+  = \left. \left[ 
+       \dfrac{df}{dy} \right]^{-1} 
+         \right\vert_{\displaystyle y = f^{-1}(a)}
+
+$$
+</div>
+
+<p>
+<strong>Procedure for Determining the derivative of the inverse</strong>
+</p>
+
+<p>
+STEP 1: Given a, solve the following equation for y, in order to find <span class="math-inline">\(y_a\)</span>, the solution of this equation.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\notag
+   a = f(y)
+
+$$
+</div>
+
+<p>
+STEP 2: Compute the derivative of <span class="math-inline">\(f(y)\)</span> with respect to y at <span class="math-inline">\(y = y_a\)</span>.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+ \notag 
+  w = \left. \dfrac{d}{dy} f(y) \right\vert_{\displaystyle y = y_a} 
+
+$$
+</div>
+
+<p>
+STEP 3: Compute the value of the derivative of the inverse function of f(x) by taking the inverse of the previous result w.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \left. \dfrac{d}{dx} f^{-1}(x) 
+           \right\vert_{\displaystyle x = a} 
+   = \frac{1}{w}
+
+$$
+</div>
+
+<p>
+<strong>Examples</strong>
+</p>
+
+<aside class="example admonition anchor" style="background:;"  class="admonition example">
+<span class="admonition-title"><strong>
+<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Derivative of Inverse Function<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Math - Calculus Reference Card?start=856&end=928&page=Math - Calculus Reference Card&timestamp=176060095271950" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+</strong></span>
+
+<p>
+Suppose <span class="math-inline">\(f(x)=x^5+2x^3+7x+1\)</span>, find <span class="math-inline">\([{f}]^{-1}(1)\)</span>, the derivative of the inverse function of f(x) at x = 1.  <a href="https://www.sfu.ca/math-coursenotes/Math%20157%20Course%20Notes/sec_DerivativesofInverse.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >(sfu.ca)</a>
+</p><div class="foldabel-block-div"><details >
+<summary><u class="solution-label"><label data-i18n="foldable-math-solution-block-label">Solution</label> </u></summary>
+
+<div class="foldable-block" style=""><p>
+Recall tha the derivative of <span class="math-inline">\(f^{-1}(x)\)</span> can be determined as,
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+ \notag
+ 
+  \left. \dfrac{d}{dx} f^{-1}(x) \right\vert_{x = a} 
+ 
+  = \left. \left[ 
+       \dfrac{df}{dy} \right]^{-1} 
+         \right\vert_{y = f^{-1}(a)}
+
+$$
+</div>
+
+<p>
+The first step is to determine <span class="math-inline">\(y = f^{-1}(1)\)</span>. Isolate y in this equation in order to find y corresponding to <span class="math-inline">\(a = 1\)</span>. that yields,
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+ \notag
+     f(y) = 1
+
+$$
+</div>
+
+<p>
+Solve the equation <span class="math-inline">\(f(y) = 1\)</span>.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+ \notag 
+ f(y) = y^5 + 2y^3 + 7y + 1 = 1
+
+$$
+</div>
+
+<p>
+It is observable that the solution of the previous equation is <span class="math-inline">\(y = 0\)</span>.
+</p>
+
+<p>
+Compute the derivative of f(y) at y = 0.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+ \notag
+  \begin{split}
+ 
+ \left. \dfrac{d}{dy} f(y) \right\vert_{y = 0}
+     &amp;= \dfrac{d}{dy}
+    \left .\left[ y^5 + 2y^3 + 7y + 1  \right] 
+        \right\vert_{y = 0} 
+     
+     \\ &amp;=  \left. [5 y^4 + 6 y^2 + 7 ] 
+             \right\vert_{\displaystyle y = 0}
+     \\ &amp;=  7
+\end{split}
+
+$$
+</div>
+
+<p>
+Finally, the derivative of <span class="math-inline">\(\dfrac{d}{dx} f^{-1}(x)\)</span> can be evaluted at x = 1 by replacing the result of the previous computation in the formula for determining the derivative of the inverse function.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+ \notag
+ 
+  \begin{split}
+       \left. \dfrac{d}{dx} f^{-1}(x) \right\vert_{x = 0} 
+       &amp;=
+         \left. \left[ \dfrac{df}{dy} \right]^{-1} 
+                   \right\vert_{y = f^{-1}(0)}
+ \\    &amp;= (7)^{-1} = \frac{1}{7}
+
+  \end{split}
+
+$$
+</div>
+
+<p>
+Solution: <span class="math-inline">\([f^{-1}]'(1) = \dfrac{1}{7}\)</span>
+</p>
+
+</div>
+</details></div>
+</aside>
+
+
+
+<div class="div-heading"> 
+<h3 id="H_Chain_Rule" class="document-heading anchor">4.4 Chain Rule <a class="link-heading" href="#H_Chain_Rule">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=931&end=1021&anchor=H_Chain_Rule&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 4.4 Chain Rule" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+</div>
+
+<p>
+<strong>Chain rule for function of one variable</strong>
+</p>
+
+<p>
+This notation explicitly states that the in the right-hand side of the equation f is expressed as function of u and not as function of x.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+ \dfrac{d}{dx} f(u(x)) 
+   = \left[ \dfrac{d}{du} f(u) \right] \dfrac{du}{dx}
+
+$$
+</div>
+
+<p>
+Concise notation for chain rule for functions of a single variable
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\dfrac{d}{dx} f(u(x)) = \dfrac{df}{du} \dfrac{du}{dx}
+
+$$
+</div>
+
+<p>
+<strong>Chain rule for function of multi-variable functions</strong>
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+ \dfrac{d}{dt} f(x(t), y(t)) = \dfrac{\partial f}{\partial x} \dfrac{dx}{dt} + \dfrac{\partial f}{\partial y} \dfrac{dy}{dt}
+
+$$
+</div>
+
+<p>
+<strong>Chain rule for coordinate changing</strong>
+</p>
+
+<p>
+Let f be function of <span class="math-inline">\(x\)</span> and <span class="math-inline">\(y\)</span>. A new coordinate is introduced withcoordinates <span class="math-inline">\(v\)</span> and <span class="math-inline">\(w\)</span> in a way that <span class="math-inline">\(x = x(v, w)\)</span> and <span class="math-inline">\(y = y(v, w)\)</span>. The partial derivative of f with respect to the new coordinate <span class="math-inline">\(v\)</span>, <span class="math-inline">\(w\)</span> can be determined as:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\begin{split}
+  x &amp;= x(v, w) \quad y = y(v, w) \\
+
+  \frac{\partial f}{\partial v} &amp;=
+      \frac{\partial f}{\partial x}  \frac{\partial x}{\partial v} 
+    + \frac{\partial f}{\partial y}  \frac{\partial y}{\partial v} \\
+
+
+  \frac{\partial f}{\partial w} &amp;=
+      \frac{\partial f}{\partial x}  \frac{\partial x}{\partial w} 
+    + \frac{\partial f}{\partial y}  \frac{\partial y}{\partial w} \\\end{split}
+
+$$
+</div>
+
+<p>
+<strong>Examples</strong>
+</p>
+
+<aside class="example admonition anchor" style="background:;"  class="admonition example">
+<span class="admonition-title"><strong>
+<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Chain Rule for Derivative Multi-Variate Functions<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Math - Calculus Reference Card?start=978&end=1019&page=Math - Calculus Reference Card&timestamp=176060095271950" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+</strong></span>
+
+<p>
+Let the function f be <span class="math-inline">\(f(x, y) = x^2/A^2 + y^2/B^2 - C\)</span>.  Find the derivative of f with respect to t. And x and y are functions of t, <span class="math-inline">\(x = x(t) = A \cos t\)</span> and <span class="math-inline">\(y = y(t) = B \sin t\)</span>.
+</p><div class="foldabel-block-div"><details >
+<summary><u class="solution-label"><label data-i18n="foldable-math-solution-block-label">Solution</label> </u></summary>
+
+<div class="foldable-block" style=""><p>
+Method 1:  Find the derivative directly, by expressing x and y as function of t and replacing their values in the function f.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+ \notag 
+\begin{split}
+
+  \frac{df}{dt} &amp;=&amp; \frac{d}{dt} \left[ (A \cos t)^2 / A^2  + (B \sin t)^2 / B^2 - C\right] = 0 \\
+\end{split}
+
+$$
+</div>
+
+<p>
+Method 2: Find the derivative using the chain rule
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+ \notag 
+\begin{split}
+  \frac{df}{dt} 
+    &amp;= \frac{\partial f}{\partial x} \frac{dx}{dt}  
+    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\
+
+    &amp;=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \cos t)
+       \\ &amp; +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \sin t)  \\
+
+    &amp;=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ 
+    &amp;=  -2x \sin(t) / A + 2y \cos(t) / B \\
+    &amp;=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\
+    &amp;=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
+    &amp;=  0 
+\end{split}
+
+$$
+</div>
+
+</div>
+</details></div>
+</aside>
+
+
+
+<div class="div-heading"> 
+<h3 id="H_Tangent_Line_Equation" class="document-heading anchor">4.5 Tangent Line Equation <a class="link-heading" href="#H_Tangent_Line_Equation">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1021&end=1058&anchor=H_Tangent_Line_Equation&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 4.5 Tangent Line Equation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{5}">\(\setSubSection{5}\)</span>
+</div>
+
+<p>
+The derivative can be used for obtaining the tangent line equation <span class="math-inline">\(\eqref{eqtanget_diff}\)</span> to a curve represented by a function f(x) at a particular point, where <span class="math-inline">\(\alpha \in \mathbb{R}\)</span> and <span class="math-inline">\(\beta \in \mathbb{R}\)</span> are the coefficients of the line equation.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  y = \alpha x + \beta 
+  \label{eqtanget_diff}
+
+$$
+</div>
+
+<p>
+The coefficient <span class="math-inline">\(\alpha\)</span>, the line slope, can be computed as:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\alpha = f&apos;(x_a) = 
+    \left. \frac{df}{dx} \right\vert_{\displaystyle x = x_a}
+
+$$
+</div>
+
+<p>
+Then, the coefficient <span class="math-inline">\(\beta\)</span> can be found by replacing the pair $x_a, : <span class="math-inline">\(y_a = f(x_a)\)</span> in <span class="math-inline">\(\eqref{eqtanget_diff}\)</span> and solving it for <span class="math-inline">\(\beta\)</span>.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \beta = y_a - \alpha x_a
+
+$$
+</div>
+
+<p>
+so,
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \beta = f(x_a) - f&apos;(x_a) x_a
+
+$$
+</div>
+
+<p>
+The, the coefficients of the line equation tangent to the point <span class="math-inline">\((x_a, y_a)\)</span> are given by:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+ \begin{cases}
+        \alpha = f&apos;(x_a)
+    \\  \beta  = f(x_a) - f&apos;(x_a) x_a
+ \end{cases}
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h2 id="H_Integrals" class="document-heading anchor">5 Integrals <a class="link-heading" href="#H_Integrals">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1058&end=1172&anchor=H_Integrals&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 5 Integrals" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{5}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+References:
+</p>
+
+<ul class="">
+<li>
+<a href="http://www.cse.salford.ac.uk/physics/gsmcdonald/H-Tutorials/Fourier-series-tutorial.pdf"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >FOURIER SERIES - Graham S McDonald</a> 
+</li>
+</ul>
+
+<p>
+<strong>General Rules</strong>
+</p>
+
+<p>
+Linear combination of integrals:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \int [a \cdot f(x) + b \cdot g(x)] dx  =  a \int f(x) dx + b \int g(x) dx 
+
+$$
+</div>
+
+<p>
+Power of a function:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \int  [g(x)]^n g&apos;(x) dx = \frac{1}{n + 1} [g(x)]^{n + 1} \quad n \neq -1
+
+$$
+</div>
+
+<p>
+Ratio between function's derivate and itself:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \int \frac{g&apos;(x)}{g(x)} dx = \ln || g(x) ||
+
+$$
+</div>
+
+<p>
+<strong>Common Integrals</strong>
+</p>
+
+<p>
+Constant:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \int C \cdot dx  = C \cdot x
+
+$$
+</div>
+
+<p>
+Power:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \int x^n \cdot dx  = \frac{x^{n + 1}}{n + 1} \quad \neq -1
+
+$$
+</div>
+
+<p>
+Power:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \int a^x \cdot dx  = \frac{a^x}{\ln a} \quad a &gt; 0
+
+$$
+</div>
+
+<p>
+Exponential:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \int e^x \cdot dx  = e^x 
+
+$$
+</div>
+
+<p>
+Logarithm:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \int \frac{1}{x} \cdot dx  = \ln || x ||
+
+$$
+</div>
+
+<p>
+Sine:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \int \sin x = - \cos x
+
+$$
+</div>
+
+<p>
+Cosine:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \int \cos x \cdot dx = \sin x
+
+$$
+</div>
+
+<p>
+Square sine:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \int \sin^2 x \cdot dx = \frac{x}{2} - \frac{1}{4} \sin 2x
+
+$$
+</div>
+
+<p>
+Square cosine:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \int \cos^2 x \cdot dx = \frac{x}{2} + \frac{1}{4} \sin 2x
+
+$$
+</div>
+
+<p>
+Sinh - hyperbolic sine:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \int \text{sinh} x \cdot dx = \text{cosh} x
+
+$$
+</div>
+
+<p>
+Cosh - hyperbolic consine:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \int \text{cosh} x \cdot dx = \text{sinh} x
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h2 id="H_Sums_of_Series" class="document-heading anchor">6 Sums of Series <a class="link-heading" href="#H_Sums_of_Series">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1172&end=1194&anchor=H_Sums_of_Series&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 6 Sums of Series" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{6}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+Reference: Dan Stefanica, <em>A Primer for Mathematics of FinancialEngineering</em>, 1st ed. New York: FE PRess, 2008. Page 4. 
+</li>
+</ul>
+
+<div class="math-block anchor"> 
+$$
+
+  \sum_{k = 1}^{n} k = \frac{n(n+1)}{2}
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+ \sum_{k = 1}^{n} k^2 =  \frac{n(n+1)(2n + 1)}{6}
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+ \sum_{k = 1}^{n} k^3 = \left(\frac{n(n+1)}{2} \right)^2
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h2 id="H_Taylor_Series" class="document-heading anchor">7 Taylor Series <a class="link-heading" href="#H_Taylor_Series">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1194&end=1332&anchor=H_Taylor_Series&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 7 Taylor Series" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{7}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Taylor_series_expansion" class="document-heading anchor">7.1 Taylor series expansion <a class="link-heading" href="#H_Taylor_series_expansion">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1195&end=1194&anchor=H_Taylor_series_expansion&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 7.1 Taylor series expansion" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+The Taylor series is a expansion of a real function f(x) about a point x  a. When a is equal to 0, the expansion is also known as Maclaurin series.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+ \begin{split}
+  f(x) &amp;= \sum_{n = 0}^{\infty} \frac{f^{(n)}(a)}{n!}(x - a)^n 
+    \\  &amp;= f(a) + f^{(1)}(a)(x - a) 
+              + \frac{f^{(2)}(a)}{2!}(x - a)^2 
+              + \frac{f^{(3)}(a)}{3!}(x - a)^3 
+              \cdots 
+              
+  \end{split}
+
+$$
+</div>
+
+<p>
+The Taylor series expansion is sometimes written as:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \begin{split}
+  f(x + a)  &amp;= \sum_{n = 0}^{\infty} \frac{f^{(n)}(a)}{n!}x^n 
+         \\  &amp;= f(a) + f^{(1)}(a)x 
+              + \frac{f^{(2)}(a)}{2!} x^2 
+              + \frac{f^{(3)}(a)}{3!} x^3 
+              \cdots                        
+  \end{split}
+
+$$
+</div>
+
+<p>
+where:
+</p>
+
+<ul class="">
+<li>
+<span class="math-inline">\(f^{(n)}(x) = \dfrac{d^nf}{dx^n}\)</span> is the derivative of order n of a function f(x) 
+</li>
+<li>
+<span class="math-inline">\(f^{(0)}(x) = f(x)\)</span> - "derivative" of order zero, it is the same as f(x). 
+</li>
+<li>
+<span class="math-inline">\(f^{(1)}(x) = \dfrac{df}{dx}\)</span>  - first order derivative 
+</li>
+<li>
+<span class="math-inline">\(f^{(2)}(x) = \dfrac{d^2f}{dx^2}\)</span> - second order derivative 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Some_Taylor_series_expansion" class="document-heading anchor">7.2 Some Taylor series expansion <a class="link-heading" href="#H_Some_Taylor_series_expansion">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1231&end=1281&anchor=H_Some_Taylor_series_expansion&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 7.2 Some Taylor series expansion" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+Exponential
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  e^{x} = \sum_{n = 0}^{\infty} \frac{x^n}{n!} 
+        = 1 + x + \frac{1}{2!} x^2 + \frac{1}{3!} 3^2 + \frac{1}{4!} 4^2 + \cdots 
+
+$$
+</div>
+
+<p>
+Consine
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \cos x = \sum_{n = 0}^{\infty} \frac{(-1)^n}{(2n)!} x^{2n}
+         = 1 - \frac{1}{2!}x^2 + \frac{1}{4!} x^4 - \frac{1}{6!} x^6 + \cdots 
+
+$$
+</div>
+
+<p>
+Sine
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \sin x = \sum_{n = 0}^{\infty} \frac{(-1)^n}{(2n + 1)!} x^{2n + 1} 
+         = x -  \frac{1}{3!}x^3 + \frac{1}{5!}x^5 - \frac{1}{7!}x^7 + \cdots 
+
+$$
+</div>
+
+<p>
+Inverse tan or arctan
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \arctan x =  \sum_{n = 0}^{\infty} \frac{(-1)^n}{2n + 1} x^{2n + 1}
+            = x - \frac{1}{3} x^3 + \frac{1}{5} x^5 - \frac{1}{7!} x^7 + \cdots
+
+$$
+</div>
+
+<p>
+Natural Logarithm
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \ln(1 + x)  = \sum_{n = 1}^{\infty} \frac{x^n}{n}  (-1)^{n+1}
+            =  x - \frac{1}{2} x^2 + \frac{1}{3}x^3 - \frac{1}{4} x^4 + \cdots 
+
+$$
+</div>
+
+<p>
+Geometric Power Series
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+ \frac{1}{1 + x} = 1 + x + x^2 + x^3 + \cdots 
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Approximations_for_small_values_of_x" class="document-heading anchor">7.3 Approximations for small values of x <a class="link-heading" href="#H_Approximations_for_small_values_of_x">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1281&end=1318&anchor=H_Approximations_for_small_values_of_x&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 7.3 Approximations for small values of x" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<p>
+Misc Approximation
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\begin{split}
+
+  e^x             &amp; \approx  1 + x  \\
+  \ln (1 + x)     &amp; \approx  x      \\ 
+  \ln (1 - x)     &amp; \approx  1 - x  \\
+  \frac{1}{1 + x} &amp; \approx  1 - x \\ 
+  \frac{1}{1 - x} &amp; \approx  1 + x \\ 
+  (1 - x)^n       &amp; \approx  1 - n x + n(n-1) x^2 / 2
+\end{split}
+
+$$
+</div>
+
+<p>
+Approximations for small angles
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\begin{split}
+  \theta^2 &amp;\approx 0
+  \\ \sin \theta  &amp; \approx   \theta                    
+  \\ \cos \theta  &amp; \approx   1 - \frac{\theta^2}{2} \approx 0    
+  \\ \tan \theta  &amp; \approx   \theta                    
+  \\ \csc \theta  &amp; \approx   1 / \theta + \theta / 6      
+  \\ \sec \theta  &amp; \approx    1 + \theta^2 / 2 \approx 0         
+  \\ \cot \theta  &amp; \approx    1 / \theta - \theta* 3   
+\end{split}
+
+$$
+</div>
+
+<ul class="">
+<li>
+Where <span class="math-inline">\(\theta\)</span> is the angle in radians. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_References" class="document-heading anchor">7.4 References <a class="link-heading" href="#H_References">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1318&end=1332&anchor=H_References&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 7.4 References" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+</div>
+
+<ul class="">
+<li>
+<em>Wolfram MathWorld</em> <ul class="">
+<li>
+<a href="http://mathworld.wolfram.com/TaylorSeries.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >http://mathworld.wolfram.com/TaylorSeries.html</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Wikipedia - Taylor Series</em> <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Taylor_series"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Taylor_series</a> 
+</li>
+</ul>
+</li>
+<li>
+Wikipedia - <em>Small Angle Approximations</em> <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Small-angle_approximation"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Small-angle_approximation</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Expansions for Small Quantities</em> <ul class="">
+<li>
+<a href="http://www.astro.umd.edu/~hamilton/ASTR498/expansions.pdf"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >http://www.astro.umd.edu/~hamilton/ASTR498/expansions.pdf</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Multivariate_Calculus" class="document-heading anchor">8 Multivariate Calculus <a class="link-heading" href="#H_Multivariate_Calculus">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1332&end=1551&anchor=H_Multivariate_Calculus&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 8 Multivariate Calculus" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{8}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Gradient_Vector" class="document-heading anchor">8.1 Gradient Vector <a class="link-heading" href="#H_Gradient_Vector">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1334&end=1370&anchor=H_Gradient_Vector&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 8.1 Gradient Vector" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+Consider a scalar-valued function <span class="math-inline">\(f\)</span> of two variables <span class="math-inline">\(f = f(x, y) \in \mathbb{R}\)</span>, the gradient of this function is the vector
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+   \nabla f =  \frac{\partial f}{\partial \mathbf{r}}
+    =
+     \dfrac{\partial f}{\partial x} \hat{\mathbf{x}} 
+   + \dfrac{\partial f}{\partial y} \hat{\mathbf{y}}
+   = 
+    \begin{bmatrix}
+          \dfrac{\partial f}{\partial x}
+       \\ \dfrac{\partial f}{\partial y}
+    \end{bmatrix}
+
+$$
+</div>
+
+<p>
+Where <span class="math-inline">\(\hat{\mathbf{x}}\)</span> is the unit vector of <span class="math-inline">\(x\)</span> axis, <span class="math-inline">\(\hat{\mathbf{y}}\)</span> is the unit vector of the <span class="math-inline">\(y\)</span> axis and <span class="math-inline">\(\nabla\)</span> is the operator
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \nabla = 
+     \dfrac{\partial}{\partial x} \hat{\mathbf{x}} 
+   + \dfrac{\partial}{\partial y} \hat{\mathbf{y}}
+
+$$
+</div>
+
+<p>
+or in matrix form,
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \nabla =
+    \begin{bmatrix}
+          \dfrac{\partial f}{\partial x}
+       \\ \dfrac{\partial f}{\partial y}
+    \end{bmatrix}
+
+$$
+</div>
+
+<p>
+In some text books, the <span class="math-inline">\(x\)</span> axis unit vector is referred as <span class="math-inline">\(i\)</span> or <span class="math-inline">\(\mathbf{i}\)</span> and the <span class="math-inline">\(y\)</span> axis unit vector is referred as <span class="math-inline">\(j\)</span> or <span class="math-inline">\(\mathbf{j}\)</span>. Those notations are avoided due to the possible confusion since <span class="math-inline">\(i\)</span> is sometimes used to referrer to either electrical current or the imaginary unit <span class="math-inline">\(i = \sqrt{-1}\)</span> and the letter <span class="math-inline">\(j\)</span> is also used in electrical engineering for denoting the imaginary unit <span class="math-inline">\(j = \sqrt{-1}\)</span>.
+</p>
+
+<div class="div-heading"> 
+<h3 id="H_Directional_Derivative" class="document-heading anchor">8.2 Directional Derivative <a class="link-heading" href="#H_Directional_Derivative">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1370&end=1391&anchor=H_Directional_Derivative&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 8.2 Directional Derivative" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+The directional derivative $ D_{\mathbf{u}} f$ in the direction <span class="math-inline">\(\mathbf{u}\)</span> of a function <span class="math-inline">\(z = f(x, y)\)</span> of two variables, which represents a surface in space, is given by
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  D_{\mathbf{u}} f = \nabla f \cdot \hat{\mathbf{u}}
+        = \frac{\partial f}{\partial x} u_x
+        + \frac{\partial f}{\partial y} u_y
+    
+
+$$
+</div>
+
+<p>
+or
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  D_{\mathbf{u}} f =  \| \nabla f \| \| \mathbf{u} \| \cos \theta
+
+$$
+</div>
+
+<p>
+Where <span class="math-inline">\(\mathbf{u} = (u_x, u_y)\)</span> and <span class="math-inline">\(\theta\)</span> is the angle betwen <span class="math-inline">\(\mathbf{u}\)</span> and the gradient vector <span class="math-inline">\(\nabla f\)</span>. The directional derivative has the highest positive value when <span class="math-inline">\(\theta = 0\)</span> in the direction of the gradient vector. The direction of the highest decrease of the directional derivative is in the opposite direction of the gradient vector when <span class="math-inline">\(\theta = \pi\)</span> (180 degrees).
+</p>
+
+<div class="div-heading"> 
+<h3 id="H_Change_of_Variables_and_Jacobian_Matrix_in_a_Plane" class="document-heading anchor">8.3 Change of Variables and Jacobian Matrix in a Plane <a class="link-heading" href="#H_Change_of_Variables_and_Jacobian_Matrix_in_a_Plane">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1391&end=1535&anchor=H_Change_of_Variables_and_Jacobian_Matrix_in_a_Plane&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 8.3 Change of Variables and Jacobian Matrix in a Plane" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<p>
+Let <span class="math-inline">\((x, y)\)</span> be the cartesian coordinates of a plance, a 2-dimensional space, where <span class="math-inline">\(x = x(u, v)\)</span> and <span class="math-inline">\(y = y(u, v)\)</span>.
+</p>
+
+<p>
+The <em><strong>jacobian matrix</strong></em> of this variable transformation is defined as
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+    J = \begin{bmatrix}
+              \dfrac{ \partial \mathbf{r} }{\partial u}
+            &amp; \dfrac{ \partial \mathbf{r} }{\partial v}
+        \end{bmatrix}
+      =
+       \begin{bmatrix}
+               \nabla_{(u, v)}^T x
+            \\ \nabla_{(u, v)}^T y 
+        \end{bmatrix}
+      =
+        \begin{bmatrix}
+               \dfrac{ \partial{x} }{ \partial u}
+            &amp;  \dfrac{ \partial{x} }{ \partial v}
+         \\    \dfrac{ \partial{y} }{ \partial u}
+            &amp;  \dfrac{ \partial{y} }{ \partial v}
+        \end{bmatrix}
+
+$$
+</div>
+
+<p>
+Where
+</p>
+
+<ul class="">
+<li>
+<span class="math-inline">\(\mathbf{r} = (x, y)\)</span> is the position vector, which is a 2 by 1 column matrix (column vector); 
+</li>
+<li>
+<span class="math-inline">\(\nabla_{(u, v)}^T x\)</span> is the transpose of the gradient of the scalar <span class="math-inline">\(x\)</span> with respect to the vector <span class="math-inline">\((u, v)\)</span>. 
+</li>
+<li>
+<span class="math-inline">\(\nabla_{(u, v)}^T y\)</span> is the trnaspose of the graident of the scalar <span class="math-inline">\(y\)</span> with respec to the vector <span class="math-inline">\((u, v)\)</span>. 
+</li>
+</ul>
+
+<p>
+<strong>Area Double Integral</strong>
+</p>
+
+<p>
+The area in double integral is given by
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  A = \iint dA = \iint dx \, dy 
+    = \iint | \det J | \, du \, dv
+
+$$
+</div>
+
+<p>
+<strong>Area Differential</strong>
+</p>
+
+<p>
+The area differential is given by
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  dA = dx \, dy = | \det J | \, du \, dv
+
+$$
+</div>
+
+<p>
+where <span class="math-inline">\(| \det J |\)</span> is absolute value of the determinant of the jacobian matrix.
+</p>
+
+<p>
+<strong>Area in Polar Coordinates</strong>
+</p>
+
+<p>
+Planar cartesian coordinates <span class="math-inline">\((x, y)\)</span> can be turned into polar coordinates as <span class="math-inline">\((\theta, r)\)</span>, where
+</p>
+
+<ul class="">
+<li>
+<span class="math-inline">\(x = x(\theta, r) = r \cos \theta\)</span> 
+</li>
+<li>
+<span class="math-inline">\(y = y(\theta, r) = r \sin \theta\)</span> 
+</li>
+</ul>
+
+<p>
+Compute the partial derivative of <span class="math-inline">\(\mathbf{r} = (x, y)\)</span> vector with respec to <span class="math-inline">\(\theta\)</span>.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+ \frac{\partial \mathbf{r} }{\partial \theta} 
+        = \frac{\partial}{\partial \theta}
+          \begin{bmatrix}
+            r \cos \theta \\ r \sin \theta          
+          \end{bmatrix}
+        = 
+          \begin{bmatrix}
+            - r \sin \theta \\ r \cos \theta          
+          \end{bmatrix}
+          
+
+$$
+</div>
+
+<p>
+Compute the partial derivative of <span class="math-inline">\(\mathbf{r} = (x, y)\)</span> vector with respec to <span class="math-inline">\(\theta\)</span>.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+ \frac{\partial \mathbf{r} }{\partial r} 
+        = \frac{\partial}{\partial r}
+          \begin{bmatrix}
+            r \cos \theta \\ r \sin \theta          
+          \end{bmatrix}
+        = 
+          \begin{bmatrix}
+             \cos \theta \\  \sin \theta          
+          \end{bmatrix}
+          
+
+$$
+</div>
+
+<p>
+Determine the jacobian matrix
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  J = \begin{bmatrix}
+            \dfrac{\partial \mathbf{r} }{\partial \theta}
+         &amp;  \dfrac{\partial \mathbf{r} }{\partial r} 
+      \end{bmatrix}
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+  J =  
+     \begin{bmatrix}
+           - r \sin \theta  &amp; \cos \theta
+        \\   r \cos \theta  &amp; \sin \theta
+     \end{bmatrix}
+
+$$
+</div>
+
+<p>
+Compute the determinant of the jacobian matrix.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \det J = (- r \sin \theta) (\sin \theta) - (r \cos \theta) (\cos \theta)
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+  \det J = - r \sin^2 \theta - r \cos^2 \theta 
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+  \det J = -r (\sin^2 \theta + \cos^2 \theta)
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+  \det J = -r
+
+$$
+</div>
+
+<p>
+The area differential in polar coordinates is given by
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  dA = | \det J | \, d\theta \, dr
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+  dA = | - r | \, d\theta \, dr
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+ dA = r \, \d\theta \, dr
+
+$$
+</div>
+
+<p>
+Therefore, the area of a region in polar coordinates is
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\boxed{
+  A = \iint dA = \iint  r \, \d\theta \, dr
+}
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Change_of_Variables_and_Jacobian_Matrix_in_a_Space" class="document-heading anchor">8.4 Change of Variables and Jacobian Matrix in a Space <a class="link-heading" href="#H_Change_of_Variables_and_Jacobian_Matrix_in_a_Space">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1535&end=1537&anchor=H_Change_of_Variables_and_Jacobian_Matrix_in_a_Space&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 8.4 Change of Variables and Jacobian Matrix in a Space" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Derivative_Chain_Rule" class="document-heading anchor">8.5 Derivative Chain Rule <a class="link-heading" href="#H_Derivative_Chain_Rule">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1537&end=1541&anchor=H_Derivative_Chain_Rule&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 8.5 Derivative Chain Rule" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{5}">\(\setSubSection{5}\)</span>
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_See_also" class="document-heading anchor">8.6 See also <a class="link-heading" href="#H_See_also">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1541&end=1551&anchor=H_See_also&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 8.6 See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{6}">\(\setSubSection{6}\)</span>
+</div>
+
+<ul class="">
+<li>
+<em>Change of variables and Jacobians</em> <ul class="">
+<li>
+<a href="https://www.staff.city.ac.uk/o.castro-alvaredo/teaching/jacobians"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.staff.city.ac.uk/o.castro-alvaredo/teaching/jacobians</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>The Jacobian for Polar and Spherical Coordinates</em>, Department of Mathematics, Oregon State University (1996) <ul class="">
+<li>
+<a href="https://sites.science.oregonstate.edu/math/home/programs/undergrad/CalculusQuestStudyGuides/vcalc/jacpol/jacpol.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://sites.science.oregonstate.edu/math/home/programs/undergrad/CalculusQuestStudyGuides/vcalc/jacpol/jacpol.html</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>3.8: Jacobians</em>, Larry Green, Lake Tajoe Community College <ul class="">
+<li>
+<a href="https://math.libretexts.org/Bookshelves/Calculus/Supplemental_Modules_(Calculus)/Vector_Calculus/3%3A_Multiple_Integrals/3.8%3A_Jacobians"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://math.libretexts.org/Bookshelves/Calculus/Supplemental_Modules_(Calculus)/Vector_Calculus/3%3A_Multiple_Integrals/3.8%3A_Jacobians</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Statistical_Formulas" class="document-heading anchor">9 Statistical Formulas <a class="link-heading" href="#H_Statistical_Formulas">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1551&end=1615&anchor=H_Statistical_Formulas&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 9 Statistical Formulas" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{9}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+Source:
+</p>
+
+<ul class="">
+<li>
+<a href="http://users.encs.concordia.ca/~doedel/courses/comp-233/slides.pdf"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >(Doedel - Page 182)</a> 
+</li>
+<li>
+<a href="https://www3.nd.edu/~rwilliam/stats1/x12.pdf"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www3.nd.edu/~rwilliam/stats1/x12.pdf</a> 
+</li>
+</ul>
+
+<p>
+Notation:
+</p>
+
+<ul class="">
+<li>
+<span class="math-inline">\(\pmb{X}\)</span> bold capital letters mean probability distribution. 
+</li>
+<li>
+Var(X) => Variance of the distribution X 
+</li>
+<li>
+Cov(X, Y) => Covariance of the proabilities distributions X and Y 
+</li>
+<li>
+<span class="math-inline">\(\sigma_x\)</span> => Standard deviation of variable X 
+</li>
+<li>
+<span class="math-inline">\(\mu\)</span> => Average or menan of random variable X 
+</li>
+</ul>
+
+<p>
+<strong>Expected Value Identities</strong>
+</p>
+
+<p>
+Expected value of constant 'a':
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+   E(a) = a
+
+$$
+</div>
+
+<p>
+Expected value of a linear combination of random variables, 'a' and 'b' are constants.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+   E( a \cdot \pmb{X} + b \cdot \pmb{Y} ) = a \cdot \pmb{X} + b \cdot \pmb{Y}
+
+$$
+</div>
+
+<p>
+<strong>Covariance, Variance, Standard Deviation Identities</strong>
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \text{Var}( \pmb{X} )  E[(X - \mu)^2]  E(X^2) - \mu^2 = \sigma_x^2
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+  \text{Var}(c \cdot \pmb{X} + d) = c^2 \cdot \text{Var}( \pmb{X} )
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+  \text{Cov}( \pmb{X}, \pmb{Y} ) = \text{Cov}( \pmb{Y}, \pmb{X} )
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+  \text{Cov}(c \cdot \pmb{X}, \pmb{Y} ) 
+         = \text{Cov}( \pmb{X}, c \cdot \pmb{Y} ) 
+         = c \cdot \text{Cov}( \pmb{X}, \pmb{Y} )
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+   \text{Cov}( \pmb{X} + \pmb{Y}, \pmb{Z} ) 
+        =  \text{Cov}( \pmb{X}, \pmb{Y} ) +  \text{Cov}( \pmb{X}, \pmb{Z} )
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+   \text{Var}( \pmb{X} + \pmb{Y}) =  \text{Var}( \pmb{X} ) + \text{Var}( \pmb{Y} ) + 2 \text{Cov}( \pmb{X},\pmb{Y})
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h2 id="H_Linear_algebra" class="document-heading anchor">10 Linear algebra <a class="link-heading" href="#H_Linear_algebra">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1615&end=1764&anchor=H_Linear_algebra&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 10 Linear algebra" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{10}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Notation" class="document-heading anchor">10.1 Notation <a class="link-heading" href="#H_Notation">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1616&end=1615&anchor=H_Notation&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 10.1 Notation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+General:
+</p>
+
+<ul class="">
+<li>
+<span class="math-inline">\(I = I_n\)</span> (n x n) <ul class="">
+<li>
+identity matrix with all diagonal elements set to 1. 
+</li>
+</ul>
+</li>
+<li>
+<span class="math-inline">\(1_{n, m}\)</span> (n x m) <ul class="">
+<li>
+Matrix with n rows and m columsn with all elements set to 1. 
+</li>
+</ul>
+</li>
+<li>
+<span class="math-inline">\(A_{(n x m )}\)</span> or A (n x m) <ul class="">
+<li>
+A is a matirx with n rows and m columns 
+</li>
+</ul>
+</li>
+<li>
+<span class="math-inline">\(A^T\)</span> (m x n) - Transpose matrix of A 
+</li>
+<li>
+<span class="math-inline">\(A^{-1}\)</span> inverse matrix of A for which: <ul class="">
+<li>
+<span class="math-inline">\(A  A^{-1} =  A^{-1} = A  I\)</span> 
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+Column vector:
+</p>
+
+<ul class="">
+<li>
+Vcol (n x 1) matrix of a single column containing n elements. 
+</li>
+</ul>
+
+<div class="math-block anchor"> 
+$$
+
+  \text{Vcol}_{(n x 1)} = 
+    \begin{bmatrix} v_1 \\ v_2 \\ \cdots \\ v_n \end{bmatrix}
+
+$$
+</div>
+
+<p>
+Row vector:
+</p>
+
+<ul class="">
+<li>
+(1 x n) matrix of a single row. 
+</li>
+</ul>
+
+<div class="math-block anchor"> 
+$$
+
+  \text{Vrow}_{(1 x n)} = 
+    \begin{bmatrix} v_1 &amp; v_2 &amp; \cdots &amp; v_n \end{bmatrix}
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Special_matrices" class="document-heading anchor">10.2 Special matrices <a class="link-heading" href="#H_Special_matrices">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1650&end=1764&anchor=H_Special_matrices&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 10.2 Special matrices" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+Zero matrix:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  0_{3 x 4} =  \begin{bmatrix}
+                  0 &amp; 0 &amp; 0 &amp; 0 \\
+                  0 &amp; 0 &amp; 0 &amp; 0 \\
+                  0 &amp; 0 &amp; 0 &amp; 0 \\
+                  0 &amp; 0 &amp; 0 &amp; 0 \\
+                \end{bmatrix}
+
+$$
+</div>
+
+<pre>
+<code class="language-julia"><div class="highlight"><pre><span></span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
+<span class="w">  </span><span class="mi">3</span><span class="o">×</span><span class="mi">3</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
+<span class="w">   </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span>
+<span class="w">   </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span>
+<span class="w">   </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span>
+
+
+<span class="w">  </span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">  </span><span class="mi">3</span><span class="o">×</span><span class="mi">1</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
+<span class="w">   </span><span class="mf">0.000</span>
+<span class="w">   </span><span class="mf">0.000</span>
+<span class="w">   </span><span class="mf">0.000</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Identity Matrix:
+</p>
+
+<ul class="">
+<li>
+All diagonal elements are 1. 
+</li>
+</ul>
+
+<div class="math-block anchor"> 
+$$
+
+  I_{2} =  \begin{bmatrix}
+                  1 &amp; 0 \\
+                  0 &amp; 1 \\
+                \end{bmatrix}
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+  I_{3} =  \begin{bmatrix}
+                  1 &amp; 0 &amp; 0 \\
+                  0 &amp; 1 &amp; 0 \\
+                  0 &amp; 0 &amp; 1 \\
+                \end{bmatrix}
+
+$$
+</div>
+
+<pre>
+<code class="language-julia"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">LinearAlgebra</span><span class="w"> </span>
+
+
+<span class="w">  </span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">I</span>
+
+
+<span class="w">  </span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="w">  </span><span class="mi">3</span><span class="o">×</span><span class="mi">3</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
+<span class="w">   </span><span class="mf">1.000</span><span class="w">  </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span>
+<span class="w">   </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">1.000</span><span class="w">  </span><span class="mf">0.000</span>
+<span class="w">   </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">1.000</span>
+
+
+<span class="w">  </span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="w">  </span><span class="mi">4</span><span class="o">×</span><span class="mi">4</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
+<span class="w">   </span><span class="mf">1.000</span><span class="w">  </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span>
+<span class="w">   </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">1.000</span><span class="w">  </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span>
+<span class="w">   </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">1.000</span><span class="w">  </span><span class="mf">0.000</span>
+<span class="w">   </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">1.000</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Ones-based matrices:
+</p>
+
+<p>
+<span class="math-inline">\(1_{n, n} = 1 \quad \text{for every i, j}\)</span>
+</p>
+
+<pre>
+<code class="language-julia"><div class="highlight"><pre><span></span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="w">  </span><span class="mi">2</span><span class="o">×</span><span class="mi">2</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
+<span class="w">   </span><span class="mf">1.00000E+00</span><span class="w">  </span><span class="mf">1.00000E+00</span>
+<span class="w">   </span><span class="mf">1.00000E+00</span><span class="w">  </span><span class="mf">1.00000E+00</span>
+
+
+<span class="w">  </span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="w">  </span><span class="mi">3</span><span class="o">×</span><span class="mi">2</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
+<span class="w">   </span><span class="mf">1.00000E+00</span><span class="w">  </span><span class="mf">1.00000E+00</span>
+<span class="w">   </span><span class="mf">1.00000E+00</span><span class="w">  </span><span class="mf">1.00000E+00</span>
+<span class="w">   </span><span class="mf">1.00000E+00</span><span class="w">  </span><span class="mf">1.00000E+00</span>
+
+
+<span class="w">  </span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">  </span><span class="mi">3</span><span class="o">×</span><span class="mi">1</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
+<span class="w">   </span><span class="mf">1.00000E+00</span>
+<span class="w">   </span><span class="mf">1.00000E+00</span>
+<span class="w">   </span><span class="mf">1.00000E+00</span>
+</pre></div>
+</code>
+</pre>
+
+<div class="div-heading"> 
+<h2 id="H_Types_of_matrices" class="document-heading anchor">11 Types of matrices <a class="link-heading" href="#H_Types_of_matrices">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1764&end=1929&anchor=H_Types_of_matrices&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 11 Types of matrices" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{11}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+<strong>Symmetric Matrix</strong>
+</p>
+
+<p>
+Any matrix which equals to its transpose:
+</p>
+
+<p>
+Aij = Aji
+</p>
+
+<pre>
+<code class="language-julia"><div class="highlight"><pre><span></span><span class="c"># -------- Symmetric matrix  ---------</span>
+
+
+<span class="w">  </span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">-</span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">-</span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="p">]</span>
+<span class="w">  </span><span class="mi">3</span><span class="o">×</span><span class="mi">3</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Int64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
+<span class="w">   </span><span class="mi">1</span><span class="w">   </span><span class="mi">7</span><span class="w">   </span><span class="mi">3</span>
+<span class="w">   </span><span class="mi">7</span><span class="w">   </span><span class="mi">4</span><span class="w">  </span><span class="o">-</span><span class="mi">5</span>
+<span class="w">   </span><span class="mi">3</span><span class="w">  </span><span class="o">-</span><span class="mi">5</span><span class="w">   </span><span class="mi">6</span>
+
+
+<span class="w">  </span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">A</span><span class="o">&#39;</span>
+<span class="w">  </span><span class="mi">3</span><span class="o">×</span><span class="mi">3</span><span class="w"> </span><span class="n">LinearAlgebra</span><span class="o">.</span><span class="kt">Adjoint</span><span class="p">{</span><span class="kt">Int64</span><span class="p">,</span><span class="kt">Array</span><span class="p">{</span><span class="kt">Int64</span><span class="p">,</span><span class="mi">2</span><span class="p">}}</span><span class="o">:</span>
+<span class="w">   </span><span class="mi">1</span><span class="w">   </span><span class="mi">7</span><span class="w">   </span><span class="mi">3</span>
+<span class="w">   </span><span class="mi">7</span><span class="w">   </span><span class="mi">4</span><span class="w">  </span><span class="o">-</span><span class="mi">5</span>
+<span class="w">   </span><span class="mi">3</span><span class="w">  </span><span class="o">-</span><span class="mi">5</span><span class="w">   </span><span class="mi">6</span>
+
+
+<span class="w">  </span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">A</span><span class="o">&#39;</span><span class="w">  </span><span class="n">A</span>
+<span class="w">  </span><span class="nb">true</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Non Symmetric Matrix:
+</p>
+
+<pre>
+<code class="language-julia"><div class="highlight"><pre><span></span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">3</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span>
+<span class="w">  </span><span class="mi">3</span><span class="o">×</span><span class="mi">3</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Int64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
+<span class="w">   </span><span class="mi">3</span><span class="w">  </span><span class="mi">8</span><span class="w">  </span><span class="mi">7</span>
+<span class="w">   </span><span class="mi">9</span><span class="w">  </span><span class="mi">5</span><span class="w">  </span><span class="mi">6</span>
+<span class="w">   </span><span class="mi">1</span><span class="w">  </span><span class="mi">2</span><span class="w">  </span><span class="mi">3</span>
+
+
+<span class="w">  </span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">B</span><span class="o">&#39;</span>
+<span class="w">  </span><span class="mi">3</span><span class="o">×</span><span class="mi">3</span><span class="w"> </span><span class="n">LinearAlgebra</span><span class="o">.</span><span class="kt">Adjoint</span><span class="p">{</span><span class="kt">Int64</span><span class="p">,</span><span class="kt">Array</span><span class="p">{</span><span class="kt">Int64</span><span class="p">,</span><span class="mi">2</span><span class="p">}}</span><span class="o">:</span>
+<span class="w">   </span><span class="mi">3</span><span class="w">  </span><span class="mi">9</span><span class="w">  </span><span class="mi">1</span>
+<span class="w">   </span><span class="mi">8</span><span class="w">  </span><span class="mi">5</span><span class="w">  </span><span class="mi">2</span>
+<span class="w">   </span><span class="mi">7</span><span class="w">  </span><span class="mi">6</span><span class="w">  </span><span class="mi">3</span>
+
+
+<span class="w">  </span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">B</span><span class="w">  </span><span class="n">B</span><span class="o">&#39;</span>
+<span class="w">  </span><span class="nb">false</span>
+</pre></div>
+</code>
+</pre>
+
+<div class="div-heading"> 
+<h3 id="H_Matrix_Operations_Rules" class="document-heading anchor">11.1 Matrix Operations Rules <a class="link-heading" href="#H_Matrix_Operations_Rules">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1821&end=1894&anchor=H_Matrix_Operations_Rules&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 11.1 Matrix Operations Rules" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+<strong>Matrix multiplication is not symmetric</strong>
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  A  B \neq B  A
+
+$$
+</div>
+
+<pre>
+<code class="language-julia"><div class="highlight"><pre><span></span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="p">]</span>
+<span class="w">  </span><span class="mi">2</span><span class="o">×</span><span class="mi">2</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Int64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
+<span class="w">   </span><span class="mi">4</span><span class="w">  </span><span class="mi">5</span>
+<span class="w">   </span><span class="mi">6</span><span class="w">  </span><span class="mi">7</span>
+
+
+<span class="w">  </span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">5</span><span class="p">]</span>
+<span class="w">  </span><span class="mi">2</span><span class="o">×</span><span class="mi">2</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Int64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
+<span class="w">   </span><span class="mi">8</span><span class="w">  </span><span class="mi">2</span>
+<span class="w">   </span><span class="mi">1</span><span class="w">  </span><span class="mi">5</span>
+
+
+<span class="w">  </span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B</span>
+<span class="w">  </span><span class="mi">2</span><span class="o">×</span><span class="mi">2</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Int64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
+<span class="w">   </span><span class="mi">37</span><span class="w">  </span><span class="mi">33</span>
+<span class="w">   </span><span class="mi">55</span><span class="w">  </span><span class="mi">47</span>
+
+
+<span class="w">  </span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">A</span>
+<span class="w">  </span><span class="mi">2</span><span class="o">×</span><span class="mi">2</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Int64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
+<span class="w">   </span><span class="mi">44</span><span class="w">  </span><span class="mi">54</span>
+<span class="w">   </span><span class="mi">34</span><span class="w">  </span><span class="mi">40</span>
+
+
+<span class="w">  </span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">B</span><span class="w">  </span><span class="n">B</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">A</span>
+<span class="w">  </span><span class="nb">false</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+<strong>Associativity</strong>
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  A . B . C  (A . B) C  A (B . C)
+
+$$
+</div>
+
+<p>
+<strong>Transpose matrix</strong>
+</p>
+
+<p>
+Tranpose of product:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  (A  B)^T = B^T  A^T
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+  (A  B  C)^T  C^T (A  B)^T  (B  C)^T  A =  C^T  B^T  A^T
+
+$$
+</div>
+
+<p>
+Transpose of sum:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  (A + B)^T = A^T + B^T
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Column_vector_properties" class="document-heading anchor">11.2 Column vector properties <a class="link-heading" href="#H_Column_vector_properties">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1894&end=1929&anchor=H_Column_vector_properties&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 11.2 Column vector properties" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+Let <em><em>a</em> and <em>b</em></em> be two (n x 1) column vectors:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  a_{(n x 1)} = 
+    \begin{bmatrix} a_1 \\ a_2 \\ \cdots \\ a_n \end{bmatrix}
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+  b_{(n x 1)} = 
+    \begin{bmatrix} b_1 \\ b_2 \\ \cdots \\ b_n \end{bmatrix}
+
+$$
+</div>
+
+<p>
+The scalar product (dot product) between <em><em>a</em> and <em>b</em></em> is:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \mathbf{a} \cdot \mathbf{b} =  \sum_{i = 1}^n a_i  b_i 
+            =  \mathbf{a}^T \mathbf{b}
+            =  \mathbf{b}^T \mathbf{a}
+
+$$
+</div>
+
+<p>
+The L-2 norm or euclidian norm of a vector is given by:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \text{norm}(\mathbf{a}) 
+    = \| \mathbf{a} \| 
+    = \sqrt{ \sum_{i = 1}^n a_i^2 } 
+    = \sqrt{ \mathbf{a}^T \cdot \mathbf{a}} 
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h2 id="H_Matrix_Calculus" class="document-heading anchor">12 Matrix Calculus <a class="link-heading" href="#H_Matrix_Calculus">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1929&end=end&anchor=H_Matrix_Calculus&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 12 Matrix Calculus" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{12}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Definitions" class="document-heading anchor">12.1 Definitions <a class="link-heading" href="#H_Definitions">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1931&end=1948&anchor=H_Definitions&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 12.1 Definitions" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+Let <strong>x</strong> be a (n x 1) column vector and y be a (m x 1) column vector.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  x_{(n x 1)} = 
+    \begin{bmatrix} x_1 \\ x_2 \\ \cdots \\ x_n \end{bmatrix}
+
+$$
+</div>
+
+<div class="math-block anchor"> 
+$$
+
+  y_{(m x 1)} = 
+    \begin{bmatrix} y_1 \\ y_2 \\ \cdots \\ y_n \end{bmatrix}
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Derivate_of_a_scalar_with_respect_to_a_vector" class="document-heading anchor">12.2 Derivate of a scalar with respect to a vector <a class="link-heading" href="#H_Derivate_of_a_scalar_with_respect_to_a_vector">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1948&end=1975&anchor=H_Derivate_of_a_scalar_with_respect_to_a_vector&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 12.2 Derivate of a scalar with respect to a vector" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+If <span class="math-inline">\(F(X): R^N \rightarrow R\)</span> - F(X) = F(x1, x2, ... xn) is a multivariate function, the derivate of the scalar function F(X) with respect to the vector X is:
+</p>
+
+<ul class="">
+<li>
+Note: <span class="math-inline">\(\nabla F\)</span> means gradient vector of F(X) 
+</li>
+</ul>
+
+<div class="math-block anchor"> 
+$$
+
+  \frac{\partial F}{\partial x}  
+     = \nabla F
+     =   \begin{bmatrix} 
+            \frac{\partial F}{\partial x_1} \\             
+            \frac{\partial F}{\partial x_2} \\
+            \cdots \\ 
+            \frac{\partial F}{\partial x_n} \\
+         \end{bmatrix}
+
+
+
+$$
+</div>
+
+<p>
+<strong>See:</strong>
+</p>
+
+<ul class="">
+<li>
+<a href="http://www.ams.sunysb.edu/~zhu/ams571/matrixvector.pdf"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >http://www.ams.sunysb.edu/~zhu/ams571/matrixvector.pdf</a> <ul class="">
+<li>
+Page 38, page 39 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Derivate_of_a_vector_with_respect_to_a_scalar" class="document-heading anchor">12.3 Derivate of a vector with respect to a scalar <a class="link-heading" href="#H_Derivate_of_a_vector_with_respect_to_a_scalar">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1975&end=1990&anchor=H_Derivate_of_a_vector_with_respect_to_a_scalar&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 12.3 Derivate of a vector with respect to a scalar" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<p>
+If the vector Y is a function (Y = Y(t)) of the scalar t, the derivate of Y with respect to t is:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+   \frac{\partial Y(t)}{\partial t} = 
+     \begin{bmatrix} 
+         \frac{\partial y_1(t)}{\partial t}  \\
+         \frac{\partial y_2(t)}{\partial t}  \\
+         \frac{\partial y_3(t)}{\partial t}  \\ 
+         \cdots                              \\
+         \frac{\partial y_m(t)}{\partial t}  \\
+     \end{bmatrix}
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Derivate_of_a_vector_with_respect_to_a_vector" class="document-heading anchor">12.4 Derivate of a vector with respect to a vector <a class="link-heading" href="#H_Derivate_of_a_vector_with_respect_to_a_vector">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1990&end=2022&anchor=H_Derivate_of_a_vector_with_respect_to_a_vector&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 12.4 Derivate of a vector with respect to a vector" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+</div>
+
+<p>
+If the vector Y (m x 1) is a function of the vector X (n x 1), then the derivate of Y with respect to Y is:
+</p>
+
+<ul class="">
+<li>
+where J[Y(X)] is the <u>Jacobian</u> matrix of Y(X) 
+</li>
+</ul>
+
+<div class="math-block anchor"> 
+$$
+
+   \frac{\partial Y(X)}{\partial X} 
+       =  J[Y(X)] 
+       =
+       \begin{bmatrix} 
+           \frac{\partial y_1}{\partial x_1} 
+         &amp; \frac{\partial y_2}{\partial x_1} 
+         &amp; \cdots 
+         &amp; \frac{\partial y_m}{\partial x_1}  \\
+
+
+           \frac{\partial y_1}{\partial x_2} 
+         &amp; \frac{\partial y_2}{\partial x_2} 
+         &amp; \cdots 
+         &amp; \frac{\partial y_m}{\partial x_2}  \\
+
+
+           \cdots &amp; \cdots  &amp; \cdots &amp; \cdots \\ 
+
+
+           \frac{\partial y_1}{\partial x_2} 
+         &amp; \frac{\partial y_2}{\partial x_2} 
+         &amp; \cdots 
+         &amp; \frac{\partial y_m}{\partial x_2}  \\
+       \end{bmatrix}
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Derivate_rules_for_matrices_and_vectors" class="document-heading anchor">12.5 Derivate rules for matrices and vectors <a class="link-heading" href="#H_Derivate_rules_for_matrices_and_vectors">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=2022&end=2137&anchor=H_Derivate_rules_for_matrices_and_vectors&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 12.5 Derivate rules for matrices and vectors" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{5}">\(\setSubSection{5}\)</span>
+</div>
+
+<p>
+References:
+</p>
+
+<ul class="">
+<li>
+<a href="http://www.ams.sunysb.edu/~zhu/ams571/matrixvector.pdf"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >http://www.ams.sunysb.edu/~zhu/ams571/matrixvector.pdf</a> 
+</li>
+<li>
+<a href="https://atmos.washington.edu/~dennis/MatrixCalculus.pdf"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://atmos.washington.edu/~dennis/MatrixCalculus.pdf</a> 
+</li>
+<li>
+<a href="https://www.comp.nus.edu.sg/~cs5240/lecture/matrix-differentiation.pdf"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.comp.nus.edu.sg/~cs5240/lecture/matrix-differentiation.pdf</a> 
+</li>
+<li>
+<a href="http://www.ee.ic.ac.uk/hp/staff/dmb/matrix/calculus.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >http://www.ee.ic.ac.uk/hp/staff/dmb/matrix/calculus.html</a> 
+</li>
+<li>
+<a href="https://en.wikipedia.org/wiki/Matrix_calculus"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Matrix_calculus</a> 
+</li>
+</ul>
+
+<p>
+Let X be n x 1 vector where <span class="math-inline">\(x \in R^n\)</span>
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  x_{(n x 1)} = 
+    \begin{bmatrix} x_1 \\ x_2 \\ \cdots \\ x_n \end{bmatrix}
+
+$$
+</div>
+
+<p>
+Let C be matrix of (n x n) constant elements where <span class="math-inline">\(C \in R^{n x n}\)</span>
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  C = \begin{bmatrix}
+        c_{11} &amp; c_{12} &amp; c_{13} \cdots c_{1n} \\ 
+        c_{21} &amp; c_{22} &amp; c_{23} \cdots c_{2n} \\ 
+        c_{31} &amp; c_{32} &amp; c_{33} \cdots c_{3n} \\ 
+       \cdots  &amp; \cdots &amp; \cdots &amp; \cdots      \\
+        c_{n1} &amp; c_{n2} &amp; c_{n3} \cdots c_{nn} \\ 
+      \end{bmatrix}
+
+$$
+</div>
+
+<p>
+The following identities are valid:
+</p>
+
+<ul class="">
+<li>
+Derivate of product between constant matrix and column vector. 
+</li>
+</ul>
+
+<div class="math-block anchor"> 
+$$
+
+   \frac{\partial }{\partial X} (C . X)  
+        = \frac{\partial (C . x)}{\partial X} 
+        = C^T 
+
+$$
+</div>
+
+<ul class="">
+<li>
+Derivate of product between column vector and constant matrix. 
+</li>
+</ul>
+
+<div class="math-block anchor"> 
+$$
+
+   \frac{\partial }{\partial X} (X^T . C)  
+        = \frac{\partial (X^T C)}{\partial X} 
+        = C 
+
+$$
+</div>
+
+<ul class="">
+<li>
+Derivate of scalar product between vector and itself. <ul class="">
+<li>
+Note: this result is a vector. 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="math-block anchor"> 
+$$
+
+   \frac{\partial }{\partial X} (X^T . X)  
+        = \frac{\partial (X^T . X)}{\partial X} 
+        = 2 X
+
+$$
+</div>
+
+<ul class="">
+<li>
+Derivate of a scalar product between vectors. <ul class="">
+<li>
+Let Y be a (n x 1) vector. 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="math-block anchor"> 
+$$
+
+   \frac{\partial }{\partial X} (y^T x)  
+    = \frac{\partial }{\partial X} (x^T y)  
+    = y^T
+
+$$
+</div>
+
+<ul class="">
+<li>
+Derivative of quadratic form. 
+</li>
+</ul>
+
+<div class="math-block anchor"> 
+$$
+
+   \frac{\partial }{\partial X} (X^T . C . X)  
+        = \frac{\partial (X^T . C. X)}{\partial X} 
+        = (C + C^T) . x 
+        = x^T (C + C^T) 
+
+$$
+</div>
+
+<ul class="">
+<li>
+Derivative of scalar defined by <span class="math-inline">\(\alpha = y^T . A . x\)</span> <ul class="">
+<li>
+A is a (m x n) matrix independent of both X and Y. 
+</li>
+<li>
+Y is (m x 1) vector independent of X. 
+</li>
+<li>
+X is a (n x 1) vector. 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="math-block anchor"> 
+$$
+
+    \frac{\partial \alpha}{\partial X}
+     = \frac{\partial}{\partial X} \left( y^T . A . x \right)
+     = y^T . A
+
+$$
+</div>
+
+<ul class="">
+<li>
+Chain rule of the derivate of scalar product. <ul class="">
+<li>
+Note: <span class="math-inline">\(\alpha\)</span> is a scalar. 
+</li>
+<li>
+Note: v is a vector and dependent on vector x. 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="math-block anchor"> 
+$$
+
+  \frac{\partial \alpha(x)}{\partial x} 
+       = \frac{\partial}{\partial x} (v^t . v)
+       = 2 v^T \frac{\partial v}{\partial x}
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Useful__gradients" class="document-heading anchor">12.6 Useful  gradients <a class="link-heading" href="#H_Useful__gradients">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=2137&end=end&anchor=H_Useful__gradients&page=Math - Calculus Reference Card&timestamp=176060095271950" title="[i18n]: 12.6 Useful  gradients" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{6}">\(\setSubSection{6}\)</span>
+</div>
+
+<p>
+Reference: <a href="https://www.doc.ic.ac.uk/~dfg/ProbabilisticInference/InferenceAndMachineLearningNotes.pdf"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Imperial College of London</a> and (Petersen and Pederson, 2012)
+</p>
+
+<p>
+List of useful and pervasive identities for computing gradient in machine learning.
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+\displaystyle 
+
+\begin{cases}
+
+     \dfrac{\partial f(X)^T}{\partial X} 
+        &amp;=&amp; \left[ 
+              \dfrac{\partial f(X)}{\partial X} 
+             \right]^T
+        
+  \\ \dfrac{\partial}{\partial x} tr(f(X)) 
+       &amp;=&amp; tr 
+         \left( \dfrac{\partial f(X)}{\partial X} \right)
+
+  \\    \dfrac{\partial}{\partial X} \det f(X) 
+       &amp;=&amp; det X  \; tr \left(X^{-1} 
+           \dfrac{\partial f(X)}{\partial X} \right)
+
+  \\  \dfrac{\partial}{\partial x} (x^t \cdot a) 
+        &amp;=&amp; a^t
+
+
+  \\  \dfrac{\partial}{\partial x} (a^t \cdot X \cdot b) 
+        &amp;=&amp; a \cdot b^t
+
+  \\ \dfrac{\partial}{\partial x} (x^t \cdot B \cdot x) 
+        &amp;=&amp; x^t (B + B^t)
+\end{cases}
+
+$$
+</div>
+
+<p>
+Where,
+</p>
+
+<ul class="">
+<li>
+<span class="math-inline">\(\det A\)</span> is the determinant (scalar) of a square matrix A. 
+</li>
+<li>
+<span class="math-inline">\(\mathrm{tr}(A)\)</span> is the trace of matrix A, sum of diagonal elements. 
+</li>
+</ul>
+
+
+        </main>
+    </div>
+    <script>
+    </script>
+</body>
+
+</html>

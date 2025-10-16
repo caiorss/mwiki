@@ -1,0 +1,3749 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+    
+    <title data-i18n="">MBook - MWiki Reference Card</title>
+    <meta name="description" content="MWiki reference card with many examples and user-cases." />
+    <meta name=generator content="MWiki">
+     <meta name="author" content="John Doe"> 
+
+    
+   <style>
+        
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: normal;
+    
+    
+    src: url('/static/fonts/cmu-concrete-regular.woff');
+}
+    
+
+
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: italic;
+    
+    
+    src: url('/static/fonts/cmu-concrete-regular.woff');
+}
+    
+
+        
+@font-face {
+    font-family: 'Bricolage Grotesque';
+    
+    
+    src: url('/static/fonts/bricolage-grotesque-latin-normal.woff2');
+}
+    
+
+
+:root {
+    /*--- Desktop screen Width ----------------*/
+    --screen-width-desktop: 850px;
+
+    /* --bg-sidebar: #F2EACA; */  /* #F7F4ED; */
+    --bg-sidebar: white;  /* #F7F4ED; */
+    /* --bg-main:   #F2EACA ; */
+    --bg-main: white;
+    --typography-main-line-height: 1.7em;
+    --typography-main-leter-spacing: 0.5px;
+    --screen-type: "desktop";
+    --link-external-color: blue; /* hsl(0, 100%, 33%); */
+    --link-internal-color: blue;
+    --form-background-color: #fbfcfc;
+    --form-border-color: #cfd5e2;
+    --primary-button-background-color: #0172ad;
+
+    /* --font-family-main: 'Computer Modern'; */
+    /* --font-family-main: 'Neo Euler'; */
+    /***
+    --font-family-main: 'monospace';
+    --font-family-title: 'Sans Serif';
+    --font-family-code: 'monospace';
+    **/
+
+    
+    --font-family-main: 'CMU Concrete';
+    
+    
+    --font-family-title: 'Bricolage Grotesque';
+    
+
+    --font-size-h1:  1.800rem;
+    --font-size-h2:  1.350rem;
+    --font-size-h3:  1.125rem;
+    --font-size-h4:  1.000rem;
+    --font-size-h5:  0.875rem;
+    --font-size-h6:  0.750rem;
+    --font-size-text: 0.720rem;
+    --font-size-code: 0.700rem;
+    --font-size-sidebar: 0.850rem;
+
+    --code-block-background-color: rgb(243, 244.5, 246.75);
+
+    /* Magnifier icon */
+    --icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(136, 145, 164)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+}
+
+
+        
+    </style>
+  
+    <link rel="stylesheet" href="/static/static_style.css">
+
+   
+
+    
+    
+    <!-- MathJax Settings -->
+    <script>
+
+    let FONT_FAMILY_MAIN = "CMU Concrete"
+    let FONT_FAMILY_TITLE = "Bricolage Grotesque"
+    let FONT_FAMILY_CODE = "Libertinus Mono"
+    let DEFAULT_LOCALE = "en-US";
+	  let USE_DEFAULT_LOCALE = "True" === "True";
+    let CSRF_TOKEN = ""
+    const STATIC_COMPILATION = true;
+	
+    // Possible values: 'none', 'nosection' 'section', 'subsection'
+    //  none      => no enumeration 
+    //  nosection 
+    //      Schema: <equation-number>
+    //      Example: Equations are enumerated as 1, 2, ..., 200
+    //              in the order that they are shown without section or 
+    //              subsection number
+    //  section   
+    //      Schema:  => <section>.<equation-number>
+    //      Exmaple: => 2.1, 2.5, 6.8
+    //  subsection 
+    //      Schema:  => <section>.<subsection>.<equation-number>
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5 
+    //
+    let equation_enumeration = "section";
+
+    MathJax = {
+        loader: {load: ['[tex]/tagformat', '[tex]/mathtools', 'output/chtml']}
+
+      , section: 1
+      , tex: {
+          inlineMath: [['$','$'], ['\\(','\\)']]
+        , displayMath: [['$$','$$'], ['\\[','\\]']]
+        , processEscapes: true
+        , processEnvironments: true
+          // Location of equation numbers
+        , tagSide: "right"  
+        // Possible values 'ams' or 'all' (all equations are numbered by default)
+        , tags: equation_enumeration !== "none" ? "all" : "ams"
+        //, tags: 'ams'
+        , packages: {'[+]': [
+                                  'tagformat'
+                                , 'sections'
+                                , 'subsections'
+                                , 'autoload-all'
+                            ]}
+        , tagformat: {
+          number: (n) => { 
+            if( equation_enumeration === "cont" 
+                || equation_enumeration == "continuous")
+            {
+                return '' + n;
+            }
+
+            let nsec = MathJax.config.section;
+            let nsub = MathJax.config.subsection;
+            var out = '';
+            if (nsub === 0 || equation_enumeration == "section") 
+            {
+                out = nsec + '.' + n;
+            } else {
+                out = nsec + '.' + nsub +  '.' + n;
+            }
+            // console.log("Display section = ", out);
+            return out;
+          }
+        }
+      }
+
+     , startup: {
+
+            ready() {
+                // console.log(" [TRACE] I was called from ready()");
+                const Configuration = MathJax._.input.tex.Configuration.Configuration;
+                const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+                new CommandMap('sections', {
+                      nextSection: 'NextSection'
+                    , setSection:  'SetSection'
+                }, {
+                     NextSection(parser, name) {
+                        // console.log(" [TRACE] Called NextSection()");
+                        MathJax.config.section++;
+                        MathJax.config.subsection = 0;
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                    , SetSection(parser, name) {
+                        // console.log(" [TRACE] Called SetSection()");
+                        const n = parser.GetArgument(name);
+                        MathJax.config.section = parseInt(n);
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                });
+                if (equation_enumeration === "subsection")
+                {
+                    new CommandMap('subsections', {
+                          nextSubSection: 'NextSubSection'
+                        , setSubSection:  'SetSubSection'
+                    }, {
+                         NextSubSection(parser, name) {
+                            // console.log(" [TRACE] NextSubSection() called.");
+                            MathJax.config.subsection++;
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                        , SetSubSection(parser, name) {
+                            const n = parser.GetArgument(name);
+                            // console.log(" [TRACE] SetSubSection to ", n);
+                            MathJax.config.subsection = parseInt(n);
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                    });
+                }
+
+                Configuration.create(
+                      'sections', { handler: { macro: ['sections'] } }
+                );
+
+                if( equation_enumeration === "subsection" )
+                {
+                    Configuration.create(
+                        'subsections', { handler: { macro: ['subsections'] } }
+                    );
+
+                }
+
+                MathJax.startup.defaultReady();
+                pseudocode.renderClass("pseudocode", { "lineNumber": true, "scopeLines": true });
+                // This function is provided by main.js.
+                if( isMobileScreen() ) { setHeadingVisibility(false); }
+                /// setHeadingsVisibility(false)
+            }
+        }
+    , chtml: {
+        /// displayAlign: "left"
+      }
+    // options for when overflow is linebreak
+    , linebreaks: {             
+        inline:           true,   // true for browser-based breaking of inline equations
+        width:            '100%', // a fixed size or a percentage of the container width
+        lineleading:      .2,     // the default lineleading in em units
+        LinebreakVisitor: null,   // The LinebreakVisitor to use
+    },
+
+    }
+    </script>
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml-full.js"
+        integrity="sha256-kbAFUDxdHwlYv01zraGjvjNZayxKtdoiJ38bDTFJtaQ="
+        crossorigin="anonymous">
+    </script>
+    
+
+    
+        <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
+        <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js"> </script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
+    
+
+
+    
+    <!-- Additional Javascript libraries -->
+    
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", (event) => {
+            // Select graphviz code blocks 
+            let lst = document.querySelectorAll(".graphviz-dot");
+            for(let x of lst){
+
+                Viz.instance().then(function(viz) {
+                    // console.log("[TRACE] x = ", x);
+                    let code = x.innerText;
+                    // console.log(" [TRACE] code = ", code);
+                    let svg = viz.renderSVGElement(code);
+                    // console.log(" [TRACE] svg = ", svg);
+                    x.replaceWith(svg); 
+                    // x.outerHTML = svg;
+                    /// document.getElementById("graph").appendChild(svg);
+                });
+
+
+            }
+        }, false);
+        
+    </script>
+    <script type="text/javascript" src="/static/main.js"></script>
+
+</head>
+
+<body>
+    <aside class="sidebar sidebar-visibility">
+
+        
+        <h2 data-i18n="sidebar-table-of-contentes-label">Contents</h2>
+        
+        <div class="toc">
+            <!-- Table of contents template placeholder -->
+            <ol><ol>
+<li><a href="#H_Overview" class="link-sidebar" >Overview</a>
+</li><li><a href="#H_Frontmatter_(Page_Metadata)" class="link-sidebar" >Frontmatter (Page Metadata)</a>
+<ol>
+<li><a href="#H_Alternative_Document_Title" class="link-sidebar" >Alternative Document Title</a>
+</li><li><a href="#H_Section_(Heading)_Enumeration" class="link-sidebar" >Section (Heading) Enumeration</a>
+</li><li><a href="#H_Equation_Enumeration" class="link-sidebar" >Equation Enumeration</a>
+</li><li><a href="#H_Abbreviations" class="link-sidebar" >Abbreviations</a>
+</li><li><a href="#H_Wordlinks" class="link-sidebar" >Wordlinks</a>
+</li>
+</ol></li><li><a href="#H_Comments" class="link-sidebar" >Comments</a>
+<ol>
+<li><a href="#H_Single_Line_Comment" class="link-sidebar" >Single Line Comment</a>
+</li><li><a href="#H_Multi_Line_Comment" class="link-sidebar" >Multi Line Comment</a>
+</li>
+</ol></li><li><a href="#H_Text_Formating" class="link-sidebar" >Text Formating</a>
+<ol>
+<li><a href="#H_Italic_Text" class="link-sidebar" >Italic Text</a>
+</li><li><a href="#H_Bold_Text" class="link-sidebar" >Bold Text</a>
+</li><li><a href="#H_Strikethrough_Text_(Deleted_Text)" class="link-sidebar" >Strikethrough Text (Deleted Text)</a>
+</li><li><a href="#H_Highlighted_Text" class="link-sidebar" >Highlighted Text</a>
+</li>
+</ol></li><li><a href="#H_Typographic_Notation" class="link-sidebar" >Typographic Notation</a>
+</li><li><a href="#H_Hyperlinks" class="link-sidebar" >Hyperlinks</a>
+<ol>
+<li><a href="#H_Internal_Hyperlinks_Links_(WikiLinks)" class="link-sidebar" >Internal Hyperlinks Links (WikiLinks)</a>
+</li><li><a href="#H_External_Inline_Hyperlinks" class="link-sidebar" >External Inline Hyperlinks</a>
+</li><li><a href="#H_External_Reference-Style_Hyperlinks" class="link-sidebar" >External Reference-Style Hyperlinks</a>
+</li><li><a href="#H_Special_Hyperlinks" class="link-sidebar" >Special Hyperlinks</a>
+</li>
+</ol></li><li><a href="#H_Image" class="link-sidebar" >Image</a>
+<ol>
+<li><a href="#H_Internal_Image" class="link-sidebar" >Internal Image</a>
+</li><li><a href="#H_External_Image" class="link-sidebar" >External Image</a>
+</li>
+</ol></li><li><a href="#H_Figures" class="link-sidebar" >Figures</a>
+<ol>
+<li><a href="#H_Figure_of_external_image" class="link-sidebar" >Figure of external image</a>
+</li><li><a href="#H_Figure_of_Internal_Image" class="link-sidebar" >Figure of Internal Image</a>
+</li>
+</ol></li><li><a href="#H_Videos" class="link-sidebar" >Videos</a>
+<ol>
+<li><a href="#H_Embed_Youtube_Video" class="link-sidebar" >Embed Youtube Video</a>
+</li><li><a href="#H_Embed_Uploaded_Video_Files" class="link-sidebar" >Embed Uploaded Video Files</a>
+</li><li><a href="#H_Video_Blocks" class="link-sidebar" >Video Blocks</a>
+</li>
+</ol></li><li><a href="#H_Code_Blocks" class="link-sidebar" >Code Blocks</a>
+<ol>
+<li><a href="#H_Inline_code" class="link-sidebar" >Inline code</a>
+</li><li><a href="#H_Code_Block" class="link-sidebar" >Code Block</a>
+</li>
+</ol></li><li><a href="#H_Quotes" class="link-sidebar" >Quotes</a>
+</li><li><a href="#H_LaTeX_Math_Equations" class="link-sidebar" >LaTeX Math Equations</a>
+<ol>
+<li><a href="#H_Inline" class="link-sidebar" >Inline</a>
+</li><li><a href="#H_Display_Mode" class="link-sidebar" >Display Mode</a>
+</li><li><a href="#H_Display_Mode_Without_Enumeration" class="link-sidebar" >Display Mode Without Enumeration</a>
+</li><li><a href="#H_Display_Mode_using_Code_Block_Syntax" class="link-sidebar" >Display Mode using Code Block Syntax</a>
+</li><li><a href="#H_Equation_Enumeration_Style" class="link-sidebar" >Equation Enumeration Style</a>
+</li><li><a href="#H_Cross_Reference_To_LaTeX_Equations" class="link-sidebar" >Cross Reference To LaTeX Equations</a>
+</li><li><a href="#H_Latex_Macros" class="link-sidebar" >Latex Macros</a>
+</li><li><a href="#H_Pseudocode_of_Algorithm" class="link-sidebar" >Pseudocode of Algorithm</a>
+</li>
+</ol></li><li><a href="#H_Table" class="link-sidebar" >Table</a>
+</li><li><a href="#H_Lists" class="link-sidebar" >Lists</a>
+<ol>
+<li><a href="#H_Bullet_Lists" class="link-sidebar" >Bullet Lists</a>
+</li><li><a href="#H_Ordered_List" class="link-sidebar" >Ordered List</a>
+</li><li><a href="#H_List_of_Checkboxes_/_List_of_Tasks" class="link-sidebar" >List of Checkboxes / List of Tasks</a>
+</li><li><a href="#H_Definition_Lists" class="link-sidebar" >Definition Lists</a>
+</li>
+</ol></li><li><a href="#H_Footnotes" class="link-sidebar" >Footnotes</a>
+<ol>
+<li><a href="#H_Footnote_Reference" class="link-sidebar" >Footnote Reference</a>
+</li><li><a href="#H_Footnotes_listing" class="link-sidebar" >Footnotes listing</a>
+</li>
+</ol></li><li><a href="#H_Admonitions_(Callout_Boxes)" class="link-sidebar" >Admonitions (Callout Boxes)</a>
+<ol>
+<li><a href="#H_Info_Admonition" class="link-sidebar" >Info Admonition</a>
+</li><li><a href="#H_Tip_Admonition" class="link-sidebar" >Tip Admonition</a>
+</li><li><a href="#H_Note_Admonition" class="link-sidebar" >Note Admonition</a>
+</li><li><a href="#H_Warning_Admonition" class="link-sidebar" >Warning Admonition</a>
+</li><li><a href="#H_Foldable_Admonition" class="link-sidebar" >Foldable Admonition</a>
+</li><li><a href="#H_Mathematical_Definition_Admonition" class="link-sidebar" >Mathematical Definition Admonition</a>
+</li><li><a href="#H_Mathematical_Theorem_Admonition" class="link-sidebar" >Mathematical Theorem Admonition</a>
+</li><li><a href="#H_Example_of_solved_exercise" class="link-sidebar" >Example of solved exercise</a>
+</li>
+</ol></li><li><a href="#H_MyST_Roles" class="link-sidebar" >MyST Roles</a>
+<ol>
+<li><a href="#H_Raw_Text" class="link-sidebar" >Raw Text</a>
+</li><li><a href="#H_Underline_text" class="link-sidebar" >Underline text</a>
+</li><li><a href="#H_Abbreviation" class="link-sidebar" >Abbreviation</a>
+</li><li><a href="#H_Text_Notes" class="link-sidebar" >Text Notes</a>
+</li><li><a href="#H_Math_Role_for_Inline_LaTeX" class="link-sidebar" >Math Role for Inline LaTeX</a>
+</li><li><a href="#H_Subscript__Role" class="link-sidebar" >Subscript  Role</a>
+</li><li><a href="#H_Superscript_Role" class="link-sidebar" >Superscript Role</a>
+</li>
+</ol></li><li><a href="#H_Further_Reading" class="link-sidebar" >Further Reading</a>
+</li>
+</ol></ol>
+        </div>
+
+    </aside>
+    <div class="main main-shift">
+        <header class="header">
+            <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/static/hamburger-menu.svg" style="height: 25px;"/> </a>
+            <a data-i18n="home-page-button" class="sidebar-toggle-button" 
+			   title="Go to home page (Index)" href="/"><img class="img-icon" src="/static/icon-home.svg"></a>
+            <div class="dropdown">
+              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button" 
+                 href="#" 
+                 title="Main menu."
+                 class="dropbtn"
+                 >
+                <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
+                </a>
+              <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                
+                   <a data-i18n="keybindings-menu-item" class="sidebar-toggle-button" href="#"
+                    onclick="toggleShortcutKeybindingWinodw();"
+                    title="Display a window showing all keyboard shortcuts, also known as keybindings."
+                 >Keybindings</a>
+                 <a data-i18n="about-menu-item-label" class="sidebar-toggle-button" href="/about.html">About</a>
+              </div>
+            </div>
+
+            <a data-i18n="button-toggle-sections" class="sidebar-toggle-button"
+                 href="#" 
+                 onclick="toggleHeadings();"
+                 id="btn-scroll-bottom" 
+                 title="Fold/Unfold all sections."
+                 ><img class="img-icon" src="/static/dots-vertical.svg" ></a> 
+            <!-- 
+             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
+                 href="#" 
+                 onclick="quickOpenPage();"
+                 id="btn-scroll-bottom" 
+                 title="Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry."
+                 >
+               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E"> 
+                </a>
+            --> 
+              
+        </header>
+
+        <main class="content">
+            
+            <a class="link-edit link-internal" style="display:none" title="Edit page MWiki Reference Card" href="/edit/MWiki_Reference_Card?timestamp="><img class="img-icon" src="/static/pencil.svg"></a>
+            
+
+            <div class="div-heading-h1">
+                <h1 data-i18n="" class="document-heading">MWiki Reference Card</h1>
+            </div>
+            <p class="hidden-mathjax-macros" style="display: none;">
+                $$
+                
+                $$
+            </p>
+            
+
+<div class="div-heading"> 
+<h2 id="H_Overview" class="document-heading anchor">Overview <a class="link-heading" href="#H_Overview">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=6&end=11&anchor=H_Overview&page=refcard&timestamp=176036511080266" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<p>
+MWiki markup language, also known as MWiki wikicode, is a based on Github-flavored Markdown (GFM). The markup language also is inspired by MyST markdown from Jupyter Book project, Obsidian markdown format and Mediawiki's markup language.
+</p>
+
+<div class="div-heading"> 
+<h2 id="H_Frontmatter_(Page_Metadata)" class="document-heading anchor">Frontmatter (Page Metadata) <a class="link-heading" href="#H_Frontmatter_(Page_Metadata)">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=11&end=171&anchor=H_Frontmatter_(Page_Metadata)&page=refcard&timestamp=176036511080266" title="[i18n]: Frontmatter (Page Metadata)" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{1}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+The frontmatter is a <a href="https://en.wikipedia.org/wiki/YAML"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >YAML</a> section at the beginning of MWiki *.md page file within two triple dashes (---), which contains machine-readable metadata of the current wiki page, including, authors, tags, date, description, abbreviations an dother page settings.
+</p>
+
+<p>
+Example: consider the wiki page file
+</p>
+
+<ul class="">
+<li>
+'NAS - Network Attached Storage Device.md' 
+</li>
+</ul>
+
+<p>
+whose content is
+</p>
+
+<pre>
+<code class="language-md"><div class="highlight"><pre><span></span>---
+author:  John Doe
+date:    2022-06-10
+description: Survey of NAS - Network Attached Storage devices for reliable backup, data replication and file sharing.
+
+---
+
+Describe what is a NAS 
+
++ S.M.A.R.T monitoring of disks.
++ SMB file sharing - SAMBA implementation 
+
+...
+
+![[picture-of-synology-nas.png]]
+</pre></div>
+</code>
+</pre>
+
+<div class="div-heading"> 
+<h3 id="H_Alternative_Document_Title" class="document-heading anchor">Alternative Document Title <a class="link-heading" href="#H_Alternative_Document_Title">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=41&end=51&anchor=H_Alternative_Document_Title&page=refcard&timestamp=176036511080266" title="[i18n]: Alternative Document Title" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+By default, the title of a wiki page is the same as the related mardown file name without the .md file extension. However, it is possible to change a wiki page title by adding the directive
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>title:  Name of New title here
+</pre></div>
+</code>
+</pre>
+
+<p>
+to the document frontmatter.
+</p>
+
+<div class="div-heading"> 
+<h3 id="H_Section_(Heading)_Enumeration" class="document-heading anchor">Section (Heading) Enumeration <a class="link-heading" href="#H_Section_(Heading)_Enumeration">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=51&end=72&anchor=H_Section_(Heading)_Enumeration&page=refcard&timestamp=176036511080266" title="[i18n]: Section (Heading) Enumeration" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+Section enumeration is disabled by default. It can be enabled by adding the following directive to the document frotmatter.
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>section_enumeration: on
+</pre></div>
+</code>
+</pre>
+
+<p>
+It can also be explicit disabled by adding
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>section_enumeration: off
+</pre></div>
+</code>
+</pre>
+
+<p>
+or
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>section_enumeration: off
+</pre></div>
+</code>
+</pre>
+
+<div class="div-heading"> 
+<h3 id="H_Equation_Enumeration" class="document-heading anchor">Equation Enumeration <a class="link-heading" href="#H_Equation_Enumeration">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=72&end=94&anchor=H_Equation_Enumeration&page=refcard&timestamp=176036511080266" title="[i18n]: Equation Enumeration" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<p>
+The frontmatter directive 'equation_enumeration' allows changing the equation enumeration style.
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>equation_enumeration: &lt;style&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+The following enumeration styles supported:
+</p>
+
+<ul class="">
+<li>
+none => no enumeration <ul class="">
+<li>
+Example: N/A - No Applicable 
+</li>
+</ul>
+</li>
+<li>
+cont or continous <ul class="">
+<li>
+Example: 1, 2, ..., 50 
+</li>
+</ul>
+</li>
+<li>
+section (default) <ul class="">
+<li>
+Example:  2.1, 2.10, ..., 2.10, 3.1, 3.2, ..., 3.25 
+</li>
+</ul>
+</li>
+<li>
+subsection <ul class="">
+<li>
+Example: 1.2.1, 1.2.2, ..., 1.2.15, 1.3.1, ..., 1.3.15, .... 
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+More details are provided about this feature in the LaTeX section of this document.
+</p>
+
+<div class="div-heading"> 
+<h3 id="H_Abbreviations" class="document-heading anchor">Abbreviations <a class="link-heading" href="#H_Abbreviations">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=94&end=131&anchor=H_Abbreviations&page=refcard&timestamp=176036511080266" title="[i18n]: Abbreviations" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+</div>
+
+<p>
+The frontmatter can be used for defining abbreviations of common words. Consider a wiki page whose the frontmatter is
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>---
+author:      John Doe
+date:        2022-06-10
+description: Survey of NAS - Network Attached Storage devices for reliable backup, data replication and file sharing.
+abbreviations:
+   NAS:  Network Attached Storage Device
+   RAID: Redudant Array of Inexpensive Disks
+   NFS:  Network File System 
+   SMB:  Server Message Block (Windows shares, also known as network shares)
+---
+</pre></div>
+</code>
+</pre>
+
+<p>
+Any word defined in the 'abbreviations' section of a YAML frontmatter of a particular wiki page file, it is replaced by the <code>&lt;abbr&gt;</code> html5 element.
+</p>
+
+<p>
+For instance if a text of this wiki page is
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>Most NAS devides provide Web UI for quickly 
+creating SMB network shares, windows shared folders.
+</pre></div>
+</code>
+</pre>
+
+<p>
+Then, it will be rendered to html as
+</p>
+
+<pre>
+<code class="language-html"><div class="highlight"><pre><span></span>Most <span class="p">&lt;</span><span class="nt">abbr</span> <span class="na">title</span><span class="o">=</span><span class="s">&quot;Network Attached Storage Device&quot;</span><span class="p">&gt;</span>NAS<span class="p">&lt;/</span><span class="nt">abbr</span><span class="p">&gt;</span>  
+devides provide Web UI for quickly creating 
+<span class="p">&lt;</span><span class="nt">abbr</span> <span class="na">title</span><span class="o">=</span><span class="s">&quot;Server Message Block&quot;</span><span class="p">&gt;</span>SMB<span class="p">&lt;/</span><span class="nt">abbr</span><span class="p">&gt;</span> network shares, 
+windows shared folders.
+</pre></div>
+</code>
+</pre>
+
+<p>
+When the mouse is over any abbr text, which has black dashes below it, a pop up window is appears displaying the meaning of the abbreviation. This feature also works on mobile devices, including phones and tablets.
+</p>
+
+<div class="div-heading"> 
+<h3 id="H_Wordlinks" class="document-heading anchor">Wordlinks <a class="link-heading" href="#H_Wordlinks">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=131&end=171&anchor=H_Wordlinks&page=refcard&timestamp=176036511080266" title="[i18n]: Wordlinks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{5}">\(\setSubSection{5}\)</span>
+</div>
+
+<p>
+The wordlinks feature allows quickly creating hyperlinks for words defined in the <strong>wordlinks</strong> section of a frontmatter of a wiki page. This feature is useful for creating hyperlinks to dictionry definitions or Wikipedia articles related to a particular word. For instance consider the following frontmatter of a Wiki page *.md file.
+</p>
+
+<pre>
+<code class="language-md"><div class="highlight"><pre><span></span>---
+description: Wiki page (note) description here.
+
+abbreviations:
+    GUI: Graphics User Interface
+
+wordlinks:
+   ZFS:      https://hyperlink-to-wikipedia-of-ZFS
+   TrueNAS:  https://link-to-wikipedia-of-TrueNAS
+
+---
+</pre></div>
+</code>
+</pre>
+
+<p>
+Whenever the word ZFS appears in any MWiki, paragraph, quote or bullet list, it is replaced by a hyperlink whose label is the word 'ZFS' and the URL is the corresponding URL to this word defined wordlist YAML dictionary.
+</p>
+
+<p>
+For instance, the wiki text
+</p>
+
+<pre>
+<code class="language-md"><div class="highlight"><pre><span></span>The file system ZFS is awesome!
+</pre></div>
+</code>
+</pre>
+
+<p>
+is rendered to HTML as
+</p>
+
+<pre>
+<code class="language-html"><div class="highlight"><pre><span></span>The file system
+<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot; https://hyperlink-to-wikipedia-of-ZFS&quot;</span> <span class="err">...</span><span class="p">&gt;</span>ZFS<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+is awesome.
+</pre></div>
+</code>
+</pre>
+
+<p>
+The advantage of this feature allows users to turn words of a MWiki page into hyperlinks without modifying the text or defining the hyperlink multiple times as
+</p>
+
+<ul class="">
+<li>
+<code>[word](http://hyperlink-of-this-word)</code> 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Comments" class="document-heading anchor">Comments <a class="link-heading" href="#H_Comments">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=171&end=256&anchor=H_Comments&page=refcard&timestamp=176036511080266" title="[i18n]: Comments" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{2}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Single_Line_Comment" class="document-heading anchor">Single Line Comment <a class="link-heading" href="#H_Single_Line_Comment">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=173&end=203&anchor=H_Single_Line_Comment&page=refcard&timestamp=176036511080266" title="[i18n]: Single Line Comment" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+Any line starting with '%' percent sign is regarded as single line comment and not rendered. NOTE: It is the same comment syntax of MyST markdown used by Jupyter Book project.
+</p>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-{markdown}"><div class="source-code">% single line comment 
+  % Other single line comment
+
+Write something here. This line will be rendered.
+
+% Single line comments are not rendered.
+</div></code>
+</pre>
+
+<p>
+Redering:
+</p>
+
+<div class="info admonition anchor" style="background:;">
+<span class="admonition-title"><img class="admonition-icon" src="/static/icon-info.svg"/> Info: Rendering Result<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=190&end=201&page=refcard&timestamp=176036511080266" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<p>
+Write something here. This line will be rendered.
+</p>
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Multi_Line_Comment" class="document-heading anchor">Multi Line Comment <a class="link-heading" href="#H_Multi_Line_Comment">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=203&end=256&anchor=H_Multi_Line_Comment&page=refcard&timestamp=176036511080266" title="[i18n]: Multi Line Comment" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+Mutli line comments are code blocks with <code>{comment}</code> tag.
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>Line here.
+
+```{comment}
+The multi line comments syntax reuses 
+  the syntax of code blocks.
+and are not rendered by the markdown processor.
+```
+
+Some text after.
+</pre></div>
+</code>
+</pre>
+
+<div class="info admonition anchor" style="background:;">
+<span class="admonition-title"><img class="admonition-icon" src="/static/icon-info.svg"/> Info: Rendering Result<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=221&end=234&page=refcard&timestamp=176036511080266" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<p>
+Line here.
+</p><p>
+Some text after.
+</p>
+</div>
+
+<p>
+Multi line comments can also be written using the command <strong>on</strong> for rendering the markdown code enclosed in the comment block without needing to delete the <code>{comment}</code> tag and the backticks surrounding the code.
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>Line here.
+
+```{comment} on 
+The multi line comments syntax reuses 
+  the syntax of code blocks.
+and are not rendered by the markdown processor.
+```
+
+Some text after.
+</pre></div>
+</code>
+</pre>
+
+<p>
+The tag <code>{command}</code> can also be written as <code>{command} off</code> for enabling the rendering/display of the enclosed code.
+</p>
+
+<div class="div-heading"> 
+<h2 id="H_Text_Formating" class="document-heading anchor">Text Formating <a class="link-heading" href="#H_Text_Formating">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=256&end=308&anchor=H_Text_Formating&page=refcard&timestamp=176036511080266" title="[i18n]: Text Formating" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{3}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Italic_Text" class="document-heading anchor">Italic Text <a class="link-heading" href="#H_Italic_Text">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=257&end=256&anchor=H_Italic_Text&page=refcard&timestamp=176036511080266" title="[i18n]: Italic Text" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ *text in italic*
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+<em>text in italic</em> 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Bold_Text" class="document-heading anchor">Bold Text <a class="link-heading" href="#H_Bold_Text">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=268&end=284&anchor=H_Bold_Text&page=refcard&timestamp=176036511080266" title="[i18n]: Bold Text" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>**Bold text here**
+</pre></div>
+</code>
+</pre>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ Example of syntax of a **bold text**.
+</pre></div>
+</code>
+</pre>
+
+<ul class="">
+<li>
+Example of syntax of a <strong>bold text</strong>. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Strikethrough_Text_(Deleted_Text)" class="document-heading anchor">Strikethrough Text (Deleted Text) <a class="link-heading" href="#H_Strikethrough_Text_(Deleted_Text)">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=284&end=296&anchor=H_Strikethrough_Text_(Deleted_Text)&page=refcard&timestamp=176036511080266" title="[i18n]: Strikethrough Text (Deleted Text)" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ Example of ~~Deleted text~~ syntax.
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+Example of <s>Deleted text</s> syntax. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Highlighted_Text" class="document-heading anchor">Highlighted Text <a class="link-heading" href="#H_Highlighted_Text">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=296&end=308&anchor=H_Highlighted_Text&page=refcard&timestamp=176036511080266" title="[i18n]: Highlighted Text" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+</div>
+
+<p>
+A highlighted text must be enclosed by <code>==</code>. Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>this ==text will be higlighted== and remaining of the text.
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<p>
+this <span class="text-highlight">text will be higlighted</span> and remaining of the text.
+</p>
+
+<div class="div-heading"> 
+<h2 id="H_Typographic_Notation" class="document-heading anchor">Typographic Notation <a class="link-heading" href="#H_Typographic_Notation">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=308&end=349&anchor=H_Typographic_Notation&page=refcard&timestamp=176036511080266" title="[i18n]: Typographic Notation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{4}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+MWiki can convert ascii notation, such as <code>(C)</code> to the copyright unicode symbol, <code>(TM)</code> to trademark unicode symbol and other notations to the equivalent unicode symbol.
+</p>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ Copyright Symbol (C)
++ Copyright Symbol {C}
++ Registered Symbol (R)
++ Registered Symbol (C)
++ Trademark(TM) symbol
++ Trademark{TM} symbol
++ The angle is 60{deg} degrees 
++ The angle is 60{degrees} degrees 
++ The price is 30 {euros}
++ The price is 50 {pounds}
++ The price is 50 {gbp}  (British Pounds)
++ The price is 20 {yens}
++ Pilcrow Symbol {pilcrow} or {pagraph}
++ Section Symbol  {section}
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+Copyright Symbol (C) 
+</li>
+<li>
+Copyright Symbol © 
+</li>
+<li>
+Registered Symbol (R) 
+</li>
+<li>
+Registered Symbol (C) 
+</li>
+<li>
+Trademark™ symbol 
+</li>
+<li>
+Trademark™ symbol 
+</li>
+<li>
+The angle is 60° degrees 
+</li>
+<li>
+The angle is 60° degrees 
+</li>
+<li>
+The price is 30 € 
+</li>
+<li>
+The price is 50 £ 
+</li>
+<li>
+The price is 50 £  (British Pounds) 
+</li>
+<li>
+The price is 20 ¥ 
+</li>
+<li>
+Pilcrow Symbol ¶ or {pagraph} 
+</li>
+<li>
+Section Symbol  § 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Hyperlinks" class="document-heading anchor">Hyperlinks <a class="link-heading" href="#H_Hyperlinks">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=349&end=762&anchor=H_Hyperlinks&page=refcard&timestamp=176036511080266" title="[i18n]: Hyperlinks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{5}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Internal_Hyperlinks_Links_(WikiLinks)" class="document-heading anchor">Internal Hyperlinks Links (WikiLinks) <a class="link-heading" href="#H_Internal_Hyperlinks_Links_(WikiLinks)">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=351&end=364&anchor=H_Internal_Hyperlinks_Links_(WikiLinks)&page=refcard&timestamp=176036511080266" title="[i18n]: Internal Hyperlinks Links (WikiLinks)" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+Links to Wiki Pages (also called notes)
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ [[Link to internal page]]
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+<a href="/wiki/Link_to_internal_page" class="link-internal-missing wiki-link" title="">Link to internal page</a> 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_External_Inline_Hyperlinks" class="document-heading anchor">External Inline Hyperlinks <a class="link-heading" href="#H_External_Inline_Hyperlinks">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=364&end=398&anchor=H_External_Inline_Hyperlinks&page=refcard&timestamp=176036511080266" title="[i18n]: External Inline Hyperlinks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+<strong>Raw External Link (1)</strong>
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ &lt;https://www.site.com/some/page&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+<a href="https://www.site.com/some/page"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.site.com/some/page</a> 
+</li>
+</ul>
+
+<p>
+<strong>Raw External Link (2)</strong>
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ &lt;https://www.site.com/some/page&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+<a href="https://www.site.com/some/page"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.site.com/some/page</a> 
+</li>
+</ul>
+
+<p>
+<strong>External Link with Label</strong>
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ [Link label](https://www.site.com/some/page)
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+<a href="https://www.site.com/some/page"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Link label</a> 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_External_Reference-Style_Hyperlinks" class="document-heading anchor">External Reference-Style Hyperlinks <a class="link-heading" href="#H_External_Reference-Style_Hyperlinks">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=398&end=422&anchor=H_External_Reference-Style_Hyperlinks&page=refcard&timestamp=176036511080266" title="[i18n]: External Reference-Style Hyperlinks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>+ This page presents a study of [<span class="nt">control</span>][<span class="nl">ceng</span>] engineering and [<span class="nt">state-space</span>][<span class="nl">ssmodel</span>] models.
+
+[<span class="nl">ceng</span>]: <span class="na">https://en.wikipedia.org/wiki/Control_engineering </span>
+
+[<span class="nl">ssmodel</span>]: <span class="na">&lt;https://en.wikipedia.org/wiki/State-space_representation&gt;</span>
+      &quot;In control engineering and system identification, a state-space representation is a mathematical model of a physical system specified as a set of input, output, and variables related by first-order differential equations or difference equations. Such variables, called state variables, evolve over time in a way that depends on the values they have at any given instant and on the externally imposed values of input variables. Output variables’ values depend on the state variable values and may also depend on the input variable values.&quot;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+This page presents a study of <a href="https://en.wikipedia.org/wiki/Control_engineering"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >control</a> engineering and <a href="https://en.wikipedia.org/wiki/State-space_representation"  target="_blank" title="In control engineering and system identification, a state-space representation is a mathematical model of a physical system specified as a set of input, output, and variables related by first-order differential equations or difference equations. Such variables, called state variables, evolve over time in a way that depends on the values they have at any given instant and on the externally imposed values of input variables. Output variables’ values depend on the state variable values and may also depend on the input variable values." class="link-external" rel="noreferrer noopener nofollow" >state-space</a> models. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Special_Hyperlinks" class="document-heading anchor">Special Hyperlinks <a class="link-heading" href="#H_Special_Hyperlinks">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=422&end=762&anchor=H_Special_Hyperlinks&page=refcard&timestamp=176036511080266" title="[i18n]: Special Hyperlinks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+</div>
+
+<p>
+<strong>Hyperlink to Mastodon Handles (User Accounts)</strong>
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>@&lt;USERNAME&gt;@&lt;SERVER&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Creates a hyperlink to a Mastodon user account. For instance, the Mastodon handle (user account)
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ @kde@floss.social
+</pre></div>
+</code>
+</pre>
+
+<p>
+is rendered to HTML as
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+  &lt;a href=&quot;https://floss.social/@kde&quot; class=&quot;link-esternal&quot; ...  &gt;@kde@floss.social&lt;/a&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+In other words, @kde@floss.social is rendered as hyperlink (link for short) to the <a href="https://en.wikipedia.org/wiki/Mastodon_(social_network)"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Mastodon</a> user account of the <a href="https://en.wikipedia.org/wiki/KDE"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >KDE project</a> project.
+</p>
+
+<ul class="">
+<li>
+<a href="https://floss.social/@kde"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >@kde@floss.social</a> 
+</li>
+</ul>
+
+<p>
+<strong>Hyperlink to DOI - Digital Object Identifier (1)</strong>
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>&lt;doi:$DOI-BIBLIOGRAPHIC-REFERENCE&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ Reference: Time Aware Least Recent Used (TLRU) cache management policy in ICN  &lt;doi:10.1109/ICACT.2014.6779016&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+Reference: Time Aware Least Recent Used (TLRU) cache management policy in ICN  <a href="https://doi.org/10.1109/ICACT.2014.6779016"  target="_blank" title="Digital Object Identifier" class="link-external" rel="noreferrer noopener nofollow" >doi:10.1109/ICACT.2014.6779016</a> 
+</li>
+</ul>
+
+<p>
+When this DOI hyperlink is rendered, it is expanded to:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>https://doi.org/10.1109/ICACT.2014.6779016
+</pre></div>
+</code>
+</pre>
+
+<p>
+<strong>Hyperlink to DOI - Digital Object Identifier (2)</strong>
+</p>
+
+<p>
+This syntax when rendered yields the raw hyperlink, whose label is the DOI URL.
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>&lt;r-doi:$DOI-BIBLIOGRAPHIC-REFERENCE&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ Paper: *Time Aware Least Recent Used (TLRU) cache management policy in ICN*
+  + &lt;r-doi:10.1109/ICACT.2014.6779016&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+Paper: <em>Time Aware Least Recent Used (TLRU) cache management policy in ICN</em> <ul class="">
+<li>
+<a href="https://doi.org/10.1109/ICACT.2014.6779016"  target="_blank" title="Digital Object Identifier" class="link-external" rel="noreferrer noopener nofollow" >https://doi.org/10.1109/ICACT.2014.6779016</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+<strong>Hyperlink to ArXiv paper</strong>
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>&lt;arxiv:$ArXivID&gt;
+OR:
+  &lt;arXiv:$ArXivID&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ See this paper:  &lt;arxiv:1609.06088&gt; - *Time Derivative of Rotation Matrices: a Tutorial*, shiyu zhao, (2016)
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+see this paper:  <a href="https://arxiv.org/abs/1609.06088"  target="_blank" title="arXiv preprint identifier" class="link-external" rel="noreferrer noopener nofollow" >arxiv:1609.06088</a> - <em>time derivative of rotation matrices: a tutorial</em>, shiyu zhao, (2016) 
+</li>
+</ul>
+
+<p>
+The hyperlink <code>&lt;arxiv:1609.06088&gt;</code> when rendered is expanded to following hyperlink.
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>https://arxiv.org/abs/1609.06088
+</pre></div>
+</code>
+</pre>
+
+<p>
+<strong>Hyperlink to ArXiv paper (Full Hyperlink)</strong>
+</p>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ *Time Derivative of Rotation Matrices: a Tutorial*, Shiyu Zhao, (2016)  
+  + &lt;r-arxiv:1609.06088&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+<em>Time Derivative of Rotation Matrices: a Tutorial</em>, Shiyu Zhao, (2016) <ul class="">
+<li>
+<a href="https://arxiv.org/abs/1609.06088"  target="_blank" title="arXiv preprint identifier" class="link-external" rel="noreferrer noopener nofollow" >https://arxiv.org/abs/1609.06088</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+<strong>Hyperlink to Semantic Scholar</strong>
+</p>
+
+<p>
+This syntax generates a hyperlink to a research paper listed in Semantic Scholar by its Semantic-Scholar Identifier (ID).
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>&lt;S2CID:$SEMANTIC-SCHOLAR-ID&gt; 
+
+  OR:
+ 
+&lt;r-S2CID:$SEMANTIC-SCHOLAR-ID&gt;  
+   =&gt; Display hyperlink as Link label
+</pre></div>
+</code>
+</pre>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ See this article: *Secure Distribution of Protected Content in Information-Centric Networking* - &lt;S2CID:198967720&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+See this article: <em>Secure Distribution of Protected Content in Information-Centric Networking</em> - <a href=" https://api.semanticscholar.org/CorpusID:198967720"  target="_blank" title="Semantic Scholar Bibliographic Identifier" class="link-external" rel="noreferrer noopener nofollow" >S2CID:198967720</a> 
+</li>
+</ul>
+
+<p>
+<strong>Hyperlink to PubMed Paper by PubMed Id (Pmid)</strong>
+</p>
+
+<p>
+This type of special short hyperlink allows to create a link to research papers in PubMed Central database by using the PMID - PubMed of the research paper.
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>&lt;pmid:$PUB-MED-ID-HERE&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ Reference: *Teaching population health: a competency map approach to education* &lt;pmid:23524919&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+Reference: <em>Teaching population health: a competency map approach to education</em> <a href="https://pubmed.ncbi.nlm.nih.gov/23524919"  target="_blank" title="PubMed Identifier" class="link-external" rel="noreferrer noopener nofollow" >PMID 23524919</a> 
+</li>
+</ul>
+
+<p>
+The special hyperlink <code>&lt;pmid:23524919&gt;</code> is expanded to:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>https://pubmed.ncbi.nlm.nih.gov/23524919
+</pre></div>
+</code>
+</pre>
+
+<p>
+<strong>Hyperlink to PubMed Paper by PubMed Id (Pmid) - (Full Link)</strong>
+</p>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ *Teaching population health: a competency map approach to education* 
+  + &lt;r-pmid:23524919&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+<em>Teaching population health: a competency map approach to education</em> <ul class="">
+<li>
+<a href="https://pubmed.ncbi.nlm.nih.gov/23524919"  target="_blank" title="PubMed Identifier" class="link-external" rel="noreferrer noopener nofollow" >https://pubmed.ncbi.nlm.nih.gov/23524919</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+<strong>Hyperlink to Patent</strong>
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>&lt;patent:$PATENT-NUMBER&gt;
+OR
+  &lt;r-patent:$PATENT-NUMBER&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>+ Short Link 1: &lt;patent:US9906369&gt;
++ Full Link 1:  &lt;r-patent:US9906369&gt;
++ Short Link 2: &lt;patent:7,139,686&gt;
++ Full Link 2:  &lt;r-patent:7,139,686&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+Short Link: <a href="https://patents.google.com/patent/USUS9906369"  target="_blank" title="Patent number" class="link-external" rel="noreferrer noopener nofollow" >Patent USUS9906369</a> 
+</li>
+<li>
+Full Link: <a href="https://patents.google.com/patent/USUS9906369"  target="_blank" title="Patent number" class="link-external" rel="noreferrer noopener nofollow" >https://patents.google.com/patent/USUS9906369</a> 
+</li>
+<li>
+Short Link 2: <a href="https://patents.google.com/patent/US7139686"  target="_blank" title="Patent number" class="link-external" rel="noreferrer noopener nofollow" >Patent US7139686</a> 
+</li>
+<li>
+Full Link 2:  <a href="https://patents.google.com/patent/US7139686"  target="_blank" title="Patent number" class="link-external" rel="noreferrer noopener nofollow" >https://patents.google.com/patent/US7139686</a> 
+</li>
+</ul>
+
+<p>
+<strong>Hyperlink to RFC Standard</strong>
+</p>
+
+<p>
+Special link to RFC (Request for Comment) technical standards proposed by the IETF (Internet Engineering Task Force).
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>&lt;rfc:$RFC-NUMBER&gt; =&gt; Short Link
+  &lt;r-rfc:$RFC-NUMBER&gt; =&gt; Link as label
+</pre></div>
+</code>
+</pre>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ See &lt;rfc:7231&gt; - Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content
+
++ See &lt;r-rfc:7231&gt; - Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+See <a href="https://datatracker.ietf.org/doc/html/rfc7231"  target="_blank" title="Request For Comment - IETF (Internet Engineering Task Force) Technical Standard" class="link-external" rel="noreferrer noopener nofollow" >RFC 7231</a> - Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content 
+</li>
+<li>
+See <a href="https://datatracker.ietf.org/doc/html/rfc7231"  target="_blank" title="Request For Comment - IETF (Internet Engineering Task Force) Technical Standard" class="link-external" rel="noreferrer noopener nofollow" >https://datatracker.ietf.org/doc/html/rfc7231</a> - Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content 
+</li>
+</ul>
+
+<p>
+<strong>Hyperlink to PEP (Pyhton Enhancement Proposal)</strong>
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>&lt;pep:$PEP-NUMBER&gt;
+OR:
+  &lt;r-pep:$PEP-NUMBER&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ See: Python WSGI - Webserver Gateway Interface  &lt;pep:333&gt; 
++ See: Python WSGI - Webserver Gateway Interface  &lt;r-pep:333&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+See:  Python WSGI - Webserver Gateway Interface  <a href="https://peps.python.org/pep-333"  target="_blank" title="PEP - Python Enhancement Proposal" class="link-external" rel="noreferrer noopener nofollow" >PEP 333</a> 
+</li>
+<li>
+See: Python WSGI - Webserver Gateway Interface  <a href="https://peps.python.org/pep-333"  target="_blank" title="PEP - Python Enhancement Proposal" class="link-external" rel="noreferrer noopener nofollow" >https://peps.python.org/pep-333</a> 
+</li>
+</ul>
+
+<p>
+<strong>Hyperlink to Python Package</strong>
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>&lt;pypi:$PACKAGE-NAME&gt;
+OR:
+  &lt;r-pypi:$PACKAGE-NAME&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ Pyhton &lt;pypi:sqlitedict&gt; package 
++ Python sqltedict package, available at &lt;r-pypi:sqlitedict&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+Pyhton <a href="https://pypi.org/project/sqlitedict"  target="_blank" title="Python Package - pypi.org" class="link-external" rel="noreferrer noopener nofollow" >sqlitedict</a> package 
+</li>
+<li>
+Python sqltedict package, available at <a href="https://pypi.org/project/sqlitedict"  target="_blank" title="Python Package - pypi.org" class="link-external" rel="noreferrer noopener nofollow" >https://pypi.org/project/sqlitedict</a> 
+</li>
+</ul>
+
+<p>
+<strong>Hyperlink to CVE - Common Vulnerability Exposures</strong>
+</p>
+
+<p>
+This special link syntax allows creating hyperlinks to the CVE (Common Vulnerability Exposure) database given the CVE unique identifier.
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-md"><div class="highlight"><pre><span></span>&lt;cve:$CVE_NUMBER&gt;
+or
+ &lt;CVE:$CVE_NUMBER&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Example: the link shortcut
+</p>
+
+<pre>
+<code class="language-md"><div class="highlight"><pre><span></span>+  &lt;cve:CVE-2024-53104&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+is equivalent to the hyperlink
+</p>
+
+<pre>
+<code class="language-md"><div class="highlight"><pre><span></span>+ [<span class="nt">CVE-2024-53104</span>](<span class="na">https://www.cve.org/CVERecord?id=CVE-2024-53104</span>)
+</pre></div>
+</code>
+</pre>
+
+<p>
+and is rendered to html as
+</p>
+
+<ul class="">
+<li>
+<a href="https://www.cve.org/CVERecord?id=CVE-2024-53104"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >CVE-2024-53104</a> 
+</li>
+</ul>
+
+<p>
+<strong>Hyperlink to Subreddit</strong>
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>&lt;rd:/r/$NAME-OF-SUBREDDIT&gt;
+
+or
+
+&lt;reddit:/r/$NAME-OF-SUBREDDIT&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>+ C++ Subreddit &lt;rd:/r/cpp&gt; 
++ &lt;reddit:/r/smalltalk&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+C++ Subreddit <a href="https://old.reddit.com/r/cpp"  target="_blank" title="Subreddit /r/cpp" class="link-external" rel="noreferrer noopener nofollow" >/r/cpp</a> 
+</li>
+<li>
+<a href="https://old.reddit.com/r/smalltalk"  target="_blank" title="Subreddit /r/smalltalk" class="link-external" rel="noreferrer noopener nofollow" >/r/smalltalk</a> 
+</li>
+</ul>
+
+<p>
+The hyperlink <code>&lt;rd:/r/cpp&gt;</code> is a hyperlink to
+</p>
+
+<ul class="">
+<li>
+<a href="https://old.reddit.com/r/cpp"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://old.reddit.com/r/cpp</a> 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Image" class="document-heading anchor">Image <a class="link-heading" href="#H_Image">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=762&end=799&anchor=H_Image&page=refcard&timestamp=176036511080266" title="[i18n]: Image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{6}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Internal_Image" class="document-heading anchor">Internal Image <a class="link-heading" href="#H_Internal_Image">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=763&end=762&anchor=H_Internal_Image&page=refcard&timestamp=176036511080266" title="[i18n]: Internal Image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+The syntax for internal Wiki images is based on Obsidian's markdown syntax for embedding files on pages. It is not necessary to specify the full path or relative path of an image file as it will be displayed regardless of the sub directory it is located within the wiki pages repository.
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>![[image_file.png]]
+
+Or 
+
+![[relative/path/to/images/image_file_name.png]]
+</pre></div>
+</code>
+</pre>
+
+<div class="div-heading"> 
+<h3 id="H_External_Image" class="document-heading anchor">External Image <a class="link-heading" href="#H_External_Image">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=777&end=799&anchor=H_External_Image&page=refcard&timestamp=176036511080266" title="[i18n]: External Image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+Hyperlink to external image. The image URL can be a relative URL as shown in the example below or a URL of type <code>https://www.site.com/files/image.png </code>.
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>![$IMAGE-ALT-TEXT-DESCRIPTION]($IMAGE-URL)
+</pre></div>
+</code>
+</pre>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>![Java&#39;s Duke Mascot](/static/example_java_duke_mascot.svg)
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<div class="div-wiki-image"><img class="external-image anchor" src="/static/example_java_duke_mascot.svg" alt="Java's Duke Mascot"></div>
+
+<div class="div-heading"> 
+<h2 id="H_Figures" class="document-heading anchor">Figures <a class="link-heading" href="#H_Figures">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=799&end=863&anchor=H_Figures&page=refcard&timestamp=176036511080266" title="[i18n]: Figures" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{7}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+Figures are images with metadata, including automatic enumeration with optional attributes such as caption (also known as label), unique identifier and alt text (alternative text) for better accessibility.
+</p>
+
+<div class="div-heading"> 
+<h3 id="H_Figure_of_external_image" class="document-heading anchor">Figure of external image <a class="link-heading" href="#H_Figure_of_external_image">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=803&end=829&anchor=H_Figure_of_external_image&page=refcard&timestamp=176036511080266" title="[i18n]: Figure of external image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+A figure of an external image uses URL (Universal Resource Locator) for external images possibly loaded from other websites. In the following example the image <code>example_java_duke_mascot.svg</code> is loaded from a external URL of a ficticious web site <code>https://some-web-site.com</code>.
+</p>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>```{figure} https://some-web-site.com/pictures/example_java_duke_mascot.svg
+:width: 200px
+:alt: Java duke mascot, one of the symbols of the Java programming language.
+
+Java&#39;s Duke mascot
+```
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<div class="div-wiki-image" div-figure><img id="figure-" class="wiki-image lazy-load anchor" data-src="/static/example_java_duke_mascot.svg" alt="Java duke mascot, one of the symbols of the Java programming language." height=200px ><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 1: Java's Duke mascot</p></div>
+
+<div class="div-heading"> 
+<h3 id="H_Figure_of_Internal_Image" class="document-heading anchor">Figure of Internal Image <a class="link-heading" href="#H_Figure_of_Internal_Image">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=829&end=863&anchor=H_Figure_of_Internal_Image&page=refcard&timestamp=176036511080266" title="[i18n]: Figure of Internal Image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>```{figure} ![[logo-java-coffee-cup.png]]
+:name: unique-identifier-of-the-image-optional
+:height: 200px
+:alt: An iconic symbol of the Java programming language. Note the alt text should provide a detailed description of the image for better accessibility.
+
+Java coffee cup symbol. 
+```
+</pre></div>
+</code>
+</pre>
+
+<p>
+Note that internal images can be uploaded by copying and pasting images to the MWiki code editor or by manual upload using the editor button with label 'Link to Uploaded File'.
+</p>
+
+<p>
+Uploading images by copying and pasting images:
+</p>
+
+<p>
+Now when an user pastes an image from the clipboard in the wiki editor with Ctrl+V or by clicking with mouse right button for opening the context menu and clicking at paste, the image is uploaded to the server and the editor inserts the following template code for a figure containing a reference to the pasted image <code>pasted-image-1754432753336.jpg</code>.
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>```{figure} ![[pasted-image-1754432753336.jpg]]
+:name: 
+:alt: Optional Alt text (alternative) text for accessibility
+
+Optional Figure caption here.
+```
+</pre></div>
+</code>
+</pre>
+
+<p>
+Then, then user can change the label/caption, optional alt text, optiona name (unique) identifier for cross referencing and also add the attributes <code>:width: 150px</code> or <code>height: 100px</code>.
+</p>
+
+<div class="div-heading"> 
+<h2 id="H_Videos" class="document-heading anchor">Videos <a class="link-heading" href="#H_Videos">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=863&end=938&anchor=H_Videos&page=refcard&timestamp=176036511080266" title="[i18n]: Videos" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{8}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Embed_Youtube_Video" class="document-heading anchor">Embed Youtube Video <a class="link-heading" href="#H_Embed_Youtube_Video">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=865&end=892&anchor=H_Embed_Youtube_Video&page=refcard&timestamp=176036511080266" title="[i18n]: Embed Youtube Video" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+Embed Youtube video given its ID (Unique Identifier) or URL.
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>{youtube}`&lt;VIDEO-URL-OR-ID&gt;`
+</pre></div>
+</code>
+</pre>
+
+<p>
+<strong>Example</strong>
+</p>
+
+<p>
+Embed video <em>3 Hours of Most Common Logical Fallacies to Fall Asleep To</em>, whose URL is
+</p>
+
+<ul class="">
+<li>
+<a href="https://www.youtube.com/watch?v=bNE4uBMsnP0"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.youtube.com/watch?v=bNE4uBMsnP0</a> 
+</li>
+</ul>
+
+<p>
+Code example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>{youtube}`https://www.youtube.com/watch?v=bNE4uBMsnP0`
+
+or
+
+{youtube}`bNE4uBMsnP0`
+</pre></div>
+</code>
+</pre>
+
+<div class="div-heading"> 
+<h3 id="H_Embed_Uploaded_Video_Files" class="document-heading anchor">Embed Uploaded Video Files <a class="link-heading" href="#H_Embed_Uploaded_Video_Files">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=892&end=911&anchor=H_Embed_Uploaded_Video_Files&page=refcard&timestamp=176036511080266" title="[i18n]: Embed Uploaded Video Files" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+MP4 or WEBM video files can be embedded in the current page by using the syntax.
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>![[video-file-to-be-embedded.mp4]]
+</pre></div>
+</code>
+</pre>
+
+<p>
+or
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>![[video-file-to-be-embedded.webm]]
+</pre></div>
+</code>
+</pre>
+
+<p>
+Embedded video files are rendered as <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" ><video></a> html5 embedded element with controls for playing the video, including button for start playing the video, button for stopping the video and so on.
+</p>
+
+<p>
+NOTE: It is possible to upload video files directly in the wiki editor by clicking at the button with label 'Link to Uploaded File' in the editor toolbar section 'insert'.
+</p>
+
+<div class="div-heading"> 
+<h3 id="H_Video_Blocks" class="document-heading anchor">Video Blocks <a class="link-heading" href="#H_Video_Blocks">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=911&end=938&anchor=H_Video_Blocks&page=refcard&timestamp=176036511080266" title="[i18n]: Video Blocks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<p>
+Video blocks <code>{video}</code> are similar to <code>{figure}</code> blocks, they allow embeding videos with metadata.
+</p>
+
+<p>
+Syntax for internal videos uploaded to the Wiki. This code is auomtically inserted in the editor after successful upload of a webm or mp4 video.
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>```{video}  ![[name-of-internal-video.webm]]
+:name: Unique ID - Identifier.
+:alt: Alt text, video description optional metadata.
+    
+Video caption (also known as label)
+```
+</pre></div>
+</code>
+</pre>
+
+<p>
+Syntax for external videos.
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>```{video}  https://somedomain.com/files/video.mp4
+:name: Unique ID - Identifier.
+:alt: Alt text, video description optional metadata.
+
+Video caption (also known as label)
+```
+</pre></div>
+</code>
+</pre>
+
+<div class="div-heading"> 
+<h2 id="H_Code_Blocks" class="document-heading anchor">Code Blocks <a class="link-heading" href="#H_Code_Blocks">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=938&end=977&anchor=H_Code_Blocks&page=refcard&timestamp=176036511080266" title="[i18n]: Code Blocks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{9}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Inline_code" class="document-heading anchor">Inline code <a class="link-heading" href="#H_Inline_code">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=939&end=938&anchor=H_Inline_code&page=refcard&timestamp=176036511080266" title="[i18n]: Inline code" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+Inline code must be surrounded by backtick character (`).
+</p>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ The wiki syntax `&lt;rfc:7231&gt;` is rendered to a hyperlink to 
+http 1.1 standard from IETF &lt;rfc:7231&gt;
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+The wiki syntax <code>&lt;rfc:7231&gt;</code> is rendered to a hyperlink tohttp 1.1 standard from IETF <a href="https://datatracker.ietf.org/doc/html/rfc7231"  target="_blank" title="Request For Comment - IETF (Internet Engineering Task Force) Technical Standard" class="link-external" rel="noreferrer noopener nofollow" >RFC 7231</a> 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Code_Block" class="document-heading anchor">Code Block <a class="link-heading" href="#H_Code_Block">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=955&end=977&anchor=H_Code_Block&page=refcard&timestamp=176036511080266" title="[i18n]: Code Block" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+Example python source code block:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span><span class="sb">```python</span>
+<span class="c1"># Code for listing root directory </span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span> 
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="sb">```</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<pre>
+<code class="language-python"><div class="highlight"><pre><span></span><span class="c1"># Code for listing root directory </span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span> 
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</code>
+</pre>
+
+<div class="div-heading"> 
+<h2 id="H_Quotes" class="document-heading anchor">Quotes <a class="link-heading" href="#H_Quotes">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=977&end=1021&anchor=H_Quotes&page=refcard&timestamp=176036511080266" title="[i18n]: Quotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{10}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+<strong>Quotion Syntax</strong>
+</p>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span><span class="k">&gt; </span><span class="ge">Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to humans what we want the computer to do.</span>
+<span class="k">&gt; </span><span class="ge">- -- Donald E. Knuth, Literate Programming, 1984</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<blockquote>
+<p>
+Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to humans what we want the computer to do.
+</p>
+<ul class="">
+<li>
+-- Donald E. Knuth, Literate Programming, 1984 
+</li>
+</ul>
+</blockquote>
+
+<p>
+<strong>Quotation Syntax Using Code Block</strong>
+</p>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>```{quote}
+Let us change our traditional attitude to the 
+construction of programs: Instead of imagining that 
+our main task is to instruct a computer what to do, 
+let us concentrate rather on explaining to humans 
+what we want the computer to do.
+  -- Donald E. Knuth, Literate Programming, 1984
+```
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<blockquote  >
+Let us change our traditional attitude to the 
+construction of programs: Instead of imagining that 
+our main task is to instruct a computer what to do, 
+let us concentrate rather on explaining to humans 
+what we want the computer to do.
+  -- Donald E. Knuth, Literate Programming, 1984
+</blockquote>
+
+<div class="div-heading"> 
+<h2 id="H_LaTeX_Math_Equations" class="document-heading anchor">LaTeX Math Equations <a class="link-heading" href="#H_LaTeX_Math_Equations">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1021&end=1336&anchor=H_LaTeX_Math_Equations&page=refcard&timestamp=176036511080266" title="[i18n]: LaTeX Math Equations" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{11}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Inline" class="document-heading anchor">Inline <a class="link-heading" href="#H_Inline">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1023&end=1033&anchor=H_Inline&page=refcard&timestamp=176036511080266" title="[i18n]: Inline" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>Let $x \in \mathbb{R}$ be a real number and $f(x) = \sqrt{x^2 - 10}$.
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<p>
+Let <span class="math-inline">\(x \in \mathbb{R}\)</span> be a real number and <span class="math-inline">\(f(x) = \sqrt{x^2 - 10}\)</span>.
+</p>
+
+<div class="div-heading"> 
+<h3 id="H_Display_Mode" class="document-heading anchor">Display Mode <a class="link-heading" href="#H_Display_Mode">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1033&end=1053&anchor=H_Display_Mode&page=refcard&timestamp=176036511080266" title="[i18n]: Display Mode" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>$$
+    A = \begin{bmatrix} 
+              \alpha &amp;  \beta 
+          \\  \gamma &amp;  \zeta 
+        \end{bmatrix}
+$$
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+    A = \begin{bmatrix} 
+              \alpha &amp;  \beta 
+          \\  \gamma &amp;  \zeta 
+        \end{bmatrix}
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Display_Mode_Without_Enumeration" class="document-heading anchor">Display Mode Without Enumeration <a class="link-heading" href="#H_Display_Mode_Without_Enumeration">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1053&end=1075&anchor=H_Display_Mode_Without_Enumeration&page=refcard&timestamp=176036511080266" title="[i18n]: Display Mode Without Enumeration" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>$$
+  \notag 
+    A = \begin{bmatrix} 
+              \alpha &amp;  \beta 
+          \\  \gamma &amp;  \zeta 
+        \end{bmatrix}
+$$
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<div class="math-block anchor"> 
+$$
+
+  \notag 
+    A = \begin{bmatrix} 
+              \alpha &amp;  \beta 
+          \\  \gamma &amp;  \zeta 
+        \end{bmatrix}
+
+$$
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Display_Mode_using_Code_Block_Syntax" class="document-heading anchor">Display Mode using Code Block Syntax <a class="link-heading" href="#H_Display_Mode_using_Code_Block_Syntax">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1075&end=1099&anchor=H_Display_Mode_using_Code_Block_Syntax&page=refcard&timestamp=176036511080266" title="[i18n]: Display Mode using Code Block Syntax" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+</div>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>```{math}
+  \notag 
+    A = \begin{bmatrix} 
+              \alpha &amp;  \beta 
+          \\  \gamma &amp;  \zeta 
+        \end{bmatrix}
+```
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<div class="math-block anchor"  > 
+$$
+  \notag 
+    A = \begin{bmatrix} 
+              \alpha &amp;  \beta 
+          \\  \gamma &amp;  \zeta 
+        \end{bmatrix}
+$$
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Equation_Enumeration_Style" class="document-heading anchor">Equation Enumeration Style <a class="link-heading" href="#H_Equation_Enumeration_Style">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1099&end=1198&anchor=H_Equation_Enumeration_Style&page=refcard&timestamp=176036511080266" title="[i18n]: Equation Enumeration Style" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{5}">\(\setSubSection{5}\)</span>
+</div>
+
+<p>
+MWiki supports the following LaTeX equation enumeration styles
+</p>
+
+<ul class="">
+<li>
+none <ul class="">
+<li>
+Schema: no enumeration, only referenced equations with LaTeX \eqref macro will be enumerated. 
+</li>
+</ul>
+</li>
+<li>
+cont or continous <ul class="">
+<li>
+Schema: <code>&lt;equaiton-number&gt;</code> 
+</li>
+<li>
+Example: 20 
+</li>
+<li>
+Description:  In this style, equations are enumerated in the order that they are defined without regarding section or subsection numner. For instance, 1, 2, 3,... 25. It might be a good choice for documents with a small number of equations, for instance, less than 100. 
+</li>
+</ul>
+</li>
+<li>
+section  (default) <ul class="">
+<li>
+Schema: <code>&lt;section-number&gt;.&lt;equation-number&gt;</code> 
+</li>
+<li>
+Example: 3.2 
+</li>
+<li>
+Description: Equation are enumerated according to their section without considering subsections, for instance, equationsof section 3 are enumerated as 3.1, 3.2, 3.20 until section 4 is defined. Then, equations of section 4 are enumerated as 4.1, 4.2, ..., 4.15 and so on. This style might be a good fit for documents with less than 100 equations per section. 
+</li>
+</ul>
+</li>
+<li>
+subsection <ul class="">
+<li>
+Example:  5.4.20 
+</li>
+<li>
+Schema: <code>&lt;section-number&gt;.&lt;subsection-number&gt;.&lt;equation-number&gt;</code> 
+</li>
+<li>
+Description: Equation are enumerated according to the section and subsection that they are defined. For instance, equations of subsection 3 of section 5 are enumerate 5.3.1, 5.3.2, ..., until the next section or subsection is defined. If there exists the subsection 4 of section 5, then the equations of this subsection will be enumerated as 5.4.1, 5.4.2, ..., 5.4.10 and etc. 
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+that can be changed by adding the next line to the document front-matter as shown in the following code example. Note that the front-matter is a human-readable human configuration in the markdown code between the lines containing '---' (three dashes) at the beginning of the page.
+</p>
+
+<p>
+Front-matter example:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span><span class="gu">```</span>
+<span class="gu">---</span>
+description: Description of the document
+equation_enumeration: subsection
+  ... ... ... ... ... 
+<span class="gu">  ... ... ... ... ... </span>
+<span class="gu">---</span>
+```
+</pre></div>
+</code>
+</pre>
+
+<p>
+Example consider the remaining of the page source code below after the front-matter.
+</p>
+
+<ul class="">
+<li>
+If the <strong>equation_enumeration</strong> directive is set to <strong>none</strong>, the equations will not be automatically enumerated. 
+</li>
+<li>
+If <strong>equation_enumeration</strong> is set to <strong>section</strong> (default), the number of equation A is set to 1.1, the number of the equation B is set to 1.2, the number of equation C is set to 1.3, the number of D is set to 1.4 
+</li>
+<li>
+If <strong>equation_enumeration</strong> is set to <strong>subsection</strong>, the number of equation A is set to 1.1, the number of equation B is set to 1.2, the number of equation C is set to 1.1.1, the number of D is set to 1.1.2, F's number is set to 2.1.1 and G's number is set to 2.1.2. This enumeration style is best suitable for documents with many equations per section. 
+</li>
+</ul>
+
+<p>
+Remaining of the wiki page source after the front-matter.
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span><span class="gu">## Section 1 </span>
+
+Introduction ....
+
+$$
+   % equation (A)
+   f(x) = x^2 - 2x + 10
+$$
+
+Root of the equation
+
+$$
+   % equation (B)
+   x = ....
+$$
+
+
+<span class="gu">### Subsection 1.1</span>
+
+Quadratic formula.
+
+$$
+   % equation (C)
+   x = \frac{-b \pm \sqrt{b^2 - 4ac}}
+$$
+
+Cubic function 
+
+$$
+  % equation (D)
+  f(x) = x^3
+$$
+
+<span class="gu">## Section 2</span>
+
+<span class="gu">### Section 2.1</span>
+
+Equation 1 of section 2.1
+
+$$
+  % Equation (F)
+  y = 2 x + 10
+$$
+
+Equation 2 of section 2.2
+
+$$
+  % Equation (G)
+   b = y - 10
+$$
+</pre></div>
+</code>
+</pre>
+
+<div class="div-heading"> 
+<h3 id="H_Cross_Reference_To_LaTeX_Equations" class="document-heading anchor">Cross Reference To LaTeX Equations <a class="link-heading" href="#H_Cross_Reference_To_LaTeX_Equations">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1198&end=1255&anchor=H_Cross_Reference_To_LaTeX_Equations&page=refcard&timestamp=176036511080266" title="[i18n]: Cross Reference To LaTeX Equations" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{6}">\(\setSubSection{6}\)</span>
+</div>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>Pendulum position vector $\mathbf{r}(t)$.
+
+$$
+  \label{eq_pendulum_position_vector}
+  \mathbf{r}(t) = \ell \sin \theta(t) \mathbf{e}_x + \ell \cos \theta(t) \mathbf{e}_y
+$$
+
+
+The velocity of a point mass, a body with negligible dimensions, is given by
+
+$$
+   \label{eq_def_velocity}
+   \mathbf{v}(t) = \frac{d \mathbf{r}}{dt} = \dot{\mathbf{r}}(t)
+$$
+
+
+Compute the velocity of the pendulum point-mass by replacing $\eqref{eq_pendulum_position_vector}$  in $\eqref{eq_def_velocity}$.
+
+$$
+   \mathbf{v}(t) = \frac{d}{dt} [ \ell \sin \theta(t) \mathbf{e}_x + \ell \cos \theta(t) \mathbf{e}_y ]
+$$
+</pre></div>
+</code>
+</pre>
+
+<p>
+Redering:
+</p>
+
+<div class="note admonition anchor" style="background:;">
+<span class="admonition-title"><img class="admonition-icon" src="/static/icon-info.svg"/> Note: Rendering Output<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1229&end=1253&page=refcard&timestamp=176036511080266" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<p>
+Pendulum position vector <span class="math-inline">\(\mathbf{r}(t)\)</span>.
+</p><div class="math-block anchor"> 
+$$
+
+  \label{eq_pendulum_position_vector}
+  \mathbf{r}(t) = \ell \sin \theta(t) \mathbf{e}_x + \ell \cos \theta(t) \mathbf{e}_y
+
+$$
+</div><p>
+The velocity of a point mass, a body with negligible dimensions, is given by
+</p><div class="math-block anchor"> 
+$$
+
+   \label{eq_def_velocity}
+   \mathbf{v}(t) = \frac{d \mathbf{r}}{dt} = \dot{\mathbf{r}}(t)
+
+$$
+</div><p>
+Compute the velocity of the pendulum point-mass by replacing <span class="math-inline">\(\eqref{eq_pendulum_position_vector}\)</span>  in <span class="math-inline">\(\eqref{eq_def_velocity}\)</span>.
+</p><div class="math-block anchor"> 
+$$
+
+   \mathbf{v}(t) = \frac{d}{dt} [ \ell \sin \theta(t) \mathbf{e}_x + \ell \cos \theta(t) \mathbf{e}_y ]
+
+$$
+</div>
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Latex_Macros" class="document-heading anchor">Latex Macros <a class="link-heading" href="#H_Latex_Macros">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1255&end=1283&anchor=H_Latex_Macros&page=refcard&timestamp=176036511080266" title="[i18n]: Latex Macros" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{7}">\(\setSubSection{7}\)</span>
+</div>
+
+<p>
+It is possible to define LaTeX macros for writing math expressions in a more concise wayby using a code block similar to the example below on the top of the page. This specialcode block is not rendered, it is processed by MathJax or other LaTeX rendering engines.
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>```{latex_macro}
+% Logical AND 
+\DeclareMathOperator{\\and}{ \\wedge }
+% Logical OR
+\DeclareMathOperator{\\or}{ \\vee }
+
+ % ---- OR add your OWN LaTeX Macros here ------%%
+
+```
+</pre></div>
+</code>
+</pre>
+
+<p>
+After adding the previous macro to the top of the page, one can write logical expressions <span class="math-inline">\(\neg (p \wedge q)\)</span>, which means not (p and q) or NAND(p, q), in the following form:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>$$
+\neg (p \and q) \equiv \neg p \or q
+$$
+</pre></div>
+</code>
+</pre>
+
+<div class="div-heading"> 
+<h3 id="H_Pseudocode_of_Algorithm" class="document-heading anchor">Pseudocode of Algorithm <a class="link-heading" href="#H_Pseudocode_of_Algorithm">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1283&end=1336&anchor=H_Pseudocode_of_Algorithm&page=refcard&timestamp=176036511080266" title="[i18n]: Pseudocode of Algorithm" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{8}">\(\setSubSection{8}\)</span>
+</div>
+
+<p>
+This wiki also supports LaTeX pseudocode of algorithms compatible with LaTeX algorithmic package. The implementation of this feature relies on <a href="https://saswat.padhi.me/pseudocode.js/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >pseudocode-js</a> and <a href="https://www.mathjax.org/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >MathJax</a> JavaScript libraries.
+</p>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span>```<span class="nb">{</span>pseudo<span class="nb">}</span>
+<span class="k">\begin</span><span class="nb">{</span>algorithm<span class="nb">}</span>
+<span class="k">\caption</span><span class="nb">{</span>Buble Sort Algorithm<span class="nb">}</span>
+<span class="k">\begin</span><span class="nb">{</span>algorithmic<span class="nb">}</span>
+<span class="k">\PROCEDURE</span><span class="nb">{</span>BubbleSort<span class="nb">}{</span><span class="s">$</span><span class="nb">A, n</span><span class="s">$</span><span class="nb">}</span>
+   <span class="k">\STATE</span> <span class="s">$</span><span class="nb">B </span><span class="o">=</span><span class="nb"> </span><span class="s">$</span> <span class="k">\CALL</span><span class="nb">{</span>CopyArray<span class="nb">}{</span><span class="s">$</span><span class="nb">A, n</span><span class="s">$</span><span class="nb">}</span>
+   <span class="k">\STATE</span> <span class="s">$</span><span class="nv">\:</span><span class="s">$</span> <span class="k">\textit</span><span class="nb">{</span>// i = 0, 1, ..., n - 1<span class="nb">}</span>
+   <span class="k">\FOR</span><span class="nb">{</span><span class="s">$</span><span class="nb">i </span><span class="o">=</span><span class="nb"> </span><span class="m">0</span><span class="s">$</span> <span class="k">\TO</span>  <span class="s">$</span><span class="nb">i &lt; n</span><span class="s">$</span><span class="nb">}</span>
+       <span class="k">\STATE</span> <span class="s">$</span><span class="nv">\:</span><span class="s">$</span> <span class="k">\textit</span><span class="nb">{</span>// j = 0, 1, ..., n - 2 <span class="nb">}</span>
+       <span class="k">\FOR</span><span class="nb">{</span><span class="s">$</span><span class="nb">j </span><span class="o">=</span><span class="nb"> </span><span class="m">0</span><span class="s">$</span> <span class="k">\TO</span> <span class="s">$</span><span class="nb">j &lt; n </span><span class="o">-</span><span class="nb"> </span><span class="m">1</span><span class="s">$</span><span class="nb">}</span>
+           <span class="k">\IF</span><span class="nb">{</span><span class="s">$</span><span class="nb">B</span><span class="o">[</span><span class="nb">j</span><span class="o">]</span><span class="nb"> &gt; B</span><span class="o">[</span><span class="nb">j</span><span class="o">+</span><span class="m">1</span><span class="o">]</span><span class="s">$</span><span class="nb">}</span>
+               <span class="k">\STATE</span> swap <span class="s">$</span><span class="nb">B</span><span class="o">[</span><span class="nb">j</span><span class="o">]</span><span class="s">$</span> with <span class="s">$</span><span class="nb">B</span><span class="o">[</span><span class="nb">j</span><span class="o">+</span><span class="m">1</span><span class="o">]</span><span class="s">$</span>
+           <span class="k">\ENDIF</span>
+       <span class="k">\ENDFOR</span>
+   <span class="k">\ENDFOR</span>
+   <span class="k">\RETURN</span><span class="nb">{</span><span class="s">$</span><span class="nb">B</span><span class="s">$</span><span class="nb">}</span>
+<span class="k">\ENDPROCEDURE</span>
+<span class="k">\end</span><span class="nb">{</span>algorithmic<span class="nb">}</span>
+<span class="k">\end</span><span class="nb">{</span>algorithm<span class="nb">}</span>
+```
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<pre  class="pseudocode" >
+\begin{algorithm}
+\caption{Buble Sort Algorithm}
+\begin{algorithmic}
+\PROCEDURE{BubbleSort}{$A, n$}
+   \STATE $B = $ \CALL{CopyArray}{$A, n$}
+   \STATE $\:$ \textit{// i = 0, 1, ..., n - 1}
+   \FOR{$i = 0$ \TO  $i &lt; n$}
+       \STATE $\:$ \textit{// j = 0, 1, ..., n - 2 }
+       \FOR{$j = 0$ \TO $j &lt; n - 1$}
+           \IF{$B[j] &gt; B[j+1]$}
+               \STATE swap $B[j]$ with $B[j+1]$
+           \ENDIF
+       \ENDFOR
+   \ENDFOR
+   \RETURN{$B$}
+\ENDPROCEDURE
+\end{algorithmic}
+\end{algorithm}
+</pre>
+
+
+<div class="div-heading"> 
+<h2 id="H_Table" class="document-heading anchor">Table <a class="link-heading" href="#H_Table">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1336&end=1383&anchor=H_Table&page=refcard&timestamp=176036511080266" title="[i18n]: Table" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{12}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>|  German          |   English         |
+|------------------|-------------------|
+| Deutsch          | German            |
+| ja               | yes               |
+| jetzt            | now               |
+| nein             | no or not         | 
+| hallo Welt       | hello World       |
+| hallo Leute      | hello people      |
+| willkomen        | welcome           |
+| Hilfe            | Help              |
+| die Zeit         | time              | 
+| die Einstellugen | settings (plural) |
+| die Kunst        | art               |
+| die Freiheit     | freedom, liberty  |
+| die Menschen     | people            |
+| die Wirtschaft   | the economy       |
+| das Ding         | thing, stuff      |
+| das Miteglied    | member            |
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>German</th>
+ 
+<th>English</th>
+</tr>
+</thead>
+ 
+<tbody>
+
+<tr>
+
+<td>Deutsch</td>
+ 
+<td>German</td>
+</tr>
+ 
+<tr>
+
+<td>ja</td>
+ 
+<td>yes</td>
+</tr>
+ 
+<tr>
+
+<td>jetzt</td>
+ 
+<td>now</td>
+</tr>
+ 
+<tr>
+
+<td>nein</td>
+ 
+<td>no or not</td>
+</tr>
+ 
+<tr>
+
+<td>hallo Welt</td>
+ 
+<td>hello World</td>
+</tr>
+ 
+<tr>
+
+<td>hallo Leute</td>
+ 
+<td>hello people</td>
+</tr>
+ 
+<tr>
+
+<td>willkomen</td>
+ 
+<td>welcome</td>
+</tr>
+ 
+<tr>
+
+<td>Hilfe</td>
+ 
+<td>Help</td>
+</tr>
+ 
+<tr>
+
+<td>die Zeit</td>
+ 
+<td>time</td>
+</tr>
+ 
+<tr>
+
+<td>die Einstellugen</td>
+ 
+<td>settings (plural)</td>
+</tr>
+ 
+<tr>
+
+<td>die Kunst</td>
+ 
+<td>art</td>
+</tr>
+ 
+<tr>
+
+<td>die Freiheit</td>
+ 
+<td>freedom, liberty</td>
+</tr>
+ 
+<tr>
+
+<td>die Menschen</td>
+ 
+<td>people</td>
+</tr>
+ 
+<tr>
+
+<td>die Wirtschaft</td>
+ 
+<td>the economy</td>
+</tr>
+ 
+<tr>
+
+<td>das Ding</td>
+ 
+<td>thing, stuff</td>
+</tr>
+ 
+<tr>
+
+<td>das Miteglied</td>
+ 
+<td>member</td>
+</tr>
+</tbody>
+</table>
+
+<div class="div-heading"> 
+<h2 id="H_Lists" class="document-heading anchor">Lists <a class="link-heading" href="#H_Lists">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1383&end=1492&anchor=H_Lists&page=refcard&timestamp=176036511080266" title="[i18n]: Lists" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{13}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Bullet_Lists" class="document-heading anchor">Bullet Lists <a class="link-heading" href="#H_Bullet_Lists">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1384&end=1383&anchor=H_Bullet_Lists&page=refcard&timestamp=176036511080266" title="[i18n]: Bullet Lists" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ Element 1 
++ Element 2 
+  + Element 2.1
+  + Element 2.2
++ Element 3
+  + Element 3.1
+  + Element 3.2
+     + Element 3.2.1
+     + Element 3.3.1
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+Element 1 
+</li>
+<li>
+Element 2 <ul class="">
+<li>
+Element 2.1 
+</li>
+<li>
+Element 2.2 
+</li>
+</ul>
+</li>
+<li>
+Element 3 <ul class="">
+<li>
+Element 3.1 
+</li>
+<li>
+Element 3.2 <ul class="">
+<li>
+Element 3.2.1 
+</li>
+<li>
+Element 3.3.1 
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Ordered_List" class="document-heading anchor">Ordered List <a class="link-heading" href="#H_Ordered_List">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1411&end=1446&anchor=H_Ordered_List&page=refcard&timestamp=176036511080266" title="[i18n]: Ordered List" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>1. Element 1
+2. Element 2
+   1. Element 2.1
+   2. Element 2.2 
+3. Element 3
+   1. Element 3.1
+   2. Element 3.2
+   3. Element 3.3
+      + Element 3.3.1
+      + Element 3.3.2
+   4. Element 3.4
+4. Element 4
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ol class="anchor">
+<li>
+Element 1 
+</li>
+<li>
+Element 2 <ol class="anchor">
+<li>
+Element 2.1 
+</li>
+<li>
+Element 2.2 
+</li>
+</ol>
+</li>
+<li>
+Element 3 <ol class="anchor">
+<li>
+Element 3.1 
+</li>
+<li>
+Element 3.2 
+</li>
+<li>
+Element 3.3 <ul class="">
+<li>
+Element 3.3.1 
+</li>
+<li>
+Element 3.3.2 
+</li>
+</ul>
+</li>
+<li>
+Element 3.4 
+</li>
+</ol>
+</li>
+<li>
+Element 4 
+</li>
+</ol>
+
+<div class="div-heading"> 
+<h3 id="H_List_of_Checkboxes_/_List_of_Tasks" class="document-heading anchor">List of Checkboxes / List of Tasks <a class="link-heading" href="#H_List_of_Checkboxes_/_List_of_Tasks">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1446&end=1462&anchor=H_List_of_Checkboxes_/_List_of_Tasks&page=refcard&timestamp=176036511080266" title="[i18n]: List of Checkboxes / List of Tasks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>+ [x] Implement full text search.
++ [ ] Implement a revision control system.
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+<input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Implement full text search. 
+</li>
+<li>
+<input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Implement a revision control system. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Definition_Lists" class="document-heading anchor">Definition Lists <a class="link-heading" href="#H_Definition_Lists">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1462&end=1492&anchor=H_Definition_Lists&page=refcard&timestamp=176036511080266" title="[i18n]: Definition Lists" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+</div>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>HTML 
+   : Hypertext Markup Language 
+
+DOM 
+   : Domain Object Model 
+   : Object that represents a parsed HTML tag in the memory.
+
+WWW
+   : World Wide Web
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<dl class="anchor">
+<dt class="anchor">HTML</dt>
+<dd class="anchor">Hypertext Markup Language</dd>
+<dt class="anchor">DOM</dt>
+<dd class="anchor">Domain Object Model</dd>
+<dd class="anchor">Object that represents a parsed HTML tag in the memory.</dd>
+<dt class="anchor">WWW</dt>
+<dd class="anchor">World Wide Web</dd>
+</dl>
+
+<div class="div-heading"> 
+<h2 id="H_Footnotes" class="document-heading anchor">Footnotes <a class="link-heading" href="#H_Footnotes">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1492&end=1529&anchor=H_Footnotes&page=refcard&timestamp=176036511080266" title="[i18n]: Footnotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{14}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Footnote_Reference" class="document-heading anchor">Footnote Reference <a class="link-heading" href="#H_Footnote_Reference">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1494&end=1515&anchor=H_Footnote_Reference&page=refcard&timestamp=176036511080266" title="[i18n]: Footnote Reference" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+Syntax 1: Compatible with MyST markdown and Obsidian markdown.
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>+ The motor speed is 300 rmp^[revolutions per minute].
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+The motor speed is 300 rmp<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup class="footnote-reference" data-counter="1" data-footnote="revolutions per minute">[1]</sup></a>. 
+</li>
+</ul>
+
+<p>
+Syntax 2: Only used by MWiki, but it does not conflict with any markdown syntax such as <code>[label](http://some-site.com)</code>.
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>+ Ship speed is about 30 knots^{Nautical miles per hour}.
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+Ship speed is about 30 knots<a href="#" id="footnote-reference-link-2" class="footnote-link"><sup class="footnote-reference" data-counter="2" data-footnote="Nautical miles per hour">[2]</sup></a>. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Footnotes_listing" class="document-heading anchor">Footnotes listing <a class="link-heading" href="#H_Footnotes_listing">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1515&end=1529&anchor=H_Footnotes_listing&page=refcard&timestamp=176036511080266" title="[i18n]: Footnotes listing" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+The following code lists all footnotes of current wiki page.
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>```{footnotes}
+```
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<div class="footnotes">
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-1">[1]</a> revolutions per minute</p>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-2">[2]</a> Nautical miles per hour</p></div>
+
+<div class="div-heading"> 
+<h2 id="H_Admonitions_(Callout_Boxes)" class="document-heading anchor">Admonitions (Callout Boxes) <a class="link-heading" href="#H_Admonitions_(Callout_Boxes)">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1529&end=1771&anchor=H_Admonitions_(Callout_Boxes)&page=refcard&timestamp=176036511080266" title="[i18n]: Admonitions (Callout Boxes)" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{15}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Info_Admonition" class="document-heading anchor">Info Admonition <a class="link-heading" href="#H_Info_Admonition">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1530&end=1529&anchor=H_Info_Admonition&page=refcard&timestamp=176036511080266" title="[i18n]: Info Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>:::{info}
+Give some information to the user.
+:::
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<div class="info admonition anchor" style="background:;">
+<span class="admonition-title"><img class="admonition-icon" src="/static/icon-info.svg"/> Info<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1541&end=1544&page=refcard&timestamp=176036511080266" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<p>
+Give some information to the user.
+</p>
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Tip_Admonition" class="document-heading anchor">Tip Admonition <a class="link-heading" href="#H_Tip_Admonition">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1546&end=1560&anchor=H_Tip_Admonition&page=refcard&timestamp=176036511080266" title="[i18n]: Tip Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>:::{tip}
+Try changing `tip` to `warning`!
+:::
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<div class="tip admonition anchor" style="background:;">
+<span class="admonition-title"><img class="admonition-icon" src="/static/icon-lightbulb.svg"/> Tip<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1556&end=1559&page=refcard&timestamp=176036511080266" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<p>
+Try changing <code>tip</code> to <code>warning</code>!
+</p>
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Note_Admonition" class="document-heading anchor">Note Admonition <a class="link-heading" href="#H_Note_Admonition">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1560&end=1576&anchor=H_Note_Admonition&page=refcard&timestamp=176036511080266" title="[i18n]: Note Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>:::{note}
+Make sure to check the relative error before stopping 
+the iterations.
+:::
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<div class="note admonition anchor" style="background:;">
+<span class="admonition-title"><img class="admonition-icon" src="/static/icon-info.svg"/> Note<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1571&end=1575&page=refcard&timestamp=176036511080266" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<p>
+Make sure to check the relative error before stoppingthe iterations.
+</p>
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Warning_Admonition" class="document-heading anchor">Warning Admonition <a class="link-heading" href="#H_Warning_Admonition">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1576&end=1593&anchor=H_Warning_Admonition&page=refcard&timestamp=176036511080266" title="[i18n]: Warning Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+</div>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>:::{warning}
+
+Make sure that device is fully charged before installing the firmware. Otherwise, it the device **may not be able to reboot**.
+:::
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<div class="warning admonition anchor" style="background:;">
+<span class="admonition-title"><img class="admonition-icon" src="/static/icon-warning1.svg"/> Warning<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1587&end=1591&page=refcard&timestamp=176036511080266" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<p>
+Make sure that device is fully charged before installing the firmware. Otherwise, the device may not be able to reboot.
+</p>
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Foldable_Admonition" class="document-heading anchor">Foldable Admonition <a class="link-heading" href="#H_Foldable_Admonition">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1593&end=1611&anchor=H_Foldable_Admonition&page=refcard&timestamp=176036511080266" title="[i18n]: Foldable Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{5}">\(\setSubSection{5}\)</span>
+</div>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>:::{note}
+:class: dropdown
+
+This is initially hidden, and can be clicked to be opened when you are viewing the content.
+:::
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<div class="note admonition anchor" style="background:;"><details>
+<summary>
+<span class="admonition-title"><img class="admonition-icon" src="/static/icon-info.svg"/> Note<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1605&end=1610&page=refcard&timestamp=176036511080266" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+</summary>
+<div class="details-content">
+<p>
+This is initially hidden, and can be clicked to be opened when you are viewing the content.
+</p>
+</div> <!-- EoF div.details-content -->
+</details>
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Mathematical_Definition_Admonition" class="document-heading anchor">Mathematical Definition Admonition <a class="link-heading" href="#H_Mathematical_Definition_Admonition">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1611&end=1643&anchor=H_Mathematical_Definition_Admonition&page=refcard&timestamp=176036511080266" title="[i18n]: Mathematical Definition Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{6}">\(\setSubSection{6}\)</span>
+</div>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>:::{def} Inverse Matrix 
+:label: inverse-matrix
+
+The inverse matrix $A^{-1}$ of a matrix $A: n \times n$ is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists. 
+
+$$
+  \notag
+   A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}
+$$
+
+:::
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<div id="inverse-matrix" class="def admonition anchor" style="background:;">
+<span class="admonition-title"><label class="admonition-tag" data-i18n="admonition-math-defintion-label">DEFINITION</label>: <strong>(Inverse Matrix)</strong><a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1631&end=1642&page=refcard&timestamp=176036511080266" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<p>
+The inverse matrix <span class="math-inline">\(A^{-1}\)</span> of a matrix <span class="math-inline">\(A: n \times n\)</span> is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists.
+</p><div class="math-block anchor"> 
+$$
+
+  \notag
+   A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}
+
+$$
+</div>
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Mathematical_Theorem_Admonition" class="document-heading anchor">Mathematical Theorem Admonition <a class="link-heading" href="#H_Mathematical_Theorem_Admonition">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1643&end=1708&anchor=H_Mathematical_Theorem_Admonition&page=refcard&timestamp=176036511080266" title="[i18n]: Mathematical Theorem Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{7}">\(\setSubSection{7}\)</span>
+</div>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>:::{theorem} Determinant of Orthogonal Matrix  
+
+The determinant of a <span class="gs">**orthogonal matrix**</span> $Q \in \mathbb{R}^{n \times n}$ of n rows and n columns is always 1.
+
+$$
+ \notag 
+  \det(Q) = 1
+$$
+
+
+```{proof}
+
+$$
+\notag 
+\begin{split}
+      \det (Q Q^T)      &amp;= \det(Q) \det(Q^{T}) 
+   \\ \det (Q Q^T)      &amp;= \det(Q) \det(Q) 
+   \\ \det (Q Q^{-1})   &amp;= \det(Q) \det(Q) 
+   \\ \det (\mathbf{I}) &amp;= \det(Q)^2
+   \\  1                &amp;= \det{Q}^2
+   \\  \det(Q)          &amp;= 1
+\end{split}
+$$
+```
+% --- end determinant proof ---
+
+:::
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<div class="theorem admonition anchor" style="background:;">
+<span class="admonition-title"><label class="admonition-tag" data-i18n="admonition-math-theorem-label">THEOREM</label> 1: <strong>(Determinant of Orthogonal Matrix)</strong><a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1680&end=1707&page=refcard&timestamp=176036511080266" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<p>
+The determinant of a <strong>orthogonal matrix</strong> <span class="math-inline">\(Q \in \mathbb{R}^{n \times n}\)</span> of n rows and n columns is always 1.
+</p><div class="math-block anchor"> 
+$$
+
+ \notag 
+  \det(Q) = 1
+
+$$
+</div><div class="foldabel-block-div"><details >
+<summary><u class="solution-label"><label data-i18n="foldable-math-proof-block-label">Proof</label> </u></summary>
+
+<div class="foldable-block" style=""><div class="math-block anchor"> 
+$$
+
+\notag 
+\begin{split}
+      \det (Q Q^T)      &amp;= \det(Q) \det(Q^{T}) 
+   \\ \det (Q Q^T)      &amp;= \det(Q) \det(Q) 
+   \\ \det (Q Q^{-1})   &amp;= \det(Q) \det(Q) 
+   \\ \det (\mathbf{I}) &amp;= \det(Q)^2
+   \\  1                &amp;= \det{Q}^2
+   \\  \det(Q)          &amp;= 1
+\end{split}
+
+$$
+</div>
+
+</div>
+</details></div>
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Example_of_solved_exercise" class="document-heading anchor">Example of solved exercise <a class="link-heading" href="#H_Example_of_solved_exercise">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1708&end=1771&anchor=H_Example_of_solved_exercise&page=refcard&timestamp=176036511080266" title="[i18n]: Example of solved exercise" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{8}">\(\setSubSection{8}\)</span>
+</div>
+
+<pre>
+<code class="language-{markdown}"><div class="source-code">:::{example} Chain Rule for Derivative Multi-Variate Functions
+
+Let the function f be $f(x, y) = x^2/A^2 + y^2/B^2 - C$.  Find the derivative of f with respect to t. And x and y are functions of t, $x = x(t) = A \cos t$ and $y = y(t) = B \sin t$. 
+
+
+```{solution}   
+$$
+ \notag 
+\begin{split}
+  \frac{df}{dt} 
+    &amp;= \frac{\partial f}{\partial x} \frac{dx}{dt}  
+    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\
+
+    &amp;=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \cos t)
+       \\ &amp; +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \sin t)  \\
+
+    &amp;=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ 
+    &amp;=  -2x \sin(t) / A + 2y \cos(t) / B \\
+    &amp;=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\
+    &amp;=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
+    &amp;=  0 
+\end{split}
+$$
+```
+:::
+</div></code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<aside class="example admonition anchor" style="background:;"  class="admonition example">
+<span class="admonition-title"><strong>
+<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Chain Rule for Derivative Multi-Variate Functions<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1742&end=1769&page=refcard&timestamp=176036511080266" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+</strong></span>
+
+<p>
+Let the function f be <span class="math-inline">\(f(x, y) = x^2/A^2 + y^2/B^2 - C\)</span>.  Find the derivative of f with respect to t. And x and y are functions of t, <span class="math-inline">\(x = x(t) = A \cos t\)</span> and <span class="math-inline">\(y = y(t) = B \sin t\)</span>.
+</p><div class="foldabel-block-div"><details >
+<summary><u class="solution-label"><label data-i18n="foldable-math-solution-block-label">Solution</label> </u></summary>
+
+<div class="foldable-block" style=""><div class="math-block anchor"> 
+$$
+
+ \notag 
+\begin{split}
+  \frac{df}{dt} 
+    &amp;= \frac{\partial f}{\partial x} \frac{dx}{dt}  
+    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\
+
+    &amp;=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \cos t)
+       \\ &amp; +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \sin t)  \\
+
+    &amp;=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ 
+    &amp;=  -2x \sin(t) / A + 2y \cos(t) / B \\
+    &amp;=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\
+    &amp;=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
+    &amp;=  0 
+\end{split}
+
+$$
+</div>
+
+</div>
+</details></div>
+</aside>
+
+<div class="div-heading"> 
+<h2 id="H_MyST_Roles" class="document-heading anchor">MyST Roles <a class="link-heading" href="#H_MyST_Roles">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1771&end=1896&anchor=H_MyST_Roles&page=refcard&timestamp=176036511080266" title="[i18n]: MyST Roles" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{16}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+The MyST Roles are similar to MyST directives, but they are single line. Exmaple:
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>{rolename}`text content here`
+</pre></div>
+</code>
+</pre>
+
+<div class="div-heading"> 
+<h3 id="H_Raw_Text" class="document-heading anchor">Raw Text <a class="link-heading" href="#H_Raw_Text">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1781&end=1803&anchor=H_Raw_Text&page=refcard&timestamp=176036511080266" title="[i18n]: Raw Text" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<p>
+This MyST role renders a text to itself without the text being interpreted to anything and without any escape character.
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>{r}`enclosed text` or {raw}`enclosed text`
+</pre></div>
+</code>
+</pre>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>+ {r}`&lt;a href=&quot;https://site.com&quot;&gt;label&lt;/a&gt;`
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+&lt;a href=&quot;https://site.com&quot;&gt;label&lt;/a&gt; 
+</li>
+</ul>
+
+<p>
+Note that the markdown rendered to the enclosed text within backticks "`" and not interpreted as a hyperlink.
+</p>
+
+<div class="div-heading"> 
+<h3 id="H_Underline_text" class="document-heading anchor">Underline text <a class="link-heading" href="#H_Underline_text">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1803&end=1818&anchor=H_Underline_text&page=refcard&timestamp=176036511080266" title="[i18n]: Underline text" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<p>
+Makes a any text underline.
+</p>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>{u}`underline text`
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+<u>underline text</u> 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Abbreviation" class="document-heading anchor">Abbreviation <a class="link-heading" href="#H_Abbreviation">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1818&end=1841&anchor=H_Abbreviation&page=refcard&timestamp=176036511080266" title="[i18n]: Abbreviation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<p>
+This syntax defines abbreviation of acronyms, that is rendered to an <code>&lt;abbr&gt;</code> html5 tag. The description of the acronym is shown in a popup window that appears when the user hoovers the mouse on the the abbreviation element.
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>{abbr}`$ACRONYM  ($DESCRIPTION)`
+</pre></div>
+</code>
+</pre>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>+ This wiki engine provides a syntax closer to {abbr}`MyST (Markedly Structured Text)`.
++ {abbr}`HTML (Hypertext Markup Language)` is a declarative language.
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+This wiki engine provides a syntax closer to <abbr title="Markedly Structured Text">MyST</abbr>. 
+</li>
+<li>
+<abbr title="Hypertext Markup Language">HTML</abbr> is a declarative language. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Text_Notes" class="document-heading anchor">Text Notes <a class="link-heading" href="#H_Text_Notes">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1841&end=1863&anchor=H_Text_Notes&page=refcard&timestamp=176036511080266" title="[i18n]: Text Notes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+</div>
+
+<p>
+This MyST role (not available by default in MyST) allows adding notes to text that are displayed in a popup window in a similar way to the abbr MyST role for abbreviations.
+</p>
+
+<p>
+Syntax:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>{note}`[TERM or SENTENCE] ([NOTE])`
+</pre></div>
+</code>
+</pre>
+
+<p>
+For instance, consider the following markdown code
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>+ A python {note}`dictionary (This data structure is a hash table)` has type Dict[key, value].
+</pre></div>
+</code>
+</pre>
+
+<p>
+which is rendered as
+</p>
+
+<ul class="">
+<li>
+A python <span class="myst-note-role" data-note="This data structure is a hash table">dictionary</span> has type Dict[key, value]. 
+</li>
+</ul>
+
+<p>
+The term "dictionary" is displayed with underline dots. When the user clicks at this text, a popup window containing the note "This data structure is a hash table" is shown to the user.
+</p>
+
+<div class="div-heading"> 
+<h3 id="H_Math_Role_for_Inline_LaTeX" class="document-heading anchor">Math Role for Inline LaTeX <a class="link-heading" href="#H_Math_Role_for_Inline_LaTeX">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1863&end=1873&anchor=H_Math_Role_for_Inline_LaTeX&page=refcard&timestamp=176036511080266" title="[i18n]: Math Role for Inline LaTeX" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{5}">\(\setSubSection{5}\)</span>
+</div>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ The math expression  {math}`x^2 - 10x + 20` the previous function.
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+The math expression  <span class="math-inline">\(x^2 - 10x + 20\)</span> the previous function. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Subscript__Role" class="document-heading anchor">Subscript  Role <a class="link-heading" href="#H_Subscript__Role">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1873&end=1883&anchor=H_Subscript__Role&page=refcard&timestamp=176036511080266" title="[i18n]: Subscript  Role" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{6}">\(\setSubSection{6}\)</span>
+</div>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ Water: H{sub}`2`O
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+Water: H<sub>2</sub>O 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Superscript_Role" class="document-heading anchor">Superscript Role <a class="link-heading" href="#H_Superscript_Role">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1883&end=1896&anchor=H_Superscript_Role&page=refcard&timestamp=176036511080266" title="[i18n]: Superscript Role" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{7}">\(\setSubSection{7}\)</span>
+</div>
+
+<p>
+Superscript Roles:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>+ The 7{sup}`th` element.
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+The 7<sup>th</sup> element. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Further_Reading" class="document-heading anchor">Further Reading <a class="link-heading" href="#H_Further_Reading">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1896&end=end&anchor=H_Further_Reading&page=refcard&timestamp=176036511080266" title="[i18n]: Further Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{17}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+<a href="https://mystmd.org/guide/admonitions"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://mystmd.org/guide/admonitions</a> 
+</li>
+<li>
+<a href="https://mystmd.org/sandbox"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://mystmd.org/sandbox</a> <ul class="">
+<li>
+=> Allows testing MyST online without installation. 
+</li>
+</ul>
+</li>
+<li>
+<a href="https://myst-parser.readthedocs.io/en/latest/syntax/math.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://myst-parser.readthedocs.io/en/latest/syntax/math.html</a> 
+</li>
+<li>
+<a href="https://markdown-it-py.readthedocs.io/en/latest/architecture.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://markdown-it-py.readthedocs.io/en/latest/architecture.html</a> 
+</li>
+<li>
+<a href="https://mystmd.org/guide/glossaries-and-terms"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://mystmd.org/guide/glossaries-and-terms</a> 
+</li>
+</ul>
+
+
+        </main>
+    </div>
+    <script>
+    </script>
+</body>
+
+</html>

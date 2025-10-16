@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+    
+    <title data-i18n="">MBook - Internationalization i18n and Localization i10n concepts</title>
+    <meta name="description" content="None" />
+    <meta name=generator content="MWiki">
+    
+
+    
+   <style>
+        
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: normal;
+    
+    
+    src: url('/static/fonts/cmu-concrete-regular.woff');
+}
+    
+
+
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: italic;
+    
+    
+    src: url('/static/fonts/cmu-concrete-regular.woff');
+}
+    
+
+        
+@font-face {
+    font-family: 'Bricolage Grotesque';
+    
+    
+    src: url('/static/fonts/bricolage-grotesque-latin-normal.woff2');
+}
+    
+
+
+:root {
+    /*--- Desktop screen Width ----------------*/
+    --screen-width-desktop: 850px;
+
+    /* --bg-sidebar: #F2EACA; */  /* #F7F4ED; */
+    --bg-sidebar: white;  /* #F7F4ED; */
+    /* --bg-main:   #F2EACA ; */
+    --bg-main: white;
+    --typography-main-line-height: 1.7em;
+    --typography-main-leter-spacing: 0.5px;
+    --screen-type: "desktop";
+    --link-external-color: blue; /* hsl(0, 100%, 33%); */
+    --link-internal-color: blue;
+    --form-background-color: #fbfcfc;
+    --form-border-color: #cfd5e2;
+    --primary-button-background-color: #0172ad;
+
+    /* --font-family-main: 'Computer Modern'; */
+    /* --font-family-main: 'Neo Euler'; */
+    /***
+    --font-family-main: 'monospace';
+    --font-family-title: 'Sans Serif';
+    --font-family-code: 'monospace';
+    **/
+
+    
+    --font-family-main: 'CMU Concrete';
+    
+    
+    --font-family-title: 'Bricolage Grotesque';
+    
+
+    --font-size-h1:  1.800rem;
+    --font-size-h2:  1.350rem;
+    --font-size-h3:  1.125rem;
+    --font-size-h4:  1.000rem;
+    --font-size-h5:  0.875rem;
+    --font-size-h6:  0.750rem;
+    --font-size-text: 0.720rem;
+    --font-size-code: 0.700rem;
+    --font-size-sidebar: 0.850rem;
+
+    --code-block-background-color: rgb(243, 244.5, 246.75);
+
+    /* Magnifier icon */
+    --icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(136, 145, 164)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+}
+
+
+        
+    </style>
+  
+    <link rel="stylesheet" href="/static/static_style.css">
+
+   
+
+    
+    
+    <!-- MathJax Settings -->
+    <script>
+
+    let FONT_FAMILY_MAIN = "CMU Concrete"
+    let FONT_FAMILY_TITLE = "Bricolage Grotesque"
+    let FONT_FAMILY_CODE = "Libertinus Mono"
+    let DEFAULT_LOCALE = "en-US";
+	  let USE_DEFAULT_LOCALE = "True" === "True";
+    let CSRF_TOKEN = ""
+    const STATIC_COMPILATION = true;
+	
+    // Possible values: 'none', 'nosection' 'section', 'subsection'
+    //  none      => no enumeration 
+    //  nosection 
+    //      Schema: <equation-number>
+    //      Example: Equations are enumerated as 1, 2, ..., 200
+    //              in the order that they are shown without section or 
+    //              subsection number
+    //  section   
+    //      Schema:  => <section>.<equation-number>
+    //      Exmaple: => 2.1, 2.5, 6.8
+    //  subsection 
+    //      Schema:  => <section>.<subsection>.<equation-number>
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5 
+    //
+    let equation_enumeration = "section";
+
+    MathJax = {
+        loader: {load: ['[tex]/tagformat', '[tex]/mathtools', 'output/chtml']}
+
+      , section: 1
+      , tex: {
+          inlineMath: [['$','$'], ['\\(','\\)']]
+        , displayMath: [['$$','$$'], ['\\[','\\]']]
+        , processEscapes: true
+        , processEnvironments: true
+          // Location of equation numbers
+        , tagSide: "right"  
+        // Possible values 'ams' or 'all' (all equations are numbered by default)
+        , tags: equation_enumeration !== "none" ? "all" : "ams"
+        //, tags: 'ams'
+        , packages: {'[+]': [
+                                  'tagformat'
+                                , 'sections'
+                                , 'subsections'
+                                , 'autoload-all'
+                            ]}
+        , tagformat: {
+          number: (n) => { 
+            if( equation_enumeration === "cont" 
+                || equation_enumeration == "continuous")
+            {
+                return '' + n;
+            }
+
+            let nsec = MathJax.config.section;
+            let nsub = MathJax.config.subsection;
+            var out = '';
+            if (nsub === 0 || equation_enumeration == "section") 
+            {
+                out = nsec + '.' + n;
+            } else {
+                out = nsec + '.' + nsub +  '.' + n;
+            }
+            // console.log("Display section = ", out);
+            return out;
+          }
+        }
+      }
+
+     , startup: {
+
+            ready() {
+                // console.log(" [TRACE] I was called from ready()");
+                const Configuration = MathJax._.input.tex.Configuration.Configuration;
+                const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+                new CommandMap('sections', {
+                      nextSection: 'NextSection'
+                    , setSection:  'SetSection'
+                }, {
+                     NextSection(parser, name) {
+                        // console.log(" [TRACE] Called NextSection()");
+                        MathJax.config.section++;
+                        MathJax.config.subsection = 0;
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                    , SetSection(parser, name) {
+                        // console.log(" [TRACE] Called SetSection()");
+                        const n = parser.GetArgument(name);
+                        MathJax.config.section = parseInt(n);
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                });
+                if (equation_enumeration === "subsection")
+                {
+                    new CommandMap('subsections', {
+                          nextSubSection: 'NextSubSection'
+                        , setSubSection:  'SetSubSection'
+                    }, {
+                         NextSubSection(parser, name) {
+                            // console.log(" [TRACE] NextSubSection() called.");
+                            MathJax.config.subsection++;
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                        , SetSubSection(parser, name) {
+                            const n = parser.GetArgument(name);
+                            // console.log(" [TRACE] SetSubSection to ", n);
+                            MathJax.config.subsection = parseInt(n);
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                    });
+                }
+
+                Configuration.create(
+                      'sections', { handler: { macro: ['sections'] } }
+                );
+
+                if( equation_enumeration === "subsection" )
+                {
+                    Configuration.create(
+                        'subsections', { handler: { macro: ['subsections'] } }
+                    );
+
+                }
+
+                MathJax.startup.defaultReady();
+                pseudocode.renderClass("pseudocode", { "lineNumber": true, "scopeLines": true });
+                // This function is provided by main.js.
+                if( isMobileScreen() ) { setHeadingVisibility(false); }
+                /// setHeadingsVisibility(false)
+            }
+        }
+    , chtml: {
+        /// displayAlign: "left"
+      }
+    // options for when overflow is linebreak
+    , linebreaks: {             
+        inline:           true,   // true for browser-based breaking of inline equations
+        width:            '100%', // a fixed size or a percentage of the container width
+        lineleading:      .2,     // the default lineleading in em units
+        LinebreakVisitor: null,   // The LinebreakVisitor to use
+    },
+
+    }
+    </script>
+
+
+    
+
+    
+
+
+    
+    <!-- Additional Javascript libraries -->
+    
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", (event) => {
+            // Select graphviz code blocks 
+            let lst = document.querySelectorAll(".graphviz-dot");
+            for(let x of lst){
+
+                Viz.instance().then(function(viz) {
+                    // console.log("[TRACE] x = ", x);
+                    let code = x.innerText;
+                    // console.log(" [TRACE] code = ", code);
+                    let svg = viz.renderSVGElement(code);
+                    // console.log(" [TRACE] svg = ", svg);
+                    x.replaceWith(svg); 
+                    // x.outerHTML = svg;
+                    /// document.getElementById("graph").appendChild(svg);
+                });
+
+
+            }
+        }, false);
+        
+    </script>
+    <script type="text/javascript" src="/static/main.js"></script>
+
+</head>
+
+<body>
+    <aside class="sidebar sidebar-visibility">
+
+        
+        <h2 data-i18n="sidebar-table-of-contentes-label">Contents</h2>
+        
+        <div class="toc">
+            <!-- Table of contents template placeholder -->
+            <ol><ol>
+<li><a href="#H_Terminology_of_Internationalization" class="link-sidebar" >Terminology of Internationalization</a>
+</li><li><a href="#H_Internationalization_Issues" class="link-sidebar" >Internationalization Issues</a>
+</li><li><a href="#H_Common_Mistakes" class="link-sidebar" >Common Mistakes</a>
+</li><li><a href="#H_Common_Locales" class="link-sidebar" >Common Locales</a>
+</li><li><a href="#H_Falsehoods_Many_Programmers_Believe_About_Names" class="link-sidebar" >Falsehoods Many Programmers Believe About Names</a>
+</li><li><a href="#H_American_English_Vs_British_English" class="link-sidebar" >American English Vs British English</a>
+</li><li><a href="#H_Software_Libraries" class="link-sidebar" >Software Libraries</a>
+</li><li><a href="#H_See_also" class="link-sidebar" >See also</a>
+</li>
+</ol></ol>
+        </div>
+
+    </aside>
+    <div class="main main-shift">
+        <header class="header">
+            <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/static/hamburger-menu.svg" style="height: 25px;"/> </a>
+            <a data-i18n="home-page-button" class="sidebar-toggle-button" 
+			   title="Go to home page (Index)" href="/"><img class="img-icon" src="/static/icon-home.svg"></a>
+            <div class="dropdown">
+              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button" 
+                 href="#" 
+                 title="Main menu."
+                 class="dropbtn"
+                 >
+                <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
+                </a>
+              <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                
+                   <a data-i18n="keybindings-menu-item" class="sidebar-toggle-button" href="#"
+                    onclick="toggleShortcutKeybindingWinodw();"
+                    title="Display a window showing all keyboard shortcuts, also known as keybindings."
+                 >Keybindings</a>
+                 <a data-i18n="about-menu-item-label" class="sidebar-toggle-button" href="/about.html">About</a>
+              </div>
+            </div>
+
+            <a data-i18n="button-toggle-sections" class="sidebar-toggle-button"
+                 href="#" 
+                 onclick="toggleHeadings();"
+                 id="btn-scroll-bottom" 
+                 title="Fold/Unfold all sections."
+                 ><img class="img-icon" src="/static/dots-vertical.svg" ></a> 
+            <!-- 
+             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
+                 href="#" 
+                 onclick="quickOpenPage();"
+                 id="btn-scroll-bottom" 
+                 title="Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry."
+                 >
+               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E"> 
+                </a>
+            --> 
+              
+        </header>
+
+        <main class="content">
+            
+            <a class="link-edit link-internal" style="display:none" title="Edit page Internationalization i18n and Localization i10n concepts" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?timestamp="><img class="img-icon" src="/static/pencil.svg"></a>
+            
+
+            <div class="div-heading-h1">
+                <h1 data-i18n="" class="document-heading">Internationalization i18n and Localization i10n concepts</h1>
+            </div>
+            <p class="hidden-mathjax-macros" style="display: none;">
+                $$
+                
+                $$
+            </p>
+            
+
+<div class="div-heading"> 
+<h2 id="H_Terminology_of_Internationalization" class="document-heading anchor">Terminology of Internationalization <a class="link-heading" href="#H_Terminology_of_Internationalization">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=8&end=57&anchor=H_Terminology_of_Internationalization&page=Internationalization i18n and Localization i10n concepts&timestamp=176060095271650" title="[i18n]: Terminology of Internationalization" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{1}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<dl class="anchor">
+<dt class="anchor">ISO</dt>
+<dd class="anchor">International Organization for Standardization</dd>
+<dt class="anchor">W3C</dt>
+<dd class="anchor">World Wide Web Consortium</dd>
+<dt class="anchor">AE</dt>
+<dd class="anchor">American English</dd>
+<dt class="anchor">BE</dt>
+<dd class="anchor">British English</dd>
+<dt class="anchor"><strong>i10n</strong> - Localization (AE) or Localisation (BE)</dt>
+<dd class="anchor">Adaptation of software or product to meet language and culture of a particular target market ou audience. Localization is not only language translation, but also cultural adaption, inclunding, country currency, parper size ISO A4 or Letter sizer, date time format, cultural conventions, legal requirements.</dd>
+<dt class="anchor"><strong>i18n</strong> - Internationalization (AE), Internationalisation (BE)</dt>
+<dd class="anchor">Process of building a software application capable of adapting to multiple languages and cultures without code changing. In other words, a internationalization is the process of building a software with localization infrastructure, that allows adding new localization without code changes.</dd>
+<dt class="anchor"><strong>g11n</strong> - Globalization</dt>
+<dd class="anchor">Combination of internationalization and localization. This terminology is used by IBM and Oracle.</dd>
+<dt class="anchor">Locale</dt>
+<dd class="anchor">Language ISO code for instance, en-US (American English), en-UK (British English), fr-CA (Canadian French) and so on.</dd>
+<dt class="anchor">CJK  Languages</dt>
+<dd class="anchor">Chinese, Japanese and Korean languages</dd>
+<dt class="anchor">RTL Languages</dt>
+<dd class="anchor">Right-To-Left Languages. Languages written from right to left. Examples: most languages using Latin Script, including, English, Greek and so on.</dd>
+<dt class="anchor">LTR Languages</dt>
+<dd class="anchor">Left-To-Right Languages. Languages written from left to right. Example: Hebrew, Arabic, Persian, Urdu, Phoenician and so on.</dd>
+<dt class="anchor">NVL</dt>
+<dd class="anchor">National Language Version</dd>
+<dt class="anchor">UTF-8</dt>
+<dd class="anchor">Unicode 8 bits. One "character" or symbol may use more than one byte. Unicode 8 bits is the most used text enconding format possibly due to the backward compatibility with the old ASCII text encoding. However, it makes programming harder since one cannot assume that i-th position of a unicode string corresponds to the i-th character because a single UTF-8 "character" may be represented by multiple bytes.</dd>
+<dt class="anchor">UTF-16</dt>
+<dd class="anchor">Unicode 16 bits. One "character" or symbol is represented by 2 bytes. The UTF-16 encoding is mostly used internally by programming languages implementations, including Java and Python. The Windows C API - Application Programming Interface also uses UTF-16 in its internal APIs. This text enconding format is easier to deal with in programming langues because the i-th position of a unicode array is the i-th symbol.</dd>
+<dt class="anchor">QA Testing</dt>
+<dd class="anchor">EN - Quality Assurance Testing</dd>
+<dd class="anchor">PT - Teste de Garantia de Qualidade</dd>
+</dl>
+
+<div class="div-heading"> 
+<h2 id="H_Internationalization_Issues" class="document-heading anchor">Internationalization Issues <a class="link-heading" href="#H_Internationalization_Issues">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=57&end=88&anchor=H_Internationalization_Issues&page=Internationalization i18n and Localization i10n concepts&timestamp=176060095271650" title="[i18n]: Internationalization Issues" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{2}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-wiki-image" div-figure><img id="figure-" class="wiki-image lazy-load anchor" data-src="#" alt="World Regional Languages"  ><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 1: World Regional Languages</p></div>
+
+<p>
+Brainstorm of Major Internationalization Issues
+</p>
+
+<ul class="">
+<li>
+Initial Language <ul class="">
+<li>
+The website or application attempts to guess the user language based on http header or IP address. 
+</li>
+<li>
+Presents the web page in default language and provides a menu or form allowing the user to switch the language. 
+</li>
+</ul>
+</li>
+<li>
+Language Switching (Processo de mundança de línguagem) 
+</li>
+<li>
+Optimization <ul class="">
+<li>
+Localization strings (text) served or renderend in the front-end (client side). 
+</li>
+<li>
+Localization strigns (text) served or rendered in the backend (server side). 
+</li>
+<li>
+Lazy loading locatization strings. 
+</li>
+<li>
+Load only what is needed. 
+</li>
+</ul>
+</li>
+<li>
+Language Issues <ul class="">
+<li>
+Date Format 
+</li>
+<li>
+Pluralization 
+</li>
+<li>
+Language Dialects 
+</li>
+<li>
+Gender-Specific Translations 
+</li>
+<li>
+A country may have more than one language or more than one official language. For instance, in Canada, English and French are official languages and in Switzerland, German, French and Italian are official languages. 
+</li>
+<li>
+Spelling of Specific dialect of a language (Ortografia de dialetos especificos de uma linguagem) 
+</li>
+<li>
+RTL - Right-To-Left Language Support (Suporte a Línguagens da Esquerda para direita), for instance Arabic and Hebrew are written from right to left. 
+</li>
+</ul>
+</li>
+<li>
+Cultural Issues <ul class="">
+<li>
+Cultural Standards 
+</li>
+<li>
+Cultural Conventions 
+</li>
+<li>
+Cultural Assumptions 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Common_Mistakes" class="document-heading anchor">Common Mistakes <a class="link-heading" href="#H_Common_Mistakes">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=88&end=98&anchor=H_Common_Mistakes&page=Internationalization i18n and Localization i10n concepts&timestamp=176060095271650" title="[i18n]: Common Mistakes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{3}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+Country Flag does not represent a language. For instance, the Brazilian flag should not be used for representing the Portuguese language. 
+</li>
+<li>
+There are more than one dialect and spelling of the same language. For instance, some words in American English and British English have different spellings, i.e <em>internationalization</em> (American English) and <em>internationalisation</em> (British English). That is the reason why country flags should not be used for representing  languages. 
+</li>
+<li>
+Localization must not only specific for a particular language. It should also be specific for each country and <strong>standardized dialect of a language</strong>, such as American English, British English, European Portuguese or Brazilian Portuguese. For instance, despite the American English be ubiuitous on the internet, most English speaking countries other than USA or Phillipines use British English spelling and languages contructs derived from this English dialect. The British English spelling is also widely used on continental Europe by non English speaking countries, including Germany, France, Portugal, Netherlands and so on. 
+</li>
+<li>
+Do not use IP address or user geographic location for selecting the language or locale used by a website. The language should be selected based on the user preference indicated by the http header <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Accept-Language"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Accept-Language</a> and the graphicsuser interface should always have a button or selection box allowing the user to switch the language. On Linux Desktop applications, the environment variable LANG is commonly used for obtaining the user desired language. This variable is set during Linux installation of Linux desktop distributions to the language chosen by the user. 
+</li>
+<li>
+Some reasons to avoid using IP address, geographic location or country for choosing the UI - User Interface language are: some countries may have multiple official languages or multiple spoken languages; nowadays, people travels and may not be able speak the local language; even a native speakers may not want read in his or her own native language. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Common_Locales" class="document-heading anchor">Common Locales <a class="link-heading" href="#H_Common_Locales">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=98&end=184&anchor=H_Common_Locales&page=Internationalization i18n and Localization i10n concepts&timestamp=176060095271650" title="[i18n]: Common Locales" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{4}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Country</th>
+ 
+<th>Locale Code</th>
+ 
+<th>Language Name</th>
+</tr>
+</thead>
+ 
+<tbody>
+
+<tr>
+
+<td>UK</td>
+ 
+<td>en-UK</td>
+ 
+<td>British English (UK - United Kingdom)</td>
+</tr>
+ 
+<tr>
+
+<td>USA</td>
+ 
+<td>en-US</td>
+ 
+<td>American/USA English</td>
+</tr>
+ 
+<tr>
+
+<td>Ireland</td>
+ 
+<td>en-IE</td>
+ 
+<td>Irish English</td>
+</tr>
+ 
+<tr>
+
+<td>Canada</td>
+ 
+<td>en-CA</td>
+ 
+<td>Canadian English</td>
+</tr>
+ 
+<tr>
+
+<td>Canada</td>
+ 
+<td>ca_FR</td>
+ 
+<td>Canadian French (Français Canadien)</td>
+</tr>
+ 
+<tr>
+
+<td>Australia</td>
+ 
+<td>en-AU</td>
+ 
+<td>Australian English</td>
+</tr>
+ 
+<tr>
+
+<td>New Zealand</td>
+ 
+<td>en-NZ</td>
+ 
+<td>New Zealand English</td>
+</tr>
+ 
+<tr>
+
+<td>Singapore</td>
+ 
+<td>en-SG</td>
+ 
+<td>Singaporean English</td>
+</tr>
+ 
+<tr>
+
+<td>Hong Kong</td>
+ 
+<td>en-HK</td>
+ 
+<td>Hong Kong English</td>
+</tr>
+ 
+<tr>
+
+<td>South Africa</td>
+ 
+<td>en-ZA</td>
+ 
+<td>South African English</td>
+</tr>
+ 
+<tr>
+
+<td>South Africa</td>
+ 
+<td>af-ZA</td>
+ 
+<td>Afrikaans (based on Dutch language)</td>
+</tr>
+ 
+<tr>
+
+<td>Phillipines</td>
+ 
+<td>en-PH</td>
+ 
+<td>Phillipines English (based on American English)</td>
+</tr>
+ 
+<tr>
+
+<td>India</td>
+ 
+<td>en-IN</td>
+ 
+<td>Indian English</td>
+</tr>
+ 
+<tr>
+
+<td>India</td>
+ 
+<td>hi_IN</td>
+ 
+<td>Hindi (Hindustani)</td>
+</tr>
+ 
+<tr>
+
+<td>Germany</td>
+ 
+<td>de_DE</td>
+ 
+<td>German (Deutsch)</td>
+</tr>
+ 
+<tr>
+
+<td>Austria</td>
+ 
+<td>de_AT</td>
+ 
+<td>Austrian German (Österreichisches Deutsch)</td>
+</tr>
+ 
+<tr>
+
+<td>Switzerland</td>
+ 
+<td>de_CH</td>
+ 
+<td>Switzerland German (Schweizerdeutsch)</td>
+</tr>
+ 
+<tr>
+
+<td>Switzerland</td>
+ 
+<td>fr_CH</td>
+ 
+<td>Switzerland French  (Suisse français)</td>
+</tr>
+ 
+<tr>
+
+<td>Switzerland</td>
+ 
+<td>it_CH</td>
+ 
+<td>Switzerland Italian</td>
+</tr>
+ 
+<tr>
+
+<td>France</td>
+ 
+<td>fr_FR</td>
+ 
+<td>French (Français)</td>
+</tr>
+ 
+<tr>
+
+<td>Italy</td>
+ 
+<td>it_IT</td>
+ 
+<td>Italian (Italiano)</td>
+</tr>
+ 
+<tr>
+
+<td>Greece</td>
+ 
+<td>el_GR</td>
+ 
+<td>Modern Greek</td>
+</tr>
+ 
+<tr>
+
+<td>Cyprus</td>
+ 
+<td>el_CY</td>
+ 
+<td>Modern Greek of Cyprus</td>
+</tr>
+ 
+<tr>
+
+<td>Spain</td>
+ 
+<td>es_ES</td>
+ 
+<td>Spanish (Español)</td>
+</tr>
+ 
+<tr>
+
+<td>Spain</td>
+ 
+<td>ca_ES</td>
+ 
+<td>Catalan (Catalán in Spanish)</td>
+</tr>
+ 
+<tr>
+
+<td>Spain</td>
+ 
+<td>eu-ES</td>
+ 
+<td>Basque (Non indo-european language)</td>
+</tr>
+ 
+<tr>
+
+<td>Spain</td>
+ 
+<td>gl-ES</td>
+ 
+<td>Galician (Sister language of Portuguese)</td>
+</tr>
+ 
+<tr>
+
+<td>Mexico</td>
+ 
+<td>es_MX</td>
+ 
+<td>Mexican Spanish (Español mexicano)</td>
+</tr>
+ 
+<tr>
+
+<td>USA</td>
+ 
+<td>es-US</td>
+ 
+<td>American/USA Spanish</td>
+</tr>
+ 
+<tr>
+
+<td>Puerto Rico</td>
+ 
+<td>es_PR</td>
+ 
+<td>Puerto Rico Spanish (USA)</td>
+</tr>
+ 
+<tr>
+
+<td>Argentina</td>
+ 
+<td>es_AR</td>
+ 
+<td>Argentinian Spanish (Español argentino)</td>
+</tr>
+ 
+<tr>
+
+<td>Uruguay</td>
+ 
+<td>es_UY</td>
+ 
+<td>Uruguayian Spanish (Español uruguayo)</td>
+</tr>
+ 
+<tr>
+
+<td>Chile</td>
+ 
+<td>es_CL</td>
+ 
+<td>Chilean Spanish (Español chileno)</td>
+</tr>
+ 
+<tr>
+
+<td>Colombia</td>
+ 
+<td>es_CO</td>
+ 
+<td>Colombian Spanish (Español colombiano)</td>
+</tr>
+ 
+<tr>
+
+<td>Peru</td>
+ 
+<td>es_PE</td>
+ 
+<td>Peruvian Spanish (Español peruano)</td>
+</tr>
+ 
+<tr>
+
+<td>Ecuador</td>
+ 
+<td>es_EC</td>
+ 
+<td>Ecuadorian Spanish (Español ecuatoriano)</td>
+</tr>
+ 
+<tr>
+
+<td>Panama</td>
+ 
+<td>es_PA</td>
+ 
+<td>Panamenian Spanish (Español panameño)</td>
+</tr>
+ 
+<tr>
+
+<td>Venezuela</td>
+ 
+<td>es_VE</td>
+ 
+<td>Venezuelan Spanish (Español venezolano)</td>
+</tr>
+ 
+<tr>
+
+<td>Portugal</td>
+ 
+<td>pt_PT</td>
+ 
+<td>European Portuguese (Português Europeu)</td>
+</tr>
+ 
+<tr>
+
+<td>Brasil</td>
+ 
+<td>pt_BR</td>
+ 
+<td>Brazilian Portuguese (Português Brasileiro)</td>
+</tr>
+ 
+<tr>
+
+<td>Capte Verde</td>
+ 
+<td>pt_CV</td>
+ 
+<td>Cape Verde Portuguese (Português de Cabo Verde)</td>
+</tr>
+ 
+<tr>
+
+<td>China</td>
+ 
+<td>zh_CN</td>
+ 
+<td>Chinese (Mandarin Chinese of Mainland China)</td>
+</tr>
+ 
+<tr>
+
+<td>Hong Kong</td>
+ 
+<td>zh_HK</td>
+ 
+<td>Hong Kong Chinese</td>
+</tr>
+ 
+<tr>
+
+<td>Taiwan</td>
+ 
+<td>zh_TW</td>
+ 
+<td>Taiwan Chinese</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+NOTE:
+</p>
+
+<ol class="anchor">
+<li>
+Most English variants around the world are based on the British English and uses the British spelling. The American English spelling is only used by USA and Phillipines. 
+</li>
+<li>
+India does not have any official language and Hindi is not the official language of India. Moreover, the majority of Indian population does not speak Hindi. 
+</li>
+<li>
+Hong Kong is not country. It is a SAR - Special Administrative Region of mainland China. 
+</li>
+<li>
+Puerto Rico is USA non incorporated territory. So, it is not a country. 
+</li>
+</ol>
+
+<p>
+<strong>Change User Interface Language on Linux</strong>
+</p>
+
+<p>
+It is possible to change the UI interface language of some application on Linux on command line by setting the environment variable LANG to the desired locale code. For instance, the following temporarily changes the Kwrite KDE text editor language to Swiss German even if the default language used during the Linux distribution installation was not German. This feature is useful for language learners for obtaining the common terminology used for localizing applications to a particular language.
+</p>
+
+<pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>env<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>de_CH<span class="w"> </span>kwrite
+</pre></div>
+</code>
+</pre>
+
+<p>
+Lanch kwite with language set to Swiss German detached from terminal (without blocking the terminal emulator).
+</p>
+
+<pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>$<span class="w"> </span>env<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>de_US.UTF-8<span class="w"> </span>kwrite<span class="w"> </span><span class="m">1</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="nb">disown</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Explanation:
+</p>
+
+<ul class="">
+<li>
+<code>1&gt; /dev/null</code> redirects the kwrite process' stdout (standard output) to Linux pseudo file /dev/null. 
+</li>
+<li>
+<code>2&gt; /dev/null</code> redirects the kwrite process' stderr (standard error output) to Linux pseudo file /dev/null. 
+</li>
+<li>
+<code>&amp; disown</code> => Detach kwrite process from the terminal in order run this application as a daemon (background process/service) and to avoid blocking the terminal emulator and terminating the kwrite process if the terminal is closed. 
+</li>
+</ul>
+
+<p>
+<strong>See</strong>
+</p>
+
+<ul class="">
+<li>
+<em>Country Code Language List</em> <ul class="">
+<li>
+<a href="https://www.fincher.org/Utilities/CountryLanguageList.shtml"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.fincher.org/Utilities/CountryLanguageList.shtml</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>ISO-3166 Country Codes and ISO-639 Language Codes</em>, Oracle Docs <ul class="">
+<li>
+<a href="https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Standard locale names</em>, Microsoft <ul class="">
+<li>
+<a href="https://learn.microsoft.com/en-us/globalization/locale/standard-locale-names"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://learn.microsoft.com/en-us/globalization/locale/standard-locale-names</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>ISO Country and Language Codes: The Definitive Guide</em> <ul class="">
+<li>
+<a href="https://centus.com/blog/iso-language-codes"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://centus.com/blog/iso-language-codes</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Falsehoods_Many_Programmers_Believe_About_Names" class="document-heading anchor">Falsehoods Many Programmers Believe About Names <a class="link-heading" href="#H_Falsehoods_Many_Programmers_Believe_About_Names">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=184&end=240&anchor=H_Falsehoods_Many_Programmers_Believe_About_Names&page=Internationalization i18n and Localization i10n concepts&timestamp=176060095271650" title="[i18n]: Falsehoods Many Programmers Believe About Names" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{5}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<ol class="anchor">
+<li>
+Names are only written using ascii characters. Counterexample: "João". 
+</li>
+<li>
+Names does not contain hyphen (-) or apostrophe (') characters. Counterexample: O'neil - common irish surname. 
+</li>
+<li>
+A person may have only two names, a given name and surname (family name). Counterexample: the full name of Brazil's emperor <a href="https://en.wikipedia.org/wiki/Pedro_II_of_Brazil"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Pedro II of Brazil</a> was "Pedro de Alcântara João Carlos Leopoldo Salvador Bibiano Francisco Xavier de Paula Leocádio Miguel Gabriel Rafael". 
+</li>
+<li>
+People do not change their names, surnames or email. 
+</li>
+<li>
+People will never have identical names. 
+</li>
+<li>
+The name or surname has at least 3 characters. Counterexample: "Wu". 
+</li>
+<li>
+The full name is limited to 100 characters length. 
+</li>
+<li>
+I will never need to deal with foreign names in my database. 
+</li>
+<li>
+Names with the same spelling are always written in the same way with the same spelling. Counterexample: There are several different Japanese names that sounds as <a href="https://en.wikipedia.org/wiki/Akira_(given_name)"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >"Akira"</a> and are romanized (written in latin script) as that, although they are written using different Kanji symbols and have different meanings. 
+</li>
+<li>
+People have at least one surname. Countereraxmple: In some countries, such as Indonesia and Japan some people may have a single given name and no surname. Members of Japanese royalty do not have surnames or family names. Sukarno, the first president of Indonesia did not have any surname. His full name was just "Sukarno". 
+</li>
+</ol>
+
+<p>
+<strong>See also:</strong>
+</p>
+
+<ul class="">
+<li>
+<em>Personal names around the world</em>, W3C <ul class="">
+<li>
+<a href="https://www.w3.org/International/questions/qa-personal-names"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.w3.org/International/questions/qa-personal-names</a> 
+</li>
+<li>
+<em>How do people's names differ around the world, and what are the implications of those differences on the design of forms, databases, ontologies, etc. for the Web?</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Legal name</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Legal_name"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Legal_name</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Middle name</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Middle_name"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Middle_name</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Name change</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Name_change"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Name_change</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Surname</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Surname"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Surname</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Maiden and married names</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Maiden_and_married_names"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Maiden_and_married_names</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Patronymic surname</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Patronymic_surname"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Patronymic_surname</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>A basic guide to using Asian names</em>, Asia Media Centre <ul class="">
+<li>
+<a href="https://www.asiamediacentre.org.nz/features/a-guide-to-using-asian-names"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.asiamediacentre.org.nz/features/a-guide-to-using-asian-names</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Chinese Naming Conventions - Chinese Culture</em>, Cultural Atlas <ul class="">
+<li>
+<a href="https://culturalatlas.sbs.com.au/chinese-culture/chinese-culture-naming"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://culturalatlas.sbs.com.au/chinese-culture/chinese-culture-naming</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Japanese Naming Conventions - Japanese Culture</em>, Cultural Atlas <ul class="">
+<li>
+<a href="https://culturalatlas.sbs.com.au/japanese-culture/japanese-culture-naming"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://culturalatlas.sbs.com.au/japanese-culture/japanese-culture-naming</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Wikipedia:Naming conventions (Chinese)</em> <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Wikipedia:Naming_conventions_(Chinese)"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Wikipedia:Naming_conventions_(Chinese)</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>East Slavic name</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/East_Slavic_name"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/East_Slavic_name</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Spanish naming customs</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Spanish_naming_customs"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Spanish_naming_customs</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Naming customs of Hispanic America</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Naming_customs_of_Hispanic_America"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Naming_customs_of_Hispanic_America</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Arabic name</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Arabic_name"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Arabic_name</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>How Arabic Names Work: A Guide to Ism, Nasab, Laqab, Nisba, and Kunya</em> <ul class="">
+<li>
+<a href="https://arabic-for-nerds.com/translation/how-are-family-names-constructed-in-arabic/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://arabic-for-nerds.com/translation/how-are-family-names-constructed-in-arabic/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Mononym</em>, Wikipedia (People with no surname, just a single name) <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Mononym"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Mononym</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>List of legally mononymous people</em>, Wikipedia (List of people whose full legal name does not have surname or family name such as members of Japanese royal family) <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/List_of_legally_mononymous_people"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/List_of_legally_mononymous_people</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>O'Neill (surname)</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/O%27Neill_(surname)"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/O'Neill_(surname)</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Akira (given Japanese name)</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Akira_(given_name)"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Akira_(given_name)</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_American_English_Vs_British_English" class="document-heading anchor">American English Vs British English <a class="link-heading" href="#H_American_English_Vs_British_English">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=240&end=262&anchor=H_American_English_Vs_British_English&page=Internationalization i18n and Localization i10n concepts&timestamp=176060095271650" title="[i18n]: American English Vs British English" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{6}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>American English</th>
+ 
+<th>British English</th>
+</tr>
+</thead>
+ 
+<tbody>
+
+<tr>
+
+<td>internalization</td>
+ 
+<td>internationalisation</td>
+</tr>
+ 
+<tr>
+
+<td>localization</td>
+ 
+<td>localisation</td>
+</tr>
+ 
+<tr>
+
+<td>program</td>
+ 
+<td>programme</td>
+</tr>
+ 
+<tr>
+
+<td>center</td>
+ 
+<td>centre</td>
+</tr>
+ 
+<tr>
+
+<td>color</td>
+ 
+<td>colour</td>
+</tr>
+ 
+<tr>
+
+<td>favor</td>
+ 
+<td>favour</td>
+</tr>
+ 
+<tr>
+
+<td>favorite</td>
+ 
+<td>favourite</td>
+</tr>
+ 
+<tr>
+
+<td>labor</td>
+ 
+<td>labour</td>
+</tr>
+ 
+<tr>
+
+<td>defense</td>
+ 
+<td>defence</td>
+</tr>
+ 
+<tr>
+
+<td>ofense</td>
+ 
+<td>ofence</td>
+</tr>
+ 
+<tr>
+
+<td>shop</td>
+ 
+<td>shoppe</td>
+</tr>
+ 
+<tr>
+
+<td>shopping mall, mall</td>
+ 
+<td>shopping centre</td>
+</tr>
+ 
+<tr>
+
+<td>tires</td>
+ 
+<td>tyres</td>
+</tr>
+ 
+<tr>
+
+<td>while</td>
+ 
+<td>while, whilst</td>
+</tr>
+ 
+<tr>
+
+<td>football</td>
+ 
+<td>American football</td>
+</tr>
+ 
+<tr>
+
+<td>soccer</td>
+ 
+<td>football</td>
+</tr>
+ 
+<tr>
+
+<td>roomates</td>
+ 
+<td>rommates, flatmates</td>
+</tr>
+ 
+<tr>
+
+<td>fall</td>
+ 
+<td>autumn</td>
+</tr>
+</tbody>
+</table>
+
+<div class="div-heading"> 
+<h2 id="H_Software_Libraries" class="document-heading anchor">Software Libraries <a class="link-heading" href="#H_Software_Libraries">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=262&end=271&anchor=H_Software_Libraries&page=Internationalization i18n and Localization i10n concepts&timestamp=176060095271650" title="[i18n]: Software Libraries" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{7}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+JavaScript
+</p>
+
+<ul class="">
+<li>
+i18Next 
+</li>
+</ul>
+
+<p>
+Python
+</p>
+
+<ul class="">
+<li>
+Gettext 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_See_also" class="document-heading anchor">See also <a class="link-heading" href="#H_See_also">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=271&end=end&anchor=H_See_also&page=Internationalization i18n and Localization i10n concepts&timestamp=176060095271650" title="[i18n]: See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{8}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+<em>Internationalization and localization</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Internationalization_and_localization"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Internationalization_and_localization</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Personal names around the world</em>, W3C <ul class="">
+<li>
+<a href="https://www.w3.org/International/questions/qa-personal-names"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.w3.org/International/questions/qa-personal-names</a> 
+</li>
+<li>
+<em>How do people's names differ around the world, and what are the implications of those differences on the design of forms, databases, ontologies, etc. for the Web?</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Internationalization and Localization in Flask Apps</em>, Reintech Media <ul class="">
+<li>
+<a href="https://reintech.io/blog/internationalization-localization-flask-apps"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://reintech.io/blog/internationalization-localization-flask-apps</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>The Flask Mega-Tutorial, Part XIII: I18n and L10n</em>, Miguel Grinberg <ul class="">
+<li>
+<a href="https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xiii-i18n-and-l10n"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xiii-i18n-and-l10n</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>How to Internationalize Your Flask App Like a Pro</em>, Oksana Tkach - Metamova <ul class="">
+<li>
+<a href="https://medium.com/@oksanatkach/how-to-internationalize-your-flask-app-like-a-champ-e57535185893"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://medium.com/@oksanatkach/how-to-internationalize-your-flask-app-like-a-champ-e57535185893</a> 
+</li>
+<li>
+<em>How to tweak the Babel library for large i18n projects to enable pseudotranslation and iterative localization</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Localization vs. Internationalization</em>, W3C <ul class="">
+<li>
+<a href="https://www.w3.org/International/questions/qa-i18n"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.w3.org/International/questions/qa-i18n</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Mastering Localisation (l10n) and Internationalisation (i18n) in Modern Frontend Development</em>, Nitin Mangrule <ul class="">
+<li>
+<a href="https://medium.com/@ndmangrule/mastering-localisation-l10n-and-internationalisation-i18n-in-modern-frontend-development-3ec3c6751e58"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://medium.com/@ndmangrule/mastering-localisation-l10n-and-internationalisation-i18n-in-modern-frontend-development-3ec3c6751e58</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>GNU gettext Manual</em> <ul class="">
+<li>
+<a href="https://www.gnu.org/software/gettext/manual/gettext.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.gnu.org/software/gettext/manual/gettext.html</a> 
+</li>
+<li>
+<em>This manual documents the GNU gettext tools and the GNU libintl library, version 0.26.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>GNU gettext</em>, GNU Project <ul class="">
+<li>
+<a href="https://www.gnu.org/software/gettext/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.gnu.org/software/gettext/</a> 
+</li>
+<li>
+Brief: * Usually, programs are written and documented in English, and use English at execution time for interacting with users. This is true not only from within GNU, but also in a great deal of proprietary and free software. Using a common language is quite handy for communication between developers, maintainers and users from all countries. On the other hand, most people are less comfortable with English than with their own native language, and would rather be using their mother tongue for day to day's work, as far as possible. Many would simply love seeing their computer screen showing a lot less of English, and far more of their own language. GNU gettext is an important step for the GNU Translation Project, as it is an asset on which we may build many other steps. This package offers to programmers, translators, and even users, a well integrated set of tools and documentation. Specifically, the GNU gettext utilities are a set of tools that provides a framework to help other GNU packages produce multi-lingual messages. These tools include a set of conventions about how programs should be written to support message catalogs, a directory and file naming organization for the message catalogs themselves, a runtime library supporting the retrieval of translated messages, and a few stand-alone programs to massage in various ways the sets of translatable strings, or already translated strings. A special GNU Emacs mode also helps interested parties in preparing these sets, or bringing them up to date.* 
+</li>
+</ul>
+</li>
+<li>
+<em>Guide to the ECMAScript Internationalization API</em>, W3C Interationalization <ul class="">
+<li>
+<a href="https://w3c.github.io/i18n-drafts/articles/intl/index.en.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://w3c.github.io/i18n-drafts/articles/intl/index.en.html</a> 
+</li>
+<li>
+<em>For years, developers relied on JavaScript libraries, string manipulation, or server-side logic to ensure that users around the world see dates, numbers, and text formatted in a way that is natural and correct for them. These solutions, while functional, often added significant weight to web pages and created maintenance challenges. Fortunately, modern browsers now have a built-in, standardized solution: the ECMAScript Internationalization API, available globally in JavaScript via the Intl object. This API provides a native way to handle locale- and culture-sensitive data and operations, ensuring your application speaks your user's language correctly and efficiently. This article will serve as a practical overview of the most essential parts of the Intl API, providing actionable examples you can use to internationalize your web applications today.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Implement a strategy to select the language/culture for each request in a localized <a href="http://ASP.NET"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >ASP.NET</a> Core app</em>, Microsft Learn - Dotnet core <ul class="">
+<li>
+<a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/localization/select-language-culture?view=aspnetcore-9.0"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://learn.microsoft.com/en-us/aspnet/core/fundamentals/localization/select-language-culture?view=aspnetcore-9.0</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Accept-Language header</em>, MDN - Mozilla Development Network <ul class="">
+<li>
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Accept-Language"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Accept-Language</a> 
+</li>
+<li>
+<em>The HTTP Accept-Language request header indicates the natural language and locale that the client prefers. The server uses content negotiation to select one of the proposals and informs the client of the choice with the Content-Language response header. Browsers set required values for this header according to their active user interface language. Users can also configure additional preferred languages through browser settings. The Accept-Language header generally lists the same locales as the navigator.languages property, with decreasing q values (quality values). Some browsers, like Chrome and Safari, add language-only fallback tags in Accept-Language. For example, en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7 when navigator.languages is ["en-US", "zh-CN"]. For privacy purposes (reducing fingerprinting), both Accept-Language and navigator.languages may not include the full list of user preferences. For example, in Safari (always) and Chrome's incognito mode, only one language is listed.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Accept-Language used for locale setting</em>, W3C (2003) <ul class="">
+<li>
+<a href="https://www.w3.org/International/questions/qa-accept-lang-locales"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.w3.org/International/questions/qa-accept-lang-locales</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Accept-Language Documentation</em>, Fastly <ul class="">
+<li>
+<a href="https://www.fastly.com/documentation/reference/http/http-headers/Accept-Language/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.fastly.com/documentation/reference/http/http-headers/Accept-Language/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Internationalization and localization</em>, Django Docs <ul class="">
+<li>
+<a href="https://docs.djangoproject.com/en/5.2/topics/i18n/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://docs.djangoproject.com/en/5.2/topics/i18n/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Translation</em>, Django Docs <ul class="">
+<li>
+<a href="https://docs.djangoproject.com/en/5.2/topics/i18n/translation/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://docs.djangoproject.com/en/5.2/topics/i18n/translation/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Localization / Internationalization</em> <ul class="">
+<li>
+<a href="https://frontend.turing.edu/lessons/module-4/localization.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://frontend.turing.edu/lessons/module-4/localization.html</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Introduction - I18N Best Practices</em> <ul class="">
+<li>
+<a href="https://internationalization-guide.readthedocs.io/en/latest/introduction.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://internationalization-guide.readthedocs.io/en/latest/introduction.html</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Internationalize your API</em>, The Rest API Cookbook <ul class="">
+<li>
+<a href="https://octo-woapi.github.io/cookbook/internationalization.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://octo-woapi.github.io/cookbook/internationalization.html</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Internationaliazation</em>, Django Rest Framework Docs <ul class="">
+<li>
+<a href="https://www.django-rest-framework.org/topics/internationalization/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.django-rest-framework.org/topics/internationalization/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Django Internationalization and Localization Best Practices</em>, Codezup <ul class="">
+<li>
+<a href="https://codezup.com/django-i18n-l10n-best-practices/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://codezup.com/django-i18n-l10n-best-practices/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Globalization and localization in ASP.NET Core</em>, Documentation ASP.NET Core <ul class="">
+<li>
+<a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/localization?view=aspnetcore-9.0"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://learn.microsoft.com/en-us/aspnet/core/fundamentals/localization?view=aspnetcore-9.0</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Vue.js and Vue Router with Internationalization and Localization</em>, Codez Up (2024) <ul class="">
+<li>
+<a href="https://codezup.com/vuejs-vuerouter-internationalization-localization/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://codezup.com/vuejs-vuerouter-internationalization-localization/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Where should I do localization (server-side or client-side)?</em> <ul class="">
+<li>
+<a href="https://softwareengineering.stackexchange.com/questions/313726/where-should-i-do-localization-server-side-or-client-side"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://softwareengineering.stackexchange.com/questions/313726/where-should-i-do-localization-server-side-or-client-side</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Internationalization, localization, and input methods in Fuchsia</em> <ul class="">
+<li>
+<a href="https://fuchsia.dev/fuchsia-src/development/internationalization"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://fuchsia.dev/fuchsia-src/development/internationalization</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>RFC 9839 and Bad Unicode</em>, TBray (See <a href="https://datatracker.ietf.org/doc/html/rfc9839"  target="_blank" title="Request For Comment - IETF (Internet Engineering Task Force) Technical Standard" class="link-external" rel="noreferrer noopener nofollow" >RFC 9839</a>) <ul class="">
+<li>
+<a href="https://www.tbray.org/ongoing/When/202x/2025/08/14/RFC9839"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.tbray.org/ongoing/When/202x/2025/08/14/RFC9839</a> 
+</li>
+<li>
+<em>Unicode is good. If you’re designing a data structure or protocol that has text fields, they should contain Unicode characters encoded in UTF-8. There’s another question, though: “Which Unicode characters?” The answer is “Not all of them, please exclude some.” This issue keeps coming up, so Paul Hoffman and I put together an individual-submission draft to the IETF and now (where by “now” I mean “two years later”) it’s been published as RFC 9839. It explains which characters are bad, and why, then offers three plausible less-bad subsets that you might want to use. Herewith a bit of background, but…</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>A step-by-step guide to effective website localization</em>, Webflow <ul class="">
+<li>
+<a href="https://webflow.com/blog/website-localization"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://webflow.com/blog/website-localization</a> 
+</li>
+<li>
+<em>Discover the benefits of website localization and learn how to modify your content and marketing strategy to cater to local audiences effectively.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Internationalization And Localization For Static Sites</em>, Sam Richard, Smash Magazine (2020) <ul class="">
+<li>
+<a href="https://www.smashingmagazine.com/2020/11/internationalization-localization-static-sites/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.smashingmagazine.com/2020/11/internationalization-localization-static-sites/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Building a Multilingual Static Website: A Step-by-Step Guide</em>, Noha Nabil (2023) <ul class="">
+<li>
+<a href="https://medium.com/@nohanabil/building-a-multilingual-static-website-a-step-by-step-guide-7af238cc8505"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://medium.com/@nohanabil/building-a-multilingual-static-website-a-step-by-step-guide-7af238cc8505</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Internationalization</em>, NextJS <ul class="">
+<li>
+<a href="https://nextjs.org/docs/app/guides/internationalization"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://nextjs.org/docs/app/guides/internationalization</a> 
+</li>
+<li>
+<em>Next.js enables you to configure the routing and rendering of content to support multiple languages. Making your site adaptive to different locales includes translated content (localization) and internationalized routes.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>k-yak / stati18n Public</em> (2014) <ul class="">
+<li>
+<a href="https://github.com/k-yak/stati18n"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://github.com/k-yak/stati18n</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </main>
+    </div>
+    <script>
+    </script>
+</body>
+
+</html>

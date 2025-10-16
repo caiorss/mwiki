@@ -1,1 +1,890 @@
-first page
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+    
+    <title data-i18n="">MBook - Index</title>
+    <meta name="description" content="" />
+    <meta name=generator content="MWiki">
+    
+
+    
+   <style>
+        
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: normal;
+    
+    
+    src: url('/static/fonts/cmu-concrete-regular.woff');
+}
+    
+
+
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: italic;
+    
+    
+    src: url('/static/fonts/cmu-concrete-regular.woff');
+}
+    
+
+        
+@font-face {
+    font-family: 'Bricolage Grotesque';
+    
+    
+    src: url('/static/fonts/bricolage-grotesque-latin-normal.woff2');
+}
+    
+
+
+:root {
+    /*--- Desktop screen Width ----------------*/
+    --screen-width-desktop: 850px;
+
+    /* --bg-sidebar: #F2EACA; */  /* #F7F4ED; */
+    --bg-sidebar: white;  /* #F7F4ED; */
+    /* --bg-main:   #F2EACA ; */
+    --bg-main: white;
+    --typography-main-line-height: 1.7em;
+    --typography-main-leter-spacing: 0.5px;
+    --screen-type: "desktop";
+    --link-external-color: blue; /* hsl(0, 100%, 33%); */
+    --link-internal-color: blue;
+    --form-background-color: #fbfcfc;
+    --form-border-color: #cfd5e2;
+    --primary-button-background-color: #0172ad;
+
+    /* --font-family-main: 'Computer Modern'; */
+    /* --font-family-main: 'Neo Euler'; */
+    /***
+    --font-family-main: 'monospace';
+    --font-family-title: 'Sans Serif';
+    --font-family-code: 'monospace';
+    **/
+
+    
+    --font-family-main: 'CMU Concrete';
+    
+    
+    --font-family-title: 'Bricolage Grotesque';
+    
+
+    --font-size-h1:  1.800rem;
+    --font-size-h2:  1.350rem;
+    --font-size-h3:  1.125rem;
+    --font-size-h4:  1.000rem;
+    --font-size-h5:  0.875rem;
+    --font-size-h6:  0.750rem;
+    --font-size-text: 0.720rem;
+    --font-size-code: 0.700rem;
+    --font-size-sidebar: 0.850rem;
+
+    --code-block-background-color: rgb(243, 244.5, 246.75);
+
+    /* Magnifier icon */
+    --icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(136, 145, 164)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+}
+
+
+        
+    </style>
+  
+    <link rel="stylesheet" href="/static/static_style.css">
+
+   
+
+    
+    
+    <!-- MathJax Settings -->
+    <script>
+
+    let FONT_FAMILY_MAIN = "CMU Concrete"
+    let FONT_FAMILY_TITLE = "Bricolage Grotesque"
+    let FONT_FAMILY_CODE = "Libertinus Mono"
+    let DEFAULT_LOCALE = "en-US";
+	  let USE_DEFAULT_LOCALE = "True" === "True";
+    let CSRF_TOKEN = ""
+    const STATIC_COMPILATION = true;
+	
+    // Possible values: 'none', 'nosection' 'section', 'subsection'
+    //  none      => no enumeration 
+    //  nosection 
+    //      Schema: <equation-number>
+    //      Example: Equations are enumerated as 1, 2, ..., 200
+    //              in the order that they are shown without section or 
+    //              subsection number
+    //  section   
+    //      Schema:  => <section>.<equation-number>
+    //      Exmaple: => 2.1, 2.5, 6.8
+    //  subsection 
+    //      Schema:  => <section>.<subsection>.<equation-number>
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5 
+    //
+    let equation_enumeration = "section";
+
+    MathJax = {
+        loader: {load: ['[tex]/tagformat', '[tex]/mathtools', 'output/chtml']}
+
+      , section: 1
+      , tex: {
+          inlineMath: [['$','$'], ['\\(','\\)']]
+        , displayMath: [['$$','$$'], ['\\[','\\]']]
+        , processEscapes: true
+        , processEnvironments: true
+          // Location of equation numbers
+        , tagSide: "right"  
+        // Possible values 'ams' or 'all' (all equations are numbered by default)
+        , tags: equation_enumeration !== "none" ? "all" : "ams"
+        //, tags: 'ams'
+        , packages: {'[+]': [
+                                  'tagformat'
+                                , 'sections'
+                                , 'subsections'
+                                , 'autoload-all'
+                            ]}
+        , tagformat: {
+          number: (n) => { 
+            if( equation_enumeration === "cont" 
+                || equation_enumeration == "continuous")
+            {
+                return '' + n;
+            }
+
+            let nsec = MathJax.config.section;
+            let nsub = MathJax.config.subsection;
+            var out = '';
+            if (nsub === 0 || equation_enumeration == "section") 
+            {
+                out = nsec + '.' + n;
+            } else {
+                out = nsec + '.' + nsub +  '.' + n;
+            }
+            // console.log("Display section = ", out);
+            return out;
+          }
+        }
+      }
+
+     , startup: {
+
+            ready() {
+                // console.log(" [TRACE] I was called from ready()");
+                const Configuration = MathJax._.input.tex.Configuration.Configuration;
+                const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+                new CommandMap('sections', {
+                      nextSection: 'NextSection'
+                    , setSection:  'SetSection'
+                }, {
+                     NextSection(parser, name) {
+                        // console.log(" [TRACE] Called NextSection()");
+                        MathJax.config.section++;
+                        MathJax.config.subsection = 0;
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                    , SetSection(parser, name) {
+                        // console.log(" [TRACE] Called SetSection()");
+                        const n = parser.GetArgument(name);
+                        MathJax.config.section = parseInt(n);
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                });
+                if (equation_enumeration === "subsection")
+                {
+                    new CommandMap('subsections', {
+                          nextSubSection: 'NextSubSection'
+                        , setSubSection:  'SetSubSection'
+                    }, {
+                         NextSubSection(parser, name) {
+                            // console.log(" [TRACE] NextSubSection() called.");
+                            MathJax.config.subsection++;
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                        , SetSubSection(parser, name) {
+                            const n = parser.GetArgument(name);
+                            // console.log(" [TRACE] SetSubSection to ", n);
+                            MathJax.config.subsection = parseInt(n);
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                    });
+                }
+
+                Configuration.create(
+                      'sections', { handler: { macro: ['sections'] } }
+                );
+
+                if( equation_enumeration === "subsection" )
+                {
+                    Configuration.create(
+                        'subsections', { handler: { macro: ['subsections'] } }
+                    );
+
+                }
+
+                MathJax.startup.defaultReady();
+                pseudocode.renderClass("pseudocode", { "lineNumber": true, "scopeLines": true });
+                // This function is provided by main.js.
+                if( isMobileScreen() ) { setHeadingVisibility(false); }
+                /// setHeadingsVisibility(false)
+            }
+        }
+    , chtml: {
+        /// displayAlign: "left"
+      }
+    // options for when overflow is linebreak
+    , linebreaks: {             
+        inline:           true,   // true for browser-based breaking of inline equations
+        width:            '100%', // a fixed size or a percentage of the container width
+        lineleading:      .2,     // the default lineleading in em units
+        LinebreakVisitor: null,   // The LinebreakVisitor to use
+    },
+
+    }
+    </script>
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml-full.js"
+        integrity="sha256-kbAFUDxdHwlYv01zraGjvjNZayxKtdoiJ38bDTFJtaQ="
+        crossorigin="anonymous">
+    </script>
+    
+
+    
+        <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
+        <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js"> </script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
+    
+
+
+    
+    <!-- Additional Javascript libraries -->
+    
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", (event) => {
+            // Select graphviz code blocks 
+            let lst = document.querySelectorAll(".graphviz-dot");
+            for(let x of lst){
+
+                Viz.instance().then(function(viz) {
+                    // console.log("[TRACE] x = ", x);
+                    let code = x.innerText;
+                    // console.log(" [TRACE] code = ", code);
+                    let svg = viz.renderSVGElement(code);
+                    // console.log(" [TRACE] svg = ", svg);
+                    x.replaceWith(svg); 
+                    // x.outerHTML = svg;
+                    /// document.getElementById("graph").appendChild(svg);
+                });
+
+
+            }
+        }, false);
+        
+    </script>
+    <script type="text/javascript" src="/static/main.js"></script>
+
+</head>
+
+<body>
+    <aside class="sidebar sidebar-visibility">
+
+        
+        <h2 data-i18n="sidebar-table-of-contentes-label">Contents</h2>
+        
+        <div class="toc">
+            <!-- Table of contents template placeholder -->
+            <ol><ol>
+<li><a href="#H_Links_to_Internal_Pages" class="link-sidebar" >Links to Internal Pages</a>
+</li><li><a href="#H_Bookmarks" class="link-sidebar" >Bookmarks</a>
+</li><li><a href="#H_Special_Hyperlinks_Examples" class="link-sidebar" >Special Hyperlinks Examples</a>
+</li><li><a href="#H_Internal_Pages" class="link-sidebar" >Internal Pages</a>
+</li><li><a href="#H_Images" class="link-sidebar" >Images</a>
+</li><li><a href="#H_Figure" class="link-sidebar" >Figure</a>
+</li><li><a href="#H_Math" class="link-sidebar" >Math</a>
+<ol>
+<li><a href="#H_Definition" class="link-sidebar" >Definition</a>
+</li><li><a href="#H_Theorem" class="link-sidebar" >Theorem</a>
+</li><li><a href="#H_Solved_Exercise" class="link-sidebar" >Solved Exercise</a>
+</li>
+</ol></li><li><a href="#H_Pseudocode_of_Algorithms_in_LaTeX" class="link-sidebar" >Pseudocode of Algorithms in LaTeX</a>
+</li>
+</ol></ol>
+        </div>
+
+    </aside>
+    <div class="main main-shift">
+        <header class="header">
+            <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/static/hamburger-menu.svg" style="height: 25px;"/> </a>
+            <a data-i18n="home-page-button" class="sidebar-toggle-button" 
+			   title="Go to home page (Index)" href="/"><img class="img-icon" src="/static/icon-home.svg"></a>
+            <div class="dropdown">
+              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button" 
+                 href="#" 
+                 title="Main menu."
+                 class="dropbtn"
+                 >
+                <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
+                </a>
+              <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                
+                   <a data-i18n="keybindings-menu-item" class="sidebar-toggle-button" href="#"
+                    onclick="toggleShortcutKeybindingWinodw();"
+                    title="Display a window showing all keyboard shortcuts, also known as keybindings."
+                 >Keybindings</a>
+                 <a data-i18n="about-menu-item-label" class="sidebar-toggle-button" href="/about.html">About</a>
+              </div>
+            </div>
+
+            <a data-i18n="button-toggle-sections" class="sidebar-toggle-button"
+                 href="#" 
+                 onclick="toggleHeadings();"
+                 id="btn-scroll-bottom" 
+                 title="Fold/Unfold all sections."
+                 ><img class="img-icon" src="/static/dots-vertical.svg" ></a> 
+            <!-- 
+             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
+                 href="#" 
+                 onclick="quickOpenPage();"
+                 id="btn-scroll-bottom" 
+                 title="Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry."
+                 >
+               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E"> 
+                </a>
+            --> 
+              
+        </header>
+
+        <main class="content">
+            
+            <a class="link-edit link-internal" style="display:none" title="Edit page Index" href="/edit/Index?timestamp="><img class="img-icon" src="/static/pencil.svg"></a>
+            
+
+            <div class="div-heading-h1">
+                <h1 data-i18n="" class="document-heading">Index</h1>
+            </div>
+            <p class="hidden-mathjax-macros" style="display: none;">
+                $$
+                
+                $$
+            </p>
+            <p>
+This is the index page. The first page shown by MWiki.
+</p>
+
+<div class="div-heading"> 
+<h2 id="H_Links_to_Internal_Pages" class="document-heading anchor">Links to Internal Pages <a class="link-heading" href="#H_Links_to_Internal_Pages">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=3&end=10&anchor=H_Links_to_Internal_Pages&page=Index&timestamp=176060095271550" title="[i18n]: Links to Internal Pages" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{1}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+<a href="Math_-_Calculus_Reference_Card.html" class="link-internal wiki-link" title="Reference card for math and calculus. This quick reference covers trigonometric identities, derivatives, integrals, statistcs and matrix calculus.">Math - Calculus Reference Card</a> 
+</li>
+<li>
+<a href="Linux_SysRq_Key_and_OOM_System_Recovery.html" class="link-internal wiki-link" title="Command for recovering frozen Linux machine using the SysRq keybinding.">Linux SysRq Key and OOM System Recovery</a> 
+</li>
+<li>
+<a href="Open_Source_Licenses.html" class="link-internal wiki-link" title="Summary of open source licenses.">Open Source Licenses</a> 
+</li>
+<li>
+<a href="Internationalization_i18n_and_Localization_i10n_concepts.html" class="link-internal wiki-link" title="None">Internationalization i18n and Localization i10n concepts</a> 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Bookmarks" class="document-heading anchor">Bookmarks <a class="link-heading" href="#H_Bookmarks">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=10&end=18&anchor=H_Bookmarks&page=Index&timestamp=176060095271550" title="[i18n]: Bookmarks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{2}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Triple_product"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Triple product</a> 
+</li>
+<li>
+<a href="https://en.wikipedia.org/wiki/Cross_product"  target="_blank" title="In mathematics, the cross product or vector product (occasionally directed area product, to emphasize its geometric significance) is a binary operation on two vectors in a three-dimensional oriented Euclidean vector space." class="link-external" rel="noreferrer noopener nofollow" >Cross Product</a> 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Special_Hyperlinks_Examples" class="document-heading anchor">Special Hyperlinks Examples <a class="link-heading" href="#H_Special_Hyperlinks_Examples">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=18&end=69&anchor=H_Special_Hyperlinks_Examples&page=Index&timestamp=176060095271550" title="[i18n]: Special Hyperlinks Examples" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{3}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+Links to Mastodon Open Source communities:
+</p>
+
+<ul class="">
+<li>
+<a href="https://floss.social/@kde"  target="_blank" title="Mastdon account from server floss.social" class="link-external" rel="noreferrer noopener nofollow" >@kde@floss.social</a> 
+</li>
+<li>
+<a href="https://floss.social/@GTK"  target="_blank" title="Mastdon account from server floss.social" class="link-external" rel="noreferrer noopener nofollow" >@GTK@floss.social</a> 
+</li>
+<li>
+<a href="https://fosstodon.org/@postmarketOS"  target="_blank" title="Mastdon account from server fosstodon.org" class="link-external" rel="noreferrer noopener nofollow" >@postmarketOS@fosstodon.org</a> 
+</li>
+</ul>
+
+<p>
+Paper with DOI Hyperlink:
+</p>
+
+<ul class="">
+<li>
+<em>Time Aware Least Recent Used (TLRU) cache management policy in ICN</em> <ul class="">
+<li>
+<a href="https://doi.org/10.1109/ICACT.2014.6779016"  target="_blank" title="Digital Object Identifier" class="link-external" rel="noreferrer noopener nofollow" >https://doi.org/10.1109/ICACT.2014.6779016</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+See this arxiv paper:
+</p>
+
+<ul class="">
+<li>
+<a href="https://arxiv.org/abs/1609.06088"  target="_blank" title="arXiv preprint identifier" class="link-external" rel="noreferrer noopener nofollow" >arxiv:1609.06088</a> - <em>Time Derivative of Rotation Matrices: a tutorial</em>, shiyu zhao, (2016) 
+</li>
+</ul>
+
+<p>
+See this Arxiv paper:
+</p>
+
+<ul class="">
+<li>
+<em>Time Derivative of Rotation Matrices: a Tutorial</em>, shiyu zhao, (2016) <ul class="">
+<li>
+<a href="https://arxiv.org/abs/1609.06088"  target="_blank" title="arXiv preprint identifier" class="link-external" rel="noreferrer noopener nofollow" >https://arxiv.org/abs/1609.06088</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+Semantic Scholar Article:
+</p>
+
+<ul class="">
+<li>
+<em>Secure Distribution of Protected Content in Information-Centric Networking</em> - <a href=" https://api.semanticscholar.org/CorpusID:198967720"  target="_blank" title="Semantic Scholar Bibliographic Identifier" class="link-external" rel="noreferrer noopener nofollow" >S2CID:198967720</a> 
+</li>
+</ul>
+
+<p>
+Semantic Scholar Article:
+</p>
+
+<ul class="">
+<li>
+<em>Secure Distribution of Protected Content in Information-Centric Networking</em> <ul class="">
+<li>
+<a href=" https://api.semanticscholar.org/CorpusID:198967720"  target="_blank" title="Semantic Scholar Bibliographic Identifier" class="link-external" rel="noreferrer noopener nofollow" > https://api.semanticscholar.org/CorpusID:198967720</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+RFC Standards:
+</p>
+
+<ul class="">
+<li>
+See <a href="https://datatracker.ietf.org/doc/html/rfc7231"  target="_blank" title="Request For Comment - IETF (Internet Engineering Task Force) Technical Standard" class="link-external" rel="noreferrer noopener nofollow" >RFC 7231</a> - Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content 
+</li>
+</ul>
+
+<p>
+RFC Standards:
+</p>
+
+<ul class="">
+<li>
+<em>Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content</em> <ul class="">
+<li>
+<a href="https://datatracker.ietf.org/doc/html/rfc7231"  target="_blank" title="Request For Comment - IETF (Internet Engineering Task Force) Technical Standard" class="link-external" rel="noreferrer noopener nofollow" >https://datatracker.ietf.org/doc/html/rfc7231</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+Python PEP (1):
+</p>
+
+<ul class="">
+<li>
+Python WSGI - Webserver Gateway Interface  <a href="https://peps.python.org/pep-333"  target="_blank" title="PEP - Python Enhancement Proposal" class="link-external" rel="noreferrer noopener nofollow" >PEP 333</a> 
+</li>
+</ul>
+
+<p>
+Python PEP (2):
+</p>
+
+<ul class="">
+<li>
+<em>Python WSGI - Webserver Gateway Interface</em> <ul class="">
+<li>
+<a href="https://peps.python.org/pep-333"  target="_blank" title="PEP - Python Enhancement Proposal" class="link-external" rel="noreferrer noopener nofollow" >https://peps.python.org/pep-333</a> 
+</li>
+<li>
+Abstract: <em>This document specifies a proposed standard interface between web servers and Python web applications or frameworks, to promote web application portability across a variety of web servers.</em> 
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+Hyperlink to CVE (Common Vulnerability Exposures):
+</p>
+
+<ul class="">
+<li>
+See: <code>&lt;cve:CVE-2024-53104&gt;</code>:  <a href="https://www.cve.org/CVERecord?id=CVE-2024-53104"  target="_blank" title="CVE - Common Vulnerability Exposures" class="link-external" rel="noreferrer noopener nofollow" >CVE-2024-53104</a> 
+</li>
+<li>
+See: <code>&lt;r-cve:CVE-2024-53104&gt;</code>: <a href="https://www.cve.org/CVERecord?id=CVE-2024-53104"  target="_blank" title="CVE - Common Vulnerability Exposures" class="link-external" rel="noreferrer noopener nofollow" >https://www.cve.org/CVERecord?id=CVE-2024-53104</a> 
+</li>
+<li>
+Brief: <em>media: uvcvideo: Skip parsing frames of type UVC_VS_UNDEFINED in uvc_parse_format</em> 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Internal_Pages" class="document-heading anchor">Internal Pages <a class="link-heading" href="#H_Internal_Pages">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=69&end=77&anchor=H_Internal_Pages&page=Index&timestamp=176060095271550" title="[i18n]: Internal Pages" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{4}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+Hyperlinks to internal pages that still does not exist will be shown in red, while hyperlinks to existing internal pages will be shown as green.
+</p>
+
+<ul class="">
+<li>
+<a href="/wiki/MWiki_Syntax" class="link-internal-missing wiki-link" title="">MWiki Syntax</a> 
+</li>
+<li>
+<a href="/wiki/Unix_System_programming" class="link-internal-missing wiki-link" title="">Unix System programming</a> 
+</li>
+<li>
+<a href="Open_Source_Licenses.html" class="link-internal wiki-link" title="Summary of open source licenses.">Open Source Licenses</a> 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Images" class="document-heading anchor">Images <a class="link-heading" href="#H_Images">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=77&end=116&anchor=H_Images&page=Index&timestamp=176060095271550" title="[i18n]: Images" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{5}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+Image of Java Duke Mascot (External Image):
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>![<span class="nt">Java&#39;s Duke Mascot</span>](<span class="na">/static/example_java_duke_mascot.svg</span>)
+</pre></div>
+</code>
+</pre>
+
+<div class="div-wiki-image"><img class="external-image anchor" src="/static/example_java_duke_mascot.svg" alt="Java's Duke Mascot"></div>
+
+<p>
+Internal Image:
+</p>
+
+<ul class="">
+<li>
+<a href="images/logo-java-coffee-cup.png" target="_blank" class="link-internal wiki-link">logo-java-coffee-cup.png</a> 
+</li>
+</ul>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>![[logo-java-coffee-cup.png]]
+</pre></div>
+</code>
+</pre>
+
+<div class="div-wiki-image"><img class="wiki-image lazy-load anchor" data-src="images/logo-java-coffee-cup.png" alt=""></div>
+
+<p>
+Copying and pasting images.
+</p>
+
+<ul class="">
+<li>
+If the website is served using https (http + <abbr title="Transport Layer Security">TLS</abbr>), it is possible to paste images from other web pages (web sites) or documents. First click at the image to copied to the clipboard with the right mouse  right button and select copy. Then hit Ctrl+v or right click to the open context meny and click at paste on the Wiki page editor. Pasted images are always saved in the folder <code>&lt;path-to-wiki-folder&gt;/pasted</code> 
+</li>
+</ul>
+
+<div class="div-wiki-image"><img class="wiki-image lazy-load anchor" data-src="pasted/pasted-image-1743470376610.png" alt=""></div>
+
+<p>
+For instance, this Python logo image whose MWiki markdown is
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>![[pasted-image-1743470376610.png]]
+</pre></div>
+</code>
+</pre>
+
+<p>
+corresponds to the file
+</p>
+
+<ul class="">
+<li>
+<code>./sample-wiki/pasted/pasted-image-1743470376610.png</code> 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Figure" class="document-heading anchor">Figure <a class="link-heading" href="#H_Figure">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=116&end=158&anchor=H_Figure&page=Index&timestamp=176060095271550" title="[i18n]: Figure" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{6}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+<strong>Figure of Java Duke Mascot (External Image)</strong>
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>```{figure} /static/example_java_duke_mascot.svg
+:width: 200px
+:alt: Java duke mascot, one of the symbols of the Java programming language.
+
+Java&#39;s Duke mascot
+```
+</pre></div>
+</code>
+</pre>
+
+<div class="div-wiki-image" div-figure><img id="figure-" class="wiki-image lazy-load anchor" data-src="/static/example_java_duke_mascot.svg" alt="Java duke mascot, one of the symbols of the Java programming language." height=200px ><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 1: Java's Duke mascot</p></div>
+
+<p>
+<strong>Internal Figure</strong>
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>```{figure} ![[logo-java-coffee-cup.png]]
+:name: unique-identifier-of-the-image-optional
+:height: 200px
+:alt: An iconic symbol of the Java programming language. Note the alt text should provide a detailed description of the image for better accessibility.
+
+Java coffee cup symbol. 
+```
+</pre></div>
+</code>
+</pre>
+
+<div class="div-wiki-image" div-figure><img id="figure-unique-identifier-of-the-image-optional" class="wiki-image lazy-load anchor" data-src="images/logo-java-coffee-cup.png" alt="An iconic symbol of the Java programming language. Note the alt text should provide a detailed description of the image for better accessibility." height=200px ><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 2: Java coffee cup symbol.</p></div>
+
+<div class="div-heading"> 
+<h2 id="H_Math" class="document-heading anchor">Math <a class="link-heading" href="#H_Math">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=158&end=233&anchor=H_Math&page=Index&timestamp=176060095271550" title="[i18n]: Math" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{7}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Definition" class="document-heading anchor">Definition <a class="link-heading" href="#H_Definition">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=159&end=158&anchor=H_Definition&page=Index&timestamp=176060095271550" title="[i18n]: Definition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<div id="inverse-matrix" class="def admonition anchor" style="background:;">
+<span class="admonition-title"><label class="admonition-tag" data-i18n="admonition-math-defintion-label">DEFINITION</label>: <strong>(Inverse Matrix)</strong><a class="link-edit link-edit-admonition" style="display:none" href="/edit/Index?start=161&end=172&page=Index&timestamp=176060095271550" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<p>
+The inverse matrix <span class="math-inline">\(A^{-1}\)</span> of a matrix <span class="math-inline">\(A: n \times n\)</span> is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists.
+</p><div class="math-block anchor"> 
+$$
+
+  \notag
+   A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}
+
+$$
+</div>
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Theorem" class="document-heading anchor">Theorem <a class="link-heading" href="#H_Theorem">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=173&end=203&anchor=H_Theorem&page=Index&timestamp=176060095271550" title="[i18n]: Theorem" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
+
+<div class="theorem admonition anchor" style="background:;">
+<span class="admonition-title"><label class="admonition-tag" data-i18n="admonition-math-theorem-label">THEOREM</label> 1: <strong>(Determinant of Orthogonal Matrix)</strong><a class="link-edit link-edit-admonition" style="display:none" href="/edit/Index?start=175&end=202&page=Index&timestamp=176060095271550" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<p>
+The determinant of a <strong>orthogonal matrix</strong> <span class="math-inline">\(Q \in \mathbb{R}^{n \times n}\)</span> of n rows and n columns is always 1.
+</p><div class="math-block anchor"> 
+$$
+
+ \notag 
+  \det(Q) = 1
+
+$$
+</div><div class="foldabel-block-div"><details >
+<summary><u class="solution-label"><label data-i18n="foldable-math-proof-block-label">Proof</label> </u></summary>
+
+<div class="foldable-block" style=""><div class="math-block anchor"> 
+$$
+
+\notag 
+\begin{split}
+      \det (Q Q^T)      &amp;= \det(Q) \det(Q^{T}) 
+   \\ \det (Q Q^T)      &amp;= \det(Q) \det(Q) 
+   \\ \det (Q Q^{-1})   &amp;= \det(Q) \det(Q) 
+   \\ \det (\mathbf{I}) &amp;= \det(Q)^2
+   \\  1                &amp;= \det{Q}^2
+   \\  \det(Q)          &amp;= 1
+\end{split}
+
+$$
+</div>
+
+</div>
+</details></div>
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Solved_Exercise" class="document-heading anchor">Solved Exercise <a class="link-heading" href="#H_Solved_Exercise">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=203&end=233&anchor=H_Solved_Exercise&page=Index&timestamp=176060095271550" title="[i18n]: Solved Exercise" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<aside class="example admonition anchor" style="background:;"  class="admonition example">
+<span class="admonition-title"><strong>
+<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Chain Rule for Derivative Multi-Variate Functions<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Index?start=205&end=232&page=Index&timestamp=176060095271550" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+</strong></span>
+
+<p>
+Let the function f be <span class="math-inline">\(f(x, y) = x^2/A^2 + y^2/B^2 - C\)</span>.  Find the derivative of f with respect to t. And x and y are functions of t, <span class="math-inline">\(x = x(t) = A \cos t\)</span> and <span class="math-inline">\(y = y(t) = B \sin t\)</span>.
+</p><div class="foldabel-block-div"><details >
+<summary><u class="solution-label"><label data-i18n="foldable-math-solution-block-label">Solution</label> </u></summary>
+
+<div class="foldable-block" style=""><div class="math-block anchor"> 
+$$
+
+ \notag 
+\begin{split}
+  \frac{df}{dt} 
+    &amp;= \frac{\partial f}{\partial x} \frac{dx}{dt}  
+    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\
+
+    &amp;=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \cos t)
+       \\ &amp; +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \sin t)  \\
+
+    &amp;=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ 
+    &amp;=  -2x \sin(t) / A + 2y \cos(t) / B \\
+    &amp;=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\
+    &amp;=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
+    &amp;=  0 
+\end{split}
+
+$$
+</div>
+
+</div>
+</details></div>
+</aside>
+
+<div class="div-heading"> 
+<h2 id="H_Pseudocode_of_Algorithms_in_LaTeX" class="document-heading anchor">Pseudocode of Algorithms in LaTeX <a class="link-heading" href="#H_Pseudocode_of_Algorithms_in_LaTeX">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=233&end=end&anchor=H_Pseudocode_of_Algorithms_in_LaTeX&page=Index&timestamp=176060095271550" title="[i18n]: Pseudocode of Algorithms in LaTeX" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{8}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+Code in LaTeX:
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span>```<span class="nb">{</span>pseudo<span class="nb">}</span>
+<span class="k">\begin</span><span class="nb">{</span>algorithm<span class="nb">}</span>
+<span class="k">\caption</span><span class="nb">{</span>Buble Sort Algorithm<span class="nb">}</span>
+<span class="k">\begin</span><span class="nb">{</span>algorithmic<span class="nb">}</span>
+<span class="k">\PROCEDURE</span><span class="nb">{</span>BubbleSort<span class="nb">}{</span><span class="s">$</span><span class="nb">A, n</span><span class="s">$</span><span class="nb">}</span>
+   <span class="k">\STATE</span> <span class="s">$</span><span class="nb">B </span><span class="o">=</span><span class="nb"> </span><span class="s">$</span> <span class="k">\CALL</span><span class="nb">{</span>CopyArray<span class="nb">}{</span><span class="s">$</span><span class="nb">A, n</span><span class="s">$</span><span class="nb">}</span>
+   <span class="k">\STATE</span> <span class="s">$</span><span class="nv">\:</span><span class="s">$</span> <span class="k">\textit</span><span class="nb">{</span>// i = 0, 1, ..., n - 1<span class="nb">}</span>
+   <span class="k">\FOR</span><span class="nb">{</span><span class="s">$</span><span class="nb">i </span><span class="o">=</span><span class="nb"> </span><span class="m">0</span><span class="s">$</span> <span class="k">\TO</span>  <span class="s">$</span><span class="nb">i &lt; n</span><span class="s">$</span><span class="nb">}</span>
+       <span class="k">\STATE</span> <span class="s">$</span><span class="nv">\:</span><span class="s">$</span> <span class="k">\textit</span><span class="nb">{</span>// j = 0, 1, ..., n - 2 <span class="nb">}</span>
+       <span class="k">\FOR</span><span class="nb">{</span><span class="s">$</span><span class="nb">j </span><span class="o">=</span><span class="nb"> </span><span class="m">0</span><span class="s">$</span> <span class="k">\TO</span> <span class="s">$</span><span class="nb">j &lt; n </span><span class="o">-</span><span class="nb"> </span><span class="m">1</span><span class="s">$</span><span class="nb">}</span>
+           <span class="k">\IF</span><span class="nb">{</span><span class="s">$</span><span class="nb">B</span><span class="o">[</span><span class="nb">j</span><span class="o">]</span><span class="nb"> &gt; B</span><span class="o">[</span><span class="nb">j</span><span class="o">+</span><span class="m">1</span><span class="o">]</span><span class="s">$</span><span class="nb">}</span>
+               <span class="k">\STATE</span> swap <span class="s">$</span><span class="nb">B</span><span class="o">[</span><span class="nb">j</span><span class="o">]</span><span class="s">$</span> with <span class="s">$</span><span class="nb">B</span><span class="o">[</span><span class="nb">j</span><span class="o">+</span><span class="m">1</span><span class="o">]</span><span class="s">$</span>
+           <span class="k">\ENDIF</span>
+       <span class="k">\ENDFOR</span>
+   <span class="k">\ENDFOR</span>
+   <span class="k">\RETURN</span><span class="nb">{</span><span class="s">$</span><span class="nb">B</span><span class="s">$</span><span class="nb">}</span>
+<span class="k">\ENDPROCEDURE</span>
+<span class="k">\end</span><span class="nb">{</span>algorithmic<span class="nb">}</span>
+<span class="k">\end</span><span class="nb">{</span>algorithm<span class="nb">}</span>
+```
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<pre  class="pseudocode" >
+\begin{algorithm}
+\caption{Buble Sort Algorithm}
+\begin{algorithmic}
+\PROCEDURE{BubbleSort}{$A, n$}
+   \STATE $B = $ \CALL{CopyArray}{$A, n$}
+   \STATE $\:$ \textit{// i = 0, 1, ..., n - 1}
+   \FOR{$i = 0$ \TO  $i &lt; n$}
+       \STATE $\:$ \textit{// j = 0, 1, ..., n - 2 }
+       \FOR{$j = 0$ \TO $j &lt; n - 1$}
+           \IF{$B[j] &gt; B[j+1]$}
+               \STATE swap $B[j]$ with $B[j+1]$
+           \ENDIF
+       \ENDFOR
+   \ENDFOR
+   \RETURN{$B$}
+\ENDPROCEDURE
+\end{algorithmic}
+\end{algorithm}
+</pre>
+
+
+
+        </main>
+    </div>
+    <script>
+    </script>
+</body>
+
+</html>
