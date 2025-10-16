@@ -131,6 +131,14 @@ View detailed documentation and examples at:
 
 ## Demonstration 
 
+A demonstration about how MWiki pages look like can be seen at
+
++ https://caiorss.github.io/mwiki
+
+which is a static websiste built using MWiki static generator command $ mwiki compile by compiling all markdown files *.md of the repository folder [./sample-wiki](./sample-wiki) to html. 
+
+Since this demonstration is a static website, it does not have a login form and other server access control functions. However, it is possible to use all client-side features, including the changing the user interface language.
+
 ### GIF Animations 
 
 NOTE: Although the GIF animations are outdated due to the major layout and UI - User Interface Changes, the presented features remains the same.
@@ -649,6 +657,11 @@ File: config.env
 MWIKI_SERVER_ADDR=mwiki 
 MWIKI_SERVER_PORT=9090
 
+# Url used by MWiki for temporary 20 seconds passwordless login URL
+# with the command $ mwiki auth. This field is optional
+### MWIKI_URL=http://subdomain.websitedomain.com
+
+
 # Path to wiki folder, where *.md markdown files, images and other 
 # files will be stored.
 MWIKI_PATH=./sample-wiki
@@ -728,6 +741,7 @@ See also:
   + https://chewett.co.uk/blog/854/installing-root-certificate-authority-firefox/
 + *How to Add a Certificate on Android? Step by Step*
   + https://www.airdroid.com/mdm/add-certificate-android/
+
 
 
 ## Post-Installation 
@@ -933,6 +947,292 @@ Note that the SSH hostname myuser@dummy.local could also be:
   + https://www.sshhandbook.com/overview-of-ssh-tunneling/
 
 
+## Passwordless Login
+
+MWiki provides the command $ mwiki auth for passwordless login using an authentication token or magic login link.
+
+```sh
+$ uv run mwiki auth --help
+
+Usage: mwiki auth [OPTIONS]
+
+  Create token and url for authentication without password. The URL is valid
+  for 20 seconds.
+
+Options:
+  --wikipath TEXT  Path to wiki directory, default '.' current directory.
+  --user TEXT      Username to authenticate.
+  --help           Show this message and exit.
+```
+
+Usage example: generate a 20 seconds authentication token and magic login URL for user admin.
+
+````sh
+$ mwiki auth --wikipath=./sample-wiki
+
+Copy and paste the following URL in the web browser to authenticate.
+
+  http://localhost:8000/auth?token=eyJ1c2VyIjogImFkbWluIiwgInNhbHQiOiAzNTAsICJleHBpcmF0aW9uIjogMTc2MDYzMzczMSwgInNpZ25hdHVyZSI6ICJjMWM3OTc0MjQyMjU0MzhmODlmZjM4MjFkMGJiNWJiOWFiZDI1Zjk4NTQ5MmEwZDAwYzM4N2QzYzllNGE4N2E3In0%3D
+
+Or paste the following token in the log in form http://localhost:8000 
+ 
+ eyJ1c2VyIjogImFkbWluIiwgInNhbHQiOiAzNTAsICJleHBpcmF0aW9uIjogMTc2MDYzMzczMSwgInNpZ25hdHVyZSI6ICJjMWM3OTc0MjQyMjU0MzhmODlmZjM4MjFkMGJiNWJiOWFiZDI1Zjk4NTQ5MmEwZDAwYzM4N2QzYzllNGE4N2E3In0=
+
+NOTE: This URL is only valid for 20 seconds.
+NOTE: If MWiki URL is not correct, set the environment variable $MWIKI_URL to the app URL.For instance, in bash Unix shell $ export MWIKI_URL=https://mydomain.com before running this comamnd again.
+````
+
+The token is the following JSON data encoded as base64 string (text).
+
+```json
+{  "user": "admin"
+ , "salt": 350
+ , "expiration": 1760633731
+ , "signature": "c1c797424225438f89ff3821d0bb5bb9abd25f985492a0d00c387d3c9e4a87a7"}
+```
+
+The expiration time is the timestamp of the current UTC (Universal Coordinate Time, akin to GMT) + 20 seconds. The salt is a random intger. The signature is a HMAC digital signature of the username, expiration timestamp and salt computed using the app secret key stored in the file $WIKI_REPOSITORY/.data/appkey.txt. The app key is unique per deployment. The porpuse of the HMAC signature is to ensure data integrity and avoid tampering by non authorized users. In addition, the salt and expiration avoid replay attacks.
+
+The command $ mwiki server has the command line switch --auth for generating the login magic link and token.
+
+```sh
+$ mwiki server  --wsgi --port=9010 --wikipath=./sample-wiki --auth
+
+Copy and paste the following URL in the web browser to authenticate.
+
+  http://localhost:9010/auth?token=eyJ1c2VyIjogImFkbWluIiwgInNhbHQiOiA3OTYsICJleHBpcmF0aW9uIjogMTc2MDYzNDI3MiwgInNpZ25hdHVyZSI6ICJmMjA4M2QyOGQ0M2E2YjFhNmRkYzRlNzM1YjJlODdlMTExYzQzMTcwNTIzZDJiYzI2ZDRhYmFmZTI4ZWU2MGQ1In0%3D
+
+Or paste the following token in the log in form http://localhost:9010 
+ 
+ eyJ1c2VyIjogImFkbWluIiwgInNhbHQiOiA3OTYsICJleHBpcmF0aW9uIjogMTc2MDYzNDI3MiwgInNpZ25hdHVyZSI6ICJmMjA4M2QyOGQ0M2E2YjFhNmRkYzRlNzM1YjJlODdlMTExYzQzMTcwNTIzZDJiYzI2ZDRhYmFmZTI4ZWU2MGQ1In0=
+
+NOTE: This URL is only valid for 20 seconds.
+NOTE: If MWiki URL is not correct, set the environment variable $MWIKI_URL to the app URL.For instance, in bash Unix shell $ export MWIKI_URL=https://mydomain.com before running this comamnd again.
+
+ [INFO] Updating Search Index
+ [INFO] Search index updated OK.
+INFO:waitress:Serving on http://0.0.0.0:9010
+```
+
+
+## Static Website Generator
+
+The subcommand $ mwiki compile is able to generate a static website by compiling the wiki repository, a folder containing MWiki markdown files to html. Static websistes are easy to deploy with static file servers, such as NGinx or Caddy. Many git forge services, including gitlab or github, also allow deploying stastic websites using an orphan git branch.
+
+```sh
+$ mwiki compile --help
+
+Usage: mwiki compile [OPTIONS]
+
+  Compile a MWiki repository to a static website.
+
+Options:
+  --wikipath TEXT          Path to folder containing *.md files.
+  -o, --output TEXT        Directory that will contain the compilation output
+                           (default value ./out).
+  --website-name TEXT      Name of the static website (default value 'MWiki').
+  --root-url TEXT          Root URL that the static website will be deployed
+                           to.  (default value '/').
+  --locale TEXT            Default locale of the user interface. (Default
+                           value 'en-US')
+  --icon TEXT              Favicon of the static website. (Default value MWiki
+                           icon)
+  --main-font TEXT         Main font used in document text.
+  --code-font TEXT         Code monospace used in code blocks.
+  --title-font TEXT        Title font used in document section headings.
+  --list-fonts             List all available fonts.
+  --allow-language-switch  Allow end-user to switch the user interface
+                           language.
+  --help                   Show this message and exit.
+
+```
+
+List all available fonts:
+
+```sh
+         FONT FAMILY
+               computer-modern               Computer Modern
+                 ibm-plex-mono                 IBM Plex Mono
+                       chicago                 Chicago MacOS
+                   news-reader                    NewsReader
+                      literata                      Literata
+             literata-variable              Literata-Regular
+                  commint-mono                   Commit Mono
+       logic-monospace-regular       Logic Monospace Regular
+        logic-monospace-medium        Logic Monospace Medium
+                  garamond-pro          Garamond Pro Regular
+               libertinus-mono               Libertinus Mono
+                    julia-mono                    Julia Mono
+               libertinus-sans               Libertinus Sans
+              libertinus-serif              Libertinus Serif
+                  commint-mono                  Commint Mono
+                    range-mono                    Range Mono
+                         range                         Range
+                       crimson                       Crimson
+                        munson                        Munson
+                     jackwrite                     Jackwrite
+                jackwrite-bold                Jackwrite Bold
+                  cmu-concrete                  CMU Concrete
+                cmu-sans-serif                CMU Sans Serif
+                 peachi-medium                 Peachi Medium
+                    fondamento                    Fondamento
+           bricolage-grotesque           Bricolage Grotesque
+             saira-thin-normal             Saira Thin Normal
+               saira-thin-bold               Saira Thin Bold
+                  dinweb-light                  DINWeb-Light
+                 dinweb-medium                 DINWeb-Medium
+                  dinweb-black                  DINWeb-Black
+
+```
+
+Compile the folder ./sample-wiki to a static web site at ./out path.
+
+```sh
+$ make static
+uv run mwiki compile --wikipath=./sample-wiki \
+        --website-name=MBook \
+        --main-font=cmu-concrete \
+        --title-font=chicago \
+        --code-font=libertinus-mono \
+        --allow-language-switch \
+        --output=./out
+Root URL
+ -  /
+Compiling wiki repository
+ -  /var/home/user/Documents/projects/mwiki/sample-wiki
+Generating static website at
+ -  /var/home/user/Documents/projects/mwiki/out
+
+
+Compilation Settings
+
+ [*] Allow language switch:  True
+ [*]     Main font  family:  CMU Concrete
+ [*]     Title Font Family:  Chicago MacOS
+ [*]      Code Font Family:  Libertinus Mono
+
+Status:
+
+ [*] Compiling sample-wiki/about.md to out/about.html
+ [*] Compiling sample-wiki/refcard.md to out/refcard.html
+ [*] Compiling sample-wiki/Index.md to out/index.html
+ [*] Compiling sample-wiki/Internationalization i18n and Localization i10n concepts.md to out/Internationalization_i18n_and_Localization_i10n_concepts.html
+ [*] Compiling sample-wiki/Linux SysRq Key and OOM System Recovery.md to out/Linux_SysRq_Key_and_OOM_System_Recovery.html
+ [*] Compiling sample-wiki/Math - Calculus Reference Card.md to out/Math_-_Calculus_Reference_Card.html
+ [*] Compiling sample-wiki/Open Source Licenses.md to out/Open_Source_Licenses.html
+ [*] Compiling sample-wiki/README.md to out/README.html
+ [*] Compilation terminated successfully ok.
+```
+
+Inspect the generated static websiste.
+
+```sh
+$ tree out
+
+out
+├── about.html
+├── images
+│   └── logo-java-coffee-cup.png
+├── index.html
+├── Internationalization_i18n_and_Localization_i10n_concepts.html
+├── Linux_SysRq_Key_and_OOM_System_Recovery.html
+├── Math_-_Calculus_Reference_Card.html
+├── Open_Source_Licenses.html
+├── pasted
+│   ├── pasted-image-1743470376610.png
+│   ├── pasted-image-1757439080745.jpg
+│   ├── pasted-image-1760365933831.jpg
+│   ├── pasted-image-1760528606851.jpg
+│   ├── pasted-image-1760528696169.jpg
+│   ├── pasted-image-1760528793655.jpg
+│   ├── pasted-image-1760610949514.jpg
+│   ├── pasted-image-1760611027216.jpg
+│   ├── pasted-image-1760611139235.jpg
+│   └── pasted-image-1760618396013.jpg
+├── README.html
+├── refcard.html
+└── static
+    ├── dots-vertical.svg
+    ├── example_java_duke_mascot.svg
+    ├── folder-settings-outline.svg
+    ├── fonts
+    │   ├── ChicagoFLF.ttf
+    │   ├── cmu-concrete-italic.woff
+    │   ├── cmu-concrete-regular.woff
+    │   └── LibertinusMono-Regular.woff2
+    ├── hamburger-menu.svg
+    ├── icon-home.svg
+    ├── icon-info.svg
+    ├── icon-lightbulb.svg
+    ├── icon-page.svg
+    ├── icon-save-all.svg
+    ├── icon-warning1.svg
+    ├── main.js
+    ├── pencil.svg
+    └── static_style.css
+
+```
+
+Server the static website using python3 built-in web server.
+
+```sh
+$ python3 -m http.server --bind=0.0.0 8080 -d ./out
+Serving HTTP on 0.0.0.0 port 8080 (http://0.0.0.0:8080/) ...
+```
+
+The website will be available at
+
++ `http://localhost:8080`
+
+or
+
++ `http://127.0.0.1:8080`
+
+or (local ip address)
+
++ `http://192.168.0.102:8080`
+
+or even
+
++ `http://<MACHINE-HOSTNAME>.local:8080`
+
+or also
+
++ `http://<TAILSCALE-HOSTNAME>:8080`
+
+
+It is also possible to compile a wiki repository for deploying with github gh-pages orphan branch by creating an orphan branch and a worktree directory ./dist for this branch named as gh-pages. Then use the follwing command to compile a wiki repository, in this case ./sample-wiki to html.
+
+```sh
+export GITHUB_REPOSITORY_NAME=dummy
+export SITENAME=MBoox
+
+$ uv run mwiki compile --wikipath=./sample-wiki \
+                --website-name=MBook \
+                --main-font=cmu-concrete \
+                --title-font=chicago \
+                --code-font=libertinus-mono \
+                --allow-language-switch \
+                --root-url=/$REPOSITORY_NAME \
+                --output=./dist
+```
+
+Finally, deploying the static websiste requires commiting the changes in the ./dist directory and pushing it to remote.
+
+```sh
+$ cd dist
+$ git add *
+$ git commit -m "Updated gh-pages"
+$ git push gh-pages master
+````
+
+After this step the static websiste will be available at
+
++ `https://<USERNAME>.github.io/<PROJECT_NAME>`
+
+If the username is johndoe and the project/repository name is dummy, the static websiste URL will be
+
++ `https://johndoe.github.io/dummy`
 
 ## Development 
 
@@ -1096,6 +1396,24 @@ The following set of companion sotfware or apps are recommended for MWiki as the
   + https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab
 
 
+**Password Manager**
+
++ *Official KeepassXC Websiste* (Non Cloud, Offline and FOSS password manager)
+  + https://keepassxc.org
+  + *Let KeePassXC safely store your passwords and auto-fill them into your favorite apps, so you can forget all about them. We do the heavy lifting in a no-nonsense, ad-free, tracker-free, and cloud-free manner. Free and open source.*
++ *KeePassXC-Browser*, Firefox Add-Ons (Browser integration for KepassXC)
+    + https://addons.mozilla.org/en-US/firefox/addon/keepassxc-browser/
++ *KeePassDX* (Fdroid App store)
+  + https://f-droid.org/packages/com.kunzisoft.keepass.libre/
+  + Even though KeepassXC supports neither Android nor iOS mobile devices, KeePassXC database file can copied to mobile device using some file synchronization app and opened using any of many suitable mobile app for this file format. One of such mobile application for Android devices is KeePassDX, which is a free, open source and local first (offline, non cloud) just as KeePassXC. This application has the same features as KeePassXC, for instance, password generator, auto fill service, TOTP code generation and TOTP secret importing through QR code.
++ *Documentation and FAQ*, KeePassXC
+  + https://keepassxc.org/docs/
++ *KeePassXC: Getting Started Guide, KeePassXC*
+  + https://keepassxc.org/docs/KeePassXC_GettingStarted
++ *KeePassXC/cli*, Gentoo Wiki
+  + https://wiki.gentoo.org/wiki/KeePassXC/cli
++ *Saving Attachments in KeePass*, Steve Shank, Oregon Computer Solutions
+  + https://steveshank.com/cgi-bin/article.pl?aid=815
 
 **Translation and Text-to-speak**
 
@@ -1131,6 +1449,8 @@ Note: These tools allows taking screenshots of select part of the screen and pas
 + *Peek - Flathub* (Screen Recorder - can create GIF animation or WebM and MP4 videos)
   + https://flathub.org/apps/com.uploadedlobster.peek
   + Brief: * Peek makes it easy to create short screencasts of a screen area. It was built for the specific use case of recording screen areas, e.g. for easily showing UI features of your own apps or for showing a bug in bug reports. With Peek you simply place the Peek window over the area you want to record and press "Record". Peek is optimized for generating animated GIFs, but you can also directly record to WebM or MP4 if you prefer.*
+
+
 
 **Container Orchestration Tools**
 
