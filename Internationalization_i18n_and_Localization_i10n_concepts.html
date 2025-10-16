@@ -315,6 +315,7 @@
 <ol>
 <li><a href="#H_Unicode" class="link-sidebar" >Unicode</a>
 </li><li><a href="#H_Internationalization_and_Localization__Reading" class="link-sidebar" >Internationalization and Localization  Reading</a>
+</li><li><a href="#H_Numbers_and_Mesurement" class="link-sidebar" >Numbers and Mesurement</a>
 </li>
 </ol></li>
 </ol></ol>
@@ -381,7 +382,7 @@
 
 <div class="div-heading"> 
 <h2 id="H_Terminology_of_Internationalization" class="document-heading anchor">Terminology of Internationalization <a class="link-heading" href="#H_Terminology_of_Internationalization">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=8&end=60&anchor=H_Terminology_of_Internationalization&page=Internationalization i18n and Localization i10n concepts&timestamp=176063196659955" title="[i18n]: Terminology of Internationalization" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{1}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=8&end=69&anchor=H_Terminology_of_Internationalization&page=Internationalization i18n and Localization i10n concepts&timestamp=176064157279665" title="[i18n]: Terminology of Internationalization" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{1}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -411,8 +412,14 @@
 <dd class="anchor">Left-To-Right Languages. Languages written from left to right. Example: Hebrew, Arabic, Persian, Urdu, Phoenician and so on.</dd>
 <dt class="anchor">NVL</dt>
 <dd class="anchor">National Language Version</dd>
-<dt class="anchor">ICU</dt>
+<dt class="anchor"><a href="https://icu.unicode.org/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >ICU</a></dt>
 <dd class="anchor">International Components for Unicode</dd>
+<dt class="anchor"><a href="https://unicode-org.github.io/icu/userguide/icu4j/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >ICU4J</a></dt>
+<dd class="anchor">Java implementatijon of the ICU library.</dd>
+<dt class="anchor"><a href="https://cldr.unicode.org/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >CLDR</a></dt>
+<dd class="anchor">Common Locale Data Repository (from ICU project)</dd>
+<dt class="anchor">LMDL</dt>
+<dd class="anchor">Locale Data Markup Language (XML-based language - ICU project).</dd>
 <dt class="anchor">UTF-8</dt>
 <dd class="anchor">Unicode 8 bits. One "character" or symbol may use more than one byte. Unicode 8 bits is the most used text enconding format possibly due to the backward compatibility with the old ASCII text encoding. However, it makes programming harder since one cannot assume that i-th position of a unicode string corresponds to the i-th character because a single UTF-8 "character" may be represented by multiple bytes.</dd>
 <dt class="anchor">UTF-16</dt>
@@ -424,7 +431,7 @@
 
 <div class="div-heading"> 
 <h2 id="H_Internationalization_Issues" class="document-heading anchor">Internationalization Issues <a class="link-heading" href="#H_Internationalization_Issues">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=60&end=92&anchor=H_Internationalization_Issues&page=Internationalization i18n and Localization i10n concepts&timestamp=176063196659955" title="[i18n]: Internationalization Issues" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{2}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=69&end=101&anchor=H_Internationalization_Issues&page=Internationalization i18n and Localization i10n concepts&timestamp=176064157279665" title="[i18n]: Internationalization Issues" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{2}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -507,7 +514,7 @@ Cultural Assumptions
 
 <div class="div-heading"> 
 <h2 id="H_Common_Mistakes" class="document-heading anchor">Common Mistakes <a class="link-heading" href="#H_Common_Mistakes">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=92&end=102&anchor=H_Common_Mistakes&page=Internationalization i18n and Localization i10n concepts&timestamp=176063196659955" title="[i18n]: Common Mistakes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{3}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=101&end=111&anchor=H_Common_Mistakes&page=Internationalization i18n and Localization i10n concepts&timestamp=176064157279665" title="[i18n]: Common Mistakes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{3}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -532,7 +539,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <div class="div-heading"> 
 <h2 id="H_Common_Locales" class="document-heading anchor">Common Locales <a class="link-heading" href="#H_Common_Locales">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=102&end=239&anchor=H_Common_Locales&page=Internationalization i18n and Localization i10n concepts&timestamp=176063196659955" title="[i18n]: Common Locales" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{4}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=111&end=248&anchor=H_Common_Locales&page=Internationalization i18n and Localization i10n concepts&timestamp=176064157279665" title="[i18n]: Common Locales" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{4}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -1156,14 +1163,14 @@ Explanation:
 
 <div class="div-heading"> 
 <h2 id="H_Falsehoods_Many_Programmers_Believe_About_Names" class="document-heading anchor">Falsehoods Many Programmers Believe About Names <a class="link-heading" href="#H_Falsehoods_Many_Programmers_Believe_About_Names">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=239&end=316&anchor=H_Falsehoods_Many_Programmers_Believe_About_Names&page=Internationalization i18n and Localization i10n concepts&timestamp=176063196659955" title="[i18n]: Falsehoods Many Programmers Believe About Names" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{5}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=248&end=325&anchor=H_Falsehoods_Many_Programmers_Believe_About_Names&page=Internationalization i18n and Localization i10n concepts&timestamp=176064157279665" title="[i18n]: Falsehoods Many Programmers Believe About Names" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{5}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
 
 <ol class="anchor">
 <li>
-Names are only written using ascii characters. Counterexample: "João". 
+Names are only written using ascii characters. Counterexample: "João" (portuguese version of John) or " Björk" (Icelandic given name). 
 </li>
 <li>
 Names does not contain hyphen (-) or apostrophe (') characters. Counterexample: O'neil - common irish surname. 
@@ -1415,7 +1422,7 @@ People only a have a single given name and there is no whitespace within a given
 
 <div class="div-heading"> 
 <h2 id="H_American_English_Vs_British_English" class="document-heading anchor">American English Vs British English <a class="link-heading" href="#H_American_English_Vs_British_English">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=316&end=338&anchor=H_American_English_Vs_British_English&page=Internationalization i18n and Localization i10n concepts&timestamp=176063196659955" title="[i18n]: American English Vs British English" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{6}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=325&end=347&anchor=H_American_English_Vs_British_English&page=Internationalization i18n and Localization i10n concepts&timestamp=176064157279665" title="[i18n]: American English Vs British English" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{6}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -1565,7 +1572,7 @@ People only a have a single given name and there is no whitespace within a given
 
 <div class="div-heading"> 
 <h2 id="H_Software_Libraries" class="document-heading anchor">Software Libraries <a class="link-heading" href="#H_Software_Libraries">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=338&end=347&anchor=H_Software_Libraries&page=Internationalization i18n and Localization i10n concepts&timestamp=176063196659955" title="[i18n]: Software Libraries" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{7}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=347&end=356&anchor=H_Software_Libraries&page=Internationalization i18n and Localization i10n concepts&timestamp=176064157279665" title="[i18n]: Software Libraries" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{7}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -1592,7 +1599,7 @@ Gettext
 
 <div class="div-heading"> 
 <h2 id="H_Footnotes" class="document-heading anchor">Footnotes <a class="link-heading" href="#H_Footnotes">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=347&end=352&anchor=H_Footnotes&page=Internationalization i18n and Localization i10n concepts&timestamp=176063196659955" title="[i18n]: Footnotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{8}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=356&end=361&anchor=H_Footnotes&page=Internationalization i18n and Localization i10n concepts&timestamp=176064157279665" title="[i18n]: Footnotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{8}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -1604,14 +1611,14 @@ Gettext
 
 <div class="div-heading"> 
 <h2 id="H_See_also" class="document-heading anchor">See also <a class="link-heading" href="#H_See_also">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=352&end=end&anchor=H_See_also&page=Internationalization i18n and Localization i10n concepts&timestamp=176063196659955" title="[i18n]: See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{9}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=361&end=end&anchor=H_See_also&page=Internationalization i18n and Localization i10n concepts&timestamp=176064157279665" title="[i18n]: See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{9}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Unicode" class="document-heading anchor">Unicode <a class="link-heading" href="#H_Unicode">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=354&end=388&anchor=H_Unicode&page=Internationalization i18n and Localization i10n concepts&timestamp=176063196659955" title="[i18n]: Unicode" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=363&end=397&anchor=H_Unicode&page=Internationalization i18n and Localization i10n concepts&timestamp=176064157279665" title="[i18n]: Unicode" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
 </div>
 
@@ -1726,7 +1733,7 @@ Gettext
 
 <div class="div-heading"> 
 <h3 id="H_Internationalization_and_Localization__Reading" class="document-heading anchor">Internationalization and Localization  Reading <a class="link-heading" href="#H_Internationalization_and_Localization__Reading">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=388&end=end&anchor=H_Internationalization_and_Localization__Reading&page=Internationalization i18n and Localization i10n concepts&timestamp=176063196659955" title="[i18n]: Internationalization and Localization  Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=397&end=511&anchor=H_Internationalization_and_Localization__Reading&page=Internationalization i18n and Localization i10n concepts&timestamp=176064157279665" title="[i18n]: Internationalization and Localization  Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
 </div>
 
@@ -1752,6 +1759,23 @@ Gettext
 <em>ICU-TC Home Page</em> <ul class="">
 <li>
 <a href="https://icu.unicode.org/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://icu.unicode.org/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Unicode CLDR Project</em> <ul class="">
+<li>
+<a href="https://cldr.unicode.org/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://cldr.unicode.org/</a> 
+</li>
+<li>
+<em>The Unicode <span class="text-highlight">Common Locale Data Repository</span> (CLDR) provides key building blocks for software to support the world’s languages with the largest and most extensive standard repository of locale data available. This data is supplied by contributors for their languages via the CLDR SurveyTool. CLDR is used by a wide spectrum of companies for their <span class="text-highlight">software internationalization and localization</span>, adapting software to the conventions of different languages for such common software tasks. It includes: Locale-specific patterns for formatting and parsing: dates, times, timezones, numbers and currency values, measurement units,… Translations of names: languages, scripts, countries and regions, currencies, eras, months, weekdays, day periods, time zones, cities, and time units, emoji characters and sequences (and search keywords),… Language & script information: characters used; plural cases; gender of lists; capitalization; rules for sorting & searching; writing direction; transliteration rules; rules for spelling out numbers; rules for segmenting text into graphemes, words, and sentences; keyboard layouts… Country information: language usage, currency information, calendar preference, week conventions,… Validity: Definitions, aliases, and validity information for Unicode locales, languages, scripts, regions, and extensions,…</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Language Plural Rules</em>, ICU Project <ul class="">
+<li>
+<a href="https://www.unicode.org/cldr/cldr-aux/charts/29/supplemental/language_plural_rules.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.unicode.org/cldr/cldr-aux/charts/29/supplemental/language_plural_rules.html</a> 
 </li>
 </ul>
 </li>
@@ -2088,6 +2112,92 @@ Brief: * Usually, programs are written and documented in English, and use Englis
 <em>k-yak / stati18n Public</em> (2014) <ul class="">
 <li>
 <a href="https://github.com/k-yak/stati18n"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://github.com/k-yak/stati18n</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Numbers_and_Mesurement" class="document-heading anchor">Numbers and Mesurement <a class="link-heading" href="#H_Numbers_and_Mesurement">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=511&end=end&anchor=H_Numbers_and_Mesurement&page=Internationalization i18n and Localization i10n concepts&timestamp=176064157279665" title="[i18n]: Numbers and Mesurement" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<ul class="">
+<li>
+<em>International System of Units</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/International_System_of_Units"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/International_System_of_Units</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>SI base unit</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/SI_base_unit"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/SI_base_unit</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>SI derived unit</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/SI_derived_unit"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/SI_derived_unit</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Decimal separator</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Decimal_separator"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Decimal_separator</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Number formatting in Europe vs. the U.S.</em> <ul class="">
+<li>
+<a href="https://www.languageediting.com/number-formatting-europe-vs-us/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.languageediting.com/number-formatting-europe-vs-us/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Hindu–Arabic numeral system</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Hindu%E2%80%93Arabic_numeral_system"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Hindu–Arabic_numeral_system</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Arabic numerals</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Arabic_numerals"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Arabic_numerals</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Eastern Arabic numerals</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Eastern_Arabic_numerals"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Eastern_Arabic_numerals</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Indian numbering system</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Indian_numbering_system"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Indian_numbering_system</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Chinese numerals</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Chinese_numerals"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Chinese_numerals</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Japanese numerals</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Japanese_numerals"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Japanese_numerals</a> 
 </li>
 </ul>
 </li>
