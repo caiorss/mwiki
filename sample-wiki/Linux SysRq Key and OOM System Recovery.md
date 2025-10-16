@@ -9,8 +9,8 @@ keywords:
 
 Unlike MacOSX and Microsoft Windows NT, the Linux kernel and consequentely, Linux distributions still have an OOM - Out-Of-Memory bug, which freezes the computer and makes it unresponsive when almost all memory is used. This issue is annoying as even the keyboard becomes unresponsive and key combination similar to Windows' Ctrl+Al+Del for invoking a process manager does not work. 
 
-For many users, the solution is a forced system reboot. However, it may lead to data loss, data corruption and loss of productivity. An alternative to system reboot is the Linux's kernel **magic SysReq** key combination, which is available in Linux kenels compiled with CONFIG_MAGIC_SYSREQ option enabled. Nowadays, most Linux distributions are shipped with a kenel using this option enabled.In order to be use SysReq keyboard shortcut for system recovery, it is necessary to enable it either temporarily or permanently by editing the appropriate configuration file.
- 
+For many users, the solution is a forced system reboot. However, it may lead to data loss, data corruption and loss of productivity. An alternative to system reboot is the Linux's kernel **magic SysReq** key combination, which is available in Linux kenels compiled with CONFIG_MAGIC_SYSREQ option enabled. Nowadays, most Linux distributions are shipped with a kernel using this option enabled. In order to  use SysReq keyboard shortcut for system recovery, it is necessary to enable it either temporarily or permanently by editing the appropriate configuration file.
+  
 ## SysRq Settings
 
 ### Check whether SysRq status

@@ -1,5 +1,6 @@
 ---
 title: Mathematics, Calculus and Linear Algebra Reference Card
+author: John Doe Nobody
 
 label: math-calculus-refcard
 
@@ -20,14 +21,13 @@ Math and Calculus Cheat Sheet
 
 ## Related 
 
-+ [[Index]]
 + [[LaTeX Refcard]]
 + [[Matlab(Octave) Programming]]
 + [[Linear Algebra]]
 + [[Discrete Mathematics]]
 + [[Signals and Systems]] 
 + [[Jupyter Notebook]]
- 
+  
 ## Overview 
 
 **Tooling**
@@ -1866,7 +1866,7 @@ $$
 
 
 $$
-  A . B . C  (A . B) C  A (B . C)
+  A B C  = (A  B) C = A (B  C)
 $$
 
 
@@ -1881,7 +1881,10 @@ $$
 
 
 $$
-  (A  B  C)^T  C^T (A  B)^T  (B  C)^T  A =  C^T  B^T  A^T
+  (A  B  C)^T  
+   = C^T (A  B)^T  
+   = (B  C)^T  A 
+   =  C^T  B^T  A^T
 $$
 
 Transpose of sum:
@@ -1891,7 +1894,7 @@ $$
   (A + B)^T = A^T + B^T
 $$
 
-  
+   
 ### Column vector properties 
 
 Let **a* and *b** be two (n x 1) column vectors: 
@@ -2175,4 +2178,4 @@ $$
  
 Where,
   + $\det A$ is the determinant (scalar) of a square matrix A.
-  + $\mathrm{tr}(A)$ is the trace of matrix A, sum of diagonal elements.              
+  + $\mathrm{tr}(A)$ is the trace of matrix A, sum of diagonal elements.               

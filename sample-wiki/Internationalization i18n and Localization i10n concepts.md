@@ -45,6 +45,18 @@ LTR Languages
 NVL 
   : National Language Version
   
+[ICU](https://icu.unicode.org/)
+  : International Components for Unicode 
+  
+[ICU4J](https://unicode-org.github.io/icu/userguide/icu4j/)
+  : Java implementatijon of the ICU library.
+  
+[CLDR](https://cldr.unicode.org/)
+  : Common Locale Data Repository (from ICU project)
+
+LMDL
+  : Locale Data Markup Language (XML-based language - ICU project).
+  
 UTF-8
   : Unicode 8 bits. One "character" or symbol may use more than one byte. Unicode 8 bits is the most used text enconding format possibly due to the backward compatibility with the old ASCII text encoding. However, it makes programming harder since one cannot assume that i-th position of a unicode string corresponds to the i-th character because a single UTF-8 "character" may be represented by multiple bytes.
   
@@ -54,12 +66,13 @@ UTF-16
 QA Testing
   : EN - Quality Assurance Testing 
   : PT - Teste de Garantia de Qualidade
- 
+    
 ## Internationalization Issues
 
-```{figure} ![[pasted-image-1755972975940.jpg]]
+```{figure} ![[pasted-image-1760618396013.jpg]]
 World Regional Languages
 ```
+
 
 Brainstorm of Major Internationalization Issues
 
@@ -85,7 +98,7 @@ Brainstorm of Major Internationalization Issues
     + Cultural Standards
     + Cultural Conventions
     + Cultural Assumptions
-  
+   
 ## Common Mistakes
 
 
@@ -98,13 +111,16 @@ Brainstorm of Major Internationalization Issues
   
 ## Common Locales
 
+Locale codes follow the convention {raw}`<language-code>-<countery-code>` with (-) dash character or {raw}`<language-code>_<country-code>` with the underline character (_).
+
 | Country      | Locale Code          | Language Name                                   | 
 |------------- | -------------------- | ----------------------------------------------- |
-| UK           | en-UK                | British English (UK - United Kingdom)           |
 | USA          | en-US                | American/USA English                            |
+| UK           | en-UK                | British English (UK - United Kingdom)           |
 | Ireland      | en-IE                | Irish English                                   |
+| Ireland      | ga-IE                | Irish language (Irish Gaelic)                   |
 | Canada       | en-CA                | Canadian English                                |
-| Canada       | ca_FR                | Canadian French (Français Canadien)             |
+| Canada       | fr-CA                | Canadian French (Français Canadien)             |
 | Australia    | en-AU                | Australian English                              | 
 | New Zealand  | en-NZ                | New Zealand English                             |
 | Singapore    | en-SG                | Singaporean English                             |
@@ -112,48 +128,73 @@ Brainstorm of Major Internationalization Issues
 | South Africa | en-ZA                | South African English                           |  
 | South Africa | af-ZA                | Afrikaans (based on Dutch language)             |
 | Phillipines  | en-PH                | Phillipines English (based on American English) |
-| India        | en-IN                | Indian English                                  |
-| India        | hi_IN                | Hindi (Hindustani)                              |
-| Germany      | de_DE                | German (Deutsch)                                |
-| Austria      | de_AT                | Austrian German (Österreichisches Deutsch)      |
-| Switzerland  | de_CH                | Switzerland German (Schweizerdeutsch)           |
-| Switzerland  | fr_CH                | Switzerland French  (Suisse français)           |
-| Switzerland  | it_CH                | Switzerland Italian                             |
-| France       | fr_FR                | French (Français)                               |
-| Italy        | it_IT                | Italian (Italiano)                              |
-| Greece       | el_GR                | Modern Greek                                    | 
-| Cyprus       | el_CY                | Modern Greek of Cyprus                          |
-| Spain        | es_ES                | Spanish (Español)                               |
-| Spain        | ca_ES                | Catalan (Catalán in Spanish)                    |   
+| India        | en-IN                | English (India)                                 |
+| India        | hi-IN                | Hindi^{Hindustani} (India)                      |
+| India        | ta-IN                | Tamil (India)                                   |
+| Germany      | de-DE                | German (Deutsch)                                |
+| Austria      | de-AT                | Austrian German (Österreichisches Deutsch)      |
+| Switzerland  | de-CH                | Switzerland German (Schweizerdeutsch)           |
+| Switzerland  | fr-CH                | Switzerland French  (Suisse français)           |
+| Switzerland  | it-CH                | Switzerland Italian                             |
+| France       | fr-FR                | French (Français)                               |
+| Italy        | it-IT                | Italian (Italiano)                              |
+| Greece       | el-GR                | Modern Greek                                    | 
+| Türkiye      | tr-TR                | Turkish^{The country is formely known as Turkey.} |
+| Cyprus       | el-CY                | Modern Greek of Cyprus                          |
+| Cyprus       | tr-CY                | Turkish language (Cyprus)                       |
+| Spain        | es-ES                | Spanish (Español)                               |
+| Spain        | ca-ES                | Catalan (Catalán in Spanish)                    |   
 | Spain        | eu-ES                | Basque (Non indo-european language)             |
 | Spain        | gl-ES                | Galician (Sister language of Portuguese)        |
-| Mexico       | es_MX                | Mexican Spanish (Español mexicano)              |
+| Mexico       | es-MX                | Mexican Spanish (Español mexicano)              |
 | USA          | es-US                | American/USA Spanish                            |
-| Puerto Rico  | es_PR                | Puerto Rico Spanish (USA)                       |
-| Argentina    | es_AR                | Argentinian Spanish (Español argentino)         |
-| Uruguay      | es_UY                | Uruguayian Spanish (Español uruguayo)           |
-| Chile        | es_CL                | Chilean Spanish (Español chileno)                |
-| Colombia     | es_CO                | Colombian Spanish (Español colombiano)          |
-| Peru         | es_PE                | Peruvian Spanish (Español peruano)              |
-| Ecuador      | es_EC                | Ecuadorian Spanish (Español ecuatoriano)        |
-| Panama       | es_PA                | Panamenian Spanish (Español panameño)           |
-| Venezuela    | es_VE                | Venezuelan Spanish (Español venezolano)         |
-| Portugal     | pt_PT                | European Portuguese (Português Europeu)         |
-| Brasil       | pt_BR                | Brazilian Portuguese (Português Brasileiro)     |                    
-| Capte Verde  | pt_CV                | Cape Verde Portuguese (Português de Cabo Verde) |                                        |
-| China        | zh_CN                | Chinese (Mandarin Chinese of Mainland China)    | 
-| Hong Kong    | zh_HK                | Hong Kong Chinese                               |
-| Taiwan       | zh_TW                | Taiwan Chinese                                  |
+| Puerto Rico  | es-PR                | Puerto Rico Spanish (USA)                       |
+| Argentina    | es-AR                | Argentinian Spanish (Español argentino)         |
+| Uruguay      | es-UY                | Uruguayian Spanish (Español uruguayo)           |
+| Chile        | es-CL                | Chilean Spanish (Español chileno)               |
+| Colombia     | es-CO                | Colombian Spanish (Español colombiano)          |
+| Peru         | es-PE                | Peruvian Spanish (Español peruano)              |
+| Ecuador      | es-EC                | Ecuadorian Spanish (Español ecuatoriano)        |
+| Panama       | es-PA                | Panamenian Spanish (Español panameño)           |
+| Venezuela    | es-VE                | Venezuelan Spanish (Español venezolano)         |
+| Portugal     | pt-PT                | European Portuguese (Português Europeu)         |
+| Angolar      | pt-AO                | Portuguese (Angola)                             |
+| Capte Verde  | pt-CV                | Portuguese (Português de Cabo Verde)            |                                        |
+| Brasil       | pt-BR                | Brazilian Portuguese (Português Brasileiro)     |                    
+| Japan        | ja-JP                | Japanese language                               |
+| Singapore    | zh-SG                | Chinese (Singapore)                             |
+| Taiwan       | zh-TW                | Taiwan Chinese                                  |
+| Hong Kong    | zh-HK                | Hong Kong Chinese                               |
+| China        | zh-CN                | Chinese (Mandarin Chinese of Mainland China)    | 
   
 NOTE:
 1. Most English variants around the world are based on the British English and uses the British spelling. The American English spelling is only used by USA and Phillipines.
 2. India does not have any official language and Hindi is not the official language of India. Moreover, the majority of Indian population does not speak Hindi.
-3. Hong Kong is not country. It is a SAR - Special Administrative Region of mainland China. 
-4. Puerto Rico is USA non incorporated territory. So, it is not a country.
+3. Hong Kong is not country. It is a SAR - Special Administrative Region of mainland China. Hong Kong has its own currency and onlympic team. In addition, in sports matches Hong Kong uses its own flag. 
+4. Puerto Rico is not a country. The island is USA non incorporated territory, even though the island has its own olympic team.
+5. Spanish locales don't have much difference other than country code, currency and paper size since most Spanish countries follows the [Royal Spanish Academy](https://en.wikipedia.org/wiki/Royal_Spanish_Academy)^{Spanish: Real Academia Española}
 
 **Change User Interface Language on Linux**
 
-It is possible to change the UI interface language of some application on Linux on command line by setting the environment variable LANG to the desired locale code. For instance, the following temporarily changes the Kwrite KDE text editor language to Swiss German even if the default language used during the Linux distribution installation was not German. This feature is useful for language learners for obtaining the common terminology used for localizing applications to a particular language.
+It is possible to change the UI interface language of some application on Linux on command line by setting the environment variable LANG to the desired locale code. The default system locale on Linux can be obtained by reading the environment variable $LANG.
+
+In bash shell or any other POSIX shell.
+
+```sh
+$ echo $LANG
+en_US.UTF-8
+```
+
+In Python, 
+
+```sh
+>>> import os 
+
+>>> os.getenv("LANG", "")
+'en_US.UTF-8'
+```
+
+The following command temporarily changes the Kwrite KDE text editor language to Swiss German even if the default language used during the Linux distribution installation was not German. This feature is useful for learning new vocabulary of other languages.
 
 ```sh
 env LANG=de_CH kwrite
@@ -162,7 +203,7 @@ env LANG=de_CH kwrite
 Lanch kwite with language set to Swiss German detached from terminal (without blocking the terminal emulator).
 
 ```sh
-$ env LANG=de_US.UTF-8 kwrite 1> /dev/null 2> /dev/null & disown
+$ env LANG=de_CH.UTF-8 kwrite 1> /dev/null 2> /dev/null & disown
 ```
 
 Explanation:
@@ -170,6 +211,29 @@ Explanation:
 + `1> /dev/null` redirects the kwrite process' stdout (standard output) to Linux pseudo file /dev/null.
 + `2> /dev/null` redirects the kwrite process' stderr (standard error output) to Linux pseudo file /dev/null.
 + `& disown` => Detach kwrite process from the terminal in order run this application as a daemon (background process/service) and to avoid blocking the terminal emulator and terminating the kwrite process if the terminal is closed.
+
+
+**Screenshot of KWrite using different locales**
+
+```{figure} ![[pasted-image-1760611139235.jpg]]
+
+KWrite started with en_US American English locale 
+```
+
+```{figure} ![[pasted-image-1760611027216.jpg]]
+
+KWrite started with de_DE German locale for Switzerland
+```
+
+```{figure} ![[pasted-image-1760610949514.jpg]]
+
+KWrite started with es_ES Spanish locale for Spain
+```
+
+
+
+
+
 
 **See**
 
@@ -181,10 +245,10 @@ Explanation:
   + https://learn.microsoft.com/en-us/globalization/locale/standard-locale-names
 + *ISO Country and Language Codes: The Definitive Guide*
   + https://centus.com/blog/iso-language-codes
-            
+                 
 ## Falsehoods Many Programmers Believe About Names
 
-1. Names are only written using ascii characters. Counterexample: "João".
+1. Names are only written using ascii characters. Counterexample: "João" (portuguese version of John) or " Björk" (Icelandic given name).
 2. Names does not contain hyphen (-) or apostrophe (') characters. Counterexample: O'neil - common irish surname.
 3. A person may have only two names, a given name and surname (family name). Counterexample: the full name of Brazil's emperor [Pedro II of Brazil](https://en.wikipedia.org/wiki/Pedro_II_of_Brazil) was "Pedro de Alcântara João Carlos Leopoldo Salvador Bibiano Francisco Xavier de Paula Leocádio Miguel Gabriel Rafael".
 4. People do not change their names, surnames or email. 
@@ -194,6 +258,8 @@ Explanation:
 8. I will never need to deal with foreign names in my database.
 9. Names with the same spelling are always written in the same way with the same spelling. Counterexample: There are several different Japanese names that sounds as ["Akira"](<https://en.wikipedia.org/wiki/Akira_(given_name)>) and are romanized (written in latin script) as that, although they are written using different Kanji symbols and have different meanings. 
 10. People have at least one surname. Countereraxmple: In some countries, such as Indonesia and Japan some people may have a single given name and no surname. Members of Japanese royalty do not have surnames or family names. Sukarno, the first president of Indonesia did not have any surname. His full name was just "Sukarno".
+11. People only a have a single given name and there is no whitespace within a given name. Counterexample:  Hector Marίa GONZALEZ LÓPEZ. The given name is "Hector Marίa". The patronymic surname is Gonzalez and the mather's family name is López. Many Spanish given names have the suffix Maria in compound given names. Female hispanic given often have the suffix "de dolores", "soledad" and etc. 
+
 
 **See also:**
 
@@ -222,10 +288,29 @@ Explanation:
   + https://en.wikipedia.org/wiki/Wikipedia:Naming_conventions_(Chinese)
 + *East Slavic name*, Wikipedia
   + https://en.wikipedia.org/wiki/East_Slavic_name
++ *Roman naming conventions*, Wikipedia
+  + https://en.wikipedia.org/wiki/Roman_naming_conventions
++ *Nomen gentilicium*, Wikipedia
+  + https://en.wikipedia.org/wiki/Nomen_gentilicium
++ *Cognomen*, Wikipedia
+  + https://en.wikipedia.org/wiki/Cognomen
++ *Praenomen*, Wikipedia
+  + https://en.wikipedia.org/wiki/Praenomen
++ *Italian name*, Wikipedia
+  + https://en.wikipedia.org/wiki/Italian_name
 + *Spanish naming customs*, Wikipedia
   + https://en.wikipedia.org/wiki/Spanish_naming_customs
++ *Spanish Names: A Beginner’s Guide to Naming Customs and Traditions*, ESLZubzz
+  + https://eslbuzz.com/spanish-names/
++ *Spanish proper names and their cultural secrets: More than just a name*, WOrldsAcross
+  + https://blog.worldsacross.com/index/spanish-proper-names-and-their-cultural-secrets-more-than-just-a-name
++ *Naming - Spanish Culture*, Cultural Atlas
+  + https://culturalatlas.sbs.com.au/spanish-culture/spanish-culture-naming
 + *Naming customs of Hispanic America*, Wikipedia
   + https://en.wikipedia.org/wiki/Naming_customs_of_Hispanic_America
++ *Portuguese name*, Wikipedia
+  + https://en.wikipedia.org/wiki/Portuguese_name
+  + *A Portuguese name, or Lusophone name – a personal name in the Portuguese language – is typically composed of one or two personal names, the mother's family surname and the father's family surname (rarely only one surname, sometimes more than two). For practicality, usually only the last surname (excluding prepositions) is used in formal greetings.*
 + *Arabic name*, Wikipedia
   + https://en.wikipedia.org/wiki/Arabic_name
 + *How Arabic Names Work: A Guide to Ism, Nasab, Laqab, Nisba, and Kunya*
@@ -237,7 +322,7 @@ Explanation:
 + *O'Neill (surname)*, Wikipedia
   + https://en.wikipedia.org/wiki/O%27Neill_(surname)
 + *Akira (given Japanese name)*, Wikipedia
-  + <https://en.wikipedia.org/wiki/Akira_(given_name)>   
+  + <https://en.wikipedia.org/wiki/Akira_(given_name)>        
 ## American English Vs British English 
 
 | American English    | British English      |
@@ -269,13 +354,88 @@ Python
 + Gettext
     
 
+## Footnotes
+
+```{footnotes}
+```
+ 
 ## See also
+
+### Unicode 
+
++ *UTF-8, Explained Simply*, Nic Baker - Youtube Video
+  + https://www.youtube.com/watch?v=vpSkBV5vydg
++ *"The History of UTF-8, as told by Rob Pike"* (2003)
+  + https://doc.cat-v.org/bell_labs/utf-8_history
++ *"The History of UTF-8, as told by Rob Pike"* (2003)
+  + https://www.cl.cam.ac.uk/%7Emgk25/ucs/utf-8-history.txt
++ *Be aware of sorting locales*, Adrian Stoll
+  + https://www.adrianstoll.com/post/beware-of-sorting-locales/
++ *locale(7) — Linux manual page*
+  + https://man7.org/linux/man-pages/man7/locale.7.html
+  + *A locale is a set of language and cultural rules.  These cover aspects such as language for messages, different character sets, lexicographic conventions, and so on. A program needs to be able to determine its locale and act accordingly to be portable to different cultures.*
++ *Iterating strings and manually decoding UTF-8*, Zylinski
+  + https://zylinski.se/posts/iterating-strings-and-manually-decoding-utf8/
++ *Python's splitlines does a lot more than just newlines*, yossarian\.net
+  + https://yossarian.net/til/post/python-s-splitlines-does-a-lot-more-than-just-newlines/
++ *The Country That Broke Kotlin*, Sam Cooper
+  + https://sam-cooper.medium.com/the-country-that-broke-kotlin-84bdd0afb237
+  + *Logic vs language: how a Turkish alphabet bug played a years-long game of hide-and-seek inside the Kotlin compiler.*
++ *Does Your Code Pass The Turkey Test?*, Moserware (2008)
+  + https://www.moserware.com/2008/02/does-your-code-pass-turkey-test.html
+  + *Over the past 6 years or so, I’ve failed each item on “The Turkey Test.” It’s very simple: will your code work properly on a person’s machine in or around the country of Turkey? Take this simple test.*
++ *SMS Turkish Disaster*
+  + https://revealingerrors.com/turkish_sms_disaster
++ *Strcasecmp in Turkish*, Daniel Stenberg (2008) - Curl Project
+  + https://daniel.haxx.se/blog/2008/10/15/strcasecmp-in-turkish/
+  + *A friendly user submitted the (lib)curl bug report [2154627](http://curl.haxx.se/bug/view.cgi?id=2154627) which identified a problem with our URL parser. It doesn’t treat “file://” as a known protocol if the locale in use is Turkish.*
++ *Internationalization for Turkish: Dotted and Dotless Letter "I"*, I18nGuy
+  + http://www.i18nguy.com/unicode/turkish-i18n.html
+  + *Many software and web applications that are already internationalized and are successfully supporting many languages, often suffer catastrophic failure when they add support for the Turkish language. This page explains the difficulty of supporting the Turkish language and typical solutions. There are 3 sections: A brief overview of Turkish characters and encodings. Turkish language problem and solutions. A brief history of the Turkish language is offered as background material.*
++ *Locale-agnostic case conversions by default*
+  + https://github.com/Kotlin/KEEP/blob/main/proposals/stdlib/KEEP-0223-locale-agnostic-case-conversions.md
+  
+### Internationalization and Localization  Reading
 
 + *Internationalization and localization*, Wikipedia
   + https://en.wikipedia.org/wiki/Internationalization_and_localization
++ *International Components for Unicode*, Wikipedia
+  + https://en.wikipedia.org/wiki/International_Components_for_Unicode
+  + *International Components for Unicode (ICU) is an open-source project of mature C/C++ and Java libraries for Unicode support, software internationalization, and software globalization. ICU is widely portable to many operating systems and environments. It gives applications the same results on all platforms and between C, C++, and Java software. The ICU project is a technical committee of the Unicode Consortium and sponsored, supported, and used by IBM and many other companies.[2] ICU has been included as a standard component with Microsoft Windows since Windows 10 version 1703.[3]*
++ *ICU-TC Home Page*
+  + https://icu.unicode.org/
++ *Unicode CLDR Project*
+  + https://cldr.unicode.org/
+  + *The Unicode ==Common Locale Data Repository== (CLDR) provides key building blocks for software to support the world’s languages with the largest and most extensive standard repository of locale data available. This data is supplied by contributors for their languages via the CLDR SurveyTool. CLDR is used by a wide spectrum of companies for their ==software internationalization and localization==, adapting software to the conventions of different languages for such common software tasks. It includes: Locale-specific patterns for formatting and parsing: dates, times, timezones, numbers and currency values, measurement units,… Translations of names: languages, scripts, countries and regions, currencies, eras, months, weekdays, day periods, time zones, cities, and time units, emoji characters and sequences (and search keywords),… Language & script information: characters used; plural cases; gender of lists; capitalization; rules for sorting & searching; writing direction; transliteration rules; rules for spelling out numbers; rules for segmenting text into graphemes, words, and sentences; keyboard layouts… Country information: language usage, currency information, calendar preference, week conventions,… Validity: Definitions, aliases, and validity information for Unicode locales, languages, scripts, regions, and extensions,…*
++ *Language Plural Rules*, ICU Project
+  + https://www.unicode.org/cldr/cldr-aux/charts/29/supplemental/language_plural_rules.html
++ *A complete guide to ICU message format & syntax with examples*, Llya Kurowski (2024)
+  + https://lokalise.com/blog/complete-guide-to-icu-message-format/
++ *ICU message format: Guide to plurals, dates & localization syntax*, Kinga Pomkala (2023), SimpleLocalize
+  + https://simplelocalize.io/blog/posts/what-is-icu/
+  + *ICU message format is the standard way developers handle plurals, dates, numbers, and other localized text in software. It's part of the internationalization (i18n) toolkit that ensures your messages are grammatically correct, culturally accurate, and easy to translate, no matter the language or region. By using ICU, you can avoid common localization bugs like “1 rooms” or incorrect date formats, while keeping translations consistent across all platforms. Used by Google, Microsoft, and countless frameworks like React Intl and Angular, ICU allows you to define all variations of a message in one place, making life easier for both developers and translators.*
++ *International Components for Unicode APIs*, IBM (2022)
+  + https://www.ibm.com/docs/en/i/7.5.0?topic=category-international-components-unicode-apis
+  + *The International Components for Unicode (ICU), IBM® i option 39, is a C and C++ library that provides Unicode services for writing global applications in ILE programming languages. ICU offers flexibility to extend and customize the supplied services, which include: ...*
++ *The Ultimate Guide to ICU Message Format*, Crowdin Blog (2022)
+  + https://crowdin.com/blog/2022/04/13/icu-guide
+  + *What Does ICU Stand for? As ICU documentation states, ICU means International Components for Unicode – a widely used set of C/C++ and Java libraries providing Unicode and globalization support for software and applications. ICU is released under a nonrestrictive open source license that is suitable for use with both commercial software and open source or free software.*
++ *Finally Doing Pluralization Right How the ICU plural syntax works*, Alan Allegret (2021)
+  + https://medium.com/expedia-group-tech/finally-doing-pluralization-right-948e2e9d40bb
++ *A Practical Guide to the ICU Message Format*, Mohamed Ashour (2025), Phrase
+  + https://phrase.com/blog/posts/guide-to-the-icu-message-format/
++ *Unicode and internationalization support*, Android API Docs
+  + https://developer.android.com/guide/topics/resources/internationalization
+  + *Android leverages the ICU library and CLDR project to provide Unicode and other internationalization support. This page's discussion of Unicode and internationalization support is divided into two sections: Android 6.0 (API level 23) and lower, and Android 7.0 (API level 24) and higher.*
++ *Java Localization – Formatting Messages*, Baeldung
+  + https://www.baeldung.com/java-localization-messages-formatting
++ *10 UI Localization Best Practices for Developers*, Nimrod Kramer (2024)
+  + https://daily.dev/blog/10-ui-localization-best-practices-for-developers
 + *Personal names around the world*, W3C
   + https://www.w3.org/International/questions/qa-personal-names
   + *How do people's names differ around the world, and what are the implications of those differences on the design of forms, databases, ontologies, etc. for the Web?*
++ *Implementing UI translation in SumatraPDF, a C++ Windows application*, Kowalcyzky\.info
+  + https://blog.kowalczyk.info/a-vn0v/implementing-ui-translation-in-sumatrapdf-a-c-windows-application.html
 + *Internationalization and Localization in Flask Apps*, Reintech Media
   + https://reintech.io/blog/internationalization-localization-flask-apps
 + *The Flask Mega-Tutorial, Part XIII: I18n and L10n*, Miguel Grinberg
@@ -340,6 +500,36 @@ Python
 + *Internationalization*, NextJS
   + https://nextjs.org/docs/app/guides/internationalization
   + *Next.js enables you to configure the routing and rendering of content to support multiple languages. Making your site adaptive to different locales includes translated content (localization) and internationalized routes.*
++ *Integrating Localization Into Design Systems*, Rebecca Hemstand and Mark Malek
+  + https://www.smashingmagazine.com/2025/05/integrating-localization-into-design-systems/
+  + *Learn how two designers tackled the challenges of building a ==localization-ready design system== for a global audience. This case study dives into how Rebecca and Mark combined Figma Variables and design tokens to address ==multilingual design issues==, such as text overflow, RTL layouts, and font inconsistencies. They share key lessons learned and the hurdles they faced — including Figma’s limitations — along with the solutions they developed to create dynamic, scalable designs that adapt ==seamlessly across languages==, themes, and densities. If you’re navigating the complexities of internationalization in design systems, this article is for you.*
++ *Right-to-Left (RTL) Localization: The Definitive Guide*
+  + https://centus.com/blog/right-to-left-languages-translation
 + *k-yak / stati18n Public* (2014)
-  + https://github.com/k-yak/stati18n
-    
+  + https://github.com/k-yak/stati18n   
+ 
+  
+### Numbers and Mesurement
+
++ *International System of Units*, Wikipedia
+  + https://en.wikipedia.org/wiki/International_System_of_Units
++ *SI base unit*, Wikipedia
+  + https://en.wikipedia.org/wiki/SI_base_unit
++ *SI derived unit*, Wikipedia
+  + https://en.wikipedia.org/wiki/SI_derived_unit
++ *Decimal separator*, Wikipedia
+  + https://en.wikipedia.org/wiki/Decimal_separator
+ + *Number formatting in Europe vs. the U.S.*
+   + https://www.languageediting.com/number-formatting-europe-vs-us/
++ *Hindu–Arabic numeral system*, Wikipedia
+  + https://en.wikipedia.org/wiki/Hindu%E2%80%93Arabic_numeral_system
++ *Arabic numerals*, Wikipedia
+  + https://en.wikipedia.org/wiki/Arabic_numerals
++ *Eastern Arabic numerals*, Wikipedia
+   + https://en.wikipedia.org/wiki/Eastern_Arabic_numerals
++ *Indian numbering system*, Wikipedia
+  + https://en.wikipedia.org/wiki/Indian_numbering_system
++ *Chinese numerals*, Wikipedia
+  + https://en.wikipedia.org/wiki/Chinese_numerals
++ *Japanese numerals*, Wikipedia
+  + https://en.wikipedia.org/wiki/Japanese_numerals
