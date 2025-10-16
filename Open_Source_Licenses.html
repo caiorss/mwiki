@@ -16,40 +16,23 @@
    <style>
         
 @font-face {
-    font-family: 'Crimson';
+    font-family: 'CMU Concrete';
     
     font-style: normal;
     
     
-    font-weight: normal;
-    
-    src: url('/mwiki/static/fonts/crimson-roman.woff');
+    src: url('/mwiki/static/fonts/cmu-concrete-regular.woff');
 }
     
 
 
 @font-face {
-    font-family: 'Crimson';
+    font-family: 'CMU Concrete';
     
     font-style: italic;
     
     
-    font-weight: normal;
-    
-    src: url('/mwiki/static/fonts/crimson-roman.woff');
-}
-    
-
-
-@font-face {
-    font-family: 'Crimson';
-    
-    font-style: normal;
-    
-    
-    font-weight: bold;
-    
-    src: url('/mwiki/static/fonts/crimson-bold.woff');
+    src: url('/mwiki/static/fonts/cmu-concrete-regular.woff');
 }
     
 
@@ -89,7 +72,7 @@
     **/
 
     
-    --font-family-main: 'Crimson';
+    --font-family-main: 'CMU Concrete';
     
     
     --font-family-title: 'Chicago MacOS';
@@ -124,7 +107,7 @@
     <!-- MathJax Settings -->
     <script>
 
-    let FONT_FAMILY_MAIN = "Crimson"
+    let FONT_FAMILY_MAIN = "CMU Concrete"
     let FONT_FAMILY_TITLE = "Chicago MacOS"
     let FONT_FAMILY_CODE = "Libertinus Mono"
     let DEFAULT_LOCALE = "en-US";
@@ -313,7 +296,12 @@
         
         <div class="toc">
             <!-- Table of contents template placeholder -->
-            <ol></ol>
+            <ol><ol>
+<li><a href="#H_Open_Source_Licences_Overview" class="link-sidebar" >Open Source Licences Overview</a>
+</li><li><a href="#H_Summary" class="link-sidebar" >Summary</a>
+</li><li><a href="#H_See_Also" class="link-sidebar" >See Also</a>
+</li>
+</ol></ol>
         </div>
 
     </aside>
@@ -377,6 +365,13 @@
 
 
 
+<div class="div-heading"> 
+<h2 id="H_Open_Source_Licences_Overview" class="document-heading anchor">Open Source Licences Overview <a class="link-heading" href="#H_Open_Source_Licences_Overview">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Open_Source_Licenses?start=10&end=92&anchor=H_Open_Source_Licences_Overview&page=Open Source Licenses&timestamp=176061270628155" title="[i18n]: Open Source Licences Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{1}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
 <dl class="anchor">
 <dt class="anchor">IP</dt>
 <dd class="anchor">Intelectual Property</dd>
@@ -412,7 +407,244 @@
 <dd class="anchor">Software under open source license with other features closed source or paywalled.</dd>
 <dt class="anchor">Copyleft Linceses</dt>
 <dd class="anchor">Any version of modification of the software must be distributed under the same copyleft license. This license style is not favored by companies that need to keep their software modification proprietary.</dd>
+<dt class="anchor">MIT License (Permissive)</dt>
+<dd class="anchor">Introduced by MIT - Massachussets Institute of Technology in the 1980s. Used by React JS front-end framework and Ruby programming language. The only requirement of this license is to include the <strong>copyright notice</strong> in derivative works. Drawback: the license grants any patent rights, what creates legal uncertainty for software that depends on <strong>patented technologies</strong>.</dd>
+<dt class="anchor">Apache 2.0 License (Permissive)</dt>
+<dd class="anchor">Similar to MIT license, but it grants patent rights to any user of a sofware released under MIT license.</dd>
+<dt class="anchor">BSD-2 Clause License (Permissive)</dt>
+<dd class="anchor">Similar to MIT's license, but requires that a copy of the BSD-2 license copyright notice to be included in the source code of derivativ works and compiled binaries.</dd>
+<dt class="anchor">BSD-3 Clause License (Permissive)</dt>
+<dd class="anchor">Introduces an additional no-endorsement clause to BSD-2 license, which restricts the use of the <strong>copyright holders</strong> names and contributors for promotional use in derivative works.</dd>
+<dt class="anchor">GPL v2.0 (Copyleft)</dt>
+<dd class="anchor">GPL v.20 and the GPL license family were introduced by FSF (Free Software Foundation) in 1989. GPL v2.0 and other licneses of the same family require all derivative work to released under the same license. Example: <strong>Wordpress</strong> PHP blogging platform and <strong>Linux Kernel</strong>, created by Linus Torvalds is released under GPL 2.0 license.</dd>
+<dt class="anchor">GPL v3.0 (Copyleft)</dt>
+<dd class="anchor">License similar to GPL v2.0 introduced in 2007. This license forbids "Tivoization", where hardware manufactures blocks user attempt to install modified versions of an open source software under GPLv3.0 license using <strong>DRM (Digital Rights Management)</strong>. The purpose of GPL v3.0 license is to guarantee that works of contributors will not be used in <strong>proprietary software</strong>. However, this license does not require disclosing the source code or releasing the software under the same license if the software is run on the server-side on the cloud.</dd>
+<dt class="anchor">LGPL - GNU Lesser General Public License (Weak Copyleft)</dt>
+<dd class="anchor">This license is mostly used by compilers and native code software libraries. Derivative works can be released and distributed as closed source and are allowed to dynamic link against the libraries, unless the library code is modified or the software static link against the library.</dd>
+<dt class="anchor">AGPL - GNU Afero Public License (Copyleft)</dt>
+<dd class="anchor">Requires source code disclosure of any software modification even if it is never distributed and run on the server side. The AGPL license was introduced for addressing the cloud loophole in the GPL 3.0 license, which does not mandate release of source code if it the sofware is run on the server side or on the cloud. Big tech companies have been exploiting the cloud loophole of GPL3.0 to take way open source software to provide SaaS software as service and keep their modifications closed source. The AGPL license is mostly used by server software and databases.</dd>
+<dt class="anchor">Unlicense</dt>
+<dd class="anchor">Public Domain License. Used by SQLite embedded database engine.</dd>
+<dt class="anchor">CC0-1.0</dt>
+<dd class="anchor">Creative Commons 1.0 - public domain dedication tool used mostly by <strong>creative works</strong>.</dd>
 </dl>
+
+<div class="div-heading"> 
+<h2 id="H_Summary" class="document-heading anchor">Summary <a class="link-heading" href="#H_Summary">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Open_Source_Licenses?start=92&end=115&anchor=H_Summary&page=Open Source Licenses&timestamp=176061270628155" title="[i18n]: Summary" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{2}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+MIT, BSD and ISC => "Permissive" <ul class="">
+<li>
+Basic Meaning: Do whatever you want, just do not sue me. 
+</li>
+<li>
+Give us credit by copying the license: YES 
+</li>
+<li>
+One of the most used licenses. 
+</li>
+<li>
+Known softwares with those licenses: Free BSD operating system. 
+</li>
+</ul>
+</li>
+<li>
+Apache <ul class="">
+<li>
+Basic Meaning:"Do whatever you want with the software, just do not sue me." 
+</li>
+<li>
+Give us credit by copying the license: YES 
+</li>
+</ul>
+</li>
+<li>
+GPL licenses (GPLv3, GPLv2, LGPL, Affero GPL) <ul class="">
+<li>
+You must provide the source code alongisde a copy of the license giving credit to the authors if you make any derived work of the code. 
+</li>
+<li>
+You can distribute your program with GPL compiled libraries without the source code if you don't change the library code and not static link with your application. 
+</li>
+<li>
+Many companies have policies against using GPL libraries due to the legal complexity which comes with their use. 
+</li>
+<li>
+Some GPL Libraries have dual license, GPL and commercial which allows static linking native libraies. 
+</li>
+<li>
+Known softwares: Linux, GLIBC - Linux's libraries, GNU project's softwares, MediaWiki (Wikipedia's engine). 
+</li>
+</ul>
+</li>
+<li>
+Unlicense - Public Doman <ul class="">
+<li>
+You have no obligations, just don't sue the author. All risks and liabilities are yours. 
+</li>
+<li>
+It is not required to give credit, but it costs nothing and it is always nice. 
+</li>
+<li>
+Known Product with Unlicense: SQLite 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_See_Also" class="document-heading anchor">See Also <a class="link-heading" href="#H_See_Also">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Open_Source_Licenses?start=115&end=end&anchor=H_See_Also&page=Open Source Licenses&timestamp=176061270628155" title="[i18n]: See Also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{3}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+<em>Free Software Licensing Resources</em> <ul class="">
+<li>
+<a href="https://www.fsf.org/licensing/education"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.fsf.org/licensing/education</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Right to root access</em> <ul class="">
+<li>
+<a href="https://medhir.com/blog/right-to-root-access"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://medhir.com/blog/right-to-root-access</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Right to root access</em> <ul class="">
+<li>
+<a href="https://news.ycombinator.com/item?id=42677835"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://news.ycombinator.com/item?id=42677835</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Open source licenses: Everything you need to know</em>, Techchrunch <ul class="">
+<li>
+<a href="https://techcrunch.com/2025/01/12/open-source-licenses-everything-you-need-to-know/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://techcrunch.com/2025/01/12/open-source-licenses-everything-you-need-to-know/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>A compendium of "open-source" licenses</em> <ul class="">
+<li>
+<a href="https://github.com/ErikMcClure/bad-licenses"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://github.com/ErikMcClure/bad-licenses</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Affirmation of the Open Source Definition</em> (2019) <ul class="">
+<li>
+<a href="https://opensource.org/blog/OSD_Affirmation"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://opensource.org/blog/OSD_Affirmation</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Open source licensing and why we're changing Plausible to the AGPL license</em> <ul class="">
+<li>
+<a href="https://plausible.io/blog/open-source-licenses"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://plausible.io/blog/open-source-licenses</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Open Source Software Licenses 101: The AGPL License</em> <ul class="">
+<li>
+<a href="https://fossa.com/blog/open-source-software-licenses-101-agpl-license/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://fossa.com/blog/open-source-software-licenses-101-agpl-license/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Understanding the SaaS Loophole in GPL</em> <ul class="">
+<li>
+<a href="https://www.revenera.com/blog/software-composition-analysis/understanding-the-saas-loophole-in-gpl/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.revenera.com/blog/software-composition-analysis/understanding-the-saas-loophole-in-gpl/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>The copyleft effect in cloud computing</em> <ul class="">
+<li>
+<a href="https://www.lexology.com/library/detail.aspx?g=68b1ae41-73a6-4b1f-8ae0-23d68e61fdeb"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.lexology.com/library/detail.aspx?g=68b1ae41-73a6-4b1f-8ae0-23d68e61fdeb</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>The essential guide to AGPL compliance for tech companies</em> (2024) <ul class="">
+<li>
+<a href="https://vaultinum.com/blog/essential-guide-to-agpl-compliance-for-tech-companies"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://vaultinum.com/blog/essential-guide-to-agpl-compliance-for-tech-companies</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Closing AGPL cloud services loop-hole: a MongoDB approach</em> <ul class="">
+<li>
+<a href="https://ipkitten.blogspot.com/2019/02/closing-agpl-cloud-services-loop-hole.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://ipkitten.blogspot.com/2019/02/closing-agpl-cloud-services-loop-hole.html</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<ul class="">
+<li>
+<em>Software patents are evil, but BSD+Patents is probably not the solution - Wes McKinney</em> <ul class="">
+<li>
+<a href="http://wesmckinney.com/blog/react-bsd-patents/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >http://wesmckinney.com/blog/react-bsd-patents/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>If you’re a startup, you should not use React (reflecting on the BSD + patents license)</em> <ul class="">
+<li>
+<a href="https://medium.com/@raulk/if-youre-a-startup-you-should-not-use-react-reflecting-on-the-bsd-patents-license-b049d4a67dd2"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://medium.com/@raulk/if-youre-a-startup-you-should-not-use-react-reflecting-on-the-bsd-patents-license-b049d4a67dd2</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>BSD licenses - Wikipedia</em> <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/BSD_licenses"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/BSD_licenses</a>) 
+</li>
+</ul>
+</li>
+<li>
+<em>Business Source License</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.m.wikipedia.org/wiki/Business_Source_License"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.m.wikipedia.org/wiki/Business_Source_License</a> + <em>The Business Source License (SPDX id BUSL[1]) is a software license which publishes source code but limits the right to use the software to certain classes of users. The BUSL is not an open-source license,[1] but it is source-available license that also mandates an eventual transition to an open-source license. This characteristic has been described as a compromise between traditional proprietary licenses and open source.[2] The originator of the BUSL is MariaDB Corporation AB, where it is used for the MaxScale product, not for the flagship MariaDB.[3]</em> 
+</li>
+</ul>
+</li>
+</ul>
+
+<ul class="">
+<li>
+<em>Server Side Public License (SSPL) vs. Open Source: A Guide for Investors</em> <ul class="">
+<li>
+<a href="https://www.alphanome.ai/post/server-side-public-license-sspl-vs-open-source-a-guide-for-investors"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.alphanome.ai/post/server-side-public-license-sspl-vs-open-source-a-guide-for-investors</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Unveiling Server Side Public License 1.0: Beyond the Code – A Holistic Exploration</em> <ul class="">
+<li>
+<a href="https://dev.to/laetitiaperraut/unveiling-server-side-public-license-10-beyond-the-code-a-holistic-exploration-54i5"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://dev.to/laetitiaperraut/unveiling-server-side-public-license-10-beyond-the-code-a-holistic-exploration-54i5</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>The Business Source License</em>, Matt Rickard <ul class="">
+<li>
+<a href="https://blog.matt-rickard.com/p/the-business-source-license"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://blog.matt-rickard.com/p/the-business-source-license</a> 
+</li>
+</ul>
+</li>
+</ul>
 
 
         </main>

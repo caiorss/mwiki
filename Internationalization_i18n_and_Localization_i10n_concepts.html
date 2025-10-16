@@ -16,40 +16,23 @@
    <style>
         
 @font-face {
-    font-family: 'Crimson';
+    font-family: 'CMU Concrete';
     
     font-style: normal;
     
     
-    font-weight: normal;
-    
-    src: url('/mwiki/static/fonts/crimson-roman.woff');
+    src: url('/mwiki/static/fonts/cmu-concrete-regular.woff');
 }
     
 
 
 @font-face {
-    font-family: 'Crimson';
+    font-family: 'CMU Concrete';
     
     font-style: italic;
     
     
-    font-weight: normal;
-    
-    src: url('/mwiki/static/fonts/crimson-roman.woff');
-}
-    
-
-
-@font-face {
-    font-family: 'Crimson';
-    
-    font-style: normal;
-    
-    
-    font-weight: bold;
-    
-    src: url('/mwiki/static/fonts/crimson-bold.woff');
+    src: url('/mwiki/static/fonts/cmu-concrete-regular.woff');
 }
     
 
@@ -89,7 +72,7 @@
     **/
 
     
-    --font-family-main: 'Crimson';
+    --font-family-main: 'CMU Concrete';
     
     
     --font-family-title: 'Chicago MacOS';
@@ -124,7 +107,7 @@
     <!-- MathJax Settings -->
     <script>
 
-    let FONT_FAMILY_MAIN = "Crimson"
+    let FONT_FAMILY_MAIN = "CMU Concrete"
     let FONT_FAMILY_TITLE = "Chicago MacOS"
     let FONT_FAMILY_CODE = "Libertinus Mono"
     let DEFAULT_LOCALE = "en-US";
@@ -321,8 +304,13 @@
 </li><li><a href="#H_Falsehoods_Many_Programmers_Believe_About_Names" class="link-sidebar" >Falsehoods Many Programmers Believe About Names</a>
 </li><li><a href="#H_American_English_Vs_British_English" class="link-sidebar" >American English Vs British English</a>
 </li><li><a href="#H_Software_Libraries" class="link-sidebar" >Software Libraries</a>
+</li><li><a href="#H_Footnotes" class="link-sidebar" >Footnotes</a>
 </li><li><a href="#H_See_also" class="link-sidebar" >See also</a>
+<ol>
+<li><a href="#H_Unicode" class="link-sidebar" >Unicode</a>
+</li><li><a href="#H_Internationalization_and_Localization__Reading" class="link-sidebar" >Internationalization and Localization  Reading</a>
 </li>
+</ol></li>
 </ol></ol>
         </div>
 
@@ -387,7 +375,7 @@
 
 <div class="div-heading"> 
 <h2 id="H_Terminology_of_Internationalization" class="document-heading anchor">Terminology of Internationalization <a class="link-heading" href="#H_Terminology_of_Internationalization">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=8&end=57&anchor=H_Terminology_of_Internationalization&page=Internationalization i18n and Localization i10n concepts&timestamp=176060095271650" title="[i18n]: Terminology of Internationalization" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{1}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=8&end=60&anchor=H_Terminology_of_Internationalization&page=Internationalization i18n and Localization i10n concepts&timestamp=176061840623342" title="[i18n]: Terminology of Internationalization" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{1}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -417,6 +405,8 @@
 <dd class="anchor">Left-To-Right Languages. Languages written from left to right. Example: Hebrew, Arabic, Persian, Urdu, Phoenician and so on.</dd>
 <dt class="anchor">NVL</dt>
 <dd class="anchor">National Language Version</dd>
+<dt class="anchor">ICU</dt>
+<dd class="anchor">International Components for Unicode</dd>
 <dt class="anchor">UTF-8</dt>
 <dd class="anchor">Unicode 8 bits. One "character" or symbol may use more than one byte. Unicode 8 bits is the most used text enconding format possibly due to the backward compatibility with the old ASCII text encoding. However, it makes programming harder since one cannot assume that i-th position of a unicode string corresponds to the i-th character because a single UTF-8 "character" may be represented by multiple bytes.</dd>
 <dt class="anchor">UTF-16</dt>
@@ -428,12 +418,12 @@
 
 <div class="div-heading"> 
 <h2 id="H_Internationalization_Issues" class="document-heading anchor">Internationalization Issues <a class="link-heading" href="#H_Internationalization_Issues">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=57&end=88&anchor=H_Internationalization_Issues&page=Internationalization i18n and Localization i10n concepts&timestamp=176060095271650" title="[i18n]: Internationalization Issues" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{2}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=60&end=92&anchor=H_Internationalization_Issues&page=Internationalization i18n and Localization i10n concepts&timestamp=176061840623342" title="[i18n]: Internationalization Issues" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{2}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
 
-<div class="div-wiki-image" div-figure><img id="figure-" class="wiki-image lazy-load anchor" data-src="#" alt="World Regional Languages"  ><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 1: World Regional Languages</p></div>
+<div class="div-wiki-image" div-figure><img id="figure-" class="wiki-image lazy-load anchor" data-src="/mwiki/pasted/pasted-image-1760618396013.jpg" alt="World Regional Languages"  ><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 1: World Regional Languages</p></div>
 
 <p>
 Brainstorm of Major Internationalization Issues
@@ -511,7 +501,7 @@ Cultural Assumptions
 
 <div class="div-heading"> 
 <h2 id="H_Common_Mistakes" class="document-heading anchor">Common Mistakes <a class="link-heading" href="#H_Common_Mistakes">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=88&end=98&anchor=H_Common_Mistakes&page=Internationalization i18n and Localization i10n concepts&timestamp=176060095271650" title="[i18n]: Common Mistakes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{3}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=92&end=102&anchor=H_Common_Mistakes&page=Internationalization i18n and Localization i10n concepts&timestamp=176061840623342" title="[i18n]: Common Mistakes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{3}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -536,10 +526,14 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <div class="div-heading"> 
 <h2 id="H_Common_Locales" class="document-heading anchor">Common Locales <a class="link-heading" href="#H_Common_Locales">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=98&end=184&anchor=H_Common_Locales&page=Internationalization i18n and Localization i10n concepts&timestamp=176060095271650" title="[i18n]: Common Locales" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{4}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=102&end=239&anchor=H_Common_Locales&page=Internationalization i18n and Localization i10n concepts&timestamp=176061840623342" title="[i18n]: Common Locales" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{4}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
+
+<p>
+Locale codes follow the convention &lt;language-code&gt;-&lt;countery-code&gt; with (-) dash character or &lt;language-code&gt;_&lt;country-code&gt; with the underline character (_).
+</p>
 
 
 <table>
@@ -560,15 +554,6 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <tr>
 
-<td>UK</td>
- 
-<td>en-UK</td>
- 
-<td>British English (UK - United Kingdom)</td>
-</tr>
- 
-<tr>
-
 <td>USA</td>
  
 <td>en-US</td>
@@ -578,11 +563,29 @@ Some reasons to avoid using IP address, geographic location or country for choos
  
 <tr>
 
+<td>UK</td>
+ 
+<td>en-UK</td>
+ 
+<td>British English (UK - United Kingdom)</td>
+</tr>
+ 
+<tr>
+
 <td>Ireland</td>
  
 <td>en-IE</td>
  
 <td>Irish English</td>
+</tr>
+ 
+<tr>
+
+<td>Ireland</td>
+ 
+<td>ga-IE</td>
+ 
+<td>Irish language (Irish Gaelic)</td>
 </tr>
  
 <tr>
@@ -598,7 +601,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Canada</td>
  
-<td>ca_FR</td>
+<td>fr-CA</td>
  
 <td>Canadian French (Français Canadien)</td>
 </tr>
@@ -672,23 +675,32 @@ Some reasons to avoid using IP address, geographic location or country for choos
  
 <td>en-IN</td>
  
-<td>Indian English</td>
+<td>English (India)</td>
 </tr>
  
 <tr>
 
 <td>India</td>
  
-<td>hi_IN</td>
+<td>hi-IN</td>
  
-<td>Hindi (Hindustani)</td>
+<td>Hindi<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup class="footnote-reference" data-counter="1" data-footnote="Hindustani">[1]</sup></a> (India)</td>
+</tr>
+ 
+<tr>
+
+<td>India</td>
+ 
+<td>ta-IN</td>
+ 
+<td>Tamil (India)</td>
 </tr>
  
 <tr>
 
 <td>Germany</td>
  
-<td>de_DE</td>
+<td>de-DE</td>
  
 <td>German (Deutsch)</td>
 </tr>
@@ -697,7 +709,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Austria</td>
  
-<td>de_AT</td>
+<td>de-AT</td>
  
 <td>Austrian German (Österreichisches Deutsch)</td>
 </tr>
@@ -706,7 +718,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Switzerland</td>
  
-<td>de_CH</td>
+<td>de-CH</td>
  
 <td>Switzerland German (Schweizerdeutsch)</td>
 </tr>
@@ -715,7 +727,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Switzerland</td>
  
-<td>fr_CH</td>
+<td>fr-CH</td>
  
 <td>Switzerland French  (Suisse français)</td>
 </tr>
@@ -724,7 +736,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Switzerland</td>
  
-<td>it_CH</td>
+<td>it-CH</td>
  
 <td>Switzerland Italian</td>
 </tr>
@@ -733,7 +745,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>France</td>
  
-<td>fr_FR</td>
+<td>fr-FR</td>
  
 <td>French (Français)</td>
 </tr>
@@ -742,7 +754,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Italy</td>
  
-<td>it_IT</td>
+<td>it-IT</td>
  
 <td>Italian (Italiano)</td>
 </tr>
@@ -751,25 +763,43 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Greece</td>
  
-<td>el_GR</td>
+<td>el-GR</td>
  
 <td>Modern Greek</td>
 </tr>
  
 <tr>
 
+<td>Türkiye</td>
+ 
+<td>tr-TR</td>
+ 
+<td>Turkish<a href="#" id="footnote-reference-link-2" class="footnote-link"><sup class="footnote-reference" data-counter="2" data-footnote="The country is formely known as Turkey.">[2]</sup></a></td>
+</tr>
+ 
+<tr>
+
 <td>Cyprus</td>
  
-<td>el_CY</td>
+<td>el-CY</td>
  
 <td>Modern Greek of Cyprus</td>
 </tr>
  
 <tr>
 
+<td>Cyprus</td>
+ 
+<td>tr-CY</td>
+ 
+<td>Turkish language (Cyprus)</td>
+</tr>
+ 
+<tr>
+
 <td>Spain</td>
  
-<td>es_ES</td>
+<td>es-ES</td>
  
 <td>Spanish (Español)</td>
 </tr>
@@ -778,7 +808,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Spain</td>
  
-<td>ca_ES</td>
+<td>ca-ES</td>
  
 <td>Catalan (Catalán in Spanish)</td>
 </tr>
@@ -805,7 +835,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Mexico</td>
  
-<td>es_MX</td>
+<td>es-MX</td>
  
 <td>Mexican Spanish (Español mexicano)</td>
 </tr>
@@ -823,7 +853,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Puerto Rico</td>
  
-<td>es_PR</td>
+<td>es-PR</td>
  
 <td>Puerto Rico Spanish (USA)</td>
 </tr>
@@ -832,7 +862,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Argentina</td>
  
-<td>es_AR</td>
+<td>es-AR</td>
  
 <td>Argentinian Spanish (Español argentino)</td>
 </tr>
@@ -841,7 +871,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Uruguay</td>
  
-<td>es_UY</td>
+<td>es-UY</td>
  
 <td>Uruguayian Spanish (Español uruguayo)</td>
 </tr>
@@ -850,7 +880,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Chile</td>
  
-<td>es_CL</td>
+<td>es-CL</td>
  
 <td>Chilean Spanish (Español chileno)</td>
 </tr>
@@ -859,7 +889,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Colombia</td>
  
-<td>es_CO</td>
+<td>es-CO</td>
  
 <td>Colombian Spanish (Español colombiano)</td>
 </tr>
@@ -868,7 +898,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Peru</td>
  
-<td>es_PE</td>
+<td>es-PE</td>
  
 <td>Peruvian Spanish (Español peruano)</td>
 </tr>
@@ -877,7 +907,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Ecuador</td>
  
-<td>es_EC</td>
+<td>es-EC</td>
  
 <td>Ecuadorian Spanish (Español ecuatoriano)</td>
 </tr>
@@ -886,7 +916,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Panama</td>
  
-<td>es_PA</td>
+<td>es-PA</td>
  
 <td>Panamenian Spanish (Español panameño)</td>
 </tr>
@@ -895,7 +925,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Venezuela</td>
  
-<td>es_VE</td>
+<td>es-VE</td>
  
 <td>Venezuelan Spanish (Español venezolano)</td>
 </tr>
@@ -904,54 +934,81 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <td>Portugal</td>
  
-<td>pt_PT</td>
+<td>pt-PT</td>
  
 <td>European Portuguese (Português Europeu)</td>
 </tr>
  
 <tr>
 
-<td>Brasil</td>
+<td>Angolar</td>
  
-<td>pt_BR</td>
+<td>pt-AO</td>
  
-<td>Brazilian Portuguese (Português Brasileiro)</td>
+<td>Portuguese (Angola)</td>
 </tr>
  
 <tr>
 
 <td>Capte Verde</td>
  
-<td>pt_CV</td>
+<td>pt-CV</td>
  
-<td>Cape Verde Portuguese (Português de Cabo Verde)</td>
+<td>Portuguese (Português de Cabo Verde)</td>
 </tr>
  
 <tr>
 
-<td>China</td>
+<td>Brasil</td>
  
-<td>zh_CN</td>
+<td>pt-BR</td>
  
-<td>Chinese (Mandarin Chinese of Mainland China)</td>
+<td>Brazilian Portuguese (Português Brasileiro)</td>
 </tr>
  
 <tr>
 
-<td>Hong Kong</td>
+<td>Japan</td>
  
-<td>zh_HK</td>
+<td>ja-JP</td>
  
-<td>Hong Kong Chinese</td>
+<td>Japanese language</td>
+</tr>
+ 
+<tr>
+
+<td>Singapore</td>
+ 
+<td>zh-SG</td>
+ 
+<td>Chinese (Singapore)</td>
 </tr>
  
 <tr>
 
 <td>Taiwan</td>
  
-<td>zh_TW</td>
+<td>zh-TW</td>
  
 <td>Taiwan Chinese</td>
+</tr>
+ 
+<tr>
+
+<td>Hong Kong</td>
+ 
+<td>zh-HK</td>
+ 
+<td>Hong Kong Chinese</td>
+</tr>
+ 
+<tr>
+
+<td>China</td>
+ 
+<td>zh-CN</td>
+ 
+<td>Chinese (Mandarin Chinese of Mainland China)</td>
 </tr>
 </tbody>
 </table>
@@ -968,10 +1025,13 @@ Most English variants around the world are based on the British English and uses
 India does not have any official language and Hindi is not the official language of India. Moreover, the majority of Indian population does not speak Hindi. 
 </li>
 <li>
-Hong Kong is not country. It is a SAR - Special Administrative Region of mainland China. 
+Hong Kong is not country. It is a SAR - Special Administrative Region of mainland China. Hong Kong has its own currency and onlympic team. In addition, in sports matches Hong Kong uses its own flag. 
 </li>
 <li>
-Puerto Rico is USA non incorporated territory. So, it is not a country. 
+Puerto Rico is not a country. The island is USA non incorporated territory, even though the island has its own olympic team. 
+</li>
+<li>
+Spanish locales don't have much difference other than country code, currency and paper size since most Spanish countries follows the <a href="https://en.wikipedia.org/wiki/Royal_Spanish_Academy"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Royal Spanish Academy</a><a href="#" id="footnote-reference-link-3" class="footnote-link"><sup class="footnote-reference" data-counter="3" data-footnote="Spanish: Real Academia Española">[3]</sup></a> 
 </li>
 </ol>
 
@@ -980,7 +1040,35 @@ Puerto Rico is USA non incorporated territory. So, it is not a country.
 </p>
 
 <p>
-It is possible to change the UI interface language of some application on Linux on command line by setting the environment variable LANG to the desired locale code. For instance, the following temporarily changes the Kwrite KDE text editor language to Swiss German even if the default language used during the Linux distribution installation was not German. This feature is useful for language learners for obtaining the common terminology used for localizing applications to a particular language.
+It is possible to change the UI interface language of some application on Linux on command line by setting the environment variable LANG to the desired locale code. The default system locale on Linux can be obtained by reading the environment variable $LANG.
+</p>
+
+<p>
+In bash shell or any other POSIX shell.
+</p>
+
+<pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$LANG</span>
+en_US.UTF-8
+</pre></div>
+</code>
+</pre>
+
+<p>
+In Python,
+</p>
+
+<pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>&gt;&gt;&gt;<span class="w"> </span>import<span class="w"> </span>os<span class="w"> </span>
+
+&gt;&gt;&gt;<span class="w"> </span>os.getenv<span class="o">(</span><span class="s2">&quot;LANG&quot;</span>,<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="o">)</span>
+<span class="s1">&#39;en_US.UTF-8&#39;</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+The following command temporarily changes the Kwrite KDE text editor language to Swiss German even if the default language used during the Linux distribution installation was not German. This feature is useful for learning new vocabulary of other languages.
 </p>
 
 <pre>
@@ -994,7 +1082,7 @@ Lanch kwite with language set to Swiss German detached from terminal (without bl
 </p>
 
 <pre>
-<code class="language-sh"><div class="highlight"><pre><span></span>$<span class="w"> </span>env<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>de_US.UTF-8<span class="w"> </span>kwrite<span class="w"> </span><span class="m">1</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="nb">disown</span>
+<code class="language-sh"><div class="highlight"><pre><span></span>$<span class="w"> </span>env<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>de_CH.UTF-8<span class="w"> </span>kwrite<span class="w"> </span><span class="m">1</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="nb">disown</span>
 </pre></div>
 </code>
 </pre>
@@ -1014,6 +1102,16 @@ Explanation:
 <code>&amp; disown</code> => Detach kwrite process from the terminal in order run this application as a daemon (background process/service) and to avoid blocking the terminal emulator and terminating the kwrite process if the terminal is closed. 
 </li>
 </ul>
+
+<p>
+<strong>Screenshot of KWrite using different locales</strong>
+</p>
+
+<div class="div-wiki-image" div-figure><img id="figure-" class="wiki-image lazy-load anchor" data-src="/mwiki/pasted/pasted-image-1760611139235.jpg" alt="KWrite started with en_US American English locale"  ><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 2: KWrite started with en_US American English locale</p></div>
+
+<div class="div-wiki-image" div-figure><img id="figure-" class="wiki-image lazy-load anchor" data-src="/mwiki/pasted/pasted-image-1760611027216.jpg" alt="KWrite started with de_DE German locale for Switzerland"  ><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 3: KWrite started with de_DE German locale for Switzerland</p></div>
+
+<div class="div-wiki-image" div-figure><img id="figure-" class="wiki-image lazy-load anchor" data-src="/mwiki/pasted/pasted-image-1760610949514.jpg" alt="KWrite started with es_ES Spanish locale for Spain"  ><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 4: KWrite started with es_ES Spanish locale for Spain</p></div>
 
 <p>
 <strong>See</strong>
@@ -1052,7 +1150,7 @@ Explanation:
 
 <div class="div-heading"> 
 <h2 id="H_Falsehoods_Many_Programmers_Believe_About_Names" class="document-heading anchor">Falsehoods Many Programmers Believe About Names <a class="link-heading" href="#H_Falsehoods_Many_Programmers_Believe_About_Names">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=184&end=240&anchor=H_Falsehoods_Many_Programmers_Believe_About_Names&page=Internationalization i18n and Localization i10n concepts&timestamp=176060095271650" title="[i18n]: Falsehoods Many Programmers Believe About Names" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{5}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=239&end=295&anchor=H_Falsehoods_Many_Programmers_Believe_About_Names&page=Internationalization i18n and Localization i10n concepts&timestamp=176061840623342" title="[i18n]: Falsehoods Many Programmers Believe About Names" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{5}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -1242,7 +1340,7 @@ People have at least one surname. Countereraxmple: In some countries, such as In
 
 <div class="div-heading"> 
 <h2 id="H_American_English_Vs_British_English" class="document-heading anchor">American English Vs British English <a class="link-heading" href="#H_American_English_Vs_British_English">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=240&end=262&anchor=H_American_English_Vs_British_English&page=Internationalization i18n and Localization i10n concepts&timestamp=176060095271650" title="[i18n]: American English Vs British English" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{6}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=295&end=317&anchor=H_American_English_Vs_British_English&page=Internationalization i18n and Localization i10n concepts&timestamp=176061840623342" title="[i18n]: American English Vs British English" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{6}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -1392,7 +1490,7 @@ People have at least one surname. Countereraxmple: In some countries, such as In
 
 <div class="div-heading"> 
 <h2 id="H_Software_Libraries" class="document-heading anchor">Software Libraries <a class="link-heading" href="#H_Software_Libraries">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=262&end=271&anchor=H_Software_Libraries&page=Internationalization i18n and Localization i10n concepts&timestamp=176060095271650" title="[i18n]: Software Libraries" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{7}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=317&end=326&anchor=H_Software_Libraries&page=Internationalization i18n and Localization i10n concepts&timestamp=176061840623342" title="[i18n]: Software Libraries" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{7}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -1418,11 +1516,144 @@ Gettext
 </ul>
 
 <div class="div-heading"> 
-<h2 id="H_See_also" class="document-heading anchor">See also <a class="link-heading" href="#H_See_also">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=271&end=end&anchor=H_See_also&page=Internationalization i18n and Localization i10n concepts&timestamp=176060095271650" title="[i18n]: See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{8}\)</span>
+<h2 id="H_Footnotes" class="document-heading anchor">Footnotes <a class="link-heading" href="#H_Footnotes">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=326&end=331&anchor=H_Footnotes&page=Internationalization i18n and Localization i10n concepts&timestamp=176061840623342" title="[i18n]: Footnotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{8}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
+
+<div class="footnotes">
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-1">[1]</a> Hindustani</p>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-2">[2]</a> The country is formely known as Turkey.</p>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-3">[3]</a> Spanish: Real Academia Española</p></div>
+
+<div class="div-heading"> 
+<h2 id="H_See_also" class="document-heading anchor">See also <a class="link-heading" href="#H_See_also">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=331&end=end&anchor=H_See_also&page=Internationalization i18n and Localization i10n concepts&timestamp=176061840623342" title="[i18n]: See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{9}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Unicode" class="document-heading anchor">Unicode <a class="link-heading" href="#H_Unicode">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=333&end=367&anchor=H_Unicode&page=Internationalization i18n and Localization i10n concepts&timestamp=176061840623342" title="[i18n]: Unicode" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+</div>
+
+<ul class="">
+<li>
+<em>UTF-8, Explained Simply</em>, Nic Baker - Youtube Video <ul class="">
+<li>
+<a href="https://www.youtube.com/watch?v=vpSkBV5vydg"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.youtube.com/watch?v=vpSkBV5vydg</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>"The History of UTF-8, as told by Rob Pike"</em> (2003) <ul class="">
+<li>
+<a href="https://doc.cat-v.org/bell_labs/utf-8_history"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://doc.cat-v.org/bell_labs/utf-8_history</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>"The History of UTF-8, as told by Rob Pike"</em> (2003) <ul class="">
+<li>
+<a href="https://www.cl.cam.ac.uk/%7Emgk25/ucs/utf-8-history.txt"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.cl.cam.ac.uk/~mgk25/ucs/utf-8-history.txt</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Be aware of sorting locales</em>, Adrian Stoll <ul class="">
+<li>
+<a href="https://www.adrianstoll.com/post/beware-of-sorting-locales/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.adrianstoll.com/post/beware-of-sorting-locales/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>locale(7) — Linux manual page</em> <ul class="">
+<li>
+<a href="https://man7.org/linux/man-pages/man7/locale.7.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://man7.org/linux/man-pages/man7/locale.7.html</a> 
+</li>
+<li>
+<em>A locale is a set of language and cultural rules.  These cover aspects such as language for messages, different character sets, lexicographic conventions, and so on. A program needs to be able to determine its locale and act accordingly to be portable to different cultures.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Iterating strings and manually decoding UTF-8</em>, Zylinski <ul class="">
+<li>
+<a href="https://zylinski.se/posts/iterating-strings-and-manually-decoding-utf8/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://zylinski.se/posts/iterating-strings-and-manually-decoding-utf8/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Python's splitlines does a lot more than just newlines</em>, yossarian.net <ul class="">
+<li>
+<a href="https://yossarian.net/til/post/python-s-splitlines-does-a-lot-more-than-just-newlines/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://yossarian.net/til/post/python-s-splitlines-does-a-lot-more-than-just-newlines/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>The Country That Broke Kotlin</em>, Sam Cooper <ul class="">
+<li>
+<a href="https://sam-cooper.medium.com/the-country-that-broke-kotlin-84bdd0afb237"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://sam-cooper.medium.com/the-country-that-broke-kotlin-84bdd0afb237</a> 
+</li>
+<li>
+<em>Logic vs language: how a Turkish alphabet bug played a years-long game of hide-and-seek inside the Kotlin compiler.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Does Your Code Pass The Turkey Test?</em>, Moserware (2008) <ul class="">
+<li>
+<a href="https://www.moserware.com/2008/02/does-your-code-pass-turkey-test.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.moserware.com/2008/02/does-your-code-pass-turkey-test.html</a> 
+</li>
+<li>
+<em>Over the past 6 years or so, I’ve failed each item on “The Turkey Test.” It’s very simple: will your code work properly on a person’s machine in or around the country of Turkey? Take this simple test.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>SMS Turkish Disaster</em> <ul class="">
+<li>
+<a href="https://revealingerrors.com/turkish_sms_disaster"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://revealingerrors.com/turkish_sms_disaster</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Strcasecmp in Turkish</em>, Daniel Stenberg (2008) - Curl Project <ul class="">
+<li>
+<a href="https://daniel.haxx.se/blog/2008/10/15/strcasecmp-in-turkish/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://daniel.haxx.se/blog/2008/10/15/strcasecmp-in-turkish/</a> 
+</li>
+<li>
+<em>A friendly user submitted the (lib)curl bug report <a href="http://curl.haxx.se/bug/view.cgi?id=2154627"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >2154627</a> which identified a problem with our URL parser. It doesn’t treat “file://” as a known protocol if the locale in use is Turkish.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Internationalization for Turkish: Dotted and Dotless Letter "I"</em>, I18nGuy <ul class="">
+<li>
+<a href="http://www.i18nguy.com/unicode/turkish-i18n.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >http://www.i18nguy.com/unicode/turkish-i18n.html</a> 
+</li>
+<li>
+<em>Many software and web applications that are already internationalized and are successfully supporting many languages, often suffer catastrophic failure when they add support for the Turkish language. This page explains the difficulty of supporting the Turkish language and typical solutions. There are 3 sections: A brief overview of Turkish characters and encodings. Turkish language problem and solutions. A brief history of the Turkish language is offered as background material.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Locale-agnostic case conversions by default</em> <ul class="">
+<li>
+<a href="https://github.com/Kotlin/KEEP/blob/main/proposals/stdlib/KEEP-0223-locale-agnostic-case-conversions.md"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://github.com/Kotlin/KEEP/blob/main/proposals/stdlib/KEEP-0223-locale-agnostic-case-conversions.md</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Internationalization_and_Localization__Reading" class="document-heading anchor">Internationalization and Localization  Reading <a class="link-heading" href="#H_Internationalization_and_Localization__Reading">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=367&end=end&anchor=H_Internationalization_and_Localization__Reading&page=Internationalization i18n and Localization i10n concepts&timestamp=176061840623342" title="[i18n]: Internationalization and Localization  Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+</div>
 
 <ul class="">
 <li>
@@ -1433,12 +1664,111 @@ Gettext
 </ul>
 </li>
 <li>
+<em>International Components for Unicode</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/International_Components_for_Unicode"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/International_Components_for_Unicode</a> 
+</li>
+<li>
+<em>International Components for Unicode (ICU) is an open-source project of mature C/C++ and Java libraries for Unicode support, software internationalization, and software globalization. ICU is widely portable to many operating systems and environments. It gives applications the same results on all platforms and between C, C++, and Java software. The ICU project is a technical committee of the Unicode Consortium and sponsored, supported, and used by IBM and many other companies.[2] ICU has been included as a standard component with Microsoft Windows since Windows 10 version 1703.[3]</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>ICU-TC Home Page</em> <ul class="">
+<li>
+<a href="https://icu.unicode.org/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://icu.unicode.org/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>A complete guide to ICU message format & syntax with examples</em>, Llya Kurowski (2024) <ul class="">
+<li>
+<a href="https://lokalise.com/blog/complete-guide-to-icu-message-format/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://lokalise.com/blog/complete-guide-to-icu-message-format/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>ICU message format: Guide to plurals, dates & localization syntax</em>, Kinga Pomkala (2023), SimpleLocalize <ul class="">
+<li>
+<a href="https://simplelocalize.io/blog/posts/what-is-icu/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://simplelocalize.io/blog/posts/what-is-icu/</a> 
+</li>
+<li>
+<em>ICU message format is the standard way developers handle plurals, dates, numbers, and other localized text in software. It's part of the internationalization (i18n) toolkit that ensures your messages are grammatically correct, culturally accurate, and easy to translate, no matter the language or region. By using ICU, you can avoid common localization bugs like “1 rooms” or incorrect date formats, while keeping translations consistent across all platforms. Used by Google, Microsoft, and countless frameworks like React Intl and Angular, ICU allows you to define all variations of a message in one place, making life easier for both developers and translators.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>International Components for Unicode APIs</em>, IBM (2022) <ul class="">
+<li>
+<a href="https://www.ibm.com/docs/en/i/7.5.0?topic=category-international-components-unicode-apis"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.ibm.com/docs/en/i/7.5.0?topic=category-international-components-unicode-apis</a> 
+</li>
+<li>
+<em>The International Components for Unicode (ICU), IBM® i option 39, is a C and C++ library that provides Unicode services for writing global applications in ILE programming languages. ICU offers flexibility to extend and customize the supplied services, which include: ...</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>The Ultimate Guide to ICU Message Format</em>, Crowdin Blog (2022) <ul class="">
+<li>
+<a href="https://crowdin.com/blog/2022/04/13/icu-guide"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://crowdin.com/blog/2022/04/13/icu-guide</a> 
+</li>
+<li>
+<em>What Does ICU Stand for? As ICU documentation states, ICU means International Components for Unicode – a widely used set of C/C++ and Java libraries providing Unicode and globalization support for software and applications. ICU is released under a nonrestrictive open source license that is suitable for use with both commercial software and open source or free software.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Finally Doing Pluralization Right How the ICU plural syntax works</em>, Alan Allegret (2021) <ul class="">
+<li>
+<a href="https://medium.com/expedia-group-tech/finally-doing-pluralization-right-948e2e9d40bb"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://medium.com/expedia-group-tech/finally-doing-pluralization-right-948e2e9d40bb</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>A Practical Guide to the ICU Message Format</em>, Mohamed Ashour (2025), Phrase <ul class="">
+<li>
+<a href="https://phrase.com/blog/posts/guide-to-the-icu-message-format/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://phrase.com/blog/posts/guide-to-the-icu-message-format/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Unicode and internationalization support</em>, Android API Docs <ul class="">
+<li>
+<a href="https://developer.android.com/guide/topics/resources/internationalization"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://developer.android.com/guide/topics/resources/internationalization</a> 
+</li>
+<li>
+<em>Android leverages the ICU library and CLDR project to provide Unicode and other internationalization support. This page's discussion of Unicode and internationalization support is divided into two sections: Android 6.0 (API level 23) and lower, and Android 7.0 (API level 24) and higher.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Java Localization – Formatting Messages</em>, Baeldung <ul class="">
+<li>
+<a href="https://www.baeldung.com/java-localization-messages-formatting"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.baeldung.com/java-localization-messages-formatting</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>10 UI Localization Best Practices for Developers</em>, Nimrod Kramer (2024) <ul class="">
+<li>
+<a href="https://daily.dev/blog/10-ui-localization-best-practices-for-developers"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://daily.dev/blog/10-ui-localization-best-practices-for-developers</a> 
+</li>
+</ul>
+</li>
+<li>
 <em>Personal names around the world</em>, W3C <ul class="">
 <li>
 <a href="https://www.w3.org/International/questions/qa-personal-names"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.w3.org/International/questions/qa-personal-names</a> 
 </li>
 <li>
 <em>How do people's names differ around the world, and what are the implications of those differences on the design of forms, databases, ontologies, etc. for the Web?</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Implementing UI translation in SumatraPDF, a C++ Windows application</em>, Kowalcyzky.info <ul class="">
+<li>
+<a href="https://blog.kowalczyk.info/a-vn0v/implementing-ui-translation-in-sumatrapdf-a-c-windows-application.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://blog.kowalczyk.info/a-vn0v/implementing-ui-translation-in-sumatrapdf-a-c-windows-application.html</a> 
 </li>
 </ul>
 </li>
@@ -1659,6 +1989,23 @@ Brief: * Usually, programs are written and documented in English, and use Englis
 </li>
 <li>
 <em>Next.js enables you to configure the routing and rendering of content to support multiple languages. Making your site adaptive to different locales includes translated content (localization) and internationalized routes.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Integrating Localization Into Design Systems</em>, Rebecca Hemstand and Mark Malek <ul class="">
+<li>
+<a href="https://www.smashingmagazine.com/2025/05/integrating-localization-into-design-systems/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.smashingmagazine.com/2025/05/integrating-localization-into-design-systems/</a> 
+</li>
+<li>
+<em>Learn how two designers tackled the challenges of building a <span class="text-highlight">localization-ready design system</span> for a global audience. This case study dives into how Rebecca and Mark combined Figma Variables and design tokens to address <span class="text-highlight">multilingual design issues</span>, such as text overflow, RTL layouts, and font inconsistencies. They share key lessons learned and the hurdles they faced — including Figma’s limitations — along with the solutions they developed to create dynamic, scalable designs that adapt <span class="text-highlight">seamlessly across languages</span>, themes, and densities. If you’re navigating the complexities of internationalization in design systems, this article is for you.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Right-to-Left (RTL) Localization: The Definitive Guide</em> <ul class="">
+<li>
+<a href="https://centus.com/blog/right-to-left-languages-translation"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://centus.com/blog/right-to-left-languages-translation</a> 
 </li>
 </ul>
 </li>
