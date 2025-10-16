@@ -45,3 +45,4 @@ tags_cache.json
 */.data/*
 *.data 
 search_index/*
+dist/*
