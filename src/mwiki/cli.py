@@ -562,6 +562,11 @@ def render_font_data(key, root: str = ""):
 @click.option("--allow-language-switch", is_flag = True, help = "Allow end-user to switch the user interface language.")
 @click.option("--embed-mathjax", is_flag = True, help = ("Self host mathjax library for rendering math formulas instead"
                                                         "of loading MathJax from a CDN."))
+@click.option("--author", default = None, help = (
+                                            'Override the frontmatter attribute author in all wiki pages. '
+                                            'The author field is compiled to <meta name="author" content="AUTHOR NAME"> '
+                                            'This setting only makes sense if there is a single author.'
+                                            ))
 def compile(  wikipath:              Optional[str]
             , output:                Optional[str]
             , website_name:          str
@@ -574,6 +579,7 @@ def compile(  wikipath:              Optional[str]
             , list_fonts:            bool 
             , allow_language_switch: bool
             , embed_mathjax:         bool
+            , author:                str 
             ):
     """Compile a MWiki repository to a static website."""
     if list_fonts:
@@ -660,6 +666,7 @@ def compile(  wikipath:              Optional[str]
     print()
     print("Compilation Settings")
     print()
+    print(" [*]                Author: ", author or "")
     print(" [*] Allow language switch: ", allow_language_switch)
     print(" [*]         Embed Mathjax: ", embed_mathjax)
     print(" [*] Load Mathjax from CDN: ", not embed_mathjax)
@@ -703,7 +710,7 @@ def compile(  wikipath:              Optional[str]
                , "favicon":              icon_path 
                , "favicon_mimetype":     icon_mimetype
                , "page_description":     renderer.description
-               , "page_author":          renderer.author
+               , "page_author":          renderer.author or author 
                , "toc":                  toc 
                , "content":              content               
                , "mathjax_enabled":      renderer.needs_mathjax
