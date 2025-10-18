@@ -544,7 +544,6 @@ def render_font_data(key, root: str = ""):
     return out 
 
 
-
 @cli1.command()
 @click.option("--wikipath", default = None, 
                 help = ( "Path to folder containing *.md files." )
@@ -561,6 +560,8 @@ def render_font_data(key, root: str = ""):
 @click.option("--title-font", default = "news-reader", help="Title font used in document section headings.") 
 @click.option("--list-fonts", is_flag = True, help="List all available fonts.") 
 @click.option("--allow-language-switch", is_flag = True, help = "Allow end-user to switch the user interface language.")
+@click.option("--embed-mathjax", is_flag = True, help = ("Self host mathjax library for rendering math formulas instead"
+                                                        "of loading MathJax from a CDN."))
 def compile(  wikipath:              Optional[str]
             , output:                Optional[str]
             , website_name:          str
@@ -572,6 +573,7 @@ def compile(  wikipath:              Optional[str]
             , title_font:            str 
             , list_fonts:            bool 
             , allow_language_switch: bool
+            , embed_mathjax:         bool
             ):
     """Compile a MWiki repository to a static website."""
     if list_fonts:
@@ -607,6 +609,8 @@ def compile(  wikipath:              Optional[str]
     mwiki.utils.copy_resource_files_ext(mwiki, "static/*.svg", static)
     mwiki.utils.copy_resource_file(mwiki, "static/main.js", static )
     mwiki.utils.copy_resource_file(mwiki, "static/static_style.css", static )
+    if embed_mathjax:
+        mwiki.utils.copy_resource_directory(mwiki, "static/mathjax", static / "mathjax" )
     images = out / "images"
     pasted = out / "pasted"
     src_upload = root / "upload"
@@ -710,6 +714,7 @@ def compile(  wikipath:              Optional[str]
                , "config_title_font":    lambda: title_font_family
                , "default_locale":       lambda: locale
                , "use_default_locale":   lambda: True
+               , "embed_mathjax":        embed_mathjax 
               }
         html = tpl.render(env)
         outfile.write_text(html)

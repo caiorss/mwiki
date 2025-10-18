@@ -215,8 +215,16 @@ def get_path_to_resource_file(module: Package, resource_file: str) -> pathlib.Pa
     path = module_path / resource_file
     return path 
 
+def copy_resource_directory(module: Package, resource_directory: str, dest: pathlib.Path):
+    """Copy resource directory from a given module/package to destination path."""
+    module_path = pathlib.Path(module.__file__).resolve().parent
+    path = module_path / resource_directory
+    shutil.copytree(path, dest)    
+    
+
 def copy_resource_file(module: Package, resource_file: str, dest: pathlib.Path):
-    src = get_path_to_resource_file(module,resource_file)
+    """Copy module resource file to a destination path."""
+    src = get_path_to_resource_file(module, resource_file)
     shutil.copy(src, dest)
 
 def copy_resource_files_ext(module: Package, file_extesion: str, dest: pathlib.Path):
