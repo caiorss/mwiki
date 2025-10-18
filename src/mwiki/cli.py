@@ -670,6 +670,7 @@ def compile(  wikipath:              Optional[str]
     print("Compilation Settings")
     print()
     print(" [*]                Author: ", author or "")
+    print(" [*]              Root URL: ", "/" if root_url == "" else root_url)
     print(" [*] Allow language switch: ", bool_to_on_off(allow_language_switch))
     print(" [*]         Embed Mathjax: ", bool_to_on_off(embed_mathjax))
     print(" [*] Load Mathjax from CDN: ", bool_to_on_off(not embed_mathjax))
