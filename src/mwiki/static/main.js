@@ -939,7 +939,7 @@ async function displayEditButtons()
 
 
 document.addEventListener("DOMContentLoaded", async function()
-  {
+{
     
     
     lazyLoadImages();
@@ -1035,8 +1035,6 @@ document.addEventListener("DOMContentLoaded", async function()
         localStorageSet(KEY_USER_LOCALE, locale);
     });
 
-
-
     keybindDisplayWindow = new PopupWindow({
           title: "Keybindings"
         , height: "300px"
@@ -1102,23 +1100,17 @@ document.addEventListener("DOMContentLoaded", async function()
         let label = geti18nTranslation("new-note-popup-window-label");
         // Enter the name of the note be created.
         let instruction = geti18nTranslation("new-note-popup-window-instruction");
-		btnCreateNote.addEventListener("click", () => {
-        popupInput(
+		    btnCreateNote.addEventListener("click", () => {
+            popupInput(
                   title
                 , instruction
                 , label
                 , (noteName) => {
-                    //let resp = await http_post(`/api/wiki/${noteName}`);
-                    //if (resp.status === "error"){
-                    //    popupMessage("Error", resp.error); 
-                    //    return;
-                    //} 
                     let url =  `/create/${noteName}`;
-                    //alert("Redirecting to URL: " + url);
-                    redirect(url);
-                });
-		});
-	}
+                    document.location.href = url;
+		            });
+	    });
+    }
 	
     if( isMobileScreen() ) { setHeadingsVisibility(false); }
     _visibilityFlag =  !isMobileScreen();
