@@ -231,12 +231,12 @@
         {% else %}
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml-full.js"
             integrity="sha256-kbAFUDxdHwlYv01zraGjvjNZayxKtdoiJ38bDTFJtaQ="
-            crossorigin="anonymous">
+            crossorigin="anonymous" async>
         </script>
         {% endif %}
     {% endif %}
 
-    {% if False and latex_algorithm %}
+    {% if latex_algorithm %}
         <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
         <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js" async> </script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
