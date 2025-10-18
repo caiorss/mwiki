@@ -219,7 +219,10 @@ def copy_resource_directory(module: Package, resource_directory: str, dest: path
     """Copy resource directory from a given module/package to destination path."""
     module_path = pathlib.Path(module.__file__).resolve().parent
     path = module_path / resource_directory
-    shutil.copytree(path, dest)    
+    try:
+        shutil.copytree(path, dest)    
+    except FileExistsError:
+        pass 
     
 
 def copy_resource_file(module: Package, resource_file: str, dest: pathlib.Path):
