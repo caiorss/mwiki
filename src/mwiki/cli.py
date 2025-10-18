@@ -544,6 +544,8 @@ def render_font_data(key, root: str = ""):
     return out 
 
 
+
+
 @cli1.command()
 @click.option("--wikipath", default = None, 
                 help = ( "Path to folder containing *.md files." )
@@ -582,6 +584,7 @@ def compile(  wikipath:              Optional[str]
             , author:                str 
             ):
     """Compile a MWiki repository to a static website."""
+    bool_to_on_off = lambda x: "on" if x else "off"
     if list_fonts:
         print("%30s%30s"  % ("KEY", "FONT FAMILY"))            
         for fdata in fonts_database:
@@ -667,9 +670,9 @@ def compile(  wikipath:              Optional[str]
     print("Compilation Settings")
     print()
     print(" [*]                Author: ", author or "")
-    print(" [*] Allow language switch: ", allow_language_switch)
-    print(" [*]         Embed Mathjax: ", embed_mathjax)
-    print(" [*] Load Mathjax from CDN: ", not embed_mathjax)
+    print(" [*] Allow language switch: ", bool_to_on_off(allow_language_switch))
+    print(" [*]         Embed Mathjax: ", bool_to_on_off(embed_mathjax))
+    print(" [*] Load Mathjax from CDN: ", bool_to_on_off(not embed_mathjax))
     print(" [*]     Main font  family: ", main_font_family)
     print(" [*]     Title Font Family: ", title_font_family)
     print(" [*]      Code Font Family: ", code_font_family)
