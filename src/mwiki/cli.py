@@ -661,6 +661,8 @@ def compile(  wikipath:              Optional[str]
     print("Compilation Settings")
     print()
     print(" [*] Allow language switch: ", allow_language_switch)
+    print(" [*]         Embed Mathjax: ", embed_mathjax)
+    print(" [*] Load Mathjax from CDN: ", not embed_mathjax)
     print(" [*]     Main font  family: ", main_font_family)
     print(" [*]     Title Font Family: ", title_font_family)
     print(" [*]      Code Font Family: ", code_font_family)
