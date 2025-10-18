@@ -1668,11 +1668,12 @@ class HtmlRenderer(AbstractAstRenderer):
             inner = "".join([ self.render(n) for n in node.children ])
         else:
             inner = "".join([ self.render(n) for n in node.children[1:] ])
+        root_url = "" if self._root_url == "/" else self._root_url
         iconsdb = {
-              "info": """<img class="admonition-icon" src="/static/icon-info.svg"/> """
-            , "note": """<img class="admonition-icon" src="/static/icon-info.svg"/> """
-            , "tip":  """<img class="admonition-icon" src="/static/icon-lightbulb.svg"/> """
-            , "warning":  """<img class="admonition-icon" src="/static/icon-warning1.svg"/> """
+              "info":     f"""<img class="admonition-icon" src="{root_url}/static/icon-info.svg"/> """
+            , "note":     f"""<img class="admonition-icon" src="{root_url}/static/icon-info.svg"/> """
+            , "tip":      f"""<img class="admonition-icon" src="{root_url}/static/icon-lightbulb.svg"/> """
+            , "warning":  f"""<img class="admonition-icon" src="{root_url}/static/icon-warning1.svg"/> """
         }
         icon = iconsdb.get(admonition_type, "")
         title = f"""\n<span class="admonition-title">{icon}{admonition_title}{edit_link}</span>\n""" \
