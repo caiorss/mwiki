@@ -160,7 +160,7 @@ Locale codes follow the convention {raw}`<language-code>-<countery-code>` with (
 | Portugal     | pt-PT                | European Portuguese (Português Europeu)         |
 | Angolar      | pt-AO                | Portuguese (Angola)                             |
 | Capte Verde  | pt-CV                | Portuguese (Português de Cabo Verde)            |                                        |
-| Brasil       | pt-BR                | Brazilian Portuguese (Português Brasileiro)     |                    
+| Brazil       | pt-BR                | Brazilian Portuguese (Português Brasileiro)     |                    
 | Japan        | ja-JP                | Japanese language                               |
 | Singapore    | zh-SG                | Chinese (Singapore)                             |
 | Taiwan       | zh-TW                | Taiwan Chinese                                  |
@@ -245,7 +245,7 @@ KWrite started with es_ES Spanish locale for Spain
   + https://learn.microsoft.com/en-us/globalization/locale/standard-locale-names
 + *ISO Country and Language Codes: The Definitive Guide*
   + https://centus.com/blog/iso-language-codes
-                 
+                  
 ## Falsehoods Many Programmers Believe About Names
 
 1. Names are only written using ascii characters. Counterexample: "João" (portuguese version of John) or " Björk" (Icelandic given name).
@@ -322,13 +322,20 @@ KWrite started with es_ES Spanish locale for Spain
 + *O'Neill (surname)*, Wikipedia
   + https://en.wikipedia.org/wiki/O%27Neill_(surname)
 + *Akira (given Japanese name)*, Wikipedia
-  + <https://en.wikipedia.org/wiki/Akira_(given_name)>        
+  + <https://en.wikipedia.org/wiki/Akira_(given_name)> 
++ *Category:Compound given names*, Wikipedia
+  + https://en.wikipedia.org/wiki/Category:Compound_given_names
++ *How do I correctly abbreviate compounded first name for academic publications?*, Academia
+  + https://academia.stackexchange.com/questions/154619/how-do-i-correctly-abbreviate-compounded-first-name-for-academic-publications
+ 
 ## American English Vs British English 
 
 | American English    | British English      |
 | ------------------- | -------------------- |
 | internalization     | internationalisation |
 | localization        | localisation         |
+| meter               | metre                |
+| meters              | metres               |
 | program             | programme            |
 | center              | centre               |
 | color               | colour               |
@@ -343,8 +350,10 @@ KWrite started with es_ES Spanish locale for Spain
 | while               | while, whilst        |  
 | football            | American football    |   
 | soccer              | football             |  
-| roomates            | rommates, flatmates  |  
-| fall                | autumn               | 
+| roommates           | roommates, flatmates |  
+| fall                | autumn               |
+| truck               | lorry                |
+| truck               | shorthand for pickup truck | 
 ## Software Libraries
 
 JavaScript
@@ -409,6 +418,10 @@ Python
   + *The Unicode ==Common Locale Data Repository== (CLDR) provides key building blocks for software to support the world’s languages with the largest and most extensive standard repository of locale data available. This data is supplied by contributors for their languages via the CLDR SurveyTool. CLDR is used by a wide spectrum of companies for their ==software internationalization and localization==, adapting software to the conventions of different languages for such common software tasks. It includes: Locale-specific patterns for formatting and parsing: dates, times, timezones, numbers and currency values, measurement units,… Translations of names: languages, scripts, countries and regions, currencies, eras, months, weekdays, day periods, time zones, cities, and time units, emoji characters and sequences (and search keywords),… Language & script information: characters used; plural cases; gender of lists; capitalization; rules for sorting & searching; writing direction; transliteration rules; rules for spelling out numbers; rules for segmenting text into graphemes, words, and sentences; keyboard layouts… Country information: language usage, currency information, calendar preference, week conventions,… Validity: Definitions, aliases, and validity information for Unicode locales, languages, scripts, regions, and extensions,…*
 + *Language Plural Rules*, ICU Project
   + https://www.unicode.org/cldr/cldr-aux/charts/29/supplemental/language_plural_rules.html
++ *ICU4J Readme*, ICU Documentation (Java implementation of ICU Library)
+  + https://unicode-org.github.io/icu/userguide/icu4j/
++ *Formatting Messages*, ICU Documentation
+  + https://unicode-org.github.io/icu/userguide/format_parse/messages/
 + *A complete guide to ICU message format & syntax with examples*, Llya Kurowski (2024)
   + https://lokalise.com/blog/complete-guide-to-icu-message-format/
 + *ICU message format: Guide to plurals, dates & localization syntax*, Kinga Pomkala (2023), SimpleLocalize
@@ -429,8 +442,15 @@ Python
   + *Android leverages the ICU library and CLDR project to provide Unicode and other internationalization support. This page's discussion of Unicode and internationalization support is divided into two sections: Android 6.0 (API level 23) and lower, and Android 7.0 (API level 24) and higher.*
 + *Java Localization – Formatting Messages*, Baeldung
   + https://www.baeldung.com/java-localization-messages-formatting
++ *Tutorial on Python i18n: How to Use Gettext Python Module*, Crowdin Blog (2022)
+  + https://crowdin.com/blog/2022/09/28/python-app-translation-tutorial
++ *Localization as code: a composable approach to localization*, Matt Owen (2025) - Pharse
+  + https://phrase.com/blog/posts/localization-as-code-composable-workflow/
 + *10 UI Localization Best Practices for Developers*, Nimrod Kramer (2024)
   + https://daily.dev/blog/10-ui-localization-best-practices-for-developers
++ *Introduction*, I18N Next Documentation
+  + https://www.i18next.com/
+  + *i18next is an internationalization-framework written in and for JavaScript. But it's much more than that! i18next goes beyond just providing the standard i18n features such as (plurals, context, interpolation, format). It provides you with a complete solution to localize your product from web to mobile and desktop.*
 + *Personal names around the world*, W3C
   + https://www.w3.org/International/questions/qa-personal-names
   + *How do people's names differ around the world, and what are the implications of those differences on the design of forms, databases, ontologies, etc. for the Web?*
@@ -508,7 +528,7 @@ Python
 + *k-yak / stati18n Public* (2014)
   + https://github.com/k-yak/stati18n   
  
-  
+   
 ### Numbers and Mesurement
 
 + *International System of Units*, Wikipedia
