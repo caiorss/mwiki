@@ -558,12 +558,12 @@ def render_font_data(key, root: str = ""):
 @click.option("--locale", default = "en-US", help="Default locale of the user interface. (Default value 'en-US')") 
 @click.option("--icon", default = None, help="Favicon of the static website. (Default value MWiki icon)") 
 @click.option("--main-font", default = "literata", help="Main font used in document text.") 
-@click.option("--code-font", default = "libertinus-mono", help="Code monospace used in code blocks.") 
+@click.option("--code-font", default = "libertinus-mono", help="Code monospace font used in code blocks.") 
 @click.option("--title-font", default = "news-reader", help="Title font used in document section headings.") 
 @click.option("--list-fonts", is_flag = True, help="List all available fonts.") 
 @click.option("--allow-language-switch", is_flag = True, help = "Allow end-user to switch the user interface language.")
-@click.option("--embed-mathjax", is_flag = True, help = ("Self host mathjax library for rendering math formulas instead"
-                                                        "of loading MathJax from a CDN."))
+@click.option("--embed-mathjax", is_flag = True, help = ("Self host Mathjax library for rendering math formulas instead "
+                                                        "of loading it from a CDN."))
 @click.option("--author", default = None, help = (
                                             'Override the frontmatter attribute author in all wiki pages. '
                                             'The author field is compiled to <meta name="author" content="AUTHOR NAME"> '
