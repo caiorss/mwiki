@@ -825,7 +825,7 @@ main thead th {
     }
 
     .admonition-title {
-        margin: -6px -30px !important;
+        /* margin: -6px -30px !important; */
         margin-top: 0px !important;
     }
 
