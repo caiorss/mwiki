@@ -1,5 +1,21 @@
 # Changelog 
 
+## Release v0.8.1
+
++ Display root URL in the compilation output.
++ The command $ mwiki compile displays all compilation settings.
++ Display value of boolean compilation settings as on/off instead of True/False.
++ Display information about mathjax self-hosting in the '$ mwiki compile' output.
++ Add command line switch --author to the static generator command.
+   + Add command line switch --author="Author Name" to the subcommand $ mwiki compile. This command line option allows overriding the author attribute in the frontmatter of all MWiki pages if they are not set. This command line option only makes sense if all pages have the same author.  The author field is compiled to the html meta tag `<meta name="author" content="Author Name">`.
++ Add flag --embed-mathjax to the command $ mwiki compile.
+   + Add command line switch --embed-mathjax to the static website generator subcommand $ mwiki compile for self hosting mathjax in the static websiste instead of loading the library from a CDN (Content Delivery Network). If this command line switch is enabled, mathjax is copied from the module mwiki to the static websiste output directory. The drawback of this approach is the larger disk space and bandwidth usage.
++ Bugfix - Fix popup window for creating new MWiki page/note.
++ Bugfix - Fix edge case of the static websiste compile when root URL is /.
++ Bugfix - Fix the display of LaTeX algorithms in the static website generator.
++ Bugfix - Fix the style of .admonition-title css class on mobile devices.
++ Bugix - Fix relative URL of admonitions' SVG icons when using a different root URL than /.
+   + Fix static websiste generator that did not resolved the path of admonitions' SVG icons when using a different root URL than the default root URL.
 
 ## Release v0.8
 
