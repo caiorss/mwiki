@@ -1029,11 +1029,10 @@ INFO:waitress:Serving on http://0.0.0.0:9010
 
 ## Static Website Generator
 
-The subcommand $ mwiki compile is able to generate a static website by compiling the wiki repository, a folder containing MWiki markdown files to html. Static websistes are easy to deploy with static file servers, such as NGinx or Caddy. Many git forge services, including gitlab or github, also allow deploying stastic websites using an orphan git branch.
+The subcommand $ mwiki compile is able to generate a static website by compiling the wiki repository, a folder containing MWiki markdown files to html. Static websistes are easy to deploy with static file servers, such as NGinx or Caddy. Many git forge services, including gitlab or github, also allow deploying stastic websites using an orphan git branch. NOTE: CDN means Content Delivery Network.
 
 ```sh
 $ mwiki compile --help
-
 Usage: mwiki compile [OPTIONS]
 
   Compile a MWiki repository to a static website.
@@ -1050,14 +1049,20 @@ Options:
   --icon TEXT              Favicon of the static website. (Default value MWiki
                            icon)
   --main-font TEXT         Main font used in document text.
-  --code-font TEXT         Code monospace used in code blocks.
+  --code-font TEXT         Code monospace font used in code blocks.
   --title-font TEXT        Title font used in document section headings.
   --list-fonts             List all available fonts.
   --allow-language-switch  Allow end-user to switch the user interface
                            language.
+  --embed-mathjax          Self host Mathjax library for rendering math
+                           formulas instead of loading it from a CDN.
+  --author TEXT            Override the frontmatter attribute author in all
+                           wiki pages. The author field is compiled to <meta
+                           name="author" content="AUTHOR NAME"> This setting
+                           only makes sense if there is a single author.
   --help                   Show this message and exit.
-
 ```
+
 
 List all available fonts:
 
@@ -1100,14 +1105,16 @@ List all available fonts:
 Compile the folder ./sample-wiki to a static web site at ./out path.
 
 ```sh
-$ make static
-uv run mwiki compile --wikipath=./sample-wiki \
-        --website-name=MBook \
-        --main-font=cmu-concrete \
-        --title-font=chicago \
-        --code-font=libertinus-mono \
-        --allow-language-switch \
-        --output=./out
+$ mwiki compile \
+    --wikipath=./sample-wiki \
+    --website-name=MBook \
+    --main-font=cmu-concrete \
+    --title-font=chicago \
+    --code-font=libertinus-mono \
+    --allow-language-switch \
+    --author="John Doe" \
+    --output=./out
+
 Root URL
  -  /
 Compiling wiki repository
@@ -1118,22 +1125,29 @@ Generating static website at
 
 Compilation Settings
 
- [*] Allow language switch:  True
- [*]     Main font  family:  CMU Concrete
- [*]     Title Font Family:  Chicago MacOS
- [*]      Code Font Family:  Libertinus Mono
+ [*]                              Author:  John Doe
+ [*]                        Website Name:  MBook
+ [*]                            Root URL:  /
+ [*]  Default User Interface (UI) Locale:  en-US
+ [*]               Allow language switch:  on
+ [*]                       Embed Mathjax:  off
+ [*]               Load Mathjax from CDN:  on
+ [*]                    Main font family:  CMU Concrete
+ [*]                   Title Font Family:  Chicago MacOS
+ [*]                    Code Font Family:  Libertinus Mono
 
 Status:
 
- [*] Compiling sample-wiki/about.md to out/about.html
- [*] Compiling sample-wiki/refcard.md to out/refcard.html
- [*] Compiling sample-wiki/Index.md to out/index.html
+ [*] Compiling sample-wiki/README.md to out/README.html
  [*] Compiling sample-wiki/Internationalization i18n and Localization i10n concepts.md to out/Internationalization_i18n_and_Localization_i10n_concepts.html
  [*] Compiling sample-wiki/Linux SysRq Key and OOM System Recovery.md to out/Linux_SysRq_Key_and_OOM_System_Recovery.html
  [*] Compiling sample-wiki/Math - Calculus Reference Card.md to out/Math_-_Calculus_Reference_Card.html
  [*] Compiling sample-wiki/Open Source Licenses.md to out/Open_Source_Licenses.html
- [*] Compiling sample-wiki/README.md to out/README.html
+ [*] Compiling sample-wiki/about.md to out/about.html
+ [*] Compiling sample-wiki/refcard.md to out/refcard.html
+ [*] Compiling sample-wiki/Index.md to out/index.html
  [*] Compilation terminated successfully ok.
+
 ```
 
 Inspect the generated static website.
@@ -1213,7 +1227,7 @@ or also
 + `http://<TAILSCALE-HOSTNAME>:8080`
 
 
-It is also possible to compile a wiki repository for deploying with github gh-pages orphan branch by creating an orphan branch and a worktree directory ./dist for this branch named as gh-pages. Then use the follwing command to compile a wiki repository, in this case ./sample-wiki to html.
+It is also possible to generate a static websiste from a wiki repository for deployment with github by creating an orphan branch named as gh-pages and a worktree directory ./dist for this branch. Then use the follwing command to compile a wiki repository, in this case ./sample-wiki to html.
 
 ```sh
 export GITHUB_REPOSITORY_NAME=dummy
@@ -1245,6 +1259,7 @@ After this step the static websiste will be available at
 If the username is johndoe and the project/repository name is dummy, the static websiste URL will be
 
 + `https://johndoe.github.io/dummy`
+
 
 ## Development 
 

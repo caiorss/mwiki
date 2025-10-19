@@ -1061,12 +1061,10 @@ INFO:waitress:Serving on http://0.0.0.0:9010
 
 ## Gerador de Sites Estáticos
 
-O subcomando $ mwiki compile é capaz de gerar um site estático compilando o repositório wiki, uma pasta que contém arquivos markdown do MWiki para HTML. Sites estáticos são fáceis de implementar com servidores de arquivos estáticos, como NGinx ou Caddy. Muitos serviços do Git Forge, incluindo o GitLab ou o Github, também permitem a implementação de sites estáticos usando uma ramificação órfã do Git.
-
+O subcomando $ mwiki compile é capaz de gerar um site estático compilando o repositório wiki, uma pasta que contém arquivos markdown do MWiki para HTML. Sites estáticos são fáceis de implementar com servidores de arquivos estáticos, como NGinx ou Caddy. Muitos serviços do Git Forge, incluindo o GitLab ou o Github, também permitem a por sites estáticos no ar (online) usando uma branch órfão do Git.
 
 ```sh
 $ mwiki compile --help
-
 Usage: mwiki compile [OPTIONS]
 
   Compile a MWiki repository to a static website.
@@ -1083,14 +1081,68 @@ Options:
   --icon TEXT              Favicon of the static website. (Default value MWiki
                            icon)
   --main-font TEXT         Main font used in document text.
-  --code-font TEXT         Code monospace used in code blocks.
+  --code-font TEXT         Code monospace font used in code blocks.
   --title-font TEXT        Title font used in document section headings.
   --list-fonts             List all available fonts.
   --allow-language-switch  Allow end-user to switch the user interface
                            language.
+  --embed-mathjax          Self host Mathjax library for rendering math
+                           formulas instead of loading it from a CDN.
+  --author TEXT            Override the frontmatter attribute author in all
+                           wiki pages. The author field is compiled to <meta
+                           name="author" content="AUTHOR NAME"> This setting
+                           only makes sense if there is a single author.
   --help                   Show this message and exit.
-
 ```
+
+
+
+Opções de linha de comando:
+
++ --wikipath
+  + EN: Path to folder containing *.md files.
+  + PT: Caminho para a pasta que contém os arquivos/ficheiros[Portugal] *.md.
++  --output
+  + EN: Directory that will contain the compilation output (default value ./out).
+  + PT: Diretório que conterá a saída da compilação (valor padrão ./out).
++ --website-name
+  + EN: Name of the static website (default value 'MWiki').
+  + PT: Nome do site estático (valor padrão 'MWiki').
++ --root-url
+  + EN:  Root URL that the static website will be deployed to.  (default value '/').
+  + PT: URL raiz na qual o site estático será implantado (posto online, no ar). (valor padrão '/'). 
++  --locale
+  + EN: Default locale of the user interface. (Default value 'en-US')
+  + PT: Idioma padrão da interface do usuário. (Valor padrão 'en-US').
+  + NOTA: Também é suportado 'pt-BR' (Brazilian Portuguese) bem como o sistema suporta adicionar outros idiomas sem modificar todo o código.
++  --icon
+  + EN: Favicon of the static website. (Default value MWiki icon)
+  + PT: Favicon do site estático. (Valor padrão: ícone da MWiki)
++  --main-font
+  + EN: Main font used in document text.
+  + PT: Fonte principal usada no texto do documento.
++ --code-font
+  + EN: Code monospace font used in code blocks.
+  + PT: Fonte monoespaçada usada em blocos de código.
++ --title-font
+  + EN: Title font used in document section headings.
+  + PT: Fonte de título usada em títulos de seções de documentos.
++--list-fonts
+  + EN: List all available fonts.
+  + PT: Listar todas as fontes disponíveis.
++ --allow-language-switch
+  + EN: Allow end-user to switch the user interface language.
+  + PT: Permitir que o usuário final altere o idioma da interface do usuário.
++  --embed-mathjax
+  + EN: Self host mathjax library for rendering math formulas instead of loading it from a CDN.
+  + PT: Auto hospedar a biblioteca mathjax para renderizar fórmulas matemáticas em vez de a carregar de uma CDN.
+  + NOTA: CDN - Content Delivery Network (Rede de Distribuição de Conteúdo)
++  --author
+  + EN: Override the frontmatter attribute author in all wiki pages. The author field is compiled to <meta name="author" content="AUTHOR NAME"> This setting only makes sense if there is a single author.
+  + PT: Substituir o atributo autor do frontmatter em todas as páginas wiki. O campo autor é compilado para <meta name="author" content="AUTHOR NAME">. Esta configuração só faz sentido se houver um único autor.
++ --help
+  + EN: Show this message and exit.
+  + PT: Show this message and exit.
 
 
 Listar todas as fontes disponíveis:
@@ -1134,17 +1186,17 @@ Listar todas as fontes disponíveis:
 
 Compilar a pasta ./sample-wiki em um site estático no caminho ./out.
 
-
-
 ```sh
-$ make static
-uv run mwiki compile --wikipath=./sample-wiki \
-        --website-name=MBook \
-        --main-font=cmu-concrete \
-        --title-font=chicago \
-        --code-font=libertinus-mono \
-        --allow-language-switch \
-        --output=./out
+$ mwiki compile \
+    --wikipath=./sample-wiki \
+    --website-name=MBook \
+    --main-font=cmu-concrete \
+    --title-font=chicago \
+    --code-font=libertinus-mono \
+    --allow-language-switch \
+    --author="John Doe" \
+    --output=./out
+
 Root URL
  -  /
 Compiling wiki repository
@@ -1155,22 +1207,29 @@ Generating static website at
 
 Compilation Settings
 
- [*] Allow language switch:  True
- [*]     Main font  family:  CMU Concrete
- [*]     Title Font Family:  Chicago MacOS
- [*]      Code Font Family:  Libertinus Mono
+ [*]                              Author:  John Doe
+ [*]                        Website Name:  MBook
+ [*]                            Root URL:  /
+ [*]  Default User Interface (UI) Locale:  en-US
+ [*]               Allow language switch:  on
+ [*]                       Embed Mathjax:  off
+ [*]               Load Mathjax from CDN:  on
+ [*]                    Main font family:  CMU Concrete
+ [*]                   Title Font Family:  Chicago MacOS
+ [*]                    Code Font Family:  Libertinus Mono
 
 Status:
 
- [*] Compiling sample-wiki/about.md to out/about.html
- [*] Compiling sample-wiki/refcard.md to out/refcard.html
- [*] Compiling sample-wiki/Index.md to out/index.html
+ [*] Compiling sample-wiki/README.md to out/README.html
  [*] Compiling sample-wiki/Internationalization i18n and Localization i10n concepts.md to out/Internationalization_i18n_and_Localization_i10n_concepts.html
  [*] Compiling sample-wiki/Linux SysRq Key and OOM System Recovery.md to out/Linux_SysRq_Key_and_OOM_System_Recovery.html
  [*] Compiling sample-wiki/Math - Calculus Reference Card.md to out/Math_-_Calculus_Reference_Card.html
  [*] Compiling sample-wiki/Open Source Licenses.md to out/Open_Source_Licenses.html
- [*] Compiling sample-wiki/README.md to out/README.html
+ [*] Compiling sample-wiki/about.md to out/about.html
+ [*] Compiling sample-wiki/refcard.md to out/refcard.html
+ [*] Compiling sample-wiki/Index.md to out/index.html
  [*] Compilation terminated successfully ok.
+
 ```
 
 Inspecione o site estático gerado.
@@ -1249,7 +1308,10 @@ or também
 
 + `http://<TAILSCALE-HOSTNAME>:8080`
 
-Também é possível compilar um repositório wiki para implantação com o branch órfão gh-pages do GitHub, criando um branch órfão e um diretório de árvore de trabalho ./dist para esse branch, denominado gh-pages. Em seguida, use o seguinte comando para compilar um repositório wiki, neste caso, ./sample-wiki para html.
+
+Também é possível gerar um site estático a partir de um repositório wiki para implantação com o GitHub, criando um *branch* (linha de trabalho) órfã chamada gh-pages e um diretório de árvore de trabalho ./dist para este branch. Em seguida, use o seguinte comando para compilar um repositório wiki, neste caso, ./sample-wiki para HTML.
+
+
 
 ```sh
 export GITHUB_REPOSITORY_NAME=dummy
@@ -1265,7 +1327,7 @@ $ uv run mwiki compile --wikipath=./sample-wiki \
                 --output=./dist
 ```
 
-Por fim, a implantação do site estático exige o commit das alterações no diretório ./dist e o envio remoto.
+Por fim, o site estático online exige o commit das alterações no diretório ./dist e o envio remoto.
 
 
 ```sh
