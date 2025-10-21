@@ -142,6 +142,12 @@ class AbstractAstRenderer:
 
         self._internal_links: List[str] = []
 
+        self._images = []
+        """List of images used by this page."""
+
+        self._files = []
+        """List of files used by this page."""
+
         self._handlers = {
               "root":                       self.render_root
             , "text":                       self.render_text
@@ -218,6 +224,14 @@ class AbstractAstRenderer:
     def internal_links(self) -> List[str]:
         """Return list of internal links"""
         return self._internal_links
+
+    @property
+    def files(self) -> List[pathlib.Path]:
+        return self._files 
+
+    def add_file(self, file: Optional[pathlib.Path]) -> None:
+        if file:
+            self._files.append(file)
 
     def find_page(self, name: str) -> Optional[pathlib.Path]:
         """Find path to note file, given its name."""
@@ -896,7 +910,9 @@ class HtmlRenderer(AbstractAstRenderer):
         path = "/wiki/" + src  
         if self._static_compilation:
             match = self.find_file(src)
+            self.add_file(match)
             path = self._root_url + str(match.relative_to(self._base_path)) if match else path 
+            self.add_file(match)
         if src.endswith(".mp4"):
             if self._preview:
                 html = """
@@ -1078,6 +1094,7 @@ class HtmlRenderer(AbstractAstRenderer):
         href_ = utils.escape_url(f"/wiki/{ href.replace(' ', '_') }")
         # breakpoint()
         if "." not in href:
+            # It means a link to a internal page
             self._internal_links.append(href)
             match =  self.find_page(href)
             class_name = "link-internal" if match else "link-internal-missing"
@@ -1094,8 +1111,10 @@ class HtmlRenderer(AbstractAstRenderer):
             # In this case, href refers to a Wiki page (has no extension)
             html = f"""<a href="{href_}" class="{class_name} wiki-link" title="{description}">{label}</a>"""
         else:
+            # It means a link to an uploaded file
             if self._static_compilation:
                 match = self.find_file(href) 
+                self.add_file(match)
                 # print(" [TRACE] add link to file = ", match)
                 href_ = str( match.relative_to(self._base_path) ) if match else "#"
             # In this case, href refers to some file, that is opened in a new tab 
@@ -1380,6 +1399,7 @@ class HtmlRenderer(AbstractAstRenderer):
                 else:
                     file = image.strip("![]")
                     match = self.find_file(file)
+                    self.add_file(match)
                     image = self._root_url + str(match.relative_to(self._base_path)) if match else "#"
             content, directives = mparser.get_code_block_directives(node.content)
             # Image caption 
@@ -1423,6 +1443,7 @@ class HtmlRenderer(AbstractAstRenderer):
                 else:
                     file = video.strip("![]")
                     match = self.find_file(file)
+                    self.add_file(match)
                     video = self._root_url + str(match.relative_to(self._base_path)) \
                             if match else "#"
                 

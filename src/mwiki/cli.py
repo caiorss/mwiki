@@ -553,6 +553,9 @@ def render_font_data(key, root: str = ""):
 @click.option("-o", "--output", default = None, 
                 help = ( "Directory that will contain the compilation output (default value ./out)." )
                 )
+@click.option( "--page"
+             , default = None
+             , help = "Export single page to html, instead of the whole wiki.")
 @click.option("--website-name", default = "MWiki", help="Name of the static website (default value 'MWiki').") 
 @click.option("--root-url", default = "/", help="Root URL that the static website will be deployed to.  (default value '/').") 
 @click.option("--locale", default = "en-US", help="Default locale of the user interface. (Default value 'en-US')") 
@@ -571,6 +574,7 @@ def render_font_data(key, root: str = ""):
                                             ))
 def compile(  wikipath:              Optional[str]
             , output:                Optional[str]
+            , page:                  Optional[str]
             , website_name:          str
             , root_url:              str 
             , locale:                str
@@ -592,8 +596,8 @@ def compile(  wikipath:              Optional[str]
             family = fdata.get("family", "")
             print("%30s%30s" % (key, family))
         exit(0)
-    if not wikipath:
-        print("Error expected path to wiki folder --wikipath=/path/to/repository")
+    if not wikipath and not page:
+        print("Error expected --wikipath or --page command line switches.")
         exit(1)
     out = pathlib.Path(output) if output else pathlib.Path("./out")
     out.mkdir(exist_ok = True)
@@ -612,7 +616,15 @@ def compile(  wikipath:              Optional[str]
     print("Generating static website at\n - ", out.resolve())
     print()
     root_url = "" if root_url == "/" else root_url
-    pages = root.rglob("*.md")
+    pages = []
+    if page:
+        page_path = pathlib.Path(page)
+        if not page_path.exists():
+            print(f"Error file {page_path} not found.")
+            exit(1)
+        pages = [ page_path ]
+    else:
+        pages = root.rglob("*.md")
     static = out / "static"
     static.mkdir(exist_ok = True)
     mwiki.utils.copy_resource_files_ext(mwiki, "static/*.svg", static)
@@ -620,19 +632,19 @@ def compile(  wikipath:              Optional[str]
     mwiki.utils.copy_resource_file(mwiki, "static/static_style.css", static )
     if embed_mathjax:
         mwiki.utils.copy_resource_directory(mwiki, "static/mathjax", static / "mathjax" )
-    images = out / "images"
-    pasted = out / "pasted"
-    src_upload = root / "upload"
-    src_images = root / "images"
-    src_pasted = root / "pasted"
-    if src_images.exists():
-        images.mkdir(exist_ok = True)
-        mwiki.utils.copy_folder(src_images, images)
-    if src_pasted.exists():
-        pasted.mkdir(exist_ok = True)
-        mwiki.utils.copy_folder(src_pasted, pasted)
-    if src_upload.exists():
-        mwiki.utils.copy_folder(src_upload, out / "upload")
+    # images = out / "images"
+    # pasted = out / "pasted"
+    # src_upload = root / "upload"
+    # src_images = root / "images"
+    # src_pasted = root / "pasted"
+    # if src_images.exists():
+    #     images.mkdir(exist_ok = True)
+    #     mwiki.utils.copy_folder(src_images, images)
+    # if src_pasted.exists():
+    #     pasted.mkdir(exist_ok = True)
+    #     mwiki.utils.copy_folder(src_pasted, pasted)
+    # if src_upload.exists():
+    #     mwiki.utils.copy_folder(src_upload, out / "upload")
     icon_mimetypes_database = {
           "ico":   "image/x-icon"
         , "png":   "image/png"
@@ -694,6 +706,12 @@ def compile(  wikipath:              Optional[str]
                                                     , static_compilation = True
                                                     , root_url = root_url
                                                     )
+        files = renderer.files
+        for file  in files:
+            f = file.relative_to(root)
+            dest = out / f.parent
+            dest.mkdir( exist_ok = True)
+            shutil.copy(file, dest)
         title = renderer.title if renderer.title != "" else str(p.name ).split(".")[0]
         # Generate table of contents 
         page_source = p.read_text()
