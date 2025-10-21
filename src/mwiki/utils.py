@@ -210,6 +210,10 @@ def read_resource(module: Package, resource_file: str) -> str:
         data =  fd.read()
     return data
 
+def get_module_path(module: Package) -> pathlib.Path:
+    module_path = pathlib.Path(module.__file__).resolve().parent
+    return module_path 
+
 def get_path_to_resource_file(module: Package, resource_file: str) -> pathlib.Path:
     module_path = pathlib.Path(module.__file__).resolve().parent
     path = module_path / resource_file
@@ -249,6 +253,39 @@ def base64_encode(text: str) -> str:
 def base64_decode(base64str: str) -> str:
     out = base64.b64decode(base64str).decode("utf-8")
     return out
+
+def file_to_base64_data_uri(file: pathlib.Path) -> str:
+    """Encode file content to base64"""
+    mimetypes = {
+          "png":   "image/png"
+        , "avif":  "image/avif"
+        , "gif":   "image/gif"
+        , "svg":   "image/svg+xml"
+        , "ico":   "image/x-icon"
+        , "jpg":   "image/jpeg"
+        , "jpeg":  "image/jpeg"
+        , "pjppg": "image/jpeg"
+        , "webp":  "image/webp"
+        , "mp4":   "video/mp4"
+        , "mp4v":  "video/mp4"
+        , "mpg4":  "video/mp4"
+        , "webm":  "video/webm"
+        , "ogg":   "video/ogg"
+        , "jpeg":  "image/jpeg"
+        , "woff":  "font/woff"
+        , "woff2": "font/woff2"
+        , "otf":   "font/otf"
+        , "ttf":   "font/truetype"
+        , "ttc":   "font/truetype"
+    }
+    ext = str(file.name).split(".")[-1]
+    mtype  = mimetypes.get(ext)
+    if not mtype:
+        raise RuntimeError(f"Not found mimetype of file {file}")
+    data = file.read_bytes()
+    b64text = base64.b64encode(data).decode("utf-8")
+    out = f"data:{mtype};charset=utf-8;base64,{b64text}"
+    return out 
 
 def encode_json_to_base64(obj: any) -> str:
     """Encode jsonable data base64 string.

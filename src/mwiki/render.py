@@ -10,8 +10,10 @@ import urllib.parse
 import os 
 import tempfile
 import subprocess
+import mwiki 
 from . import utils
 from . import mparser
+
 
 _STOP_SENTINEL = "{{STOP}}"
 
@@ -79,6 +81,7 @@ class AbstractAstRenderer:
                  , base_path = ""
                  , embed_page = False
                  , static_compilation = False
+                 , self_contained: bool = False
                  , root_url: str = "/"):
         # Path to the notes repository
         self._root_url = root_url if root_url != "/" else ""
@@ -96,6 +99,16 @@ class AbstractAstRenderer:
 
         self._static_compilation: bool = static_compilation
         """Flag that indicates whether the markdown file is being compiled to html."""
+
+        self._self_contained: bool = self_contained
+        """Flag indicating whether the generated html file.
+        
+        A self contained html is similar to a PDF file, it has inlined JavaScript
+        and stylesheed and embedded fonts and images as base64 encoded text. This
+        flag is useful for generating a static website with a self-contained html pages
+        that can be viewed offline by opening html with a web browser. As a result, this
+        switch is useful for generating documents for offline reading.
+        """
         
         self._is_embedded_page: bool = embed_page
         """Flag which indicates whether the current page is embedded within another wiki page."""
@@ -559,12 +572,14 @@ class HtmlRenderer(AbstractAstRenderer):
                      , embed_math_svg = False
                      , base_path: str = ""
                      , static_compilation = False
+                     , self_contained = False
                      , preview: bool = False
                      , root_url: str = "/"
                  ):
         super().__init__(  base_path          = base_path
                          , static_compilation = static_compilation
                          , root_url           = root_url
+                         , self_contained     = self_contained 
                      )
         if root_url == "/":
             self._root_url = ""
@@ -946,12 +961,15 @@ class HtmlRenderer(AbstractAstRenderer):
                     </div>
                    """.format(path, path)
         else:
+            path_ = path 
+            if self._self_contained and match:
+                path_ = utils.file_to_base64_data_uri(match)
             if self._preview:
                 html = """<div class="div-wiki-image"><img class="wiki-image anchor" src="%s" alt=""></div>""" \
                     % path
             else:
                 html = """<div class="div-wiki-image"><img class="wiki-image lazy-load anchor" data-src="%s" alt=""></div>""" \
-                    % path
+                    % path_
         ## print(" [TRACE] render_embed => html = \n", html)
         return html
 
@@ -1400,7 +1418,10 @@ class HtmlRenderer(AbstractAstRenderer):
                     file = image.strip("![]")
                     match = self.find_file(file)
                     self.add_file(match)
-                    image = self._root_url + str(match.relative_to(self._base_path)) if match else "#"
+                    image = self._root_url + str(match.relative_to(self._base_path)) \
+                            if match else "#"
+                    if self._self_contained and match:
+                        image = utils.file_to_base64_data_uri(match)
             content, directives = mparser.get_code_block_directives(node.content)
             # Image caption 
             caption = content.strip()
@@ -1691,12 +1712,19 @@ class HtmlRenderer(AbstractAstRenderer):
             inner = "".join([ self.render(n) for n in node.children[1:] ])
         root_url = "" if self._root_url == "/" else self._root_url
         iconsdb = {
-              "info":     f"""<img class="admonition-icon" src="{root_url}/static/icon-info.svg"/> """
-            , "note":     f"""<img class="admonition-icon" src="{root_url}/static/icon-info.svg"/> """
-            , "tip":      f"""<img class="admonition-icon" src="{root_url}/static/icon-lightbulb.svg"/> """
-            , "warning":  f"""<img class="admonition-icon" src="{root_url}/static/icon-warning1.svg"/> """
+              "info":     "icon-info.svg"
+            , "note":     "icon-info.svg"
+            , "tip":      "icon-lightbulb.svg"
+            , "warning":  "icon-warning1.svg"
         }
-        icon = iconsdb.get(admonition_type, "")
+        #  f"""<img class="admonition-icon" src="{root_url}/static/icon-info.svg"/> """
+        icon_ = iconsdb.get(admonition_type, "")
+        icon_file =  utils.get_module_path(mwiki) / ("static/" + icon_)
+        icon_url = f"{root_url}/static/{icon_}"
+        if self._self_contained and icon_file.is_file():
+            icon_url = utils.file_to_base64_data_uri(icon_file)
+        icon =  f"""<img class="admonition-icon" src="{icon_url}"/> """ \
+                    if icon_ != "" else ""
         title = f"""\n<span class="admonition-title">{icon}{admonition_title}{edit_link}</span>\n""" \
                 if admonition_title != "" else ""
         if admonition_type == "details":
@@ -2040,7 +2068,11 @@ def node_to_html(page_name: str, node: SyntaxTreeNode, base_path: str):
     html = __html_render.render(node)
     return html
 
-def pagefile_to_html(pagefile: str, base_path: str, static_compilation = False, root_url = "/") -> Tuple[HtmlRenderer, str]:
+def pagefile_to_html( pagefile: str
+                    , base_path: str
+                    , static_compilation = False
+                    , self_contained = False
+                    , root_url = "/" ) -> Tuple[HtmlRenderer, str]:
     with open(pagefile) as fd:
         source: str = fd.read()
         ## source = re.sub(r"^$$", "\n$$", source) 
@@ -2051,6 +2083,7 @@ def pagefile_to_html(pagefile: str, base_path: str, static_compilation = False, 
                             , render_math_svg = False
                             , base_path = base_path
                             , static_compilation = static_compilation
+                            , self_contained = self_contained 
                             , root_url = root_url 
                             )
         html = renderer.render(ast)

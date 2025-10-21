@@ -469,15 +469,20 @@ def copy_font_files(font_key: str, dest: pathlib.Path):
        shutil.copy(f, dest)
        
 
-def render_font_data(key, root: str = ""):
+def render_font_data(  key: str 
+                     , root_url: str                = ""
+                     , self_contained: bool         = False
+                     , root_path: Optional[pathlib.Path] = None
+                     ):
     data = get_font_data(key)
     if not data:
         return ""
+    ## print(" [TRACE] root_path = " + str(root_path))
     family = data.get("family")
     has_italic = "italic" in data
     has_bold   = "bold" in data
     has_bold_italic = "bold-italic" in data
-    root = "" if root == "/" else root
+    root = "" if root_url == "/" else root_url
     code = """
 @font-face {
     font-family: '{{family}}';
@@ -487,10 +492,20 @@ def render_font_data(key, root: str = ""):
     {% if has_bold %}
     font-weight: {{font_weight}};
     {% endif %}
+    {%if not self_contained %}
     src: url('{{root}}/static/fonts/{{file}}');
+    {% else %}
+    src: url({{font_data_b64}});
+    {% endif %}
 }
     """
     tpl = jinja2.Template(code)
+    font_face_regular_b64 = ""
+    font_face_regular_file: pathlib.Path = root_path / ("static/fonts/" + data.get("regular", ""))
+    ## 0print("font_file = ", font_face_regular_file)
+    if self_contained and font_face_regular_file.is_file():
+        font_face_regular_b64 = mwiki.utils.file_to_base64_data_uri(font_face_regular_file)
+        ### print(f" regular font = {key} => " + font_face_regular_b64)
     font_face_regular = tpl.render(  family = family
                                    , has_italic = has_italic
                                    , has_bold = has_bold
@@ -499,8 +514,14 @@ def render_font_data(key, root: str = ""):
                                    , font_style = "normal"
                                    , font_weight = "normal"
                                    , root = root
+                                   , self_contained = self_contained 
+                                   , font_data_b64 = font_face_regular_b64 
                                )
     font_face_italic = ""
+    font_face_italic_b64 = ""
+    font_face_italic_file = root_path / ("static/" + data.get("italic", ""))
+    if self_contained and font_face_italic_file.is_file():
+        font_face_regular_b64 = mwiki.utils.file_to_base64_data_uri(font_face_italic_file)
     if has_italic:
         font_face_italic = tpl.render(
                                      family = family
@@ -511,9 +532,15 @@ def render_font_data(key, root: str = ""):
                                    , font_style = "italic"
                                    , font_weight = "normal"
                                    , root = root
+                                   , self_contained = self_contained 
+                                   , font_data_b64 = font_face_italic_b64 
                                )
     
     font_face_bold = ""
+    font_face_bold_b64 = ""
+    font_face_bold_file = root_path / ("static/fonts/" + data.get("bold", ""))
+    if self_contained and font_face_bold_file.is_file():
+        font_face_bold_b64 = mwiki.utils.file_to_base64_data_uri(font_face_bold_file)
     if has_bold:
         font_face_bold = tpl.render(
                                      family = family
@@ -524,18 +551,26 @@ def render_font_data(key, root: str = ""):
                                    , font_style = "normal"
                                    , font_weight = "bold"
                                    , root = root
+                                   , self_contained = self_contained 
+                                   , font_data_b64 = font_face_bold_b64 
                                )
     font_face_bold_italic = ""
+    font_face_bold_italic_b64 = ""
+    font_face_bold_italic_file = root_path / ("static/fonts/" + data.get("bold-italic", ""))
+    if self_contained and font_face_bold_file.is_file():
+        font_face_bold_italic_b64 = mwiki.utils.file_to_base64_data_uri(font_face_bold_italic_file)
     if has_bold_italic:
         font_face_bold_italic = tpl.render(
                                      family = family
                                    , has_italic = has_italic
                                    , has_bold = has_bold
                                    , has_bold_italic = has_bold_italic
-                                   , file = data.get("bold-italic")
+                                   , file = data.get("bold-italic", "")
                                    , font_style = "italic"
                                    , font_weight = "bold"
                                    , root = root
+                                   , self_contained = self_contained 
+                                   , font_data_b64 = font_face_bold_italic_b64 
                                )
     out = font_face_regular 
     out = out + "\n\n" + font_face_italic if font_face_italic != "" else out
@@ -564,7 +599,15 @@ def render_font_data(key, root: str = ""):
 @click.option("--code-font", default = "libertinus-mono", help="Code monospace font used in code blocks.") 
 @click.option("--title-font", default = "news-reader", help="Title font used in document section headings.") 
 @click.option("--list-fonts", is_flag = True, help="List all available fonts.") 
-@click.option("--allow-language-switch", is_flag = True, help = "Allow end-user to switch the user interface language.")
+@click.option("--allow-language-switch", is_flag = True
+              , help = ( "Allow end-user to switch the user interface language."
+                         
+             ))
+@click.option("--self-contained", is_flag = True
+             , help = ( "Embed all attachment within the current wiki page."
+                        " JavaScripts and CSS are inlined and images are embedded in base64 encoding. The generated HTML self-contained file is similar to a PDF file."
+                        " This flag is useful for generating self-contained documents for offline view."
+            ) )
 @click.option("--embed-mathjax", is_flag = True, help = ("Self host Mathjax library for rendering math formulas instead "
                                                         "of loading it from a CDN."))
 @click.option("--author", default = None, help = (
@@ -584,6 +627,7 @@ def compile(  wikipath:              Optional[str]
             , title_font:            str 
             , list_fonts:            bool 
             , allow_language_switch: bool
+            , self_contained:        bool 
             , embed_mathjax:         bool
             , author:                str 
             ):
@@ -627,9 +671,14 @@ def compile(  wikipath:              Optional[str]
         pages = root.rglob("*.md")
     static = out / "static"
     static.mkdir(exist_ok = True)
-    mwiki.utils.copy_resource_files_ext(mwiki, "static/*.svg", static)
-    mwiki.utils.copy_resource_file(mwiki, "static/main.js", static )
-    mwiki.utils.copy_resource_file(mwiki, "static/static_style.css", static )
+    if not self_contained:
+        mwiki.utils.copy_resource_files_ext(mwiki, "static/*.svg", static)
+        mwiki.utils.copy_resource_file(mwiki, "static/main.js", static )
+        mwiki.utils.copy_resource_file(mwiki, "static/static_style.css", static )
+    main_js = mwiki.utils.get_path_to_resource_file(mwiki, "static/main.js")
+    style_css = mwiki.utils.get_path_to_resource_file(mwiki, "static/static_style.css")
+    main_code = main_js.read_text()
+    style_code = style_css.read_text()
     if embed_mathjax:
         mwiki.utils.copy_resource_directory(mwiki, "static/mathjax", static / "mathjax" )
     # images = out / "images"
@@ -666,18 +715,36 @@ def compile(  wikipath:              Optional[str]
         icon_mimetype = icon_mimetypes_database.get(extension) or icon_mimetype
     template  = utils.read_resource(mwiki, "templates/static.html")
     tpl = jinja2.Template(template)
-    font_face_main_font =  render_font_data(main_font, root = root_url)
-    # print(" [TRACE] font_face_main_font = \n", font_face_main_font)
-    font_face_title_font = render_font_data(title_font, root = root_url)
-    font_face_code_font = render_font_data(code_font, root = root_url)
-    fonts = out / "static/fonts"
-    fonts.mkdir(exist_ok = True)
-    copy_font_files(main_font, fonts)
-    copy_font_files(title_font, fonts)
-    copy_font_files(code_font, fonts)
+    root_path = mwiki.utils.get_module_path(mwiki)
+    ### print(" [TRACE] root_path => (718) = " + str(root_path))
+    font_face_main_font =  render_font_data(main_font
+                                            , root_url = root_url
+                                            , root_path = root_path
+                                            , self_contained = self_contained)
+    font_face_title_font = render_font_data(title_font
+                                            , root_url = root_url
+                                            , root_path = root_path
+                                            , self_contained = self_contained)
+    font_face_code_font = render_font_data(code_font
+                                           , root_url = root_url
+                                           , root_path = root_path
+                                           , self_contained = self_contained)
+    if not self_contained:
+        fonts = out / "static/fonts"
+        fonts.mkdir(exist_ok = True)
+        copy_font_files(main_font, fonts)
+        copy_font_files(title_font, fonts)
+        copy_font_files(code_font, fonts)
     main_font_family  = (get_font_data(main_font) or {}).get("family") 
     title_font_family = (get_font_data(title_font) or {}).get("family")  
     code_font_family  = (get_font_data(code_font) or {}).get("family")  
+    unfold_icon_url = f"{root_url}/static/dots-vertical.svg"
+    menu_icon_url   = f"{root_url}/static/hamburger-menu.svg"
+    home_icon_url   = f"{root_url}/static/icon-home.svg"
+    if self_contained:
+        unfold_icon_url = mwiki.utils.file_to_base64_data_uri(root_path / "static/dots-vertical.svg")
+        menu_icon_url = mwiki.utils.file_to_base64_data_uri(root_path / "static/hamburger-menu.svg")
+        home_icon_url = mwiki.utils.file_to_base64_data_uri(root_path / "static/icon-home.svg")
     print()
     print("Compilation Settings")
     print()
@@ -704,20 +771,22 @@ def compile(  wikipath:              Optional[str]
         renderer, content = render.pagefile_to_html(  pagefile
                                                     , base_path
                                                     , static_compilation = True
+                                                    , self_contained = True
                                                     , root_url = root_url
                                                     )
         files = renderer.files
-        for file  in files:
-            f = file.relative_to(root)
-            dest = out / f.parent
-            dest.mkdir( exist_ok = True)
-            shutil.copy(file, dest)
+        if not self_contained:
+            for file  in files:
+                f = file.relative_to(root)
+                dest = out / f.parent
+                dest.mkdir( exist_ok = True)
+                shutil.copy(file, dest)
         title = renderer.title if renderer.title != "" else str(p.name ).split(".")[0]
         # Generate table of contents 
         page_source = p.read_text()
-        headings = mparser.get_headings(page_source)
-        root_ = mparser.make_headings_hierarchy(headings)
-        toc = mparser.headings_to_html(root_)
+        headings    = mparser.get_headings(page_source)
+        root_       = mparser.make_headings_hierarchy(headings)
+        toc         = mparser.headings_to_html(root_)
              # print(" [TRACE] needs pseudocode_js ", renderer.needs_latex_algorithm)
         env = {
                  "title":                title.replace("about", "About")
@@ -748,6 +817,12 @@ def compile(  wikipath:              Optional[str]
                , "default_locale":       lambda: locale
                , "use_default_locale":   lambda: True
                , "embed_mathjax":        embed_mathjax 
+               , "self_contained":       self_contained
+               , "main_script_code":     main_code
+               , "style_sheet_code":     style_code
+               , "menu_icon_url":        menu_icon_url 
+               , "unfold_icon_url":      unfold_icon_url 
+               , "home_icon_url":        home_icon_url
               }
         html = tpl.render(env)
         outfile.write_text(html)

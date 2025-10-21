@@ -72,10 +72,13 @@
         
     </style>
   
+    {% if not self_contained %}
     <link rel="stylesheet" href="{{root_url}}/static/static_style.css">
-
-   
-
+    {% else %}
+    <style>
+    {{style_sheet_code}}
+    </style>
+    {% endif %}
     
     {% block style %}{% endblock %}
     <!-- MathJax Settings -->
@@ -271,7 +274,14 @@
         }, false);
         
     </script>
+
+    {% if not self_contained %}
     <script type="text/javascript" src="{{root_url}}/static/main.js"></script>
+    {% else %}
+     <script>
+        {{main_script_code}}
+    </script
+    {% endif %}
 
 </head>
 
@@ -289,9 +299,9 @@
     </aside>
     <div class="main main-shift">
         <header class="header">
-            <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="{{root_url}}/static/hamburger-menu.svg" style="height: 25px;"/> </a>
+            <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="{{menu_icon_url}}" style="height: 25px;"/> </a>
             <a data-i18n="home-page-button" class="sidebar-toggle-button" 
-			   title="Go to home page (Index)" href="{{root_url}}/"><img class="img-icon" src="{{root_url}}/static/icon-home.svg"></a>
+			   title="Go to home page (Index)" href="{{root_url}}/"><img class="img-icon" src="{{home_icon_url}}"></a>
             <div class="dropdown">
               <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button" 
                  href="#" 
@@ -320,7 +330,7 @@
                  onclick="toggleHeadings();"
                  id="btn-scroll-bottom" 
                  title="Fold/Unfold all sections."
-                 ><img class="img-icon" src="{{root_url}}/static/dots-vertical.svg" ></a> 
+                 ><img class="img-icon" src="{{unfold_icon_url}}"></a> 
             <!-- 
              <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
                  href="#" 
