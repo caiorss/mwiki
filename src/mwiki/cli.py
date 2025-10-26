@@ -519,7 +519,7 @@ def render_font_data(  key: str
                                )
     font_face_italic = ""
     font_face_italic_b64 = ""
-    font_face_italic_file = root_path / ("static/" + data.get("italic", ""))
+    font_face_italic_file = root_path / ("static/fonts" + data.get("italic", ""))
     if self_contained and font_face_italic_file.is_file():
         font_face_regular_b64 = mwiki.utils.file_to_base64_data_uri(font_face_italic_file)
     if has_italic:
