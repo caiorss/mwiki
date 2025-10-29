@@ -1374,13 +1374,15 @@ class HtmlRenderer(AbstractAstRenderer):
             content, directives = mparser.get_code_block_directives(node.content)
             label = f'id="{u}"' if (u := directives.get("label")) else ""
             html = f"""<blockquote {label} >\n{utils.escape_html(content)}\n</blockquote>"""
-        elif info.startswith("{solution}") or info == "{proof}" or info.startswith("{foldable}") or info.startswith("{example}"):
+        elif info.startswith("{solution}") or info == "{proof}" \
+                or info.startswith("{derivation}") or info.startswith("{foldable}") \
+                or info.startswith("{example}"):
             ## breakpoint()
             content, directives = mparser.get_code_block_directives(node.content)
             label      = f'id="{u}"' if (u := directives.get("label")) else ""
             background = f'background:{u};' if (u := directives.get("background")) else ""
             equation_enumeration_enabled = directives.get("enumeration", "off") != "off"
-            print(" [TRACE] equation_enumeration_enabled = ", equation_enumeration_enabled)
+            ## print(" [TRACE] equation_enumeration_enabled = ", equation_enumeration_enabled)
             self._inside_math_block = True
             self._enumeration_enabled_in_math_block = equation_enumeration_enabled 
             ## breakpoint()
@@ -1396,12 +1398,14 @@ class HtmlRenderer(AbstractAstRenderer):
                 # Remove prefix
                 title = "Foldable" if (x := info[len("{foldable}"):].strip().capitalize()) == "" \
                           else x
-            tag = tag.capitalize()
-            i18nTagsDB = {  "solution": "foldable-math-solution-block-label"
-                          , "proof":    "foldable-math-proof-block-label"
-                          , "example":  "foldable-math-example-block-label"
+            ## tag = tag.capitalize()
+            i18nTagsDB = {  "solution":    "foldable-math-solution-block-label"
+                          , "proof":       "foldable-math-proof-block-label"
+                          , "derivation":  "foldable-math-derivation-block-label"
+                          , "example":     "foldable-math-example-block-label"
                          }
             i18nTag = i18nTagsDB.get(tag.lower())
+            tag = tag.capitalize() if tag != "derivation" else tag.replace("derivation", "Equation Derivation")
             inner_html = self.render(ast)
             self._inside_math_block = False
             self._enumeration_enabled_in_math_block = True
