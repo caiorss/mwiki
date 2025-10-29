@@ -125,6 +125,9 @@ class AbstractAstRenderer:
         within the current wiki.
         """
 
+        self._inside_math_block = False
+        self._enumeration_enabled_in_math_block = False
+
         self._count_h1: int = 0
         """Current count of h1 headline - '## h1 headline level'"""
 
@@ -879,9 +882,13 @@ class HtmlRenderer(AbstractAstRenderer):
         if self._render_math_svg:
             html = _latex_to_html(content, inline = False)
         else:
+            enumeration_enabled =  self._inside_math_block \
+                                    and not self._enumeration_enabled_in_math_block \
+                                    and "\\label" not in content 
+            extra = "\n\\notag\n" if enumeration_enabled else ""
             self._needs_mathjax = True
             html = """<div class="math-block anchor"> \n$$\n""" \
-                 + utils.escape_html(content) + "\n$$\n</div>"
+                 + utils.escape_html(extra + content) + "\n$$\n</div>"
         return html 
 
     def render_math_inline(self, node: SyntaxTreeNode) -> str:
@@ -1372,6 +1379,10 @@ class HtmlRenderer(AbstractAstRenderer):
             content, directives = mparser.get_code_block_directives(node.content)
             label      = f'id="{u}"' if (u := directives.get("label")) else ""
             background = f'background:{u};' if (u := directives.get("background")) else ""
+            equation_enumeration_enabled = directives.get("enumeration", "off") != "off"
+            print(" [TRACE] equation_enumeration_enabled = ", equation_enumeration_enabled)
+            self._inside_math_block = True
+            self._enumeration_enabled_in_math_block = equation_enumeration_enabled 
             ## breakpoint()
             ast =  mparser.parse_source(content)
             title = ""
@@ -1392,6 +1403,8 @@ class HtmlRenderer(AbstractAstRenderer):
                          }
             i18nTag = i18nTagsDB.get(tag.lower())
             inner_html = self.render(ast)
+            self._inside_math_block = False
+            self._enumeration_enabled_in_math_block = True
             html = f"""<div class="foldabel-block-div"><details {label}>\n<summary><u class="solution-label"><label data-i18n="{i18nTag}">{tag}</label> {title}</u></summary>\n\n<div class="foldable-block" style="{background}">{inner_html}</div>\n</details></div>"""
         elif info == "{latex_macro}":
             html = f""" 
