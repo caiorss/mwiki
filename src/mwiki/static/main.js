@@ -140,7 +140,8 @@ function localStorageGet(key)
 }
 
 /** Unescape/decode Html code.*/
-function htmlUnescape(htmlStr) {
+function htmlUnescape(htmlStr)
+{
     htmlStr = htmlStr.replace(/&lt;/g , "<");
     htmlStr = htmlStr.replace(/&gt;/g , ">");
     htmlStr = htmlStr.replace(/&quot;/g , "\"");
@@ -148,6 +149,136 @@ function htmlUnescape(htmlStr) {
     htmlStr = htmlStr.replace(/&amp;/g , "&");
     return htmlStr;
 }
+
+
+/* Get the maximum random integer within the range (0, size - 1)
+   without repetition
+*/
+function nextRandomInt(size, current)
+{
+  var out = current;
+  while( out === current )
+  {
+    out = Math.floor(Math.random() * size);
+  }
+  return out;
+}
+
+
+class FlashCard
+{
+  constructor(root)
+  {
+     this._handlers = {}; 
+     this._root = root;
+     this._visible = false;
+     // Number of flashcards in this set of flashcards
+     this._size = JSON.parse(root.dataset.size);
+     // Current visible flashcard in practice mode (when all cards are hidden)
+     this._current = 0;
+     let self = this;
+     this.bindClick("btn-flashcard-next", (target) => self.next(target));
+     this.bindClick("btn-flashcard-prev", (target) => self.prev(target));
+     this.bindClick("btn-flashcard-view", (target) => self.toggle(target));
+     this.bindClick("btn-show-card", (target) => self.showAnswer(target));
+  }
+  
+  toggle(target)
+  {
+    if(this._visible){ this.hide(); } 
+    else 						 { this.show(); }
+  }
+  
+  show(target)
+  {
+    	this._visible = true;
+      let entries = this._root.querySelectorAll(".card-entry");
+      for(let x of entries)
+      {
+         x.classList.remove("hidden");    
+         x.querySelector(".card-answer").classList.remove("hidden");
+      }
+  }
+  
+  hide(target)
+  {
+    	this._visible = false;
+      let entries = this._root.querySelectorAll(".card-entry");
+      for(let x of entries)
+      {
+         x.classList.add("hidden");    
+         x.querySelector(".card-answer").classList.add("hidden");
+      }
+    	// entries[0].classList.remove("hidden");
+      this._root.querySelectorAll(".card-entry")[this._current].classList.remove("hidden");
+  }
+  
+  /* Switch to next flashcard in the current cardset. */
+  next(target)
+  {
+    if(this._visible){ return; }
+    this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
+    let randomMode = this._root.querySelector(".random-mode-checkbox").checked;
+    if(randomMode){
+      this._current = nextRandomInt(this._size, this._current);
+    } else {
+      this._current = this._current + 1;
+      if(this._current >= this._size){ this._current = this._size - 1}
+    }
+    this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
+    // alert("Error not implementd");
+  }
+  
+  /* Switch to previous flashcard of the cardset. */
+  prev(target)
+  {
+    if(this._visible){ return; }
+    this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
+    this._current = this._current - 1;
+    if(this._current <= 0){ this._current = 0; }
+    this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
+  
+  }
+
+  /* Show back side of the current flashcard. */
+  showAnswer(target)
+  {
+      let answer = target.parentElement.querySelector(".card-answer");
+      let label  = answer.classList.contains("hidden") ? "close" : "open";
+      target.textContent = label;
+      answer.classList.toggle("hidden");
+  }
+ 
+  bindClick(buttonClassNameTarget, handler)
+  {
+    this._handlers[buttonClassNameTarget] = handler;
+  }
+  
+  dispatchClick(targetClass, target)
+  {
+     let action = this._handlers[targetClass];
+     if(!action){
+       console.error(`Button class target not found: ${targetClass}`);
+       return;
+     }
+     action(target);
+  }
+}
+
+let flashcardObjects = {};
+
+function cardHandler(event)
+{
+   let cardset = this;
+   let obj = flashcardObjects[this.dataset.id];
+   //console.log(" [TRACE] obj ", obj);
+   let targetClass = event.target.classList[0];
+   //console.log(" [TRACE] target = ", event.target);
+   
+   obj.dispatchClick(targetClass, event.target);
+}
+
+
 
 // I18N Internationalization for the Website GUI - Graphics User Interface.
 // It allows adding new localization without changing the UI code.
@@ -957,6 +1088,19 @@ document.addEventListener("DOMContentLoaded", async function()
 
     displayEditButtons();
 
+
+    let cardsets = document.querySelectorAll(".div-flashcard");
+    var id = 0;
+    for(let x of cardsets)
+    {
+      
+       flashcardObjects[id] = new FlashCard(x);
+       x.dataset.id = id;
+       x.addEventListener("click", cardHandler);
+       id = id + 1;
+    }
+  
+
     // Event bubbling
     onClick(".toc", (evt) => {
         if(isMobileScreen() && evt.target.className == "link-sidebar")
@@ -1559,8 +1703,7 @@ document.addEventListener("keydown", (event) => {
     // Open window within current that allows quick switching
     // to a Wiki page by typing its title.
     if (event.ctrlKey && event.key === "e") {
-        quickOpenPage();
-
+        quickOp
         let dom = document.querySelector("#prompt-open-page");
         setTimeout(() => { dom.focus(); }, 500);
 

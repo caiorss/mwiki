@@ -1537,7 +1537,7 @@ class HtmlRenderer(AbstractAstRenderer):
             html += "</div>"
         # Disable flashcard if-else branch while the flashcard
         # feature is not ready yet.
-        elif False and info == "{flashcard}":
+        elif info == "{flashcard}":
             code = node.content 
             data = None 
             try:
@@ -1554,25 +1554,29 @@ class HtmlRenderer(AbstractAstRenderer):
                     back  = card[1] # Contains the response 
                     style = "hidden" if k != 0 else ""
                     html += ("""<div class="card-entry %s" data-index="%s">\n""" % (style , k)
-                                + """<button class="btn-show-card">show</button>""" 
+                                + """<button class="btn-show-card">open</button>""" 
                                 + """<label class="label-card-front">(%d/%d) %s</label>""" % (k+1, n, front) 
                                 + """<p class="card-answer hidden">ANSWER: %s</p>""" % back 
                                 + """</div>""")
                     k = k + 1
-                html = (  """<div class="div-flashcard" onclick="onFlashcardClickHandler(event)" data-size="%s">""" % len(entries)
+                html = (  """<div class="div-flashcard"  data-size="%s">""" % len(entries)
                         + """<div><b class="flashcard-title">%s</b></div>""" % title
                         + """<div class="div-flashcard-button-panel">""" 
                             + """<button class="btn-flashcard-view">View</button>""" 
                             + """<button class="btn-flashcard-prev">Prev</button>""" 
                             + """<button class="btn-flashcard-next">Next</button>""" 
-                            + """<input type="checkbox" name="random" /><label for="random">Random</label>"""
+                            + """<input class="random-mode-checkbox" type="checkbox" name="random" /><label for="random">Random</label>"""
                             + """</div>""" 
                             
                         + """<div class="flashcard-entries">\n""" +  html  + """\n</div>"""
                         + """</div>"""
                         )
-            except json.decoder.JSONDecorderError as ex:
-                html = "<b>Flash card error: bad json syntax</b>"
+            except json.decoder.JSONDecodeError as ex:
+                html = (  """<div class="div-flashcard-error">"""
+                        + """\n<b>Flash card error: bad json syntax</b>"""
+                        + """\n<p>""" + str(ex) + """"</p>"""
+                        + """\n<pre>""" + utils.escape_html(node.content) + """</pre>"""
+                        )
         else:
             code = utils.highlight_code(node.content, language = info)
             html = f"""<pre>\n<code class="language-{info.strip()}">{code}</code>\n</pre>"""
