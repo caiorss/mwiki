@@ -624,7 +624,7 @@ def render_font_data(  key: str
                                             'The author field is compiled to <meta name="author" content="AUTHOR NAME"> '
                                             'This setting only makes sense if there is a single author.'
                                             ))
-def compile(  wikipath:              Optional[str]
+def export(   wikipath:              Optional[str]
             , output:                Optional[str]
             , page:                  Optional[str]
             , website_name:          str
