@@ -737,13 +737,18 @@ img.wiki-image {
     cursor: zoom-in;
 }
 
-
     
 div.math-container {
     margin-bottom: 10px;
     /* background-color: aliceblue; */
 }
-    
+
+
+img.math {
+    transform: scale(1.5) !important;
+}
+
+
     
 img.inline-math {
     vertical-align: -2pt;
@@ -1433,7 +1438,9 @@ main thead th {
         margin-top: 0px !important;
     }
 
-    img.inline-math {
+
+    
+    img.inline-math-single {
         height: 12px;
         max-height: 12px;
     }

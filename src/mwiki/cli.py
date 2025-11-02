@@ -28,6 +28,7 @@ import mwiki.watcher
 import mwiki.render as render
 import mwiki.models
 import mwiki.utils as utils
+from mwiki.latex_svg import LatexFormula
 from . import render
 from .models import User, Settings
 from .app import db, app 
@@ -610,6 +611,14 @@ def render_font_data(  key: str
             ) )
 @click.option("--embed-mathjax", is_flag = True, help = ("Self host Mathjax library for rendering math formulas instead "
                                                         "of loading it from a CDN."))
+@click.option("--latex-svg", is_flag = True, help = ("Render all LaTeX formulas and code as SVG images "
+                                                     "instead of rendering them with MathJax."
+                                                     " Note that this setting requires installing LaTeX dependencies and"
+                                                     "compiling LaTeX to SVG consumes more time and resources. However "
+                                                     "this enabling this flag is useful for generating self contained documents"
+                                                     "or in cases when there is too much formulas and MathJax becomes very slow."
+                                                    ))
+@click.option("--verbose", is_flag = True, help = ("Display more information about the compilation output."))
 @click.option("--author", default = None, help = (
                                             'Override the frontmatter attribute author in all wiki pages. '
                                             'The author field is compiled to <meta name="author" content="AUTHOR NAME"> '
@@ -629,6 +638,8 @@ def compile(  wikipath:              Optional[str]
             , allow_language_switch: bool
             , self_contained:        bool 
             , embed_mathjax:         bool
+            , latex_svg:             bool 
+            , verbose:               bool 
             , author:                str 
             ):
     """Compile a MWiki repository to a static website."""
@@ -670,8 +681,8 @@ def compile(  wikipath:              Optional[str]
     else:
         pages = root.rglob("*.md")
     static = out / "static"
-    static.mkdir(exist_ok = True)
     if not self_contained:
+        static.mkdir(exist_ok = True)
         mwiki.utils.copy_resource_files_ext(mwiki, "static/*.svg", static)
         mwiki.utils.copy_resource_file(mwiki, "static/main.js", static )
         mwiki.utils.copy_resource_file(mwiki, "static/static_style.css", static )
@@ -746,15 +757,17 @@ def compile(  wikipath:              Optional[str]
         menu_icon_url = mwiki.utils.file_to_base64_data_uri(root_path / "static/hamburger-menu.svg")
         home_icon_url = mwiki.utils.file_to_base64_data_uri(root_path / "static/icon-home.svg")
     print()
-    print("Compilation Settings")
+    print("Export Settings")
     print()
     print(" [*]                              Author: ", author or "")
     print(" [*]                        Website Name: ", website_name)
     print(" [*]                            Root URL: ", "/" if root_url == "" else root_url)
     print(" [*]  Default User Interface (UI) Locale: ", locale)
     print(" [*]               Allow language switch: ", bool_to_on_off(allow_language_switch))
-    print(" [*]                       Embed Mathjax: ", bool_to_on_off(embed_mathjax))
-    print(" [*]               Load Mathjax from CDN: ", bool_to_on_off(not embed_mathjax))
+    print(" [*]             Self Contained Document: ", bool_to_on_off(self_contained))
+    print(" [*]          Render LaTeX as SVG images: ", bool_to_on_off(latex_svg))
+    print(" [*]                       Embed Mathjax: ", bool_to_on_off(not latex_svg and embed_mathjax))
+    print(" [*]               Load Mathjax from CDN: ", bool_to_on_off(not latex_svg and not embed_mathjax))
     print(" [*]                    Main font family: ", main_font_family)
     print(" [*]                   Title Font Family: ", title_font_family)
     print(" [*]                    Code Font Family: ", code_font_family)
@@ -768,12 +781,17 @@ def compile(  wikipath:              Optional[str]
                 .replace(" ", "_")
         print(f" [*] Compiling {p} to {outfile}")
         pagefile = str(p)
+        if latex_svg:
+            LatexFormula.compile_document_parallel(p, root, verbose = verbose)
         renderer, content = render.pagefile_to_html(  pagefile
                                                     , base_path
-                                                    , static_compilation = True
-                                                    , self_contained = True
-                                                    , root_url = root_url
-                                                    )
+                                                    , static_compilation  = True
+                                                    , self_contained      = self_contained
+                                                    , root_url            = root_url
+                                                    , render_math_svg     = latex_svg 
+                                                    , embed_math_svg      = self_contained 
+                                                    ) 
+                                                    
         files = renderer.files
         if not self_contained:
             for file  in files:
@@ -806,9 +824,9 @@ def compile(  wikipath:              Optional[str]
                , "page_author":          renderer.author or author 
                , "toc":                  toc 
                , "content":              content               
-               , "mathjax_enabled":      renderer.needs_mathjax
+               , "mathjax_enabled":      not latex_svg & renderer.needs_mathjax
                , "graphviz_enabled":     renderer.needs_graphviz 
-               , "latex_algorithm":      renderer.needs_latex_algorithm
+               , "latex_algorithm":      not latex_svg & renderer.needs_latex_algorithm
                , "equation_enumeration": renderer.equation_enumeration
                , "config_sitename":      lambda: website_name 
                , "config_main_font":     lambda: main_font_family
@@ -816,7 +834,7 @@ def compile(  wikipath:              Optional[str]
                , "config_title_font":    lambda: title_font_family
                , "default_locale":       lambda: locale
                , "use_default_locale":   lambda: True
-               , "embed_mathjax":        embed_mathjax 
+               , "embed_mathjax":        latex_svg & embed_mathjax 
                , "self_contained":       self_contained
                , "main_script_code":     main_code
                , "style_sheet_code":     style_code
@@ -827,6 +845,9 @@ def compile(  wikipath:              Optional[str]
         html = tpl.render(env)
         outfile.write_text(html)
     print(" [*] Compilation terminated successfully ok.")
+    math_svg_cache_folder = root / ".data/svgcache"
+    if not self_contained and latex_svg and math_svg_cache_folder.is_dir():
+       utils.copy_folder(math_svg_cache_folder, out / "svgcache")
     exit(0)
         
  

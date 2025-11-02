@@ -141,6 +141,11 @@ div.math-container {
 }
     
     
+img.math {
+    transform: scale(1.5) !important;
+    margin-bottom: 15px !important;
+}
+
 img.inline-math {
     vertical-align: -2pt;
     max-height: 15px;

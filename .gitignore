@@ -46,3 +46,4 @@ tags_cache.json
 *.data 
 search_index/*
 dist/*
+out2/*

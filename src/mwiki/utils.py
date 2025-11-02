@@ -14,12 +14,47 @@ import pathlib
 import binascii
 from typing import Optional
 from typing import IO, Any, List, Dict, Optional, Tuple 
+import tempfile 
 import urllib.parse
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
 import pygments.util
 
+__all__ = [  "escape_html"
+           , "escape_url"
+           , "highlight_code"
+           , "expand_path"
+           , "get_wiki_path"
+           , "slugify"
+           , "file_to_base64_data_uri"
+           , "copy_resource_file"
+           , "copy_resource_files_ext"
+           , "copy_resource_directory"
+           , "TempDirectory"
+           , "Result"
+         ]
+
+
+class Result:
+
+    def __init__(self, value, error = None):
+        self._value = value  
+        self._error = error 
+
+    @property
+    def value(self):
+        return self._value
+
+    @property
+    def error(self):
+        return self._error
+
+    def fail(self):
+        return self._error is not None
+
+    def ok(self):
+        return self._error is None
 
 def slugify(value, allow_unicode=False):
     """
@@ -516,10 +551,24 @@ class TempSSLCert:
         return (self._tmp_certfile.name, self._tmp_keyfile.name)
 
 
-__all__ = (  "escape_html"
-           , "escape_url"
-           , "highlight_code"
-           , "file_contains"
-           , "expand_path"
-           , "get_wiki_path"
-          )
+class TempDirectory:
+
+    def __init__(self):
+        self._prev = ""
+        self._tempdir = None
+
+    def name(self):
+        out = self._tempdir.name
+        return out 
+
+    def __enter__(self):
+        self._prev = os.getcwd()
+        self._tempdir = tempfile.TemporaryDirectory()
+        path = self._tempdir.name 
+        os.chdir(path)
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        os.chdir(self._prev)
+        self._tempdir.cleanup()
+        return False
