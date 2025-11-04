@@ -18,8 +18,6 @@ from mwiki.latex_svg import LatexFormula
 
 _STOP_SENTINEL = "{{STOP}}"
 
-FOOTNOTES_DIV_FORWARD_REFERENCE = "{{{@FOOTNOTES-DIV-FOWARD-REFERENCE-TAG}}}"
-
 
 def get_yoututbe_video_id(video_url_or_id: str) -> str:
     """Get video ID of a youtube video URL. 
@@ -886,7 +884,9 @@ class HtmlRenderer(AbstractAstRenderer):
             html  = tex.html(  embed    = self._embed_math_svg
                              , export   = self._static_compilation
                              , root_url = self._root_url )
-            
+            # print(" ---- render_math_block() ----------------------------------")
+            # print(" [TRACE] LaTeX = ", node.content)
+            # print(" [TRACE] Generated HTML = ", html)
         else:
             enumeration_enabled =  self._inside_math_block \
                                     and not self._enumeration_enabled_in_math_block \
@@ -902,6 +902,8 @@ class HtmlRenderer(AbstractAstRenderer):
         #html = f"""<span class="math-inline">${node.content}$</span>"""
         html = ""
         if self._render_math_svg:
+            if node.content.startswith("\\eqref"):
+                return ""
             # html = _latex_to_html(node.content, inline = True)
             tex = LatexFormula(node.content, self._base_path, inline = True)
             html  = tex.html(  embed    = self._embed_math_svg

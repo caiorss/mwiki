@@ -23,7 +23,7 @@ def export(   wikipath:              Optional[str]
             , allow_language_switch: bool
             , self_contained:        bool 
             , embed_mathjax:         bool
-            , latex_svg:             bool 
+            , compile_latex:         bool 
             , verbose:               bool 
             , author:                str 
             ):
@@ -77,19 +77,6 @@ def export(   wikipath:              Optional[str]
     style_code = style_css.read_text()
     if embed_mathjax:
         mwiki.utils.copy_resource_directory(mwiki, "static/mathjax", static / "mathjax" )
-    # images = out / "images"
-    # pasted = out / "pasted"
-    # src_upload = root / "upload"
-    # src_images = root / "images"
-    # src_pasted = root / "pasted"
-    # if src_images.exists():
-    #     images.mkdir(exist_ok = True)
-    #     mwiki.utils.copy_folder(src_images, images)
-    # if src_pasted.exists():
-    #     pasted.mkdir(exist_ok = True)
-    #     mwiki.utils.copy_folder(src_pasted, pasted)
-    # if src_upload.exists():
-    #     mwiki.utils.copy_folder(src_upload, out / "upload")
     icon_mimetypes_database = {
           "ico":   "image/x-icon"
         , "png":   "image/png"
@@ -150,9 +137,9 @@ def export(   wikipath:              Optional[str]
     print(" [*]  Default User Interface (UI) Locale: ", locale)
     print(" [*]               Allow language switch: ", bool_to_on_off(allow_language_switch))
     print(" [*]             Self Contained Document: ", bool_to_on_off(self_contained))
-    print(" [*]          Render LaTeX as SVG images: ", bool_to_on_off(latex_svg))
-    print(" [*]                       Embed Mathjax: ", bool_to_on_off(not latex_svg and embed_mathjax))
-    print(" [*]               Load Mathjax from CDN: ", bool_to_on_off(not latex_svg and not embed_mathjax))
+    print(" [*]       Compile LaTeX to HTML (KaTeX): ", bool_to_on_off(compile_latex))
+    print(" [*]                       Embed Mathjax: ", bool_to_on_off(not compile_latex and embed_mathjax))
+    print(" [*]               Load Mathjax from CDN: ", bool_to_on_off(not compile_latex and not embed_mathjax))
     print(" [*]                    Main font family: ", main_font_family)
     print(" [*]                   Title Font Family: ", title_font_family)
     print(" [*]                    Code Font Family: ", code_font_family)
@@ -166,14 +153,15 @@ def export(   wikipath:              Optional[str]
                 .replace(" ", "_")
         print(f" [*] Compiling {p} to {outfile}")
         pagefile = str(p)
-        if latex_svg:
+        if compile_latex:
+            ##LatexFormula.compile_document(p, root, verbose = verbose)
             LatexFormula.compile_document_parallel(p, root, verbose = verbose)
         renderer, content = render.pagefile_to_html(  pagefile
                                                     , base_path
                                                     , static_compilation  = True
                                                     , self_contained      = self_contained
                                                     , root_url            = root_url
-                                                    , render_math_svg     = latex_svg 
+                                                    , render_math_svg     = compile_latex 
                                                     , embed_math_svg      = self_contained 
                                                     ) 
                                                     
@@ -209,9 +197,10 @@ def export(   wikipath:              Optional[str]
                , "page_author":          renderer.author or author 
                , "toc":                  toc 
                , "content":              content               
-               , "mathjax_enabled":      not latex_svg & renderer.needs_mathjax
+               , "compile_latex":        compile_latex 
+               , "mathjax_enabled":      not compile_latex & renderer.needs_mathjax
                , "graphviz_enabled":     renderer.needs_graphviz 
-               , "latex_algorithm":      not latex_svg & renderer.needs_latex_algorithm
+               , "latex_algorithm":      not compile_latex & renderer.needs_latex_algorithm
                , "equation_enumeration": renderer.equation_enumeration
                , "config_sitename":      lambda: website_name 
                , "config_main_font":     lambda: main_font_family
@@ -219,7 +208,7 @@ def export(   wikipath:              Optional[str]
                , "config_title_font":    lambda: title_font_family
                , "default_locale":       lambda: locale
                , "use_default_locale":   lambda: True
-               , "embed_mathjax":        latex_svg & embed_mathjax 
+               , "embed_mathjax":        compile_latex & embed_mathjax 
                , "self_contained":       self_contained
                , "main_script_code":     main_code
                , "style_sheet_code":     style_code
@@ -230,10 +219,10 @@ def export(   wikipath:              Optional[str]
         html = tpl.render(env)
         outfile.write_text(html)
     print(" [*] Compilation terminated successfully ok.")
-    math_svg_cache_folder = root / ".data/svgcache"
-    if not self_contained and latex_svg and math_svg_cache_folder.is_dir():
-       utils.copy_folder(math_svg_cache_folder, out / "svgcache")
-    exit(0)
+    # math_svg_cache_folder = root / ".data/svgcache"
+    # if not self_contained and compile_latex and math_svg_cache_folder.is_dir():
+    #    utils.copy_folder(math_svg_cache_folder, out / "svgcache")
+    # exit(0)
 
 
 def get_font_data(font_key: str):

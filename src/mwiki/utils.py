@@ -38,7 +38,7 @@ __all__ = [  "escape_html"
 
 class Result:
 
-    def __init__(self, value, error = None):
+    def __init__(self, value = None, error = None):
         self._value = value  
         self._error = error 
 
@@ -47,14 +47,25 @@ class Result:
         return self._value
 
     @property
-    def error(self):
+    def err(self):
         return self._error
 
+    @property 
     def fail(self):
         return self._error is not None
 
-    def ok(self):
+    @property 
+    def success(self):
         return self._error is None
+
+    @classmethod
+    def result(cls, value) -> 'Result':
+        return Result(value = value)
+
+    @classmethod
+    def error(cls, error_) -> 'Result':
+        return Result(error = error_)
+    
 
 def slugify(value, allow_unicode=False):
     """

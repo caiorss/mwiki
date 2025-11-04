@@ -227,8 +227,7 @@
     }
     </script>
 
-
-    {% if mathjax_enabled or latex_algorithm %}
+    {% if not compile_latex and (mathjax_enabled or latex_algorithm) %}
         {% if embed_mathjax %}
         <script src="{{root_url}}/static/mathjax/es5/tex-chtml.js" id="MathJax-script" async></script>
         {% else %}
@@ -239,12 +238,16 @@
         {% endif %}
     {% endif %}
 
-    {% if latex_algorithm %}
+    {% if not compile_latex and latex_algorithm %}
         <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
         <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js" async> </script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
     {% endif %}
 
+
+    {% if compile_latex %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi" crossorigin="anonymous">
+    {% endif %}
 
     {% block jslibs %}
     <!-- Additional Javascript libraries -->

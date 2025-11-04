@@ -269,12 +269,9 @@ def watch(wikipath: str):
             ) )
 @click.option("--embed-mathjax", is_flag = True, help = ("Self host Mathjax library for rendering math formulas instead "
                                                         "of loading it from a CDN."))
-@click.option("--latex-svg", is_flag = True, help = ("Render all LaTeX formulas and code as SVG images "
-                                                     "instead of rendering them with MathJax."
-                                                     " Note that this setting requires installing LaTeX dependencies and"
-                                                     "compiling LaTeX to SVG consumes more time and resources. However "
-                                                     "this enabling this flag is useful for generating self contained documents"
-                                                     "or in cases when there is too much formulas and MathJax becomes very slow."
+@click.option("--compile-latex", is_flag = True, help = ("Render all LaTeX formulas on server-side as HTML by compiling "
+                                                     "them using KaTeX Note that this setting requires a NPM installation."
+                                                     "and NPM interpreter available in the $PATH environment variable."
                                                     ))
 @click.option("--verbose", is_flag = True, help = ("Display more information about the compilation output."))
 @click.option("--author", default = None, help = (
@@ -297,7 +294,7 @@ def export(   wikipath:              Optional[str]
             , allow_language_switch: bool
             , self_contained:        bool 
             , embed_mathjax:         bool
-            , latex_svg:             bool 
+            , compile_latex:         bool 
             , verbose:               bool 
             , author:                str 
     ):
@@ -306,7 +303,7 @@ def export(   wikipath:              Optional[str]
                         , root_url, locale, icon, main_font
                         , code_font, title_font
                         , list_fonts, allow_language_switch, self_contained
-                        , embed_mathjax, latex_svg  , verbose  , author  )        
+                        , embed_mathjax, compile_latex, verbose, author  )        
  
  
 @cli1.command()

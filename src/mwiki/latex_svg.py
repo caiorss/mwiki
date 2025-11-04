@@ -1,3 +1,4 @@
+import re 
 import os
 import os.path 
 import pathlib
@@ -6,7 +7,9 @@ from typing import Optional, List, Tuple
 import subprocess 
 import multiprocessing
 from markdown_it.tree import SyntaxTreeNode
+import mwiki
 import mwiki.utils as utils 
+from mwiki.utils import Result
 import mwiki.mparser as mparser 
 
 # Module Exports 
@@ -33,7 +36,7 @@ class LatexFormula:
         self._inline_single = inline_single
         data = code.encode("utf-8")
         self._hash = hashlib.sha1(data).hexdigest()
-        self._file = self._hash + ".svg"
+        self._file = self._hash + "_katex.html"
         cache = self._root / ".data/svgcache" 
         # Ensure that the SVG cache folder exists 
         cache.mkdir(exist_ok=True)
@@ -89,7 +92,41 @@ class LatexFormula:
             content = self.path.read_text() 
             return content 
 
+
     def html(self, embed: bool = False, export: bool = False, root_url = "/") -> str:
+        """Return <img> html code for the current LaTeX formula (code). 
+
+        Returns a html code containing img DOM element for the
+        corresponding SVG image of the current math formula.
+
+        Parameters:
+          - embed => If this flag is set to true, the SVG image is embedded as
+                     base64 SVG image in the <img> html code. This option is useful
+                     for creating self-contained documents such as PDFs that are easy
+                     to copy, send as attachment and view offline.
+          - export => When this flag is set to true, a MWiki page is being exported
+                      as a static website that can be served just by copying files
+                      without any web/http server.  
+        """
+        ##if not self.cached:
+        ##     self.compile()
+        out = ""
+        if self.path.is_file():
+            out = self.path.read_text()
+        else:
+            out = f"""<div><p>Fail to compile Latex hash = {self.hash}</p> <pre>{utils.escape_html(self.formula)}</pre></div> """
+        if not self.inline: 
+            out = f"""<div class="math-container div-wiki-image">\n{out}\n</div>"""
+        return out
+
+    def compile(self, verbose = False):
+        if self.cached:
+            return
+        out = compile_latex_to_html_katex(self._code, self.inline, verbose)
+        if out.success:
+            self.path.write_text(out.value)
+
+    def html_(self, embed: bool = False, export: bool = False, root_url = "/") -> str:
         """Return <img> html code for the current LaTeX formula (code). 
 
         Returns a html code containing img DOM element for the
@@ -121,7 +158,7 @@ class LatexFormula:
         ## print(" [DEBUG] math html = ", html)
         return html 
 
-    def compile(self, verbose = False) -> bool: 
+    def compile_(self, verbose = False): 
         eqtext = self._code 
         # svg = self.svg() if self.cached or "" 
         svg = self.svg() if self.cached else ""
@@ -180,21 +217,27 @@ class LatexFormula:
             p.join()
 
 
-
 def compile_(x):
-    code, inline, mwiki_path = x 
+    code, inline, mwiki_path, verbose = x 
     tex = LatexFormula(code, mwiki_path, inline = inline)
     svg = tex.svg() if tex.cached else ""
     if not tex.cached or svg == "":
-        tex.compile()
+        tex.compile(verbose = verbose)
 
-
-
-def get_latex_expressions(pagefile: pathlib.Path, mwiki_path: pathlib.Path) -> List[Tuple[str, bool]]:
+def get_latex_expressions(pagefile: pathlib.Path
+                        , mwiki_path: pathlib.Path
+                        , verbose = False) -> List[Tuple[str, bool, pathlib.Path, bool]]:
     source: str = pagefile.read_text()
     ## source = re.sub(r"^$$", "\n$$", source) 
     tokens = mparser.MdParser.parse(source)
     ast    = SyntaxTreeNode(tokens)
+    out    = get_latex_expressions_ast(ast, mwiki_path, verbose)            #label = f'id="{u}"' if (u := directives.get("label")) else ""
+    return out
+
+def get_latex_expressions_ast(ast
+                        , mwiki_path: pathlib.Path
+                        , verbose = False) -> List[Tuple[str, bool, pathlib.Path, bool]]:
+ 
     # Get generator object to iterate over the AST
     # (Abstract Syntax Tree nods)
     gen = ast.walk()
@@ -203,23 +246,73 @@ def get_latex_expressions(pagefile: pathlib.Path, mwiki_path: pathlib.Path) -> L
         node = next(gen, None)
         if node is None: break
         if node.type == "math_block":
-            x = (node.content, False, mwiki_path)
+            x = (node.content, False, mwiki_path, verbose)
             mathblocks.append(x)
         elif node.type == "math_inline" \
             or node.type == "math_single":
-            x =  (node.content, "inline", mwiki_path)
+            x =  (node.content, "inline", mwiki_path, verbose)
             mathblocks.append(x)
         # Code block ```{math} ... ```
         elif node.type == "fence":
             assert node.tag == "code"
             info = node.info if node.info != "" else "text" 
+            content, directives = mparser.get_code_block_directives(node.content)
             if info == "{math}":
-                content, directives = mparser.get_code_block_directives(node.content)
-                #label = f'id="{u}"' if (u := directives.get("label")) else ""
-                x = (content, False, mwiki_path)
+                x = (content, False, mwiki_path, verbose)
                 mathblocks.append(x)
+            elif info.startswith("{derivation}") \
+                or info.startswith("{proof}") \
+                or info.startswith("{foldable}") \
+                or info.startswith("{example}") \
+                or info.startswith("{solution}"):
+                    tokens = mparser.MdParser.parse(content)
+                    ast_    = SyntaxTreeNode(tokens)
+                    xs     = get_latex_expressions_ast(ast_, mwiki_path, verbose) 
+                    mathblocks += xs
     return mathblocks
 
+def compile_latex_to_html_katex(latex: str, inline: bool, verbose = False) -> Result:
+    """Compile LaTeX code or fomula to html using KaTeX.
+    NOTE: This feature requires NodeJS installed and the parent directory
+    of the node command line application listed in the $PATH environment variable. 
+    """
+    # Remove latex \label{someLabel} and \eqref{someRefeence to a label constructs}
+    # that are not supported by KaTeX.
+    latex = re.sub(r"\\notag|\\(label|eqref)\{.*?\}", "", latex)
+    latex = latex.strip()
+    if latex == "":
+        return Result.error("")
+    katex_path = utils.get_path_to_resource_file(mwiki, "static/katex/node_modules/katex/cli.js")
+    if not katex_path.is_file():
+        raise RuntimeError("Path KaTex cli 'cli.js' file not found.")
+    node_executable = os.getenv("MWIKI_NODE_PATH", "node") 
+    args = [node_executable, katex_path]
+    if not inline:
+        args.append("--display-mode")
+    ## verbose = True
+    if verbose:
+        print(" [TRACE] --------------------------------------- ")
+        print(" [TRACE] Compiling formula: \n ", latex)
+    proc = subprocess.Popen(args
+                            , stdout = subprocess.PIPE
+                            , stderr =subprocess.PIPE
+                            , stdin = subprocess.PIPE
+                        )
+    stdout, stderr = proc.communicate( input = latex.encode("utf-8"))
+    stdout = stdout.decode("utf-8")
+    stderr = stderr.decode("utf-8")
+    if proc.returncode == 0 and verbose:
+        print(" [TRACE] output = \n", stdout)
+    if proc.returncode != 0 and verbose:
+        print(" ------ ERROR ----------------------------------- ")
+        print(" [TRACE] KaTeX compiled formula:\n ", latex)
+        print(" [TRACE} Return Code = ", proc.returncode)
+        print(" [TRACE] otuput = \n", stdout)
+        print(" [TRACE] stderr = \n", stderr)
+    out = Result.result(stdout) \
+        if proc.returncode == 0 else Result.error(stderr)
+    return out
+    
 
 def compile_latex_to_svg(latex, inline: bool, verbose = False) -> Optional[str]:
     """Compile Latex code or document to SVG images.
@@ -326,14 +419,16 @@ def compile_latex_to_svg(latex, inline: bool, verbose = False) -> Optional[str]:
             print(f" [ERROR] Failed to crop pdf of latex formula:\n{latex}")
             return ""
         assert os.path.isfile(CROP_PDFILE)
+        if verbose:
+            print(" [TRACE] Compiling LatTeX formula: \n", latex)
         ##print(" [INFO] Turnin PDF into SVG .... ")
         proc = subprocess.run([ "pdf2svg" , CROP_PDFILE, SVGFILE ]
                                , capture_output=True , text=True)
         if proc.returncode != 0:
             print("\n\n [ERROR] ---------------------------------------- ")
             print(f" [ERROR] Failed to turn pdf of latex formula into SVG. => \n{latex}")
-            print(" [TRACE] tex = ", tex)
-            print(" [TRACE] texfile = \n", tex)
+            print( " [TRACE] tex = ", tex)
+            print( " [TRACE] texfile = \n", tex)
             err = f"STDOUT: \n {proc.stdout} \nSTDERR: \n {proc.stderr}"
             print(err)
             ## out = Result(err = err)
