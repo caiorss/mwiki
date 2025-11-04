@@ -305,45 +305,7 @@ def export(   wikipath:              Optional[str]
                         , list_fonts, allow_language_switch, self_contained
                         , embed_mathjax, compile_latex, verbose, author  )        
  
- 
-@cli1.command()
-@click.option("-p", "--path", default = None, 
-                help = ( "Path to folder containing *.md files." )
-                )
-@click.option("-f", "--file", default = None, 
-                help = ( "Path to *.md file to be compiled." )
-                )
-def compile_latex(path: Optional[str], file: Optional[str]):
-    """Compile Latex Formulas of .md file or folder to SVG images.
-    The images are stored in the cache folder.
-    """
-    if file is not None:
-        if not os.path.isfile(file):
-            print(f" [ERROR] File {file} does not exist.")
-            exit(1)
-        render.compile_pagefile(file)
-        exit(0)
-    if path is None:
-        print("Error expected path to folder")
-        exit(1)
-    ##pattern = os.path.join(path, "*.md")
-    ## files = glob.glob(pattern)
-    render.compile_folder(path)
-    ###print(" [INFO] Start compilation of ", path)
-    ###with multiprocessing.Pool(4) as p:
-    ###    p.map(render.compile_pagefile, files)
-    ###print(" [INFO] End compilation of latex formulas in ", path)
-    ##with multiprocessing.Pool(5) as p:
-    ### # Create process pool 
-    ### p = multiprocessing.Pool(5)
-    ### p.map(render.compile_pagefile, files)
-    ### p.close()
-    # Wait for all task termination  
-    ## p.join()
-    ## input("Type RETURN to exit")
-    ## render.compile_folder(path)
-
-@cli1.command()
+cli1.command()
 @click.option("--admin-password", 
                 help = ( "Set admin password." )
                 )
