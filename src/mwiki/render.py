@@ -13,7 +13,7 @@ import subprocess
 import mwiki 
 from . import utils
 from . import mparser
-from mwiki.latex_svg import LatexFormula 
+from mwiki.latex import LatexFormula 
 
 
 _STOP_SENTINEL = "{{STOP}}"

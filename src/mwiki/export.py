@@ -5,7 +5,7 @@ import jinja2
 import mwiki  
 from . import render
 import mwiki.utils as utils  
-from mwiki.latex_svg import LatexFormula 
+from mwiki.latex import LatexFormula 
 import mwiki.mparser as mparser 
 
 

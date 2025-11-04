@@ -28,7 +28,7 @@ import mwiki.watcher
 import mwiki.render as render
 import mwiki.models
 import mwiki.utils as utils
-from mwiki.latex_svg import LatexFormula
+from mwiki.latex import LatexFormula
 from . import render
 from .models import User, Settings
 from .app import db, app 
