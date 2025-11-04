@@ -22,6 +22,17 @@ class SettingsForm(fwt.FlaskForm):
                                           "only admin users or users with permission to edit pages will be able to view the edit button."
                                             ) 
                                           )
+    latex_renderer = wt.SelectField("LaTeX Renderer"
+                                    , choices = [ ("mathjax", "MathJax"), ("katex", "KaTeX") ]
+                                    , description = ("Client-side JavaScript library used for rendering math formulas"
+                                                    " and equations written in LaTeX. Note that the use of KaTeX "
+                                                    "is still experimental."
+                                                       ))
+    use_cdn = wt.BooleanField("Use a CDN",
+                              description = (
+                                  "Load JavaScript libraries from a CDN (Content Delivery Network)"
+                                  "Instead of loading them from this server."
+                              ))
     vim_emulation = wt.BooleanField("VIM Emulation", description="Enable VIM editor emulation in the Wiki code editor (Ace9).")
     show_licenses = wt.BooleanField("Show Licenses", description="Displays menu option showing 'Licenses' that shows all open"
 																 "Source licenses used by this project.")

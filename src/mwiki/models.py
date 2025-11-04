@@ -285,13 +285,17 @@ class Settings(db.Model):
     default_password: so.Mapped[str] = so.mapped_column(nullable=False)
     # Wiki Site Description 
     description: so.Mapped[str] = so.mapped_column(default="MWiki Website")
-
+    # Possible values: "mathjax", "katex" (experimental), "katex - server side"
+    latex_renderer: so.Mapped[str] = so.mapped_column(default = "mathjax")
+    # Load JavaScript dependecies from a CDN (Content Delivery Network)
+    # instead of using the vendored depencies such as MathJax, KaTeX
+    # and GraphViz renderer.
+    use_cdn: so.Mapped[bool] = so.mapped_column(default = False)
     ## main_font: so.Mapped[Optional[FontFamiliyEnum]]
     main_font: so.Mapped[str] = so.mapped_column(default = FontFamiliyEnum.computer_modern.value)
     title_font: so.Mapped[str] = so.mapped_column(default = FontFamiliyEnum.computer_modern.value)
     code_font: so.Mapped[str] = so.mapped_column(default = CodeFontFamily.ibm_plex_mono.value )
     code_font: so.Mapped[str] = so.mapped_column(default = CodeFontFamily.ibm_plex_mono.value )
-
     date_created:    so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
     date_modified:   so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
 

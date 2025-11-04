@@ -152,6 +152,8 @@ def make_app_server(  host:        str
             form.show_licenses.data = conf.show_licenses
             form.default_locale.data = conf.default_locale
             form.use_default_locale.data = conf.use_default_locale
+            form.use_cdn.data = conf.use_cdn
+            form.latex_renderer.data = conf.latex_renderer
         if request.method == M_POST:
             form.validate()
             app.logger.info(f"Form data = {form.data}")    
@@ -167,6 +169,8 @@ def make_app_server(  host:        str
             conf.show_licenses = form.show_licenses.data 
             conf.default_locale = form.default_locale.data
             conf.use_default_locale = form.use_default_locale.data
+            conf.use_cdn = form.use_cdn.data
+            conf.latex_renderer = form.latex_renderer.data 
             conf.save()
             flask.flash('<span data-i18n="settings-page-successful-update-message">Wiki settings updated successfully.</span>')
             app.logger.info("Wiki setting updated.")

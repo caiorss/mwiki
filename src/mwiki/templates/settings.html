@@ -90,10 +90,32 @@
 					name="use_default_locale" type="checkbox" value="{{ form.use_default_locale.data }}">
             <label data-i18n="settings-use-default-locale-checkbox-label"  for="use_default_locale">Use default locale</label>
             <p data-i18n="settings-use-default-locale-description">
-			Always use the default locale (language) regardless of the user preferred language provided by the web browser.
+			        Always use the default locale (language) regardless of the user preferred language provided by the web browser.
             </p>
         </fieldset>
         
+
+        <fieldset class="form-field">
+            <input 	{% if form.use_cdn.data %} checked="" {% endif %}  
+					        name="use_cdn" type="checkbox" value="{{ form.use_cdn.data }}">
+            <label data-i18n="settings-use-cdn-checkbox-label"  for="use-cdn">Use a CDN</label>
+            <p data-i18n="settings-use-default-locale-description">
+			         Load client-side JavaScript libraries from a CDN Content-Delivery Network
+               instead of loading them from this server.
+            </p>
+        </fieldset>
+
+       
+        <fieldset class="form-field">
+            <label data-i18n="settings-latex-renderer-label" for="latex_renderer">LaTeX Renderer</label>
+            {{ form.latex_renderer }}
+            <p data-i18n="settings-latex-renderer-description">
+			         Client-side JavaScript library used for rendering LaTeX math formulas.
+               Note that the support for KaTeX is still experimental.               
+            </p>
+        </fieldset>
+                
+            
         <fieldset class="form-field">
             <label data-i18n="settings-default-locale-label" for="default_locale">Default Locale</label>
             {{ form.default_locale }}
