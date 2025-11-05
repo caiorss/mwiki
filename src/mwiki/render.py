@@ -18,6 +18,9 @@ from mwiki.latex import LatexFormula
 
 _STOP_SENTINEL = "{{STOP}}"
 
+LATEX_RENDERER_MATHJAX = "mathjax"
+LATEX_RENDERER_KATEX   = "katex"
+
 
 def get_yoututbe_video_id(video_url_or_id: str) -> str:
     """Get video ID of a youtube video URL. 
@@ -29,8 +32,7 @@ def get_yoututbe_video_id(video_url_or_id: str) -> str:
     >>> get_yoututbe_video_id("https://m.youtube.com/watch?v=T95k9m5zcX4&pp=0gcJCdgAo7VqN5\
 tD")
 'T95k9m5zcX4'
-
-    ```
+e    ```
     """
     url = video_url_or_id
     video_id = ""
@@ -129,6 +131,8 @@ class AbstractAstRenderer:
 
         self._count_h1: int = 0
         """Current count of h1 headline - '## h1 headline level'"""
+
+        self._latex_renderer = ""
 
         self._count_h2: int = 0
         """Current count of h2 headline - '### h2 headline level'"""
@@ -577,6 +581,7 @@ class HtmlRenderer(AbstractAstRenderer):
                      , self_contained = False
                      , preview: bool = False
                      , root_url: str = "/"
+                     , latex_renderer = LATEX_RENDERER_MATHJAX 
                  ):
         super().__init__(  base_path          = base_path
                          , static_compilation = static_compilation
@@ -585,7 +590,8 @@ class HtmlRenderer(AbstractAstRenderer):
                      )
         if root_url == "/":
             self._root_url = ""
-        
+
+        self._latex_renderer = latex_renderer 
         self._pagefile = page_name
         self._page_path: Optional[pathlib.Path] = self.find_page(page_name.split(".")[0])
         self._timestemap = int(100000 * self._page_path.lstat().st_mtime) \
@@ -599,7 +605,7 @@ class HtmlRenderer(AbstractAstRenderer):
         self._theorem_counter = 1
         """Current theorem number"""
 
-        self._needs_mathjax = False
+        self._needs_latex_renderer = False
         """Flag used for only including MathJax in the html template
         if it is necessary to render equation. MathaJax is only
         loaded in the template base.html if this flag is True.
@@ -644,6 +650,13 @@ class HtmlRenderer(AbstractAstRenderer):
 
         ]
 
+    @property
+    def uses_mathjax(self) -> bool:
+        return self._latex_renderer == LATEX_RENDERER_MATHJAX 
+
+    @property
+    def uses_katex(self) -> bool:
+        return self._latex_renderer == LATEX_RENDERER_KATEX 
 
     @property
     def needs_mathjax(self) -> bool:
@@ -651,7 +664,7 @@ class HtmlRenderer(AbstractAstRenderer):
         The purpose of this flag is allowing lazy load of MathJax for
         increasing the page loading speed.
         """
-        return self._needs_mathjax
+        return self._needs_latex_renderer
 
     @property
     def needs_graphviz(self) -> bool:
@@ -877,10 +890,12 @@ class HtmlRenderer(AbstractAstRenderer):
 
     def render_math_block(self, node: SyntaxTreeNode) -> str:
         html = ""
-        content = node.content.replace("\n>", "")
+        content = node.content.replace("\n>", "").strip()
+        ## breakpoint()
         if self._render_math_svg:
             # html = _latex_to_html(content, inline = False)
-            tex = LatexFormula(content, self._base_path, inline = False)
+            latex = re.sub(r"\\notag|\\(label|eqref)\{.*?\}", "", content)
+            tex = LatexFormula(latex, self._base_path, inline = False)
             html  = tex.html(  embed    = self._embed_math_svg
                              , export   = self._static_compilation
                              , root_url = self._root_url )
@@ -888,13 +903,15 @@ class HtmlRenderer(AbstractAstRenderer):
             # print(" [TRACE] LaTeX = ", node.content)
             # print(" [TRACE] Generated HTML = ", html)
         else:
+            latex = content if not self.uses_katex else  \
+                re.sub(r"\\notag|\\(label|eqref)\{.*?\}", "", content) 
             enumeration_enabled =  self._inside_math_block \
                                     and not self._enumeration_enabled_in_math_block \
                                     and "\\label" not in content 
             extra = "\n\\notag\n" if enumeration_enabled else ""
-            self._needs_mathjax = True
+            self._needs_latex_renderer = True
             html = """<div class="math-block anchor"> \n$$\n""" \
-                 + utils.escape_html(extra + content) + "\n$$\n</div>"
+                 + utils.escape_html(extra + latex) + "\n$$\n</div>"
         return html 
 
     def render_math_inline(self, node: SyntaxTreeNode) -> str:
@@ -910,7 +927,7 @@ class HtmlRenderer(AbstractAstRenderer):
                              , export   = self._static_compilation
                              , root_url = self._root_url )
         else:
-            self._needs_mathjax = True
+            self._needs_latex_renderer = True
             html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
         return html
 
@@ -926,7 +943,7 @@ class HtmlRenderer(AbstractAstRenderer):
                              , root_url = self._root_url
                              )
         else:
-            self._needs_mathjax = True
+            self._needs_latex_renderer = True
             html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
         ## html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
         return html 
@@ -1320,7 +1337,7 @@ class HtmlRenderer(AbstractAstRenderer):
             if self._render_math_svg:
                 html = _latex_to_html(content, inline = False)
             else:
-                self._needs_mathjax = True
+                self._needs_latex_renderer = True
                 # Algorithm code block 
                 if content.strip().startswith(r"\begin{algorithm}"):
                     self._needs_latex_algorithm = True
@@ -1380,7 +1397,7 @@ class HtmlRenderer(AbstractAstRenderer):
             html = f"""<pre {label} class="mermaid" >\n{content}\n</pre>\n"""                   
         # Compatible with Obsidian's pseudo-code plugin
         elif info == "pseudo" or info == "{pseudo}":
-            self._needs_mathjax = True
+            self._needs_latex_renderer = True
             self._needs_latex_algorithm = True
             content, directives = mparser.get_code_block_directives(node.content)
             label = f'id="{u}"' if (u := directives.get("label")) else ""
@@ -2112,6 +2129,7 @@ def pagefile_to_html( pagefile: str
                     , self_contained = False
                     , root_url = "/"
                     , render_math_svg = False 
+                    , latex_renderer = LATEX_RENDERER_MATHJAX 
                     , embed_math_svg = False
                     ) -> Tuple[HtmlRenderer, str]:
     with open(pagefile) as fd:
@@ -2126,7 +2144,8 @@ def pagefile_to_html( pagefile: str
                             , base_path = base_path
                             , static_compilation = static_compilation
                             , self_contained = self_contained 
-                            , root_url = root_url 
+                            , root_url = root_url
+                            , latex_renderer = latex_renderer 
                             )
         html = renderer.render(ast)
         return renderer, html

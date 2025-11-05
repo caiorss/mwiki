@@ -172,6 +172,7 @@ def export(   wikipath:              Optional[str]
                                                     , root_url            = root_url
                                                     , render_math_svg     = compile_latex 
                                                     , embed_math_svg      = self_contained 
+                                                    , latex_renderer      = latex_renderer 
                                                     ) 
                                                     
         files = renderer.files
