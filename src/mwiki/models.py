@@ -348,7 +348,8 @@ def is_database_created() -> bool:
 class WikiPage():
     """Model class representing a wiki page markdown file."""
 
-    def __init__(self, base_path: pathlib.Path, path: pathlib.Path, title: str, debug: bool = False):
+    def __init__(self, base_path: pathlib.Path, path: pathlib.Path, title: str
+                 , latex_renderer = "mathjax", debug: bool = False):
         self._base_path: pathlib.Path = base_path
         self._cache: pathlib.Path = base_path / ".data/cache"
         self._title = title 
@@ -357,6 +358,7 @@ class WikiPage():
         self._path = self.path()
         self._timestamp = 0
         self._debug = debug
+        self._latex_renderer = latex_renderer 
 
     @property
     def timestamp(self):
@@ -448,7 +450,8 @@ class WikiPage():
         toc = mparser.headings_to_html(root)
         pagefile = str(self.path())
         base_path = str(self._base_path)
-        renderer, content = render.pagefile_to_html(pagefile, base_path)
+        renderer, content = render.pagefile_to_html(  pagefile, base_path
+                                                    , latex_renderer = self._latex_renderer)
         title = renderer.title if renderer.title != "" else self._title
         info = out.parent / out.name.replace(".html", ".json")
         ###breakpoint()
@@ -533,11 +536,16 @@ class WikiRepository():
         result = next(self._base_path.rglob(mdfile), None)
         return result 
 
-    def get_wiki_page(self, title: str) -> Optional[WikiPage]:
+    def get_wiki_page(self, title: str, latex_renderer = "mathjax") -> Optional[WikiPage]:
         path = self.find_page(title)
         if path is None: 
             return None 
-        wikipage = WikiPage(base_path = self._base_path, path = path, title = title, debug = self._debug)
+        wikipage = WikiPage( base_path = self._base_path
+                            , path = path
+                            , title = title
+                            , debug = self._debug
+                            , latex_renderer = latex_renderer
+                            )
         return wikipage
         
 

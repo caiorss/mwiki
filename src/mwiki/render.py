@@ -132,7 +132,7 @@ class AbstractAstRenderer:
         self._count_h1: int = 0
         """Current count of h1 headline - '## h1 headline level'"""
 
-        self._latex_renderer = ""
+        self._latex_renderer = LATEX_RENDERER_MATHJAX 
 
         self._count_h2: int = 0
         """Current count of h2 headline - '### h2 headline level'"""
@@ -166,6 +166,9 @@ class AbstractAstRenderer:
 
         self._files = []
         """List of files used by this page."""
+
+        self._equation_counter = 0
+        self._equation_references = {}
 
         self._handlers = {
               "root":                       self.render_root
@@ -238,6 +241,22 @@ class AbstractAstRenderer:
     def dependencies(self) -> List[pathlib.Path]:
         """Return list of MWiki pages embedded in the current page."""
         return self._dependecies
+
+    def add_equation_reference(self, label: str, number: int, content: str):
+        self._equation_references[label] = (number, content)
+
+    def get_equation_reference(self, label: str) -> Optional[Tuple[int, str]]:
+        tpl = self._equation_references.get("label")
+        return tpl
+
+    def resolve_equation_references(self, code: str): 
+        out = code
+        for label, data in self._equation_references.items():
+            number, equation = data
+            out = out.replace("EQUATION_NUMBER{{{%s}}}" % label, str(number))
+            out = out.replace("EQUATION_CODE{{{%s}}}" % label, utils.escape_html(equation) )
+        return out
+            
     
     @property
     def internal_links(self) -> List[str]:
@@ -714,6 +733,8 @@ class HtmlRenderer(AbstractAstRenderer):
             if node_html == _STOP_SENTINEL:
                 break
             html += node_html + "\n\n" 
+        if self.uses_katex:
+            html = self.resolve_equation_references(html)
         return html
     
     def render_text(self, node: SyntaxTreeNode) -> str:
@@ -784,7 +805,11 @@ class HtmlRenderer(AbstractAstRenderer):
         else:
             tag = node.tag if hasattr(node, "tag") else ""
         ## Add automatic enumeration to headings 
+        enumeration_is_continuous = self._equation_enumeration == "continuous" \
+                                        or self._equation_enumeration == "cont"
         if tag == "h2":
+            self._equation_counter = 0 if not enumeration_is_continuous \
+                                       else self._equation_counter
             # not (a OR b) = (not a) AND (not B)
             if title.lower() != "overview" and title.lower() != "related":
                 self._count_h2 += 1
@@ -792,11 +817,14 @@ class HtmlRenderer(AbstractAstRenderer):
                 if self.equation_enumeration != "cont" and self.equation_enumeration != "continuous":
                     # Reset MathJax/LaTeX equation enumeration every subsection 
                     # if the 'equation_enumeration_style: <style>' settings in the 
-                    # document frontmatter is set not set to continous or subsection
+                    # document frontmatter is not set to continous or subsection
+                    self._equation_counter = 0
                     tex_command = r'<span class="tex-section-command" style="display:none">\(\setSection{%s}\)</span>' % self._count_h2
                     tex_command += "\n" + r'<span class="tex-section-command" style="display:none">\(\setSubSection{%s}\)</span>' % self._count_h3
                 value = f"{self._count_h2} {value}" if self._section_enumeration else value
         elif tag == "h3":
+            self._equation_counter = 0 if self.equation_enumeration == "subsection" \
+                                       else self._equation_counter
             self._count_h3 += 1
             self._count_h4 = 0
             if self.equation_enumeration != "cont" and self.equation_enumeration != "continuous":
@@ -832,6 +860,8 @@ class HtmlRenderer(AbstractAstRenderer):
         ##breakpoint()
         line_end   = next_sibling.map[1] - 1 if next_sibling else "end"
         ## assert line_start <= line_end
+        if self.uses_katex:
+            tex_command = ""
         ## breakpoint()
         if tag == "h2" or tag == "h3":
             pagename = self._pagefile.split(".")[0] if not self._is_embedded_page else self._embedded_page
@@ -894,7 +924,7 @@ class HtmlRenderer(AbstractAstRenderer):
         ## breakpoint()
         if self._render_math_svg:
             # html = _latex_to_html(content, inline = False)
-            latex = re.sub(r"\\notag|\\(label|eqref)\{.*?\}", "", content)
+            latex = re.sub(r"\\notag|\\(label|eqref|require)\{.*?\}", "", content)
             tex = LatexFormula(latex, self._base_path, inline = False)
             html  = tex.html(  embed    = self._embed_math_svg
                              , export   = self._static_compilation
@@ -903,21 +933,60 @@ class HtmlRenderer(AbstractAstRenderer):
             # print(" [TRACE] LaTeX = ", node.content)
             # print(" [TRACE] Generated HTML = ", html)
         else:
+            ## breakpoint()
+            self._equation_counter = self._equation_counter + (0 if "\\notag" in content else 1)
             latex = content if not self.uses_katex else  \
-                re.sub(r"\\notag|\\(label|eqref)\{.*?\}", "", content) 
+                re.sub(r"\\notag|\\(label|eqref|require)\{.*?\}", "", content) 
+            label = x[0] if len(x := re.findall(r"\\label\{(.+?)\}", content)) >= 1 else None
+            label_ = "" if label is None else 'id="equation-%s"' % label 
+            enumeration_is_none = self._equation_enumeration == "none"
+            enumeration_is_section = self._equation_enumeration == "section"
+            enumeration_is_continuous = self._equation_enumeration == "continuous" \
+                                            or self._equation_enumeration == "cont"
+            number = "%d" % self._equation_counter 
+            if enumeration_is_section or enumeration_is_none:
+                number = "%d.%d" %  (self._count_h2, self._equation_counter)
+            elif self._count_h3 == 0 and not enumeration_is_continuous:
+                number = "%d.%d" %  (self._count_h2, self._equation_counter)
+            elif not enumeration_is_continuous and not enumeration_is_section: 
+                number = "%d.%d.%d" %  (self._count_h2, self._count_h3, self._equation_counter)
+            if label is not None:
+                self.add_equation_reference(label, number , latex)
             enumeration_enabled =  self._inside_math_block \
                                     and not self._enumeration_enabled_in_math_block \
                                     and "\\label" not in content 
             extra = "\n\\notag\n" if enumeration_enabled else ""
             self._needs_latex_renderer = True
-            html = """<div class="math-block anchor"> \n$$\n""" \
-                 + utils.escape_html(extra + latex) + "\n$$\n</div>"
+            klass = "katex-math-block" if self.uses_katex else "math-block"
+            div_before = """<div class="div-latex-before"></div>""" if self.uses_katex else ""
+            div_enum = '<div class="div-latex-enum"></div>'
+            if self.uses_katex and not enumeration_is_none and "\\notag" not in content:
+                div_enum = '<div class="div-latex-enum"><span>(%s)</span></div>' % number                 
+            html = """<div %s class="%s anchor"> \n""" % (label_, klass) \
+                 + div_before \
+                 + '<div class="div-latex-code">\n$$%s$$\n</div>' %  utils.escape_html(extra + latex) \
+                 + div_enum \
+                 + "\n</div>"
+            ## print(" [TRACE] html = \n", html)
         return html 
 
     def render_math_inline(self, node: SyntaxTreeNode) -> str:
         # NOTE: It is processed by MathJax
         #html = f"""<span class="math-inline">${node.content}$</span>"""
         html = ""
+        ##breakpoint()
+        if self.uses_katex and (m := re.match(r"\\eqref\{(.+?)\}", node.content)):
+            label = m.group(1)
+            number, latex_code = self.get_equation_reference(label) or (-1, "")
+            if number != -1:
+                html = '''<a class="eqref link-internal" href="#equation-%s" data-equation="%s">%s</a>''' % \
+                            (label, utils.escape_html(latex_code), number)
+                return html
+            ##target = "equation-" + label
+            html = ( '''<a class="eqref link-internal" href="#equation-%s" ''' % label
+                   + '''data-equation="EQUATION_CODE{{{%s}}}">(EQUATION_NUMBER{{{%s}}})</a>'''
+                       % (label, label) )
+            return html 
         if self._render_math_svg:
             if node.content.startswith("\\eqref"):
                 return ""

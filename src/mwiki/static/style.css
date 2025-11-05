@@ -744,6 +744,29 @@ div.math-container {
 }
 
 
+.katex-math-block { 
+    display:         flex;
+    justify-content: space-between;
+    align-items:     center;
+}
+
+.div-latex-before {
+    margin-right: auto;
+}
+
+/* .div-latex-code { } */
+
+.div-latex-enum {
+    margin-left: auto;
+    margin-right: 0px;
+    justify-content: right;    
+}
+
+/* Hide KaTeX's built-in equation enumeration */
+.eqn-num {
+    display: none !important;;
+}
+ 
 img.math {
     transform: scale(1.5) !important;
 }

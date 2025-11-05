@@ -348,7 +348,9 @@ def make_app_server(  host:        str
             # and 'Cloud_Computing' are also regarded as the wiki page (note). This approach
             # improves compatibility with Wikis or note taking applications  that use underline
             # in file name and Wikis that use space in the file name.
-            page = repository.get_wiki_page(title = path) or repository.get_wiki_page(title = path_)
+            conf: Settings = Settings.get_instance()
+            page = repository.get_wiki_page(title = path, latex_renderer = conf.latex_renderer) \
+                    or repository.get_wiki_page(title = path_, latex_renderer = conf.latex_renderer)
             ## print(" [TRACE] matches = ", matches)
             # ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
             if not page:
