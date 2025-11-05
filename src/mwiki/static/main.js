@@ -372,7 +372,6 @@ translationsi18n =
 		, "settings-vim-emulation-checkbox-description": "Enable VIM editor emulation in the Wiki code editor (Ace9)"
 		, "settings-display-edit-button-checkbox-description": "Display the wiki edit button for all users [E]. If this setting is disabled,  only admin users or users with permission to edit pages will be able to view the edit button."
 		, "settings-public-checkbox-description": "If enabled, everybody including non logged in users will be able to view the wiki content. Note that only logged in users can edit the wiki." 
-
         , "popup-window-change-language-menu-launcher": { "label": "Language"
                                                           , "title": "Open form that allows overriding the current user interface language." }
         , "popup-window-change-language": "Change the User Interface Language"
@@ -398,7 +397,7 @@ translationsi18n =
 										  "label": "Save"
 										, "title": "Save document and switch to view mode."
 									}
-        , "edit-page-save-icon-button": { "title": "Save document and switch to view mode." }
+    , "edit-page-save-icon-button": { "title": "Save document and switch to view mode." }
 		, "edit-page-undo-button": "Undo"
 		, "edit-page-redo-button": "Redo"
 		, "edit-page-refcard-button": {
@@ -463,6 +462,7 @@ translationsi18n =
         , "statusbar-upload-image-finished-text": "Imagem uploaded successfully."
         , "statusbar-upload-image-error-text": "Error: failed to upload image."
         , "popup-window-footnote-title":          "Footnote"
+        , "popup-window-equation-display-title":  "Equation"
 
 	}
    ,"pt-BR": {
@@ -644,7 +644,7 @@ translationsi18n =
         , "statusbar-upload-image-finished-text": "Imagem enviada com sucesso."
         , "statusbar-upload-image-error-text":    "Error: falha de envio de imagem."
         , "popup-window-footnote-title":          "Nota de Rodapé"
-
+        , "popup-window-equation-display-title":  "Equação"
 	}
 
 };
@@ -1070,6 +1070,7 @@ async function displayEditButtons()
     }
 }
 
+var equationPopupWindow = null;
 
 document.addEventListener("DOMContentLoaded", async function()
 {
@@ -1166,6 +1167,17 @@ document.addEventListener("DOMContentLoaded", async function()
         This form allows overriding the current UI - User Interface language.
         </p>
     `
+    });
+
+    equationPopupWindow = new PopupWindow({
+         title:        ""
+       , titleI18nTag: "popup-window-equation-display"
+       , html: `
+            <div class="equation-view">
+            <div>
+          `
+       , width: "500px"
+       , height: "95px"
     });
 
     let localeEntry = document.querySelector("#select-user-locale");
@@ -1372,6 +1384,19 @@ document.addEventListener("mouseover", (event) => {
         }
     }
 
+    // Hyperlink to equation 
+    if( target.classList.contains("eqref") )
+    {
+       let div = document.querySelector(".equation-view");
+       katex.render(target.dataset.equation, div, { throwOnError: false });
+       equationPopupWindow.show();
+       let title = geti18nTranslation("popup-window-equation-display-title") || "Equation";
+       // console.log(` [TRACE] Title = ${title}`);
+       equationPopupWindow.setTitle(`${title} ${target.innerText}`);
+    } else {
+        // equationPopupWindow.close();
+    }
+
 
 
 });
@@ -1504,6 +1529,8 @@ document.addEventListener("click", (event) => {
         tooltip_window.close();
     }
 
+     
+   equationPopupWindow.close();
 });
 
 
