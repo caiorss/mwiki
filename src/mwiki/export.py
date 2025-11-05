@@ -22,7 +22,8 @@ def export(   wikipath:              Optional[str]
             , list_fonts:            bool 
             , allow_language_switch: bool
             , self_contained:        bool 
-            , embed_mathjax:         bool
+            , embed_latex_renderer:  bool
+            , latex_renderer:        str 
             , compile_latex:         bool 
             , verbose:               bool 
             , author:                str 
@@ -36,6 +37,11 @@ def export(   wikipath:              Optional[str]
             family = fdata.get("family", "")
             print("%30s%30s" % (key, family))
         exit(0)
+    if not latex_renderer == "mathjax" and not latex_renderer == "katex":
+        print("Error: expected --latex-renderer=mathjax or --latex-renderer=katex")
+        exit(1)        
+    if compile_latex:
+        latex_renderer = "katex"
     if not wikipath and not page:
         print("Error expected --wikipath or --page command line switches.")
         exit(1)
@@ -75,8 +81,10 @@ def export(   wikipath:              Optional[str]
     style_css = mwiki.utils.get_path_to_resource_file(mwiki, "static/static_style.css")
     main_code = main_js.read_text()
     style_code = style_css.read_text()
-    if embed_mathjax:
+    if embed_latex_renderer and latex_renderer == "mathjax":
         mwiki.utils.copy_resource_directory(mwiki, "static/mathjax", static / "mathjax" )
+    if embed_latex_renderer and latex_renderer == "katex":
+        mwiki.utils.copy_resource_directory(mwiki, "static/katex", static / "katex" )
     icon_mimetypes_database = {
           "ico":   "image/x-icon"
         , "png":   "image/png"
@@ -126,8 +134,8 @@ def export(   wikipath:              Optional[str]
     home_icon_url   = f"{root_url}/static/icon-home.svg"
     if self_contained:
         unfold_icon_url = mwiki.utils.file_to_base64_data_uri(root_path / "static/dots-vertical.svg")
-        menu_icon_url = mwiki.utils.file_to_base64_data_uri(root_path / "static/hamburger-menu.svg")
-        home_icon_url = mwiki.utils.file_to_base64_data_uri(root_path / "static/icon-home.svg")
+        menu_icon_url   = mwiki.utils.file_to_base64_data_uri(root_path / "static/hamburger-menu.svg")
+        home_icon_url   = mwiki.utils.file_to_base64_data_uri(root_path / "static/icon-home.svg")
     print()
     print("Export Settings")
     print()
@@ -138,8 +146,9 @@ def export(   wikipath:              Optional[str]
     print(" [*]               Allow language switch: ", bool_to_on_off(allow_language_switch))
     print(" [*]             Self Contained Document: ", bool_to_on_off(self_contained))
     print(" [*]       Compile LaTeX to HTML (KaTeX): ", bool_to_on_off(compile_latex))
-    print(" [*]                       Embed Mathjax: ", bool_to_on_off(not compile_latex and embed_mathjax))
-    print(" [*]               Load Mathjax from CDN: ", bool_to_on_off(not compile_latex and not embed_mathjax))
+    print(" [*]                      LaTeX renderer: ", latex_renderer.capitalize())
+    print(" [*]        Load LaTeX renderer from CDN: ", bool_to_on_off(not compile_latex and not embed_latex_renderer))
+    print(" [*]                Embed LaTeX Renderer: ", bool_to_on_off(not compile_latex and embed_latex_renderer))
     print(" [*]                    Main font family: ", main_font_family)
     print(" [*]                   Title Font Family: ", title_font_family)
     print(" [*]                    Code Font Family: ", code_font_family)
@@ -197,6 +206,7 @@ def export(   wikipath:              Optional[str]
                , "page_author":          renderer.author or author 
                , "toc":                  toc 
                , "content":              content               
+               , "latex_renderer":       latex_renderer 
                , "compile_latex":        compile_latex 
                , "mathjax_enabled":      not compile_latex & renderer.needs_mathjax
                , "graphviz_enabled":     renderer.needs_graphviz 
@@ -208,7 +218,7 @@ def export(   wikipath:              Optional[str]
                , "config_title_font":    lambda: title_font_family
                , "default_locale":       lambda: locale
                , "use_default_locale":   lambda: True
-               , "embed_mathjax":        compile_latex & embed_mathjax 
+               , "embed_latex_renderer": not compile_latex and embed_latex_renderer 
                , "self_contained":       self_contained
                , "main_script_code":     main_code
                , "style_sheet_code":     style_code

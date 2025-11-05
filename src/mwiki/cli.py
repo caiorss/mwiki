@@ -259,20 +259,20 @@ def watch(wikipath: str):
 @click.option("--title-font", default = "news-reader", help="Title font used in document section headings.") 
 @click.option("--list-fonts", is_flag = True, help="List all available fonts.") 
 @click.option("--allow-language-switch", is_flag = True
-              , help = ( "Allow end-user to switch the user interface language."
-                         
-             ))
+              , help = ( "Allow end-user to switch the user interface language." ))
 @click.option("--self-contained", is_flag = True
              , help = ( "Embed all attachment within the current wiki page."
-                        " JavaScripts and CSS are inlined and images are embedded in base64 encoding. The generated HTML self-contained file is similar to a PDF file."
-                        " This flag is useful for generating self-contained documents for offline view."
-            ) )
-@click.option("--embed-mathjax", is_flag = True, help = ("Self host Mathjax library for rendering math formulas instead "
-                                                        "of loading it from a CDN."))
-@click.option("--compile-latex", is_flag = True, help = ("Render all LaTeX formulas on server-side as HTML by compiling "
-                                                     "them using KaTeX Note that this setting requires a NPM installation."
-                                                     "and NPM interpreter available in the $PATH environment variable."
-                                                    ))
+                 " JavaScripts and CSS are inlined and images are embedded in base64 encoding. "
+                 "The generated HTML self-contained file is similar to a PDF file."
+                 " This flag is useful for generating self-contained documents for offline view." ))
+@click.option("--embed-latex-renderer", is_flag = True
+             , help = ("Self host MathJax or KaTeX The LaTex rendering library is"
+                       " copied to the output directory."))
+@click.option("--latex-renderer", default="mathjax", help = "LaTeX renderer: 'mathjax' or 'katex'. Default: mathjax ")
+@click.option("--compile-latex", is_flag = True
+                    , help = ("Render all LaTeX formulas on server-side as HTML by compiling "
+                              "them using KaTeX Note that this setting requires a NPM installation."
+                              "and NPM interpreter available in the $PATH environment variable." ))
 @click.option("--verbose", is_flag = True, help = ("Display more information about the compilation output."))
 @click.option("--author", default = None, help = (
                                             'Override the frontmatter attribute author in all wiki pages. '
@@ -293,7 +293,8 @@ def export(   wikipath:              Optional[str]
             , list_fonts:            bool 
             , allow_language_switch: bool
             , self_contained:        bool 
-            , embed_mathjax:         bool
+            , embed_latex_renderer:  bool
+            , latex_renderer:        str 
             , compile_latex:         bool 
             , verbose:               bool 
             , author:                str 
@@ -303,7 +304,7 @@ def export(   wikipath:              Optional[str]
                         , root_url, locale, icon, main_font
                         , code_font, title_font
                         , list_fonts, allow_language_switch, self_contained
-                        , embed_mathjax, compile_latex, verbose, author  )        
+                        , embed_latex_renderer, latex_renderer, compile_latex, verbose, author  )        
  
 cli1.command()
 @click.option("--admin-password", 
