@@ -242,19 +242,48 @@ class AbstractAstRenderer:
         """Return list of MWiki pages embedded in the current page."""
         return self._dependecies
 
-    def add_equation_reference(self, label: str, number: int, content: str):
-        self._equation_references[label] = (number, content)
+    def add_equation_reference(self, label: str, number: str, content: str, is_referenced: bool = False):
+        if label not in self._equation_references:
+            self._equation_references[label] = (number, content, is_referenced)
+        else:
+            data =  self.get_equation_reference(label)
+            #breakpoint()
+            assert len(data) == 3
+            number_, content_, is_referenced_ = data
+            # breakpoint()
+            if content != "???":
+                ## print(f" [TRACE] label = {label} ; is_referenced = {is_referenced} ")
+                self._equation_references[label] = (number, content, is_referenced_)
+            else:
+                ## breakpoint()
+                self._equation_references[label] = (number_, content_, is_referenced)
 
-    def get_equation_reference(self, label: str) -> Optional[Tuple[int, str]]:
-        tpl = self._equation_references.get("label")
+    def get_equation_reference(self, label: str) -> Optional[Tuple[str, str, bool]]:
+        tpl = self._equation_references.get(label)
         return tpl
 
-    def resolve_equation_references(self, code: str): 
+    def is_equation_referenced(self, label: str) -> bool:
+        """Return true if a LaTeX equation is referenced with \eqref{label-of-equation}."""
+        if label not in self._equation_references:
+            return False
+        number, content, is_referenced = self._equation_references[label]
+        return is_referenced
+
+    def resolve_equation_references(self, code: str) -> str: 
         out = code
+        enumeration_is_none = self._equation_enumeration == "none"
         for label, data in self._equation_references.items():
-            number, equation = data
+            ## breakpoint()
+            number, equation, is_referenced = data
             out = out.replace("EQUATION_NUMBER{{{%s}}}" % label, str(number))
             out = out.replace("EQUATION_CODE{{{%s}}}" % label, utils.escape_html(equation) )
+            assert number != "???"
+            ## rep = number if is_referenced else ""
+            pat = "{{{DIV_EQUATION_NUMBER(%s)}}}" % number
+            # breakpoint()
+            out = out.replace(pat, f"({number})")
+        rep_ = r"" if enumeration_is_none else r"(\1)"
+        out  = re.sub(r"\{\{\{DIV_EQUATION_NUMBER\((.+?)\)\}\}\}", rep_, out)
         return out
             
     
@@ -939,8 +968,8 @@ class HtmlRenderer(AbstractAstRenderer):
                 re.sub(r"\\notag|\\(label|eqref|require)\{.*?\}", "", content) 
             label = x[0] if len(x := re.findall(r"\\label\{(.+?)\}", content)) >= 1 else None
             label_ = "" if label is None else 'id="equation-%s"' % label 
-            enumeration_is_none = self._equation_enumeration == "none"
-            enumeration_is_section = self._equation_enumeration == "section"
+            enumeration_is_none       = self._equation_enumeration == "none"
+            enumeration_is_section    = self._equation_enumeration == "section"
             enumeration_is_continuous = self._equation_enumeration == "continuous" \
                                             or self._equation_enumeration == "cont"
             number = "%d" % self._equation_counter 
@@ -951,7 +980,7 @@ class HtmlRenderer(AbstractAstRenderer):
             elif not enumeration_is_continuous and not enumeration_is_section: 
                 number = "%d.%d.%d" %  (self._count_h2, self._count_h3, self._equation_counter)
             if label is not None:
-                self.add_equation_reference(label, number , latex)
+                self.add_equation_reference(label, number , latex, False)
             enumeration_enabled =  self._inside_math_block \
                                     and not self._enumeration_enabled_in_math_block \
                                     and "\\label" not in content 
@@ -960,8 +989,14 @@ class HtmlRenderer(AbstractAstRenderer):
             klass = "katex-math-block" if self.uses_katex else "math-block"
             div_before = """<div class="div-latex-before"></div>""" if self.uses_katex else ""
             div_enum = '<div class="div-latex-enum"></div>'
-            if self.uses_katex and not enumeration_is_none and "\\notag" not in content:
-                div_enum = '<div class="div-latex-enum"><span>(%s)</span></div>' % number                 
+            # if self.is_equation_referenced(label):
+            #     breakpoint()
+            # if self.uses_katex and \
+            #     (self.is_equation_referenced(label) \
+            #         or (not enumeration_is_none and "\\notag" not in content)):
+            #     div_enum = '<div class="div-latex-enum"><span>(%s)</span></div>' % number                 
+            if self.uses_katex and "\\notag" not in content:
+                div_enum = '<div class="div-latex-enum"><span>{{{DIV_EQUATION_NUMBER(%s)}}}</span></div>' % number                 
             html = """<div %s class="%s anchor"> \n""" % (label_, klass) \
                  + div_before \
                  + '<div class="div-latex-code">\n$$%s$$\n</div>' %  utils.escape_html(extra + latex) \
@@ -977,11 +1012,15 @@ class HtmlRenderer(AbstractAstRenderer):
         ##breakpoint()
         if self.uses_katex and (m := re.match(r"\\eqref\{(.+?)\}", node.content)):
             label = m.group(1)
-            number, latex_code = self.get_equation_reference(label) or (-1, "")
-            if number != -1:
-                html = '''<a class="eqref link-internal" href="#equation-%s" data-equation="%s">%s</a>''' % \
-                            (label, utils.escape_html(latex_code), number)
-                return html
+            # number, latex_code, is_referenced = self.get_equation_reference(label) or ("", "", False)
+            # if number != "":
+            #     html = '''<a class="eqref link-internal" href="#equation-%s" data-equation="%s">%s</a>''' % \
+            #                 (label, utils.escape_html(latex_code), number)
+            #     return html
+            self.add_equation_reference(   label = label
+                                         , number = "???"
+                                         , content = "???"
+                                         , is_referenced = True)
             ##target = "equation-" + label
             html = ( '''<a class="eqref link-internal" href="#equation-%s" ''' % label
                    + '''data-equation="EQUATION_CODE{{{%s}}}">(EQUATION_NUMBER{{{%s}}})</a>'''
