@@ -26,8 +26,7 @@
 {% endfor %}
 </div>
 
-<div class="form-wrapper">
-    <form method="POST" action="/settings?back={{ request.values.get('back') }}">
+<div class="form-wrapper">    <form method="POST" action="/settings?back={{ request.values.get('back') }}">
         <input id="csrf_token" name="csrf_token" type="hidden" value="{{ csrf_token() }}">
 
         <div class="grid">
@@ -98,9 +97,9 @@
         <fieldset class="form-field">
             <input 	{% if form.use_cdn.data %} checked="" {% endif %}  
 					        name="use_cdn" type="checkbox" value="{{ form.use_cdn.data }}">
-            <label data-i18n="settings-use-cdn-checkbox-label"  for="use-cdn">Use a CDN</label>
-            <p data-i18n="settings-use-default-locale-description">
-			         Load client-side JavaScript libraries from a CDN Content-Delivery Network
+            <label data-i18n="settings-use-cdn-checkbox-label"  for="use-cdn">Use CDN</label>
+            <p data-i18n="settings-use-cdn-description">
+			         Load JavaScript libraries from a CDN Content-Delivery Network
                instead of loading them from this server.
             </p>
         </fieldset>
@@ -110,7 +109,7 @@
             <label data-i18n="settings-latex-renderer-label" for="latex_renderer">LaTeX Renderer</label>
             {{ form.latex_renderer }}
             <p data-i18n="settings-latex-renderer-description">
-			         Client-side JavaScript library used for rendering LaTeX math formulas.
+			         JavaScript library used for rendering LaTeX math formulas.
                Note that the support for KaTeX is still experimental.               
             </p>
         </fieldset>

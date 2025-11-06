@@ -371,7 +371,16 @@ translationsi18n =
 		, "settings-show-source-checkbox-description":   "Provides a button that allows viewing the Markdown (wiki text) source code a wiki"
 		, "settings-vim-emulation-checkbox-description": "Enable VIM editor emulation in the Wiki code editor (Ace9)"
 		, "settings-display-edit-button-checkbox-description": "Display the wiki edit button for all users [E]. If this setting is disabled,  only admin users or users with permission to edit pages will be able to view the edit button."
+		, "settings-default-locale-label":               "Default locale"
+		, "settings-use-default-locale-checkbox-label":  "Use Default Locale"
+		, "settings-use-default-locale-description": 	   "Always use the default locale (language) regardless of the user preferred language provided by the web browser."
+		
 		, "settings-public-checkbox-description": "If enabled, everybody including non logged in users will be able to view the wiki content. Note that only logged in users can edit the wiki." 
+    , "settings-use-cdn-checkbox-label":      "Use CDN"
+		, "settings-use-cdn-description":         "Load JavaScript libraries from a CDN Content-Delivery Network instead of loading them from this server."
+    , "settings-latex-renderer-label":        "LaTeX Renderer"
+    , "settings-latex-renderer-description":  "JavaScript library used for rendering LaTeX math formulas. Note that the support for KaTeX is still experimental. "
+		
         , "popup-window-change-language-menu-launcher": { "label": "Language"
                                                           , "title": "Open form that allows overriding the current user interface language." }
         , "popup-window-change-language": "Change the User Interface Language"
@@ -555,6 +564,10 @@ translationsi18n =
 		, "settings-default-locale-label":               "Idioma/locale padrão"
 		, "settings-use-default-locale-checkbox-label":  "Usar idioma/locale padrão"
 		, "settings-use-default-locale-description": 	 "Sempre usar o idioma padrão (default locale), independentemente do idioma preferido do usuário fornecido pelo navegador da web."
+    , "settings-use-cdn-checkbox-label": "Usar CDN"
+		, "settings-use-cdn-description":   "Carregar as bibliotecas JavaScript de uma CDN (Rede de Distribuição de Conteúdo) em vez de carregá-las deste servidor."
+    , "settings-latex-renderer-label":  "Renderizador LaTeX"
+    , "settings-latex-renderer-description":  "Biblioteca JavaScript usada para renderizar fórmulas matemáticas em LaTeX. Observe que o suporte para KaTeX ainda é experimental."
         , "popup-window-change-language-menu-launcher": { "label": "Idioma"
                                                           , "title": "Formulário que permite sobrepor/mudar o idioma atual da interface do usuário." }
         , "popup-window-change-language": "Alterar o idioma da interface do usuário"
