@@ -32,6 +32,18 @@ class PopupWindow
         this.onClick(".btn-window-close", () => self.close());
     }
 
+    querySelector(selector)
+    {
+      let dom = this._dom.querySelector(selector);
+      return dom;
+    }
+
+    childElementByClass(cssClassSelector)
+    {
+      let dom = this._dom.querySelector("." + cssClassSelector);
+      return dom;
+    }
+
     setTitle(title)
     {
         let x= this._dom.querySelector(".window-title");
@@ -150,6 +162,23 @@ function htmlUnescape(htmlStr)
     return htmlStr;
 }
 
+/** Render DOM (Document Object Model) node using either KaTeX or MathJax
+ *
+ *  Example:
+ *  let dom = document.querySelect(".someDomElementCssSelector");
+ *  renderDOMLatex(dom);
+ */
+function renderDOMLatex(domElementObject)
+{
+   if(IS_LATEX_RENDERER_KATEX)
+   {
+     renderMathInElement(domElementObject);
+   }
+   if(IS_LATEX_RENDERER_MATHJAX)
+   {
+     MathJax.typeset();
+   }
+}
 
 /* Get the maximum random integer within the range (0, size - 1)
    without repetition
@@ -1398,6 +1427,7 @@ document.addEventListener("mouseover", (event) => {
     }
 
     // Hyperlink to equation 
+    // NOTE: It is only supported for KaTeX. 
     if( target.classList.contains("eqref") )
     {
        let div = document.querySelector(".equation-view");
@@ -1452,6 +1482,8 @@ document.addEventListener("click", (event) => {
         tooltip_window.setTitle(title)
         tooltip_window.setMessage(note);
         tooltip_window.show();
+        let dom = tooltip_window.childElementByClass("popup-message-text");
+        renderDOMLatex(dom);
         return;
     }
 
