@@ -1,4 +1,4 @@
-"""Markdown-it Plugin that implements wimedia syntax for internal images.
+"""Markdown-it Plugin that implements media wiki syntax for internal images.
 
 Syntax example for including an image.
 
