@@ -2,6 +2,9 @@
 run:
 	poetry run python -m mdwiki
 
+# Run pytest 
+test:
+	uv run pytest -v --tb=short 
 
 # Generate sample static websiste by compiling the repository ./sample-wiki
 gh-pages:
