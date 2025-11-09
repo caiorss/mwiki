@@ -1,6 +1,6 @@
 import pathlib
 import shutil 
-from typing import Optional
+from typing import Optional, Callable, Any, Dict, Optional
 import jinja2 
 import mwiki  
 from . import render
@@ -104,8 +104,9 @@ def export(   wikipath:              Optional[str]
         icon_path = str(p.name)
         extension = str(p.name).split(".")[0].strip(".")
         icon_mimetype = icon_mimetypes_database.get(extension) or icon_mimetype
-    template  = utils.read_resource(mwiki, "templates/static.html")
-    tpl = jinja2.Template(template)
+    # template  = utils.read_resource(mwiki, "templates/static.html")
+    # tpl = jinja2.Template(template)
+    static_html_renderer = make_template_renderer(mwiki, "templates/static.html")
     root_path = mwiki.utils.get_module_path(mwiki)
     ### print(" [TRACE] root_path => (718) = " + str(root_path))
     font_face_main_font =  render_font_data(main_font
@@ -227,7 +228,8 @@ def export(   wikipath:              Optional[str]
                , "unfold_icon_url":      unfold_icon_url 
                , "home_icon_url":        home_icon_url
               }
-        html = tpl.render(env)
+        ## html = tpl.render(env)
+        html = static_html_renderer(env)
         outfile.write_text(html)
     print(" [*] Compilation terminated successfully ok.")
     # math_svg_cache_folder = root / ".data/svgcache"
@@ -235,6 +237,14 @@ def export(   wikipath:              Optional[str]
     #    utils.copy_folder(math_svg_cache_folder, out / "svgcache")
     # exit(0)
 
+def make_template_renderer(module, template_file: str):
+    template  = utils.read_resource(module, template_file)
+    tpl = jinja2.Template(template)
+    def render(environment: Optional[Dict], **kawargs) -> str:
+        out = tpl.render(environment, **kawargs)
+        return out
+    return render
+    
 
 def get_font_data(font_key: str):
     for x in fonts_database:
