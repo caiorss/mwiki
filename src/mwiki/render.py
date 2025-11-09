@@ -129,6 +129,7 @@ class AbstractAstRenderer:
         self._inside_math_block = False
         self._enumeration_enabled_in_math_block = False
         self._equation_enumeration_style = "section"
+        self._equation_enumeration_enabled = False 
 
         self._count_h1: int = 0
         """Current count of h1 headline - '## h1 headline level'"""
@@ -272,7 +273,6 @@ class AbstractAstRenderer:
 
     def resolve_equation_references(self, code: str) -> str: 
         out = code
-        enumeration_is_none = self._equation_enumeration_style == "none"
         for label, data in self._equation_references.items():
             ## breakpoint()
             number, equation, is_referenced = data
@@ -283,7 +283,7 @@ class AbstractAstRenderer:
             pat = "{{{DIV_EQUATION_NUMBER(%s)}}}" % number
             # breakpoint()
             out = out.replace(pat, f"({number})")
-        rep_ = r"" if enumeration_is_none else r"(\1)"
+        rep_ = r"(\1)" if self._equation_enumeration_enabled else r""
         out  = re.sub(r"\{\{\{DIV_EQUATION_NUMBER\((.+?)\)\}\}\}", rep_, out)
         return out
             
@@ -964,6 +964,9 @@ class HtmlRenderer(AbstractAstRenderer):
         else:
             ## breakpoint()
             self._equation_counter = self._equation_counter + (0 if "\\notag" in content else 1)
+            # Remove \notag and \label, \eqref and \require LaTeX commands
+            # if the LaTeX renderer is KaTeX because it still does not support
+            # those constructs.
             latex = content if not self.uses_katex else  \
                 re.sub(r"\\notag|\\(label|eqref|require)\{.*?\}", "", content) 
             label = x[0] if len(x := re.findall(r"\\label\{(.+?)\}", content)) >= 1 else None
@@ -972,13 +975,17 @@ class HtmlRenderer(AbstractAstRenderer):
             enumeration_is_section    = self._equation_enumeration_style == "section"
             enumeration_is_continuous = self._equation_enumeration_style == "continuous" \
                                             or self._equation_enumeration_style == "cont"
-            number = "%d" % self._equation_counter 
+            number = ""
+            if enumeration_is_continuous:
+                number = str(self._equation_counter)
             if enumeration_is_section or enumeration_is_none:
                 number = "%d.%d" %  (self._count_h2, self._equation_counter)
             elif self._count_h3 == 0 and not enumeration_is_continuous:
                 number = "%d.%d" %  (self._count_h2, self._equation_counter)
             elif not enumeration_is_continuous and not enumeration_is_section: 
                 number = "%d.%d.%d" %  (self._count_h2, self._count_h3, self._equation_counter)
+            else:
+                raise RuntimeError("Impossible state. The code has a bug.")
             if label is not None:
                 self.add_equation_reference(label, number , latex, False)
             enumeration_enabled =  self._inside_math_block \
@@ -1958,8 +1965,11 @@ class HtmlRenderer(AbstractAstRenderer):
             self._author      = data.get("author", "")
             self._section_enumeration  = data.get("section_enumeration", False)
             enum_style = data.get("equation_enumeration_style", "section")   
-            enum_style = enum_style if enum_style in ["none", "cont", "continuous", "section", "subsection"] else "section"
+            enum_style = enum_style if enum_style in ["cont", "continuous", "section", "subsection"] else "section"
             self._equation_enumeration_style = enum_style
+            enum_enabled = data.get("equation_enumeration_enabled", "off") != "off"
+            self._equation_enumeration_enabled = enum_enabled
+            
         abbrs =  data.get("abbreviations", {}) 
         wordlinks = data.get("wordlinks", {})
         ## Append abbreviation dictionary 
