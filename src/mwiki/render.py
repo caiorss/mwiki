@@ -996,12 +996,6 @@ class HtmlRenderer(AbstractAstRenderer):
             klass = "katex-math-block" if self.uses_katex else "math-block"
             div_before = """<div class="div-latex-before"></div>""" if self.uses_katex else ""
             div_enum = '<div class="div-latex-enum"></div>'
-            # if self.is_equation_referenced(label):
-            #     breakpoint()
-            # if self.uses_katex and \
-            #     (self.is_equation_referenced(label) \
-            #         or (not enumeration_is_none and "\\notag" not in content)):
-            #     div_enum = '<div class="div-latex-enum"><span>(%s)</span></div>' % number                 
             if self.uses_katex and "\\notag" not in content:
                 div_enum = '<div class="div-latex-enum"><span>{{{DIV_EQUATION_NUMBER(%s)}}}</span></div>' % number                 
             html = """<div %s class="%s anchor"> \n""" % (label_, klass) \
@@ -1009,7 +1003,6 @@ class HtmlRenderer(AbstractAstRenderer):
                  + '<div class="div-latex-code">\n$$%s$$\n</div>' %  utils.escape_html(extra + latex) \
                  + div_enum \
                  + "\n</div>"
-            ## print(" [TRACE] html = \n", html)
         return html 
 
     def render_math_inline(self, node: SyntaxTreeNode) -> str:
