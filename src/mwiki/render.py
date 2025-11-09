@@ -1713,10 +1713,11 @@ class HtmlRenderer(AbstractAstRenderer):
                         + """<div class="flashcard-entries">\n""" +  html  + """\n</div>"""
                         + """</div>"""
                         )
-            except json.decoder.JSONDecodeError as ex:
+            except (json.JSONDecodeError, IndexError) as ex:
+                msg = str(ex) if isinstance(ex, json.JSONDecodeError) else ""
                 html = (  """<div class="div-flashcard-error">"""
                         + """\n<b>Flash card error: bad json syntax</b>"""
-                        + """\n<p>""" + str(ex) + """"</p>"""
+                        + """\n<p>""" + msg + """"</p>"""
                         + """\n<pre>""" + utils.escape_html(node.content) + """</pre>"""
                         )
         else:
