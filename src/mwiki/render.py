@@ -128,6 +128,7 @@ class AbstractAstRenderer:
 
         self._inside_math_block = False
         self._enumeration_enabled_in_math_block = False
+        self._equation_enumeration_style = "section"
 
         self._count_h1: int = 0
         """Current count of h1 headline - '## h1 headline level'"""
@@ -649,7 +650,6 @@ class HtmlRenderer(AbstractAstRenderer):
         self._embed_math_svg = embed_math_svg
         self._section_enumeration = False
         self._myst_line_comment_enabled = True
-        self._equation_enumeration_style = "section"
         self._theorem_counter = 1
         """Current theorem number"""
 
