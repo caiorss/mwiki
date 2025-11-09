@@ -1001,7 +1001,7 @@ class HtmlRenderer(AbstractAstRenderer):
                 div_enum = '<div class="div-latex-enum"><span>{{{DIV_EQUATION_NUMBER(%s)}}}</span></div>' % number                 
             html = """<div %s class="%s anchor"> \n""" % (label_, klass) \
                  + div_before \
-                 + '<div class="div-latex-code">\n$$%s$$\n</div>' %  utils.escape_html(extra + latex) \
+                 + '<div class="div-latex-code">\n$$%s\n$$\n</div>' %  utils.escape_html(extra + latex) \
                  + div_enum \
                  + "\n</div>"
         return html 
