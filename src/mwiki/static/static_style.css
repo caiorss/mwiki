@@ -139,6 +139,30 @@ div.math-container {
     margin-bottom: 10px;
     /* background-color: aliceblue; */
 }
+
+
+.katex-math-block { 
+    display:         flex;
+    justify-content: space-between;
+    align-items:     center;
+}
+
+.div-latex-before {
+    margin-right: auto;
+}
+
+/* .div-latex-code { } */
+
+.div-latex-enum {
+    margin-left: auto;
+    margin-right: 0px;
+    justify-content: right;    
+}
+
+/* Hide KaTeX's built-in equation enumeration */
+.eqn-num {
+    display: none !important;;
+}
     
     
 img.math {

@@ -89,6 +89,9 @@
     let FONT_FAMILY_CODE = "{{ config_code_font() }}"
     let DEFAULT_LOCALE = "{{ default_locale() }}";
 	  let USE_DEFAULT_LOCALE = "{{ use_default_locale() }}" === "True";
+    let LATEX_RENDERER = "{{ latex_renderer }}";
+    let IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
+    let IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
     let CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
 	
