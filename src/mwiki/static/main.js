@@ -162,6 +162,39 @@ function htmlUnescape(htmlStr)
     return htmlStr;
 }
 
+
+function htmlEscape(htmlStr){
+
+    htmlStr = htmlStr.replace("<",  "&lt;");
+    htmlStr = htmlStr.replace(">",  "&gt;");
+    htmlStr = htmlStr.replace("\"", "&quot;");
+    htmlStr = htmlStr.replace("\'", "&#39;");
+    htmlStr = htmlStr.replace("&",  "&amp;");
+    return htmlStr;
+}
+
+
+// Function to encode a UTF-8 string to Base64
+function utf8ToBase64(str) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(str);
+
+    const binaryString = String.fromCharCode.apply(null, data);
+    return btoa(binaryString);
+}
+
+// Function to decode a Base64 string to UTF-8
+function base64ToUtf8(b64) {
+    const binaryString = atob(b64);
+    // Create a Uint8Array from the binary string.
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+    const decoder = new TextDecoder();
+    return decoder.decode(bytes);
+}
+
 /** Render DOM (Document Object Model) node using either KaTeX or MathJax
  *
  *  Example:
@@ -1014,6 +1047,8 @@ addEventListener("DOMContentLoaded", (ev) => {
 });
 
 
+
+
 function toggle_sidebar()
 {
     /// console.log(" [TRACE] Toggle side bar");
@@ -1043,6 +1078,32 @@ var quickOpenWindow = null;
 var keybindDisplayWindow = null;
 
 var changeLanguageForm = null;
+
+
+function displayPageSourceWindow()
+{
+    // let html = document.querySelector("#template-page-source").innerHTML;
+    // let html = base64ToUtf8(PageSource);
+    let srcWindow= new PopupWindow({
+          title: `Source:`
+        , html:   `<iframe class="iframe-page-source" 
+                           sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation-by-user-activation"
+                           src="${PAGE_SOURCE_URL}"
+                           width="100%" 
+                           height="100%" 
+                           ></iframe> `
+        , width:  "95%"
+        , height: "98%"
+        , top: "0px"
+        , left: "0px" 
+    });
+
+    let dom = srcWindow.childElementByClass("iframe-page-source");
+    // dom.srcdoc = html;
+    srcWindow.show();
+}
+
+
 
 function isMobileScreen()
 {

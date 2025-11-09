@@ -85,15 +85,18 @@
     <script>
 
     let FONT_FAMILY_MAIN = "{{ config_main_font() }}"
-    let FONT_FAMILY_TITLE = "{{ config_title_font() }}"
-    let FONT_FAMILY_CODE = "{{ config_code_font() }}"
-    let DEFAULT_LOCALE = "{{ default_locale() }}";
-	  let USE_DEFAULT_LOCALE = "{{ use_default_locale() }}" === "True";
-    let LATEX_RENDERER = "{{ latex_renderer }}";
-    let IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
-    let IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
-    let CSRF_TOKEN = ""
-    const STATIC_COMPILATION = true;
+    var FONT_FAMILY_TITLE = "{{ config_title_font() }}"
+    var FONT_FAMILY_CODE = "{{ config_code_font() }}"
+    var DEFAULT_LOCALE = "{{ default_locale() }}";
+	  var USE_DEFAULT_LOCALE = "{{ use_default_locale() }}" === "True";
+    var LATEX_RENDERER = "{{ latex_renderer }}";
+    var IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
+    var IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
+    var CSRF_TOKEN = ""
+    var STATIC_COMPILATION = true;
+    // NOTE: It is encoded as base64 
+    let PAGE_SOURCE_CODE = "{{src_page_html}}";
+    let PAGE_SOURCE_URL  = "{{src_page_html_url}}"
 	
     // Possible values: 'none', 'nosection' 'section', 'subsection'
     //  none      => no enumeration 
@@ -307,8 +310,9 @@
 </head>
 
 <body>
-    <aside class="sidebar sidebar-visibility">
 
+    {% if page_type != "src_page" %}
+    <aside class="sidebar sidebar-visibility">
         {% if toc %}
         <h2 data-i18n="sidebar-table-of-contentes-label">Contents</h2>
         {% endif %}
@@ -316,9 +320,11 @@
             <!-- Table of contents template placeholder -->
             {{ toc|safe }}
         </div>
-
     </aside>
+    {% endif %}
+    
     <div class="main main-shift">
+        {% if page_type != "src_page" %}
         <header class="header">
             <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="{{menu_icon_url}}" style="height: 25px;"/> </a>
             <a data-i18n="home-page-button" class="sidebar-toggle-button" 
@@ -331,7 +337,11 @@
                  >
                 <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
                 </a>
-              <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                
+            <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                {% if export_source %}
+                <a data-i18n="show-source-menu-item-label" class="sidebar-toggle-button" href="#" onclick="displayPageSourceWindow();">Show source</a>
+                {% endif %}
                 {% if allow_language_switch %}
                  <a data-i18n="popup-window-change-language-menu-launcher" class="sidebar-toggle-button" href="#"
                     onclick="changeLanguageForm.toggle();"
@@ -364,11 +374,14 @@
             --> 
               {% block topbar_buttons_last %}{% endblock %}
         </header>
+        {% endif %}
 
         <main class="content">
+            {% if page_type != "src_page" %}
             <div class="div-heading-h1">
                 <h1 data-i18n="{{page_title_i18n_tag}}" class="document-heading">{{title}}</h1>
             </div>
+            {% endif %}
             <p class="hidden-mathjax-macros" style="display: none;">
                 $$
                 {{ latex_macros }}
@@ -376,9 +389,34 @@
             </p>
             {{ content|safe }}
         </main>
+
+        {% if page_type == "src_page" %}
+        <style>
+            .highlight {
+                max-height: none !important;
+            }
+
+            .highlight pre {
+                overflow-wrap: break-word;
+                word-break: break-word;
+                text-wrap: balance;
+            }
+
+            .content {
+                width: 100% !important;
+                height: 100% !important;
+                margin-left: -50px !important;
+            }
+ 
+            .sidebar {
+                display: none;
+            }
+        </style>
+        {% endif %}
     </div>
     <script>
     </script>
+
 </body>
 
 </html>

@@ -27,6 +27,7 @@ def export(   wikipath:              Optional[str]
             , compile_latex:         bool 
             , verbose:               bool 
             , author:                str 
+            , export_source:         bool = True
             ):
     """Export a MWiki repository or a markdown files repository to a static website."""
     bool_to_on_off = lambda x: "on" if x else "off"
@@ -107,6 +108,7 @@ def export(   wikipath:              Optional[str]
     # template  = utils.read_resource(mwiki, "templates/static.html")
     # tpl = jinja2.Template(template)
     static_html_renderer = make_template_renderer(mwiki, "templates/static.html")
+    ## source_html_renderer = make_template_renderer(mwiki, "templates/source_static.html")
     root_path = mwiki.utils.get_module_path(mwiki)
     ### print(" [TRACE] root_path => (718) = " + str(root_path))
     font_face_main_font =  render_font_data(main_font
@@ -157,10 +159,11 @@ def export(   wikipath:              Optional[str]
     print("Status:")
     print()
     for p in pages:
-        outfile = out / str(p.relative_to(root))\
+        basename = str(p.relative_to(root))\
                 .replace("Index", "index")\
                 .replace(".md", ".html")\
                 .replace(" ", "_")
+        outfile = out / basename
         print(f" [*] Compiling {p} to {outfile}")
         pagefile = str(p)
         if compile_latex:
@@ -189,7 +192,43 @@ def export(   wikipath:              Optional[str]
         headings    = mparser.get_headings(page_source)
         root_       = mparser.make_headings_hierarchy(headings)
         toc         = mparser.headings_to_html(root_)
-             # print(" [TRACE] needs pseudocode_js ", renderer.needs_latex_algorithm)
+        env_ = {
+              "content": utils.highlight_code(page_source, "markdown")
+            , "title":    title 
+            , "pagename": title
+            , "page_title_i18n_tag": "source-page-title"
+            , "config_sitename":     lambda: website_name
+            , "config_main_font":    lambda: main_font_family
+            , "config_code_font":    lambda: code_font_family
+            , "config_title_font":   lambda: title_font_family
+            , "default_locale":      lambda: locale
+            , "use_default_locale":  lambda: True
+            , "root_url":             root_url
+            , "allow_language_switch": allow_language_switch
+            , "main_font":            main_font_family  
+            , "title_font":           title_font_family
+            , "font_face_main":       font_face_main_font
+            , "font_face_code":       font_face_code_font
+            , "font_face_title":      font_face_title_font
+            , "favicon":              icon_path 
+            , "favicon_mimetype":     icon_mimetype
+            , "page_description":     renderer.description
+            , "page_author":          renderer.author or author 
+            , "toc":                  toc 
+            , "page_type":            "src_page"
+            
+        }
+        src_page_html = ""
+        src_page_html_url = ""
+        if export_source:
+            ##src_page_html = utils.base64_encode( static_html_renderer(env_) )
+            src_page_html =  static_html_renderer(env_)
+            src_dest = out / "src_pages"
+            src_dest.mkdir( exist_ok = True )
+            src_out = src_dest / basename
+            src_out.write_text(src_page_html)
+            src_page_html_url = f"{root_url}/src_pages/{basename}"
+        # print(" [TRACE] needs pseudocode_js ", renderer.needs_latex_algorithm)
         env = {
                  "title":                title.replace("about", "About")
                , "page":                 title
@@ -227,6 +266,10 @@ def export(   wikipath:              Optional[str]
                , "menu_icon_url":        menu_icon_url 
                , "unfold_icon_url":      unfold_icon_url 
                , "home_icon_url":        home_icon_url
+               ##, "src_page_html":        src_page_html             
+               , "export_source":        export_source 
+                , "src_page_html_url":   src_page_html_url 
+                , "page_type":           "main"
               }
         ## html = tpl.render(env)
         html = static_html_renderer(env)

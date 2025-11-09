@@ -279,6 +279,7 @@ def watch(wikipath: str):
                                             'The author field is compiled to <meta name="author" content="AUTHOR NAME"> '
                                             'This setting only makes sense if there is a single author.'
                                             ))
+@click.option("--source", is_flag = True, help = "Add menu item for displaying markdown source code of the current page.")
 
 def export(   wikipath:              Optional[str]
             , output:                Optional[str]
@@ -298,13 +299,14 @@ def export(   wikipath:              Optional[str]
             , compile_latex:         bool 
             , verbose:               bool 
             , author:                str 
+            , source:                bool 
     ):
     "Export a MWiki repository or a markdown files repository to a static website."""
     mwiki.export.export(  wikipath, output, page, website_name
                         , root_url, locale, icon, main_font
                         , code_font, title_font
                         , list_fonts, allow_language_switch, self_contained
-                        , embed_latex_renderer, latex_renderer, compile_latex, verbose, author  )        
+                        , embed_latex_renderer, latex_renderer, compile_latex, verbose, author, source)        
  
 cli1.command()
 @click.option("--admin-password", 
