@@ -1088,7 +1088,7 @@ class HtmlRenderer(AbstractAstRenderer):
             if self._preview:
                 html = """
                 <div class="divi-wiki-image">
-                    <video controls width="80%">
+                    <video controls width="80%%">
                         <source src="%s" type="video/mp4">
                         Download the <a href="%s">MP4 Video</a>
                     </video>
@@ -1099,12 +1099,12 @@ class HtmlRenderer(AbstractAstRenderer):
                         <div class="div-wiki-image lazy-load-video"  
                              data-src="{0}" data-type="video/mp4">
                         </div>
-                       """.format(path, path)
+                       """.format(path)
         elif src.endswith(".webm"):
             if self._preview:
                 html = """
                 <div class="divi-wiki-image">
-                    <video controls width="80%">
+                    <video controls width="80%%">
                         <source src="%s" type="video/webm">
                         Download the <a href="%s">Webm Video</a>
                     </video>
@@ -1115,7 +1115,7 @@ class HtmlRenderer(AbstractAstRenderer):
                     <div class="div-wiki-image lazy-load-video" 
                          data-src="{0}" data-type="video/webm" >
                     </div>
-                   """.format(path, path)
+                   """.format(path)
         else:
             path_ = path 
             if self._self_contained and match:
