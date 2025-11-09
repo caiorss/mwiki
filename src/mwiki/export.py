@@ -212,7 +212,7 @@ def export(   wikipath:              Optional[str]
                , "mathjax_enabled":      not compile_latex & renderer.needs_mathjax
                , "graphviz_enabled":     renderer.needs_graphviz 
                , "latex_algorithm":      not compile_latex & renderer.needs_latex_algorithm
-               , "equation_enumeration": renderer.equation_enumeration
+               , "equation_enumeration": renderer.equation_enumeration_style
                , "config_sitename":      lambda: website_name 
                , "config_main_font":     lambda: main_font_family
                , "config_code_font":     lambda: code_font_family

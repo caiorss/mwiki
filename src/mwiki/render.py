@@ -271,7 +271,7 @@ class AbstractAstRenderer:
 
     def resolve_equation_references(self, code: str) -> str: 
         out = code
-        enumeration_is_none = self._equation_enumeration == "none"
+        enumeration_is_none = self._equation_enumeration_style == "none"
         for label, data in self._equation_references.items():
             ## breakpoint()
             number, equation, is_referenced = data
@@ -649,7 +649,7 @@ class HtmlRenderer(AbstractAstRenderer):
         self._embed_math_svg = embed_math_svg
         self._section_enumeration = False
         self._myst_line_comment_enabled = True
-        self._equation_enumeration = "section"
+        self._equation_enumeration_style = "section"
         self._theorem_counter = 1
         """Current theorem number"""
 
@@ -728,8 +728,8 @@ class HtmlRenderer(AbstractAstRenderer):
 
 
     @property
-    def equation_enumeration(self):
-        return self._equation_enumeration
+    def equation_enumeration_style(self):
+        return self._equation_enumeration_style
 
     def _add_abbreviations(self, text: str) -> str:
         """Replace abbreviation words in a text by <abbr> html5 elements."""
@@ -834,8 +834,8 @@ class HtmlRenderer(AbstractAstRenderer):
         else:
             tag = node.tag if hasattr(node, "tag") else ""
         ## Add automatic enumeration to headings 
-        enumeration_is_continuous = self._equation_enumeration == "continuous" \
-                                        or self._equation_enumeration == "cont"
+        enumeration_is_continuous = self._equation_enumeration_style == "continuous" \
+                                        or self._equation_enumeration_style == "cont"
         if tag == "h2":
             self._equation_counter = 0 if not enumeration_is_continuous \
                                        else self._equation_counter
@@ -843,7 +843,7 @@ class HtmlRenderer(AbstractAstRenderer):
             if title.lower() != "overview" and title.lower() != "related":
                 self._count_h2 += 1
                 self._count_h3 = 0
-                if self.equation_enumeration != "cont" and self.equation_enumeration != "continuous":
+                if self.equation_enumeration_style != "cont" and self.equation_enumeration_style != "continuous":
                     # Reset MathJax/LaTeX equation enumeration every subsection 
                     # if the 'equation_enumeration_style: <style>' settings in the 
                     # document frontmatter is not set to continous or subsection
@@ -852,11 +852,11 @@ class HtmlRenderer(AbstractAstRenderer):
                     tex_command += "\n" + r'<span class="tex-section-command" style="display:none">\(\setSubSection{%s}\)</span>' % self._count_h3
                 value = f"{self._count_h2} {value}" if self._section_enumeration else value
         elif tag == "h3":
-            self._equation_counter = 0 if self.equation_enumeration == "subsection" \
+            self._equation_counter = 0 if self.equation_enumeration_style == "subsection" \
                                        else self._equation_counter
             self._count_h3 += 1
             self._count_h4 = 0
-            if self.equation_enumeration != "cont" and self.equation_enumeration != "continuous":
+            if self.equation_enumeration_style != "cont" and self.equation_enumeration_style != "continuous":
                 tex_command += "\n" + r'<span class="tex-section-command" style="display:none" data-code="\setSubSection{%s}">\(\setSubSection{%s}\)</span>' % (self._count_h3, self._count_h3)
             value  =  f"{self._count_h2}.{self._count_h3} {value}" \
                             if self._section_enumeration else value
@@ -968,10 +968,10 @@ class HtmlRenderer(AbstractAstRenderer):
                 re.sub(r"\\notag|\\(label|eqref|require)\{.*?\}", "", content) 
             label = x[0] if len(x := re.findall(r"\\label\{(.+?)\}", content)) >= 1 else None
             label_ = "" if label is None else 'id="equation-%s"' % label 
-            enumeration_is_none       = self._equation_enumeration == "none"
-            enumeration_is_section    = self._equation_enumeration == "section"
-            enumeration_is_continuous = self._equation_enumeration == "continuous" \
-                                            or self._equation_enumeration == "cont"
+            enumeration_is_none       = self._equation_enumeration_style == "none"
+            enumeration_is_section    = self._equation_enumeration_style == "section"
+            enumeration_is_continuous = self._equation_enumeration_style == "continuous" \
+                                            or self._equation_enumeration_style == "cont"
             number = "%d" % self._equation_counter 
             if enumeration_is_section or enumeration_is_none:
                 number = "%d.%d" %  (self._count_h2, self._equation_counter)
@@ -1957,9 +1957,9 @@ class HtmlRenderer(AbstractAstRenderer):
             self._description = data.get("description", "")
             self._author      = data.get("author", "")
             self._section_enumeration  = data.get("section_enumeration", False)
-            enum_style = data.get("equation_enumeration", "section")   
+            enum_style = data.get("equation_enumeration_style", "section")   
             enum_style = enum_style if enum_style in ["none", "cont", "continuous", "section", "subsection"] else "section"
-            self._equation_enumeration = enum_style
+            self._equation_enumeration_style = enum_style
         abbrs =  data.get("abbreviations", {}) 
         wordlinks = data.get("wordlinks", {})
         ## Append abbreviation dictionary 

@@ -485,7 +485,7 @@ class WikiPage():
                                       , graphviz_enabled     = renderer.needs_graphviz
                                       , latex_algorithm      = renderer.needs_latex_algorithm
                                       , timestamp            = self.timestamp
-                                      , equation_enumeration = renderer.equation_enumeration
+                                      , equation_enumeration = renderer.equation_enumeration_style
                                     )
         out.write_text(html)
 
