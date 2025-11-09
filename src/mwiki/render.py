@@ -1961,7 +1961,7 @@ class HtmlRenderer(AbstractAstRenderer):
             enum_style = data.get("equation_enumeration_style", "section")   
             enum_style = enum_style if enum_style in ["cont", "continuous", "section", "subsection"] else "section"
             self._equation_enumeration_style = enum_style
-            enum_enabled = data.get("equation_enumeration_enabled", "off") != "off"
+            enum_enabled = data.get("equation_enumeration_enabled", "off") == "on"
             self._equation_enumeration_enabled = enum_enabled
             
         abbrs =  data.get("abbreviations", {}) 
