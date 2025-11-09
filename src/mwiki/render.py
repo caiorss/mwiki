@@ -978,14 +978,15 @@ class HtmlRenderer(AbstractAstRenderer):
             number = ""
             if enumeration_is_continuous:
                 number = str(self._equation_counter)
-            if enumeration_is_section or enumeration_is_none:
+            elif enumeration_is_section or enumeration_is_none:
                 number = "%d.%d" %  (self._count_h2, self._equation_counter)
             elif self._count_h3 == 0 and not enumeration_is_continuous:
                 number = "%d.%d" %  (self._count_h2, self._equation_counter)
             elif not enumeration_is_continuous and not enumeration_is_section: 
                 number = "%d.%d.%d" %  (self._count_h2, self._count_h3, self._equation_counter)
             else:
-                raise RuntimeError("Impossible state. The code has a bug.")
+                raise RuntimeError("Impossible state. The code has a bug. => enumeration = %s " \
+                                   % self._equation_enumeration_style)
             if label is not None:
                 self.add_equation_reference(label, number , latex, False)
             enumeration_enabled =  self._inside_math_block \
