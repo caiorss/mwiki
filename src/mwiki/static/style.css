@@ -463,6 +463,72 @@
     src: url('/static/fonts/saira-latin-thin-bold.woff2');
 }
 
+@font-face {
+    font-family: "Averia";
+    font-style:  normal;
+    font-weight: normal;
+    src: url('/static/fonts/Averia-Regular.woff2');
+}
+
+
+@font-face {
+    font-family: "Averia";
+    font-style:  italic;
+    font-weight: normal;
+    src: url('/static/fonts/Averia-Italic.woff2');
+}
+
+@font-face {
+    font-family: "Averia";
+    font-style:  normal;
+    font-weight: bold;
+    src: url('/static/fonts/Averia-Bold.woff2');
+}
+
+@font-face {
+    font-family: "Averia";
+    font-style:  italic;
+    font-weight: bold;
+    src: url('/static/fonts/Averia-Bold-Italic.woff2');
+}
+
+
+@font-face {
+    font-family: "AveriaSans";
+    font-style:  normal;
+    font-weight: normal;
+    src: url('/static/fonts/AveriaSans-Regular.woff2');
+}
+
+@font-face {
+    font-family: "AveriaSans";
+    font-style:  italic;
+    font-weight: normal;
+    src: url('/static/fonts/AveriaSans-Italic.woff2');
+}
+
+@font-face {
+    font-family: "AveriaSans";
+    font-style:  normal;
+    font-weight: bold;
+    src: url('/static/fonts/AveriaSans-Bold.woff2');
+}
+
+@font-face {
+    font-family: "AveriaSans";
+    font-style:  italic;
+    font-weight: bold;
+    src: url('/static/fonts/AveriaSans-Bold-Italic.woff2');
+}
+
+
+
+@font-face {
+    font-family: "Averia Gruesa";
+    src: url('/static/fonts/Averia-Gruesa.woff2');
+}
+
+
 
 /* --- Font that mimics Epson's dot-matrix font used in the 1980's for
  * printing code in computer magazines.

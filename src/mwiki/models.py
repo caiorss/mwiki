@@ -23,7 +23,7 @@ import flask
 ## db = SQLAlchemy(app)
 db = SQLAlchemy()
 
-CACHE_FILE_FORMAT_VERSION = "0.1.4"
+CACHE_FILE_FORMAT_VERSION = "0.1.4-temp1"
 
 
 
@@ -145,6 +145,9 @@ class User(db.Model):
         return result
 
 class FontFamiliyEnum(enum.Enum):
+    averia = "Averia"
+    averia_gruesa = "Averia Gruesa"
+    averia_sans = "AveriaSans"
     # Default LaTeX font created by professor Donald Knuth
     computer_modern = "Computer Modern"
     cmu_concrete    = "CMU Concrete"
@@ -207,6 +210,9 @@ class CodeFontFamily(enum.Enum):
 
 class TitleFontFamily(enum.Enum):
     # Default LaTeX font created by professor Donald Knuth
+    averia        = "Averia"
+    averia_gruesa = "Averia Gruesa"
+    averia_sans   = "AveriaSans"
     computer_modern = "Computer Modern"
     cmu_concrete    = "CMU Concrete"
     cmu_sans_serif  = "CMU Sans Serif"
