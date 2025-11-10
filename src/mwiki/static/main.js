@@ -5,7 +5,7 @@ class PopupWindow
         let title = options.title || "";
         let html  = options.html  || "";
         let width = options.width || "500px";
-        let height = options.height || "400px";
+        // let height = options.height || "400px";
         let top = options.top || "10%";
         let left = options.left || "30%";
         let zIndex = options.zIndex || "1000";
@@ -18,11 +18,12 @@ class PopupWindow
         this._dom.style.zIndex = zIndex;
         this._dom.style.position = "absolute";
         this._dom.style.width  = width;
-        this._dom.style.height = height;
+        // this._dom.style.height = height;
         this._dom.style.top    = top;
         this._dom.style.left   = left;
         this._dom.style.background = "aliceblue";
         this._dom.style.padding = "10px";
+        this._dom.style.display = "inline-block";
         if(!visible){ this.hide() };
         let code = `<h2 data-i18n="${windowI18NTitleTag}" class="window-title">${title}</h2> <button class="btn-window-close">[X]</button><hr>`;
         // console.log(" [TRACE] code = ", code);
@@ -1548,7 +1549,16 @@ document.addEventListener("click", (event) => {
         return;
     }
 
-
+    if(target.classList[0] === "btn-show-alt-text")
+    {
+       let title = "Alt text";
+       let text = target.previousElementSibling.alt;
+       tooltip_window.setTitle(title);
+       tooltip_window.setMessage(text);
+       tooltip_window.show();
+       return;
+    }
+    
     // Toggle zoom images (expand to 100% width) when they are clicked
     if(target.classList[0] == "wiki-image")
     {
@@ -1630,13 +1640,11 @@ document.addEventListener("click", (event) => {
         lazyLoadImages();
     }
 
-    if( lastToolTipTarget === "footnote-reference")
-    {
-        tooltip_window.close();
-    }
+  tooltip_window.close();
 
-     
-   equationPopupWindow.close();
+  if(equationPopupWindow){
+     equationPopupWindow.close();
+  }   
 });
 
 

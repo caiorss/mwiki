@@ -1596,17 +1596,21 @@ class HtmlRenderer(AbstractAstRenderer):
             # Name is a label - unique identifier for cross referencing with hyperlinks.
             name = directives.get("name", "")
             # Alternative text for acessibility (Optional)
-            alt = directives.get("alt", caption)
+            alt = directives.get("alt", caption).strip()
             # Image height (Optional)
             height = f"height={u}" if (u := directives.get("height")) else ""
             # Image width (Optional)
             width = f"height={u}" if (u := directives.get("width")) else ""
+            button = "" if alt == "" else  """<button class="btn-show-alt-text">ALT</button> """
             ## Rendering of this node
             if not self._preview:
                 html = ("""<div class="div-wiki-image" div-figure>""" 
-                        """<img id="figure-%s" class="wiki-image lazy-load anchor" data-src="%s" alt="%s" %s %s>""" 
-                        """<p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> %d: %s</p>"""
-                        """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption_html)
+                      + """<div class="inner-figure">"""
+                      + """<img id="figure-%s" class="wiki-image lazy-load anchor" data-src="%s" alt="%s" %s %s>""" 
+                      + button 
+                      + """</div>"""
+                      + """<p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> %d: %s</p>"""
+                      + """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption_html)
             else:
                 html = ("""<div class="div-wiki-image" div-figure>""" 
                         """<img id="figure-%s" class="wiki-image  anchor" src="%s" alt="%s" %s %s>""" 
