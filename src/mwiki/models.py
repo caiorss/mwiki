@@ -492,6 +492,7 @@ class WikiPage():
                                       , latex_algorithm      = renderer.needs_latex_algorithm
                                       , timestamp            = self.timestamp
                                       , equation_enumeration = renderer.equation_enumeration_style
+                                      , katex_macros         = utils.base64_encode(renderer.katex_macros)
                                     )
         out.write_text(html)
 

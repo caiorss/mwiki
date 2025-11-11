@@ -4,7 +4,7 @@ import json
 import re 
 import yaml                     # Python3 stdlib Yaml Parser
 import pathlib
-from typing import Optional, Tuple, List 
+from typing import Optional, Tuple, List, Dict
 from markdown_it.tree import SyntaxTreeNode
 import urllib.parse
 import os 
@@ -14,6 +14,7 @@ import mwiki
 from . import utils
 from . import mparser
 from mwiki.latex import LatexFormula 
+import mwiki.latex 
 
 
 _STOP_SENTINEL = "{{STOP}}"
@@ -653,6 +654,8 @@ class HtmlRenderer(AbstractAstRenderer):
         self._theorem_counter = 1
         """Current theorem number"""
 
+        self._katex_macros = ""
+
         self._needs_latex_renderer = False
         """Flag used for only including MathJax in the html template
         if it is necessary to render equation. MathaJax is only
@@ -705,6 +708,10 @@ class HtmlRenderer(AbstractAstRenderer):
     @property
     def uses_katex(self) -> bool:
         return self._latex_renderer == LATEX_RENDERER_KATEX 
+
+    @property
+    def katex_macros(self) -> str:
+        return self._katex_macros
 
     @property
     def needs_mathjax(self) -> bool:
@@ -999,9 +1006,10 @@ class HtmlRenderer(AbstractAstRenderer):
             div_enum = '<div class="div-latex-enum"></div>'
             if self.uses_katex and "\\notag" not in content:
                 div_enum = '<div class="div-latex-enum"><span>{{{DIV_EQUATION_NUMBER(%s)}}}</span></div>' % number                 
+            inner = ("$$\n%s\n$$" if self.uses_mathjax else "%s") %  utils.escape_html(extra + latex) 
             html = """<div %s class="%s anchor"> \n""" % (label_, klass) \
                  + div_before \
-                 + '<div class="div-latex-code">\n$$%s\n$$\n</div>' %  utils.escape_html(extra + latex) \
+                 + '<div class="div-latex-code">\n%s\n</div>' %  inner \
                  + div_enum \
                  + "\n</div>"
         return html 
@@ -1037,7 +1045,9 @@ class HtmlRenderer(AbstractAstRenderer):
                              , root_url = self._root_url )
         else:
             self._needs_latex_renderer = True
-            html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
+            formula = utils.escape_html(node.content)
+            inner = f"\\({formula}\\)" if self.uses_mathjax else formula 
+            html = f"""<span class="math-inline">{inner}</span>"""
         return html
 
     def render_math_single(self, node: SyntaxTreeNode) -> str:
@@ -1053,7 +1063,9 @@ class HtmlRenderer(AbstractAstRenderer):
                              )
         else:
             self._needs_latex_renderer = True
-            html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
+            formula = utils.escape_html(node.content)
+            inner = f"\\({formula}\\)" if self.uses_mathjax else formula 
+            html = f"""<span class="math-inline">{inner}</span>"""
         ## html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
         return html 
 
@@ -1554,17 +1566,23 @@ class HtmlRenderer(AbstractAstRenderer):
             self._enumeration_enabled_in_math_block = True
             html = f"""<div class="foldabel-block-div"><details {label}>\n<summary><u class="solution-label"><label data-i18n="{i18nTag}">{tag}</label> {title}</u></summary>\n\n<div class="foldable-block" style="{background}">{inner_html}</div>\n</details></div>"""
         elif info == "{latex_macro}":
-            html = f""" 
-            <div class="hidden-mathjax-macros user-macros" style="display: none;">
-              <div>
-              $$
-                {node.content}                
-              $$
-              </div>
-              <pre>
-              {node.content}
-              </pre>
-            </div>
+            if self.uses_katex:
+                ##breakpoint()
+                macros = mwiki.latex.get_latex_macros_json(node.content)
+                self._katex_macros = macros
+                return ""
+            else:
+                html = f""" 
+                <div class="hidden-mathjax-macros user-macros" style="display: none;">
+                  <div>
+                  $$
+                    {node.content}                
+                  $$
+                  </div>
+                  <pre>
+                  {node.content}
+                  </pre>
+                </div>
             """
         # Render figure (pictures/images) with metadata including
         # height, width, alt text,

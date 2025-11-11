@@ -1105,6 +1105,38 @@ function displayPageSourceWindow()
 }
 
 
+document.addEventListener("DOMContentLoaded", function katexRenderLaTeX() {
+     // const macros =  {
+     //                  "\\RR":       "\\mathbb{R}",
+     //                  "\\norm":    "\\left\\lVert #1 \\right\\rVert_{}",
+     //                  "\\enorm":   "\\left\\lVert #1 \\right\\rVert_{\\infty}",
+     //                  "\\argmax":  "\\operatorname*{arg\\,max}"
+     //                  ,"\\root":   "\\sqrt"
+     //                };
+     let macros = JSON.parse(base64ToUtf8(KATEX_MACROS));
+     // console.log("Katex macros = ",macros);
+     // Render inline nodes (non display math)
+     let nodesInline = document.querySelectorAll(".math-inline");
+     for(let n of nodesInline)
+     {
+       try{ 
+         katex.render(n.textContent, n, { displayMode: false, macros: macros});
+      } catch(error){
+         console.error(error);
+      }
+     }
+     // Render display math 
+     let nodesDisplayMode = document.querySelectorAll(".div-latex-code");
+     for(let n of nodesDisplayMode)
+     {
+        try{
+          katex.render(n.textContent, n, { displayMode: true, macros: macros });
+        } catch(error) {
+           console.error(error);
+        }
+     }
+
+});
 
 function isMobileScreen()
 {
@@ -1178,8 +1210,7 @@ var equationPopupWindow = null;
 
 document.addEventListener("DOMContentLoaded", async function()
 {
-    
-    
+     
     lazyLoadImages();
     // Call function every 500 ms
     timerId = setInterval(lazyLoadImages, 500);

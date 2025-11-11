@@ -1,6 +1,7 @@
 import re 
 import os
 import os.path 
+import json 
 import pathlib
 import hashlib
 from typing import Optional, List, Tuple
@@ -15,7 +16,45 @@ import mwiki.mparser as mparser
 # Module Exports 
 __all__ = [ "LatexFormula" ]
 
+def get_latex_macros_json(code: str):
+    macros = get_latex_macros(code)
+    out = json.dumps(macros)
+    return out 
 
+def get_latex_macros(code: str):
+    pat_def1 = r"\\def(?P<d1>.+?)\{(?P<d2>.+?)\}\}"
+    pat_cmd1 = r"\\newcommand\{(?P<c1>.+?)\}\{(?P<c2>.+?)\{(?P<c3>.+?)\}\s*\}"
+    pat_opr  = r"\\DeclareMathOperator(?P<ostar>\*?)\{\s*(?P<o1>.+?)\}\{\s*(?P<o2>.+?)\s*\}"
+    pat = f"{pat_def1}|{pat_cmd1}|{pat_opr}"
+    # Initial position within the code to be parsed 
+    text = code.strip()
+    out = {}
+    while text != "":
+        if m := re.search(pat, text):
+            start, end = m.span() 
+            text = text[end:]
+            #size = sum([1 if x is not None else 0 for x in m.groups()])
+            #groups = [x for x in m.groups() if x is not None]
+            dic = m.groupdict()
+            if dic.get("o1"):
+                lhs = dic["o1"]
+                rhs = dic["o2"]
+                ostar = dic.get("ostar", "")
+                out[lhs.strip()] = r"\operatorname" + ostar + "{" + rhs.strip() + "}"
+            elif dic.get("c1"):
+                #lhs, rhs_, inner = groups
+                lhs = dic["c1"]
+                rhs = dic["c2"]
+                inner = dic["c3"]
+                out[lhs.strip()] = "%s{%s}" % (rhs.strip(), inner.strip())
+            elif dic.get("d1"):
+                #lhs, rhs_, inner = groups
+                lhs = dic["d1"]
+                rhs = dic["d2"]
+                out[lhs.strip()] = rhs.strip() + "}"
+        else:
+            break
+    return out
 
 class LatexFormula:
     """
