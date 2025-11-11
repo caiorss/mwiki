@@ -84,19 +84,20 @@
     <!-- MathJax Settings -->
     <script>
 
-    let FONT_FAMILY_MAIN = "{{ config_main_font() }}"
-    var FONT_FAMILY_TITLE = "{{ config_title_font() }}"
-    var FONT_FAMILY_CODE = "{{ config_code_font() }}"
-    var DEFAULT_LOCALE = "{{ default_locale() }}";
-	  var USE_DEFAULT_LOCALE = "{{ use_default_locale() }}" === "True";
-    var LATEX_RENDERER = "{{ latex_renderer }}";
-    var IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
-    var IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
-    var CSRF_TOKEN = ""
-    var STATIC_COMPILATION = true;
+    const FONT_FAMILY_MAIN = "{{ config_main_font() }}"
+    const FONT_FAMILY_TITLE = "{{ config_title_font() }}"
+    const FONT_FAMILY_CODE = "{{ config_code_font() }}"
+    const DEFAULT_LOCALE = "{{ default_locale() }}";
+	  const USE_DEFAULT_LOCALE = "{{ use_default_locale() }}" === "True";
+    const LATEX_RENDERER = "{{ latex_renderer }}";
+    const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
+    const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
+    const KATEX_MACROS = "{{ katex_macros }}";
+    const CSRF_TOKEN = ""
+    const STATIC_COMPILATION = true;
     // NOTE: It is encoded as base64 
-    let PAGE_SOURCE_CODE = "{{src_page_html}}";
-    let PAGE_SOURCE_URL  = "{{src_page_html_url}}"
+    const PAGE_SOURCE_CODE = "{{src_page_html}}";
+    const PAGE_SOURCE_URL  = "{{src_page_html_url}}"
 	
     // Possible values: 'none', 'nosection' 'section', 'subsection'
     //  none      => no enumeration 

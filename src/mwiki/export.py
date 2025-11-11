@@ -216,7 +216,6 @@ def export(   wikipath:              Optional[str]
             , "page_author":          renderer.author or author 
             , "toc":                  toc 
             , "page_type":            "src_page"
-            
         }
         src_page_html = ""
         src_page_html_url = ""
@@ -268,8 +267,9 @@ def export(   wikipath:              Optional[str]
                , "home_icon_url":        home_icon_url
                ##, "src_page_html":        src_page_html             
                , "export_source":        export_source 
-                , "src_page_html_url":   src_page_html_url 
-                , "page_type":           "main"
+               , "src_page_html_url":    src_page_html_url 
+               , "page_type":           "main"
+               , "katex_macros":         utils.base64_encode( renderer.katex_macros )
               }
         ## html = tpl.render(env)
         html = static_html_renderer(env)
