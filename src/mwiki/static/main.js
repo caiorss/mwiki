@@ -1113,7 +1113,12 @@ document.addEventListener("DOMContentLoaded", function katexRenderLaTeX() {
      //                  "\\argmax":  "\\operatorname*{arg\\,max}"
      //                  ,"\\root":   "\\sqrt"
      //                };
-     let macros = JSON.parse(base64ToUtf8(KATEX_MACROS));
+     var macros = {};
+     try {
+       macros = JSON.parse(base64ToUtf8(KATEX_MACROS));
+      } catch(error){
+        console.log(" JSON Parsing error: ", error);
+      }
      // console.log("Katex macros = ",macros);
      // Render inline nodes (non display math)
      let nodesInline = document.querySelectorAll(".math-inline");
