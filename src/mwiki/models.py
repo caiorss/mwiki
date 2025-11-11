@@ -181,6 +181,8 @@ class FontFamiliyEnum(enum.Enum):
     julia_mono = "Julia Mono"
     julia_mono_light = "Julia Mono Light"
     libertinus_mono = "Libertinus Mono"
+    dmn_mono_regular = "DMN Mono Regular"
+    dmn_mono_meidum  = "DMN Mono Meidum"
     libertinus_sans = "Libertinus Sans"
     libertinus_serif = "Libertinus Serif"
     range_font = "Range"
@@ -202,6 +204,8 @@ class CodeFontFamily(enum.Enum):
     julia_mono = "Julia Mono"
     julia_mono_light = "Julia Mono Light"
     range_mono = "Range Mono"
+    dmn_mono_regular = "DMN Mono Regular"
+    dmn_mono_meidum  = "DMN Mono Meidum"
     # Font that mimics Epson's dot-matrix font used in the 1980's for
     # printing code in computer magazines.
     dotmatrix = "Epson DotMatrix"
@@ -228,6 +232,8 @@ class TitleFontFamily(enum.Enum):
     ibm_plex_mono = "IBM Plex Mono"
     # Font that mimics Epson's dot-matrix font used in the 1980's for
     # printing code in computer magazines designed by Stefan Schmidt.
+    dmn_mono_regular = "DMN Mono Regular"
+    dmn_mono_meidum  = "DMN Mono Meidum"
     dotmatrix = "Epson DotMatrix"
     dotmatrix_duo = "Epson DotMatrixDuo"
     dotmatrix_var_duo = "Epson DotMatrixVarDuo"

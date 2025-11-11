@@ -345,6 +345,18 @@
     src: url('/static/fonts/range-mono-medium-webfont.woff');
 }
 
+@font-face {
+    font-family: 'DMN Mono Regular';
+    src: url('/static/fonts/DMMono-Regular.woff2');
+}
+
+
+@font-face {
+    font-family: 'DMN Mono Medium';
+    src: url('/static/fonts/DMMono-Medidum.woff2');
+}
+
+
 
 @font-face {
     font-family: "Crimson";
