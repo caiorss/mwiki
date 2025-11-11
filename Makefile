@@ -4,7 +4,7 @@ run:
 
 # Run pytest 
 test:
-	uv run pytest -v --tb=short 
+	uv run pytest -vv --tb=short 
 
 # Generate sample static websiste by compiling the repository ./sample-wiki
 gh-pages:
