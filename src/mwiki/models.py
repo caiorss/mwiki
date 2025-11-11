@@ -157,7 +157,7 @@ class FontFamiliyEnum(enum.Enum):
     literata = "Literata"
     # Serif typeface font designed for google books.
     literata_variable = "Literata Variable"
-    garamond_pro_regular = "Garamond Pro Regular"
+    notosans = "NotoSans"
     neo_euler = "Neo Euler"
     munson = "Munson"
     # IBM old-chool monospace that gives back the 
@@ -182,7 +182,7 @@ class FontFamiliyEnum(enum.Enum):
     julia_mono_light = "Julia Mono Light"
     libertinus_mono = "Libertinus Mono"
     dmn_mono_regular = "DMN Mono Regular"
-    dmn_mono_meidum  = "DMN Mono Meidum"
+    dmn_mono_meidum  = "DMN Mono Medium"
     libertinus_sans = "Libertinus Sans"
     libertinus_serif = "Libertinus Serif"
     range_font = "Range"
@@ -205,7 +205,7 @@ class CodeFontFamily(enum.Enum):
     julia_mono_light = "Julia Mono Light"
     range_mono = "Range Mono"
     dmn_mono_regular = "DMN Mono Regular"
-    dmn_mono_meidum  = "DMN Mono Meidum"
+    dmn_mono_meidum  = "DMN Mono Medium"
     # Font that mimics Epson's dot-matrix font used in the 1980's for
     # printing code in computer magazines.
     dotmatrix = "Epson DotMatrix"
@@ -223,7 +223,7 @@ class TitleFontFamily(enum.Enum):
     neo_euler = "Neo Euler"
     crimson = "Crimson"
     chicago_macos_system6 = "Chicago MacOS"
-    garamond_pro_regular = "Garamond Pro Regular"
+    notosans = "NotoSans"
     # nolstagic font mimics typewriters in old documents with ink leakage.
     jackwrite = "Jackwrite"
     jackwrite_bold = "Jackwrite Bold"
@@ -233,7 +233,7 @@ class TitleFontFamily(enum.Enum):
     # Font that mimics Epson's dot-matrix font used in the 1980's for
     # printing code in computer magazines designed by Stefan Schmidt.
     dmn_mono_regular = "DMN Mono Regular"
-    dmn_mono_meidum  = "DMN Mono Meidum"
+    dmn_mono_meidum  = "DMN Mono Medium"
     dotmatrix = "Epson DotMatrix"
     dotmatrix_duo = "Epson DotMatrixDuo"
     dotmatrix_var_duo = "Epson DotMatrixVarDuo"

@@ -353,10 +353,38 @@
 
 @font-face {
     font-family: 'DMN Mono Medium';
-    src: url('/static/fonts/DMMono-Medidum.woff2');
+    src: url('/static/fonts/DMMono-Medium.woff2');
+}
+
+@font-face {
+    font-family: 'NotoSans';
+    font-style: normal;
+    font-weight: normal;
+    src: url('/static/fonts/NotoSans-Regular.woff2');
 }
 
 
+@font-face {
+    font-family: 'NotoSans';
+    font-style:  italic;
+    font-weight: normal;
+    src: url('/static/fonts/NotoSans-Italic.woff2');
+}
+
+@font-face {
+    font-family: 'NotoSans';
+    font-style:  normal;
+    font-weight: bold;
+    src: url('/static/fonts/NotoSans-Bold.woff2');
+}
+
+
+@font-face {
+    font-family: 'NotoSans';
+    font-style:  italic;
+    font-weight: bold;
+    src: url('/static/fonts/NotoSans-BoldItalic.woff2');
+}
 
 @font-face {
     font-family: "Crimson";
