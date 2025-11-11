@@ -23,9 +23,10 @@ def get_latex_macros_json(code: str):
 
 def get_latex_macros(code: str):
     pat_def1 = r"\\def(?P<d1>.+?)\{(?P<d2>.+?)\}\}"
-    pat_cmd1 = r"\\newcommand\{(?P<c1>.+?)\}\{(?P<c2>.+?)\{(?P<c3>.+?)\}\s*\}"
+    pat_cmd1 = r"\\newcommand\{(?P<c1>.+?)\}(\[.*?\])?\s*\{(?P<c2>.+?)\{(?P<c3>.+?)\}\s*\}" 
+    pat_cmd2 = r"\\newcommand\{(?P<r1>.+?)\}(\[.*?\])?\{(?P<r2>.+?)\}"
     pat_opr  = r"\\DeclareMathOperator(?P<ostar>\*?)\{\s*(?P<o1>.+?)\}\{\s*(?P<o2>.+?)\s*\}"
-    pat = f"{pat_def1}|{pat_cmd1}|{pat_opr}"
+    pat = f"{pat_def1}|{pat_cmd1}|{pat_cmd2}|{pat_opr}"
     # Initial position within the code to be parsed 
     text = code.strip()
     out = {}
@@ -47,6 +48,10 @@ def get_latex_macros(code: str):
                 rhs = dic["c2"]
                 inner = dic["c3"]
                 out[lhs.strip()] = "%s{%s}" % (rhs.strip(), inner.strip())
+            elif dic.get("r1"):
+                lhs = dic["r1"]
+                rhs = dic["r2"]
+                out[lhs.strip()] = rhs.strip()
             elif dic.get("d1"):
                 #lhs, rhs_, inner = groups
                 lhs = dic["d1"]
