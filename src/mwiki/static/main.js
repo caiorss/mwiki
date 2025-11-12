@@ -1124,20 +1124,22 @@ document.addEventListener("DOMContentLoaded", function katexRenderLaTeX() {
      let nodesInline = document.querySelectorAll(".math-inline");
      for(let n of nodesInline)
      {
+       let prev = n.textContent;
        try{ 
          katex.render(n.textContent, n, { displayMode: false, macros: macros});
       } catch(error){
-         console.error(error);
+          n.textContent = prev;
       }
      }
      // Render display math 
      let nodesDisplayMode = document.querySelectorAll(".div-latex-code");
      for(let n of nodesDisplayMode)
      {
+        let prev = n.textContent;
         try{
           katex.render(n.textContent, n, { displayMode: true, macros: macros });
         } catch(error) {
-           console.error(error);
+          n.textContent = prev + `\n${error}`;
         }
      }
 
