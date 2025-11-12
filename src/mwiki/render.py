@@ -654,7 +654,7 @@ class HtmlRenderer(AbstractAstRenderer):
         self._theorem_counter = 1
         """Current theorem number"""
 
-        self._katex_macros = ""
+        self._katex_macros = {}
 
         self._needs_latex_renderer = False
         """Flag used for only including MathJax in the html template
@@ -711,7 +711,8 @@ class HtmlRenderer(AbstractAstRenderer):
 
     @property
     def katex_macros(self) -> str:
-        return self._katex_macros
+        out = json.dumps(self._katex_macros)
+        return out
 
     @property
     def needs_mathjax(self) -> bool:
@@ -1568,8 +1569,9 @@ class HtmlRenderer(AbstractAstRenderer):
         elif info == "{latex_macro}":
             if self.uses_katex:
                 ##breakpoint()
-                macros = mwiki.latex.get_latex_macros_json(node.content)
-                self._katex_macros = macros
+                macros = mwiki.latex.get_latex_macros(node.content)
+                for k, v in macros.items():
+                    self._katex_macros[k] = v 
                 return ""
             else:
                 html = f""" 
