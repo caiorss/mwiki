@@ -71,6 +71,24 @@ ace.config.loadModule("ace/keyboard/vim", function(m) {
 });
 
 
+function disableControl(cssSelector)
+{
+    let dom = document.querySelector(cssSelector);
+    if(!dom){
+        console.error(`DOM element with selector ${cssSelector} not found.`);
+        return;
+    }
+    dom.setAttribute("disabled", false);
+}
+
+
+if( document.location.pathname === "/edit/special:macros" )
+{
+    
+    disableControl("[data-i18n='edit-page-back-button']");
+    disableControl("[data-i18n='edit-page-preview-button']");
+}
+
 
 function editorRedo()
 {
