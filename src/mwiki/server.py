@@ -480,8 +480,11 @@ def make_app_server(  host:        str
         # Enforce authorization  - Guest (Read-Only Users) and anonymous
         # users cannot edit the Wiki.
         if not user.user_can_edit():
-            flask.abort(STATUS_CODE_403_FORBIDDEN)
+            flask.abort(STATUS_CODE_401_UNAUTHORIZED)
         if path == "special:macros":
+            # Enforece - authorization - only admin can edit macros.
+            if not user.is_admin():
+                flask.abort(STATUS_CODE_401_UNAUTHORIZED)
             macro_file = (base_path / "macros.sty").resolve()
             content = ""
             if request.method == M_GET:
