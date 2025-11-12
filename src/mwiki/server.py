@@ -485,7 +485,9 @@ def make_app_server(  host:        str
             macro_file = (base_path / "macros.sty").resolve()
             content = ""
             if request.method == M_GET:
-                macro_file.touch(exist_ok = True)
+                if not macro_file.is_file():
+                    default_content = utils.read_resource(mwiki, "macros.sty")
+                    macro_file.write_text( default_content )
                 content = macro_file.read_text()
                 resp = flask.render_template(  "edit.html"
                                              , title = f"[i18n]: {path}"
