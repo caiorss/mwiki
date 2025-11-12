@@ -5,26 +5,19 @@ import json
 import re
 import pathlib
 import secrets
-import urllib.parse
 import time
 ## from bottle import route, run
 ## from bottle import static_file, route, auth_basic, request
 import flask 
 import base64
-from flask import Flask, request, session
-from werkzeug.security import generate_password_hash, check_password_hash
-# Python Pillow module for image manipulation (PIL)
-import PIL 
+from flask import request, session
+from werkzeug.security import generate_password_hash
 from PIL import Image
 import flask_session
-import flask_wtf as fwt 
-import wtforms as wt 
-import wtforms.validators as wtfv 
 
 from typing import Any, Tuple, List, Optional
 import datetime
 import mimetypes
-import time
 from dateutil.parser import parse as parsedate
 import mwiki 
 from . import utils
@@ -33,10 +26,13 @@ from . import render
 from . import search 
 import mwiki.models as models
 from . models import db, User, Settings, BookmarkedPage, WikiPage, WikiRepository, MwikiConfig
-from . models import is_database_created
 from . login import add_login
 from . forms import UserAddForm, UserSettingsForm, SettingsForm
-from . constants import *
+from . constants import ( M_GET, M_POST, M_DELETE
+                        , STATUS_CODE_400_BAD_REQUEST, STATUS_CODE_401_UNAUTHORIZED
+                        , STATUS_CODE_403_FORBIDDEN,   STATUS_CODE_404_NOT_FOUND
+                        , STATUS_CODE_405_METHOD_NOT_ALLOWED
+                        )
 from .app import app, current_user
 
 # This variable is set to true if gunicorn WSGI server is being used.
@@ -323,7 +319,6 @@ def make_app_server(  host:        str
         # path does not have exntension, it is just the name
         # of the mdfile without any extension
         if "." not in path:
-            mdfile_ = path + ".md"
             path_ = path
             path = path.replace("_", " ")
             ##print(f" [TRACE] mdfile_ = {mdfile_} ; base_path = {base_path}")
@@ -385,8 +380,10 @@ def make_app_server(  host:        str
         p: Optional[pathlib.Path] = next(base_path.rglob(mdfile_), None)
         user = current_user()
         if request.method == M_GET:
-            if not p: flask.abort(STATUS_CODE_404_NOT_FOUND)
-            content = p.read_text()
+            if not p:
+                flask.abort(STATUS_CODE_404_NOT_FOUND)
+                return 
+            content = p.read_text() 
             out = flask.jsonify({ "status": "ok", "error": "", "content": content })
             return out
         elif request.method == M_POST:
@@ -403,8 +400,10 @@ def make_app_server(  host:        str
         elif request.method == M_DELETE:
             if not p:
                 flask.abort(STATUS_CODE_404_NOT_FOUND)
+                return out 
             if not user.user_can_edit():
                 flask.abort(STATUS_CODE_403_FORBIDDEN)
+                return out 
             ## Remove file 
             p.unlink()
             search.index_delete_page(base_path, p)
@@ -467,7 +466,7 @@ def make_app_server(  host:        str
                 search.add_index_page(base_path, page_path)
                 out = flask.redirect(f"/wiki/{path}")
             else:
-                out = flask.redirect(f"/")
+                out = flask.redirect("/")
         else:
             flask.abort(405)
         return out
