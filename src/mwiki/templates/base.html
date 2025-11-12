@@ -310,6 +310,8 @@ katex_macros = {
                  <a data-i18n="login-menu-item-label" class="sidebar-toggle-button" href="/login?path={{request.path|encode_url}}">Log in</a>
                  {% endif %}
                  {% if  current_user().is_admin() %}
+                 <a data-i18n="edit-latex-macros-menu-item-label" class="sidebar-toggle-button" href="/edit/special:macros?back={{request.path|encode_url}}"
+                    title="Edit global LaTeX macros">Edit Macros</a>
                  <a data-i18n="settings-menu-item-label" class="sidebar-toggle-button" href="/settings?back={{request.path|encode_url}}"
                     title="Form for changing web site settings, including description and site name."
                     >Settings</a>

@@ -120,6 +120,7 @@ async function editorSaveDocument()
     const lineEnd   = urlParams.get('end');
     const anchor    = urlParams.get('anchor');
     const page      = urlParams.get('page');
+    const is_macro  = window.location.pathname.split("/")[2] === "special:macros";
     let payload = {  "content": code
                    , "start":   lineStart
                    , "end":     lineEnd 
@@ -128,8 +129,8 @@ async function editorSaveDocument()
     // Disable save buttons whiling saving the document and waiting a server response.
     let btn1 = document.querySelector("[data-i18n='edit-page-save-button']");
     let btn2 = document.querySelector("[data-i18n='edit-page-save-icon-button']");
-    if(btn1){ btn1.setAttribute("disabled", false); }
-    if(btn2){ btn2.setAttribute("onclick", ""); }
+    if(btn1 && !is_macro){ btn1.setAttribute("disabled", false); }
+    if(btn2 && !is_macro){ btn2.setAttribute("onclick", ""); }
     // console.log(" [TRACE] Saving document. Wait ...");
     let out = await http_post(document.URL, payload);
     // console.log(" [RESULT] of saving operation = ", out);
@@ -139,7 +140,9 @@ async function editorSaveDocument()
         let url = `/wiki/${currentWikiPage}#${anchor}`
         // Redirect to corresponding wiki page
         // and heading 
-        document.location.href = url;
+        if(!is_macro){
+            document.location.href = url;
+        }
         setStatusbarText(`Saved at ${datetime}.`);
     } else {
         console.log("Status Error = ", out);

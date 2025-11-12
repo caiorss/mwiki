@@ -482,7 +482,28 @@ def make_app_server(  host:        str
         # users cannot edit the Wiki.
         if not user.user_can_edit():
             flask.abort(STATUS_CODE_403_FORBIDDEN)
-        mdfile_ = path + ".md"
+        if path == "special:macros":
+            macro_file = (base_path / "macros.sty").resolve()
+            content = ""
+            if request.method == M_GET:
+                macro_file.touch(exist_ok = True)
+                content = macro_file.read_text()
+                resp = flask.render_template(  "edit.html"
+                                             , title = f"[i18n]: {path}"
+                                             # Eglish title: "Editing: <WikiPageName>"
+                                             , page_title_i18n_tag = "edit-page-title"
+                                             , page = path
+                                             , page_link = path.replace(" ", "_")
+                                             , content = content)
+                return resp 
+            elif request.method == M_POST:
+                data: dict[str, Any] = request.get_json()
+                content = data.get("content", "") 
+                macro_file.write_text(content)
+                resp = flask.jsonify({ "status": "ok", "error": "" })
+                return resp
+            else:
+                raise RuntimeError("Impossible branch")
         line_start = utils.parse_int(request.args.get("start"))
         line_end   = utils.parse_int(request.args.get("end"))
         timestamp  = utils.parse_int(request.args.get("timestamp"))

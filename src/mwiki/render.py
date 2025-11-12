@@ -772,6 +772,12 @@ class HtmlRenderer(AbstractAstRenderer):
             html += node_html + "\n\n" 
         if self.uses_katex:
             html = self.resolve_equation_references(html)
+        macros_file = self._base_path / "macros.sty"
+        macros_file.touch(exist_ok = True)
+        content = macros_file.read_text()
+        macros = mwiki.latex.get_latex_macros(content)
+        for k, v in macros.items():
+            self._katex_macros[k] = v
         return html
     
     def render_text(self, node: SyntaxTreeNode) -> str:
