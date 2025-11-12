@@ -1572,7 +1572,7 @@ class HtmlRenderer(AbstractAstRenderer):
             self._inside_math_block = False
             self._enumeration_enabled_in_math_block = True
             html = f"""<div class="foldabel-block-div"><details {label}>\n<summary><u class="solution-label"><label data-i18n="{i18nTag}">{tag}</label> {title}</u></summary>\n\n<div class="foldable-block" style="{background}">{inner_html}</div>\n</details></div>"""
-        elif info == "{latex_macro}":
+        elif info == "{macros}":
             if self.uses_katex:
                 ##breakpoint()
                 macros = mwiki.latex.get_latex_macros(node.content)
