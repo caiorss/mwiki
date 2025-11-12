@@ -1106,13 +1106,7 @@ function displayPageSourceWindow()
 
 
 document.addEventListener("DOMContentLoaded", function katexRenderLaTeX() {
-     // const macros =  {
-     //                  "\\RR":       "\\mathbb{R}",
-     //                  "\\norm":    "\\left\\lVert #1 \\right\\rVert_{}",
-     //                  "\\enorm":   "\\left\\lVert #1 \\right\\rVert_{\\infty}",
-     //                  "\\argmax":  "\\operatorname*{arg\\,max}"
-     //                  ,"\\root":   "\\sqrt"
-     //                };
+     if( !IS_LATEX_RENDERER_KATEX ){ return; }
      var macros = {};
      try {
        macros = JSON.parse(base64ToUtf8(KATEX_MACROS));
