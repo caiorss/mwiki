@@ -122,3 +122,24 @@ def test_get_latex_macros_10():
     }
     out = latex.get_latex_macros(macros)
     assert out == expected 
+
+def test_get_latex_macros_11():
+    macros = r"""
+        \newcommand{\laplace}[1]{ \mathcal{L}\{#1\}  }
+    """
+    expected =  {
+        r"\laplace": r"\mathcal{L}\{#1\}"
+    }
+    out= latex.get_latex_macros(macros)
+    assert out == expected 
+
+
+def test_get_latex_macros_12():
+    macros = r"""
+        \newcommand{\BigO}[1]{ \mathcal{O}\!\left(#1\right) }
+    """
+    expected =  {
+        r"\BigO": r"\mathcal{O}\!\left(#1\right)"
+    }
+    out= latex.get_latex_macros(macros)
+    assert out == expected 

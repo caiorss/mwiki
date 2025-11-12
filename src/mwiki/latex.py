@@ -14,7 +14,7 @@ from mwiki.utils import Result
 import mwiki.mparser as mparser 
 
 # Module Exports 
-__all__ = [ "LatexFormula" ]
+__all__ = [ "LatexFormula", "get_latex_macros_json", "get_latex_macros" ]
 
 def get_latex_macros_json(code: str):
     macros = get_latex_macros(code)
@@ -23,10 +23,11 @@ def get_latex_macros_json(code: str):
 
 def get_latex_macros(code: str):
     pat_def1 = r"\\def(?P<d1>.+?)\{(?P<d2>.+?)\}\}"
+    pat_cmd0 = r"\\newcommand\{(?P<t1>.+?)\}(\[.*?\])?\s*\{\s*(?P<t2>.+)\}"
     pat_cmd1 = r"\\newcommand\{(?P<c1>.+?)\}(\[.*?\])?\s*\{(?P<c2>.+?)\{(?P<c3>.+?)\}\s*\}" 
-    pat_cmd2 = r"\\newcommand\{(?P<r1>.+?)\}(\[.*?\])?\{(?P<r2>.+?)\}"
+    pat_cmd2 = r"\\newcommand\{(?P<r1>.+?)\}(\[.*?\])?\s*\{(?P<r2>.+?)\}"
     pat_opr  = r"\\DeclareMathOperator(?P<ostar>\*?)\{\s*(?P<o1>.+?)\}\{\s*(?P<o2>.+?)\s*\}"
-    pat = f"{pat_def1}|{pat_cmd1}|{pat_cmd2}|{pat_opr}"
+    pat = f"{pat_def1}|{pat_cmd0}|{pat_cmd1}|{pat_cmd2}|{pat_opr}"
     # Initial position within the code to be parsed 
     text = code.strip()
     out = {}
@@ -42,6 +43,10 @@ def get_latex_macros(code: str):
                 rhs = dic["o2"]
                 ostar = dic.get("ostar", "")
                 out[lhs.strip()] = r"\operatorname" + ostar + "{" + rhs.strip() + "}"
+            elif dic.get("t1"):
+                lhs = dic["t1"]
+                rhs = dic["t2"]
+                out[lhs.strip()] = rhs.strip()
             elif dic.get("c1"):
                 #lhs, rhs_, inner = groups
                 lhs = dic["c1"]
