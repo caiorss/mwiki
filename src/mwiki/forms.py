@@ -2,7 +2,7 @@ import flask_wtf as fwt
 import wtforms as wt 
 import wtforms.validators as wtfv 
 import mwiki.models as models
-from . constants import *
+import mwiki.constants as const 
 
 
 class SettingsForm(fwt.FlaskForm):
@@ -53,7 +53,9 @@ class UserSettingsForm(fwt.FlaskForm):
     password = wt.PasswordField("Password", validators = [ wtfv.DataRequired() ] )
     submit   = wt.SubmitField("Update")
 
-USER_TYPE_CHOICES = [(USER_MASTER_ADMIN, "Root Admin"), (USER_ADMIN, "Admin"), (USER_GUEST, "Guest") ]
+USER_TYPE_CHOICES = [(const.USER_MASTER_ADMIN, "Root Admin")
+                    , (const.USER_ADMIN, "Admin")
+                    , (const.USER_GUEST, "Guest") ]
 
 class UserAddForm(fwt.FlaskForm):
     """Form for adding new user account manually."""
