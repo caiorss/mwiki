@@ -492,7 +492,7 @@ class WikiPage():
                                       , page_author          = renderer.author
                                       , content              = content
                                       , toc                  = toc
-                                      , latex_macros         = latex_macros
+                                      , latex_macros         = renderer.mathjax_macros
                                       , mathjax_enabled      = renderer.needs_mathjax
                                       , graphviz_enabled     = renderer.needs_graphviz
                                       , latex_algorithm      = renderer.needs_latex_algorithm

@@ -655,6 +655,7 @@ class HtmlRenderer(AbstractAstRenderer):
         """Current theorem number"""
 
         self._katex_macros = {}
+        self._mathjax_macros = ""
 
         self._needs_latex_renderer = False
         """Flag used for only including MathJax in the html template
@@ -715,6 +716,10 @@ class HtmlRenderer(AbstractAstRenderer):
         return out
 
     @property
+    def mathjax_macros(self) -> str:
+        return self._mathjax_macros
+
+    @property
     def needs_mathjax(self) -> bool:
         """Returns true if mathjax needs to be included in the template base.html
         The purpose of this flag is allowing lazy load of MathJax for
@@ -772,12 +777,17 @@ class HtmlRenderer(AbstractAstRenderer):
             html += node_html + "\n\n" 
         if self.uses_katex:
             html = self.resolve_equation_references(html)
-        macros_file = self._base_path / "macros.sty"
-        macros_file.touch(exist_ok = True)
-        content = macros_file.read_text()
-        macros = mwiki.latex.get_latex_macros(content)
-        for k, v in macros.items():
-            self._katex_macros[k] = v
+            macros_file = self._base_path / "macros.sty"
+            macros_file.touch(exist_ok = True)
+            content = macros_file.read_text()
+            macros = mwiki.latex.get_latex_macros(content)
+            for k, v in macros.items():
+                self._katex_macros[k] = v
+        if self.uses_mathjax:
+            macros_file = self._base_path / "macros.sty"
+            macros_file.touch(exist_ok = True)
+            global_macros = macros_file.read_text()
+            self._mathjax_macros = global_macros + "\n" + self._mathjax_macros
         return html
     
     def render_text(self, node: SyntaxTreeNode) -> str:
@@ -1578,20 +1588,9 @@ class HtmlRenderer(AbstractAstRenderer):
                 macros = mwiki.latex.get_latex_macros(node.content)
                 for k, v in macros.items():
                     self._katex_macros[k] = v 
-                return ""
             else:
-                html = f""" 
-                <div class="hidden-mathjax-macros user-macros" style="display: none;">
-                  <div>
-                  $$
-                    {node.content}                
-                  $$
-                  </div>
-                  <pre>
-                  {node.content}
-                  </pre>
-                </div>
-            """
+                self._mathjax_macros += "\n" + node.content
+            html = ""
         # Render figure (pictures/images) with metadata including
         # height, width, alt text,
         elif info.startswith("{figure}"):
