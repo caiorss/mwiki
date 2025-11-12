@@ -19,6 +19,8 @@ import pathlib
 import frontmatter
 import yaml
 import flask
+import mwiki
+import mwiki.export as export 
 
 ## db = SQLAlchemy(app)
 db = SQLAlchemy()
@@ -181,8 +183,8 @@ class FontFamiliyEnum(enum.Enum):
     julia_mono = "Julia Mono"
     julia_mono_light = "Julia Mono Light"
     libertinus_mono = "Libertinus Mono"
-    dmn_mono_regular = "DMN Mono Regular"
-    dmn_mono_meidum  = "DMN Mono Medium"
+    dmono_regular = "DMMono Regular"
+    dmono_meidum  = "DMMono Medium"
     libertinus_sans = "Libertinus Sans"
     libertinus_serif = "Libertinus Serif"
     range_font = "Range"
@@ -204,8 +206,8 @@ class CodeFontFamily(enum.Enum):
     julia_mono = "Julia Mono"
     julia_mono_light = "Julia Mono Light"
     range_mono = "Range Mono"
-    dmn_mono_regular = "DMN Mono Regular"
-    dmn_mono_meidum  = "DMN Mono Medium"
+    dmono_regular  = "DMMono Regular"
+    dmmono_medium  = "DMMono Medium"
     # Font that mimics Epson's dot-matrix font used in the 1980's for
     # printing code in computer magazines.
     dotmatrix = "Epson DotMatrix"
@@ -232,8 +234,8 @@ class TitleFontFamily(enum.Enum):
     ibm_plex_mono = "IBM Plex Mono"
     # Font that mimics Epson's dot-matrix font used in the 1980's for
     # printing code in computer magazines designed by Stefan Schmidt.
-    dmn_mono_regular = "DMN Mono Regular"
-    dmn_mono_meidum  = "DMN Mono Medium"
+    dmmono_regular = "DMMono Regular"
+    dmmono_medium  = "DMMono Medium"
     dotmatrix = "Epson DotMatrix"
     dotmatrix_duo = "Epson DotMatrixDuo"
     dotmatrix_var_duo = "Epson DotMatrixVarDuo"
@@ -265,6 +267,9 @@ class TitleFontFamily(enum.Enum):
     dinweb_balck = "DINWeb-Black"
     saira_thin_normal  = "Saira Thin Normal"
     saira_thin_bold    = "Saira Thin Bold"
+
+
+root_path = utils.get_module_path(mwiki)
 
 class Settings(db.Model):
     """Singleton model class (SQL table) containing site settings.
@@ -336,6 +341,28 @@ class Settings(db.Model):
     def __repr__(self) -> str:
         out = f"Settings{{  public = {self.public} ; sitename = {self.sitename}  }}" 
         return out
+
+    @property 
+    def font_main_css(self, root_url = "/") -> str:
+        font_face_main_font =  export.render_font_data_by_family( self.main_font 
+                                                                , root_url = root_url
+                                                                , root_path = root_path)
+        return font_face_main_font
+
+    @property
+    def font_code_css(self, root_url = "/") -> str:
+        font_face_code_font = export.render_font_data_by_family( self.code_font
+                                                               , root_url = root_url
+                                                               , root_path = root_path )
+        return font_face_code_font 
+
+    @property 
+    def font_title_css(self, root_url = "/") -> str:
+        font_face_title_font = export.render_font_data_by_family( self.title_font
+                                                                , root_url = root_url
+                                                                , root_path = root_path)
+        return font_face_title_font
+
 
 class Page(db.Model):
     __tablename__ = "page"
@@ -482,7 +509,22 @@ class WikiPage():
             with open(str(info), "w") as fd:
                 json.dump(data, fd)
         else:
-            if info.exists(): info.unlink()
+            if info.exists():
+                info.unlink()
+        conf: Settings = Settings.get_instance()
+
+        # root_path = utils.get_module_path(mwiki)
+        # root_url = "/"
+        # ### print(" [TRACE] root_path => (718) = " + str(root_path))
+        # font_face_main_font =  export.render_font_data_by_family( conf.main_font 
+        #                                                         , root_url = root_url
+        #                                                         , root_path = root_path)
+        # font_face_title_font = export.render_font_data_by_family( conf.title_font
+        #                                                         , root_url = root_url
+        #                                                         , root_path = root_path)
+        # font_face_code_font = export.render_font_data_by_family( conf.code_font
+        #                                                        , root_url = root_url
+        #                                                        , root_path = root_path )
         html = flask.render_template(  "content.html"
                                       , title                = title
                                       , page                 = self._title
@@ -499,7 +541,11 @@ class WikiPage():
                                       , timestamp            = self.timestamp
                                       , equation_enumeration = renderer.equation_enumeration_style
                                       , katex_macros         = utils.base64_encode(renderer.katex_macros)
-                                    )
+                                      # , font_face_main       = font_face_main_font
+                                      # , font_face_title      = font_face_title_font
+                                      # , font_face_code       = font_face_code_font
+                                      , conf = conf 
+                                   )
         out.write_text(html)
 
     def render_html(self, latex_macros = "") -> str:

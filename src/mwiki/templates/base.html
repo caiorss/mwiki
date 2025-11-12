@@ -9,6 +9,20 @@
     <meta name="description" content="{{page_description}}" />
     <meta name=generator content="MWiki">
     {% if page_author %} <meta name="author" content="{{page_author}}"> {% endif %}
+
+    <style>
+
+    {{conf.font_main_css|safe}}
+    {{conf.font_code_css|safe}}
+    {{conf.font_title_css|safe}}
+
+    :root {
+        {% if main_font %}  --font-family-main:  '{{conf.main_font}}';  {% endif %}
+        {% if code_font %}  --font-family-code:  '{{conf.code_font}}';  {% endif %}
+        {% if title_font %} --font-family-title: '{{conf.title_font}}'; {% endif %}
+    }
+    </style>
+    
     <link rel="stylesheet" href="/static/style.css">
     {% block style %}{% endblock %}
     <!-- MathJax Settings -->

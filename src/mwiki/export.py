@@ -8,6 +8,10 @@ import mwiki.utils as utils
 from mwiki.latex import LatexFormula 
 import mwiki.mparser as mparser 
 
+__all__ = [   "export"
+            , "fonts_database"
+            , "fonts_database_by_name"
+          ]
 
 def export(   wikipath:              Optional[str]
             , output:                Optional[str]
@@ -326,13 +330,23 @@ def copy_font_files(font_key: str, dest: pathlib.Path):
        if not f.exists():
            raise RuntimeError(f"File {f} not found")
        shutil.copy(f, dest)
+
+
+def render_font_data_by_family( family: str
+                              , root_url: str
+                              , self_contained: bool = False
+                              , root_path: Optional[pathlib.Path] = None) -> str:
+    font_data = fonts_database_by_name.get(family) or {} 
+    font_key  =  font_data.get("key") or ""
+    out       = render_font_data(font_key, root_url, self_contained, root_path)
+    return out 
        
 
 def render_font_data(  key: str 
                      , root_url: str                = ""
                      , self_contained: bool         = False
                      , root_path: Optional[pathlib.Path] = None
-                     ):
+                     ) -> str:
     data = get_font_data(key)
     if not data:
         return ""
@@ -437,6 +451,17 @@ def render_font_data(  key: str
     out = out + "\n\n" + font_face_bold_italic   if font_face_bold_italic != "" else out
     return out 
 
+# Fields: 
+#    key: unique name for the font without whitespace (replaced by dash '-')
+#    family:       font family name
+#    regular:      regular font file
+#    italic:       italic  font file
+#    bold:         bold font file
+#    bold-italic:  bold italic font file
+#    info:         font description 
+#    role:         "title", "code"  (optional)
+#    latex:        True or False => If true indicates that the font is LaTeX derived font
+# 
 fonts_database  = [
     {
           "key":     "computer-modern"
@@ -444,6 +469,8 @@ fonts_database  = [
         , "regular": "computer-modern-normal.ttf"
         , "italic":  "computer-modern-italic.ttf"
         , "bold":    "computer-modern-bold.ttf"
+        , "info":    "Standard LaTeX font created by emeritus professor Donald Knuth."
+        , "latex":   True
     }
    ,{
           "key":          "ibm-plex-mono"
@@ -452,12 +479,20 @@ fonts_database  = [
         , "italic":       "computer-modern-italic.ttf"
         , "bold":         "computer-modern-bold.ttf"
         , "bold-italic":  "computer-modern-bold.ttf"
+        , "info":         "Font that mimics type writers."
     }
    ,{
           "key":     "chicago"
         , "family":  "Chicago MacOS"
         , "regular": "ChicagoFLF.ttf"
+        , "info":    "Recrefation of the nostagia Susan Kare's font/typeface used by Apple's Mac OS System 7."
     }
+   ,{
+        "key":     "neo-euler"
+      , "family":  "Neo Euler"
+      , "regular": "neo-euler.otf"
+      , "info":    "Latex font that attempts to mimic a mathematician handwriting in blackboard."
+   }
    ,{
           "key":     "news-reader"
         , "family":  "NewsReader"
@@ -469,12 +504,14 @@ fonts_database  = [
         , "regular":      "Literata-Regular.ttf"
         , "italic":       "Literata-Italic.ttf"
         , "bold":         "Literata-Bold.ttf"
+        , "info":         "Serif Typeface designed for Google Play books."
     }
    ,{
           "key":         "literata-variable"
         , "family":      "Literata-Regular" 
         , "regular":     "literata-variable-font-opsz.ttf" 
         , "italic":      "literata-variable-font-italic-opsz.ttf" 
+        , "info":         "Serif Typeface designed for Google Play books."
     }
    ,{
          "key":          "commint-mono"
@@ -489,16 +526,18 @@ fonts_database  = [
        , "family":  "Logic Monospace Regular"
        , "regular": "LogicMonospace-Regular.woff2"
     }
-    ,
-    {
+    ,{
+          "key":          "go-mono"
+        , "family":       "Go Mono"
+        , "regular":      "Go-Mono.ttf"
+        , "italic":       "Go-Mono-Bold.ttf"
+        , "bold":         "Go-Mono-Bold.ttf"
+        , "bold-italic":  "Go-Mono-Bold-Italic.ttf"
+    }
+   ,{
          "key":    "logic-monospace-medium"
        , "family": "Logic Monospace Medium"
        , "regular": "LogicMonospace-Medium.woff2"
-    }
-   ,{
-          "key":     "garamond-pro"
-        , "family":  "Garamond Pro Regular"
-        , "regular": "AGaramondPro-Regular.woff2"   
     }
    ,{
          "key":   "libertinus-mono"
@@ -512,6 +551,13 @@ fonts_database  = [
          , "italic":  "JuliaMono-RegularItalic.woff2"  
          , "bold":    "JuliaMono-Bold.woff2"  
     }
+   ,{
+         "key": "julia-mono-light"
+       , "familiy": "Julia Mono Light"
+       , "regular": "JuliaMono-Light.woff2"
+       , "italic":  "JuliaMono-LightItalic.woff2"
+       , "bold":    "JuliaMono-Bold.woff2"  
+   }
    ,{
           "key":          "libertinus-sans"
         , "family":       "Libertinus Sans"
@@ -528,6 +574,11 @@ fonts_database  = [
         , "bold-italic":  "LibertinusSerif-BoldItalic.woff2"
     }    
    ,{
+         "key":     "libertinus-serif-display"
+       , "family":  "Libertinus Serif Display"
+       , "regular": "LibertinusSerifDisplay-Regular.woff2"
+   }
+   ,{
         "key":         "commint-mono"
       , "family":      "Commint Mono"
       , "regular":     "CommitMono-400-Regular.otf"
@@ -535,6 +586,16 @@ fonts_database  = [
       , "bold":        "CommitMono-700-Regular.otf"
       , "bold-italic": "CommitMono-700-Italic.otf"
     
+    }
+    ,{
+          "key":      "DMMono Regular"
+        , "family":   "DMMono Regular"
+        , "regular":  "DMono-Regular.woff2"
+    }
+    ,{
+          "key":     "DMMono Medium"
+        , "family":  "DMMono Medium"
+        , "regular": 'DMMono-Medium.woff2'
     }
    ,{
           "key":      "range-mono"
@@ -546,6 +607,42 @@ fonts_database  = [
         , "family":   "Range"
         , "regular":  "range-regular-webfont.woff"
     }    
+   ,{
+         "key":           "epson-dotmatrix"
+       , "family":        "Epson DotMatrix"
+       , "regular":       "DotMatrix-Regular.otf"
+       , "italic":        "DotMatrix-Italic.otf"
+       , "bold":          "DotMatrix-Bold.otf"
+       , "bold-italic":   "DotMatrix-BoldItalic.otf"
+       , "info": ("Font that mimics Epson's dot-matrix font used in"
+                 " the 1980's for * printing code in computer magazines.")
+   }
+   ,{
+         "key":           "epson-dotmatrixduo"
+       , "family":        "Epson DotMatrixDuo"
+       , "regular":       "DotMatrixDuo-CondensedRegular.otf"
+       , "italic":        "DotMatrixDuo-CondensedItalic.otf"
+       , "bold":          "DotMatrixDuo-CondensedBold.otf"
+       , "bold-italic":   "DotMatrixDuo-CondensedBoldItalic.otf"
+       , "info": ("Font that mimics Epson's dot-matrix font used in"
+                 " the 1980's for * printing code in computer magazines.")
+   }
+   
+   ,{
+         "key":           "epson-dotmatrixvarduo"
+       , "family":        "Epson DotMatrixVarDuo"
+       , "regular":       "DotMatrixVarDuo-Regular.otf"
+       , "italic":        "DotMatrixVarDuo-Italic.otf"
+       , "bold":          "DotMatrixVarDuo-Bold.otf"
+       , "bold-italic":   "DotMatrixVarDuo-BoldItalic.otf"
+       , "info": ("Font that mimics Epson's dot-matrix font used in"
+                 " the 1980's for * printing code in computer magazines.")
+   }
+   ,{
+        "key":     "comorant-light"
+      , "family":  "Comorant Light"
+      , "regular": "Comorant-Light.woff2"
+   }
    ,{
         "key":     "crimson"
       , "family":  "Crimson"
@@ -566,12 +663,14 @@ fonts_database  = [
         "key":     "jackwrite"
       , "family":  "Jackwrite"
       , "regular": "Jackwrite.woff2"
+      , "info":    "Nostalgic noir font/typeface that mimics typewriter ink leaked on old paper."
    }
 
    ,{
         "key":     "jackwrite-bold"
       , "family":  "Jackwrite Bold"
       , "regular": "JackwriteBold.woff2"
+      , "info":    "Nostalgic noir font/typeface that mimics typewriter ink leaked on old paper."
    }
    ,{
        "key":    "cmu-concrete"
@@ -590,11 +689,13 @@ fonts_database  = [
         "key":    "peachi-medium"
       , "family": "Peachi Medium"   
       , "regular": "peachi-medium.woff2"
+      , "role":   "title"
     }
    ,{
         "key":     "fondamento"
       , "family":  "Fondamento"   
       , "regular": "fondamento-regular.woff2"
+      , "role":   "title"
    }   
    ,{
          "key":     "bricolage-grotesque"
@@ -605,29 +706,102 @@ fonts_database  = [
           "key":    "saira-thin-normal"
         , "family": "Saira Thin Normal"
         , "regular": "saira-latin-thin.woff2"
+        , "role":   "title"
     }
 
     ,{
           "key":    "saira-thin-bold"
         , "family": "Saira Thin Bold"
         , "regular": "saira-latin-thin-bold.woff2"
+        , "role":   "title"
     }
     ,{
          "key":     "dinweb-light"
        , "family":  "DINWeb-Light"
-       , "regular": 'DINWeb-Light.woff'
+       , "regular": "DINWeb-Light.woff"
+       , "role":    "title"
     }
     ,{
          "key":      "dinweb-medium"
        , "family":   "DINWeb-Medium"
        , "regular":  "DINWeb-Medium.woff"
+       , "role":   "title"
         
     }
     ,{
         "key":     "dinweb-black"
       , "family":  "DINWeb-Black"
       , "regular": "DINWeb-Black.woff"
+      , "role":   "title"
         
     }
-    
+    ,{
+        "key":     "graphik-regular"
+      , "family":  "Graphik Regular"
+      , "regular": "Graphik-Regular-Web.woff"
+      , "role":   "title"
+        
+    }
+    ,{
+         "key":         "averia"
+       , "family":      "Averia"
+       , "regular":     "Averia-Regular.woff2"
+       , "italic":      "Averia-Italic.woff2"
+       , "bold":        "Averia-Bold.woff2"
+       , "bold-italic": "Averia-Bold-Italic.woff2"
+
+    }
+   ,{
+         "key":         "averia-sans"
+       , "family":      "AveriaSans"
+       , "regular":     "AveriaSans-Regular.woff2"
+       , "italic":      "AveriaSans-Italic.woff2"
+       , "bold":        "AveriaSans-Bold.woff2"
+       , "bold-italic": "AveriaSans-Bold-Italic.woff2"
+    }
+   ,{
+         "key":         "averia-gruesa"
+       , "family":      "Averia Gruesa"
+       , "regular":     "Averia-Gruesa.woff2"
+    }
+    ,{
+         "key":         "notosans"
+       , "family":      "NotoSans"
+       , "regular":     "NotoSans-Regular.woff2"
+       , "italic":      "NotoSans-Italic.woff2"
+       , "bold":        "NotoSans-BoldBold.woff2"
+       , "bold-italic": "NotoSans-BoldItalic.woff2"
+
+    }
+    ,{
+          "key":    "textura-modern"
+        , "family": "Textura Modern"
+        , "regular": "TexturaModern.ttf"
+        , "info":    "Modieval goth-like font."
+        , "role":    "title"
+    }
+    ,{
+          "key":    "bastarda"
+        , "family": "Bastarda"
+        , "regular": "Bastarda.otf"
+        , "info":    "Modieval goth-like font used in framce."
+        , "role":    "title"
+    }
 ]
+
+fonts_database_by_name = dict([(x.get("family"), x) for x in fonts_database])
+
+monospace_fonts = [
+      "Commit Mono"
+    , "IBM Plex Mono"
+    , "Libertinus Mono"
+    , "Julia Mono"
+    , "Julia Mono Light"
+    , "Range Mono"
+    , "DMMono Regular"
+    , "DMMono Medium"
+    , "Epson DotMatrix"
+    , "Epson DotMatrixDuo"
+    , "Epson DotMatrixVarDuo"
+]
+

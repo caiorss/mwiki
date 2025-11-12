@@ -90,7 +90,10 @@ def make_app_server(  host:        str
             db.session.commit()
             flask.flash("User account updated successfully. Ok.")
             flask.redirect("/user")
-        resp = flask.render_template("user_settings.html", form = form, title = "User account settings")
+        conf = Settings.get_instance()
+        resp = flask.render_template("user_settings.html"
+                                     , conf = conf
+                                     , form = form, title = "User account settings")
         return resp
 
     @app.route("/account/new", methods = [M_GET, M_POST])
@@ -122,7 +125,8 @@ def make_app_server(  host:        str
             flask.flash("User created successfully. Ok.")
             app.logger.info("User created ok.")
             return flask.redirect("/account/new")
-        resp  = flask.render_template("add_user.html", form = form, title = "Add User")
+        conf = Settings.get_instance()
+        resp  = flask.render_template("add_user.html", conf = conf, form = form, title = "Add User")
         return resp
 
     @app.route("/settings", methods = [M_GET, M_POST])
@@ -172,10 +176,12 @@ def make_app_server(  host:        str
             app.logger.info("Wiki setting updated.")
             flask.redirect("/settings")
         page_title_i18n_tag = "settings-page-title"
+        conf = Settings.get_instance()
         resp  = flask.render_template(	  "settings.html"
 										, form = form
 										, title = "Wiki Settings"
 										, page_title_i18n_tag = page_title_i18n_tag
+										, conf = conf
 										)
         return resp
 
@@ -229,12 +235,14 @@ def make_app_server(  host:        str
         title = f"[i18n] \"{query}\"" if query != "" else "All pages"
         page_title_i18n_tag = "title-search-results-page" \
 			if query != "" else "title-listing-all-pages"
+        conf = Settings().get_instance()
         response = flask.render_template( "listing.html"
                                          , title = title
 										 , page_title_i18n_tag = page_title_i18n_tag
                                          , pages = pages
                                          , size  = len(pages)
                                          , query = query
+                                         , conf = conf
                                          )
         return response
 
@@ -245,9 +253,12 @@ def make_app_server(  host:        str
     @app.get("/about")
     def route_about():
         """Show about page."""
+        conf = Settings.get_instance()
         resp = flask.render_template( "about.html"
 									 , page_title_i18n_tag = "about-page-title"
-                                     , title = "[i18n] " + Settings.get_instance().sitename )
+                                     , title = "[i18n] " + Settings.get_instance().sitename
+                                     , conf = conf
+                                     )
         return resp
 
     @app.get("/licenses")
@@ -256,7 +267,8 @@ def make_app_server(  host:        str
         conf = Settings.get_instance()
         if not conf.show_licenses:
             flask.abort(STATUS_CODE_404_NOT_FOUND)
-        resp = flask.render_template("licenses.html", title="Open Source Licenses")
+        conf = Settings.get_instance()
+        resp = flask.render_template("licenses.html", title="Open Source Licenses", conf = conf)
         return resp
 
     @app.get("/wiki/img/<path:filepath>")
@@ -298,11 +310,14 @@ def make_app_server(  host:        str
         content = utils.highlight_code(src, "markdown")
         ## content = f"<pre>\n{src}\n</pre>" 
         ## html = mparser.fill_template(f"Source of '{page}.md'", content, toc = "", query = "")
+        conf = Settings.get_instance()
         html = flask.render_template("source.html"
                                      , page = path 
                                      , title = f"[i18n]: {path}"
                                      , page_title_i18n_tag = "source-page-title"
-                                     , content = content)
+                                     , content = content
+                                     , conf = conf
+                                 )
         return html
 
     ## Latex Macros to be Injected in Page Template
@@ -318,6 +333,7 @@ def make_app_server(  host:        str
         """Return rendered wiki pages as html or server files upload by user"""
         # path does not have exntension, it is just the name
         # of the mdfile without any extension
+        conf: Settings = Settings.get_instance()
         if "." not in path:
             path_ = path
             path = path.replace("_", " ")
@@ -336,6 +352,7 @@ def make_app_server(  host:        str
                                              , page    = path
                                              , content = content
                                              , latex_macros = latex_macros
+                                             , conf = conf
                                              )
                 return response
             # The files  'Cloud Computing.md' abd 'Cloud_Computing.md'
@@ -343,7 +360,6 @@ def make_app_server(  host:        str
             # and 'Cloud_Computing' are also regarded as the wiki page (note). This approach
             # improves compatibility with Wikis or note taking applications  that use underline
             # in file name and Wikis that use space in the file name.
-            conf: Settings = Settings.get_instance()
             page = repository.get_wiki_page(title = path, latex_renderer = conf.latex_renderer) \
                     or repository.get_wiki_page(title = path_, latex_renderer = conf.latex_renderer)
             ## print(" [TRACE] matches = ", matches)
@@ -432,6 +448,7 @@ def make_app_server(  host:        str
     def route_create(path: str):
         """Http endpoint for creating new wiki pages/notes."""
         user = current_user()
+        conf: Settings = Settings.get_instance()
         # Enforce authorization  
         if not user.user_can_edit():
             flask.abort(STATUS_CODE_403_FORBIDDEN)
@@ -444,7 +461,9 @@ def make_app_server(  host:        str
         if request.method == M_GET:
             out = flask.render_template("create.html"
                                         , page_title_i18n_tag = "creating-page-title"
-                                        ,  title = f"[i18n] '{path}'", pagename = path)
+                                        , title = f"[i18n] '{path}'"
+                                        , pagename = path
+                                        , conf = conf)
         elif request.method == M_POST:
             ## _page        = flask.request.form.get("page", "") 
             label       = flask.request.form.get("label", "") 
@@ -481,6 +500,7 @@ def make_app_server(  host:        str
         # users cannot edit the Wiki.
         if not user.user_can_edit():
             flask.abort(STATUS_CODE_401_UNAUTHORIZED)
+        conf = Settings.get_instance()
         if path == "special:macros":
             # Enforece - authorization - only admin can edit macros.
             if not user.is_admin():
@@ -498,7 +518,9 @@ def make_app_server(  host:        str
                                              , page_title_i18n_tag = "edit-page-title"
                                              , page = path
                                              , page_link = path.replace(" ", "_")
-                                             , content = content)
+                                             , content = content
+                                             , conf = conf
+                                             )
                 return resp 
             elif request.method == M_POST:
                 data: dict[str, Any] = request.get_json()
@@ -531,7 +553,9 @@ def make_app_server(  host:        str
                                          , page_title_i18n_tag = "edit-page-title"
                                          , page = path
                                          , page_link = path.replace(" ", "_")
-                                         , content = content)
+                                         , content = content
+                                         , conf = conf
+                                     )
             return resp
         assert request.method == M_POST
         # Simulate a delay of 5 seconds
