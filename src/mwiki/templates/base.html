@@ -160,15 +160,6 @@
     </script>
 
 
-    <script>
-katex_macros = {
-  "\\R": "\\mathbb{R}",
-  "\\norm": "\\left\\lVert #1 \\right\\rVert_{}",
-  "\\enorm": "\\left\\lVert #1 \\right\\rVert_{\\infty}",
-  "\\argmax": "\\operatorname*{arg\\,max}"
-}
-    </script>
-
 {%if latex_renderer() == "mathjax" and not use_cdn() %}
     {% if mathjax_enabled or latex_algorithm %}
         <script src="/static/mathjax/es5/tex-chtml.js" id="MathJax-script" async></script>
