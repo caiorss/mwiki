@@ -180,6 +180,7 @@ class FontFamiliyEnum(enum.Enum):
     dinweb_light = "DINWeb-Light"
     dinweb_medium = "DINWeb-Medium"
     dinweb_balck = "DINWeb-Black"
+    jetbrains_mono = "JetBrains Mono"
     julia_mono = "Julia Mono"
     julia_mono_light = "Julia Mono Light"
     libertinus_mono = "Libertinus Mono"
@@ -203,6 +204,7 @@ class CodeFontFamily(enum.Enum):
     logic_monospace_medium  = "Logic Monospace Medium"
     commit_mono = "Commit Mono"
     libertinus_mono = "Libertinus Mono"
+    jetbrains_mono = "JetBrains Mono"
     julia_mono = "Julia Mono"
     julia_mono_light = "Julia Mono Light"
     range_mono = "Range Mono"
@@ -239,6 +241,7 @@ class TitleFontFamily(enum.Enum):
     dotmatrix = "Epson DotMatrix"
     dotmatrix_duo = "Epson DotMatrixDuo"
     dotmatrix_var_duo = "Epson DotMatrixVarDuo"
+    jetbrains_mono = "JetBrains Mono"
     go_mono = "GO Mono"
     # Font suitable for title
     news_reader = "NewsReader"

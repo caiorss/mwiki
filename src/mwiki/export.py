@@ -551,6 +551,11 @@ fonts_database  = [
          , "italic":  "JuliaMono-RegularItalic.woff2"  
          , "bold":    "JuliaMono-Bold.woff2"  
     }
+    ,{
+          "key":    "jetbrains-mono"
+        , "family": "JetBrains Mono"
+        , "regular": "JetBrainsMono-400-Normal.woff2"
+    }
    ,{
          "key": "julia-mono-light"
        , "familiy": "Julia Mono Light"
@@ -795,6 +800,7 @@ monospace_fonts = [
       "Commit Mono"
     , "IBM Plex Mono"
     , "Libertinus Mono"
+    , "JetBrains Mono"
     , "Julia Mono"
     , "Julia Mono Light"
     , "Range Mono"
