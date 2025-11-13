@@ -1577,7 +1577,7 @@ class HtmlRenderer(AbstractAstRenderer):
                           , "example":     "foldable-math-example-block-label"
                          }
             i18nTag = i18nTagsDB.get(tag.lower())
-            tag = tag.capitalize() if tag != "derivation" else tag.replace("derivation", "Equation Derivation")
+            tag = tag.capitalize() if tag != "derivation" else tag.replace("derivation", "Derivation")
             inner_html = self.render(ast)
             self._inside_math_block = False
             self._enumeration_enabled_in_math_block = True
