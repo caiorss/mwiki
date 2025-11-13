@@ -671,7 +671,7 @@ async function editorPreviewDocument()
         , top: "0px"
         , left: "0px" 
     });
-
+    previewWindow.setHeight("98%");
     previewWindow.show();
 }
 

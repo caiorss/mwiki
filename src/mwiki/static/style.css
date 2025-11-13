@@ -828,11 +828,21 @@ main thead th {
 
     .popup-window {
         max-height: 80% !important; 
-        height: 30%;
         /* max-width: 25%; */
         top: 10px;
         left: 20px;
         font-size: 1rem;
+        background: aliceblue;
+        border: 1px solid;
+        display: inline-block;
+        position: absolute;
+        z-index:   1000;
+        top: 10%;
+        left: 30%;
+    }
+
+    .popup-window-iframe {
+        min-height: 98%;
     }
 
 

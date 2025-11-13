@@ -16,12 +16,12 @@ class PopupWindow
         document.body.appendChild(this._dom);
         this._dom.classList.add("popup-window");
         this._dom.style.zIndex = zIndex;
-        this._dom.style.position = "absolute";
+        // this._dom.style.position = "absolute";
         this._dom.style.width  = width;
-        // this._dom.style.height = height;
+        // if( options.height ){ this._dom.style.height = options.height; }
         this._dom.style.top    = top;
         this._dom.style.left   = left;
-        this._dom.style.background = "aliceblue";
+        // this._dom.style.background = "aliceblue";
         this._dom.style.padding = "10px";
         this._dom.style.display = "inline-block";
         if(!visible){ this.hide() };
@@ -31,6 +31,17 @@ class PopupWindow
         this._dom.innerHTML += html; 
         let self = this;
         this.onClick(".btn-window-close", () => self.close());
+    }
+
+    setHeight(height)
+    {
+      this._dom.style.height = height;
+    }
+
+    /* Add a CSS Class name to change Window presentation. */
+    addClass(cssClassNameStr)
+    {
+       this._dom.classList.add(cssClassNameStr);
     }
 
     querySelector(selector)
@@ -921,19 +932,22 @@ function popupIframe (title, url, options)
         options = {};
     }
     let hidden = (options.hidden || false);
-    let width = (options.hidden || "80%");
-    let height = (options.hidden || "90%");
+    let width = (options.width || "80%");
+    // let minHeight = (options.minHeight || "90%");
     let html_ = `
         <iframe src="${url}" title="${title}" width="100%" height="100%" ></iframe> 
     `;
-    let pwindow = new PopupWindow({
+    let options_ =  {
           title: title 
         , html: html_
         , width: width
         , height: height
         , top: "20px"
         , left: "50px" 
-    });
+    };
+    let pwindow = new PopupWindow(options_);
+    // pwindow.addClass("popup-window-iframe");
+    pwindow.setHeight("90%");
     pwindow.onWindowClick( (className) => {
         if(className == "btn-popup-close"){ pwindow.close(); }
     });
@@ -1486,7 +1500,8 @@ function showRefcard()
         // Lazy Initialization
         refcard_window =  popupIframe( "Reference Card"
                                      , "/wiki/special:refcard"
-                                     , { width: "100%", height: null} );
+                                     , { width: "90%" } );
+        refcard_window.setHeight("90%");
     }
     refcard_window.show();
 }
