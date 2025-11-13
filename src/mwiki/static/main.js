@@ -16,12 +16,12 @@ class PopupWindow
         document.body.appendChild(this._dom);
         this._dom.classList.add("popup-window");
         this._dom.style.zIndex = zIndex;
-        // this._dom.style.position = "absolute";
+        this._dom.style.position = "absolute";
         this._dom.style.width  = width;
         // if( options.height ){ this._dom.style.height = options.height; }
         this._dom.style.top    = top;
         this._dom.style.left   = left;
-        // this._dom.style.background = "aliceblue";
+        this._dom.style.background = "aliceblue";
         this._dom.style.padding = "10px";
         this._dom.style.display = "inline-block";
         if(!visible){ this.hide() };
@@ -944,6 +944,7 @@ function popupIframe (title, url, options)
         , height: height
         , top: "20px"
         , left: "50px" 
+        , zIndex: "500"
     };
     let pwindow = new PopupWindow(options_);
     // pwindow.addClass("popup-window-iframe");
