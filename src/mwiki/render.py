@@ -1621,7 +1621,7 @@ class HtmlRenderer(AbstractAstRenderer):
             # Name is a label - unique identifier for cross referencing with hyperlinks.
             name = directives.get("name", "")
             # Alternative text for acessibility (Optional)
-            alt = directives.get("alt", caption).strip()
+            alt = utils.escape_html( directives.get("alt", caption).strip() )
             # Image height (Optional)
             height = f"height={u}" if (u := directives.get("height")) else ""
             # Image width (Optional)
