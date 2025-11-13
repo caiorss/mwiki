@@ -853,6 +853,14 @@ main thead th {
 @media (max-width: 810px)
 {
 
+    /* Scroll horizontally if the LaTeX equation
+    *  does not fit the mobile screen.
+    */ 
+    .div-latex-code {
+        overflow: scroll;
+        display: inline-block;
+    }
+
     .sidebar-toggle-button {
         font-size: 1.5rem !important;
     }
