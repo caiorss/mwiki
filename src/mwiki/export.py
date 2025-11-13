@@ -555,6 +555,7 @@ fonts_database  = [
           "key":    "jetbrains-mono"
         , "family": "JetBrains Mono"
         , "regular": "JetBrainsMono-400-Normal.woff2"
+        , "bold":    "JetBrainsMono-700-Normal.woff2"
     }
    ,{
          "key": "julia-mono-light"
@@ -751,6 +752,12 @@ fonts_database  = [
       , "regular": "Graphik-Regular-Web.woff"
       , "role":   "title"
         
+    },
+    {
+          "key":     "space-grotesk"
+        , "family":  "Space Grotesk"
+        , "regular": "space-grotesk-light.woff2"
+        , "bold":    "space-grotesk-v16-latin-700.woff2"
     }
     ,{
          "key":         "averia"
