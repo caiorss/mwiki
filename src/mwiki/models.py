@@ -155,6 +155,7 @@ class FontFamiliyEnum(enum.Enum):
     cmu_concrete    = "CMU Concrete"
     cmu_sans_serif  = "CMU Sans Serif"
     crimson = "Crimson"
+    ebgaramond = "EBGaramond"
     comorant_light = "Comorant Light"
     literata = "Literata"
     # Serif typeface font designed for google books.
@@ -226,6 +227,7 @@ class TitleFontFamily(enum.Enum):
     cmu_sans_serif  = "CMU Sans Serif"
     neo_euler = "Neo Euler"
     crimson = "Crimson"
+    ebgaramond = "EBGaramond"
     chicago_macos_system6 = "Chicago MacOS"
     notosans = "NotoSans"
     # nolstagic font mimics typewriters in old documents with ink leakage.

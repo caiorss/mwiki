@@ -656,7 +656,12 @@ fonts_database  = [
       , "bold":    "crimson-bold.woff"
         
     }
-
+    ,{
+          "family":  "EBGaramond"
+        , "key":     "ebgaramond"
+        , "regular": "EBGaramond-400-Normal.woff2"
+        , "italic":  "EBGaramond-400-Italic.woff2"
+    }
    ,{
         "key":     "munson"
       , "family":  "Munson"
