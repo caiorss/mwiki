@@ -6,6 +6,10 @@ run:
 test:
 	uv run pytest -vv --tb=short 
 
+# Display test coverage report 
+cov:
+	uv run pytest --cov
+	
 # Generate sample static websiste by compiling the repository ./sample-wiki
 gh-pages:
 	uv run mwiki compile --wikipath=./sample-wiki \
