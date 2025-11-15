@@ -15,6 +15,7 @@ User settings for: <strong>{{ current_user().username }}</strong>
 
 <div class="form-wrapper">
     <form method="POST" action="/user">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <fieldset class="form-field">
             {{ form.password.label }}
             {{ form.password}}
