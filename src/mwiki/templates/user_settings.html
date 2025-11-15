@@ -20,7 +20,9 @@ User settings for: <strong>{{ current_user().username }}</strong>
             {{ form.password.label }}
             {{ form.password}}
         </fieldset>
-        {{ form.submit }}
+        <fieldset class="form-field">
+        {{ form.submit(class_="style-form-button") }}
+        </fieldset>
     </form>
 </div>
 
