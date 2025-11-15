@@ -250,11 +250,9 @@ def file_project_cache_dir_exists(project: str, file: str, fpath: str = "") -> b
 
 def read_resource(module: Package, resource_file: str) -> str:
     """Read resource file packaged with a given module."""
-    import importlib.resources
-    data = ""
-    with importlib.resources.open_text(module, resource_file) as fd:
-        data =  fd.read()
-    return data
+    pfile = get_path_to_resource_file(module, resource_file)
+    out = pfile.read_text()
+    return out
 
 def get_module_path(module: Package) -> pathlib.Path:
     module_path = pathlib.Path(module.__file__).resolve().parent
