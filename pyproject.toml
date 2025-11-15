@@ -94,5 +94,7 @@ build-backend = "poetry.core.masonry.api"
 
 [dependency-groups]
 dev = [
+    "parsel>=1.10.0",
     "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
 ]
