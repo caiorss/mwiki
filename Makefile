@@ -12,13 +12,14 @@ cov:
 	
 # Generate sample static websiste by compiling the repository ./sample-wiki
 gh-pages:
-	uv run mwiki compile --wikipath=./sample-wiki \
+	uv run mwiki export--wikipath=./sample-wiki \
 		--website-name=MBook \
 		--main-font=cmu-concrete \
 		--title-font=chicago \
 		--code-font=libertinus-mono \
 		--allow-language-switch \
-		--root-url=/mwiki \
+		--latex-renderer=katex \
+		--root-url=/mwiki --source \
 		--output=./dist
 
 
