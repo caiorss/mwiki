@@ -84,12 +84,16 @@ def make_app_server(  host:        str
         if request.method == M_POST:
             form.validate()
             password = form.password.data
-            ## breakpoint()
-            user.password = generate_password_hash(password)
-            db.session.add(user)
+            user.password = password 
             db.session.commit()
-            flask.flash("User account updated successfully. Ok.")
-            flask.redirect("/user")
+            user_ = User.get_user_by_username(user.username)
+            if user_:
+            # ## breakpoint()
+                user_.password = generate_password_hash(password)
+                ##db.session.add(user)
+                db.session.commit()
+                flask.flash("User account updated successfully. Ok.")
+                return flask.redirect("/user")
         conf = Settings.get_instance()
         resp = flask.render_template("user_settings.html"
                                      , conf = conf
