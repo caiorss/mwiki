@@ -45,11 +45,11 @@
         {% for p in pages %}
             <div class="div-page-info">
                 <h4><a class="link-internal" href="/wiki/{{ p.link }}">{{ p.name }}</a> </h4>
-
+                {% if  current_user().is_admin() %}
                 <a href="/edit/{{p.name}}" class="link-internal" title="Edit page markdown">[E]</a>
                 <a href="/source/{{p.name}}" class="link-internal" title="View page source in read-only-mode">[S]</a>
                 <a href="#" onclick="deletePage('{{p.name}}')"  class="link-internal delete-page-button" title="Delete page">[D]</a>
-
+                {% endif %}
                 {% if p.metadata.description %}
                 <div class="page-description">  
                     {{ p.metadata.description }}
