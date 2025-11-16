@@ -127,6 +127,11 @@ class User(db.Model):
         ## print(" [TRACE] password = ", password)
         return out
 
+    def update_password(self, password: str):
+        hash = generate_password_hash(password)
+        self.password = hash 
+        self.commit()
+
     def __repr__(self):
         return f"User{{ id = {self.id} ; username = {self.username}  ; type = {self.type} }}"
 
@@ -140,11 +145,27 @@ class User(db.Model):
         }
         return obj
 
+    def commit(self):
+        db.session.commit()
+
     @classmethod
     def get_user_by_username(self, username: str) -> Optional['User']:
         query = sqlalchemy.select(User).where(User.username.like(username))
         result = db.session.execute(query).scalars().first()
         return result
+
+    @classmethod
+    def create_guest_user(cls, username: str, password: str
+                          , email: Optional[str] = None):
+        passwd = generate_password_hash(password)
+        user   = User(  username = username
+                      , email    = email
+                      , type     = USER_GUEST
+                      , password = passwd)
+        db.session.add(user)
+        db.session.commit()
+        return user 
+
 
 class FontFamiliyEnum(enum.Enum):
     averia = "Averia"
