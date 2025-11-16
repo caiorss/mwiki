@@ -145,13 +145,24 @@ class User(db.Model):
         }
         return obj
 
-    def commit(self):
+    def save(self):
+        """Update database entry"""
+        self.date_modified = datetime.datetime.now(datetime.timezone.utc)           
+        db.session.add(self)
         db.session.commit()
 
     @classmethod
     def get_user_by_username(self, username: str) -> Optional['User']:
         query = sqlalchemy.select(User).where(User.username.like(username))
         result = db.session.execute(query).scalars().first()
+        return result
+
+    @classmethod
+    def get_user_by_username_or_fail(self, username: str) -> 'User':
+        query = sqlalchemy.select(User).where(User.username.like(username))
+        result = db.session.execute(query).scalars().first()
+        if not result:
+            flask.abort(404)
         return result
 
     @classmethod

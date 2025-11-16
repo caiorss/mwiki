@@ -1,0 +1,63 @@
+
+{% extends "base.html" %}
+
+{% block topbar_buttons %}
+    
+{% endblock %}
+
+{% block toc  %}
+
+{% endblock %}
+
+{% block content %}
+
+<ul>
+  <li><a class="link-internal" href="/users/new">Create New User</a></li>
+</ul>
+
+<div class="div-user-listing">
+  {% for u in userlist %}
+    <div class="div-user-table">
+      <h3><b>User:</b> {{ u.username }}</h3>
+      <p>
+        <a class="link-internal" href="/users/edit?user={{ u.username }}">Edit</a>
+        <a class="link-internal" href="/users/delete?user={{ u.username }}">Delete</a>
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>ID</td>
+            <td>{{ u.id }}</td>
+          </tr>
+          <tr>
+            <td>ACTIVE</td>
+            <td>{{ u.active }}</td>
+          </tr>
+          <tr>
+            <td>USERNAME</td>
+            <td>{{ u.username }}</td>
+          </tr>
+          <tr>
+            <td>TYPE</td>
+            <td>{{ u.type }}</td>
+          </tr>
+          <tr>
+            <td>EMAIL</td>
+            <td>{{ u.email }}</td>
+          </tr>
+          <tr>
+            <td>Last Access</td>
+            <td>{{ u.last_access }}</td>
+          </tr> 
+          <tr>
+            <td>Created</td>
+            <td>{{ u.created }}</td>
+          </tr> 
+        </tbody>
+      </table>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
+

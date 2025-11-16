@@ -1,0 +1,64 @@
+
+{% extends "base.html" %}
+
+{% block topbar_buttons %}
+{% endblock %}
+
+{% block toc  %}
+{% endblock %}
+
+
+{% block content %}
+
+<p>
+  <span data-i18n="user-delete-form-question">
+    Are you really sure you want to delete the following user account</span>:
+  <b>{{ u.username }}</b>
+<p>
+<p><b>WARNING:</b> This action is not reversible.</p>
+
+<h2>User Account Details</h2>
+
+<form action="/users/delete?user={{ u.username }}" method="POST">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <button data-i18n="btn-confirm-delete-user" name="delete" value="delete">Delete</button>
+  <button data-i18n="btn-cancel-delete-user" name="cancel"  value="cancel"
+          onclick="document.href = '/users/'">Cancel</button>
+</form>
+
+<table>
+  <tbody>
+    <tr>
+      <td>ID</td>
+      <td>{{ u.id }}</td>
+    </tr>
+    <tr>
+      <td>ACTIVE</td>
+      <td>{{ u.active }}</td>
+    </tr>
+    <tr>
+      <td>USERNAME</td>
+      <td>{{ u.username }}</td>
+    </tr>
+    <tr>
+      <td>TYPE</td>
+      <td>{{ u.type }}</td>
+    </tr>
+    <tr>
+      <td>EMAIL</td>
+      <td>{{ u.email }}</td>
+    </tr>
+    <tr>
+      <td>Last Access</td>
+      <td>{{ u.last_access }}</td>
+    </tr> 
+    <tr>
+      <td>Created</td>
+      <td>{{ u.created }}</td>
+    </tr> 
+  </tbody>
+</table>
+
+
+{% endblock %}
+

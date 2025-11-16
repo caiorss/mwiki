@@ -17,8 +17,16 @@ STATUS_CODE_401_UNAUTHORIZED       = 401
 STATUS_CODE_404_NOT_FOUND          = 404
 
 ## User types constants
-USER_MASTER_ADMIN = 100 
-USER_ADMIN = 50 
-USER_EDITOR = 20
-USER_GUEST = 10  
-USER_ANONYMOUS = 0 
+USER_MASTER_ADMIN = "master_admin"
+USER_ADMIN        = "admin"
+USER_EDITOR       = "editor"
+USER_GUEST        = "guest"
+USER_ANONYMOUS    = "anonymous"
+
+USER_TO_STRING_MAP = {
+       USER_MASTER_ADMIN: "main admin"
+    ,  USER_ADMIN:        "admin"
+    ,  USER_EDITOR:       "editor"
+    ,  USER_GUEST:        "guest"
+    ,  USER_ANONYMOUS:    "non logged in"
+}

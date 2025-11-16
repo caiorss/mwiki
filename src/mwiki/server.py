@@ -19,6 +19,7 @@ from typing import Any, Tuple, List, Optional
 import datetime
 import mimetypes
 from dateutil.parser import parse as parsedate
+import sqlalchemy.exc 
 import mwiki 
 from . import utils
 from . import mparser
@@ -27,12 +28,13 @@ from . import search
 import mwiki.models as models
 from . models import db, User, Settings, BookmarkedPage, WikiPage, WikiRepository, MwikiConfig
 from . login import add_login
-from . forms import UserAddForm, UserSettingsForm, SettingsForm
+from . forms import UserAddForm, UserSettingsForm, SettingsForm, UserEditForm, UserCreateForm
 from . constants import ( M_GET, M_POST, M_DELETE
                         , STATUS_CODE_400_BAD_REQUEST, STATUS_CODE_401_UNAUTHORIZED
                         , STATUS_CODE_403_FORBIDDEN,   STATUS_CODE_404_NOT_FOUND
                         , STATUS_CODE_405_METHOD_NOT_ALLOWED
                         )
+import mwiki.constants as mconst
 from .app import app, current_user
 
 # This variable is set to true if gunicorn WSGI server is being used.
@@ -132,6 +134,135 @@ def make_app_server(  host:        str
         conf = Settings.get_instance()
         resp  = flask.render_template("add_user.html", conf = conf, form = form, title = "Add User")
         return resp
+
+    @app.route("/users", methods = [ M_GET ])
+    @check_login(required = True)
+    def route_users():
+        user = current_user()
+        if not user.is_admin():
+            flask.abort(STATUS_CODE_401_UNAUTHORIZED)
+        userlist = models.User.query.all()
+        userlist_ = [ dict(  id = u.id
+                           , active = u.active
+                           , type = mconst.USER_TO_STRING_MAP[u.type]
+                           , email = u.email
+                           , created = u.date_created
+                           , modified = u.date_modified
+                           , last_access = u.date_lastaccess   
+                           , username = u.username
+                       )
+                        for u in userlist ]
+        conf = Settings.get_instance()
+        resp = flask.render_template("list_users.html"
+                                     , conf = conf
+                                     , userlist = userlist_
+                                     , title = "Users and Account Management")
+        return resp 
+
+
+    @app.route("/users/edit", methods = [ M_GET, M_POST])
+    @check_login(required = True)
+    def route_users_edit():
+        if not current_user().is_admin():
+            flask.abort(STATUS_CODE_401_UNAUTHORIZED)
+        username: Optional[str] = request.args.get("user")
+        user = models.User.get_user_by_username_or_fail(username)
+        form = UserEditForm()
+        conf = Settings.get_instance()
+        if request.method == M_GET:
+            form.username.data = user.username
+            form.email.data = user.email
+            form.type.data =  user.type
+            form.active.data = user.active 
+        resp  = flask.render_template( "user_edit.html"
+									  , form = form
+									  , user = user
+									  , username = username
+									  , title = "Edit user data"
+									  , form_action = f"/users/edit?user={username}"
+									  #, page_title_i18n_tag = page_title_i18n_tag
+									  , conf = conf
+									 )
+        if request.method == M_POST:
+            form.validate()
+            user.username = form.username.data
+            user.email = form.email.data
+            user.type = form.type.data
+            user.active = form.active.data 
+            if form.password.data != "":
+                user.set_password(form.password.data)
+            try: 
+                user.save()
+                resp = flask.redirect(f"/users/edit?user={form.username.data}")
+            except sqlalchemy.exc.IntegrityError:
+                flask.flash(f'Error: account with username {form.username.data} already exists.')
+        return resp
+
+
+    @app.route("/users/new", methods = [ M_GET, M_POST])
+    @check_login(required = True)
+    def route_users_new():
+        if not current_user().is_admin():
+            flask.abort(STATUS_CODE_401_UNAUTHORIZED)
+        form = UserCreateForm()
+        conf = Settings.get_instance()
+        form.type.data = mconst.USER_GUEST 
+        form.active.data = True
+        resp  = flask.render_template( "user_edit.html"
+									  , form = form
+									  , title = "Edit user data"
+									  , form_action = "/users/new"
+									  #, page_title_i18n_tag = page_title_i18n_tag
+									  , conf = conf
+									 )
+        if request.method == M_POST:
+            form.validate()
+            user = User()
+            user.username = form.username.data
+            user.email = form.email.data
+            user.type = form.type.data
+            user.active = form.active.data 
+            user.set_password(form.password.data)
+            try: 
+                user.save()
+                resp = flask.redirect("/users")
+            except sqlalchemy.exc.IntegrityError:
+                resp = flask.redirect("/users/new")
+                flask.flash(f'Error: account with username {form.username.data} already exists.')
+        return resp
+
+    @app.route("/users/delete", methods = [ M_GET, M_POST])
+    @check_login(required = True)
+    def route_users_delete():
+        # Enforce authrization
+        if not current_user().is_admin():
+            flask.abort(STATUS_CODE_401_UNAUTHORIZED)
+        username = request.args.get("user")
+        if not username:
+            flask.abort(STATUS_CODE_404_NOT_FOUND)
+        u = models.User.get_user_by_username_or_fail(username)
+        user = dict(  id = u.id
+                           , active = u.active
+                           , type = mconst.USER_TO_STRING_MAP[u.type]
+                           , email = u.email
+                           , created = u.date_created
+                           , modified = u.date_modified
+                           , last_access = u.date_lastaccess   
+                           , username = u.username
+                       )
+        conf = Settings.get_instance()
+        resp = flask.render_template(  "user_delete.html"
+                                     , title = "Delete User Account"
+                                     , conf = conf, u = user)
+        if request.method == M_POST:
+            #cancel: Optional[str] = flask.request.form.get("cancel")
+            delete: Optional[str] = flask.request.form.get("delete")
+            if delete == "delete":
+                db.session.delete(u)
+                db.session.commit()
+            resp = flask.redirect("/users")
+        return resp
+        
 
     @app.route("/settings", methods = [M_GET, M_POST])
     @check_login(required = True)

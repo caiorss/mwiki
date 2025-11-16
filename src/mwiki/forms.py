@@ -55,7 +55,10 @@ class UserSettingsForm(fwt.FlaskForm):
 
 USER_TYPE_CHOICES = [(const.USER_MASTER_ADMIN, "Root Admin")
                     , (const.USER_ADMIN, "Admin")
-                    , (const.USER_GUEST, "Guest") ]
+                    , (const.USER_GUEST, "Guest")
+                    , (const.USER_EDITOR, "Editor")
+                ]
+            
 
 class UserAddForm(fwt.FlaskForm):
     """Form for adding new user account manually."""
@@ -67,6 +70,38 @@ class UserAddForm(fwt.FlaskForm):
     type     = wt.SelectField("Type", choices = USER_TYPE_CHOICES )
     ## active   = wt.BooleanField("Active", default = True) 
     submit   = wt.SubmitField("Update")
+
+    def get_user_type(self):
+        choice = dict(USER_TYPE_CHOICES).get(self.type.data)
+        return choice
+
+class UserEditForm(fwt.FlaskForm):
+    """Form for adding new user account manually."""
+    username = wt.StringField("Username", validators = [ wtfv.DataRequired() ] )
+    active   = wt.BooleanField("Active")
+    ## email    = wt.StringField("Email") 
+    email    = wt.StringField("Email" )
+    password = wt.PasswordField("Password",  )
+    ## password = wt.StringField("Password", validators = [ wtfv.DataRequired() ] )
+    type     = wt.SelectField("Type", choices = USER_TYPE_CHOICES )
+    ## active   = wt.BooleanField("Active", default = True) 
+    submit   = wt.SubmitField("Update")
+
+    def get_user_type(self):
+        choice = dict(USER_TYPE_CHOICES).get(self.type.data)
+        return choice
+
+class UserCreateForm(fwt.FlaskForm):
+    """Form for adding new user account manually."""
+    username = wt.StringField("Username", validators = [ wtfv.DataRequired() ] )
+    active   = wt.BooleanField("Active")
+    ## email    = wt.StringField("Email") 
+    email    = wt.StringField("Email" )
+    password = wt.PasswordField("Password", validators = [ wtfv.DataRequired() ] )
+    ## password = wt.StringField("Password", validators = [ wtfv.DataRequired() ] )
+    type     = wt.SelectField("Type", choices = USER_TYPE_CHOICES )
+    ## active   = wt.BooleanField("Active", default = True) 
+    submit   = wt.SubmitField("Create")
 
     def get_user_type(self):
         choice = dict(USER_TYPE_CHOICES).get(self.type.data)
