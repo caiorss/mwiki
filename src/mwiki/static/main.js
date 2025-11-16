@@ -1211,15 +1211,10 @@ var user_data = null;
 
 async function displayEditButtons()
 {
-    let data = await httpRequest("GET", "/api/auth", null);
-    user_data = data;
-    if( data.show_buttons )
-    {
-        /// console.log(" [TRACE] show buttons ok. ");
-        // Make all edit  buttons (pencil icons) of wiki sections visible
-        for(let q of document.querySelectorAll(".link-edit"))
-        { q.style.display = ""; }
-    }
+    if(!IS_USER_ADMIN){ return; }
+    // Make all edit  buttons (pencil icons) of wiki sections visible
+    for(let q of document.querySelectorAll(".link-edit"))
+    { q.style.display = ""; }
 }
 
 var equationPopupWindow = null;

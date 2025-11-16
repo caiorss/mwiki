@@ -37,6 +37,7 @@
     let IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
     let IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
     let KATEX_MACROS = "{{ katex_macros }}";
+    let IS_USER_ADMIN = "{{ current_user().is_admin() }}" === "True";
 	
     // Possible values: 'none', 'nosection' 'section', 'subsection'
     //  none      => no enumeration 
