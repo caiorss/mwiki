@@ -475,11 +475,11 @@ fonts_database  = [
    ,{
           "key":          "ibm-plex-mono"
         , "family":       "IBM Plex Mono"
-        , "regular":      "IBM-computer-modern-normal.ttf"
-        , "italic":       "computer-modern-italic.ttf"
-        , "bold":         "computer-modern-bold.ttf"
-        , "bold-italic":  "computer-modern-bold.ttf"
-        , "info":         "Font that mimics type writers."
+        , "regular":      "IBM-Plex-Mono-normal.ttf"
+        , "italic":       "IBM-Plex-Mono-italic.ttf"
+        , "bold":         "IBM-Plex-Mono-bold.ttf"
+        , "bold-italic":  "IBM-Plex-Mono-bold-italic.ttf"
+        , "info":         "Old school nostalgia font that mimics type writers."
     }
    ,{
           "key":     "chicago"
