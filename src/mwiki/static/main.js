@@ -1154,7 +1154,7 @@ function displayPageSourceWindow()
     // let html = base64ToUtf8(PageSource);
     let srcWindow= new PopupWindow({
           title: `Source:`
-        , html:   `<iframe class="iframe-page-source" 
+        , html:   `<iframe class="iframe-preview" 
                            sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation-by-user-activation"
                            src="${PAGE_SOURCE_URL}"
                            width="100%" 
@@ -1166,8 +1166,10 @@ function displayPageSourceWindow()
         , left: "0px" 
     });
 
+
     let dom = srcWindow.childElementByClass("iframe-page-source");
     // dom.srcdoc = html;
+    srcWindow.setHeight("90%");
     srcWindow.show();
 }
 
