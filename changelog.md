@@ -1,5 +1,53 @@
 # Changelog 
 
+## Release v0.9
+
+
++ Add new fonts/typefaces choices  Averia, AveriaSans, Averia Gruesa, NotoSans, Space Groteske, EBGaramond, Jet Brains Mono (monospace font for source code listing), DMMono Regular.
++ Generate CSS font-face data dynamically instead of hardcoding them in the CSS file. This change improves the website loading speed.
++ Create custom markdown/JSON syntax for flashcard deck `{flashcard}`. NOTE that this feature is still under development.
++ Implement mastodon-like button for displaying alt text of figures, images with metadata defined with a `{figure}` block, in popup windows.
++ Implement setting latex_renderer (allows switching to KaTeX).
+  + Implement  website settings latex_renderer in the /settings form. The site configuration latex_renderer allows choosing MathJax or KaTeX JavaScript library for rendering LaTeX math formulas. KaTeX is newer and faster than MathJax, however it still does not have full feature parity with the later library, as a result the KaTeX support is still experimental.
++ Add checkbox use_cdn (default disabled) for the settings forms, that enables or disables loading JavaScript libraries from a CDN (Content Delivery Network). If this checkbox is enabled, MathJax or KaTeX will be loaded from a CDN instead of being loaded from the vendored libraries hosted by the MWiki server.
++ Create equation derivation `{derivation}` block, simular to `{proof}`. This block is intended to show how a equation or differential equation is derived. It was created as the terminology **derivation** is more popular in physics and engineering than the terminology **proof**, which is more popular in mathematics and statiscs.
++ Rename code block `{latex_macros}`for defining LaTeX macros to `{macros}`.
++ Rename frontmatter directive `equation_enumeration` to `equation_enumeration_style`, which has the choice "cont" or "continous" for continues enumeration 1, 2, 3, ...; "section" for section (default) enumeration 1.1, 1.2, 2.1, 2.2, ...; "subsection" for 1.2.3, 2.3.6.
++ Add frontmatter directive `equation_enumeration_enabled`, which has "on" or "off" possible values. If this directive is set to "on", all display-mode equations will be enumerated unless they have a `\notag` LaTeX command. If the directive is set to "off" (default value), only referenced with `\label{UNIQUE_LABEL}` equations by `\eqref{UNIQUE_LABEL}` will be eneumerated.
++ Implement global LaTeX macros and menu items for editing macros.
+   + Implemented global LaTeX macros stored in the file *$MWIKI_REPOSITORY_PATH/macros.stye*. The menu item "Edit Macros" opens the file $MWIKI_REPOSITORY_PATH/macros.sty (Latex macro file extension). Macros defined in this file can be used in all MWiki pages. For a instance, if the LaTeX macro `\newcommand{\v}[1]{ \mathbf{#1} }` is defined in this file. It can be used for writing LaTeX formulas with vectors in all MWiki pages using `\v{r}_1` for position vector instead of `\mathbf{r}_1`.
++ Implement frontmatter directive latex_renderer for overriding the default LaTeX renderer.
+  + The frontmatter directive latex_renderer allows overriding the default LaTeX renderer, that is set in the settings form page /settings
++ Disable default equation enumeration within math code blocks such as `{solution}`, `{proof}` or `{derivation}` and `{example}`. LaTeX `\notag` directives are automatically added to formulas within those foldable sections. In order to enable enumeration in this section, add the directive `:enumeration: on`.
++ Render LaTeX math expression in popup windows of footnotes.
++ Implement popup window for displaying LaTeX equation referenced by `\eqref{EQUATION_LABEL}` links. A referenced equation is displayed when the mouse hoovers over a reference link to it. (Only Implemented for KaTeX renderer)
++ Implement unix shell script wrappers in the docker/podman container image.
++ Implement user account management.
+   + Implement user account management, including:  list all users; create new user account;
+    delete user account and edit user account. The user account panel can be accessed by
+    opening the menu item Settings => User Accounts. The URL routes for user account management
+    are: /users - List all users; /users/new - Create new user accoun); Edit user account /users/edit?user{USERNAME}.
++ Show a horizontal scroll bar if a display-mode LaTeX equation does not fit a mobile device screen.
++ Rename static websiste generator (compiler) command $ mwiki compile to $ mwiki export.
++ Add `--source` switch flag for the command $ mwiki export.
+   + Add --source command line switch to MWiki static websiste generator. This option displays a menu item that shows the markdown (wikicode) source code of the current wiki page. This feature is useful for generating fully open source documents and allow users to view the document sources.
++ Add  command line switch `--latex-render` for `$ mwiki export` command. This swtich allows changing the LaTeX renderer to MathJax with `--latex-render=mathjax` or to KaTeX with `--latex-render=katex`.
++ Add development dependencies, pytest pytest-cov (test coverage) and parsel (html5 parser) for unit testing.
++ Rename command line swtich `--embed-mathjax` to `--embed-latex-render` for the command $ mwiki export. This command line switch is used for self-hosting the front-end javascript libraries Mathjax or KaTeX. The default behavior of this command is to load the LaTeX rendering library from a CDN (Content Delivery Network).
++ Implement compilation of markdown to self-contained html file.
+   + Implement flag --self-contained for the command $ mwiki compile. This flag enables compilation of MWiki markdown files (wiki pages) to a self-contained html file, which contains all resourses, including icons, images, scripts and style sheets, encoded in base64 format. The self-contained html files are suitable to offline reading in a similar to PDF files.  In android mobile devices, the self-contained html files can be viewed just by opening them in any file browser and selecting the option to open with the Android built-in Html viewer.
++ Command $ mwiki export now can compile LaTeX on server side using KaTeX
+   + Now the command $ mwiki export with the --compile-latex can build static websistes or self-contained html files with LaTeX formulas embedded as HTML fragments, compiled by KaTeX CLI - Command Line Interface. This feature requires a NodeJS (nodejs runtime) installation and the parent directory of the node executable to be listed in the $PATH environment variable. If nodeJS is not avaiable in or accessible in the command line, it is possible to set the environment variable MWIKI_NODE_PATH to nodejs path. The NPM package manager is not used sinece KaTeX is vendored by MWiki (the KaTeX source code is bundled with MWiki source code).
++ Remove rendundant command compile_latex from the module mwiki.cli.
+  + The command removed was used for compiling all LaTeX formulas using xelatex, pdflatex, pdfcrop and pdf2svg. Now LaTeX formulas can be compiled and pre-rendered by using a vendored KaTeX javascript library.
++ Create Unit Test suite tests/test_ast.py, tests/test_render.py, tests/test_latex.py and
++ Add makefile rule "cov" for obtaining the test coverage report using pytest.
++ Bugfix - The pencil icon buttons for editing sections or the whole page are only visible to admins.
+   + Before this commit, the pencil icon button for editing sections or a whole wiki page were not visible to anonymous users, but they were visible to guest users (without admin privilege). Now those buttons are only visible to admin users.
++ Bugfix - Action buttons of the search page /pages are only shown for admin users.
+   + The page /pages list all wiki pages or pages matching the search results. Each search match has three buttons, edit, delete and view source. Now those buttons are only show to admin users. Anonymous and guest users do not view those buttons. Authorization (permission) for those action, including delete and edit are still enforced in the server side.
+
+
 ## Release v0.8.1
 
 + Display root URL in the compilation output.
