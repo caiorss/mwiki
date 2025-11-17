@@ -207,6 +207,58 @@ function base64ToUtf8(b64) {
     return decoder.decode(bytes);
 }
 
+function kateRenderDOMLatex(domElement)
+{
+   if( !IS_LATEX_RENDERER_KATEX ){ return; }
+   var macros = {};
+   try {
+     macros = JSON.parse(base64ToUtf8(KATEX_MACROS));
+    } catch(error){
+        console.log(" JSON Parsing error: ", error);
+    }
+    if ( domElement.classList.contains("math-inline")
+         || domElement.classList.contains(".div-latex-code") )
+    {
+      try{
+         let isDisplayMode = domElement.classList.contains(".div-latex-code");
+         katex.render(domElement.textContent, domElement, { displayMode: isDisplayMode, macros: macros});
+      } catch(error){
+          domElement.textContent = prev + error;
+      }
+       return;
+    }
+   // console.log("Katex macros = ",macros);
+   // Render inline nodes (non display math)
+   let nodesInline = domElement.querySelectorAll(".math-inline");
+   for(let n of nodesInline)
+   {
+     let prev = n.textContent;
+     try{ 
+       katex.render(n.textContent, n, { displayMode: false, macros: macros});
+    } catch(error){
+        n.textContent = prev + error;
+    }
+   }
+   // Render display math 
+   let nodesDisplayMode = domElement.querySelectorAll(".div-latex-code");
+   for(let n of nodesDisplayMode)
+   {
+      let prev = n.textContent;
+      try{
+        katex.render(n.textContent, n, { displayMode: true, macros: macros });
+      } catch(error) {
+        n.textContent = prev + `\n${error}`;
+      }
+  }
+}
+
+function katexRenderDocumentLatex()
+{
+   kateRenderDOMLatex(document.body);
+}
+
+document.addEventListener("DOMContentLoaded", katexRenderDocumentLatex);
+
 /** Render DOM (Document Object Model) node using either KaTeX or MathJax
  *
  *  Example:
@@ -217,7 +269,7 @@ function renderDOMLatex(domElementObject)
 {
    if(IS_LATEX_RENDERER_KATEX)
    {
-     renderMathInElement(domElementObject);
+      kateRenderDOMLatex(domElementObject);
    }
    if(IS_LATEX_RENDERER_MATHJAX)
    {
@@ -1120,39 +1172,6 @@ function displayPageSourceWindow()
 }
 
 
-document.addEventListener("DOMContentLoaded", function katexRenderLaTeX() {
-     if( !IS_LATEX_RENDERER_KATEX ){ return; }
-     var macros = {};
-     try {
-       macros = JSON.parse(base64ToUtf8(KATEX_MACROS));
-      } catch(error){
-        console.log(" JSON Parsing error: ", error);
-      }
-     // console.log("Katex macros = ",macros);
-     // Render inline nodes (non display math)
-     let nodesInline = document.querySelectorAll(".math-inline");
-     for(let n of nodesInline)
-     {
-       let prev = n.textContent;
-       try{ 
-         katex.render(n.textContent, n, { displayMode: false, macros: macros});
-      } catch(error){
-          n.textContent = prev;
-      }
-     }
-     // Render display math 
-     let nodesDisplayMode = document.querySelectorAll(".div-latex-code");
-     for(let n of nodesDisplayMode)
-     {
-        let prev = n.textContent;
-        try{
-          katex.render(n.textContent, n, { displayMode: true, macros: macros });
-        } catch(error) {
-          n.textContent = prev + `\n${error}`;
-        }
-     }
-
-});
 
 function isMobileScreen()
 {
