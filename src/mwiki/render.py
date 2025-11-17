@@ -703,6 +703,10 @@ class HtmlRenderer(AbstractAstRenderer):
         ]
 
     @property
+    def latex_renderer(self) -> str:
+        return self._latex_renderer 
+
+    @property
     def uses_mathjax(self) -> bool:
         return self._latex_renderer == LATEX_RENDERER_MATHJAX 
 
@@ -1992,6 +1996,9 @@ class HtmlRenderer(AbstractAstRenderer):
             self._equation_enumeration_style = enum_style
             enum_enabled = data.get("equation_enumeration_enabled", "off") == "on"
             self._equation_enumeration_enabled = enum_enabled
+            latex_renderer = data.get("latex_renderer")
+            if latex_renderer and latex_renderer in [ "katex", "mathjax"]:
+                self._latex_renderer = latex_renderer 
             
         abbrs =  data.get("abbreviations", {}) 
         wordlinks = data.get("wordlinks", {})

@@ -250,7 +250,7 @@ def export(   wikipath:              Optional[str]
                , "page_author":          renderer.author or author 
                , "toc":                  toc 
                , "content":              content               
-               , "latex_renderer":       latex_renderer 
+               , "latex_renderer":       renderer.latex_renderer
                , "compile_latex":        compile_latex 
                , "mathjax_enabled":      not compile_latex & renderer.needs_mathjax
                , "graphviz_enabled":     renderer.needs_graphviz 

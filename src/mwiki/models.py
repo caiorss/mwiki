@@ -573,6 +573,7 @@ class WikiPage():
                                       , page_author          = renderer.author
                                       , content              = content
                                       , toc                  = toc
+                                      , latex_renderer       = renderer.latex_renderer
                                       , latex_macros         = renderer.mathjax_macros
                                       , mathjax_enabled      = renderer.needs_mathjax
                                       , graphviz_enabled     = renderer.needs_graphviz
