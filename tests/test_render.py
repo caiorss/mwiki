@@ -65,6 +65,70 @@ def test_render_special_link_patent():
     href      = node.attrib.get("href", "")
     assert label == expected_label and href == expected_url and klass == "link-external"
 
+def test_render_special_link_rfc():
+    """Test hyperlinks to RFC (Request For Comments) technical standards.
+
+    Internet technical standards published by IETF
+    + IETF => Internet Engineering ask Force.
+    """
+    expected_url = 'https://datatracker.ietf.org/doc/html/rfc7231'
+    expected_label = "RFC 7231"
+    input_ = '<rfc:7231> - Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content '
+    html   = render_markdown(input_)
+    sel       = Selector(text = html)
+    node      = sel.css(".link-external")
+    text      = node.css("::text").get() 
+    href      = node.attrib.get("href", "")
+    targ      = node.attrib.get("target", "")
+    assert text == expected_label and href == expected_url and targ == "_blank"
+
+
+def test_render_special_rawlink_rfc():
+    """Test hyperlinks to RFC (Request For Comments) technical standards.
+
+    Internet technical standards published by IETF
+    + IETF => Internet Engineering ask Force.
+    """
+    expected_url = 'https://datatracker.ietf.org/doc/html/rfc7231'
+    expected_label = "https://datatracker.ietf.org/doc/html/rfc7231"
+    input_ = '<r-rfc:7231> - Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content '
+    html   = render_markdown(input_)
+    sel       = Selector(text = html)
+    node      = sel.css(".link-external")
+    text      = node.css("::text").get() 
+    href      = node.attrib.get("href", "")
+    targ      = node.attrib.get("target", "")
+    assert text == expected_label and href == expected_url and targ == "_blank"
+
+def test_render_special_link_pep():
+    """Test special hyperlink to Python PEP (Python Enhancement Proposal)"""
+    expected_url   = 'https://peps.python.org/pep-333'
+    expected_label = "PEP 333"
+    input_    = ' Python WSGI - Webserver Gateway Interface <pep:333>'
+    html      = render_markdown(input_)
+    sel       = Selector(text = html)
+    node      = sel.css(".link-external")
+    text      = node.css("::text").get() 
+    href      = node.attrib.get("href", "")
+    targ      = node.attrib.get("target", "")
+    assert text == expected_label and href == expected_url and targ == "_blank"
+
+    
+def test_render_special_raw_link_pep():
+    """Test special raw hyperlink to Python PEP (Python Enhancement Proposal)
+    A hyperlink is said to be "raw" when its label is the same as its URL.
+    """
+    expected_url   = 'https://peps.python.org/pep-333'
+    expected_label = "https://peps.python.org/pep-333"
+    input_    = ' Python WSGI - Webserver Gateway Interface <r-pep:333>'
+    html      = render_markdown(input_)
+    sel       = Selector(text = html)
+    node      = sel.css(".link-external")
+    text      = node.css("::text").get() 
+    href      = node.attrib.get("href", "")
+    targ      = node.attrib.get("target", "")
+    assert text == expected_label and href == expected_url and targ == "_blank"
+
 def test_render_wiki_link():
     """Test the HTML rendering of MWiki hyperlinks"""
     input_    = '[[MWiki hyperlink to internal page]]'
