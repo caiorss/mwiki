@@ -426,6 +426,7 @@ translationsi18n =
 		, "pages-menu":               { "title": "Menu containing actions for current page." } 
 		, "home-page-button":         { "title": "Go to the initial page (index)" }
 		, "button-quick-switch-to-page": { "title": "Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry." }
+		, "user-accounts-menu-item-label": { "label": "Accounts", "title": "User accounts management." }
 		, "menu-item-view-label":     "View"
 		, "menu-item-edit-label":     "Edit"
 		, "menu-item-new-label":      { "label": "New", "title": "Create new Wiki page" }
@@ -617,6 +618,7 @@ translationsi18n =
 		, "pages-menu":               { "title": "Menu contendo ações para a página atual." } 
 		, "home-page-button":         { "title": "Ir para a página inicial (Index)" }
 		, "button-quick-switch-to-page": { "title": "Troca rápida de página. Abra uma janela que permite alternar para a página Wiki digitando seu nome ou buscar a entrada do usuário." }
+		, "user-accounts-menu-item-label": { "label": "Contas", "title": "Gerenciamento de contas de usuário." }
 		, "menu-item-view-label":     "Ver"
 		, "menu-item-edit-label":     "Editar"
 		, "menu-item-new-label":      { "label": "Nova", "title": "Criar nova página Wiki" }
