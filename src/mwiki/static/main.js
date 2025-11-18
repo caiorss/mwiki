@@ -449,13 +449,13 @@ translationsi18n =
 			}
 		, "login-menu-item-label": 	  "Log in"
 		, "logoff-menu-item-label":   "Log off"
-        , "settings-menu-item-label": {  "label": "Settings"
+      , "settings-menu-item-label": {  "label": "Settings"
 										,"title": "Form for changing web site settings, including description and site name."
 									  }
-        , "about-menu-item-label":    "About"
-        , "new-account-menu-item-label": "New Account"
-        , "user-settings-item-label": "My Account"
-        , "licenses-menu-item-label": 
+      , "about-menu-item-label":    "About"
+      , "new-account-menu-item-label": "New Account"
+      , "user-settings-item-label": "My Account"
+      , "licenses-menu-item-label": 
 				{  "label": "Licenses"
 				 , "title": "Licenses of open source libraries used by this project."
 				}
@@ -486,6 +486,8 @@ translationsi18n =
 		, "settings-sitename-label": "Website Name"
 		, "settings-website-description-label": "Website Description"
 		, "settings-public-checkbox-label": "Public"
+		, "settings-language-switch-checkbox-label": "Allow language switch "
+		, "settings-language-switch-description":    "Allow users to switch the user interface language."
 		, "settings-display-edit-button-checkbox-label": "Diplay edit button"
 		, "settings-vim-emulation-checkbox-label":       "Vim Emulation"
 		, "settings-show-source-checkbox-label":         "Show Page Source"
@@ -675,6 +677,8 @@ translationsi18n =
 		, "settings-sitename-label": "Nome do Website"
 		, "settings-website-description-label": "Descrição do Website"
 		, "settings-public-checkbox-label": "Público"
+		, "settings-language-switch-checkbox-label": "Permitir troca de idioma"
+		, "settings-language-switch-description":    "Permitir que os usuários mudem o idioma da interface do usuário."
 		, "settings-display-edit-button-checkbox-label": "Mostrar botão editar"
 		, "settings-vim-emulation-checkbox-label":       "Emulação do Vim"
 		, "settings-show-source-checkbox-label":         "Mostrar Código de Fonte de Página"

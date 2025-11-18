@@ -347,6 +347,9 @@ class Settings(db.Model):
     # instead of using the vendored depencies such as MathJax, KaTeX
     # and GraphViz renderer.
     use_cdn: so.Mapped[bool] = so.mapped_column(default = False)
+    # Allow users to switch the user interface language locale
+    # # during their session if this flag is set to true.
+    language_switch: so.Mapped[bool] = so.mapped_column(default = True)
     ## main_font: so.Mapped[Optional[FontFamiliyEnum]]
     main_font: so.Mapped[str] = so.mapped_column(default = FontFamiliyEnum.computer_modern.value)
     title_font: so.Mapped[str] = so.mapped_column(default = FontFamiliyEnum.computer_modern.value)

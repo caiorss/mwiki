@@ -10,6 +10,8 @@
 + Implement setting latex_renderer (allows switching to KaTeX).
   + Implement  website settings latex_renderer in the /settings form. The site configuration latex_renderer allows choosing MathJax or KaTeX JavaScript library for rendering LaTeX math formulas. KaTeX is newer and faster than MathJax, however it still does not have full feature parity with the later library, as a result the KaTeX support is still experimental.
 + Add checkbox use_cdn (default disabled) for the settings forms, that enables or disables loading JavaScript libraries from a CDN (Content Delivery Network). If this checkbox is enabled, MathJax or KaTeX will be loaded from a CDN instead of being loaded from the vendored libraries hosted by the MWiki server.
++ Implement settings checkbox "Allow language switch".
+  + If the settings checkbox "allow language switch" is enabled, users can switch the user interface language during their sessions. If disabled, the users will not be  able to switch the user interface language and the main menu item "Language" will not be shown.
 + Create equation derivation `{derivation}` block, simular to `{proof}`. This block is intended to show how a equation or differential equation is derived. It was created as the terminology **derivation** is more popular in physics and engineering than the terminology **proof**, which is more popular in mathematics and statiscs.
 + Rename code block `{latex_macros}`for defining LaTeX macros to `{macros}`.
 + Rename frontmatter directive `equation_enumeration` to `equation_enumeration_style`, which has the choice "cont" or "continous" for continues enumeration 1, 2, 3, ...; "section" for section (default) enumeration 1.1, 1.2, 2.1, 2.2, ...; "subsection" for 1.2.3, 2.3.6.

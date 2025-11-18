@@ -312,10 +312,12 @@
                 <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
                 </a>
               <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                {% if conf.language_switch %}
                  <a data-i18n="popup-window-change-language-menu-launcher" class="sidebar-toggle-button" href="#"
                     onclick="changeLanguageForm.toggle();"
                     title="Open form that allows overriding the current user interface language."
-                 >Language</a>
+                 >Language {{conf.language_switch}}</a>
+                {% endif %}
                    <a data-i18n="keybindings-menu-item" class="sidebar-toggle-button" href="#"
                     onclick="toggleShortcutKeybindingWinodw();"
                     title="Display a window showing all keyboard shortcuts, also known as keybindings."
