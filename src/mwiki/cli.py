@@ -31,7 +31,7 @@ import mwiki.utils as utils
 from mwiki.latex import LatexFormula
 from . import render
 from .models import User, Settings
-from .app import db, app 
+from .app import db, make_app 
 import mwiki.export 
 
 def debughook(etype, value, tb):
@@ -311,8 +311,14 @@ def export(   wikipath:              Optional[str]
 @cli1.command()
 @click.option("--admin-password",  help = "Set admin password." )
 @click.option("--sitename",  help = "Change site name"  )
-def manage(admin_password = None, sitename = None):
+@click.option("--wikipath",  help = "Path to MWiki repository."  )
+def manage(admin_password: Optional[str], sitename: Optional[str], wikipath = Optional[str]):
     """Manage MWiki settings, including accounts, passwords and etc."""
+    wikipath = wikipath or os.getenv("MWIKI_PATH", "") 
+    if wikipath == "":
+        print("Error expected --wikipath=$PATH or $MWIKI_PATH environment set to this value.")
+        exit(1)
+    app = make_app(wikipath)
     if admin_password is not None:
         with app.app_context():
             if admin := User.get_user_by_username("admin"):

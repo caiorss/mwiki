@@ -30,58 +30,93 @@ from . login import add_login
 from . forms import UserAddForm, UserSettingsForm, SettingsForm
 from . constants import *
 
+##session_folder = utils.project_cache_path(APPNAME, "session")
+##utils.mkdir(session_folder)
 
+def make_app(wikipath: str):
+    """NOTE: mwikipath is the path to MWiki repository of markdown files. """
+    app = Flask(__name__) 
+    # App.config['SESSION_TYPE'] = 'filesystem'
+    # App.config['SESSION_FILE_DIR'] = session_folder ## 'M:/code/flaskLoginTest/sessions'
 
-session_folder = utils.project_cache_path(APPNAME, "session")
-utils.mkdir(session_folder)
+    app.config.update(  SESSION_SERVER_SIDE     = True  
+                      , SESSION_TYPE            = "sqlalchemy"
+                      , SESSION_COOKIE_NAME     =  os.getenv("MWIKI_SITENAME", "MWiki")
+                      , SESSION_COOKIE_PATH     ='/'
+                      # Protect against XSS (Script Injection)
+                      , SESSION_COOKIE_HTTPONLY = True 
+                      # Cookies are only served over HTTPS, not HTTP 
+                      ##, SESSION_COOKIE_SECURE   = True 
+                      , SESSION_PERMANENT       = True 
+                      , SESSION_FILE_THRESHOLD = 1000  
+                      , PERMANENT_SESSION_LIFETIME = datetime.timedelta(days = 30)
+                     )
 
-app = Flask(__name__) ##template_folder="templates")
-# App.config['SESSION_TYPE'] = 'filesystem'
-# App.config['SESSION_FILE_DIR'] = session_folder ## 'M:/code/flaskLoginTest/sessions'
+    dbpath = pathlib.Path(wikipath) / ".data"
+    dbpath.mkdir(exist_ok = True)
+    dbpath = (dbpath / "database.sqlite").resolve()
+    #dbpath = os.path.join(MWIKI_REPOSITORY_PATH, "database.sqlite")
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{dbpath}"
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SESSION_SQLALCHEMY_TABLE'] = 'sessions'
+    app.config['SESSION_SQLALCHEMY'] = db
+    ## app.json = CustomJSONProvider(app)
+    ## app.json_provider_class = CustomJSONProvider(app)
+    app.jinja_env.filters['encode_url'] = lambda u: urllib.parse.quote_plus(u) 
+    app.jinja_env.globals.update(config_sitename = lambda:  Settings.get_instance().sitename)
+    app.jinja_env.globals.update(config_description = lambda:  Settings.get_instance().description)
+    app.jinja_env.globals.update(config_show_source = lambda:  Settings.get_instance().show_source)
+    app.jinja_env.globals.update(show_licenses = lambda:  Settings.get_instance().show_licenses)
+    app.jinja_env.globals.update(config_main_font   = lambda:  Settings.get_instance().main_font)
+    app.jinja_env.globals.update(config_code_font   = lambda:  Settings.get_instance().code_font)
+    app.jinja_env.globals.update(config_title_font   = lambda:  Settings.get_instance().title_font)
+    app.jinja_env.globals.update(config_vim_emulation = lambda:  Settings.get_instance().vim_emulation)
+    app.jinja_env.globals.update(use_default_locale = lambda:  Settings.get_instance().use_default_locale)
+    app.jinja_env.globals.update(default_locale = lambda:  Settings.get_instance().default_locale)
+    app.jinja_env.globals.update(use_cdn = lambda:  Settings.get_instance().use_cdn)
+    app.jinja_env.globals.update(latex_renderer = lambda:  Settings.get_instance().latex_renderer)
 
-app.config.update(  SESSION_SERVER_SIDE     = True  
-                  , SESSION_TYPE            = "sqlalchemy"
-                  , SESSION_COOKIE_NAME     =  os.getenv("MWIKI_SITENAME", "MWiki")
-                  , SESSION_COOKIE_PATH     ='/'
-                  # Protect against XSS (Script Injection)
-                  , SESSION_COOKIE_HTTPONLY = True 
-                  # Cookies are only served over HTTPS, not HTTP 
-                  ##, SESSION_COOKIE_SECURE   = True 
-                  , SESSION_PERMANENT       = True 
-                  , SESSION_FILE_THRESHOLD = 1000  
-                  , PERMANENT_SESSION_LIFETIME = datetime.timedelta(days = 30)
-                 )
+    csrf = CSRFProtect(app)
+    csrf.init_app(app)
+    db.init_app(app)
+    ## session = flask_session.Session(app)
+    app.jinja_env.globals.update(current_user = current_user)
+    app.jinja_env.globals.update(display_edit_buttons = display_edit_buttons)
 
+    # --- Database Initialization -----#
+    # Create all database tables if they don't exist yet.
+    with app.app_context():
+        user = None 
+        created = is_database_created()
+        ## Evironment variables which allows defining 
+        ## container configuration during initialization.
+        ADMIN_PASSWORD = os.getenv("MWIKI_ADMIN_PASSWORD")
+        SITE_NAME = os.getenv("MWIKI_SITENAME", "MWiki")
+        PUBLIC = os.getenv("MWIKI_PUBLIC", False) != False
+        if not created: 
+            ##print(" [TRACE] Admin user created OK")
+            user = User( username = "admin", type = USER_MASTER_ADMIN )
+            # Useful for installation with Docker
+            user.set_password(ADMIN_PASSWORD)
+        db.create_all()
+        conf = Settings.get_instance()
+        conf.sitename = SITE_NAME
+        conf.public = PUBLIC 
+        db.session.add(conf)
+        db.session.commit()
+        try:
+            if not created:
+                db.session.add(user)
+                db.session.commit()
+        except (IntegrityError, OperationalError) as ex:
+            print(ex)
+        admin = User.get_user_by_username("admin")    
+        if admin.password is None:
+            password = conf.default_password
+            ##print(f" [INFO] Enter the username: {admin.username} and password: '{password}' to log in.")
+    return app 
 
-MWIKI_REPOSITORY_PATH = utils.expand_path(os.getenv("MWIKI_PATH", os.getcwd()))
-dbpath = os.path.join(MWIKI_REPOSITORY_PATH, "database.sqlite")
-app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{dbpath}"
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SESSION_SQLALCHEMY_TABLE'] = 'sessions'
-app.config['SESSION_SQLALCHEMY'] = db
-
-## app.json = CustomJSONProvider(app)
-## app.json_provider_class = CustomJSONProvider(app)
-
-app.jinja_env.filters['encode_url'] = lambda u: urllib.parse.quote_plus(u) 
-app.jinja_env.globals.update(config_sitename = lambda:  Settings.get_instance().sitename)
-app.jinja_env.globals.update(config_description = lambda:  Settings.get_instance().description)
-app.jinja_env.globals.update(config_show_source = lambda:  Settings.get_instance().show_source)
-app.jinja_env.globals.update(show_licenses = lambda:  Settings.get_instance().show_licenses)
-app.jinja_env.globals.update(config_main_font   = lambda:  Settings.get_instance().main_font)
-app.jinja_env.globals.update(config_code_font   = lambda:  Settings.get_instance().code_font)
-app.jinja_env.globals.update(config_title_font   = lambda:  Settings.get_instance().title_font)
-app.jinja_env.globals.update(config_vim_emulation = lambda:  Settings.get_instance().vim_emulation)
-app.jinja_env.globals.update(use_default_locale = lambda:  Settings.get_instance().use_default_locale)
-app.jinja_env.globals.update(default_locale = lambda:  Settings.get_instance().default_locale)
-app.jinja_env.globals.update(use_cdn = lambda:  Settings.get_instance().use_cdn)
-app.jinja_env.globals.update(latex_renderer = lambda:  Settings.get_instance().latex_renderer)
-
-csrf = CSRFProtect(app)
-csrf.init_app(app)
-db.init_app(app)
-## session = flask_session.Session(app)
-
+    
 def current_user() -> User:
     """Get user logged in to the server."""
     obj  = session.get("user") 
@@ -103,40 +138,3 @@ def display_edit_buttons() -> bool:
     conf = Settings.get_instance()
     out =  conf.display_edit_button or user.is_admin()
     return out
-
-app.jinja_env.globals.update(current_user = current_user)
-app.jinja_env.globals.update(display_edit_buttons = display_edit_buttons)
-
-
-
-# --- Database Initialization -----#
-# Create all database tables if they don't exist yet.
-with app.app_context():
-    user = None 
-    created = is_database_created()
-    ## Evironment variables which allows defining 
-    ## container configuration during initialization.
-    ADMIN_PASSWORD = os.getenv("MWIKI_ADMIN_PASSWORD")
-    SITE_NAME = os.getenv("MWIKI_SITENAME", "MWiki")
-    PUBLIC = os.getenv("MWIKI_PUBLIC", False) != False
-    if not created: 
-        ##print(" [TRACE] Admin user created OK")
-        user = User( username = "admin", type = USER_MASTER_ADMIN )
-        # Useful for installation with Docker
-        user.set_password(ADMIN_PASSWORD)
-    db.create_all()
-    conf = Settings.get_instance()
-    conf.sitename = SITE_NAME
-    conf.public = PUBLIC 
-    db.session.add(conf)
-    db.session.commit()
-    try:
-        if not created:
-            db.session.add(user)
-            db.session.commit()
-    except (IntegrityError, OperationalError) as ex:
-        print(ex)
-    admin = User.get_user_by_username("admin")    
-    if admin.password is None:
-        password = conf.default_password
-        ##print(f" [INFO] Enter the username: {admin.username} and password: '{password}' to log in.")

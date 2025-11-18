@@ -35,7 +35,7 @@ from . constants import ( M_GET, M_POST, M_DELETE
                         , STATUS_CODE_405_METHOD_NOT_ALLOWED
                         )
 import mwiki.constants as mconst
-from .app import app, current_user
+from .app import make_app, current_user
 
 # This variable is set to true if gunicorn WSGI server is being used.
 server_software =  os.environ.get("SERVER_SOFTWARE", "")
@@ -51,6 +51,7 @@ def make_app_server(  host:        str
                     , random_ssl:  bool = False
                     , secret_key:  Optional[str] = None 
                    ):
+    app = make_app(wikipath)
     secret_key = models.get_secret_key()
     app.config["SECRET_KEY"] = secret_key
     ##secret_key = get_secret_key(APPNAME) if secret_key is None else secret_key
