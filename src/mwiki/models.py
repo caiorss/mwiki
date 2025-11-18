@@ -177,6 +177,43 @@ class User(db.Model):
         db.session.commit()
         return user 
 
+    def _to_dict(self):
+        out = dict(
+                  username = self.username
+                , email = self.email
+                , password = self.password
+                , description = self.description
+                , active = self.active
+                , type = self.type )
+        return out 
+
+    @classmethod 
+    def to_dict(cls):
+        objs = cls.query.all()
+        out = [q._to_dict() for q in objs]
+        return out
+
+    @classmethod
+    def from_dict(cls, list_of_dicts):
+        for entry in list_of_dicts:
+            obj = User()
+            obj.username = entry["username"]
+            if obj.username == "admin" and (admin := cls.get_user_by_username("admin")):
+                admin.email = entry["email"]
+                admin.passowrd = entry["password"]
+                admin.active = entry["active"]
+                admin.type = entry["type"]
+                admin.save()                
+                continue
+            obj.email    = entry["email"]
+            obj.passowrd = entry["password"]
+            obj.active   = entry["active"]
+            obj.type     = entry["type"]
+            obj.save() 
+        
+        
+        
+
 
 class FontFamiliyEnum(enum.Enum):
     averia = "Averia"
@@ -406,6 +443,59 @@ class Settings(db.Model):
                                                                 , root_url = root_url
                                                                 , root_path = root_path)
         return font_face_title_font
+
+    def to_json(self):
+        data = self.to_dict()
+        out  = json.dumps(data, indent = 4)
+        return out
+
+    def to_dict(self):
+        """Export website settings to dictionary"""
+        out = dict(
+               sitename = self.sitename
+            ,  description = self.description
+            ,  default_password = self.default_password
+            ,  public = self.public
+            ,  show_source = self.show_source
+            ,  show_licences = self.show_licenses
+            ,  display_edit_button = self.display_edit_button
+            ,  display_alt_button = self.display_alt_button
+            ,  default_locale = self.default_locale
+            ,  language_switch = self.language_switch
+            ,  use_cdn = self.use_cdn
+            ,  vim_emulation = self.vim_emulation
+            ,  main_font = self.main_font
+            ,  title_font = self.title_font
+            ,  code_font = self.code_font
+            ,  latex_renderer = self.latex_renderer
+            # ,  date_create = self.date_created
+            # ,  date_modified = self.date_modified
+        )
+        return out
+
+    def from_dict(self, adict):
+        """Import website settings from a dictionary."""
+        self.sitename = adict["sitename"]
+        self.description = adict["description"]
+        self.default_password = adict["default_password"]
+        self.public = adict["public"]
+        self.show_sources = adict["show_source"]
+        self.show_licenses = adict["show_licences"]
+        self.display_edit_button = adict["display_edit_button"]
+        self.display_alt_button = adict["display_alt_button"]
+        self.language_switch = adict["language_switch"]
+        self.default_locale = adict["default_locale"]
+        self.use_cdn = adict["use_cdn"]
+        self.default_locale = adict["default_locale"]
+        self.use_cdn = adict["use_cdn"]
+        self.vim_emulation = adict["vim_emulation"]
+        self.main_font = adict["main_font"]
+        self.code_font = adict["code_font"]
+        self.title_font = adict["title_font"]
+        self.latex_renderer = adict["latex_renderer"]
+        # self.date_created = adict["date_create"]
+        # self.date_modified = adict["date_modified"]
+        self.save()
 
 
 class Page(db.Model):
