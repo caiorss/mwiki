@@ -5,6 +5,7 @@ Module responsible for processing command line switches and options.
 import os
 import os.path 
 import sys
+import json
 import random
 import pathlib
 import subprocess
@@ -312,7 +313,14 @@ def export(   wikipath:              Optional[str]
 @click.option("--admin-password",  help = "Set admin password." )
 @click.option("--sitename",  help = "Change site name"  )
 @click.option("--wikipath",  help = "Path to MWiki repository."  )
-def manage(admin_password: Optional[str], sitename: Optional[str], wikipath = Optional[str]):
+@click.option("--settings-dump-stdout", is_flag = True, help = "Dump all settings as JSON to stdout (standard output).")
+@click.option("--settings-load-stdin", is_flag = True, help = "Load all JSON settings from stdin (standard input).")
+def manage(   admin_password: Optional[str]
+            , sitename: Optional[str]
+            , wikipath: Optional[str]
+            , settings_dump_stdout: bool
+            , settings_load_stdin:  bool
+        ) -> None:
     """Manage MWiki settings, including accounts, passwords and etc."""
     wikipath = wikipath or os.getenv("MWIKI_PATH", "") 
     if wikipath == "":
@@ -335,6 +343,28 @@ def manage(admin_password: Optional[str], sitename: Optional[str], wikipath = Op
             settings.sitename = sitename
             settings.save()
             print(f" [*] Site name changed to: {sitename}")
+    if settings_dump_stdout:
+        with app.app_context():
+            conf: Settings = Settings.get_instance()
+            conf_dict = conf.to_dict()
+            users = User.to_dict() 
+            data = dict(settings = conf_dict, users = users)
+            out = json.dumps(data, indent = 4)
+            print(out)
+            exit(0)
+    if settings_load_stdin:
+        with app.app_context():
+            conf: Settings = Settings.get_instance()
+            stdin = sys.stdin.read()
+            try:
+                data  = json.loads(stdin)
+                settings = data.get("settings", {})
+                conf.from_dict(settings)
+                users = data.get("users", [])
+                User.from_dict(users)
+            except json.JSONDecodeError as err:
+                print(" [ERROR] ", err)
+            
 
 
 @cli1.command()
