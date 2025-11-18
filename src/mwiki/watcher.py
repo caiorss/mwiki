@@ -138,8 +138,8 @@ def update_tags_index():
     mwiki_path = MwikiConfig.path
     root = pathlib.Path(mwiki_path)
     cache_directory = root.joinpath(".data")
+    cache_directory.mkdir(exist_ok = True)
     tags_cache_file = cache_directory.joinpath("tags_cache.json")
-    utils.mkdir(cache_directory)
     pages = root.rglob("*.md")
     ## Inverted index data structure
     index = {}
@@ -190,7 +190,7 @@ def update_tags_index():
 def index_wiki_repository():
     root = pathlib.Path(MwikiConfig.path)
     cache_dir = root / ".data/search_index_tags"
-    utils.mkdir(cache_dir)
+    cache_dir.mkdir(exist_ok = True)
     pages = root.rglob("*.md")
     print(" [INFO] Updating Search Index")
     while (p := next(pages, None)) is not None:
