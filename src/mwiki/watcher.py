@@ -16,14 +16,14 @@ import mwiki.utils as utils
 import mwiki.search as search
 from   mwiki.models import MwikiConfig
 from .mparser import parse_file, SyntaxTreeNode
-from mwiki.app import MWIKI_REPOSITORY_PATH
+##from mwiki.app import MWIKI_REPOSITORY_PATH
 
 
 ## mwiki_path = MwikiConfig.path ## MWIKI_REPOSITORY_PATH
 ##mwiki_path = utils.expand_path(os.getenv("MWIKI_PATH", os.getcwd()))
 HASHTAG_NODE_TYPE = "wiki_tag_inline"
 
-## print(" [WATCHER] Start Watcher Process mwiki_path = ", mwiki_path)
+# print(" [WATCHER] Start Watcher Process mwiki_path = ", mwiki_path)
 
 ##class Event(LoggingEventHandler):
 
@@ -148,10 +148,13 @@ def update_tags_index():
     out = {}
     if tags_cache_file.exists():
         with open(tags_cache_file, "r") as fd:
-            out = json.load(fd)
-            index = dict(out.get("index", []))
-            tags_list = set(out.get("tags", []))
-            documents = out.get("documents", [])
+            try:
+                out = json.load(fd)
+                index = dict(out.get("index", []))
+                tags_list = set(out.get("tags", []))
+                documents = out.get("documents", [])
+            except json.JSONDecodeError as ex:
+                print(" [ERROR] Line 157 => ", ex)
     while True:
         p = next(pages, None)
         if p is None: break
@@ -207,6 +210,7 @@ def index_wiki_repository():
     print(" [INFO] Search index updated OK.")
 
 def watch():
+    print(" [TRACE] Starting scanning ", MwikiConfig.path)
     while True:
         index_wiki_repository()
         update_tags_index()
@@ -215,7 +219,7 @@ def watch():
 
 ## Entry Point of this module
 def watch_():
-    print(f" [WATCHER] Start scanning directory: '{MwikiConfig.path}'")
+    print(f" [WATCHER] Start indexing directory: '{MwikiConfig.path}'")
     print(" [WATCHER] Monitoring Wikipath. Extracting tags.")
     update_tags_index()
     print(" [WATCHER] Extracting tags terminated ok.")
