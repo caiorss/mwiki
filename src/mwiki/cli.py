@@ -308,22 +308,21 @@ def export(   wikipath:              Optional[str]
                         , list_fonts, allow_language_switch, self_contained
                         , embed_latex_renderer, latex_renderer, compile_latex, verbose, author, source)        
  
-cli1.command()
-@click.option("--admin-password", 
-                help = ( "Set admin password." )
-                )
-@click.option("--sitename", 
-                help = ( "Change site name" )
-                )
+@cli1.command()
+@click.option("--admin-password",  help = "Set admin password." )
+@click.option("--sitename",  help = "Change site name"  )
 def manage(admin_password = None, sitename = None):
     """Manage MWiki settings, including accounts, passwords and etc."""
     if admin_password is not None:
         with app.app_context():
-            admin = User.get_user_by_username("admin")
-            admin.set_password(admin_password)
-            db.session.add(admin)
-            db.session.commit()
-            print(" [*] Password changed for admin. Ok.")
+            if admin := User.get_user_by_username("admin"):
+                admin.set_password(admin_password)
+                db.session.add(admin)
+                db.session.commit()
+                print(" [*] Password changed for admin. Ok.")
+            else:
+                print("Error user not found")
+                exit(1)
     if sitename is not None:
         with app.app_context():
             settings = Settings.get_instance()
