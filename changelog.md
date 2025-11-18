@@ -7,6 +7,7 @@
 + Generate CSS font-face data dynamically instead of hardcoding them in the CSS file. This change improves the website loading speed.
 + Create custom markdown/JSON syntax for flashcard deck `{flashcard}`. NOTE that this feature is still under development.
 + Implement mastodon-like button for displaying alt text of figures, images with metadata defined with a `{figure}` block, in popup windows.
++ Add settings checkbox "Display alt text button", which enables or disables a mastodon-like button for displaying the alt text of figures in a popup-window.
 + Implement setting latex_renderer (allows switching to KaTeX).
   + Implement  website settings latex_renderer in the /settings form. The site configuration latex_renderer allows choosing MathJax or KaTeX JavaScript library for rendering LaTeX math formulas. KaTeX is newer and faster than MathJax, however it still does not have full feature parity with the later library, as a result the KaTeX support is still experimental.
 + Add checkbox use_cdn (default disabled) for the settings forms, that enables or disables loading JavaScript libraries from a CDN (Content Delivery Network). If this checkbox is enabled, MathJax or KaTeX will be loaded from a CDN instead of being loaded from the vendored libraries hosted by the MWiki server.

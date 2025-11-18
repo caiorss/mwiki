@@ -34,7 +34,8 @@ class SettingsForm(fwt.FlaskForm):
                                   "Instead of loading them from this server."
                               ))
 
-    language_switch = wt.BooleanField("Language Swich", description = "Allow users to change the user interface language during their sessions.")
+    language_switch = wt.BooleanField("Language Swich")
+    display_alt_button = wt.BooleanField("Display alt text button")
     vim_emulation = wt.BooleanField("VIM Emulation", description="Enable VIM editor emulation in the Wiki code editor (Ace9).")
     show_licenses = wt.BooleanField("Show Licenses", description="Displays menu option showing 'Licenses' that shows all open"
 																 "Source licenses used by this project.")

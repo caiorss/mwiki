@@ -54,6 +54,16 @@
             </p>
         </fieldset>
         <fieldset class="form-field">
+            <input 	{% if form.display_alt_button.data %} checked="" {% endif %}  
+					name="display_alt_button" type="checkbox" value="{{ form.display_alt_button.data }}">
+            <label data-i18n="settings-display-alt-button-checkbox-label"  for="display_alt_button">Display alt text button</label>
+            <p data-i18n="settings-display-alt-button-description">
+              Display a Mastodon-like alt text button for figures,
+              which shows the alt text in a popup window
+              when clicked.
+            </p>
+        </fieldset>
+        <fieldset class="form-field">
             <input {% if form.display_edit_button.data %} checked="" {% endif %}
 					id="display_edit_button" name="display_edit_button" type="checkbox" value="{{ form.public.data }}">
             <label data-i18n="settings-display-edit-button-checkbox-label" for="display_edit_button">Display edit button</label>
@@ -102,6 +112,8 @@
               Allow users to swtich the user interface language for their session.
             </p>
         </fieldset>
+
+        
 
         <fieldset class="form-field">
             <input 	{% if form.use_cdn.data %} checked="" {% endif %}  

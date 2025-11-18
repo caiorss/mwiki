@@ -632,6 +632,7 @@ class HtmlRenderer(AbstractAstRenderer):
                      , preview: bool = False
                      , root_url: str = "/"
                      , latex_renderer = LATEX_RENDERER_MATHJAX 
+                     , display_alt_button = True
                  ):
         super().__init__(  base_path          = base_path
                          , static_compilation = static_compilation
@@ -651,6 +652,7 @@ class HtmlRenderer(AbstractAstRenderer):
         self._embed_math_svg = embed_math_svg
         self._section_enumeration = False
         self._myst_line_comment_enabled = True
+        self._display_alt_button = display_alt_button 
         self._theorem_counter = 1
         """Current theorem number"""
 
@@ -1630,7 +1632,8 @@ class HtmlRenderer(AbstractAstRenderer):
             height = f"height={u}" if (u := directives.get("height")) else ""
             # Image width (Optional)
             width = f"height={u}" if (u := directives.get("width")) else ""
-            button = "" if alt == "" else  """<button class="btn-show-alt-text">ALT</button> """
+            button = "" if not self._display_alt_button or alt == "" \
+                            else  """<button class="btn-show-alt-text">ALT</button> """
             ## Rendering of this node
             if not self._preview:
                 html = ("""<div class="div-wiki-image" div-figure>""" 
@@ -2280,6 +2283,7 @@ def pagefile_to_html( pagefile: str
                     , render_math_svg = False 
                     , latex_renderer = LATEX_RENDERER_MATHJAX 
                     , embed_math_svg = False
+                    , display_alt_button = True
                     ) -> Tuple[HtmlRenderer, str]:
     with open(pagefile) as fd:
         source: str = fd.read()
@@ -2295,6 +2299,7 @@ def pagefile_to_html( pagefile: str
                             , self_contained = self_contained 
                             , root_url = root_url
                             , latex_renderer = latex_renderer 
+                            , display_alt_button = display_alt_button 
                             )
         html = renderer.render(ast)
         return renderer, html

@@ -350,6 +350,8 @@ class Settings(db.Model):
     # Allow users to switch the user interface language locale
     # # during their session if this flag is set to true.
     language_switch: so.Mapped[bool] = so.mapped_column(default = True)
+    # Display a mastodon-like alt text button in figures (images with metadat)
+    display_alt_button: so.Mapped[bool] = so.mapped_column(default = True)
     ## main_font: so.Mapped[Optional[FontFamiliyEnum]]
     main_font: so.Mapped[str] = so.mapped_column(default = FontFamiliyEnum.computer_modern.value)
     title_font: so.Mapped[str] = so.mapped_column(default = FontFamiliyEnum.computer_modern.value)
@@ -531,8 +533,11 @@ class WikiPage():
         toc = mparser.headings_to_html(root)
         pagefile = str(self.path())
         base_path = str(self._base_path)
+        conf: Settings = Settings.get_instance()
         renderer, content = render.pagefile_to_html(  pagefile, base_path
-                                                    , latex_renderer = self._latex_renderer)
+                                                    , latex_renderer = self._latex_renderer
+                                                    , display_alt_button = conf.display_alt_button
+                                                )
         title = renderer.title if renderer.title != "" else self._title
         info = out.parent / out.name.replace(".html", ".json")
         ###breakpoint()
