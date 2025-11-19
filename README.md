@@ -2,7 +2,8 @@
 
 ## Overview 
 
-MWiki is a **wiki engine** and note taking web application software geared towards mathematics and research designed for scientific and technical communication. This wiki engine software has semantic-rich lightweight markup language based on MyST markdown, Obsidian markdown, and Media wiki engine markup language. 
+MWiki is a **wiki engine** and note taking web application software geared towards mathematics and research designed for scientific and technical communication. This wiki engine software has semantic-rich lightweight markup language based on MyST markdown, Obsidian markdown, and Mediawiki engine markup language. In this application is also a static websiste generator, that can export MWiki notes or pages to a static websites or self-contained html files for offline reading, similar to PDF files.
+
 
 This Python application is powered by Python Flask web framework and the extensible markdown-it parser used by MyST markdown and the Jupyter Book project. 
 
@@ -31,8 +32,11 @@ See also:
 
 #### Wiki Features 
 
-+ File-based Wiki: all Wiki pages are stored as Markdown files like Moin Moin wiki engine and Dokuwiki. However, it uses SQLite file database or a any full-featured database for system management purposes. 
-+ Full text search which allows complex search queries similar to web search engines.
+ + File-based Wiki: all Wiki pages are stored as Markdown files like Moin Moin wiki engine and Dokuwiki. However, it uses SQLite file database or a any full-featured database for system management purposes. 
+ + LaTeX equations with serveral enumeration styles, rendered  MathJax or  KaTeX (faster rendering, but the usage of KaTeX is still experimental).
+ + Cross reference hyperlinks to LaTeX equations using `\label{EquationLabel}` and `\eqref{EquationLabel}`. This feature is supported for both MathJax and KaTeX rendering engines.
+ + Support for page-specific LaTeX macros and global LaTeX macros for MathJax or KaTeX rendering engines.
+ + Full text search which allows complex search queries similar to web search engines.
  + Supports MyST Markdown, GFM (Github-Flavored Markdown Support), subset of Obsidian Markdown syntax, subset of Mediawiki markup language and inline HTML.
  + Pages written in Markdown-based markup language instead of HTML, which allows to any non programmers to write scientific and technical documents that are rendered to html. 
  + Buttons for editing specific document sections similar to Media wiki section editing buttons. 
@@ -187,11 +191,17 @@ MWiki code editor powered by Ace9 Javascript code editor.
 
 ![](docs/images/screen4.png)
 
+LaTeX input window, a popup window that can be in the editor by clicking at the button "LaTeX Input Window". Any LaTeX formula typed in this window, is immediately rendered, providing a fast feedback to users.
+
+![](docs/images/screen4-latex-input-window.png)
+
 **Wiki Screenshot 5 (Settings)**
 
 MWiki settings page.
 
-![](docs/images/screen5.png)
+![](docs/images/screen5a.png)
+
+![](docs/images/screen5b.png)
 
 **Wiki Screenshot 6**
 
@@ -242,6 +252,11 @@ This wiki provides a reference card popup windown that provides examples of the 
 
 ![](docs/images/refcard3.png)
 
+**Wiki Screenshot 12** 
+
+It is possible to view equations referenced by links, defined using `$\eqref{EquationLabel}`, to LaTeX equations labeled with `\label{EquationLabel}` wihout clicking at reference links. This feature makes it easier and faster to browse cross-referenced equations. Note that it is only available for KaTeX rendering engine.
+
+![](docs/images/screen12-reference-equation.png)
 
 ## Installation 
 
@@ -1040,18 +1055,23 @@ INFO:waitress:Serving on http://0.0.0.0:9010
 
 ## Static Website Generator
 
-The subcommand $ mwiki compile is able to generate a static website by compiling the wiki repository, a folder containing MWiki markdown files to html. Static websistes are easy to deploy with static file servers, such as NGinx or Caddy. Many git forge services, including gitlab or github, also allow deploying stastic websites using an orphan git branch. NOTE: CDN means Content Delivery Network.
+The subcommand $ mwiki export is able to generate a static website by compiling the wiki repository, a folder containing MWiki markdown files to html. Static websistes are easy to deploy with static file servers, such as NGinx or Caddy. Many git forge services, including gitlab or github, also allow deploying stastic websites using an orphan git branch. NOTE: CDN means Content Delivery Network.
+
+### Command Line Help
+
 
 ```sh
-$ mwiki compile --help
-Usage: mwiki compile [OPTIONS]
+Usage: mwiki export [OPTIONS]
 
-  Compile a MWiki repository to a static website.
+  Export a MWiki repository or a markdown files repository to a static
+  website.
 
 Options:
   --wikipath TEXT          Path to folder containing *.md files.
   -o, --output TEXT        Directory that will contain the compilation output
                            (default value ./out).
+  --page TEXT              Export single page to html, instead of the whole
+                           wiki.
   --website-name TEXT      Name of the static website (default value 'MWiki').
   --root-url TEXT          Root URL that the static website will be deployed
                            to.  (default value '/').
@@ -1065,12 +1085,28 @@ Options:
   --list-fonts             List all available fonts.
   --allow-language-switch  Allow end-user to switch the user interface
                            language.
-  --embed-mathjax          Self host Mathjax library for rendering math
-                           formulas instead of loading it from a CDN.
+  --self-contained         Embed all attachment within the current wiki page.
+                           JavaScripts and CSS are inlined and images are
+                           embedded in base64 encoding. The generated HTML
+                           self-contained file is similar to a PDF file. This
+                           flag is useful for generating self-contained
+                           documents for offline view.
+  --embed-latex-renderer   Self host MathJax or KaTeX The LaTex rendering
+                           library is copied to the output directory.
+  --latex-renderer TEXT    LaTeX renderer: 'mathjax' or 'katex'. Default:
+                           mathjax
+  --compile-latex          Render all LaTeX formulas on server-side as HTML by
+                           compiling them using KaTeX Note that this setting
+                           requires a NPM installation.and NPM interpreter
+                           available in the $PATH environment variable.
+  --verbose                Display more information about the compilation
+                           output.
   --author TEXT            Override the frontmatter attribute author in all
                            wiki pages. The author field is compiled to <meta
                            name="author" content="AUTHOR NAME"> This setting
                            only makes sense if there is a single author.
+  --source                 Add menu item for displaying markdown source code
+                           of the current page.
   --help                   Show this message and exit.
 ```
 
@@ -1078,45 +1114,36 @@ Options:
 List all available fonts:
 
 ```sh
-         FONT FAMILY
+caesar@sbox ~/m/sample-wiki (release-v0.9)> mwiki export --list-fonts
+                           KEY                   FONT FAMILY
                computer-modern               Computer Modern
                  ibm-plex-mono                 IBM Plex Mono
                        chicago                 Chicago MacOS
+                     neo-euler                     Neo Euler
                    news-reader                    NewsReader
                       literata                      Literata
              literata-variable              Literata-Regular
                   commint-mono                   Commit Mono
        logic-monospace-regular       Logic Monospace Regular
+                       go-mono                       Go Mono
         logic-monospace-medium        Logic Monospace Medium
-                  garamond-pro          Garamond Pro Regular
                libertinus-mono               Libertinus Mono
                     julia-mono                    Julia Mono
-               libertinus-sans               Libertinus Sans
-              libertinus-serif              Libertinus Serif
-                  commint-mono                  Commint Mono
-                    range-mono                    Range Mono
-                         range                         Range
-                       crimson                       Crimson
-                        munson                        Munson
-                     jackwrite                     Jackwrite
-                jackwrite-bold                Jackwrite Bold
-                  cmu-concrete                  CMU Concrete
-                cmu-sans-serif                CMU Sans Serif
-                 peachi-medium                 Peachi Medium
-                    fondamento                    Fondamento
-           bricolage-grotesque           Bricolage Grotesque
-             saira-thin-normal             Saira Thin Normal
-               saira-thin-bold               Saira Thin Bold
-                  dinweb-light                  DINWeb-Light
-                 dinweb-medium                 DINWeb-Medium
-                  dinweb-black                  DINWeb-Black
-
+  ... ... ... ... ... ... ...      ... ... ... ... ... ... ... ...
+  ... ... ... ... ... ... ...      ... ... ... ... ... ... ... ...
+               graphik-regular               Graphik Regular
+                 space-grotesk                 Space Grotesk
+                        averia                        Averia
+                   averia-sans                    AveriaSans
+                 averia-gruesa                 Averia Gruesa
+                      notosans                      NotoSans
+                textura-modern                Textura Modern
 ```
 
 Compile the folder ./sample-wiki to a static web site at ./out path.
 
 ```sh
-$ mwiki compile \
+$ mwiki export \
     --wikipath=./sample-wiki \
     --website-name=MBook \
     --main-font=cmu-concrete \
@@ -1129,20 +1156,23 @@ $ mwiki compile \
 Root URL
  -  /
 Compiling wiki repository
- -  /var/home/user/Documents/projects/mwiki/sample-wiki
+ -  /var/home/caesar/Documents/projects/mwiki/sample-wiki
 Generating static website at
- -  /var/home/user/Documents/projects/mwiki/out
+ -  /var/home/caesar/Documents/projects/mwiki/out
 
 
-Compilation Settings
+Export Settings
 
  [*]                              Author:  John Doe
  [*]                        Website Name:  MBook
  [*]                            Root URL:  /
  [*]  Default User Interface (UI) Locale:  en-US
  [*]               Allow language switch:  on
- [*]                       Embed Mathjax:  off
- [*]               Load Mathjax from CDN:  on
+ [*]             Self Contained Document:  off
+ [*]       Compile LaTeX to HTML (KaTeX):  off
+ [*]                      LaTeX renderer:  Mathjax
+ [*]        Load LaTeX renderer from CDN:  on
+ [*]                Embed LaTeX Renderer:  off
  [*]                    Main font family:  CMU Concrete
  [*]                   Title Font Family:  Chicago MacOS
  [*]                    Code Font Family:  Libertinus Mono
@@ -1150,42 +1180,37 @@ Compilation Settings
 Status:
 
  [*] Compiling sample-wiki/README.md to out/README.html
- [*] Compiling sample-wiki/Internationalization i18n and Localization i10n concepts.md to out/Internationalization_i18n_and_Localization_i10n_concepts.html
  [*] Compiling sample-wiki/Linux SysRq Key and OOM System Recovery.md to out/Linux_SysRq_Key_and_OOM_System_Recovery.html
- [*] Compiling sample-wiki/Math - Calculus Reference Card.md to out/Math_-_Calculus_Reference_Card.html
  [*] Compiling sample-wiki/Open Source Licenses.md to out/Open_Source_Licenses.html
  [*] Compiling sample-wiki/about.md to out/about.html
- [*] Compiling sample-wiki/refcard.md to out/refcard.html
+ [*] Compiling sample-wiki/Math - Calculus Reference Card.md to out/Math_-_Calculus_Reference_Card.html
+ [*] Compiling sample-wiki/Internationalization i18n and Localization i10n concepts.md to out/Internationalization_i18n_and_Localization_i10n_concepts.html
  [*] Compiling sample-wiki/Index.md to out/index.html
+ [*] Compiling sample-wiki/LaTeX Reference Card.md to out/LaTeX_Reference_Card.html
+ [*] Compiling sample-wiki/refcard.md to out/refcard.html
  [*] Compilation terminated successfully ok.
-
 ```
 
 Inspect the generated static website.
 
 ```sh
-$ tree out
-
 out
 ├── about.html
 ├── images
 │   └── logo-java-coffee-cup.png
 ├── index.html
 ├── Internationalization_i18n_and_Localization_i10n_concepts.html
+├── LaTeX_Reference_Card.html
 ├── Linux_SysRq_Key_and_OOM_System_Recovery.html
 ├── Math_-_Calculus_Reference_Card.html
 ├── Open_Source_Licenses.html
 ├── pasted
 │   ├── pasted-image-1743470376610.png
-│   ├── pasted-image-1757439080745.jpg
-│   ├── pasted-image-1760365933831.jpg
-│   ├── pasted-image-1760528606851.jpg
-│   ├── pasted-image-1760528696169.jpg
-│   ├── pasted-image-1760528793655.jpg
 │   ├── pasted-image-1760610949514.jpg
 │   ├── pasted-image-1760611027216.jpg
 │   ├── pasted-image-1760611139235.jpg
 │   └── pasted-image-1760618396013.jpg
+├── Quadratic.html
 ├── README.html
 ├── refcard.html
 └── static
@@ -1207,7 +1232,6 @@ out
     ├── main.js
     ├── pencil.svg
     └── static_style.css
-
 ```
 
 Server the static website using python3 built-in web server.
@@ -1237,20 +1261,109 @@ or also
 
 + `http://<TAILSCALE-HOSTNAME>:8080`
 
+### Deploy a static website to Github GH-Pages
 
-It is also possible to generate a static websiste from a wiki repository for deployment with github by creating an orphan branch named as gh-pages and a worktree directory ./dist for this branch. Then use the follwing command to compile a wiki repository, in this case ./sample-wiki to html.
+It is also possible to generate a static website from a wiki repository for deployment with github by creating an orphan branch named as gh-pages and a worktree directory ./dist for this branch.
+
+a) Optional create a backup of current project directory.
+
+```sh
+$ cd .. && cp -rv project-folder project-folder.back
+$ cd project-folder 
+```
+
+1) Save uncommited changes to the stash
+
+```sh
+$ git stash save 
+```
+
+2) Create and switch to gh-pages orphan branch.
+
+```sh
+$  git checkout --orphan gh-pages
+```
+
+3) Remove all tracked files from current branch. 
+
+```sh 
+$ git rm -rf .
+```
+
+4) Create the first page and commit.
+
+```sh
+$ echo "first page" > index.html
+$ git add index.html
+$ git commit -m "First commit"
+```
+
+5) Upload this branch to remote. 
+
+```sh
+$ git push origin gh-pages
+```
+
+6) Set the upstream of gh-pages as the origin (remote repository) in order to be able to upload this branch using `$ git push`.
+
+```sh
+$ git push --set-upstream origin gh-pages
+```
+
+7) Go back to the previous branch or master or main branch. Note that github and other git forges use the name "main" instead of "master".
+
+```sh
+$ git checkout master
+
+## or
+
+$ git checkout main
+```
+
+8) Pop the stash
+
+```sh
+$ git stash pop
+```
+
+9)  Add worktree gh-pages as worktree directory dist in order to avoid branch switch to gh-pages branch.
+
+```sh
+$ git worktree add dist gh-pages
+```
+
+10) Now, it is possible to commit changes to the gh-pages branch without changing the branch using `$ git checkout <BRANCH-NAME>`. For instance,
+
+```sh
+# Entered gh-pages branch 
+$ cd ./dist
+
+# Create page.html file
+$ echo "<h1>Index page</h1>" > page.html
+
+# Add index.html to staging area
+$ git add page.html
+
+# Upload change to origin/gh-pages
+$ git push
+```
+
+Now, the page will be available at `https://<GITHUB-USERNAME>/<PROJECT-NAME>/page.html`
+
+
+Then, use the following command to compile a wiki repository, in this case ./sample-wiki to html.
 
 ```sh
 export GITHUB_REPOSITORY_NAME=dummy
-export SITENAME=MBoox
+export SITENAME=MBook
 
-$ uv run mwiki compile --wikipath=./sample-wiki \
-                --website-name=MBook \
+$ uv run mwiki export --wikipath=./sample-wiki \
+                --website-name=$SITENAME \
                 --main-font=cmu-concrete \
                 --title-font=chicago \
                 --code-font=libertinus-mono \
                 --allow-language-switch \
-                --root-url=/$REPOSITORY_NAME \
+                --root-url=/$GITHUB_REPOSITORY_NAME \
                 --output=./dist
 ```
 
@@ -1263,13 +1376,32 @@ $ git commit -m "Updated gh-pages"
 $ git push gh-pages master
 ````
 
-After this step the static websiste will be available at
+After this step the static website will be available at
 
 + `https://<USERNAME>.github.io/<PROJECT_NAME>`
 
-If the username is johndoe and the project/repository name is dummy, the static websiste URL will be
+If the username is *johndoe* and the project/repository name is *dummy*, the static websiste's URL will be
+
 
 + `https://johndoe.github.io/dummy`
+
+**Example**
+
+The sample static website https://caiorss.github.io/mwiki was generated using the command
+
+```sh
+$ mwiki export --wikipath=./sample-wiki \
+                --website-name=MBook \
+                --main-font=cmu-concrete \
+                --title-font=chicago \
+                --code-font=libertinus-mono \
+                --allow-language-switch \
+                --latex-renderer=katex \
+                --root-url=/mwiki --source \
+                --output=./dist
+```
+
+which is automated using the makefile rule `$ make gh-pages`.
 
 
 ## Development 
