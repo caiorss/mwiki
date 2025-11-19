@@ -675,11 +675,118 @@ async function editorPreviewDocument()
     previewWindow.show();
 }
 
+latexEntryWindow = null;
+latexRenderingUpdateFunc = null;
 
-//// window.onpaste = onPasteEventHandler;
-// window.addEventListener("paste", onPasteEventHandler, false);
+document.addEventListener("DOMContentLoaded", function(){
+    
+    latexEntryWindow = new PopupWindow({
+           title: "LaTeX Input Window"
+        ,  titleI18nTag: "latex-input-window-title"
+        ,  width: "600px"
+        ,  height: "500px"
+        ,  html: `
+          <div class="latex-input-window">
+            <textarea class="latex-input" name="latex-input" rows="4" cols="50"
+                      autocomplete="off"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      spellcheck="false">
+            </textarea>
+            <div class="latex-input-window-buttons">
+                <button class="btn-insert-latex primary-button" data-i18n="latex-input-window-btn-insert" title="Close this window and insert LaTeX formula at current cursor position. Keyboard shortcut: Alt + Enter">Insert</button>
+                <button class="btn-clear-latex  primary-button" data-i18n="latex-input-window-btn-clear" title="Clear LaTeX code entry. Keyboard shortcut: Ctrl + l">Clear</button>
+                <button class="btn-cancel-latex primary-button" data-i18n="latex-input-window-btn-close"
+                    title="Close this window." >Close</button>
+            </div>
 
-// document.onpaste = onPasteEventHandler;
+            <p data-i18n="latex-input-window-p">Output:</p>
+            <div class="div-latex-code"></div>
+        </div>
+    `});
+    // Function called from file main.js
+    doTranslationI18N();
 
-// let output = domToMarkdownCompiler(el);
-// console.log("output \n", output);
+    latexEntryWindow.setHeight("500px");
+    let btnInsertLatex = latexEntryWindow.querySelector(".btn-insert-latex");
+    let latexEntry = latexEntryWindow.querySelector(".latex-input");
+    let latexOutput = latexEntryWindow.querySelector(".div-latex-code");
+    latexEntry.value =   "% Type ctrl + l to clear this LaTeX code entry "
+                       + "\n% Type Alt + Enter to insert this formula and close this window."
+                       + "\n% The sum of all angles of a tringle is 180 degrees or pi."
+                       + "\n\\alpha + \\beta + \\theta = \\pi";
+
+    function updateLatexRendering()
+    {
+        let latexCode = latexEntry.value;
+        latexOutput.textContent =
+                IS_LATEX_RENDERER_KATEX ? latexCode : "$$\n" + latexCode + "\n$$"; 
+        renderDOMLatex(latexEntryWindow.dom());
+    }
+
+    latexRenderingUpdateFunc = updateLatexRendering;
+    
+    function insertLatexCode()
+    {        
+        let latexCode = latexEntry.value;
+        latexEntryWindow.close();
+        editorInsertTextArCursor("\n$$\n" + latexCode + "\n$$\n");
+    }
+
+    function clear()
+    {
+        latexEntry.value = "";
+        updateLatexRendering();
+    }
+    
+
+    function handleKeyDown(e) {
+        console.log(" [TRACE] e = ", e);
+        if (e.key === "Enter" && e.altKey)
+        {
+            e.preventDefault();
+            insertLatexCode();
+            return;
+        }
+        if (e.key === "q" && e.altKey)
+        {
+            e.preventDefault();
+            latexInputWindow.close();
+            return;
+        }
+        if (e.key === "l" && e.ctrlKey)
+        {
+            e.preventDefault();
+            clear();
+            return;
+        }
+        if (e.key !== "Tab") { return; }
+        e.preventDefault();
+        const start = this.selectionStart;
+        const end = this.selectionEnd;
+        this.value = this.value.substring(0, start) + "\t" + this.value.substring(end);
+        this.selectionStart = this.selectionEnd = start + 1;
+    }
+    
+    // updateLatexRendering();
+    //btnCancelLatex.addEventListener("click", latexEntryWindow.close);
+    latexEntry.addEventListener("input", updateLatexRendering);
+    latexEntryWindow.closeWindowOnClick(".btn-cancel-latex");
+    latexEntryWindow.onClick(".btn-insert-latex", insertLatexCode);
+    latexEntryWindow.onClick(".btn-clear-latex",  clear);
+    latexEntryWindow.onEvent(".latex-input", "keydown", handleKeyDown);
+});
+
+function openLatexInputWindow()
+{
+    latexEntryWindow.show();
+    latexRenderingUpdateFunc();
+}
+
+    //// window.onpaste = onPasteEventHandler;
+    // window.addEventListener("paste", onPasteEventHandler, false);
+
+    // document.onpaste = onPasteEventHandler;
+
+    // let output = domToMarkdownCompiler(el);
+    // console.log("output \n", output);

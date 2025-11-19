@@ -776,8 +776,22 @@ main thead th {
     width: 100%;
 }
 
+.latex-input-window textarea {
+    resize: none;
+    white-space: nowrap;
+    font-family: var(--font-family-code);
+    overflow: auto;
+    background: lightyellow;
+    width:  550px;
+    height: 100px;
+    padding: 10px;
+    magin-botton: 15px;
+    tabindex: -1;
+}
 
-
+.latex-input-window-buttons {
+    margin-top: 10px;
+}
 
 /** For desktop systems */
 @media (min-width: 815px)

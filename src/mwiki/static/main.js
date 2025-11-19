@@ -33,6 +33,10 @@ class PopupWindow
         this.onClick(".btn-window-close", () => self.close());
     }
 
+    dom(){
+      return this._dom;
+    }
+
     setHeight(height)
     {
       this._dom.style.height = height;
@@ -78,6 +82,25 @@ class PopupWindow
         x.innerHTML = message;
     }
 
+    /* Add event to DOM element of this window, given the DOM
+     * element CSS selector. For instance, if this window has
+     * a button <button class="btn-submit">Submit</button>
+     *
+     * pwindo.onEvent(".btn-submit", "click", () => console.log("Button clicked"));
+     *------------------------------------------- */
+    onEvent(cssSelector, eventName, handler)
+    {
+      
+        let x =  this._dom.querySelector(cssSelector);
+        if(!x)
+        { 
+            console.error(`PopUpWindow.onEvent(selector, eventName, handler) => Not found container of CSS class 'pupup-message-text'. 
+                              Failed to set popup window messasge.`) ;
+            return;
+        }
+        x.addEventListener(eventName, handler);
+    }
+
     onWindowClick(handler)
     {
         this._dom.addEventListener("click", (event) => {
@@ -101,6 +124,12 @@ class PopupWindow
             return;
         }
         q.addEventListener('click', handler);
+    }
+
+    closeWindowOnClick(query)
+    {
+      self = this;
+      this.onClick(query, () => self.close());
     }
 
     value(query)
@@ -604,6 +633,24 @@ translationsi18n =
         , "popup-window-footnote-title":          "Footnote"
         , "popup-window-equation-display-title":  "Equation"
 
+        , "edit-page-latex-input-window":
+          {
+              "label": "LaTeX Input Window"
+            , "title": "Open a LaTeX input popup window that allows typing LaTeX equations and getting immediate feedback about how the formula looks like when rendered."
+          }
+        
+        , "latex-input-window-title": "LaTeX Input Window"
+        , "latex-input-window-btn-insert": {  "label": "Insert"
+                                            , "title": "Close this window and insert LaTeX formula at current cursor position. Keyboard shortcut: Alt + Enter"
+                                           }
+        , "latex-input-window-btn-clear": { "label":  "Clear"
+                                          , "title":  "Clear LaTeX code entry. Keyboard shortcut: Ctrl + l" 
+                                          }
+        , "latex-input-window-btn-close": {
+                                              "label": "Close"
+                                            , "title": "Close this window."
+                                          }
+        , "latex-input-window-p": "Output:"
 	}
    ,"pt-BR": {
 		  "locale":                   "Brazilian Portuguese"
@@ -794,7 +841,32 @@ translationsi18n =
         , "statusbar-upload-image-error-text":    "Error: falha de envio de imagem."
         , "popup-window-footnote-title":          "Nota de Rodapé"
         , "popup-window-equation-display-title":  "Equação"
-	}
+
+        , "edit-page-latex-input-window":
+            {
+                "label": "Janela de Entrada LaTeX"
+              , "title": "Abre uma janela pop-up de entrada LaTeX que permite digitar equações LaTeX e obter feedback imediato sobre a aparência da fórmula quando renderizada."
+
+            }
+
+        , "latex-input-window-title": "Janela de Entrada LaTeX"
+        , "latex-input-window-btn-insert":
+            { "label": "Inserir"
+            , "title": "Fecha esta janela e insere a fórmula LaTeX na posição atual do cursor. Atalho de teclado: Alt + Enter"
+            }
+        , "latex-input-window-btn-clear":
+          { "label": "Limpar"
+          ,"title": "Limpar a entrada de código LaTeX. Atalho de teclado: Ctrl + l"
+          }
+        , "latex-input-window-btn-close":
+          {
+            "label": "Fechar"
+           ,"title": "Fecha esta janela."
+          }
+        , "latex-input-window-p": "Saída:"
+
+  }
+        
 
 };
 

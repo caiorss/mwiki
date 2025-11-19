@@ -35,6 +35,7 @@ from . constants import ( M_GET, M_POST, M_DELETE
                         , STATUS_CODE_405_METHOD_NOT_ALLOWED
                         )
 import mwiki.constants as mconst
+import mwiki.latex 
 from .app import make_app, current_user
 
 # This variable is set to true if gunicorn WSGI server is being used.
@@ -640,7 +641,7 @@ def make_app_server(  host:        str
         # users cannot edit the Wiki.
         if not user.user_can_edit():
             flask.abort(STATUS_CODE_401_UNAUTHORIZED)
-        conf = Settings.get_instance()
+        conf: Settings = Settings.get_instance()
         if path == "special:macros":
             # Enforece - authorization - only admin can edit macros.
             if not user.is_admin():
@@ -687,6 +688,10 @@ def make_app_server(  host:        str
                 lines = content.splitlines()
                 content = "\n".join(lines[line_start:line_end]) 
             ## print(" [TRACE] content = ", content)
+            macros_file = base_path / "macros.sty"
+            macros_file.touch(exist_ok = True)
+            latexcode = macros_file.read_text()
+            macros = json.dumps(mwiki.latex.get_latex_macros(latexcode), indent=4)
             resp = flask.render_template(  "edit.html"
                                          , title = f"[i18n]: {path}"
                                          # Eglish title: "Editing: <WikiPageName>"
@@ -695,6 +700,12 @@ def make_app_server(  host:        str
                                          , page_link = path.replace(" ", "_")
                                          , content = content
                                          , conf = conf
+                                         , latex_renderer = conf.latex_renderer 
+                                         , mathjax_enabled = True 
+                                         , equation_enumeration = "none"
+                                         , equation_enumeration_style = "none"
+                                         , katex_macros = utils.base64_encode(macros)
+
                                      )
             return resp
         assert request.method == M_POST
