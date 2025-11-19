@@ -245,6 +245,10 @@ class AbstractAstRenderer:
         """Return list of MWiki pages embedded in the current page."""
         return self._dependecies
 
+    @property
+    def equation_enumeration_enabled(self) -> bool:
+        return self._equation_enumeration_enabled 
+
     def add_equation_reference(self, label: str, number: str, content: str, is_referenced: bool = False):
         if label not in self._equation_references:
             self._equation_references[label] = (number, content, is_referenced)
