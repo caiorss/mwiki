@@ -678,6 +678,7 @@ class WikiPage():
                                       , latex_algorithm      = renderer.needs_latex_algorithm
                                       , timestamp            = self.timestamp
                                       , equation_enumeration = renderer.equation_enumeration_style
+                                      , equation_enumeration_style = renderer.equation_enumeration_style
                                       , katex_macros         = utils.base64_encode(renderer.katex_macros)
                                       # , font_face_main       = font_face_main_font
                                       # , font_face_title      = font_face_title_font
