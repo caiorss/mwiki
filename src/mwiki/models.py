@@ -379,7 +379,7 @@ class Settings(db.Model):
     # Wiki Site Description 
     description: so.Mapped[str] = so.mapped_column(default="MWiki Website")
     # Possible values: "mathjax", "katex" (experimental), "katex - server side"
-    latex_renderer: so.Mapped[str] = so.mapped_column(default = "mathjax")
+    latex_renderer: so.Mapped[str] = so.mapped_column(default = "katex")
     # Load JavaScript dependecies from a CDN (Content Delivery Network)
     # instead of using the vendored depencies such as MathJax, KaTeX
     # and GraphViz renderer.
