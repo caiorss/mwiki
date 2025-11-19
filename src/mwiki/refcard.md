@@ -1,4 +1,8 @@
-MWiki markup language, also known as MWiki wikicode, is a based on Github-flavored Markdown (GFM). The markup language also is inspired by MyST markdown from Jupyter Book project, Obsidian markdown format and Mediawiki's markup language.
+---
+title:          MWiki Syntax Reference Card
+description:    Notes, examples and documentation about MWiki markup language syntax and constructs. This markup language borrow constructs and syntax from Mediwiki, Obsidian and MyST markdown markup languages.
+latex_renderer: mathjax
+---
 
 
 ## Frontmatter (Page Metadata)
@@ -8,7 +12,7 @@ The frontmatter is a [YAML](https://en.wikipedia.org/wiki/YAML) section at the b
 
 Example: consider the wiki page file
 
-+ 'NAS - Network Attached Storage Device.md'
++ `NAS - Network Attached Storage Device.md`
 
 whose content is
 
@@ -61,19 +65,46 @@ or
 section_enumeration: off
 ```
 
+### LaTeX renderer
+
+The directive *latex_renderer* allows overriding the default latex rendering engine, that can be changed in the settings page.
+
+Use KaTeX rendering engine:
+
+```
+latex_renderer: katex
+```
+
+Use MathJax rendering engine:
+
+```
+latex_renderer: mathjax 
+```
+
 
 ### Equation Enumeration 
 
-The frontmatter directive 'equation_enumeration' allows changing the equation enumeration style.
+Equation enumeration can be enabled using
 
 ```
-equation_enumeration: <style>
+equation_enumeration_enabled: on
+```
+
+or disabled by using this directive set to off. If enumeration is disabled, only referenced equations will get an enumeration on the left side of the equation (LaTeX display mode).
+
+```
+equation_enumeration_enabled: off  
+```
+
+
+The frontmatter directive 'equation_enumeration_style' allows changing the equation enumeration style.
+
+```
+equation_enumeration_style: <style>
 ```
 
 The following enumeration styles supported:
 
-+ none => no enumeration
-  + Example: N/A - No Applicable
 + cont or continous  
   + Example: 1, 2, ..., 50
 + section (default)
@@ -262,17 +293,31 @@ Rendering:
 
 Syntax: 
 
-```
+```markdown 
 **Bold text here**
 ```
 
 Example:
 
 ```
-+ Example of syntax of a **bold text**.
++ Example: this is a **bold text**.
 ```
 
-+ Example of syntax of a **bold text**.
+Rendering:
+
++ Example: this is a **bold text**.
+
+### Bold Italic Text
+
+Example: 
+
+```markdown
++ A ***bold and italic*** text.
+```
+
+Rendering:
+
++ A ***bold and italic*** text.
 
 ### Strikethrough Text (Deleted Text) 
 
@@ -305,11 +350,8 @@ MWiki can convert ascii notation, such as `(C)` to the copyright unicode symbol,
 Example:
 
 ```
-+ Copyright Symbol (C)
 + Copyright Symbol {C}
-+ Registered Symbol (R)
-+ Registered Symbol (C)
-+ Trademark(TM) symbol
++ Registered Symbol {R}
 + Trademark{TM} symbol
 + The angle is 60{deg} degrees 
 + The angle is 60{degrees} degrees 
@@ -323,10 +365,8 @@ Example:
 
 Rendering:
 
-+ Copyright Symbol (C)
 + Copyright Symbol {C}
-+ Registered Symbol (R)
-+ Registered Symbol (C)
++ Registered Symbol {R}
 + Trademark(TM) symbol
 + Trademark{TM} symbol
 + The angle is 60{deg} degrees 
@@ -882,17 +922,18 @@ or
 {youtube}`bNE4uBMsnP0`
 ```
 
+
 ### Embed Uploaded Video Files
 
 MP4 or WEBM video files can be embedded in the current page by using the syntax. 
 
-```
+```markdown
 ![[video-file-to-be-embedded.mp4]]
 ```
 
 or
 
-```
+```markdown
 ![[video-file-to-be-embedded.webm]]
 ```
 
@@ -1093,8 +1134,6 @@ Rendering:
 
 MWiki supports the following LaTeX equation enumeration styles
 
-+ none
-  + Schema: no enumeration, only referenced equations with LaTeX \eqref macro will be enumerated.
 + cont or continous 
   + Schema: `<equaiton-number>`
   + Example: 20
@@ -1109,7 +1148,7 @@ MWiki supports the following LaTeX equation enumeration styles
   + Description: Equation are enumerated according to the section and subsection that they are defined. For instance, equations of subsection 3 of section 5 are enumerate 5.3.1, 5.3.2, ..., until the next section or subsection is defined. If there exists the subsection 4 of section 5, then the equations of this subsection will be enumerated as 5.4.1, 5.4.2, ..., 5.4.10 and etc.
 
 
-that can be changed by adding the next line to the document front-matter as shown in the following code example. Note that the front-matter is a human-readable human configuration in the markdown code between the lines containing '---' (three dashes) at the beginning of the page.
+The enumeration style can be changed by adding the next line to the document front-matter as shown in the following code example. Note that the front-matter is a human-readable human configuration in the markdown code between the lines containing '---' (three dashes) at the beginning of the page. The enumeration on the left side of each display mode LaTeX equation will only be visible if the directive *equation_enumeration_enabled* is set to **on**, otherwise if it is set to **off**, only equations referenced by `\eqref{labelOfEquation}` will have their enumeration visible.
 
 
 Front-matter example:
@@ -1118,7 +1157,9 @@ Front-matter example:
 ```
 ---
 description: Description of the document
-equation_enumeration: subsection
+
+equation_enumeration_style:   subsection
+equation_enumeration_enabled: on 
   ... ... ... ... ... 
   ... ... ... ... ... 
 ---
@@ -1127,9 +1168,10 @@ equation_enumeration: subsection
 
 Example consider the remaining of the page source code below after the front-matter.
 
-+ If the **equation_enumeration** directive is set to **none**, the equations will not be automatically enumerated. 
 + If **equation_enumeration** is set to **section** (default), the number of equation A is set to 1.1, the number of the equation B is set to 1.2, the number of equation C is set to 1.3, the number of D is set to 1.4
 + If **equation_enumeration** is set to **subsection**, the number of equation A is set to 1.1, the number of equation B is set to 1.2, the number of equation C is set to 1.1.1, the number of D is set to 1.1.2, F's number is set to 2.1.1 and G's number is set to 2.1.2. This enumeration style is best suitable for documents with many equations per section.
++ If the directive **equation_enumeration_enabled** is set to **on**, the enumeration of all equations will be visible, unless there is a `\notag` in the equation LaTeX code.
++ If the directive **equation_enumeration_enabled** is set to **off**, only the enumeration of referenced equations will be visible.
 
 Remaining of the wiki page source after the front-matter.
 
@@ -1885,6 +1927,47 @@ Rendering:
 
 + The 7{sup}`th` element.
 
+
+## Flashcards
+
+MWiki supports basic flashcards, for instance, the following syntax defines a German-to-English flashcard deck. Where, each element of the array entries is a flashcard. The German Article+Word "der Tag" is the front side of the first flashcard. The backside of this card is corresponding english word "day". 
+
+````markdown
+```{flashcard}
+{
+     "title":  "Vocabulary German/English"
+   , "entries": [
+           ["der Tag",    "day"]
+        ,  ["der Wochentag", "weekday or day of week"]
+        ,  ["der Diestang",  "Tuesday"]
+        ,  ["der Mittwoch", "Wednesday"]
+        ,  ["die Sicht", "View"]
+        ,  ["die Ausgabe", "Issue, example magazine or journal issue"]
+        ,  ["die Vorherige Ausgabe", "Previous Issue"]
+        ,  ["seher gut", "very good or very well"]
+   ]
+}
+```
+````
+Rendering:
+
+```{flashcard}
+{
+     "title":  "Vocabulary German/English"
+   , "entries": [
+           ["der Tag",    "day"]
+        ,  ["der Wochentag", "weekday or day of week"]
+        ,  ["der Diestang",  "Tuesday"]
+        ,  ["der Mittwoch", "Wednesday"]
+        ,  ["die Sicht", "View"]
+        ,  ["die Ausgabe", "Issue, example magazine or journal issue"]
+        ,  ["die Vorherige Ausgabe", "Previous Issue"]
+        ,  ["seher gut", "very good or very well"]
+   ]
+}
+```
+
+It is possible to view all flashcards and their backside at once; go to next card; go to previous card; view the backside of the current flashcard; and jump to a next random card. Note that this feature is still under development. 
 
 ## Further Reading 
 
