@@ -1,7 +1,7 @@
 ---
 title:       Internationalization i18n and Localization i10n concepts
 label:       
-description: 
+description: Terminology and concepts of internationalization i18N and localization i10n for building scalable software that can be localized to any world language.
 keywords:    
 ---
 
@@ -14,6 +14,9 @@ ISO
  
 W3C 
  : World Wide Web Consortium
+
+IETF
+  : Internet Engineering Task Force
 
 AE
  : American English
@@ -35,6 +38,9 @@ Locale
   
 CJK  Languages
   : Chinese, Japanese and Korean languages
+
+CJKV Languages
+  : Chinese, Japanese, Korean and Vietnamese languages
 
 RTL Languages
   : Right-To-Left Languages. Languages written from right to left. Examples: most languages using Latin Script, including, English, Greek and so on. 
@@ -70,6 +76,8 @@ QA Testing
 ## Internationalization Issues
 
 ```{figure} ![[pasted-image-1760618396013.jpg]]
+:alt: World map depicting major regional languages around the world. The languages are listed in the order: (1) Spanish, (2) Arabic, (3) French, (4) Russian, (5) Chinese, Hindustani (6), Portuguese (7), German (8), Swahilli (9), Persian (10) and Malay/Indonesian (11). The map assigns colors for each major language, including Spanish (mostly in Hispanic-America), Arabic (MENA - Middle East and North Africa), French (France, Quebec and Africa), Russian (Eastern Europe and Central Asia), Chinese, Hindustani (Hindi and Urdu), Portuguese (South America / Portuguese-America / Luso-America - Brazil, Angola, Mozambique and Portugal), German (mostly in Central and West Erope, including Germany, Austria, Switzerland and Luxenbourg), Swahilli (East Africa in Kenya and Tanzania), Persian (West Asia and Central Asia), and Malay/Indonesia (South East Asia - SEA, including Indonesia and Malaysia).
+
 World Regional Languages
 ```
 
@@ -111,6 +119,44 @@ Brainstorm of Major Internationalization Issues
   
 ## Common Locales
 
+ISO Language Code
+
+| Language Code  | Language Name                |
+| -------------- | ---------------------------- |
+| la             | Latin                        |
+| scn            | Sicilian^{Closest languge to Latin.}
+| it             | Italian                      |
+| es             | Spanish                      |
+| pt             | Portuguese                   |
+| fr             | French                       |
+| en             | English                      |
+| de             | German                       | 
+| el             | Modern Greek                 |
+| tr             | Turkish                      |
+| sv             | Swedish                      |
+| af             | Afrikaans                    |
+| uk             | Ukranian                     |
+| sw             | Swahilli                     |
+| ja             | Japanese                     |
+| zh             | Chinese                      |
+| ko             | Korean                       |
+| vi             | Vietnamese                   |
+| hi             | Hindi                        |
+| tm             | Tamil                        |
+| pa             | Punjabi                      |
+| sa             | Sanskrit                     |
+| tg             | Tajik^{Dialect of Persian}   |
+| id             | Indonesian                   | 
+| ms             | Malay                        |
+| tl             | Tagalog (Phillipines)        |
+| fil            | Filipino (Phillipines)       |
+| ga             | Irisih Gaelic                |
+| gd             | Scottish Gaelic              | 
+| gl             | Galician^{Closest language to Portuguese. Note that Galicia is now an autonomous region of Spain.} |
+| ca             | Catalan^{Language of Catalonia region of Spain.} |
+| eu             | Basque (Euskera)             |
+
+
 Locale codes follow the convention {raw}`<language-code>-<countery-code>` with (-) dash character or {raw}`<language-code>_<country-code>` with the underline character (_).
 
 | Country      | Locale Code          | Language Name                                   | 
@@ -126,9 +172,9 @@ Locale codes follow the convention {raw}`<language-code>-<countery-code>` with (
 | Singapore    | en-SG                | Singaporean English                             |
 | Hong Kong    | en-HK                | Hong Kong English                               |
 | South Africa | en-ZA                | South African English                           |  
-| South Africa | af-ZA                | Afrikaans (based on Dutch language)             |
-| Phillipines  | en-PH                | Phillipines English (based on American English) |
-| India        | en-IN                | English (India)                                 |
+| South Africa | af-ZA                | Afrikaans^{based on Dutch language with some words borrowed from other African languages.}             |
+| Phillipines  | en-PH                | Phillipines English^{Based on American English} |
+| India^{India is among the fastest growing economies in the world. On the long run, it means higher return on investment.}        | en-IN                | English (India)                                 |
 | India        | hi-IN                | Hindi^{Hindustani} (India)                      |
 | India        | ta-IN                | Tamil (India)                                   |
 | Germany      | de-DE                | German (Deutsch)                                |
@@ -144,9 +190,9 @@ Locale codes follow the convention {raw}`<language-code>-<countery-code>` with (
 | Cyprus       | tr-CY                | Turkish language (Cyprus)                       |
 | Spain        | es-ES                | Spanish (Español)                               |
 | Spain        | ca-ES                | Catalan (Catalán in Spanish)                    |   
-| Spain        | eu-ES                | Basque (Non indo-european language)             |
-| Spain        | gl-ES                | Galician (Sister language of Portuguese)        |
-| Mexico       | es-MX                | Mexican Spanish (Español mexicano)              |
+| Spain        | eu-ES                | Basque (Euskera)^{Non indo-european language}             |
+| Spain        | gl-ES                | Galician^{Sister language of Portuguese}        |
+| Mexico       | es-MX                | Mexican Spanish (Español mexicano)^[Pronouce: Espanhol merricano]              |
 | USA          | es-US                | American/USA Spanish                            |
 | Puerto Rico  | es-PR                | Puerto Rico Spanish (USA)                       |
 | Argentina    | es-AR                | Argentinian Spanish (Español argentino)         |
@@ -158,7 +204,7 @@ Locale codes follow the convention {raw}`<language-code>-<countery-code>` with (
 | Panama       | es-PA                | Panamenian Spanish (Español panameño)           |
 | Venezuela    | es-VE                | Venezuelan Spanish (Español venezolano)         |
 | Portugal     | pt-PT                | European Portuguese (Português Europeu)         |
-| Angolar      | pt-AO                | Portuguese (Angola)                             |
+| Angola       | pt-AO                | Portuguese (Angola)                             |
 | Capte Verde  | pt-CV                | Portuguese (Português de Cabo Verde)            |                                        |
 | Brazil       | pt-BR                | Brazilian Portuguese (Português Brasileiro)     |                    
 | Japan        | ja-JP                | Japanese language                               |
@@ -229,10 +275,6 @@ KWrite started with de_DE German locale for Switzerland
 
 KWrite started with es_ES Spanish locale for Spain
 ```
-
-
-
-
 
 
 **See**
@@ -334,9 +376,11 @@ KWrite started with es_ES Spanish locale for Spain
 | ------------------- | -------------------- |
 | internalization     | internationalisation |
 | localization        | localisation         |
-| meter               | metre                |
+| meter^{Preferred spelling in American English}  |  metre^{Preferred spelling in British English}            |
 | meters              | metres               |
 | program             | programme            |
+| computer program    | computer programme   |
+| study program       | study programme      |
 | center              | centre               |
 | color               | colour               |
 | favor               | favour               |
@@ -345,7 +389,7 @@ KWrite started with es_ES Spanish locale for Spain
 | defense             | defence              |
 | ofense              | ofence               |
 | shop                | shoppe               |
-| shopping mall, mall | shopping centre      |
+| shopping mall, mall, shopping center | shopping centre      |
 | tires               | tyres                |
 | while               | while, whilst        |  
 | football            | American football    |   
@@ -354,6 +398,12 @@ KWrite started with es_ES Spanish locale for Spain
 | fall                | autumn               |
 | truck               | lorry                |
 | truck               | shorthand for pickup truck | 
+| buddies (male friends of a guy)  | lads           |
+| girlfriends        | female friends of a young woman |
+| college student    | university student  |
+| college kids       | undergraduate university students (pejorative, slang) |
+| apartment          | flat                  |                      
+
 ## Software Libraries
 
 JavaScript

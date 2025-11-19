@@ -1,0 +1,57 @@
+%                 LaTeX Macros                           %
+%                                                        %
+% This file allows defining global macros, that can be   %
+% used in any MWiki page (markdown file).                %
+%--------------------------------------------------------%
+
+
+% Vector notation, short for mathbf (bold face)
+% Exmaple: \b{r} = (x, y, z)
+\newcommand{\b}[1]{ \mathbf{#1} }
+
+% Vector notation for greek letters
+% Example: A vector of robotics joint angles can be written as
+%   \sb{\theta} = (\theta_1, \theta_2, \cdots, \theta_n)
+\newcommand{\sb}[1]{ \boldsymbol{#1} }
+
+% Macros for numerical optmization problem
+%
+% Usage example: a = \argmin_x f(x, y) 
+% 
+\DeclareMathOperator*{\argmax}{\mathrm{\arg\,max}\,}
+\DeclareMathOperator*{\argmin}{\mathrm{\arg\,min}\,}
+
+% Set of real numbers
+\newcommand{\R}{ \mathbb{R}  }
+% Set of complex numbers
+\newcommand{\Z}{ \mathbb{Z}  }
+
+% Laplace Transform  => Usage \laplace{x}
+\newcommand{\laplace}[1]{ \mathcal{L}\{#1\}  }
+
+% Fourier Transform
+\newcommand{\fourier}[1]{ \mathcal{F}\{#1\} }
+
+% Derivative symbol \d instead of \mathrm{d}
+\newcommand{\d}{ \mathrm{d} }
+% Partial Derivative Symbol \p instead of \partial 
+\newcommand{\p}{\partial}
+% Euler's Number (constant)
+\newcommand{\e}{ \mathrm{e} }
+
+\newcommand{\R}{ { \mathbb{R} }  }
+\newcommand{\C}{ { \mathbb{C} }  }
+
+% Big-O Notation for computer science (Computational complexity)
+\newcommand{\BigO}[1]{ \mathcal{O}\!\left(#1\right) }
+
+
+% Mathematical Definition
+%    
+% => Usage:
+%    Definition of Laplace Transform:  \mathcal{L}\{f(t)\} \mdef ()...)
+\newcommand{\mdef}{ {\triangleq \;} }
+
+\DeclareMathOperator{\sgn}{sgn}
+
+   

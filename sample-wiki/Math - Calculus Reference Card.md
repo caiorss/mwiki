@@ -1,6 +1,6 @@
 ---
 title: Mathematics, Calculus and Linear Algebra Reference Card
-author: John Doe Nobody
+author: My name is nobody
 
 label: math-calculus-refcard
 
@@ -11,7 +11,8 @@ subject: math
 uuid: 7cdf985e-63f5-419f-bc2f-4da9c09ca2bcI
 
 section_enumeration: on
-equation_enumeration: subsection
+equation_enumeration_enabled: off
+equation_enumeration_style:   subsection
 ---
 
 
@@ -439,9 +440,9 @@ $$
 Find the equation of the circle passing through the points
 P(2,1), Q(0,5), R(-1,2).
 
-Solution in Python's numpy
 
-````{solution}
+
+````{solution} - Python Numpy (1)
 
 Import numpy
 
@@ -559,9 +560,9 @@ $$
 
 ````
 
-Solution 2 in Python's Numpy.
 
-````{solution}
+
+````{solution} - Python Numpy (2)
 
 Import numpy
 
@@ -1299,12 +1300,11 @@ $$
 
 Approximations for small angles 
 
-
 $$
 \begin{split}
   \theta^2 &\approx 0
   \\ \sin \theta  & \approx   \theta                    
-  \\ \cos \theta  & \approx   1 - \frac{\theta^2}{2} \approx 0    
+  \\ \cos \theta  & \approx   1 - \frac{\theta^2}{2} \approx 1
   \\ \tan \theta  & \approx   \theta                    
   \\ \csc \theta  & \approx   1 / \theta + \theta / 6      
   \\ \sec \theta  & \approx    1 + \theta^2 / 2 \approx 0         
@@ -1312,8 +1312,13 @@ $$
 \end{split}
 $$
 
+Where $\theta$ is the angle in radians. Recall that
 
- - Where $\theta$ is the angle in radians. 
+$$
+   \theta = \frac{\pi}{180} \theta_{deg}
+$$
+
+where $\theta_{deg}$ is the angle in degrees.
 
  
 ### References 

@@ -1,1 +1,1 @@
-Demonstration of MWiki static website generator that compiles wiki pages or notew written in MWIki markdown language to html.
+Demonstration of  MWiki static website generato.r that compiles wiki pages or notes written in MWIki markup language^{similar to markdown, MyST markdown, Obsidian and Github-flavoured markdown - GFM} language to html.
