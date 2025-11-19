@@ -1,6 +1,6 @@
 [project]
 name = "mwiki"
-version = "0.8.1"
+version = "0.9"
 authors = [
           {name = "Caio Rodrigues", email = "caiorss.rodrigues@proton.me"}
 ]
