@@ -2,11 +2,12 @@
 
 ## Release v0.9
 
-
 + Add new fonts/typefaces choices  Averia, AveriaSans, Averia Gruesa, NotoSans, Space Groteske, EBGaramond, Jet Brains Mono (monospace font for source code listing), DMMono Regular.
 + Generate CSS font-face data dynamically instead of hardcoding them in the CSS file. This change improves the website loading speed.
 + Create custom markdown/JSON syntax for flashcard deck `{flashcard}`. NOTE that this feature is still under development.
 + Implement mastodon-like button for displaying alt text of figures, images with metadata defined with a `{figure}` block, in popup windows.
++ Implement LaTeX input window for the code editor.
+  + Implement LaTeX input window (popup window) in which an user can type a LaTeX formula or code and get immediate feedback about how the formula looks like as the it is rendered immediately as the user types. This feature improves the usability, user experience (UX) by making it easier and faster to enter LaTeX formulas.
 + Add settings checkbox "Display alt text button", which enables or disables a mastodon-like button for displaying the alt text of figures in a popup-window.
 + Implement setting latex_renderer (allows switching to KaTeX).
   + Implement  website settings latex_renderer in the /settings form. The site configuration latex_renderer allows choosing MathJax or KaTeX JavaScript library for rendering LaTeX math formulas. KaTeX is newer and faster than MathJax, however it still does not have full feature parity with the later library, as a result the KaTeX support is still experimental.
