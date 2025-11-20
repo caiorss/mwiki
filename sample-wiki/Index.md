@@ -86,16 +86,26 @@ Hyperlinks to internal pages that still does not exist will be shown in red, whi
 
 ## Images 
 
-Image of Java Duke Mascot (External Image):
+**Image of Java Duke Mascot (External Image):**
 
 ```markdown
-![Java's Duke Mascot](/static/example_java_duke_mascot.svg)
+![Java's Duke Mascot](/mwiki/static/example_java_duke_mascot.svg)
 ```
 
-![Java's Duke Mascot](/static/example_java_duke_mascot.svg)
+![Java's Duke Mascot](/mwiki/static/example_java_duke_mascot.svg)
 
 
-Internal Image:
+**Image of Java Duke Mascot (External Image):** (Relative to root MWiki URL)
+
+
+```markdown
+![Java's Duke Mascot](@root/static/example_java_duke_mascot.svg)
+```
+
+![Java's Duke Mascot](@root/static/example_java_duke_mascot.svg)
+
+
+**Internal Image:**
 
 + [[logo-java-coffee-cup.png]]
 
@@ -141,7 +151,7 @@ corresponds to the file
 
 ````markdown
 
-```{figure} /static/example_java_duke_mascot.svg
+```{figure} /mwiki/static/example_java_duke_mascot.svg
 :width: 200px
 :alt: Java duke mascot, one of the symbols of the Java programming language.
 
@@ -149,7 +159,27 @@ Java's Duke mascot
 ```
 ````
 
-```{figure} /static/example_java_duke_mascot.svg
+```{figure} /mwiki/static/example_java_duke_mascot.svg
+:height: 200px
+:alt: Java duke mascot, one of the symbols of the Java programming language.
+
+Java's Duke mascot
+```
+
+**Figure of Java Duke Mascot (External Image)** (Relative to MWiki Root URL)
+
+
+````markdown
+
+```{figure} @root/static/example_java_duke_mascot.svg
+:width: 200px
+:alt: Java duke mascot, one of the symbols of the Java programming language.
+
+Java's Duke mascot
+```
+````
+
+```{figure} @root/static/example_java_duke_mascot.svg
 :height: 200px
 :alt: Java duke mascot, one of the symbols of the Java programming language.
 

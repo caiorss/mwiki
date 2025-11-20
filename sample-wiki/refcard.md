@@ -820,12 +820,34 @@ Syntax:
 Example:
 
 ```
-![Java's Duke Mascot](/static/example_java_duke_mascot.svg)
+![Java's Duke Mascot](/mwiki/static/example_java_duke_mascot.svg)
 ```
 
 Rendering: 
 
-![Java's Duke Mascot](/static/example_java_duke_mascot.svg)
+![Java's Duke Mascot](/mwiki/static/example_java_duke_mascot.svg)
+
+### External using Relative URL
+
+The `@root` directive is replaced by MWiki root URL. This feature is useful if MWiki root URl changes, for instance, if is hosted in the URl `https://somedomain.com/p/mwiki`, the MWiki root URL is `/p/mwiki`, so the URL of the Java's Duke mascot image would no longer be
+
++ `/static/example_java_duke_mascot.svg`
+
+Instead it would be 
+
++ `/p/mwiki/static/example_java_duke_mascot.svg`
+
+By using the directive `@root`, no matter MWiki's root URL, it will not be necessary to change the image URL in the construct for external images as shown below.
+
+Example:
+
+```
+![Java's Duke Mascot](@root/static/example_java_duke_mascot.svg)
+```
+
+Rendering: 
+
+![Java's Duke Mascot](@root/static/example_java_duke_mascot.svg)
 
 
 
@@ -840,7 +862,7 @@ A figure of an external image uses URL (Universal Resource Locator) for external
 Example:
 
 ````markdown
-```{figure} https://some-web-site.com/pictures/example_java_duke_mascot.svg
+```{figure} /mwiki/static/example_java_duke_mascot.svg
 :width: 200px
 :alt: Java duke mascot, one of the symbols of the Java programming language.
 
@@ -851,13 +873,33 @@ Java's Duke mascot
 Rendering:
 
 
-```{figure} /static/example_java_duke_mascot.svg
+```{figure} /mwiki/static/example_java_duke_mascot.svg
 :height: 200px
 :alt: Java duke mascot, one of the symbols of the Java programming language.
 
 Java's Duke mascot
 ```
 
+Or relative to current MWiki's root URL:
+
+
+````markdown
+```{figure} @root/static/example_java_duke_mascot.svg
+:width: 200px
+:alt: Java duke mascot, one of the symbols of the Java programming language.
+
+Java's Duke mascot
+```
+````
+
+Rendering:
+
+```{figure} @root/static/example_java_duke_mascot.svg
+:width: 200px
+:alt: Java duke mascot, one of the symbols of the Java programming language.
+
+Java's Duke mascot
+```
 
 ### Figure of Internal Image
 
@@ -940,7 +982,7 @@ or
 ![[video-file-to-be-embedded.webm]]
 ```
 
-Embedded video files are rendered as [\<video\>](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video) html5 embedded element with controls for playing the video, including button for start playing the video, button for stopping the video and so on.
+Embedded video files are rendered as [video\](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video) html5 DOM element with controls for playing the video, including button for start playing the video, button for stopping the video and so on.
 
 NOTE: It is possible to upload video files directly in the wiki editor by clicking at the button with label 'Link to Uploaded File' in the editor toolbar section 'insert'.
 
