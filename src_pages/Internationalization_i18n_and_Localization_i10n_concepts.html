@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+    
+    <title data-i18n="source-page-title">MBook - Internationalization i18n and Localization i10n concepts</title>
+    <meta name="description" content="Terminology and concepts of internationalization i18N and localization i10n for building scalable software that can be localized to any world language." />
+    <meta name=generator content="MWiki">
+    
+   
+    
+   <style>
+
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: normal;
+    
+    
+    
+    src: url('/mwiki/static/fonts/cmu-concrete-regular.woff');
+    
+}
+    
+
+
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: italic;
+    
+    
+    
+    src: url('/mwiki/static/fonts/cmu-concrete-italic.woff');
+    
+}
+    
+
+@font-face {
+    font-family: 'Libertinus Mono';
+    
+    
+    
+    src: url('/mwiki/static/fonts/LibertinusMono-Regular.woff2');
+    
+}
+    
+
+@font-face {
+    font-family: 'Chicago MacOS';
+    
+    
+    
+    src: url('/mwiki/static/fonts/ChicagoFLF.ttf');
+    
+}
+    
+
+:root {
+    /*--- Desktop screen Width ----------------*/
+    --screen-width-desktop: 850px;
+
+    /* --bg-sidebar: #F2EACA; */  /* #F7F4ED; */
+    --bg-sidebar: white;  /* #F7F4ED; */
+    /* --bg-main:   #F2EACA ; */
+    --bg-main: white;
+    --typography-main-line-height: 1.7em;
+    --typography-main-leter-spacing: 0.5px;
+    --screen-type: "desktop";
+    --link-external-color: blue; /* hsl(0, 100%, 33%); */
+    --link-internal-color: blue;
+    --form-background-color: #fbfcfc;
+    --form-border-color: #cfd5e2;
+    --primary-button-background-color: #0172ad;
+
+
+    
+    --font-family-main: 'CMU Concrete';
+    
+    
+    --font-family-title: 'Chicago MacOS';
+    
+
+    --font-size-h1:  1.800rem;
+    --font-size-h2:  1.350rem;
+    --font-size-h3:  1.125rem;
+    --font-size-h4:  1.000rem;
+    --font-size-h5:  0.875rem;
+    --font-size-h6:  0.750rem;
+    --font-size-text: 0.720rem;
+    --font-size-code: 0.700rem;
+    --font-size-sidebar: 0.850rem;
+
+    --code-block-background-color: rgb(243, 244.5, 246.75);
+
+    /* Magnifier icon */
+    --icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(136, 145, 164)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+}
+
+
+        
+    </style>
+  
+    
+    <link rel="stylesheet" href="/mwiki/static/static_style.css">
+    
+    
+    
+    <!-- MathJax Settings -->
+    <script>
+
+    const FONT_FAMILY_MAIN = "CMU Concrete"
+    const FONT_FAMILY_TITLE = "Chicago MacOS"
+    const FONT_FAMILY_CODE = "Libertinus Mono"
+    const DEFAULT_LOCALE = "en-US";
+	  const USE_DEFAULT_LOCALE = "True" === "True";
+    const LATEX_RENDERER = "";
+    const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
+    const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
+    const KATEX_MACROS = "";
+    const CSRF_TOKEN = ""
+    const STATIC_COMPILATION = true;
+    const IS_USER_ADMIN = false;
+    // NOTE: It is encoded as base64 
+    const PAGE_SOURCE_CODE = "";
+    const PAGE_SOURCE_URL  = ""
+	
+    // Possible values: 'none', 'nosection' 'section', 'subsection'
+    //  none      => no enumeration 
+    //  nosection 
+    //      Schema: <equation-number>
+    //      Example: Equations are enumerated as 1, 2, ..., 200
+    //              in the order that they are shown without section or 
+    //              subsection number
+    //  section   
+    //      Schema:  => <section>.<equation-number>
+    //      Exmaple: => 2.1, 2.5, 6.8
+    //  subsection 
+    //      Schema:  => <section>.<subsection>.<equation-number>
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5 
+    //
+    let equation_enumeration = "";
+
+    MathJax = {
+        loader: {load: ['[tex]/tagformat', '[tex]/mathtools', 'output/chtml']}
+
+      , section: 1
+      , tex: {
+          inlineMath: [['$','$'], ['\\(','\\)']]
+        , displayMath: [['$$','$$'], ['\\[','\\]']]
+        , processEscapes: true
+        , processEnvironments: true
+          // Location of equation numbers
+        , tagSide: "right"  
+        // Possible values 'ams' or 'all' (all equations are numbered by default)
+        , tags: equation_enumeration !== "none" ? "all" : "ams"
+        //, tags: 'ams'
+        , packages: {'[+]': [
+                                  'tagformat'
+                                , 'sections'
+                                , 'subsections'
+                                , 'autoload-all'
+                            ]}
+        , tagformat: {
+          number: (n) => { 
+            if( equation_enumeration === "cont" 
+                || equation_enumeration == "continuous")
+            {
+                return '' + n;
+            }
+
+            let nsec = MathJax.config.section;
+            let nsub = MathJax.config.subsection;
+            var out = '';
+            if (nsub === 0 || equation_enumeration == "section") 
+            {
+                out = nsec + '.' + n;
+            } else {
+                out = nsec + '.' + nsub +  '.' + n;
+            }
+            // console.log("Display section = ", out);
+            return out;
+          }
+        }
+      }
+
+     , startup: {
+
+            ready() {
+                // console.log(" [TRACE] I was called from ready()");
+                const Configuration = MathJax._.input.tex.Configuration.Configuration;
+                const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+                new CommandMap('sections', {
+                      nextSection: 'NextSection'
+                    , setSection:  'SetSection'
+                }, {
+                     NextSection(parser, name) {
+                        // console.log(" [TRACE] Called NextSection()");
+                        MathJax.config.section++;
+                        MathJax.config.subsection = 0;
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                    , SetSection(parser, name) {
+                        // console.log(" [TRACE] Called SetSection()");
+                        const n = parser.GetArgument(name);
+                        MathJax.config.section = parseInt(n);
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                });
+                if (equation_enumeration === "subsection")
+                {
+                    new CommandMap('subsections', {
+                          nextSubSection: 'NextSubSection'
+                        , setSubSection:  'SetSubSection'
+                    }, {
+                         NextSubSection(parser, name) {
+                            // console.log(" [TRACE] NextSubSection() called.");
+                            MathJax.config.subsection++;
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                        , SetSubSection(parser, name) {
+                            const n = parser.GetArgument(name);
+                            // console.log(" [TRACE] SetSubSection to ", n);
+                            MathJax.config.subsection = parseInt(n);
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                    });
+                }
+
+                Configuration.create(
+                      'sections', { handler: { macro: ['sections'] } }
+                );
+
+                if( equation_enumeration === "subsection" )
+                {
+                    Configuration.create(
+                        'subsections', { handler: { macro: ['subsections'] } }
+                    );
+
+                }
+
+                MathJax.startup.defaultReady();
+                pseudocode.renderClass("pseudocode", { "lineNumber": true, "scopeLines": true });
+                // This function is provided by main.js.
+                if( isMobileScreen() ) { setHeadingVisibility(false); }
+                /// setHeadingsVisibility(false)
+            }
+        }
+    , chtml: {
+        /// displayAlign: "left"
+      }
+    // options for when overflow is linebreak
+    , linebreaks: {             
+        inline:           true,   // true for browser-based breaking of inline equations
+        width:            '100%', // a fixed size or a percentage of the container width
+        lineleading:      .2,     // the default lineleading in em units
+        LinebreakVisitor: null,   // The LinebreakVisitor to use
+    },
+
+    }
+    </script>
+
+    
+
+    
+  
+
+    
+
+
+    
+
+    
+    <!-- Additional Javascript libraries -->
+    
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", (event) => {
+            // Select graphviz code blocks 
+            let lst = document.querySelectorAll(".graphviz-dot");
+            for(let x of lst){
+
+                Viz.instance().then(function(viz) {
+                    // console.log("[TRACE] x = ", x);
+                    let code = x.innerText;
+                    // console.log(" [TRACE] code = ", code);
+                    let svg = viz.renderSVGElement(code);
+                    // console.log(" [TRACE] svg = ", svg);
+                    x.replaceWith(svg); 
+                    // x.outerHTML = svg;
+                    /// document.getElementById("graph").appendChild(svg);
+                });
+
+
+            }
+        }, false);
+        
+    </script>
+
+    
+    <script type="text/javascript" src="/mwiki/static/main.js"></script>
+    
+
+</head>
+
+<body>
+
+    
+    
+    <div class="main main-shift">
+        
+
+        <main class="content">
+            
+            <p class="hidden-mathjax-macros" style="display: none;">
+                $$
+                
+                $$
+            </p>
+            <div class="highlight"><pre><span></span>---
+title:       Internationalization i18n and Localization i10n concepts
+label:       
+description: Terminology and concepts of internationalization i18N and localization i10n for building scalable software that can be localized to any world language.
+<span class="gu">keywords:    </span>
+<span class="gu">---</span>
+
+
+<span class="gu">## Terminology of Internationalization</span>
+
+
+ISO 
+ : International Organization for Standardization
+ 
+W3C 
+ : World Wide Web Consortium
+
+IETF
+  : Internet Engineering Task Force
+
+AE
+ : American English
+ 
+BE
+ : British English 
+
+<span class="gs">**i10n**</span> - Localization (AE) or Localisation (BE)
+  : Adaptation of software or product to meet language and culture of a particular target market ou audience. Localization is not only language translation, but also cultural adaption, inclunding, country currency, parper size ISO A4 or Letter sizer, date time format, cultural conventions, legal requirements.
+
+<span class="gs">**i18n**</span> - Internationalization (AE), Internationalisation (BE)
+  : Process of building a software application capable of adapting to multiple languages and cultures without code changing. In other words, a internationalization is the process of building a software with localization infrastructure, that allows adding new localization without code changes.
+
+<span class="gs">**g11n**</span> - Globalization
+  : Combination of internationalization and localization. This terminology is used by IBM and Oracle.
+
+Locale
+  : Language ISO code for instance, en-US (American English), en-UK (British English), fr-CA (Canadian French) and so on.
+  
+CJK  Languages
+  : Chinese, Japanese and Korean languages
+
+CJKV Languages
+  : Chinese, Japanese, Korean and Vietnamese languages
+
+RTL Languages
+  : Right-To-Left Languages. Languages written from right to left. Examples: most languages using Latin Script, including, English, Greek and so on. 
+  
+LTR Languages
+  : Left-To-Right Languages. Languages written from left to right. Example: Hebrew, Arabic, Persian, Urdu, Phoenician and so on.
+
+NVL 
+  : National Language Version
+  
+[<span class="nt">ICU</span>](<span class="na">https://icu.unicode.org/</span>)
+  : International Components for Unicode 
+  
+[<span class="nt">ICU4J</span>](<span class="na">https://unicode-org.github.io/icu/userguide/icu4j/</span>)
+  : Java implementatijon of the ICU library.
+  
+[<span class="nt">CLDR</span>](<span class="na">https://cldr.unicode.org/</span>)
+  : Common Locale Data Repository (from ICU project)
+
+LMDL
+  : Locale Data Markup Language (XML-based language - ICU project).
+  
+UTF-8
+  : Unicode 8 bits. One &quot;character&quot; or symbol may use more than one byte. Unicode 8 bits is the most used text enconding format possibly due to the backward compatibility with the old ASCII text encoding. However, it makes programming harder since one cannot assume that i-th position of a unicode string corresponds to the i-th character because a single UTF-8 &quot;character&quot; may be represented by multiple bytes.
+  
+UTF-16
+  : Unicode 16 bits. One &quot;character&quot; or symbol is represented by 2 bytes. The UTF-16 encoding is mostly used internally by programming languages implementations, including Java and Python. The Windows C API - Application Programming Interface also uses UTF-16 in its internal APIs. This text enconding format is easier to deal with in programming langues because the i-th position of a unicode array is the i-th symbol. 
+  
+QA Testing
+  : EN - Quality Assurance Testing 
+  : PT - Teste de Garantia de Qualidade
+    
+<span class="gu">## Internationalization Issues</span>
+
+```{figure} ![[pasted-image-1760618396013.jpg]]
+:alt: World map depicting major regional languages around the world. The languages are listed in the order: (1) Spanish, (2) Arabic, (3) French, (4) Russian, (5) Chinese, Hindustani (6), Portuguese (7), German (8), Swahilli (9), Persian (10) and Malay/Indonesian (11). The map assigns colors for each major language, including Spanish (mostly in Hispanic-America), Arabic (MENA - Middle East and North Africa), French (France, Quebec and Africa), Russian (Eastern Europe and Central Asia), Chinese, Hindustani (Hindi and Urdu), Portuguese (South America / Portuguese-America / Luso-America - Brazil, Angola, Mozambique and Portugal), German (mostly in Central and West Erope, including Germany, Austria, Switzerland and Luxenbourg), Swahilli (East Africa in Kenya and Tanzania), Persian (West Asia and Central Asia), and Malay/Indonesia (South East Asia - SEA, including Indonesia and Malaysia).
+
+World Regional Languages
+<span class="sb">```</span>
+
+
+<span class="sb">Brainstorm of Major Internationalization Issues</span>
+
+
+<span class="sb">+ Initial Language</span>
+<span class="sb">  + The website or application attempts to guess the user language based on http header or IP address.</span>
+<span class="sb">  + Presents the web page in default language and provides a menu or form allowing the user to switch the language.</span>
+<span class="sb">+ Language Switching (Processo de mundança de línguagem)</span>
+<span class="sb">+ Optimization </span>
+<span class="sb">  + Localization strings (text) served or renderend in the front-end (client side).</span>
+<span class="sb">  + Localization strigns (text) served or rendered in the backend (server side).</span>
+<span class="sb">  + Lazy loading locatization strings.</span>
+<span class="sb">  + Load only what is needed.</span>
+<span class="sb">+ Language Issues</span>
+<span class="sb">    + Date Format</span>
+<span class="sb">    + Pluralization</span>
+<span class="sb">    + Language Dialects</span>
+<span class="sb">    + Gender-Specific Translations</span>
+<span class="sb">    + A country may have more than one language or more than one official language. For instance, in Canada, English and French are official languages and in Switzerland, German, French and Italian are official languages.</span>
+<span class="sb">    + Spelling of Specific dialect of a language (Ortografia de dialetos especificos de uma linguagem)</span>
+<span class="sb">    + RTL - Right-To-Left Language Support (Suporte a Línguagens da Esquerda para direita), for instance Arabic and Hebrew are written from right to left.</span>
+<span class="sb">+ Cultural Issues</span>
+<span class="sb">    + Cultural Standards</span>
+<span class="sb">    + Cultural Conventions</span>
+<span class="sb">    + Cultural Assumptions</span>
+<span class="sb">   </span>
+<span class="sb">## Common Mistakes</span>
+
+
+<span class="sb">+ Country Flag does not represent a language. For instance, the Brazilian flag should not be used for representing the Portuguese language.</span>
+<span class="sb">+ There are more than one dialect and spelling of the same language. For instance, some words in American English and British English have different spellings, i.e *internationalization* (American English) and *internationalisation* (British English). That is the reason why country flags should not be used for representing  languages.</span>
+<span class="sb">+ Localization must not only specific for a particular language. It should also be specific for each country and **standardized dialect of a language**, such as American English, British English, European Portuguese or Brazilian Portuguese. For instance, despite the American English be ubiuitous on the internet, most English speaking countries other than USA or Phillipines use British English spelling and languages contructs derived from this English dialect. The British English spelling is also widely used on continental Europe by non English speaking countries, including Germany, France, Portugal, Netherlands and so on.</span>
+<span class="sb">+ Do not use IP address or user geographic location for selecting the language or locale used by a website. The language should be selected based on the user preference indicated by the http header [Accept-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Accept-Language) and the graphicsuser interface should always have a button or selection box allowing the user to switch the language. On Linux Desktop applications, the environment variable LANG is commonly used for obtaining the user desired language. This variable is set during Linux installation of Linux desktop distributions to the language chosen by the user.</span>
+<span class="sb">+ Some reasons to avoid using IP address, geographic location or country for choosing the UI - User Interface language are: some countries may have multiple official languages or multiple spoken languages; nowadays, people travels and may not be able speak the local language; even a native speakers may not want read in his or her own native language. </span>
+<span class="sb">   </span>
+<span class="sb">  </span>
+<span class="sb">## Common Locales</span>
+
+<span class="sb">ISO Language Code</span>
+
+<span class="sb">| Language Code  | Language Name                |</span>
+<span class="sb">| -------------- | ---------------------------- |</span>
+<span class="sb">| la             | Latin                        |</span>
+<span class="sb">| scn            | Sicilian^{Closest languge to Latin.}</span>
+<span class="sb">| it             | Italian                      |</span>
+<span class="sb">| es             | Spanish                      |</span>
+<span class="sb">| pt             | Portuguese                   |</span>
+<span class="sb">| fr             | French                       |</span>
+<span class="sb">| en             | English                      |</span>
+<span class="sb">| de             | German                       | </span>
+<span class="sb">| el             | Modern Greek                 |</span>
+<span class="sb">| tr             | Turkish                      |</span>
+<span class="sb">| sv             | Swedish                      |</span>
+<span class="sb">| af             | Afrikaans                    |</span>
+<span class="sb">| uk             | Ukranian                     |</span>
+<span class="sb">| sw             | Swahilli                     |</span>
+<span class="sb">| ja             | Japanese                     |</span>
+<span class="sb">| zh             | Chinese                      |</span>
+<span class="sb">| ko             | Korean                       |</span>
+<span class="sb">| vi             | Vietnamese                   |</span>
+<span class="sb">| hi             | Hindi                        |</span>
+<span class="sb">| tm             | Tamil                        |</span>
+<span class="sb">| pa             | Punjabi                      |</span>
+<span class="sb">| sa             | Sanskrit                     |</span>
+<span class="sb">| tg             | Tajik^{Dialect of Persian}   |</span>
+<span class="sb">| id             | Indonesian                   | </span>
+<span class="sb">| ms             | Malay                        |</span>
+<span class="sb">| tl             | Tagalog (Phillipines)        |</span>
+<span class="sb">| fil            | Filipino (Phillipines)       |</span>
+<span class="sb">| ga             | Irisih Gaelic                |</span>
+<span class="sb">| gd             | Scottish Gaelic              | </span>
+<span class="sb">| gl             | Galician^{Closest language to Portuguese. Note that Galicia is now an autonomous region of Spain.} |</span>
+<span class="sb">| ca             | Catalan^{Language of Catalonia region of Spain.} |</span>
+<span class="sb">| eu             | Basque (Euskera)             |</span>
+
+
+<span class="sb">Locale codes follow the convention {raw}`&lt;language-code&gt;-&lt;countery-code&gt;` with (-) dash character or {raw}`&lt;language-code&gt;_&lt;country-code&gt;` with the underline character (_).</span>
+
+<span class="sb">| Country      | Locale Code          | Language Name                                   | </span>
+<span class="sb">|------------- | -------------------- | ----------------------------------------------- |</span>
+<span class="sb">| USA          | en-US                | American/USA English                            |</span>
+<span class="sb">| UK           | en-UK                | British English (UK - United Kingdom)           |</span>
+<span class="sb">| Ireland      | en-IE                | Irish English                                   |</span>
+<span class="sb">| Ireland      | ga-IE                | Irish language (Irish Gaelic)                   |</span>
+<span class="sb">| Canada       | en-CA                | Canadian English                                |</span>
+<span class="sb">| Canada       | fr-CA                | Canadian French (Français Canadien)             |</span>
+<span class="sb">| Australia    | en-AU                | Australian English                              | </span>
+<span class="sb">| New Zealand  | en-NZ                | New Zealand English                             |</span>
+<span class="sb">| Singapore    | en-SG                | Singaporean English                             |</span>
+<span class="sb">| Hong Kong    | en-HK                | Hong Kong English                               |</span>
+<span class="sb">| South Africa | en-ZA                | South African English                           |  </span>
+<span class="sb">| South Africa | af-ZA                | Afrikaans^{based on Dutch language with some words borrowed from other African languages.}             |</span>
+<span class="sb">| Phillipines  | en-PH                | Phillipines English^{Based on American English} |</span>
+<span class="sb">| India^{India is among the fastest growing economies in the world. On the long run, it means higher return on investment.}        | en-IN                | English (India)                                 |</span>
+<span class="sb">| India        | hi-IN                | Hindi^{Hindustani} (India)                      |</span>
+<span class="sb">| India        | ta-IN                | Tamil (India)                                   |</span>
+<span class="sb">| Germany      | de-DE                | German (Deutsch)                                |</span>
+<span class="sb">| Austria      | de-AT                | Austrian German (Österreichisches Deutsch)      |</span>
+<span class="sb">| Switzerland  | de-CH                | Switzerland German (Schweizerdeutsch)           |</span>
+<span class="sb">| Switzerland  | fr-CH                | Switzerland French  (Suisse français)           |</span>
+<span class="sb">| Switzerland  | it-CH                | Switzerland Italian                             |</span>
+<span class="sb">| France       | fr-FR                | French (Français)                               |</span>
+<span class="sb">| Italy        | it-IT                | Italian (Italiano)                              |</span>
+<span class="sb">| Greece       | el-GR                | Modern Greek                                    | </span>
+<span class="sb">| Türkiye      | tr-TR                | Turkish^{The country is formely known as Turkey.} |</span>
+<span class="sb">| Cyprus       | el-CY                | Modern Greek of Cyprus                          |</span>
+<span class="sb">| Cyprus       | tr-CY                | Turkish language (Cyprus)                       |</span>
+<span class="sb">| Spain        | es-ES                | Spanish (Español)                               |</span>
+<span class="sb">| Spain        | ca-ES                | Catalan (Catalán in Spanish)                    |   </span>
+<span class="sb">| Spain        | eu-ES                | Basque (Euskera)^{Non indo-european language}             |</span>
+<span class="sb">| Spain        | gl-ES                | Galician^{Sister language of Portuguese}        |</span>
+<span class="sb">| Mexico       | es-MX                | Mexican Spanish (Español mexicano)^[Pronouce: Espanhol merricano]              |</span>
+<span class="sb">| USA          | es-US                | American/USA Spanish                            |</span>
+<span class="sb">| Puerto Rico  | es-PR                | Puerto Rico Spanish (USA)                       |</span>
+<span class="sb">| Argentina    | es-AR                | Argentinian Spanish (Español argentino)         |</span>
+<span class="sb">| Uruguay      | es-UY                | Uruguayian Spanish (Español uruguayo)           |</span>
+<span class="sb">| Chile        | es-CL                | Chilean Spanish (Español chileno)               |</span>
+<span class="sb">| Colombia     | es-CO                | Colombian Spanish (Español colombiano)          |</span>
+<span class="sb">| Peru         | es-PE                | Peruvian Spanish (Español peruano)              |</span>
+<span class="sb">| Ecuador      | es-EC                | Ecuadorian Spanish (Español ecuatoriano)        |</span>
+<span class="sb">| Panama       | es-PA                | Panamenian Spanish (Español panameño)           |</span>
+<span class="sb">| Venezuela    | es-VE                | Venezuelan Spanish (Español venezolano)         |</span>
+<span class="sb">| Portugal     | pt-PT                | European Portuguese (Português Europeu)         |</span>
+<span class="sb">| Angola       | pt-AO                | Portuguese (Angola)                             |</span>
+<span class="sb">| Capte Verde  | pt-CV                | Portuguese (Português de Cabo Verde)            |                                        |</span>
+<span class="sb">| Brazil       | pt-BR                | Brazilian Portuguese (Português Brasileiro)     |                    </span>
+<span class="sb">| Japan        | ja-JP                | Japanese language                               |</span>
+<span class="sb">| Singapore    | zh-SG                | Chinese (Singapore)                             |</span>
+<span class="sb">| Taiwan       | zh-TW                | Taiwan Chinese                                  |</span>
+<span class="sb">| Hong Kong    | zh-HK                | Hong Kong Chinese                               |</span>
+<span class="sb">| China        | zh-CN                | Chinese (Mandarin Chinese of Mainland China)    | </span>
+<span class="sb">  </span>
+<span class="sb">NOTE:</span>
+<span class="sb">1. Most English variants around the world are based on the British English and uses the British spelling. The American English spelling is only used by USA and Phillipines.</span>
+<span class="sb">2. India does not have any official language and Hindi is not the official language of India. Moreover, the majority of Indian population does not speak Hindi.</span>
+<span class="sb">3. Hong Kong is not country. It is a SAR - Special Administrative Region of mainland China. Hong Kong has its own currency and onlympic team. In addition, in sports matches Hong Kong uses its own flag. </span>
+<span class="sb">4. Puerto Rico is not a country. The island is USA non incorporated territory, even though the island has its own olympic team.</span>
+<span class="sb">5. Spanish locales don&#39;t have much difference other than country code, currency and paper size since most Spanish countries follows the [Royal Spanish Academy](https://en.wikipedia.org/wiki/Royal_Spanish_Academy)^{Spanish: Real Academia Española}</span>
+
+<span class="sb">**Change User Interface Language on Linux**</span>
+
+<span class="sb">It is possible to change the UI interface language of some application on Linux on command line by setting the environment variable LANG to the desired locale code. The default system locale on Linux can be obtained by reading the environment variable $LANG.</span>
+
+<span class="sb">In bash shell or any other POSIX shell.</span>
+
+<span class="sb">```sh</span>
+<span class="sb">$ echo $LANG</span>
+<span class="sb">en_US.UTF-8</span>
+<span class="sb">```</span>
+
+In Python, 
+
+<span class="sb">```sh</span>
+&gt;&gt;&gt;<span class="w"> </span>import<span class="w"> </span>os<span class="w"> </span>
+
+&gt;&gt;&gt;<span class="w"> </span>os.getenv<span class="o">(</span><span class="s2">&quot;LANG&quot;</span>,<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="o">)</span>
+<span class="s1">&#39;en_US.UTF-8&#39;</span>
+<span class="sb">```</span>
+
+The following command temporarily changes the Kwrite KDE text editor language to Swiss German even if the default language used during the Linux distribution installation was not German. This feature is useful for learning new vocabulary of other languages.
+
+<span class="sb">```sh</span>
+env<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>de_CH<span class="w"> </span>kwrite
+<span class="sb">```</span>
+
+Lanch kwite with language set to Swiss German detached from terminal (without blocking the terminal emulator).
+
+<span class="sb">```sh</span>
+$<span class="w"> </span>env<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>de_CH.UTF-8<span class="w"> </span>kwrite<span class="w"> </span><span class="m">1</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="nb">disown</span>
+<span class="sb">```</span>
+
+Explanation:
+
++ <span class="sb">`1&gt; /dev/null`</span> redirects the kwrite process&#39; stdout (standard output) to Linux pseudo file /dev/null.
++ <span class="sb">`2&gt; /dev/null`</span> redirects the kwrite process&#39; stderr (standard error output) to Linux pseudo file /dev/null.
++ <span class="sb">`&amp; disown`</span> =&gt; Detach kwrite process from the terminal in order run this application as a daemon (background process/service) and to avoid blocking the terminal emulator and terminating the kwrite process if the terminal is closed.
+
+
+<span class="gs">**Screenshot of KWrite using different locales**</span>
+
+```{figure} ![[pasted-image-1760611139235.jpg]]
+
+KWrite started with en_US American English locale 
+<span class="sb">```</span>
+
+<span class="sb">```{figure} ![[pasted-image-1760611027216.jpg]]</span>
+
+<span class="sb">KWrite started with de_DE German locale for Switzerland</span>
+<span class="sb">```</span>
+
+```{figure} ![[pasted-image-1760610949514.jpg]]
+
+KWrite started with es_ES Spanish locale for Spain
+<span class="sb">```</span>
+
+
+<span class="sb">**See**</span>
+
+<span class="sb">+ *Country Code Language List*</span>
+<span class="sb">  + https://www.fincher.org/Utilities/CountryLanguageList.shtml</span>
+<span class="sb">+ *ISO-3166 Country Codes and ISO-639 Language Codes*, Oracle Docs</span>
+<span class="sb">  + https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html</span>
+<span class="sb">+ *Standard locale names*, Microsoft</span>
+<span class="sb">  + https://learn.microsoft.com/en-us/globalization/locale/standard-locale-names</span>
+<span class="sb">+ *ISO Country and Language Codes: The Definitive Guide*</span>
+<span class="sb">  + https://centus.com/blog/iso-language-codes</span>
+<span class="sb">                  </span>
+<span class="sb">## Falsehoods Many Programmers Believe About Names</span>
+
+<span class="sb">1. Names are only written using ascii characters. Counterexample: &quot;João&quot; (portuguese version of John) or &quot; Björk&quot; (Icelandic given name).</span>
+<span class="sb">2. Names does not contain hyphen (-) or apostrophe (&#39;) characters. Counterexample: O&#39;neil - common irish surname.</span>
+<span class="sb">3. A person may have only two names, a given name and surname (family name). Counterexample: the full name of Brazil&#39;s emperor [Pedro II of Brazil](https://en.wikipedia.org/wiki/Pedro_II_of_Brazil) was &quot;Pedro de Alcântara João Carlos Leopoldo Salvador Bibiano Francisco Xavier de Paula Leocádio Miguel Gabriel Rafael&quot;.</span>
+<span class="sb">4. People do not change their names, surnames or email. </span>
+<span class="sb">5. People will never have identical names.</span>
+<span class="sb">6. The name or surname has at least 3 characters. Counterexample: &quot;Wu&quot;.</span>
+<span class="sb">7. The full name is limited to 100 characters length.</span>
+<span class="sb">8. I will never need to deal with foreign names in my database.</span>
+<span class="sb">9. Names with the same spelling are always written in the same way with the same spelling. Counterexample: There are several different Japanese names that sounds as [&quot;Akira&quot;](&lt;https://en.wikipedia.org/wiki/Akira_(given_name)&gt;) and are romanized (written in latin script) as that, although they are written using different Kanji symbols and have different meanings. </span>
+<span class="sb">10. People have at least one surname. Countereraxmple: In some countries, such as Indonesia and Japan some people may have a single given name and no surname. Members of Japanese royalty do not have surnames or family names. Sukarno, the first president of Indonesia did not have any surname. His full name was just &quot;Sukarno&quot;.</span>
+<span class="sb">11. People only a have a single given name and there is no whitespace within a given name. Counterexample:  Hector Marίa GONZALEZ LÓPEZ. The given name is &quot;Hector Marίa&quot;. The patronymic surname is Gonzalez and the mather&#39;s family name is López. Many Spanish given names have the suffix Maria in compound given names. Female hispanic given often have the suffix &quot;de dolores&quot;, &quot;soledad&quot; and etc. </span>
+
+
+<span class="sb">**See also:**</span>
+
+<span class="sb">+ *Personal names around the world*, W3C</span>
+<span class="sb">  + https://www.w3.org/International/questions/qa-personal-names</span>
+<span class="sb">  + *How do people&#39;s names differ around the world, and what are the implications of those differences on the design of forms, databases, ontologies, etc. for the Web?*</span>
+<span class="sb">+ *Legal name*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Legal_name</span>
+<span class="sb">+ *Middle name*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Middle_name</span>
+<span class="sb">+ *Name change*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Name_change</span>
+<span class="sb">+ *Surname*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Surname</span>
+<span class="sb">+ *Maiden and married names*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Maiden_and_married_names</span>
+<span class="sb">+ *Patronymic surname*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Patronymic_surname</span>
+<span class="sb">+ *A basic guide to using Asian names*, Asia Media Centre</span>
+<span class="sb">  + https://www.asiamediacentre.org.nz/features/a-guide-to-using-asian-names</span>
+<span class="sb">+ *Chinese Naming Conventions - Chinese Culture*, Cultural Atlas</span>
+<span class="sb">  + https://culturalatlas.sbs.com.au/chinese-culture/chinese-culture-naming</span>
+<span class="sb">+ *Japanese Naming Conventions - Japanese Culture*, Cultural Atlas</span>
+<span class="sb">  + https://culturalatlas.sbs.com.au/japanese-culture/japanese-culture-naming</span>
+<span class="sb">+ *Wikipedia:Naming conventions (Chinese)*</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Wikipedia:Naming_conventions_(Chinese)</span>
+<span class="sb">+ *East Slavic name*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/East_Slavic_name</span>
+<span class="sb">+ *Roman naming conventions*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Roman_naming_conventions</span>
+<span class="sb">+ *Nomen gentilicium*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Nomen_gentilicium</span>
+<span class="sb">+ *Cognomen*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Cognomen</span>
+<span class="sb">+ *Praenomen*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Praenomen</span>
+<span class="sb">+ *Italian name*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Italian_name</span>
+<span class="sb">+ *Spanish naming customs*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Spanish_naming_customs</span>
+<span class="sb">+ *Spanish Names: A Beginner’s Guide to Naming Customs and Traditions*, ESLZubzz</span>
+<span class="sb">  + https://eslbuzz.com/spanish-names/</span>
+<span class="sb">+ *Spanish proper names and their cultural secrets: More than just a name*, WOrldsAcross</span>
+<span class="sb">  + https://blog.worldsacross.com/index/spanish-proper-names-and-their-cultural-secrets-more-than-just-a-name</span>
+<span class="sb">+ *Naming - Spanish Culture*, Cultural Atlas</span>
+<span class="sb">  + https://culturalatlas.sbs.com.au/spanish-culture/spanish-culture-naming</span>
+<span class="sb">+ *Naming customs of Hispanic America*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Naming_customs_of_Hispanic_America</span>
+<span class="sb">+ *Portuguese name*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Portuguese_name</span>
+<span class="sb">  + *A Portuguese name, or Lusophone name – a personal name in the Portuguese language – is typically composed of one or two personal names, the mother&#39;s family surname and the father&#39;s family surname (rarely only one surname, sometimes more than two). For practicality, usually only the last surname (excluding prepositions) is used in formal greetings.*</span>
+<span class="sb">+ *Arabic name*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Arabic_name</span>
+<span class="sb">+ *How Arabic Names Work: A Guide to Ism, Nasab, Laqab, Nisba, and Kunya*</span>
+<span class="sb">  + https://arabic-for-nerds.com/translation/how-are-family-names-constructed-in-arabic/</span>
+<span class="sb">+ *Mononym*, Wikipedia (People with no surname, just a single name)</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Mononym</span>
+<span class="sb">+ *List of legally mononymous people*, Wikipedia (List of people whose full legal name does not have surname or family name such as members of Japanese royal family)</span>
+<span class="sb">  + &lt;https://en.wikipedia.org/wiki/List_of_legally_mononymous_people&gt;</span>
+<span class="sb">+ *O&#39;Neill (surname)*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/O%27Neill_(surname)</span>
+<span class="sb">+ *Akira (given Japanese name)*, Wikipedia</span>
+<span class="sb">  + &lt;https://en.wikipedia.org/wiki/Akira_(given_name)&gt; </span>
+<span class="sb">+ *Category:Compound given names*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Category:Compound_given_names</span>
+<span class="sb">+ *How do I correctly abbreviate compounded first name for academic publications?*, Academia</span>
+<span class="sb">  + https://academia.stackexchange.com/questions/154619/how-do-i-correctly-abbreviate-compounded-first-name-for-academic-publications</span>
+<span class="sb"> </span>
+<span class="sb">## American English Vs British English </span>
+
+<span class="sb">| American English    | British English      |</span>
+<span class="sb">| ------------------- | -------------------- |</span>
+<span class="sb">| internalization     | internationalisation |</span>
+<span class="sb">| localization        | localisation         |</span>
+<span class="sb">| meter^{Preferred spelling in American English}  |  metre^{Preferred spelling in British English}            |</span>
+<span class="sb">| meters              | metres               |</span>
+<span class="sb">| program             | programme            |</span>
+<span class="sb">| computer program    | computer programme   |</span>
+<span class="sb">| study program       | study programme      |</span>
+<span class="sb">| center              | centre               |</span>
+<span class="sb">| color               | colour               |</span>
+<span class="sb">| favor               | favour               |</span>
+<span class="sb">| favorite            | favourite            |</span>
+<span class="sb">| labor               | labour               |</span>
+<span class="sb">| defense             | defence              |</span>
+<span class="sb">| ofense              | ofence               |</span>
+<span class="sb">| shop                | shoppe               |</span>
+<span class="sb">| shopping mall, mall, shopping center | shopping centre      |</span>
+<span class="sb">| tires               | tyres                |</span>
+<span class="sb">| while               | while, whilst        |  </span>
+<span class="sb">| football            | American football    |   </span>
+<span class="sb">| soccer              | football             |  </span>
+<span class="sb">| roommates           | roommates, flatmates |  </span>
+<span class="sb">| fall                | autumn               |</span>
+<span class="sb">| truck               | lorry                |</span>
+<span class="sb">| truck               | shorthand for pickup truck | </span>
+<span class="sb">| buddies (male friends of a guy)  | lads           |</span>
+<span class="sb">| girlfriends        | female friends of a young woman |</span>
+<span class="sb">| college student    | university student  |</span>
+<span class="sb">| college kids       | undergraduate university students (pejorative, slang) |</span>
+<span class="sb">| apartment          | flat                  |                      </span>
+
+<span class="sb">## Software Libraries</span>
+
+<span class="sb">JavaScript</span>
+<span class="sb"> + i18Next</span>
+
+<span class="sb">Python</span>
+<span class="sb">+ Gettext</span>
+<span class="sb">    </span>
+
+<span class="sb">## Footnotes</span>
+
+<span class="sb">```{footnotes}</span>
+<span class="sb">```</span>
+ 
+<span class="gu">## See also</span>
+
+<span class="gu">### Unicode </span>
+
++ <span class="ge">*UTF-8, Explained Simply*</span>, Nic Baker - Youtube Video
+  + https://www.youtube.com/watch?v=vpSkBV5vydg
++ <span class="ge">*&quot;The History of UTF-8, as told by Rob Pike&quot;*</span> (2003)
+  + https://doc.cat-v.org/bell_labs/utf-8_history
++ <span class="ge">*&quot;The History of UTF-8, as told by Rob Pike&quot;*</span> (2003)
+  + https://www.cl.cam.ac.uk/%7Emgk25/ucs/utf-8-history.txt
++ <span class="ge">*Be aware of sorting locales*</span>, Adrian Stoll
+  + https://www.adrianstoll.com/post/beware-of-sorting-locales/
++ <span class="ge">*locale(7) — Linux manual page*</span>
+  + https://man7.org/linux/man-pages/man7/locale.7.html
+  + <span class="ge">*A locale is a set of language and cultural rules.  These cover aspects such as language for messages, different character sets, lexicographic conventions, and so on. A program needs to be able to determine its locale and act accordingly to be portable to different cultures.*</span>
++ <span class="ge">*Iterating strings and manually decoding UTF-8*</span>, Zylinski
+  + https://zylinski.se/posts/iterating-strings-and-manually-decoding-utf8/
++ <span class="ge">*Python&#39;s splitlines does a lot more than just newlines*</span>, yossarian\.net
+  + https://yossarian.net/til/post/python-s-splitlines-does-a-lot-more-than-just-newlines/
++ <span class="ge">*The Country That Broke Kotlin*</span>, Sam Cooper
+  + https://sam-cooper.medium.com/the-country-that-broke-kotlin-84bdd0afb237
+  + <span class="ge">*Logic vs language: how a Turkish alphabet bug played a years-long game of hide-and-seek inside the Kotlin compiler.*</span>
++ <span class="ge">*Does Your Code Pass The Turkey Test?*</span>, Moserware (2008)
+  + https://www.moserware.com/2008/02/does-your-code-pass-turkey-test.html
+  + <span class="ge">*Over the past 6 years or so, I’ve failed each item on “The Turkey Test.” It’s very simple: will your code work properly on a person’s machine in or around the country of Turkey? Take this simple test.*</span>
++ <span class="ge">*SMS Turkish Disaster*</span>
+  + https://revealingerrors.com/turkish_sms_disaster
++ <span class="ge">*Strcasecmp in Turkish*</span>, Daniel Stenberg (2008) - Curl Project
+  + https://daniel.haxx.se/blog/2008/10/15/strcasecmp-in-turkish/
+  + <span class="ge">*A friendly user submitted the (lib)curl bug report [2154627](http://curl.haxx.se/bug/view.cgi?id=2154627) which identified a problem with our URL parser. It doesn’t treat “file://” as a known protocol if the locale in use is Turkish.*</span>
++ <span class="ge">*Internationalization for Turkish: Dotted and Dotless Letter &quot;I&quot;*</span>, I18nGuy
+  + http://www.i18nguy.com/unicode/turkish-i18n.html
+  + <span class="ge">*Many software and web applications that are already internationalized and are successfully supporting many languages, often suffer catastrophic failure when they add support for the Turkish language. This page explains the difficulty of supporting the Turkish language and typical solutions. There are 3 sections: A brief overview of Turkish characters and encodings. Turkish language problem and solutions. A brief history of the Turkish language is offered as background material.*</span>
++ <span class="ge">*Locale-agnostic case conversions by default*</span>
+  + https://github.com/Kotlin/KEEP/blob/main/proposals/stdlib/KEEP-0223-locale-agnostic-case-conversions.md
+  
+<span class="gu">### Internationalization and Localization  Reading</span>
+
++ <span class="ge">*Internationalization and localization*</span>, Wikipedia
+  + https://en.wikipedia.org/wiki/Internationalization_and_localization
++ <span class="ge">*International Components for Unicode*</span>, Wikipedia
+  + https://en.wikipedia.org/wiki/International_Components_for_Unicode
+  + <span class="ge">*International Components for Unicode (ICU) is an open-source project of mature C/C++ and Java libraries for Unicode support, software internationalization, and software globalization. ICU is widely portable to many operating systems and environments. It gives applications the same results on all platforms and between C, C++, and Java software. The ICU project is a technical committee of the Unicode Consortium and sponsored, supported, and used by IBM and many other companies.[2] ICU has been included as a standard component with Microsoft Windows since Windows 10 version 1703.[3]*</span>
++ <span class="ge">*ICU-TC Home Page*</span>
+  + https://icu.unicode.org/
++ <span class="ge">*Unicode CLDR Project*</span>
+  + https://cldr.unicode.org/
+  + <span class="ge">*The Unicode ==Common Locale Data Repository== (CLDR) provides key building blocks for software to support the world’s languages with the largest and most extensive standard repository of locale data available. This data is supplied by contributors for their languages via the CLDR SurveyTool. CLDR is used by a wide spectrum of companies for their ==software internationalization and localization==, adapting software to the conventions of different languages for such common software tasks. It includes: Locale-specific patterns for formatting and parsing: dates, times, timezones, numbers and currency values, measurement units,… Translations of names: languages, scripts, countries and regions, currencies, eras, months, weekdays, day periods, time zones, cities, and time units, emoji characters and sequences (and search keywords),… Language &amp; script information: characters used; plural cases; gender of lists; capitalization; rules for sorting &amp; searching; writing direction; transliteration rules; rules for spelling out numbers; rules for segmenting text into graphemes, words, and sentences; keyboard layouts… Country information: language usage, currency information, calendar preference, week conventions,… Validity: Definitions, aliases, and validity information for Unicode locales, languages, scripts, regions, and extensions,…*</span>
++ <span class="ge">*Language Plural Rules*</span>, ICU Project
+  + https://www.unicode.org/cldr/cldr-aux/charts/29/supplemental/language_plural_rules.html
++ <span class="ge">*ICU4J Readme*</span>, ICU Documentation (Java implementation of ICU Library)
+  + https://unicode-org.github.io/icu/userguide/icu4j/
++ <span class="ge">*Formatting Messages*</span>, ICU Documentation
+  + https://unicode-org.github.io/icu/userguide/format_parse/messages/
++ <span class="ge">*A complete guide to ICU message format &amp; syntax with examples*</span>, Llya Kurowski (2024)
+  + https://lokalise.com/blog/complete-guide-to-icu-message-format/
++ <span class="ge">*ICU message format: Guide to plurals, dates &amp; localization syntax*</span>, Kinga Pomkala (2023), SimpleLocalize
+  + https://simplelocalize.io/blog/posts/what-is-icu/
+  + <span class="ge">*ICU message format is the standard way developers handle plurals, dates, numbers, and other localized text in software. It&#39;s part of the internationalization (i18n) toolkit that ensures your messages are grammatically correct, culturally accurate, and easy to translate, no matter the language or region. By using ICU, you can avoid common localization bugs like “1 rooms” or incorrect date formats, while keeping translations consistent across all platforms. Used by Google, Microsoft, and countless frameworks like React Intl and Angular, ICU allows you to define all variations of a message in one place, making life easier for both developers and translators.*</span>
++ <span class="ge">*International Components for Unicode APIs*</span>, IBM (2022)
+  + https://www.ibm.com/docs/en/i/7.5.0?topic=category-international-components-unicode-apis
+  + <span class="ge">*The International Components for Unicode (ICU), IBM® i option 39, is a C and C++ library that provides Unicode services for writing global applications in ILE programming languages. ICU offers flexibility to extend and customize the supplied services, which include: ...*</span>
++ <span class="ge">*The Ultimate Guide to ICU Message Format*</span>, Crowdin Blog (2022)
+  + https://crowdin.com/blog/2022/04/13/icu-guide
+  + <span class="ge">*What Does ICU Stand for? As ICU documentation states, ICU means International Components for Unicode – a widely used set of C/C++ and Java libraries providing Unicode and globalization support for software and applications. ICU is released under a nonrestrictive open source license that is suitable for use with both commercial software and open source or free software.*</span>
++ <span class="ge">*Finally Doing Pluralization Right How the ICU plural syntax works*</span>, Alan Allegret (2021)
+  + https://medium.com/expedia-group-tech/finally-doing-pluralization-right-948e2e9d40bb
++ <span class="ge">*A Practical Guide to the ICU Message Format*</span>, Mohamed Ashour (2025), Phrase
+  + https://phrase.com/blog/posts/guide-to-the-icu-message-format/
++ <span class="ge">*Unicode and internationalization support*</span>, Android API Docs
+  + https://developer.android.com/guide/topics/resources/internationalization
+  + <span class="ge">*Android leverages the ICU library and CLDR project to provide Unicode and other internationalization support. This page&#39;s discussion of Unicode and internationalization support is divided into two sections: Android 6.0 (API level 23) and lower, and Android 7.0 (API level 24) and higher.*</span>
++ <span class="ge">*Java Localization – Formatting Messages*</span>, Baeldung
+  + https://www.baeldung.com/java-localization-messages-formatting
++ <span class="ge">*Tutorial on Python i18n: How to Use Gettext Python Module*</span>, Crowdin Blog (2022)
+  + https://crowdin.com/blog/2022/09/28/python-app-translation-tutorial
++ <span class="ge">*Localization as code: a composable approach to localization*</span>, Matt Owen (2025) - Pharse
+  + https://phrase.com/blog/posts/localization-as-code-composable-workflow/
++ <span class="ge">*10 UI Localization Best Practices for Developers*</span>, Nimrod Kramer (2024)
+  + https://daily.dev/blog/10-ui-localization-best-practices-for-developers
++ <span class="ge">*Introduction*</span>, I18N Next Documentation
+  + https://www.i18next.com/
+  + <span class="ge">*i18next is an internationalization-framework written in and for JavaScript. But it&#39;s much more than that! i18next goes beyond just providing the standard i18n features such as (plurals, context, interpolation, format). It provides you with a complete solution to localize your product from web to mobile and desktop.*</span>
++ <span class="ge">*Personal names around the world*</span>, W3C
+  + https://www.w3.org/International/questions/qa-personal-names
+  + <span class="ge">*How do people&#39;s names differ around the world, and what are the implications of those differences on the design of forms, databases, ontologies, etc. for the Web?*</span>
++ <span class="ge">*Implementing UI translation in SumatraPDF, a C++ Windows application*</span>, Kowalcyzky\.info
+  + https://blog.kowalczyk.info/a-vn0v/implementing-ui-translation-in-sumatrapdf-a-c-windows-application.html
++ <span class="ge">*Internationalization and Localization in Flask Apps*</span>, Reintech Media
+  + https://reintech.io/blog/internationalization-localization-flask-apps
++ <span class="ge">*The Flask Mega-Tutorial, Part XIII: I18n and L10n*</span>, Miguel Grinberg
+  + https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xiii-i18n-and-l10n
++ <span class="ge">*How to Internationalize Your Flask App Like a Pro*</span>, Oksana Tkach - Metamova
+  + https://medium.com/@oksanatkach/how-to-internationalize-your-flask-app-like-a-champ-e57535185893
+  + <span class="ge">*How to tweak the Babel library for large i18n projects to enable pseudotranslation and iterative localization*</span>
++ <span class="ge">*Localization vs. Internationalization*</span>, W3C
+  + https://www.w3.org/International/questions/qa-i18n
++ <span class="ge">*Mastering Localisation (l10n) and Internationalisation (i18n) in Modern Frontend Development*</span>, Nitin Mangrule
+  + https://medium.com/@ndmangrule/mastering-localisation-l10n-and-internationalisation-i18n-in-modern-frontend-development-3ec3c6751e58
++ <span class="ge">*GNU gettext Manual*</span>
+  + https://www.gnu.org/software/gettext/manual/gettext.html
+  + <span class="ge">*This manual documents the GNU gettext tools and the GNU libintl library, version 0.26.*</span>
++ <span class="ge">*GNU gettext*</span>, GNU Project
+  + https://www.gnu.org/software/gettext/
+  + Brief: * Usually, programs are written and documented in English, and use English at execution time for interacting with users. This is true not only from within GNU, but also in a great deal of proprietary and free software. Using a common language is quite handy for communication between developers, maintainers and users from all countries. On the other hand, most people are less comfortable with English than with their own native language, and would rather be using their mother tongue for day to day&#39;s work, as far as possible. Many would simply love seeing their computer screen showing a lot less of English, and far more of their own language. GNU gettext is an important step for the GNU Translation Project, as it is an asset on which we may build many other steps. This package offers to programmers, translators, and even users, a well integrated set of tools and documentation. Specifically, the GNU gettext utilities are a set of tools that provides a framework to help other GNU packages produce multi-lingual messages. These tools include a set of conventions about how programs should be written to support message catalogs, a directory and file naming organization for the message catalogs themselves, a runtime library supporting the retrieval of translated messages, and a few stand-alone programs to massage in various ways the sets of translatable strings, or already translated strings. A special GNU Emacs mode also helps interested parties in preparing these sets, or bringing them up to date.*
++ <span class="ge">*Guide to the ECMAScript Internationalization API*</span>, W3C Interationalization
+  + https://w3c.github.io/i18n-drafts/articles/intl/index.en.html
+  + <span class="ge">*For years, developers relied on JavaScript libraries, string manipulation, or server-side logic to ensure that users around the world see dates, numbers, and text formatted in a way that is natural and correct for them. These solutions, while functional, often added significant weight to web pages and created maintenance challenges. Fortunately, modern browsers now have a built-in, standardized solution: the ECMAScript Internationalization API, available globally in JavaScript via the Intl object. This API provides a native way to handle locale- and culture-sensitive data and operations, ensuring your application speaks your user&#39;s language correctly and efficiently. This article will serve as a practical overview of the most essential parts of the Intl API, providing actionable examples you can use to internationalize your web applications today.*</span>
++ <span class="ge">*Implement a strategy to select the language/culture for each request in a localized ASP.NET Core app*</span>, Microsft Learn - Dotnet core
+  + https://learn.microsoft.com/en-us/aspnet/core/fundamentals/localization/select-language-culture?view=aspnetcore-9.0
+ + <span class="ge">*Accept-Language header*</span>, MDN - Mozilla Development Network
+   + https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Accept-Language
+   + <span class="ge">*The HTTP Accept-Language request header indicates the natural language and locale that the client prefers. The server uses content negotiation to select one of the proposals and informs the client of the choice with the Content-Language response header. Browsers set required values for this header according to their active user interface language. Users can also configure additional preferred languages through browser settings. The Accept-Language header generally lists the same locales as the navigator.languages property, with decreasing q values (quality values). Some browsers, like Chrome and Safari, add language-only fallback tags in Accept-Language. For example, en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7 when navigator.languages is [&quot;en-US&quot;, &quot;zh-CN&quot;]. For privacy purposes (reducing fingerprinting), both Accept-Language and navigator.languages may not include the full list of user preferences. For example, in Safari (always) and Chrome&#39;s incognito mode, only one language is listed.*</span>
++ <span class="ge">*Accept-Language used for locale setting*</span>, W3C (2003)
+  + https://www.w3.org/International/questions/qa-accept-lang-locales
++ <span class="ge">*Accept-Language Documentation*</span>, Fastly 
+  + https://www.fastly.com/documentation/reference/http/http-headers/Accept-Language/
++ <span class="ge">*Internationalization and localization*</span>, Django Docs
+  + https://docs.djangoproject.com/en/5.2/topics/i18n/
++ <span class="ge">*Translation*</span>, Django Docs
+  + https://docs.djangoproject.com/en/5.2/topics/i18n/translation/
++ <span class="ge">*Localization / Internationalization*</span>
+  + https://frontend.turing.edu/lessons/module-4/localization.html
++ <span class="ge">*Introduction - I18N Best Practices*</span>
+  + https://internationalization-guide.readthedocs.io/en/latest/introduction.html
++ <span class="ge">*Internationalize your API*</span>, The Rest API Cookbook
+  + https://octo-woapi.github.io/cookbook/internationalization.html
++ <span class="ge">*Internationaliazation*</span>, Django Rest Framework Docs
+  + https://www.django-rest-framework.org/topics/internationalization/
++ <span class="ge">*Django Internationalization and Localization Best Practices*</span>, Codezup
+  + https://codezup.com/django-i18n-l10n-best-practices/
++ <span class="ge">*Globalization and localization in ASP\.NET Core*</span>, Documentation ASP\.NET Core
+  + https://learn.microsoft.com/en-us/aspnet/core/fundamentals/localization?view=aspnetcore-9.0
++ <span class="ge">*Vue.js and Vue Router with Internationalization and Localization*</span>, Codez Up (2024)
+  + https://codezup.com/vuejs-vuerouter-internationalization-localization/
++ <span class="ge">*Where should I do localization (server-side or client-side)?*</span>
+  + https://softwareengineering.stackexchange.com/questions/313726/where-should-i-do-localization-server-side-or-client-side
++ <span class="ge">*Internationalization, localization, and input methods in Fuchsia*</span>
+  + https://fuchsia.dev/fuchsia-src/development/internationalization
++ <span class="ge">*RFC 9839 and Bad Unicode*</span>, TBray (See &lt;rfc:9839&gt;)
+  + https://www.tbray.org/ongoing/When/202x/2025/08/14/RFC9839
+  + <span class="ge">*Unicode is good. If you’re designing a data structure or protocol that has text fields, they should contain Unicode characters encoded in UTF-8. There’s another question, though: “Which Unicode characters?” The answer is “Not all of them, please exclude some.” This issue keeps coming up, so Paul Hoffman and I put together an individual-submission draft to the IETF and now (where by “now” I mean “two years later”) it’s been published as RFC 9839. It explains which characters are bad, and why, then offers three plausible less-bad subsets that you might want to use. Herewith a bit of background, but…*</span>
++ <span class="ge">*A step-by-step guide to effective website localization*</span>, Webflow
+  + https://webflow.com/blog/website-localization
+  + <span class="ge">*Discover the benefits of website localization and learn how to modify your content and marketing strategy to cater to local audiences effectively.*</span>       
++ <span class="ge">*Internationalization And Localization For Static Sites*</span>, Sam Richard, Smash Magazine (2020)
+  + https://www.smashingmagazine.com/2020/11/internationalization-localization-static-sites/
++ <span class="ge">*Building a Multilingual Static Website: A Step-by-Step Guide*</span>, Noha Nabil (2023)
+  + https://medium.com/@nohanabil/building-a-multilingual-static-website-a-step-by-step-guide-7af238cc8505 
++ <span class="ge">*Internationalization*</span>, NextJS
+  + https://nextjs.org/docs/app/guides/internationalization
+  + <span class="ge">*Next.js enables you to configure the routing and rendering of content to support multiple languages. Making your site adaptive to different locales includes translated content (localization) and internationalized routes.*</span>
++ <span class="ge">*Integrating Localization Into Design Systems*</span>, Rebecca Hemstand and Mark Malek
+  + https://www.smashingmagazine.com/2025/05/integrating-localization-into-design-systems/
+  + <span class="ge">*Learn how two designers tackled the challenges of building a ==localization-ready design system== for a global audience. This case study dives into how Rebecca and Mark combined Figma Variables and design tokens to address ==multilingual design issues==, such as text overflow, RTL layouts, and font inconsistencies. They share key lessons learned and the hurdles they faced — including Figma’s limitations — along with the solutions they developed to create dynamic, scalable designs that adapt ==seamlessly across languages==, themes, and densities. If you’re navigating the complexities of internationalization in design systems, this article is for you.*</span>
++ <span class="ge">*Right-to-Left (RTL) Localization: The Definitive Guide*</span>
+  + https://centus.com/blog/right-to-left-languages-translation
++ <span class="ge">*k-yak / stati18n Public*</span> (2014)
+  + https://github.com/k-yak/stati18n   
+ 
+   
+<span class="gu">### Numbers and Mesurement</span>
+
++ <span class="ge">*International System of Units*</span>, Wikipedia
+  + https://en.wikipedia.org/wiki/International_System_of_Units
++ <span class="ge">*SI base unit*</span>, Wikipedia
+  + https://en.wikipedia.org/wiki/SI_base_unit
++ <span class="ge">*SI derived unit*</span>, Wikipedia
+  + https://en.wikipedia.org/wiki/SI_derived_unit
++ <span class="ge">*Decimal separator*</span>, Wikipedia
+  + https://en.wikipedia.org/wiki/Decimal_separator
+ + <span class="ge">*Number formatting in Europe vs. the U.S.*</span>
+   + https://www.languageediting.com/number-formatting-europe-vs-us/
++ <span class="ge">*Hindu–Arabic numeral system*</span>, Wikipedia
+  + https://en.wikipedia.org/wiki/Hindu%E2%80%93Arabic_numeral_system
++ <span class="ge">*Arabic numerals*</span>, Wikipedia
+  + https://en.wikipedia.org/wiki/Arabic_numerals
++ <span class="ge">*Eastern Arabic numerals*</span>, Wikipedia
+   + https://en.wikipedia.org/wiki/Eastern_Arabic_numerals
++ <span class="ge">*Indian numbering system*</span>, Wikipedia
+  + https://en.wikipedia.org/wiki/Indian_numbering_system
++ <span class="ge">*Chinese numerals*</span>, Wikipedia
+  + https://en.wikipedia.org/wiki/Chinese_numerals
++ <span class="ge">*Japanese numerals*</span>, Wikipedia
+  + https://en.wikipedia.org/wiki/Japanese_numerals
+</pre></div>
+
+        </main>
+
+        
+        <style>
+            .highlight {
+                max-height: none !important;
+            }
+
+            .highlight pre {
+                overflow-wrap: break-word;
+                word-break: break-word;
+                text-wrap: balance;
+            }
+
+            .content {
+                width: 100% !important;
+                height: 100% !important;
+                margin-left: -50px !important;
+            }
+ 
+            .sidebar {
+                display: none;
+            }
+        </style>
+        
+    </div>
+    <script>
+    </script>
+
+</body>
+
+</html>

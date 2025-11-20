@@ -21,7 +21,9 @@
     font-style: normal;
     
     
+    
     src: url('/mwiki/static/fonts/cmu-concrete-regular.woff');
+    
 }
     
 
@@ -32,7 +34,9 @@
     font-style: italic;
     
     
+    
     src: url('/mwiki/static/fonts/cmu-concrete-italic.woff');
+    
 }
     
 
@@ -40,7 +44,9 @@
     font-family: 'Libertinus Mono';
     
     
+    
     src: url('/mwiki/static/fonts/LibertinusMono-Regular.woff2');
+    
 }
     
 
@@ -48,7 +54,9 @@
     font-family: 'Chicago MacOS';
     
     
+    
     src: url('/mwiki/static/fonts/ChicagoFLF.ttf');
+    
 }
     
 
@@ -69,13 +77,6 @@
     --form-border-color: #cfd5e2;
     --primary-button-background-color: #0172ad;
 
-    /* --font-family-main: 'Computer Modern'; */
-    /* --font-family-main: 'Neo Euler'; */
-    /***
-    --font-family-main: 'monospace';
-    --font-family-title: 'Sans Serif';
-    --font-family-code: 'monospace';
-    **/
 
     
     --font-family-main: 'CMU Concrete';
@@ -104,22 +105,29 @@
         
     </style>
   
+    
     <link rel="stylesheet" href="/mwiki/static/static_style.css">
-
-   
-
+    
     
     
     <!-- MathJax Settings -->
     <script>
 
-    let FONT_FAMILY_MAIN = "CMU Concrete"
-    let FONT_FAMILY_TITLE = "Chicago MacOS"
-    let FONT_FAMILY_CODE = "Libertinus Mono"
-    let DEFAULT_LOCALE = "en-US";
-	  let USE_DEFAULT_LOCALE = "True" === "True";
-    let CSRF_TOKEN = ""
+    const FONT_FAMILY_MAIN = "CMU Concrete"
+    const FONT_FAMILY_TITLE = "Chicago MacOS"
+    const FONT_FAMILY_CODE = "Libertinus Mono"
+    const DEFAULT_LOCALE = "en-US";
+	  const USE_DEFAULT_LOCALE = "True" === "True";
+    const LATEX_RENDERER = "katex";
+    const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
+    const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
+    const KATEX_MACROS = "eyJcXGIiOiAiXFxtYXRoYmZ7IzF9IiwgIlxcc2IiOiAiXFxib2xkc3ltYm9seyMxfSIsICJcXGFyZ21heCI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtYXh9IiwgIlxcYXJnbWluIjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1pbn0iLCAiXFxSIjogInsgXFxtYXRoYmJ7Un0gfSIsICJcXFoiOiAiXFxtYXRoYmJ7Wn0iLCAiXFxsYXBsYWNlIjogIlxcbWF0aGNhbHtMfVxceyMxXFx9IiwgIlxcZm91cmllciI6ICJcXG1hdGhjYWx7Rn1cXHsjMVxcfSIsICJcXGQiOiAiXFxtYXRocm17ZH0iLCAiXFxwIjogIlxccGFydGlhbCIsICJcXGUiOiAiXFxtYXRocm17ZX0iLCAiXFxDIjogInsgXFxtYXRoYmJ7Q30gfSIsICJcXEJpZ08iOiAiXFxtYXRoY2Fse099XFwhXFxsZWZ0KCMxXFxyaWdodCkiLCAiXFxtZGVmIjogIntcXHRyaWFuZ2xlcSBcXDt9IiwgIlxcc2duIjogIlxcb3BlcmF0b3JuYW1le3Nnbn0ifQ==";
+    const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
+    const IS_USER_ADMIN = false;
+    // NOTE: It is encoded as base64 
+    const PAGE_SOURCE_CODE = "";
+    const PAGE_SOURCE_URL  = "/mwiki/src_pages/Open_Source_Licenses.html"
 	
     // Possible values: 'none', 'nosection' 'section', 'subsection'
     //  none      => no enumeration 
@@ -256,11 +264,26 @@
     }
     </script>
 
-
     
 
     
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js" integrity="sha384-J+9dG2KMoiR9hqcFao0IBLwxt6zpcyN68IgwzsCSkbreXUjmNVRhPFTssqdSGjwQ" crossorigin="anonymous"></script>
+        <!-- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" -->
+            <!-- onload="renderMathInElement(document.body);"></script> -->
+        
+    
+  
 
+    
+        <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js" async> </script>
+    
+
+
+    
 
     
     <!-- Additional Javascript libraries -->
@@ -290,13 +313,17 @@
         }, false);
         
     </script>
+
+    
     <script type="text/javascript" src="/mwiki/static/main.js"></script>
+    
 
 </head>
 
 <body>
-    <aside class="sidebar sidebar-visibility">
 
+    
+    <aside class="sidebar sidebar-visibility">
         
         <h2 data-i18n="sidebar-table-of-contentes-label">Contents</h2>
         
@@ -309,9 +336,11 @@
 </li>
 </ol></ol>
         </div>
-
     </aside>
+    
+    
     <div class="main main-shift">
+        
         <header class="header">
             <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/mwiki/static/hamburger-menu.svg" style="height: 25px;"/> </a>
             <a data-i18n="home-page-button" class="sidebar-toggle-button" 
@@ -324,7 +353,11 @@
                  >
                 <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
                 </a>
-              <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                
+            <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                
+                <a data-i18n="show-source-menu-item-label" class="sidebar-toggle-button" href="#" onclick="displayPageSourceWindow();">Show source</a>
+                
                 
                  <a data-i18n="popup-window-change-language-menu-launcher" class="sidebar-toggle-button" href="#"
                     onclick="changeLanguageForm.toggle();"
@@ -344,7 +377,7 @@
                  onclick="toggleHeadings();"
                  id="btn-scroll-bottom" 
                  title="Fold/Unfold all sections."
-                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg" ></a> 
+                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg"></a> 
             <!-- 
              <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
                  href="#" 
@@ -357,11 +390,14 @@
             --> 
               
         </header>
+        
 
         <main class="content">
+            
             <div class="div-heading-h1">
                 <h1 data-i18n="" class="document-heading">Open Source Licenses</h1>
             </div>
+            
             <p class="hidden-mathjax-macros" style="display: none;">
                 $$
                 
@@ -373,8 +409,7 @@
 
 <div class="div-heading"> 
 <h2 id="H_Open_Source_Licences_Overview" class="document-heading anchor">Open Source Licences Overview <a class="link-heading" href="#H_Open_Source_Licences_Overview">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Open_Source_Licenses?start=10&end=92&anchor=H_Open_Source_Licences_Overview&page=Open Source Licenses&timestamp=176064157280265" title="[i18n]: Open Source Licences Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{1}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Open_Source_Licenses?start=10&end=92&anchor=H_Open_Source_Licences_Overview&page=Open Source Licenses&timestamp=176064157280265" title="[i18n]: Open Source Licences Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -437,8 +472,7 @@
 
 <div class="div-heading"> 
 <h2 id="H_Summary" class="document-heading anchor">Summary <a class="link-heading" href="#H_Summary">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Open_Source_Licenses?start=92&end=115&anchor=H_Summary&page=Open Source Licenses&timestamp=176064157280265" title="[i18n]: Summary" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{2}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Open_Source_Licenses?start=92&end=115&anchor=H_Summary&page=Open Source Licenses&timestamp=176064157280265" title="[i18n]: Summary" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -505,8 +539,7 @@ Known Product with Unlicense: SQLite
 
 <div class="div-heading"> 
 <h2 id="H_See_Also" class="document-heading anchor">See Also <a class="link-heading" href="#H_See_Also">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Open_Source_Licenses?start=115&end=end&anchor=H_See_Also&page=Open Source Licenses&timestamp=176064157280265" title="[i18n]: See Also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{3}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Open_Source_Licenses?start=115&end=end&anchor=H_See_Also&page=Open Source Licenses&timestamp=176064157280265" title="[i18n]: See Also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -654,9 +687,12 @@ Known Product with Unlicense: SQLite
 
 
         </main>
+
+        
     </div>
     <script>
     </script>
+
 </body>
 
 </html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+    
+    <title data-i18n="source-page-title">MBook - Open Source Licenses</title>
+    <meta name="description" content="Summary of open source licenses." />
+    <meta name=generator content="MWiki">
+    
+   
+    
+   <style>
+
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: normal;
+    
+    
+    
+    src: url('/mwiki/static/fonts/cmu-concrete-regular.woff');
+    
+}
+    
+
+
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: italic;
+    
+    
+    
+    src: url('/mwiki/static/fonts/cmu-concrete-italic.woff');
+    
+}
+    
+
+@font-face {
+    font-family: 'Libertinus Mono';
+    
+    
+    
+    src: url('/mwiki/static/fonts/LibertinusMono-Regular.woff2');
+    
+}
+    
+
+@font-face {
+    font-family: 'Chicago MacOS';
+    
+    
+    
+    src: url('/mwiki/static/fonts/ChicagoFLF.ttf');
+    
+}
+    
+
+:root {
+    /*--- Desktop screen Width ----------------*/
+    --screen-width-desktop: 850px;
+
+    /* --bg-sidebar: #F2EACA; */  /* #F7F4ED; */
+    --bg-sidebar: white;  /* #F7F4ED; */
+    /* --bg-main:   #F2EACA ; */
+    --bg-main: white;
+    --typography-main-line-height: 1.7em;
+    --typography-main-leter-spacing: 0.5px;
+    --screen-type: "desktop";
+    --link-external-color: blue; /* hsl(0, 100%, 33%); */
+    --link-internal-color: blue;
+    --form-background-color: #fbfcfc;
+    --form-border-color: #cfd5e2;
+    --primary-button-background-color: #0172ad;
+
+
+    
+    --font-family-main: 'CMU Concrete';
+    
+    
+    --font-family-title: 'Chicago MacOS';
+    
+
+    --font-size-h1:  1.800rem;
+    --font-size-h2:  1.350rem;
+    --font-size-h3:  1.125rem;
+    --font-size-h4:  1.000rem;
+    --font-size-h5:  0.875rem;
+    --font-size-h6:  0.750rem;
+    --font-size-text: 0.720rem;
+    --font-size-code: 0.700rem;
+    --font-size-sidebar: 0.850rem;
+
+    --code-block-background-color: rgb(243, 244.5, 246.75);
+
+    /* Magnifier icon */
+    --icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(136, 145, 164)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+}
+
+
+        
+    </style>
+  
+    
+    <link rel="stylesheet" href="/mwiki/static/static_style.css">
+    
+    
+    
+    <!-- MathJax Settings -->
+    <script>
+
+    const FONT_FAMILY_MAIN = "CMU Concrete"
+    const FONT_FAMILY_TITLE = "Chicago MacOS"
+    const FONT_FAMILY_CODE = "Libertinus Mono"
+    const DEFAULT_LOCALE = "en-US";
+	  const USE_DEFAULT_LOCALE = "True" === "True";
+    const LATEX_RENDERER = "";
+    const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
+    const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
+    const KATEX_MACROS = "";
+    const CSRF_TOKEN = ""
+    const STATIC_COMPILATION = true;
+    const IS_USER_ADMIN = false;
+    // NOTE: It is encoded as base64 
+    const PAGE_SOURCE_CODE = "";
+    const PAGE_SOURCE_URL  = ""
+	
+    // Possible values: 'none', 'nosection' 'section', 'subsection'
+    //  none      => no enumeration 
+    //  nosection 
+    //      Schema: <equation-number>
+    //      Example: Equations are enumerated as 1, 2, ..., 200
+    //              in the order that they are shown without section or 
+    //              subsection number
+    //  section   
+    //      Schema:  => <section>.<equation-number>
+    //      Exmaple: => 2.1, 2.5, 6.8
+    //  subsection 
+    //      Schema:  => <section>.<subsection>.<equation-number>
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5 
+    //
+    let equation_enumeration = "";
+
+    MathJax = {
+        loader: {load: ['[tex]/tagformat', '[tex]/mathtools', 'output/chtml']}
+
+      , section: 1
+      , tex: {
+          inlineMath: [['$','$'], ['\\(','\\)']]
+        , displayMath: [['$$','$$'], ['\\[','\\]']]
+        , processEscapes: true
+        , processEnvironments: true
+          // Location of equation numbers
+        , tagSide: "right"  
+        // Possible values 'ams' or 'all' (all equations are numbered by default)
+        , tags: equation_enumeration !== "none" ? "all" : "ams"
+        //, tags: 'ams'
+        , packages: {'[+]': [
+                                  'tagformat'
+                                , 'sections'
+                                , 'subsections'
+                                , 'autoload-all'
+                            ]}
+        , tagformat: {
+          number: (n) => { 
+            if( equation_enumeration === "cont" 
+                || equation_enumeration == "continuous")
+            {
+                return '' + n;
+            }
+
+            let nsec = MathJax.config.section;
+            let nsub = MathJax.config.subsection;
+            var out = '';
+            if (nsub === 0 || equation_enumeration == "section") 
+            {
+                out = nsec + '.' + n;
+            } else {
+                out = nsec + '.' + nsub +  '.' + n;
+            }
+            // console.log("Display section = ", out);
+            return out;
+          }
+        }
+      }
+
+     , startup: {
+
+            ready() {
+                // console.log(" [TRACE] I was called from ready()");
+                const Configuration = MathJax._.input.tex.Configuration.Configuration;
+                const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+                new CommandMap('sections', {
+                      nextSection: 'NextSection'
+                    , setSection:  'SetSection'
+                }, {
+                     NextSection(parser, name) {
+                        // console.log(" [TRACE] Called NextSection()");
+                        MathJax.config.section++;
+                        MathJax.config.subsection = 0;
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                    , SetSection(parser, name) {
+                        // console.log(" [TRACE] Called SetSection()");
+                        const n = parser.GetArgument(name);
+                        MathJax.config.section = parseInt(n);
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                });
+                if (equation_enumeration === "subsection")
+                {
+                    new CommandMap('subsections', {
+                          nextSubSection: 'NextSubSection'
+                        , setSubSection:  'SetSubSection'
+                    }, {
+                         NextSubSection(parser, name) {
+                            // console.log(" [TRACE] NextSubSection() called.");
+                            MathJax.config.subsection++;
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                        , SetSubSection(parser, name) {
+                            const n = parser.GetArgument(name);
+                            // console.log(" [TRACE] SetSubSection to ", n);
+                            MathJax.config.subsection = parseInt(n);
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                    });
+                }
+
+                Configuration.create(
+                      'sections', { handler: { macro: ['sections'] } }
+                );
+
+                if( equation_enumeration === "subsection" )
+                {
+                    Configuration.create(
+                        'subsections', { handler: { macro: ['subsections'] } }
+                    );
+
+                }
+
+                MathJax.startup.defaultReady();
+                pseudocode.renderClass("pseudocode", { "lineNumber": true, "scopeLines": true });
+                // This function is provided by main.js.
+                if( isMobileScreen() ) { setHeadingVisibility(false); }
+                /// setHeadingsVisibility(false)
+            }
+        }
+    , chtml: {
+        /// displayAlign: "left"
+      }
+    // options for when overflow is linebreak
+    , linebreaks: {             
+        inline:           true,   // true for browser-based breaking of inline equations
+        width:            '100%', // a fixed size or a percentage of the container width
+        lineleading:      .2,     // the default lineleading in em units
+        LinebreakVisitor: null,   // The LinebreakVisitor to use
+    },
+
+    }
+    </script>
+
+    
+
+    
+  
+
+    
+
+
+    
+
+    
+    <!-- Additional Javascript libraries -->
+    
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", (event) => {
+            // Select graphviz code blocks 
+            let lst = document.querySelectorAll(".graphviz-dot");
+            for(let x of lst){
+
+                Viz.instance().then(function(viz) {
+                    // console.log("[TRACE] x = ", x);
+                    let code = x.innerText;
+                    // console.log(" [TRACE] code = ", code);
+                    let svg = viz.renderSVGElement(code);
+                    // console.log(" [TRACE] svg = ", svg);
+                    x.replaceWith(svg); 
+                    // x.outerHTML = svg;
+                    /// document.getElementById("graph").appendChild(svg);
+                });
+
+
+            }
+        }, false);
+        
+    </script>
+
+    
+    <script type="text/javascript" src="/mwiki/static/main.js"></script>
+    
+
+</head>
+
+<body>
+
+    
+    
+    <div class="main main-shift">
+        
+
+        <main class="content">
+            
+            <p class="hidden-mathjax-macros" style="display: none;">
+                $$
+                
+                $$
+            </p>
+            <div class="highlight"><pre><span></span>---
+title:       Open Source Licenses
+label:       oss-license       
+description: Summary of open source licenses.
+
+---
+
+% Note that this is a definition list.
+%
+
+<span class="gu">## Open Source Licences Overview</span>
+
+IP
+  : Intelectual Property 
+
+OSI 
+  : Open Source Iniciative 
+  
+OSS
+  : Open Source Software 
+  : Software (Programa de Computador) de Codigo Aberto
+  
+FOSS 
+  : Free and Open Source Sofware 
+  : Software Livre e de Codigo Aberto
+  
+DRM 
+  : Digital Rights Managment
+  
+APS 
+  : Application Service Provider
+  
+SaaS 
+  : Software-as-a-Service
+  
+SBIL
+  : Software Bill of Materials 
+  : List de Materiais de Software 
+  
+EULA (used by Closed Source Software)
+  : End User License Agreement 
+  : Contrato de Licensa de Usuario Final (PT)
+  
+Open Source Licenses
+  : Permissive Licenses and Copyleft Licenses 
+
+Permissive Licenses 
+  : Allows modification and distribution of software with few restrictions. This kind of license is more popular among companies that wishes to use the software commercially or to keep their software modifications <span class="ge">*closed source*</span>. Example: BSD and MIT licenses.
+  
+Source Avaiable Licenses (Not Open Source)
+  : Despite that this type of license may look like an open source license as the the source code is available. Licenses of this kind may have many commercial use restrictions of the software, what makes this license not open source. Example: MongoDB no-SQL document database switched from AGPL to SSPL (Server Side Public License), which was introduced by MongoDB itself. 
+  
+Dual License Model
+  : Software released, often under a copyleft license and a commerical license, which removes the restriction of the copyleft license. Example: Qt5.0 library by Qt Company, which is available under LGPL and commercial license allowing static linking by closed source software.
+  
+Open Core Model 
+  : Software under open source license with other features closed source or paywalled.
+  
+Copyleft Linceses
+  : Any version of modification of the software must be distributed under the same copyleft license. This license style is not favored by companies that need to keep their software modification proprietary.
+  
+MIT License (Permissive)
+  : Introduced by MIT - Massachussets Institute of Technology in the 1980s. Used by React JS front-end framework and Ruby programming language. The only requirement of this license is to include the <span class="gs">**copyright notice**</span> in derivative works. Drawback: the license grants any patent rights, what creates legal uncertainty for software that depends on <span class="gs">**patented technologies**</span>.
+  
+Apache 2.0 License (Permissive)
+  : Similar to MIT license, but it grants patent rights to any user of a sofware released under MIT license.
+  
+BSD-2 Clause License (Permissive)
+  : Similar to MIT&#39;s license, but requires that a copy of the BSD-2 license copyright notice to be included in the source code of derivativ works and compiled binaries.
+  
+BSD-3 Clause License (Permissive)
+  : Introduces an additional no-endorsement clause to BSD-2 license, which restricts the use of the <span class="gs">**copyright holders**</span> names and contributors for promotional use in derivative works.
+  
+GPL v2.0 (Copyleft)
+   : GPL v.20 and the GPL license family were introduced by FSF (Free Software Foundation) in 1989. GPL v2.0 and other licneses of the same family require all derivative work to released under the same license. Example: <span class="gs">**Wordpress**</span> PHP blogging platform and <span class="gs">**Linux Kernel**</span>, created by Linus Torvalds is released under GPL 2.0 license.
+
+GPL v3.0 (Copyleft)
+  : License similar to GPL v2.0 introduced in 2007. This license forbids &quot;Tivoization&quot;, where hardware manufactures blocks user attempt to install modified versions of an open source software under GPLv3.0 license using <span class="gs">**DRM (Digital Rights Management)**</span>. The purpose of GPL v3.0 license is to guarantee that works of contributors will not be used in <span class="gs">**proprietary software**</span>. However, this license does not require disclosing the source code or releasing the software under the same license if the software is run on the server-side on the cloud.
+  
+LGPL - GNU Lesser General Public License (Weak Copyleft) 
+  : This license is mostly used by compilers and native code software libraries. Derivative works can be released and distributed as closed source and are allowed to dynamic link against the libraries, unless the library code is modified or the software static link against the library. 
+
+AGPL - GNU Afero Public License (Copyleft)
+  : Requires source code disclosure of any software modification even if it is never distributed and run on the server side. The AGPL license was introduced for addressing the cloud loophole in the GPL 3.0 license, which does not mandate release of source code if it the sofware is run on the server side or on the cloud. Big tech companies have been exploiting the cloud loophole of GPL3.0 to take way open source software to provide SaaS software as service and keep their modifications closed source. The AGPL license is mostly used by server software and databases. 
+  
+  
+Unlicense 
+  : Public Domain License. Used by SQLite embedded database engine.
+  
+CC0-1.0 
+  : Creative Commons 1.0 - public domain dedication tool used mostly by <span class="gs">**creative works**</span>.
+
+<span class="gu">## Summary </span>
+
+
+
+<span class="k">-</span><span class="w"> </span>MIT, BSD and ISC =&gt; &quot;Permissive&quot;
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Basic Meaning: Do whatever you want, just do not sue me.
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Give us credit by copying the license: YES
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>One of the most used licenses.
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Known softwares with those licenses: Free BSD operating system.
+<span class="k">-</span><span class="w"> </span>Apache
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Basic Meaning:&quot;Do whatever you want with the software, just do not sue me.&quot;
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Give us credit by copying the license: YES
+<span class="k">-</span><span class="w"> </span>GPL licenses (GPLv3, GPLv2, LGPL, Affero GPL)
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>You must provide the source code alongisde a copy of the license giving credit to the authors if you make any derived work of the code.
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>You can distribute your program with GPL compiled libraries without the source code if you don&#39;t change the library code and not static link with your application.
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Many companies have policies against using GPL libraries due to the legal complexity which comes with their use.
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Some GPL Libraries have dual license, GPL and commercial which allows static linking native libraies.
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Known softwares: Linux, GLIBC - Linux&#39;s libraries, GNU project&#39;s softwares, MediaWiki (Wikipedia&#39;s engine).
+<span class="k">-</span><span class="w"> </span>Unlicense - Public Doman
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>You have no obligations, just don&#39;t sue the author. All risks and liabilities are yours.
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>It is not required to give credit, but it costs nothing and it is always nice.
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>Known Product with Unlicense: SQLite 
+
+<span class="gu">## See Also</span>
+     
+
++ <span class="ge">*Free Software Licensing Resources*</span>
+  + https://www.fsf.org/licensing/education
++ <span class="ge">*Right to root access*</span>
+  + https://medhir.com/blog/right-to-root-access
++ <span class="ge">*Right to root access*</span>
+  + https://news.ycombinator.com/item?id=42677835
++ <span class="ge">*Open source licenses: Everything you need to know*</span>, Techchrunch
+  + https://techcrunch.com/2025/01/12/open-source-licenses-everything-you-need-to-know/
++ <span class="ge">*A compendium of &quot;open-source&quot; licenses*</span>
+  +  https://github.com/ErikMcClure/bad-licenses
++ <span class="ge">*Affirmation of the Open Source Definition*</span> (2019)
+  + &lt;https://opensource.org/blog/OSD_Affirmation&gt;
++ <span class="ge">*Open source licensing and why we&#39;re changing Plausible to the AGPL license*</span>
+  + &lt;https://plausible.io/blog/open-source-licenses&gt;
++ <span class="ge">*Open Source Software Licenses 101: The AGPL License*</span>
+  + &lt;https://fossa.com/blog/open-source-software-licenses-101-agpl-license/&gt;
++ <span class="ge">*Understanding the SaaS Loophole in GPL*</span>
+  + &lt;https://www.revenera.com/blog/software-composition-analysis/understanding-the-saas-loophole-in-gpl/&gt;
++ <span class="ge">*The copyleft effect in cloud computing*</span>
+  + &lt;https://www.lexology.com/library/detail.aspx?g=68b1ae41-73a6-4b1f-8ae0-23d68e61fdeb&gt;
++ <span class="ge">*The essential guide to AGPL compliance for tech companies*</span> (2024)
+  + &lt;https://vaultinum.com/blog/essential-guide-to-agpl-compliance-for-tech-companies&gt;
++ <span class="ge">*Closing AGPL cloud services loop-hole: a MongoDB approach*</span>
+  + &lt;https://ipkitten.blogspot.com/2019/02/closing-agpl-cloud-services-loop-hole.html&gt;
+<span class="k">-</span><span class="w"> </span><span class="ge">*Software patents are evil, but BSD+Patents is probably not the solution - Wes McKinney*</span>
+  + http://wesmckinney.com/blog/react-bsd-patents/
+<span class="k">-</span><span class="w"> </span><span class="ge">*If you’re a startup, you should not use React (reflecting on the BSD + patents license)*</span>
+  + https://medium.com/@raulk/if-youre-a-startup-you-should-not-use-react-reflecting-on-the-bsd-patents-license-b049d4a67dd2
+<span class="k">-</span><span class="w"> </span><span class="ge">*BSD licenses - Wikipedia*</span>
+  + https://en.wikipedia.org/wiki/BSD_licenses)
+<span class="k">-</span><span class="w"> </span><span class="ge">*Business Source License*</span>, Wikipedia
+  + https://en.m.wikipedia.org/wiki/Business_Source_License + <span class="ge">*The Business Source License (SPDX id BUSL[1]) is a software license which publishes source code but limits the right to use the software to certain classes of users. The BUSL is not an open-source license,[1] but it is source-available license that also mandates an eventual transition to an open-source license. This characteristic has been described as a compromise between traditional proprietary licenses and open source.[2] The originator of the BUSL is MariaDB Corporation AB, where it is used for the MaxScale product, not for the flagship MariaDB.[3]*</span>
++ <span class="ge">*Server Side Public License (SSPL) vs. Open Source: A Guide for Investors*</span>
+  + https://www.alphanome.ai/post/server-side-public-license-sspl-vs-open-source-a-guide-for-investors
++ <span class="ge">*Unveiling Server Side Public License 1.0: Beyond the Code – A Holistic Exploration*</span>
+  + https://dev.to/laetitiaperraut/unveiling-server-side-public-license-10-beyond-the-code-a-holistic-exploration-54i5
++ <span class="ge">*The Business Source License*</span>, Matt Rickard
+  + https://blog.matt-rickard.com/p/the-business-source-license
+</pre></div>
+
+        </main>
+
+        
+        <style>
+            .highlight {
+                max-height: none !important;
+            }
+
+            .highlight pre {
+                overflow-wrap: break-word;
+                word-break: break-word;
+                text-wrap: balance;
+            }
+
+            .content {
+                width: 100% !important;
+                height: 100% !important;
+                margin-left: -50px !important;
+            }
+ 
+            .sidebar {
+                display: none;
+            }
+        </style>
+        
+    </div>
+    <script>
+    </script>
+
+</body>
+
+</html>

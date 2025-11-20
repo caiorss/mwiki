@@ -7,10 +7,10 @@
     
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
     
-    <title data-i18n="">MBook - MWiki Reference Card</title>
-    <meta name="description" content="MWiki reference card with many examples and user-cases." />
+    <title data-i18n="">MBook - MWiki Syntax Reference Card</title>
+    <meta name="description" content="Notes, examples and documentation about MWiki markup language syntax and constructs. This markup language borrow constructs and syntax from Mediwiki, Obsidian and MyST markdown markup languages." />
     <meta name=generator content="MWiki">
-     <meta name="author" content="John Doe"> 
+    
    
     
    <style>
@@ -21,7 +21,9 @@
     font-style: normal;
     
     
+    
     src: url('/mwiki/static/fonts/cmu-concrete-regular.woff');
+    
 }
     
 
@@ -32,7 +34,9 @@
     font-style: italic;
     
     
+    
     src: url('/mwiki/static/fonts/cmu-concrete-italic.woff');
+    
 }
     
 
@@ -40,7 +44,9 @@
     font-family: 'Libertinus Mono';
     
     
+    
     src: url('/mwiki/static/fonts/LibertinusMono-Regular.woff2');
+    
 }
     
 
@@ -48,7 +54,9 @@
     font-family: 'Chicago MacOS';
     
     
+    
     src: url('/mwiki/static/fonts/ChicagoFLF.ttf');
+    
 }
     
 
@@ -69,13 +77,6 @@
     --form-border-color: #cfd5e2;
     --primary-button-background-color: #0172ad;
 
-    /* --font-family-main: 'Computer Modern'; */
-    /* --font-family-main: 'Neo Euler'; */
-    /***
-    --font-family-main: 'monospace';
-    --font-family-title: 'Sans Serif';
-    --font-family-code: 'monospace';
-    **/
 
     
     --font-family-main: 'CMU Concrete';
@@ -104,22 +105,29 @@
         
     </style>
   
+    
     <link rel="stylesheet" href="/mwiki/static/static_style.css">
-
-   
-
+    
     
     
     <!-- MathJax Settings -->
     <script>
 
-    let FONT_FAMILY_MAIN = "CMU Concrete"
-    let FONT_FAMILY_TITLE = "Chicago MacOS"
-    let FONT_FAMILY_CODE = "Libertinus Mono"
-    let DEFAULT_LOCALE = "en-US";
-	  let USE_DEFAULT_LOCALE = "True" === "True";
-    let CSRF_TOKEN = ""
+    const FONT_FAMILY_MAIN = "CMU Concrete"
+    const FONT_FAMILY_TITLE = "Chicago MacOS"
+    const FONT_FAMILY_CODE = "Libertinus Mono"
+    const DEFAULT_LOCALE = "en-US";
+	  const USE_DEFAULT_LOCALE = "True" === "True";
+    const LATEX_RENDERER = "mathjax";
+    const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
+    const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
+    const KATEX_MACROS = "e30=";
+    const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
+    const IS_USER_ADMIN = false;
+    // NOTE: It is encoded as base64 
+    const PAGE_SOURCE_CODE = "";
+    const PAGE_SOURCE_URL  = "/mwiki/src_pages/refcard.html"
 	
     // Possible values: 'none', 'nosection' 'section', 'subsection'
     //  none      => no enumeration 
@@ -256,7 +264,6 @@
     }
     </script>
 
-
     
         
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml-full.js"
@@ -267,11 +274,16 @@
     
 
     
+  
+
+    
         <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
-        <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js" async> </script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js" async> </script>
     
 
+
+    
 
     
     <!-- Additional Javascript libraries -->
@@ -301,24 +313,28 @@
         }, false);
         
     </script>
+
+    
     <script type="text/javascript" src="/mwiki/static/main.js"></script>
+    
 
 </head>
 
 <body>
-    <aside class="sidebar sidebar-visibility">
 
+    
+    <aside class="sidebar sidebar-visibility">
         
         <h2 data-i18n="sidebar-table-of-contentes-label">Contents</h2>
         
         <div class="toc">
             <!-- Table of contents template placeholder -->
             <ol><ol>
-<li><a href="#H_Overview" class="link-sidebar" >Overview</a>
-</li><li><a href="#H_Frontmatter_(Page_Metadata)" class="link-sidebar" >Frontmatter (Page Metadata)</a>
+<li><a href="#H_Frontmatter_(Page_Metadata)" class="link-sidebar" >Frontmatter (Page Metadata)</a>
 <ol>
 <li><a href="#H_Alternative_Document_Title" class="link-sidebar" >Alternative Document Title</a>
 </li><li><a href="#H_Section_(Heading)_Enumeration" class="link-sidebar" >Section (Heading) Enumeration</a>
+</li><li><a href="#H_LaTeX_renderer" class="link-sidebar" >LaTeX renderer</a>
 </li><li><a href="#H_Equation_Enumeration" class="link-sidebar" >Equation Enumeration</a>
 </li><li><a href="#H_Abbreviations" class="link-sidebar" >Abbreviations</a>
 </li><li><a href="#H_Wordlinks" class="link-sidebar" >Wordlinks</a>
@@ -332,6 +348,7 @@
 <ol>
 <li><a href="#H_Italic_Text" class="link-sidebar" >Italic Text</a>
 </li><li><a href="#H_Bold_Text" class="link-sidebar" >Bold Text</a>
+</li><li><a href="#H_Bold_Italic_Text" class="link-sidebar" >Bold Italic Text</a>
 </li><li><a href="#H_Strikethrough_Text_(Deleted_Text)" class="link-sidebar" >Strikethrough Text (Deleted Text)</a>
 </li><li><a href="#H_Highlighted_Text" class="link-sidebar" >Highlighted Text</a>
 </li>
@@ -347,6 +364,7 @@
 <ol>
 <li><a href="#H_Internal_Image" class="link-sidebar" >Internal Image</a>
 </li><li><a href="#H_External_Image" class="link-sidebar" >External Image</a>
+</li><li><a href="#H_External_using_Relative_URL" class="link-sidebar" >External using Relative URL</a>
 </li>
 </ol></li><li><a href="#H_Figures" class="link-sidebar" >Figures</a>
 <ol>
@@ -410,13 +428,16 @@
 </li><li><a href="#H_Subscript__Role" class="link-sidebar" >Subscript  Role</a>
 </li><li><a href="#H_Superscript_Role" class="link-sidebar" >Superscript Role</a>
 </li>
-</ol></li><li><a href="#H_Further_Reading" class="link-sidebar" >Further Reading</a>
+</ol></li><li><a href="#H_Flashcards" class="link-sidebar" >Flashcards</a>
+</li><li><a href="#H_Further_Reading" class="link-sidebar" >Further Reading</a>
 </li>
 </ol></ol>
         </div>
-
     </aside>
+    
+    
     <div class="main main-shift">
+        
         <header class="header">
             <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/mwiki/static/hamburger-menu.svg" style="height: 25px;"/> </a>
             <a data-i18n="home-page-button" class="sidebar-toggle-button" 
@@ -429,7 +450,11 @@
                  >
                 <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
                 </a>
-              <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                
+            <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                
+                <a data-i18n="show-source-menu-item-label" class="sidebar-toggle-button" href="#" onclick="displayPageSourceWindow();">Show source</a>
+                
                 
                  <a data-i18n="popup-window-change-language-menu-launcher" class="sidebar-toggle-button" href="#"
                     onclick="changeLanguageForm.toggle();"
@@ -449,7 +474,7 @@
                  onclick="toggleHeadings();"
                  id="btn-scroll-bottom" 
                  title="Fold/Unfold all sections."
-                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg" ></a> 
+                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg"></a> 
             <!-- 
              <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
                  href="#" 
@@ -462,11 +487,14 @@
             --> 
               
         </header>
+        
 
         <main class="content">
+            
             <div class="div-heading-h1">
-                <h1 data-i18n="" class="document-heading">MWiki Reference Card</h1>
+                <h1 data-i18n="" class="document-heading">MWiki Syntax Reference Card</h1>
             </div>
+            
             <p class="hidden-mathjax-macros" style="display: none;">
                 $$
                 
@@ -475,18 +503,8 @@
             
 
 <div class="div-heading"> 
-<h2 id="H_Overview" class="document-heading anchor">Overview <a class="link-heading" href="#H_Overview">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=6&end=11&anchor=H_Overview&page=refcard&timestamp=176064157284365" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-</div>
-<hr class="line-under-heading">
-
-<p>
-MWiki markup language, also known as MWiki wikicode, is a based on Github-flavored Markdown (GFM). The markup language also is inspired by MyST markdown from Jupyter Book project, Obsidian markdown format and Mediawiki's markup language.
-</p>
-
-<div class="div-heading"> 
 <h2 id="H_Frontmatter_(Page_Metadata)" class="document-heading anchor">Frontmatter (Page Metadata) <a class="link-heading" href="#H_Frontmatter_(Page_Metadata)">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=11&end=171&anchor=H_Frontmatter_(Page_Metadata)&page=refcard&timestamp=176064157284365" title="[i18n]: Frontmatter (Page Metadata)" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{1}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=7&end=194&anchor=H_Frontmatter_(Page_Metadata)&page=refcard&timestamp=176359801292763" title="[i18n]: Frontmatter (Page Metadata)" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{1}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -501,7 +519,7 @@ Example: consider the wiki page file
 
 <ul class="">
 <li>
-'NAS - Network Attached Storage Device.md' 
+<code>NAS - Network Attached Storage Device.md</code> 
 </li>
 </ul>
 
@@ -531,7 +549,7 @@ Describe what is a NAS
 
 <div class="div-heading"> 
 <h3 id="H_Alternative_Document_Title" class="document-heading anchor">Alternative Document Title <a class="link-heading" href="#H_Alternative_Document_Title">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=41&end=51&anchor=H_Alternative_Document_Title&page=refcard&timestamp=176064157284365" title="[i18n]: Alternative Document Title" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=37&end=47&anchor=H_Alternative_Document_Title&page=refcard&timestamp=176359801292763" title="[i18n]: Alternative Document Title" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
 </div>
 
@@ -551,7 +569,7 @@ to the document frontmatter.
 
 <div class="div-heading"> 
 <h3 id="H_Section_(Heading)_Enumeration" class="document-heading anchor">Section (Heading) Enumeration <a class="link-heading" href="#H_Section_(Heading)_Enumeration">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=51&end=72&anchor=H_Section_(Heading)_Enumeration&page=refcard&timestamp=176064157284365" title="[i18n]: Section (Heading) Enumeration" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=47&end=67&anchor=H_Section_(Heading)_Enumeration&page=refcard&timestamp=176359801292763" title="[i18n]: Section (Heading) Enumeration" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
 </div>
 
@@ -586,17 +604,67 @@ or
 </pre>
 
 <div class="div-heading"> 
-<h3 id="H_Equation_Enumeration" class="document-heading anchor">Equation Enumeration <a class="link-heading" href="#H_Equation_Enumeration">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=72&end=94&anchor=H_Equation_Enumeration&page=refcard&timestamp=176064157284365" title="[i18n]: Equation Enumeration" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<h3 id="H_LaTeX_renderer" class="document-heading anchor">LaTeX renderer <a class="link-heading" href="#H_LaTeX_renderer">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=67&end=84&anchor=H_LaTeX_renderer&page=refcard&timestamp=176359801292763" title="[i18n]: LaTeX renderer" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
 </div>
 
 <p>
-The frontmatter directive 'equation_enumeration' allows changing the equation enumeration style.
+The directive <em>latex_renderer</em> allows overriding the default latex rendering engine, that can be changed in the settings page.
+</p>
+
+<p>
+Use KaTeX rendering engine:
 </p>
 
 <pre>
-<code class="language-text"><div class="highlight"><pre><span></span>equation_enumeration: &lt;style&gt;
+<code class="language-text"><div class="highlight"><pre><span></span>latex_renderer: katex
+</pre></div>
+</code>
+</pre>
+
+<p>
+Use MathJax rendering engine:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>latex_renderer: mathjax
+</pre></div>
+</code>
+</pre>
+
+<div class="div-heading"> 
+<h3 id="H_Equation_Enumeration" class="document-heading anchor">Equation Enumeration <a class="link-heading" href="#H_Equation_Enumeration">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=84&end=117&anchor=H_Equation_Enumeration&page=refcard&timestamp=176359801292763" title="[i18n]: Equation Enumeration" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+</div>
+
+<p>
+Equation enumeration can be enabled using
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>equation_enumeration_enabled: on
+</pre></div>
+</code>
+</pre>
+
+<p>
+or disabled by using this directive set to off. If enumeration is disabled, only referenced equations will get an enumeration on the left side of the equation (LaTeX display mode).
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>equation_enumeration_enabled: off
+</pre></div>
+</code>
+</pre>
+
+<p>
+The frontmatter directive 'equation_enumeration_style' allows changing the equation enumeration style.
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>equation_enumeration_style: &lt;style&gt;
 </pre></div>
 </code>
 </pre>
@@ -606,13 +674,6 @@ The following enumeration styles supported:
 </p>
 
 <ul class="">
-<li>
-none => no enumeration <ul class="">
-<li>
-Example: N/A - No Applicable 
-</li>
-</ul>
-</li>
 <li>
 cont or continous <ul class="">
 <li>
@@ -642,8 +703,8 @@ More details are provided about this feature in the LaTeX section of this docume
 
 <div class="div-heading"> 
 <h3 id="H_Abbreviations" class="document-heading anchor">Abbreviations <a class="link-heading" href="#H_Abbreviations">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=94&end=131&anchor=H_Abbreviations&page=refcard&timestamp=176064157284365" title="[i18n]: Abbreviations" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=117&end=154&anchor=H_Abbreviations&page=refcard&timestamp=176359801292763" title="[i18n]: Abbreviations" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{5}">\(\setSubSection{5}\)</span>
 </div>
 
 <p>
@@ -699,8 +760,8 @@ When the mouse is over any abbr text, which has black dashes below it, a pop up 
 
 <div class="div-heading"> 
 <h3 id="H_Wordlinks" class="document-heading anchor">Wordlinks <a class="link-heading" href="#H_Wordlinks">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=131&end=171&anchor=H_Wordlinks&page=refcard&timestamp=176064157284365" title="[i18n]: Wordlinks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{5}">\(\setSubSection{5}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=154&end=194&anchor=H_Wordlinks&page=refcard&timestamp=176359801292763" title="[i18n]: Wordlinks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{6}">\(\setSubSection{6}\)</span>
 </div>
 
 <p>
@@ -761,14 +822,14 @@ The advantage of this feature allows users to turn words of a MWiki page into hy
 
 <div class="div-heading"> 
 <h2 id="H_Comments" class="document-heading anchor">Comments <a class="link-heading" href="#H_Comments">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=171&end=256&anchor=H_Comments&page=refcard&timestamp=176064157284365" title="[i18n]: Comments" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{2}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=194&end=279&anchor=H_Comments&page=refcard&timestamp=176359801292763" title="[i18n]: Comments" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{2}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Single_Line_Comment" class="document-heading anchor">Single Line Comment <a class="link-heading" href="#H_Single_Line_Comment">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=173&end=203&anchor=H_Single_Line_Comment&page=refcard&timestamp=176064157284365" title="[i18n]: Single Line Comment" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=196&end=226&anchor=H_Single_Line_Comment&page=refcard&timestamp=176359801292763" title="[i18n]: Single Line Comment" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
 </div>
 
@@ -795,7 +856,7 @@ Redering:
 </p>
 
 <div class="info admonition anchor" style="background:;">
-<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-info.svg"/> Info: Rendering Result<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=190&end=201&page=refcard&timestamp=176064157284365" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-info.svg"/> Info: Rendering Result<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=213&end=224&page=refcard&timestamp=176359801292763" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 <p>
 Write something here. This line will be rendered.
 </p>
@@ -803,7 +864,7 @@ Write something here. This line will be rendered.
 
 <div class="div-heading"> 
 <h3 id="H_Multi_Line_Comment" class="document-heading anchor">Multi Line Comment <a class="link-heading" href="#H_Multi_Line_Comment">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=203&end=256&anchor=H_Multi_Line_Comment&page=refcard&timestamp=176064157284365" title="[i18n]: Multi Line Comment" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=226&end=279&anchor=H_Multi_Line_Comment&page=refcard&timestamp=176359801292763" title="[i18n]: Multi Line Comment" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
 </div>
 
@@ -826,7 +887,7 @@ Some text after.
 </pre>
 
 <div class="info admonition anchor" style="background:;">
-<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-info.svg"/> Info: Rendering Result<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=221&end=234&page=refcard&timestamp=176064157284365" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-info.svg"/> Info: Rendering Result<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=244&end=257&page=refcard&timestamp=176359801292763" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 <p>
 Line here.
 </p><p>
@@ -858,14 +919,14 @@ The tag <code>{command}</code> can also be written as <code>{command} off</code>
 
 <div class="div-heading"> 
 <h2 id="H_Text_Formating" class="document-heading anchor">Text Formating <a class="link-heading" href="#H_Text_Formating">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=256&end=308&anchor=H_Text_Formating&page=refcard&timestamp=176064157284365" title="[i18n]: Text Formating" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{3}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=279&end=345&anchor=H_Text_Formating&page=refcard&timestamp=176359801292763" title="[i18n]: Text Formating" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{3}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Italic_Text" class="document-heading anchor">Italic Text <a class="link-heading" href="#H_Italic_Text">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=257&end=256&anchor=H_Italic_Text&page=refcard&timestamp=176064157284365" title="[i18n]: Italic Text" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=280&end=279&anchor=H_Italic_Text&page=refcard&timestamp=176359801292763" title="[i18n]: Italic Text" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
 </div>
 
@@ -887,7 +948,7 @@ Rendering:
 
 <div class="div-heading"> 
 <h3 id="H_Bold_Text" class="document-heading anchor">Bold Text <a class="link-heading" href="#H_Bold_Text">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=268&end=284&anchor=H_Bold_Text&page=refcard&timestamp=176064157284365" title="[i18n]: Bold Text" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=291&end=309&anchor=H_Bold_Text&page=refcard&timestamp=176359801292763" title="[i18n]: Bold Text" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
 </div>
 
@@ -896,7 +957,7 @@ Syntax:
 </p>
 
 <pre>
-<code class="language-text"><div class="highlight"><pre><span></span>**Bold text here**
+<code class="language-markdown"><div class="highlight"><pre><span></span><span class="gs">**Bold text here**</span>
 </pre></div>
 </code>
 </pre>
@@ -906,21 +967,51 @@ Example:
 </p>
 
 <pre>
-<code class="language-text"><div class="highlight"><pre><span></span>+ Example of syntax of a **bold text**.
+<code class="language-text"><div class="highlight"><pre><span></span>+ Example: this is a **bold text**.
 </pre></div>
 </code>
 </pre>
 
+<p>
+Rendering:
+</p>
+
 <ul class="">
 <li>
-Example of syntax of a <strong>bold text</strong>. 
+Example: this is a <strong>bold text</strong>. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Bold_Italic_Text" class="document-heading anchor">Bold Italic Text <a class="link-heading" href="#H_Bold_Italic_Text">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=309&end=321&anchor=H_Bold_Italic_Text&page=refcard&timestamp=176359801292763" title="[i18n]: Bold Italic Text" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>+ A ***bold and italic*** text.
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+A <em><strong>bold and italic</strong></em> text. 
 </li>
 </ul>
 
 <div class="div-heading"> 
 <h3 id="H_Strikethrough_Text_(Deleted_Text)" class="document-heading anchor">Strikethrough Text (Deleted Text) <a class="link-heading" href="#H_Strikethrough_Text_(Deleted_Text)">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=284&end=296&anchor=H_Strikethrough_Text_(Deleted_Text)&page=refcard&timestamp=176064157284365" title="[i18n]: Strikethrough Text (Deleted Text)" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=321&end=333&anchor=H_Strikethrough_Text_(Deleted_Text)&page=refcard&timestamp=176359801292763" title="[i18n]: Strikethrough Text (Deleted Text)" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
 </div>
 
 <p>
@@ -945,8 +1036,8 @@ Example of <s>Deleted text</s> syntax.
 
 <div class="div-heading"> 
 <h3 id="H_Highlighted_Text" class="document-heading anchor">Highlighted Text <a class="link-heading" href="#H_Highlighted_Text">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=296&end=308&anchor=H_Highlighted_Text&page=refcard&timestamp=176064157284365" title="[i18n]: Highlighted Text" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=333&end=345&anchor=H_Highlighted_Text&page=refcard&timestamp=176359801292763" title="[i18n]: Highlighted Text" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{5}">\(\setSubSection{5}\)</span>
 </div>
 
 <p>
@@ -969,7 +1060,7 @@ this <span class="text-highlight">text will be higlighted</span> and remaining o
 
 <div class="div-heading"> 
 <h2 id="H_Typographic_Notation" class="document-heading anchor">Typographic Notation <a class="link-heading" href="#H_Typographic_Notation">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=308&end=349&anchor=H_Typographic_Notation&page=refcard&timestamp=176064157284365" title="[i18n]: Typographic Notation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{4}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=345&end=381&anchor=H_Typographic_Notation&page=refcard&timestamp=176359801292763" title="[i18n]: Typographic Notation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{4}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -983,11 +1074,8 @@ Example:
 </p>
 
 <pre>
-<code class="language-text"><div class="highlight"><pre><span></span>+ Copyright Symbol (C)
-+ Copyright Symbol {C}
-+ Registered Symbol (R)
-+ Registered Symbol (C)
-+ Trademark(TM) symbol
+<code class="language-text"><div class="highlight"><pre><span></span>+ Copyright Symbol {C}
++ Registered Symbol {R}
 + Trademark{TM} symbol
 + The angle is 60{deg} degrees 
 + The angle is 60{degrees} degrees 
@@ -1007,16 +1095,10 @@ Rendering:
 
 <ul class="">
 <li>
-Copyright Symbol (C) 
-</li>
-<li>
 Copyright Symbol © 
 </li>
 <li>
-Registered Symbol (R) 
-</li>
-<li>
-Registered Symbol (C) 
+Registered Symbol ® 
 </li>
 <li>
 Trademark™ symbol 
@@ -1052,14 +1134,14 @@ Section Symbol  §
 
 <div class="div-heading"> 
 <h2 id="H_Hyperlinks" class="document-heading anchor">Hyperlinks <a class="link-heading" href="#H_Hyperlinks">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=349&end=762&anchor=H_Hyperlinks&page=refcard&timestamp=176064157284365" title="[i18n]: Hyperlinks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{5}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=381&end=794&anchor=H_Hyperlinks&page=refcard&timestamp=176359801292763" title="[i18n]: Hyperlinks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{5}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Internal_Hyperlinks_Links_(WikiLinks)" class="document-heading anchor">Internal Hyperlinks Links (WikiLinks) <a class="link-heading" href="#H_Internal_Hyperlinks_Links_(WikiLinks)">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=351&end=364&anchor=H_Internal_Hyperlinks_Links_(WikiLinks)&page=refcard&timestamp=176064157284365" title="[i18n]: Internal Hyperlinks Links (WikiLinks)" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=383&end=396&anchor=H_Internal_Hyperlinks_Links_(WikiLinks)&page=refcard&timestamp=176359801292763" title="[i18n]: Internal Hyperlinks Links (WikiLinks)" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
 </div>
 
@@ -1085,7 +1167,7 @@ Rendering:
 
 <div class="div-heading"> 
 <h3 id="H_External_Inline_Hyperlinks" class="document-heading anchor">External Inline Hyperlinks <a class="link-heading" href="#H_External_Inline_Hyperlinks">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=364&end=398&anchor=H_External_Inline_Hyperlinks&page=refcard&timestamp=176064157284365" title="[i18n]: External Inline Hyperlinks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=396&end=430&anchor=H_External_Inline_Hyperlinks&page=refcard&timestamp=176359801292763" title="[i18n]: External Inline Hyperlinks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
 </div>
 
@@ -1151,7 +1233,7 @@ Rendering:
 
 <div class="div-heading"> 
 <h3 id="H_External_Reference-Style_Hyperlinks" class="document-heading anchor">External Reference-Style Hyperlinks <a class="link-heading" href="#H_External_Reference-Style_Hyperlinks">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=398&end=422&anchor=H_External_Reference-Style_Hyperlinks&page=refcard&timestamp=176064157284365" title="[i18n]: External Reference-Style Hyperlinks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=430&end=454&anchor=H_External_Reference-Style_Hyperlinks&page=refcard&timestamp=176359801292763" title="[i18n]: External Reference-Style Hyperlinks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
 </div>
 
@@ -1182,7 +1264,7 @@ This page presents a study of <a href="https://en.wikipedia.org/wiki/Control_eng
 
 <div class="div-heading"> 
 <h3 id="H_Special_Hyperlinks" class="document-heading anchor">Special Hyperlinks <a class="link-heading" href="#H_Special_Hyperlinks">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=422&end=762&anchor=H_Special_Hyperlinks&page=refcard&timestamp=176064157284365" title="[i18n]: Special Hyperlinks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=454&end=794&anchor=H_Special_Hyperlinks&page=refcard&timestamp=176359801292763" title="[i18n]: Special Hyperlinks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
 </div>
 
@@ -1784,14 +1866,14 @@ The hyperlink <code>&lt;rd:/r/cpp&gt;</code> is a hyperlink to
 
 <div class="div-heading"> 
 <h2 id="H_Image" class="document-heading anchor">Image <a class="link-heading" href="#H_Image">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=762&end=799&anchor=H_Image&page=refcard&timestamp=176064157284365" title="[i18n]: Image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{6}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=794&end=853&anchor=H_Image&page=refcard&timestamp=176359801292763" title="[i18n]: Image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{6}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Internal_Image" class="document-heading anchor">Internal Image <a class="link-heading" href="#H_Internal_Image">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=763&end=762&anchor=H_Internal_Image&page=refcard&timestamp=176064157284365" title="[i18n]: Internal Image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=795&end=794&anchor=H_Internal_Image&page=refcard&timestamp=176359801292763" title="[i18n]: Internal Image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
 </div>
 
@@ -1815,7 +1897,7 @@ Or
 
 <div class="div-heading"> 
 <h3 id="H_External_Image" class="document-heading anchor">External Image <a class="link-heading" href="#H_External_Image">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=777&end=799&anchor=H_External_Image&page=refcard&timestamp=176064157284365" title="[i18n]: External Image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=809&end=829&anchor=H_External_Image&page=refcard&timestamp=176359801292763" title="[i18n]: External Image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
 </div>
 
@@ -1838,7 +1920,53 @@ Example:
 </p>
 
 <pre>
-<code class="language-text"><div class="highlight"><pre><span></span>![Java&#39;s Duke Mascot](/static/example_java_duke_mascot.svg)
+<code class="language-text"><div class="highlight"><pre><span></span>![Java&#39;s Duke Mascot](/mwiki/static/example_java_duke_mascot.svg)
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<div class="div-wiki-image"><img class="external-image anchor" src="/mwiki/static/example_java_duke_mascot.svg" alt="Java's Duke Mascot"></div>
+
+<div class="div-heading"> 
+<h3 id="H_External_using_Relative_URL" class="document-heading anchor">External using Relative URL <a class="link-heading" href="#H_External_using_Relative_URL">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=829&end=853&anchor=H_External_using_Relative_URL&page=refcard&timestamp=176359801292763" title="[i18n]: External using Relative URL" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+</div>
+
+<p>
+The <code>@root</code> directive is replaced by MWiki root URL. This feature is useful if MWiki root URl changes, for instance, if is hosted in the URl <code>https://somedomain.com/p/mwiki</code>, the MWiki root URL is <code>/p/mwiki</code>, so the URL of the Java's Duke mascot image would no longer be
+</p>
+
+<ul class="">
+<li>
+<code>/static/example_java_duke_mascot.svg</code> 
+</li>
+</ul>
+
+<p>
+Instead it would be
+</p>
+
+<ul class="">
+<li>
+<code>/p/mwiki/static/example_java_duke_mascot.svg</code> 
+</li>
+</ul>
+
+<p>
+By using the directive <code>@root</code>, no matter MWiki's root URL, it will not be necessary to change the image URL in the construct for external images as shown below.
+</p>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-text"><div class="highlight"><pre><span></span>![Java&#39;s Duke Mascot](@root/static/example_java_duke_mascot.svg)
 </pre></div>
 </code>
 </pre>
@@ -1851,7 +1979,7 @@ Rendering:
 
 <div class="div-heading"> 
 <h2 id="H_Figures" class="document-heading anchor">Figures <a class="link-heading" href="#H_Figures">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=799&end=863&anchor=H_Figures&page=refcard&timestamp=176064157284365" title="[i18n]: Figures" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{7}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=853&end=937&anchor=H_Figures&page=refcard&timestamp=176359801292763" title="[i18n]: Figures" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{7}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -1862,7 +1990,7 @@ Figures are images with metadata, including automatic enumeration with optional 
 
 <div class="div-heading"> 
 <h3 id="H_Figure_of_external_image" class="document-heading anchor">Figure of external image <a class="link-heading" href="#H_Figure_of_external_image">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=803&end=829&anchor=H_Figure_of_external_image&page=refcard&timestamp=176064157284365" title="[i18n]: Figure of external image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=857&end=903&anchor=H_Figure_of_external_image&page=refcard&timestamp=176359801292763" title="[i18n]: Figure of external image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
 </div>
 
@@ -1875,7 +2003,7 @@ Example:
 </p>
 
 <pre>
-<code class="language-markdown"><div class="highlight"><pre><span></span>```{figure} https://some-web-site.com/pictures/example_java_duke_mascot.svg
+<code class="language-markdown"><div class="highlight"><pre><span></span>```{figure} /mwiki/static/example_java_duke_mascot.svg
 :width: 200px
 :alt: Java duke mascot, one of the symbols of the Java programming language.
 
@@ -1889,11 +2017,32 @@ Java&#39;s Duke mascot
 Rendering:
 </p>
 
-<div class="div-wiki-image" div-figure><img id="figure-" class="wiki-image lazy-load anchor" data-src="/static/example_java_duke_mascot.svg" alt="Java duke mascot, one of the symbols of the Java programming language." height=200px ><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 1: Java's Duke mascot</p></div>
+<div class="div-wiki-image" div-figure><div class="inner-figure"><img id="figure-" class="wiki-image lazy-load anchor" data-src="/mwiki/static/example_java_duke_mascot.svg" alt="Java duke mascot, one of the symbols of the Java programming language." height=200px ><button class="btn-show-alt-text">ALT</button> </div><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 1: Java's Duke mascot</p></div>
+
+<p>
+Or relative to current MWiki's root URL:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>```{figure} <span class="ni">@root/static/example_java_duke_mascot</span>.svg
+:width: 200px
+:alt: Java duke mascot, one of the symbols of the Java programming language.
+
+Java&#39;s Duke mascot
+```
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<div class="div-wiki-image" div-figure><div class="inner-figure"><img id="figure-" class="wiki-image lazy-load anchor" data-src="/mwiki//static/example_java_duke_mascot.svg" alt="Java duke mascot, one of the symbols of the Java programming language."  height=200px><button class="btn-show-alt-text">ALT</button> </div><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 2: Java's Duke mascot</p></div>
 
 <div class="div-heading"> 
 <h3 id="H_Figure_of_Internal_Image" class="document-heading anchor">Figure of Internal Image <a class="link-heading" href="#H_Figure_of_Internal_Image">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=829&end=863&anchor=H_Figure_of_Internal_Image&page=refcard&timestamp=176064157284365" title="[i18n]: Figure of Internal Image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=903&end=937&anchor=H_Figure_of_Internal_Image&page=refcard&timestamp=176359801292763" title="[i18n]: Figure of Internal Image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
 </div>
 
@@ -1942,14 +2091,14 @@ Then, then user can change the label/caption, optional alt text, optiona name (u
 
 <div class="div-heading"> 
 <h2 id="H_Videos" class="document-heading anchor">Videos <a class="link-heading" href="#H_Videos">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=863&end=938&anchor=H_Videos&page=refcard&timestamp=176064157284365" title="[i18n]: Videos" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{8}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=937&end=1016&anchor=H_Videos&page=refcard&timestamp=176359801292763" title="[i18n]: Videos" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{8}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Embed_Youtube_Video" class="document-heading anchor">Embed Youtube Video <a class="link-heading" href="#H_Embed_Youtube_Video">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=865&end=892&anchor=H_Embed_Youtube_Video&page=refcard&timestamp=176064157284365" title="[i18n]: Embed Youtube Video" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=939&end=970&anchor=H_Embed_Youtube_Video&page=refcard&timestamp=176359801292763" title="[i18n]: Embed Youtube Video" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
 </div>
 
@@ -1995,9 +2144,20 @@ or
 </code>
 </pre>
 
+<p>
+Rendering:
+</p>
+
+<p>
+ <iframe class="youtube-player" 
+                        src="https://www.youtube-nocookie.com/embed/bNE4uBMsnP0?enablejsapi=1" > 
+                      </iframe> 
+                   
+</p>
+
 <div class="div-heading"> 
 <h3 id="H_Embed_Uploaded_Video_Files" class="document-heading anchor">Embed Uploaded Video Files <a class="link-heading" href="#H_Embed_Uploaded_Video_Files">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=892&end=911&anchor=H_Embed_Uploaded_Video_Files&page=refcard&timestamp=176064157284365" title="[i18n]: Embed Uploaded Video Files" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=970&end=989&anchor=H_Embed_Uploaded_Video_Files&page=refcard&timestamp=176359801292763" title="[i18n]: Embed Uploaded Video Files" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
 </div>
 
@@ -2022,7 +2182,7 @@ or
 </pre>
 
 <p>
-Embedded video files are rendered as <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" ><video></a> html5 embedded element with controls for playing the video, including button for start playing the video, button for stopping the video and so on.
+Embedded video files are rendered as [video](<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video</a>) html5 DOM element with controls for playing the video, including button for start playing the video, button for stopping the video and so on.
 </p>
 
 <p>
@@ -2031,7 +2191,7 @@ NOTE: It is possible to upload video files directly in the wiki editor by clicki
 
 <div class="div-heading"> 
 <h3 id="H_Video_Blocks" class="document-heading anchor">Video Blocks <a class="link-heading" href="#H_Video_Blocks">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=911&end=938&anchor=H_Video_Blocks&page=refcard&timestamp=176064157284365" title="[i18n]: Video Blocks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=989&end=1016&anchor=H_Video_Blocks&page=refcard&timestamp=176359801292763" title="[i18n]: Video Blocks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
 </div>
 
@@ -2071,14 +2231,14 @@ Video caption (also known as label)
 
 <div class="div-heading"> 
 <h2 id="H_Code_Blocks" class="document-heading anchor">Code Blocks <a class="link-heading" href="#H_Code_Blocks">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=938&end=977&anchor=H_Code_Blocks&page=refcard&timestamp=176064157284365" title="[i18n]: Code Blocks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{9}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1016&end=1055&anchor=H_Code_Blocks&page=refcard&timestamp=176359801292763" title="[i18n]: Code Blocks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{9}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Inline_code" class="document-heading anchor">Inline code <a class="link-heading" href="#H_Inline_code">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=939&end=938&anchor=H_Inline_code&page=refcard&timestamp=176064157284365" title="[i18n]: Inline code" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1017&end=1016&anchor=H_Inline_code&page=refcard&timestamp=176359801292763" title="[i18n]: Inline code" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
 </div>
 
@@ -2109,7 +2269,7 @@ The wiki syntax <code>&lt;rfc:7231&gt;</code> is rendered to a hyperlink tohttp 
 
 <div class="div-heading"> 
 <h3 id="H_Code_Block" class="document-heading anchor">Code Block <a class="link-heading" href="#H_Code_Block">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=955&end=977&anchor=H_Code_Block&page=refcard&timestamp=176064157284365" title="[i18n]: Code Block" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1033&end=1055&anchor=H_Code_Block&page=refcard&timestamp=176359801292763" title="[i18n]: Code Block" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
 </div>
 
@@ -2143,7 +2303,7 @@ Rendering:
 
 <div class="div-heading"> 
 <h2 id="H_Quotes" class="document-heading anchor">Quotes <a class="link-heading" href="#H_Quotes">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=977&end=1021&anchor=H_Quotes&page=refcard&timestamp=176064157284365" title="[i18n]: Quotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{10}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1055&end=1099&anchor=H_Quotes&page=refcard&timestamp=176359801292763" title="[i18n]: Quotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{10}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -2214,14 +2374,14 @@ what we want the computer to do.
 
 <div class="div-heading"> 
 <h2 id="H_LaTeX_Math_Equations" class="document-heading anchor">LaTeX Math Equations <a class="link-heading" href="#H_LaTeX_Math_Equations">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1021&end=1336&anchor=H_LaTeX_Math_Equations&page=refcard&timestamp=176064157284365" title="[i18n]: LaTeX Math Equations" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{11}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1099&end=1415&anchor=H_LaTeX_Math_Equations&page=refcard&timestamp=176359801292763" title="[i18n]: LaTeX Math Equations" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{11}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Inline" class="document-heading anchor">Inline <a class="link-heading" href="#H_Inline">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1023&end=1033&anchor=H_Inline&page=refcard&timestamp=176064157284365" title="[i18n]: Inline" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1101&end=1111&anchor=H_Inline&page=refcard&timestamp=176359801292763" title="[i18n]: Inline" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
 </div>
 
@@ -2241,7 +2401,7 @@ Let <span class="math-inline">\(x \in \mathbb{R}\)</span> be a real number and <
 
 <div class="div-heading"> 
 <h3 id="H_Display_Mode" class="document-heading anchor">Display Mode <a class="link-heading" href="#H_Display_Mode">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1033&end=1053&anchor=H_Display_Mode&page=refcard&timestamp=176064157284365" title="[i18n]: Display Mode" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1111&end=1131&anchor=H_Display_Mode&page=refcard&timestamp=176359801292763" title="[i18n]: Display Mode" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
 </div>
 
@@ -2260,20 +2420,20 @@ $$
 Rendering:
 </p>
 
-<div class="math-block anchor"> 
+<div  class="math-block anchor"> 
+<div class="div-latex-code">
 $$
-
-    A = \begin{bmatrix} 
+A = \begin{bmatrix} 
               \alpha &amp;  \beta 
           \\  \gamma &amp;  \zeta 
         \end{bmatrix}
-
 $$
+</div><div class="div-latex-enum"></div>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_Display_Mode_Without_Enumeration" class="document-heading anchor">Display Mode Without Enumeration <a class="link-heading" href="#H_Display_Mode_Without_Enumeration">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1053&end=1075&anchor=H_Display_Mode_Without_Enumeration&page=refcard&timestamp=176064157284365" title="[i18n]: Display Mode Without Enumeration" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1131&end=1153&anchor=H_Display_Mode_Without_Enumeration&page=refcard&timestamp=176359801292763" title="[i18n]: Display Mode Without Enumeration" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
 </div>
 
@@ -2293,21 +2453,21 @@ $$
 Rendering:
 </p>
 
-<div class="math-block anchor"> 
+<div  class="math-block anchor"> 
+<div class="div-latex-code">
 $$
-
-  \notag 
+\notag 
     A = \begin{bmatrix} 
               \alpha &amp;  \beta 
           \\  \gamma &amp;  \zeta 
         \end{bmatrix}
-
 $$
+</div><div class="div-latex-enum"></div>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_Display_Mode_using_Code_Block_Syntax" class="document-heading anchor">Display Mode using Code Block Syntax <a class="link-heading" href="#H_Display_Mode_using_Code_Block_Syntax">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1075&end=1099&anchor=H_Display_Mode_using_Code_Block_Syntax&page=refcard&timestamp=176064157284365" title="[i18n]: Display Mode using Code Block Syntax" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1153&end=1177&anchor=H_Display_Mode_using_Code_Block_Syntax&page=refcard&timestamp=176359801292763" title="[i18n]: Display Mode using Code Block Syntax" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
 </div>
 
@@ -2343,7 +2503,7 @@ $$
 
 <div class="div-heading"> 
 <h3 id="H_Equation_Enumeration_Style" class="document-heading anchor">Equation Enumeration Style <a class="link-heading" href="#H_Equation_Enumeration_Style">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1099&end=1198&anchor=H_Equation_Enumeration_Style&page=refcard&timestamp=176064157284365" title="[i18n]: Equation Enumeration Style" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1177&end=1277&anchor=H_Equation_Enumeration_Style&page=refcard&timestamp=176359801292763" title="[i18n]: Equation Enumeration Style" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{5}">\(\setSubSection{5}\)</span>
 </div>
 
@@ -2352,13 +2512,6 @@ MWiki supports the following LaTeX equation enumeration styles
 </p>
 
 <ul class="">
-<li>
-none <ul class="">
-<li>
-Schema: no enumeration, only referenced equations with LaTeX \eqref macro will be enumerated. 
-</li>
-</ul>
-</li>
 <li>
 cont or continous <ul class="">
 <li>
@@ -2401,7 +2554,7 @@ Description: Equation are enumerated according to the section and subsection tha
 </ul>
 
 <p>
-that can be changed by adding the next line to the document front-matter as shown in the following code example. Note that the front-matter is a human-readable human configuration in the markdown code between the lines containing '---' (three dashes) at the beginning of the page.
+The enumeration style can be changed by adding the next line to the document front-matter as shown in the following code example. Note that the front-matter is a human-readable human configuration in the markdown code between the lines containing '---' (three dashes) at the beginning of the page. The enumeration on the left side of each display mode LaTeX equation will only be visible if the directive <em>equation_enumeration_enabled</em> is set to <strong>on</strong>, otherwise if it is set to <strong>off</strong>, only equations referenced by <code>\eqref{labelOfEquation}</code> will have their enumeration visible.
 </p>
 
 <p>
@@ -2412,7 +2565,9 @@ Front-matter example:
 <code class="language-markdown"><div class="highlight"><pre><span></span><span class="gu">```</span>
 <span class="gu">---</span>
 description: Description of the document
-equation_enumeration: subsection
+
+equation_enumeration_style:   subsection
+equation_enumeration_enabled: on 
   ... ... ... ... ... 
 <span class="gu">  ... ... ... ... ... </span>
 <span class="gu">---</span>
@@ -2427,13 +2582,16 @@ Example consider the remaining of the page source code below after the front-mat
 
 <ul class="">
 <li>
-If the <strong>equation_enumeration</strong> directive is set to <strong>none</strong>, the equations will not be automatically enumerated. 
-</li>
-<li>
 If <strong>equation_enumeration</strong> is set to <strong>section</strong> (default), the number of equation A is set to 1.1, the number of the equation B is set to 1.2, the number of equation C is set to 1.3, the number of D is set to 1.4 
 </li>
 <li>
 If <strong>equation_enumeration</strong> is set to <strong>subsection</strong>, the number of equation A is set to 1.1, the number of equation B is set to 1.2, the number of equation C is set to 1.1.1, the number of D is set to 1.1.2, F's number is set to 2.1.1 and G's number is set to 2.1.2. This enumeration style is best suitable for documents with many equations per section. 
+</li>
+<li>
+If the directive <strong>equation_enumeration_enabled</strong> is set to <strong>on</strong>, the enumeration of all equations will be visible, unless there is a <code>\notag</code> in the equation LaTeX code. 
+</li>
+<li>
+If the directive <strong>equation_enumeration_enabled</strong> is set to <strong>off</strong>, only the enumeration of referenced equations will be visible. 
 </li>
 </ul>
 
@@ -2498,7 +2656,7 @@ $$
 
 <div class="div-heading"> 
 <h3 id="H_Cross_Reference_To_LaTeX_Equations" class="document-heading anchor">Cross Reference To LaTeX Equations <a class="link-heading" href="#H_Cross_Reference_To_LaTeX_Equations">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1198&end=1255&anchor=H_Cross_Reference_To_LaTeX_Equations&page=refcard&timestamp=176064157284365" title="[i18n]: Cross Reference To LaTeX Equations" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1277&end=1334&anchor=H_Cross_Reference_To_LaTeX_Equations&page=refcard&timestamp=176359801292763" title="[i18n]: Cross Reference To LaTeX Equations" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{6}">\(\setSubSection{6}\)</span>
 </div>
 
@@ -2537,39 +2695,39 @@ Redering:
 </p>
 
 <div class="note admonition anchor" style="background:;">
-<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-info.svg"/> Note: Rendering Output<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1229&end=1253&page=refcard&timestamp=176064157284365" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-info.svg"/> Note: Rendering Output<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1308&end=1332&page=refcard&timestamp=176359801292763" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 <p>
 Pendulum position vector <span class="math-inline">\(\mathbf{r}(t)\)</span>.
-</p><div class="math-block anchor"> 
+</p><div id="equation-eq_pendulum_position_vector" class="math-block anchor"> 
+<div class="div-latex-code">
 $$
-
-  \label{eq_pendulum_position_vector}
+\label{eq_pendulum_position_vector}
   \mathbf{r}(t) = \ell \sin \theta(t) \mathbf{e}_x + \ell \cos \theta(t) \mathbf{e}_y
-
 $$
+</div><div class="div-latex-enum"></div>
 </div><p>
 The velocity of a point mass, a body with negligible dimensions, is given by
-</p><div class="math-block anchor"> 
+</p><div id="equation-eq_def_velocity" class="math-block anchor"> 
+<div class="div-latex-code">
 $$
-
-   \label{eq_def_velocity}
+\label{eq_def_velocity}
    \mathbf{v}(t) = \frac{d \mathbf{r}}{dt} = \dot{\mathbf{r}}(t)
-
 $$
+</div><div class="div-latex-enum"></div>
 </div><p>
 Compute the velocity of the pendulum point-mass by replacing <span class="math-inline">\(\eqref{eq_pendulum_position_vector}\)</span>  in <span class="math-inline">\(\eqref{eq_def_velocity}\)</span>.
-</p><div class="math-block anchor"> 
+</p><div  class="math-block anchor"> 
+<div class="div-latex-code">
 $$
-
-   \mathbf{v}(t) = \frac{d}{dt} [ \ell \sin \theta(t) \mathbf{e}_x + \ell \cos \theta(t) \mathbf{e}_y ]
-
+\mathbf{v}(t) = \frac{d}{dt} [ \ell \sin \theta(t) \mathbf{e}_x + \ell \cos \theta(t) \mathbf{e}_y ]
 $$
+</div><div class="div-latex-enum"></div>
 </div>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_Latex_Macros" class="document-heading anchor">Latex Macros <a class="link-heading" href="#H_Latex_Macros">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1255&end=1283&anchor=H_Latex_Macros&page=refcard&timestamp=176064157284365" title="[i18n]: Latex Macros" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1334&end=1362&anchor=H_Latex_Macros&page=refcard&timestamp=176359801292763" title="[i18n]: Latex Macros" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{7}">\(\setSubSection{7}\)</span>
 </div>
 
@@ -2605,7 +2763,7 @@ $$
 
 <div class="div-heading"> 
 <h3 id="H_Pseudocode_of_Algorithm" class="document-heading anchor">Pseudocode of Algorithm <a class="link-heading" href="#H_Pseudocode_of_Algorithm">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1283&end=1336&anchor=H_Pseudocode_of_Algorithm&page=refcard&timestamp=176064157284365" title="[i18n]: Pseudocode of Algorithm" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1362&end=1415&anchor=H_Pseudocode_of_Algorithm&page=refcard&timestamp=176359801292763" title="[i18n]: Pseudocode of Algorithm" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{8}">\(\setSubSection{8}\)</span>
 </div>
 
@@ -2670,7 +2828,7 @@ Rendering:
 
 <div class="div-heading"> 
 <h2 id="H_Table" class="document-heading anchor">Table <a class="link-heading" href="#H_Table">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1336&end=1383&anchor=H_Table&page=refcard&timestamp=176064157284365" title="[i18n]: Table" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{12}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1415&end=1462&anchor=H_Table&page=refcard&timestamp=176359801292763" title="[i18n]: Table" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{12}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -2837,14 +2995,14 @@ Rendering:
 
 <div class="div-heading"> 
 <h2 id="H_Lists" class="document-heading anchor">Lists <a class="link-heading" href="#H_Lists">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1383&end=1492&anchor=H_Lists&page=refcard&timestamp=176064157284365" title="[i18n]: Lists" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{13}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1462&end=1571&anchor=H_Lists&page=refcard&timestamp=176359801292763" title="[i18n]: Lists" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{13}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Bullet_Lists" class="document-heading anchor">Bullet Lists <a class="link-heading" href="#H_Bullet_Lists">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1384&end=1383&anchor=H_Bullet_Lists&page=refcard&timestamp=176064157284365" title="[i18n]: Bullet Lists" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1463&end=1462&anchor=H_Bullet_Lists&page=refcard&timestamp=176359801292763" title="[i18n]: Bullet Lists" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
 </div>
 
@@ -2905,7 +3063,7 @@ Element 3.3.1
 
 <div class="div-heading"> 
 <h3 id="H_Ordered_List" class="document-heading anchor">Ordered List <a class="link-heading" href="#H_Ordered_List">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1411&end=1446&anchor=H_Ordered_List&page=refcard&timestamp=176064157284365" title="[i18n]: Ordered List" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1490&end=1525&anchor=H_Ordered_List&page=refcard&timestamp=176359801292763" title="[i18n]: Ordered List" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
 </div>
 
@@ -2978,7 +3136,7 @@ Element 4
 
 <div class="div-heading"> 
 <h3 id="H_List_of_Checkboxes_/_List_of_Tasks" class="document-heading anchor">List of Checkboxes / List of Tasks <a class="link-heading" href="#H_List_of_Checkboxes_/_List_of_Tasks">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1446&end=1462&anchor=H_List_of_Checkboxes_/_List_of_Tasks&page=refcard&timestamp=176064157284365" title="[i18n]: List of Checkboxes / List of Tasks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1525&end=1541&anchor=H_List_of_Checkboxes_/_List_of_Tasks&page=refcard&timestamp=176359801292763" title="[i18n]: List of Checkboxes / List of Tasks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
 </div>
 
@@ -3008,7 +3166,7 @@ Rendering:
 
 <div class="div-heading"> 
 <h3 id="H_Definition_Lists" class="document-heading anchor">Definition Lists <a class="link-heading" href="#H_Definition_Lists">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1462&end=1492&anchor=H_Definition_Lists&page=refcard&timestamp=176064157284365" title="[i18n]: Definition Lists" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1541&end=1571&anchor=H_Definition_Lists&page=refcard&timestamp=176359801292763" title="[i18n]: Definition Lists" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
 </div>
 
@@ -3046,14 +3204,14 @@ Rendering:
 
 <div class="div-heading"> 
 <h2 id="H_Footnotes" class="document-heading anchor">Footnotes <a class="link-heading" href="#H_Footnotes">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1492&end=1529&anchor=H_Footnotes&page=refcard&timestamp=176064157284365" title="[i18n]: Footnotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{14}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1571&end=1608&anchor=H_Footnotes&page=refcard&timestamp=176359801292763" title="[i18n]: Footnotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{14}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Footnote_Reference" class="document-heading anchor">Footnote Reference <a class="link-heading" href="#H_Footnote_Reference">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1494&end=1515&anchor=H_Footnote_Reference&page=refcard&timestamp=176064157284365" title="[i18n]: Footnote Reference" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1573&end=1594&anchor=H_Footnote_Reference&page=refcard&timestamp=176359801292763" title="[i18n]: Footnote Reference" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
 </div>
 
@@ -3099,7 +3257,7 @@ Ship speed is about 30 knots<a href="#" id="footnote-reference-link-2" class="fo
 
 <div class="div-heading"> 
 <h3 id="H_Footnotes_listing" class="document-heading anchor">Footnotes listing <a class="link-heading" href="#H_Footnotes_listing">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1515&end=1529&anchor=H_Footnotes_listing&page=refcard&timestamp=176064157284365" title="[i18n]: Footnotes listing" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1594&end=1608&anchor=H_Footnotes_listing&page=refcard&timestamp=176359801292763" title="[i18n]: Footnotes listing" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
 </div>
 
@@ -3124,14 +3282,14 @@ Rendering:
 
 <div class="div-heading"> 
 <h2 id="H_Admonitions_(Callout_Boxes)" class="document-heading anchor">Admonitions (Callout Boxes) <a class="link-heading" href="#H_Admonitions_(Callout_Boxes)">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1529&end=1771&anchor=H_Admonitions_(Callout_Boxes)&page=refcard&timestamp=176064157284365" title="[i18n]: Admonitions (Callout Boxes)" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{15}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1608&end=1850&anchor=H_Admonitions_(Callout_Boxes)&page=refcard&timestamp=176359801292763" title="[i18n]: Admonitions (Callout Boxes)" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{15}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Info_Admonition" class="document-heading anchor">Info Admonition <a class="link-heading" href="#H_Info_Admonition">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1530&end=1529&anchor=H_Info_Admonition&page=refcard&timestamp=176064157284365" title="[i18n]: Info Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1609&end=1608&anchor=H_Info_Admonition&page=refcard&timestamp=176359801292763" title="[i18n]: Info Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
 </div>
 
@@ -3148,7 +3306,7 @@ Rendering:
 </p>
 
 <div class="info admonition anchor" style="background:;">
-<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-info.svg"/> Info<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1541&end=1544&page=refcard&timestamp=176064157284365" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-info.svg"/> Info<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1620&end=1623&page=refcard&timestamp=176359801292763" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 <p>
 Give some information to the user.
 </p>
@@ -3156,7 +3314,7 @@ Give some information to the user.
 
 <div class="div-heading"> 
 <h3 id="H_Tip_Admonition" class="document-heading anchor">Tip Admonition <a class="link-heading" href="#H_Tip_Admonition">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1546&end=1560&anchor=H_Tip_Admonition&page=refcard&timestamp=176064157284365" title="[i18n]: Tip Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1625&end=1639&anchor=H_Tip_Admonition&page=refcard&timestamp=176359801292763" title="[i18n]: Tip Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
 </div>
 
@@ -3173,7 +3331,7 @@ Rendering:
 </p>
 
 <div class="tip admonition anchor" style="background:;">
-<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-lightbulb.svg"/> Tip<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1556&end=1559&page=refcard&timestamp=176064157284365" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-lightbulb.svg"/> Tip<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1635&end=1638&page=refcard&timestamp=176359801292763" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 <p>
 Try changing <code>tip</code> to <code>warning</code>!
 </p>
@@ -3181,7 +3339,7 @@ Try changing <code>tip</code> to <code>warning</code>!
 
 <div class="div-heading"> 
 <h3 id="H_Note_Admonition" class="document-heading anchor">Note Admonition <a class="link-heading" href="#H_Note_Admonition">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1560&end=1576&anchor=H_Note_Admonition&page=refcard&timestamp=176064157284365" title="[i18n]: Note Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1639&end=1655&anchor=H_Note_Admonition&page=refcard&timestamp=176359801292763" title="[i18n]: Note Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
 </div>
 
@@ -3199,7 +3357,7 @@ Rendering:
 </p>
 
 <div class="note admonition anchor" style="background:;">
-<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-info.svg"/> Note<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1571&end=1575&page=refcard&timestamp=176064157284365" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-info.svg"/> Note<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1650&end=1654&page=refcard&timestamp=176359801292763" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 <p>
 Make sure to check the relative error before stoppingthe iterations.
 </p>
@@ -3207,7 +3365,7 @@ Make sure to check the relative error before stoppingthe iterations.
 
 <div class="div-heading"> 
 <h3 id="H_Warning_Admonition" class="document-heading anchor">Warning Admonition <a class="link-heading" href="#H_Warning_Admonition">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1576&end=1593&anchor=H_Warning_Admonition&page=refcard&timestamp=176064157284365" title="[i18n]: Warning Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1655&end=1672&anchor=H_Warning_Admonition&page=refcard&timestamp=176359801292763" title="[i18n]: Warning Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
 </div>
 
@@ -3225,7 +3383,7 @@ Rendering:
 </p>
 
 <div class="warning admonition anchor" style="background:;">
-<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-warning1.svg"/> Warning<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1587&end=1591&page=refcard&timestamp=176064157284365" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-warning1.svg"/> Warning<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1666&end=1670&page=refcard&timestamp=176359801292763" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 <p>
 Make sure that device is fully charged before installing the firmware. Otherwise, the device may not be able to reboot.
 </p>
@@ -3233,7 +3391,7 @@ Make sure that device is fully charged before installing the firmware. Otherwise
 
 <div class="div-heading"> 
 <h3 id="H_Foldable_Admonition" class="document-heading anchor">Foldable Admonition <a class="link-heading" href="#H_Foldable_Admonition">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1593&end=1611&anchor=H_Foldable_Admonition&page=refcard&timestamp=176064157284365" title="[i18n]: Foldable Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1672&end=1690&anchor=H_Foldable_Admonition&page=refcard&timestamp=176359801292763" title="[i18n]: Foldable Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{5}">\(\setSubSection{5}\)</span>
 </div>
 
@@ -3253,7 +3411,7 @@ Rendering:
 
 <div class="note admonition anchor" style="background:;"><details>
 <summary>
-<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-info.svg"/> Note<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1605&end=1610&page=refcard&timestamp=176064157284365" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-info.svg"/> Note<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1684&end=1689&page=refcard&timestamp=176359801292763" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 </summary>
 <div class="details-content">
 <p>
@@ -3265,7 +3423,7 @@ This is initially hidden, and can be clicked to be opened when you are viewing t
 
 <div class="div-heading"> 
 <h3 id="H_Mathematical_Definition_Admonition" class="document-heading anchor">Mathematical Definition Admonition <a class="link-heading" href="#H_Mathematical_Definition_Admonition">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1611&end=1643&anchor=H_Mathematical_Definition_Admonition&page=refcard&timestamp=176064157284365" title="[i18n]: Mathematical Definition Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1690&end=1722&anchor=H_Mathematical_Definition_Admonition&page=refcard&timestamp=176359801292763" title="[i18n]: Mathematical Definition Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{6}">\(\setSubSection{6}\)</span>
 </div>
 
@@ -3294,22 +3452,22 @@ Rendering:
 </p>
 
 <div id="inverse-matrix" class="def admonition anchor" style="background:;">
-<span class="admonition-title"><label class="admonition-tag" data-i18n="admonition-math-defintion-label">DEFINITION</label>: <strong>(Inverse Matrix)</strong><a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1631&end=1642&page=refcard&timestamp=176064157284365" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><label class="admonition-tag" data-i18n="admonition-math-defintion-label">DEFINITION</label>: <strong>(Inverse Matrix)</strong><a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1710&end=1721&page=refcard&timestamp=176359801292763" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 <p>
 The inverse matrix <span class="math-inline">\(A^{-1}\)</span> of a matrix <span class="math-inline">\(A: n \times n\)</span> is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists.
-</p><div class="math-block anchor"> 
+</p><div  class="math-block anchor"> 
+<div class="div-latex-code">
 $$
-
-  \notag
+\notag
    A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}
-
 $$
+</div><div class="div-latex-enum"></div>
 </div>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_Mathematical_Theorem_Admonition" class="document-heading anchor">Mathematical Theorem Admonition <a class="link-heading" href="#H_Mathematical_Theorem_Admonition">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1643&end=1708&anchor=H_Mathematical_Theorem_Admonition&page=refcard&timestamp=176064157284365" title="[i18n]: Mathematical Theorem Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1722&end=1787&anchor=H_Mathematical_Theorem_Admonition&page=refcard&timestamp=176359801292763" title="[i18n]: Mathematical Theorem Admonition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{7}">\(\setSubSection{7}\)</span>
 </div>
 
@@ -3354,22 +3512,24 @@ Rendering:
 </p>
 
 <div class="theorem admonition anchor" style="background:;">
-<span class="admonition-title"><label class="admonition-tag" data-i18n="admonition-math-theorem-label">THEOREM</label> 1: <strong>(Determinant of Orthogonal Matrix)</strong><a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1680&end=1707&page=refcard&timestamp=176064157284365" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><label class="admonition-tag" data-i18n="admonition-math-theorem-label">THEOREM</label> 1: <strong>(Determinant of Orthogonal Matrix)</strong><a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1759&end=1786&page=refcard&timestamp=176359801292763" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 <p>
 The determinant of a <strong>orthogonal matrix</strong> <span class="math-inline">\(Q \in \mathbb{R}^{n \times n}\)</span> of n rows and n columns is always 1.
-</p><div class="math-block anchor"> 
+</p><div  class="math-block anchor"> 
+<div class="div-latex-code">
 $$
-
- \notag 
+\notag 
   \det(Q) = 1
-
 $$
+</div><div class="div-latex-enum"></div>
 </div><div class="foldabel-block-div"><details >
 <summary><u class="solution-label"><label data-i18n="foldable-math-proof-block-label">Proof</label> </u></summary>
 
-<div class="foldable-block" style=""><div class="math-block anchor"> 
+<div class="foldable-block" style=""><div  class="math-block anchor"> 
+<div class="div-latex-code">
 $$
 
+\notag
 \notag 
 \begin{split}
       \det (Q Q^T)      &amp;= \det(Q) \det(Q^{T}) 
@@ -3379,8 +3539,8 @@ $$
    \\  1                &amp;= \det{Q}^2
    \\  \det(Q)          &amp;= 1
 \end{split}
-
 $$
+</div><div class="div-latex-enum"></div>
 </div>
 
 </div>
@@ -3389,7 +3549,7 @@ $$
 
 <div class="div-heading"> 
 <h3 id="H_Example_of_solved_exercise" class="document-heading anchor">Example of solved exercise <a class="link-heading" href="#H_Example_of_solved_exercise">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1708&end=1771&anchor=H_Example_of_solved_exercise&page=refcard&timestamp=176064157284365" title="[i18n]: Example of solved exercise" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1787&end=1850&anchor=H_Example_of_solved_exercise&page=refcard&timestamp=176359801292763" title="[i18n]: Example of solved exercise" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{8}">\(\setSubSection{8}\)</span>
 </div>
 
@@ -3430,7 +3590,7 @@ Rendering:
 
 <aside class="example admonition anchor" style="background:;"  class="admonition example">
 <span class="admonition-title"><strong>
-<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Chain Rule for Derivative Multi-Variate Functions<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1742&end=1769&page=refcard&timestamp=176064157284365" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Chain Rule for Derivative Multi-Variate Functions<a class="link-edit link-edit-admonition" style="display:none" href="/edit/refcard?start=1821&end=1848&page=refcard&timestamp=176359801292763" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 </strong></span>
 
 <p>
@@ -3438,10 +3598,12 @@ Let the function f be <span class="math-inline">\(f(x, y) = x^2/A^2 + y^2/B^2 - 
 </p><div class="foldabel-block-div"><details >
 <summary><u class="solution-label"><label data-i18n="foldable-math-solution-block-label">Solution</label> </u></summary>
 
-<div class="foldable-block" style=""><div class="math-block anchor"> 
+<div class="foldable-block" style=""><div  class="math-block anchor"> 
+<div class="div-latex-code">
 $$
 
- \notag 
+\notag
+\notag 
 \begin{split}
   \frac{df}{dt} 
     &amp;= \frac{\partial f}{\partial x} \frac{dx}{dt}  
@@ -3458,8 +3620,8 @@ $$
     &amp;=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
     &amp;=  0 
 \end{split}
-
 $$
+</div><div class="div-latex-enum"></div>
 </div>
 
 </div>
@@ -3468,7 +3630,7 @@ $$
 
 <div class="div-heading"> 
 <h2 id="H_MyST_Roles" class="document-heading anchor">MyST Roles <a class="link-heading" href="#H_MyST_Roles">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1771&end=1896&anchor=H_MyST_Roles&page=refcard&timestamp=176064157284365" title="[i18n]: MyST Roles" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{16}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1850&end=1975&anchor=H_MyST_Roles&page=refcard&timestamp=176359801292763" title="[i18n]: MyST Roles" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{16}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -3489,7 +3651,7 @@ Syntax:
 
 <div class="div-heading"> 
 <h3 id="H_Raw_Text" class="document-heading anchor">Raw Text <a class="link-heading" href="#H_Raw_Text">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1781&end=1803&anchor=H_Raw_Text&page=refcard&timestamp=176064157284365" title="[i18n]: Raw Text" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1860&end=1882&anchor=H_Raw_Text&page=refcard&timestamp=176359801292763" title="[i18n]: Raw Text" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
 </div>
 
@@ -3533,7 +3695,7 @@ Note that the markdown rendered to the enclosed text within backticks "`" and no
 
 <div class="div-heading"> 
 <h3 id="H_Underline_text" class="document-heading anchor">Underline text <a class="link-heading" href="#H_Underline_text">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1803&end=1818&anchor=H_Underline_text&page=refcard&timestamp=176064157284365" title="[i18n]: Underline text" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1882&end=1897&anchor=H_Underline_text&page=refcard&timestamp=176359801292763" title="[i18n]: Underline text" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
 </div>
 
@@ -3563,7 +3725,7 @@ Rendering:
 
 <div class="div-heading"> 
 <h3 id="H_Abbreviation" class="document-heading anchor">Abbreviation <a class="link-heading" href="#H_Abbreviation">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1818&end=1841&anchor=H_Abbreviation&page=refcard&timestamp=176064157284365" title="[i18n]: Abbreviation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1897&end=1920&anchor=H_Abbreviation&page=refcard&timestamp=176359801292763" title="[i18n]: Abbreviation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
 </div>
 
@@ -3607,7 +3769,7 @@ This wiki engine provides a syntax closer to <abbr title="Markedly Structured Te
 
 <div class="div-heading"> 
 <h3 id="H_Text_Notes" class="document-heading anchor">Text Notes <a class="link-heading" href="#H_Text_Notes">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1841&end=1863&anchor=H_Text_Notes&page=refcard&timestamp=176064157284365" title="[i18n]: Text Notes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1920&end=1942&anchor=H_Text_Notes&page=refcard&timestamp=176359801292763" title="[i18n]: Text Notes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
 </div>
 
@@ -3651,7 +3813,7 @@ The term "dictionary" is displayed with underline dots. When the user clicks at 
 
 <div class="div-heading"> 
 <h3 id="H_Math_Role_for_Inline_LaTeX" class="document-heading anchor">Math Role for Inline LaTeX <a class="link-heading" href="#H_Math_Role_for_Inline_LaTeX">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1863&end=1873&anchor=H_Math_Role_for_Inline_LaTeX&page=refcard&timestamp=176064157284365" title="[i18n]: Math Role for Inline LaTeX" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1942&end=1952&anchor=H_Math_Role_for_Inline_LaTeX&page=refcard&timestamp=176359801292763" title="[i18n]: Math Role for Inline LaTeX" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{5}">\(\setSubSection{5}\)</span>
 </div>
 
@@ -3673,7 +3835,7 @@ The math expression  <span class="math-inline">\(x^2 - 10x + 20\)</span> the pre
 
 <div class="div-heading"> 
 <h3 id="H_Subscript__Role" class="document-heading anchor">Subscript  Role <a class="link-heading" href="#H_Subscript__Role">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1873&end=1883&anchor=H_Subscript__Role&page=refcard&timestamp=176064157284365" title="[i18n]: Subscript  Role" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1952&end=1962&anchor=H_Subscript__Role&page=refcard&timestamp=176359801292763" title="[i18n]: Subscript  Role" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{6}">\(\setSubSection{6}\)</span>
 </div>
 
@@ -3695,7 +3857,7 @@ Water: H<sub>2</sub>O
 
 <div class="div-heading"> 
 <h3 id="H_Superscript_Role" class="document-heading anchor">Superscript Role <a class="link-heading" href="#H_Superscript_Role">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1883&end=1896&anchor=H_Superscript_Role&page=refcard&timestamp=176064157284365" title="[i18n]: Superscript Role" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1962&end=1975&anchor=H_Superscript_Role&page=refcard&timestamp=176359801292763" title="[i18n]: Superscript Role" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 <span class="tex-section-command" style="display:none" data-code="\setSubSection{7}">\(\setSubSection{7}\)</span>
 </div>
 
@@ -3720,8 +3882,59 @@ The 7<sup>th</sup> element.
 </ul>
 
 <div class="div-heading"> 
+<h2 id="H_Flashcards" class="document-heading anchor">Flashcards <a class="link-heading" href="#H_Flashcards">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1975&end=2016&anchor=H_Flashcards&page=refcard&timestamp=176359801292763" title="[i18n]: Flashcards" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{17}\)</span>
+<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+</div>
+<hr class="line-under-heading">
+
+<p>
+MWiki supports basic flashcards, for instance, the following syntax defines a German-to-English flashcard deck. Where, each element of the array entries is a flashcard. The German Article+Word "der Tag" is the front side of the first flashcard. The backside of this card is corresponding english word "day".
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>```{flashcard}
+{
+     &quot;title&quot;:  &quot;Vocabulary German/English&quot;
+   , &quot;entries&quot;: [
+           [&quot;der Tag&quot;,    &quot;day&quot;]
+        ,  [&quot;der Wochentag&quot;, &quot;weekday or day of week&quot;]
+        ,  [&quot;der Diestang&quot;,  &quot;Tuesday&quot;]
+        ,  [&quot;der Mittwoch&quot;, &quot;Wednesday&quot;]
+        ,  [&quot;die Sicht&quot;, &quot;View&quot;]
+        ,  [&quot;die Ausgabe&quot;, &quot;Issue, example magazine or journal issue&quot;]
+        ,  [&quot;die Vorherige Ausgabe&quot;, &quot;Previous Issue&quot;]
+        ,  [&quot;seher gut&quot;, &quot;very good or very well&quot;]
+   ]
+}
+```
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<div class="div-flashcard"  data-size="8"><div><b class="flashcard-title">Vocabulary German/English</b></div><div class="div-flashcard-button-panel"><button class="btn-flashcard-view">View</button><button class="btn-flashcard-prev">Prev</button><button class="btn-flashcard-next">Next</button><input class="random-mode-checkbox" type="checkbox" name="random" /><label for="random">Random</label></div><div class="flashcard-entries">
+<div class="card-entry " data-index="0">
+<button class="btn-show-card">open</button><label class="label-card-front">(1/8) der Tag</label><p class="card-answer hidden">ANSWER: day</p></div><div class="card-entry hidden" data-index="1">
+<button class="btn-show-card">open</button><label class="label-card-front">(2/8) der Wochentag</label><p class="card-answer hidden">ANSWER: weekday or day of week</p></div><div class="card-entry hidden" data-index="2">
+<button class="btn-show-card">open</button><label class="label-card-front">(3/8) der Diestang</label><p class="card-answer hidden">ANSWER: Tuesday</p></div><div class="card-entry hidden" data-index="3">
+<button class="btn-show-card">open</button><label class="label-card-front">(4/8) der Mittwoch</label><p class="card-answer hidden">ANSWER: Wednesday</p></div><div class="card-entry hidden" data-index="4">
+<button class="btn-show-card">open</button><label class="label-card-front">(5/8) die Sicht</label><p class="card-answer hidden">ANSWER: View</p></div><div class="card-entry hidden" data-index="5">
+<button class="btn-show-card">open</button><label class="label-card-front">(6/8) die Ausgabe</label><p class="card-answer hidden">ANSWER: Issue, example magazine or journal issue</p></div><div class="card-entry hidden" data-index="6">
+<button class="btn-show-card">open</button><label class="label-card-front">(7/8) die Vorherige Ausgabe</label><p class="card-answer hidden">ANSWER: Previous Issue</p></div><div class="card-entry hidden" data-index="7">
+<button class="btn-show-card">open</button><label class="label-card-front">(8/8) seher gut</label><p class="card-answer hidden">ANSWER: very good or very well</p></div>
+</div></div>
+
+<p>
+It is possible to view all flashcards and their backside at once; go to next card; go to previous card; view the backside of the current flashcard; and jump to a next random card. Note that this feature is still under development.
+</p>
+
+<div class="div-heading"> 
 <h2 id="H_Further_Reading" class="document-heading anchor">Further Reading <a class="link-heading" href="#H_Further_Reading">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=1896&end=end&anchor=H_Further_Reading&page=refcard&timestamp=176064157284365" title="[i18n]: Further Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{17}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/refcard?start=2016&end=end&anchor=H_Further_Reading&page=refcard&timestamp=176359801292763" title="[i18n]: Further Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{18}\)</span>
 <span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
 </div>
 <hr class="line-under-heading">
@@ -3750,9 +3963,12 @@ The 7<sup>th</sup> element.
 
 
         </main>
+
+        
     </div>
     <script>
     </script>
+
 </body>
 
 </html>

@@ -10,7 +10,7 @@
     <title data-i18n="">MBook - Mathematics, Calculus and Linear Algebra Reference Card</title>
     <meta name="description" content="Reference card for math and calculus. This quick reference covers trigonometric identities, derivatives, integrals, statistcs and matrix calculus." />
     <meta name=generator content="MWiki">
-     <meta name="author" content="John Doe Nobody"> 
+     <meta name="author" content="My name is nobody"> 
    
     
    <style>
@@ -21,7 +21,9 @@
     font-style: normal;
     
     
+    
     src: url('/mwiki/static/fonts/cmu-concrete-regular.woff');
+    
 }
     
 
@@ -32,7 +34,9 @@
     font-style: italic;
     
     
+    
     src: url('/mwiki/static/fonts/cmu-concrete-italic.woff');
+    
 }
     
 
@@ -40,7 +44,9 @@
     font-family: 'Libertinus Mono';
     
     
+    
     src: url('/mwiki/static/fonts/LibertinusMono-Regular.woff2');
+    
 }
     
 
@@ -48,7 +54,9 @@
     font-family: 'Chicago MacOS';
     
     
+    
     src: url('/mwiki/static/fonts/ChicagoFLF.ttf');
+    
 }
     
 
@@ -69,13 +77,6 @@
     --form-border-color: #cfd5e2;
     --primary-button-background-color: #0172ad;
 
-    /* --font-family-main: 'Computer Modern'; */
-    /* --font-family-main: 'Neo Euler'; */
-    /***
-    --font-family-main: 'monospace';
-    --font-family-title: 'Sans Serif';
-    --font-family-code: 'monospace';
-    **/
 
     
     --font-family-main: 'CMU Concrete';
@@ -104,22 +105,29 @@
         
     </style>
   
+    
     <link rel="stylesheet" href="/mwiki/static/static_style.css">
-
-   
-
+    
     
     
     <!-- MathJax Settings -->
     <script>
 
-    let FONT_FAMILY_MAIN = "CMU Concrete"
-    let FONT_FAMILY_TITLE = "Chicago MacOS"
-    let FONT_FAMILY_CODE = "Libertinus Mono"
-    let DEFAULT_LOCALE = "en-US";
-	  let USE_DEFAULT_LOCALE = "True" === "True";
-    let CSRF_TOKEN = ""
+    const FONT_FAMILY_MAIN = "CMU Concrete"
+    const FONT_FAMILY_TITLE = "Chicago MacOS"
+    const FONT_FAMILY_CODE = "Libertinus Mono"
+    const DEFAULT_LOCALE = "en-US";
+	  const USE_DEFAULT_LOCALE = "True" === "True";
+    const LATEX_RENDERER = "katex";
+    const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
+    const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
+    const KATEX_MACROS = "eyJcXGIiOiAiXFxtYXRoYmZ7IzF9IiwgIlxcc2IiOiAiXFxib2xkc3ltYm9seyMxfSIsICJcXGFyZ21heCI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtYXh9IiwgIlxcYXJnbWluIjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1pbn0iLCAiXFxSIjogInsgXFxtYXRoYmJ7Un0gfSIsICJcXFoiOiAiXFxtYXRoYmJ7Wn0iLCAiXFxsYXBsYWNlIjogIlxcbWF0aGNhbHtMfVxceyMxXFx9IiwgIlxcZm91cmllciI6ICJcXG1hdGhjYWx7Rn1cXHsjMVxcfSIsICJcXGQiOiAiXFxtYXRocm17ZH0iLCAiXFxwIjogIlxccGFydGlhbCIsICJcXGUiOiAiXFxtYXRocm17ZX0iLCAiXFxDIjogInsgXFxtYXRoYmJ7Q30gfSIsICJcXEJpZ08iOiAiXFxtYXRoY2Fse099XFwhXFxsZWZ0KCMxXFxyaWdodCkiLCAiXFxtZGVmIjogIntcXHRyaWFuZ2xlcSBcXDt9IiwgIlxcc2duIjogIlxcb3BlcmF0b3JuYW1le3Nnbn0ifQ==";
+    const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
+    const IS_USER_ADMIN = false;
+    // NOTE: It is encoded as base64 
+    const PAGE_SOURCE_CODE = "";
+    const PAGE_SOURCE_URL  = "/mwiki/src_pages/Math_-_Calculus_Reference_Card.html"
 	
     // Possible values: 'none', 'nosection' 'section', 'subsection'
     //  none      => no enumeration 
@@ -256,18 +264,26 @@
     }
     </script>
 
+    
 
     
         
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml-full.js"
-            integrity="sha256-kbAFUDxdHwlYv01zraGjvjNZayxKtdoiJ38bDTFJtaQ="
-            crossorigin="anonymous" async>
-        </script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js" integrity="sha384-J+9dG2KMoiR9hqcFao0IBLwxt6zpcyN68IgwzsCSkbreXUjmNVRhPFTssqdSGjwQ" crossorigin="anonymous"></script>
+        <!-- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" -->
+            <!-- onload="renderMathInElement(document.body);"></script> -->
         
     
+  
 
     
+        <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js" async> </script>
+    
 
+
+    
 
     
     <!-- Additional Javascript libraries -->
@@ -297,13 +313,17 @@
         }, false);
         
     </script>
+
+    
     <script type="text/javascript" src="/mwiki/static/main.js"></script>
+    
 
 </head>
 
 <body>
-    <aside class="sidebar sidebar-visibility">
 
+    
+    <aside class="sidebar sidebar-visibility">
         
         <h2 data-i18n="sidebar-table-of-contentes-label">Contents</h2>
         
@@ -373,9 +393,11 @@
 </ol></li>
 </ol></ol>
         </div>
-
     </aside>
+    
+    
     <div class="main main-shift">
+        
         <header class="header">
             <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/mwiki/static/hamburger-menu.svg" style="height: 25px;"/> </a>
             <a data-i18n="home-page-button" class="sidebar-toggle-button" 
@@ -388,7 +410,11 @@
                  >
                 <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
                 </a>
-              <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                
+            <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                
+                <a data-i18n="show-source-menu-item-label" class="sidebar-toggle-button" href="#" onclick="displayPageSourceWindow();">Show source</a>
+                
                 
                  <a data-i18n="popup-window-change-language-menu-launcher" class="sidebar-toggle-button" href="#"
                     onclick="changeLanguageForm.toggle();"
@@ -408,7 +434,7 @@
                  onclick="toggleHeadings();"
                  id="btn-scroll-bottom" 
                  title="Fold/Unfold all sections."
-                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg" ></a> 
+                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg"></a> 
             <!-- 
              <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
                  href="#" 
@@ -421,11 +447,14 @@
             --> 
               
         </header>
+        
 
         <main class="content">
+            
             <div class="div-heading-h1">
                 <h1 data-i18n="" class="document-heading">Mathematics, Calculus and Linear Algebra Reference Card</h1>
             </div>
+            
             <p class="hidden-mathjax-macros" style="display: none;">
                 $$
                 
@@ -443,7 +472,7 @@ Math and Calculus Cheat Sheet
 
 <div class="div-heading"> 
 <h2 id="H_Related" class="document-heading anchor">Related <a class="link-heading" href="#H_Related">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=21&end=30&anchor=H_Related&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: Related" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=22&end=31&anchor=H_Related&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: Related" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -470,7 +499,7 @@ Math and Calculus Cheat Sheet
 
 <div class="div-heading"> 
 <h2 id="H_Overview" class="document-heading anchor">Overview <a class="link-heading" href="#H_Overview">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=30&end=63&anchor=H_Overview&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=31&end=64&anchor=H_Overview&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -559,8 +588,7 @@ Theorems
 
 <div class="div-heading"> 
 <h2 id="H_Physical_Units_and_SI_Prefixes" class="document-heading anchor">1 Physical Units and SI Prefixes <a class="link-heading" href="#H_Physical_Units_and_SI_Prefixes">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=63&end=113&anchor=H_Physical_Units_and_SI_Prefixes&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 1 Physical Units and SI Prefixes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{1}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=64&end=114&anchor=H_Physical_Units_and_SI_Prefixes&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 1 Physical Units and SI Prefixes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -591,7 +619,7 @@ Theorems
  
 <td>metre</td>
  
-<td><span class="math-inline">\(m\)</span></td>
+<td><span class="math-inline">m</span></td>
 </tr>
  
 <tr>
@@ -600,7 +628,7 @@ Theorems
  
 <td>Kilogram</td>
  
-<td><span class="math-inline">\(Kg\)</span></td>
+<td><span class="math-inline">Kg</span></td>
 </tr>
  
 <tr>
@@ -609,7 +637,7 @@ Theorems
  
 <td>Seconds</td>
  
-<td><span class="math-inline">\(s\)</span></td>
+<td><span class="math-inline">s</span></td>
 </tr>
  
 <tr>
@@ -618,7 +646,7 @@ Theorems
  
 <td>Kelvin</td>
  
-<td><span class="math-inline">\(K\)</span></td>
+<td><span class="math-inline">K</span></td>
 </tr>
  
 <tr>
@@ -627,7 +655,7 @@ Theorems
  
 <td>Radian</td>
  
-<td><span class="math-inline">\(\text{rad}\)</span></td>
+<td><span class="math-inline">\text{rad}</span></td>
 </tr>
 </tbody>
 </table>
@@ -659,7 +687,7 @@ Theorems
  
 <td>metre</td>
  
-<td><span class="math-inline">\(m\)</span></td>
+<td><span class="math-inline">m</span></td>
 </tr>
  
 <tr>
@@ -668,7 +696,7 @@ Theorems
  
 <td>Joule</td>
  
-<td><span class="math-inline">\(J\)</span>, <span class="math-inline">\(N.m\)</span></td>
+<td><span class="math-inline">J</span>, <span class="math-inline">N.m</span></td>
 </tr>
  
 <tr>
@@ -677,7 +705,7 @@ Theorems
  
 <td>Joule</td>
  
-<td><span class="math-inline">\(J\)</span>, <span class="math-inline">\(N.m\)</span></td>
+<td><span class="math-inline">J</span>, <span class="math-inline">N.m</span></td>
 </tr>
  
 <tr>
@@ -686,7 +714,7 @@ Theorems
  
 <td>Watt</td>
  
-<td><span class="math-inline">\(W\)</span></td>
+<td><span class="math-inline">W</span></td>
 </tr>
  
 <tr>
@@ -695,7 +723,7 @@ Theorems
  
 <td>square metre</td>
  
-<td><span class="math-inline">\(m^2\)</span></td>
+<td><span class="math-inline">m^2</span></td>
 </tr>
  
 <tr>
@@ -704,7 +732,7 @@ Theorems
  
 <td>cubic metre</td>
  
-<td><span class="math-inline">\(m^3\)</span></td>
+<td><span class="math-inline">m^3</span></td>
 </tr>
  
 <tr>
@@ -713,7 +741,7 @@ Theorems
  
 <td>Pascal</td>
  
-<td><span class="math-inline">\(Pa\)</span></td>
+<td><span class="math-inline">Pa</span></td>
 </tr>
  
 <tr>
@@ -722,7 +750,7 @@ Theorems
  
 <td>Pascal</td>
  
-<td><span class="math-inline">\(Pa\)</span></td>
+<td><span class="math-inline">Pa</span></td>
 </tr>
  
 <tr>
@@ -731,7 +759,7 @@ Theorems
  
 <td>meters per seconds</td>
  
-<td><span class="math-inline">\(m/s\)</span></td>
+<td><span class="math-inline">m/s</span></td>
 </tr>
  
 <tr>
@@ -740,7 +768,7 @@ Theorems
  
 <td>meters per square seconds</td>
  
-<td><span class="math-inline">\(m/s^2\)</span></td>
+<td><span class="math-inline">m/s^2</span></td>
 </tr>
  
 <tr>
@@ -749,7 +777,7 @@ Theorems
  
 <td>radians per seconds</td>
  
-<td><span class="math-inline">\(rad/s\)</span></td>
+<td><span class="math-inline">rad/s</span></td>
 </tr>
  
 <tr>
@@ -758,7 +786,7 @@ Theorems
  
 <td>radians per square seconds</td>
  
-<td><span class="math-inline">\(rad/s^2\)</span></td>
+<td><span class="math-inline">rad/s^2</span></td>
 </tr>
  
 <tr>
@@ -767,7 +795,7 @@ Theorems
  
 <td>Kilogram metre per second</td>
  
-<td><span class="math-inline">\(Kg m / s\)</span></td>
+<td><span class="math-inline">Kg m / s</span></td>
 </tr>
  
 <tr>
@@ -776,7 +804,7 @@ Theorems
  
 <td>Newton mere</td>
  
-<td><span class="math-inline">\(N.m\)</span></td>
+<td><span class="math-inline">N.m</span></td>
 </tr>
  
 <tr>
@@ -785,7 +813,7 @@ Theorems
  
 <td>Kilogram/metre<sup>3</sup></td>
  
-<td><span class="math-inline">\(Kg/m^3\)</span></td>
+<td><span class="math-inline">Kg/m^3</span></td>
 </tr>
 </tbody>
 </table>
@@ -813,204 +841,190 @@ Theorems
 
 <tr>
 
-<td><span class="math-inline">\(10^{12}\)</span></td>
+<td><span class="math-inline">10^{12}</span></td>
  
 <td>Tera</td>
  
-<td><span class="math-inline">\(T\)</span></td>
+<td><span class="math-inline">T</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(10^{9}\)</span></td>
+<td><span class="math-inline">10^{9}</span></td>
  
 <td>Giga</td>
  
-<td><span class="math-inline">\(G\)</span></td>
+<td><span class="math-inline">G</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(10^{6}\)</span></td>
+<td><span class="math-inline">10^{6}</span></td>
  
 <td>Mega</td>
  
-<td><span class="math-inline">\(M\)</span></td>
+<td><span class="math-inline">M</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(10^{3}\)</span></td>
+<td><span class="math-inline">10^{3}</span></td>
  
 <td>kilo</td>
  
-<td><span class="math-inline">\(k\)</span></td>
+<td><span class="math-inline">k</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(10^{2}\)</span></td>
+<td><span class="math-inline">10^{2}</span></td>
  
 <td>hecto</td>
  
-<td><span class="math-inline">\(h\)</span></td>
+<td><span class="math-inline">h</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(10^{1}\)</span></td>
+<td><span class="math-inline">10^{1}</span></td>
  
 <td>deca</td>
  
-<td><span class="math-inline">\(da\)</span></td>
+<td><span class="math-inline">da</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(10^{-1}\)</span></td>
+<td><span class="math-inline">10^{-1}</span></td>
  
 <td>deci</td>
  
-<td><span class="math-inline">\(d\)</span></td>
+<td><span class="math-inline">d</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(10^{-2}\)</span></td>
+<td><span class="math-inline">10^{-2}</span></td>
  
 <td>centi</td>
  
-<td><span class="math-inline">\(c\)</span></td>
+<td><span class="math-inline">c</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(10^{-3}\)</span></td>
+<td><span class="math-inline">10^{-3}</span></td>
  
 <td>milli</td>
  
-<td><span class="math-inline">\(m\)</span></td>
+<td><span class="math-inline">m</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(10^{-6}\)</span></td>
+<td><span class="math-inline">10^{-6}</span></td>
  
 <td>micro</td>
  
-<td><span class="math-inline">\(\mu\)</span></td>
+<td><span class="math-inline">\mu</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(10^{-9}\)</span></td>
+<td><span class="math-inline">10^{-9}</span></td>
  
 <td>nano</td>
  
-<td><span class="math-inline">\(n\)</span></td>
+<td><span class="math-inline">n</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(10^{-12}\)</span></td>
+<td><span class="math-inline">10^{-12}</span></td>
  
 <td>pico</td>
  
-<td><span class="math-inline">\(p\)</span></td>
+<td><span class="math-inline">p</span></td>
 </tr>
 </tbody>
 </table>
 
 <div class="div-heading"> 
 <h2 id="H_Fundamental_Curves" class="document-heading anchor">2 Fundamental Curves <a class="link-heading" href="#H_Fundamental_Curves">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=113&end=614&anchor=H_Fundamental_Curves&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 2 Fundamental Curves" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{2}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=114&end=615&anchor=H_Fundamental_Curves&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 2 Fundamental Curves" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Line_Function" class="document-heading anchor">2.1 Line Function <a class="link-heading" href="#H_Line_Function">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=115&end=148&anchor=H_Line_Function&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 2.1 Line Function" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=116&end=149&anchor=H_Line_Function&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 2.1 Line Function" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
-A general line equation has the following format, where <span class="math-inline">\(\alpha\)</span> is the line slope or anglular coefficient and <span class="math-inline">\(\beta\)</span> is the intercept of the line and the Y axis when x = 0.
+A general line equation has the following format, where <span class="math-inline">\alpha</span> is the line slope or anglular coefficient and <span class="math-inline">\beta</span> is the intercept of the line and the Y axis when x = 0.
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  y = f(x) = \alpha x + \beta
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+y = f(x) = \alpha x + \beta
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-Given two points of this line equations <span class="math-inline">\((x_1, \, y_1)\)</span> and <span class="math-inline">\((x_2, \, y_2)\)</span>, the line equation can be found by using,
+Given two points of this line equations <span class="math-inline">(x_1, \, y_1)</span> and <span class="math-inline">(x_2, \, y_2)</span>, the line equation can be found by using,
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-   y - y_1 = \frac{y_2 - y_1}{x_2 - x_1}(x - x_1)
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+y - y_1 = \frac{y_2 - y_1}{x_2 - x_1}(x - x_1)
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-so, the line slope coefficient <span class="math-inline">\(\alpha\)</span> is given by,
+so, the line slope coefficient <span class="math-inline">\alpha</span> is given by,
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-   \alpha = \frac{y_2 - y_1}{x_2 - x_1}
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\alpha = \frac{y_2 - y_1}{x_2 - x_1}
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-and the coefficient <span class="math-inline">\(\beta\)</span> can be determined as:
+and the coefficient <span class="math-inline">\beta</span> can be determined as:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \beta = - \alpha x_1 + y_1
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\beta = - \alpha x_1 + y_1
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-The solution of the line equation <span class="math-inline">\(f(x) = 0\)</span>, is the point x where this curve intercepts the <span class="math-inline">\(X\)</span> axis or <span class="math-inline">\(y = 0\)</span>. It is observable that this point is:
+The solution of the line equation <span class="math-inline">f(x) = 0</span>, is the point x where this curve intercepts the <span class="math-inline">X</span> axis or <span class="math-inline">y = 0</span>. It is observable that this point is:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  x = - \beta / \alpha
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+x = - \beta / \alpha
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_Quadratic_Equation_and_Quadratic_Curve" class="document-heading anchor">2.2 Quadratic Equation and Quadratic Curve <a class="link-heading" href="#H_Quadratic_Equation_and_Quadratic_Curve">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=148&end=337&anchor=H_Quadratic_Equation_and_Quadratic_Curve&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 2.2 Quadratic Equation and Quadratic Curve" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=149&end=338&anchor=H_Quadratic_Equation_and_Quadratic_Curve&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 2.2 Quadratic Equation and Quadratic Curve" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
-A quadratic cuve has the format <span class="math-inline">\(\eqref{EqQuadratic}\)</span>, where <span class="math-inline">\(a \in \mathbb{R}\)</span>, <span class="math-inline">\(b \in \mathbb{R}\)</span> and <span class="math-inline">\(c \in \mathbb{R}\)</span>.
+A quadratic cuve has the format <a class="eqref link-internal" href="#equation-EqQuadratic" data-equation="
+  f(x) = a x^2 + b x + c">(2.2.1)</a>, where <span class="math-inline">a \in \mathbb{R}</span>, <span class="math-inline">b \in \mathbb{R}</span> and <span class="math-inline">c \in \mathbb{R}</span>.
 </p>
 
-<div class="math-block anchor"> 
-$$
+<div id="equation-EqQuadratic" class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 
-  \label{EqQuadratic}
   f(x) = a x^2 + b x + c
-
-$$
+</div><div class="div-latex-enum"><span>(2.2.1)</span></div>
 </div>
 
 <p>
@@ -1018,12 +1032,11 @@ $$
 </p>
 
 <p>
-The solution of the quadtratic equation <span class="math-inline">\(f(x) = 0\)</span> can be found as:
+The solution of the quadtratic equation <span class="math-inline">f(x) = 0</span> can be found as:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 \begin{cases}
    x &amp;= \underbrace{ \dfrac{-b \pm \sqrt{\Delta}}{2a} }_{\text{real roots}} \in \mathbb{R} 
      \quad &amp;\text{if } \Delta \geq 0
@@ -1033,20 +1046,17 @@ $$
          \dfrac{-b \pm \mathrm{j} \sqrt{-\Delta}}{2a} }_{\text{complex conjugate roots}} \in \mathbb{C}
      \quad &amp;\text{if } \Delta &lt; 0
 \end{cases}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-Where <span class="math-inline">\(\Delta\)</span> is given by:
+Where <span class="math-inline">\Delta</span> is given by:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-\Delta = b^2 - 4ac 
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\Delta = b^2 - 4ac
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -1054,12 +1064,11 @@ $$
 </p>
 
 <p>
-Given three distinct points <span class="math-inline">\((x_1, \, y_1)\)</span>, <span class="math-inline">\((x_2, \, y_2)\)</span> and <span class="math-inline">\((x_3, \, y_3)\)</span> of a quadratic cuve <span class="math-inline">\(f(x) = ax^2 + bx + c\)</span>, the coefficients of the quatratic curve that intercepts those points can be determined by solving the following linear system for the column vector <span class="math-inline">\([a \, b \, c]^T\)</span>.
+Given three distinct points <span class="math-inline">(x_1, \, y_1)</span>, <span class="math-inline">(x_2, \, y_2)</span> and <span class="math-inline">(x_3, \, y_3)</span> of a quadratic cuve <span class="math-inline">f(x) = ax^2 + bx + c</span>, the coefficients of the quatratic curve that intercepts those points can be determined by solving the following linear system for the column vector <span class="math-inline">[a \, b \, c]^T</span>.
 </p>
 
-<div class="math-block anchor"> 
-$$
-
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 \begin{bmatrix}
       x_1^2 &amp; x_1 &amp; 1 
    \\ x_2^2 &amp; x_2 &amp; 1
@@ -1075,8 +1084,7 @@ $$
 \begin{bmatrix}
   y_1 \\ y_2 \\ y_3
 \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 
@@ -1191,9 +1199,8 @@ Generate the LaTeX expression for the values of a, b and c.
 Solution:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 \begin{split}
    a &amp;=  \frac{- x_{1} y_{2} + x_{1} y_{3} + x_{2} y_{1} - x_{2} y_{3} - x_{3} y_{1} + x_{3} y_{2}}{x_{1}^{2} x_{2} - x_{1}^{2} x_{3} - x_{1} x_{2}^{2} + x_{1} x_{3}^{2} + x_{2}^{2} x_{3} - x_{2} x_{3}^{2}}
  
@@ -1201,8 +1208,7 @@ $$
 
  \\ c &amp;= \frac{x_{1}^{2} x_{2} y_{3} - x_{1}^{2} x_{3} y_{2} - x_{1} x_{2}^{2} y_{3} + x_{1} x_{3}^{2} y_{2} + x_{2}^{2} x_{3} y_{1} - x_{2} x_{3}^{2} y_{1}}{x_{1}^{2} x_{2} - x_{1}^{2} x_{3} - x_{1} x_{2}^{2} + x_{1} x_{3}^{2} + x_{2}^{2} x_{3} - x_{2} x_{3}^{2}}
 \end{split}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -1246,75 +1252,70 @@ Code Generation using CSE - Common Subexpression Elimination:
 
 <div class="div-heading"> 
 <h3 id="H_Circle_Equation" class="document-heading anchor">2.3 Circle Equation <a class="link-heading" href="#H_Circle_Equation">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=337&end=614&anchor=H_Circle_Equation&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 2.3 Circle Equation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=338&end=615&anchor=H_Circle_Equation&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 2.3 Circle Equation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
-The equation of circle with center at point <span class="math-inline">\(\mathbf{r}_o = (x_o, y_o)\)</span> and radius <span class="math-inline">\(\rho\)</span> can be stated in vector form as as
+The equation of circle with center at point <span class="math-inline">\mathbf{r}_o = (x_o, y_o)</span> and radius <span class="math-inline">\rho</span> can be stated in vector form as as
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \| \mathbf{r} - \mathbf{r}_o \| = \rho
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\| \mathbf{r} - \mathbf{r}_o \| = \rho
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 in algebraic form this equation is
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  (x - x_o)^2 + (y - y_o)^2 = \rho^2
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+(x - x_o)^2 + (y - y_o)^2 = \rho^2
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div class="foldabel-block-div"><details >
 <summary><u class="solution-label"><label data-i18n="foldable-math-proof-block-label">Proof</label> </u></summary>
 
-<div class="foldable-block" style=""><div class="math-block anchor"> 
-$$
+<div class="foldable-block" style=""><div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 
 \notag
+
    \| \mathbf{r} - \mathbf{r_o} \|^2 = \rho^2
-
-$$
+</div><div class="div-latex-enum"></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 
 \notag
+
    \| (x, y) - (x_o, y_o)  \|^2 = \rho^2
-
-$$
+</div><div class="div-latex-enum"></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 
 \notag
-  \| (x - x_o, y - y_o) \|^2 = \rho^2
 
-$$
+  \| (x - x_o, y - y_o) \|^2 = \rho^2
+</div><div class="div-latex-enum"></div>
 </div>
 
 <p>
 Hence,
 </p>
 
-<div class="math-block anchor"> 
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 
 \notag
-   (x - x_o)^2 + (y - y_o)^2 = \rho^2
 
-$$
+   (x - x_o)^2 + (y - y_o)^2 = \rho^2
+</div><div class="div-latex-enum"></div>
 </div>
 
 </div>
@@ -1324,12 +1325,10 @@ $$
 or in less concise form
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-   x^2 + y^2 + Dx + Ey + F = 0
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+x^2 + y^2 + Dx + Ey + F = 0
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -1338,13 +1337,13 @@ Where,
 
 <ul class="">
 <li>
-<span class="math-inline">\(E = -2 x_o\)</span> 
+<span class="math-inline">E = -2 x_o</span> 
 </li>
 <li>
-<span class="math-inline">\(F = -2 y_o\)</span> 
+<span class="math-inline">F = -2 y_o</span> 
 </li>
 <li>
-<span class="math-inline">\(F = x_o^2 + y_o^2 - \rho^2\)</span> 
+<span class="math-inline">F = x_o^2 + y_o^2 - \rho^2</span> 
 </li>
 </ul>
 
@@ -1353,12 +1352,11 @@ Where,
 </p>
 
 <p>
-Given the points <span class="math-inline">\(\mathbf{r}_1 = (x_1, y_1)\)</span>, <span class="math-inline">\(\mathbf{r}_2 = (x_2, y_2)\)</span>, and <span class="math-inline">\(\mathbf{r}_3 = (x_3, y_3)\)</span>, it is possible to find the equation of the circle that passes through those points in the form <span class="math-inline">\(x^2 + y^2 + Dx + Ey + F = 0\)</span> by solving the following system of equations for the parameters <span class="math-inline">\(D\)</span>, <span class="math-inline">\(E\)</span> and <span class="math-inline">\(F\)</span>.
+Given the points <span class="math-inline">\mathbf{r}_1 = (x_1, y_1)</span>, <span class="math-inline">\mathbf{r}_2 = (x_2, y_2)</span>, and <span class="math-inline">\mathbf{r}_3 = (x_3, y_3)</span>, it is possible to find the equation of the circle that passes through those points in the form <span class="math-inline">x^2 + y^2 + Dx + Ey + F = 0</span> by solving the following system of equations for the parameters <span class="math-inline">D</span>, <span class="math-inline">E</span> and <span class="math-inline">F</span>.
 </p>
 
-<div class="math-block anchor"> 
-$$
-
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 \begin{bmatrix}
         x_1 &amp; y_1 &amp; 1
     \\  x_2 &amp; y_2 &amp; 1
@@ -1373,17 +1371,15 @@ $$
     \\  -(x_2^2 + y_2^2)
     \\  -(x_3^2 + y_3^2)
 \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 or in terse form
 </p>
 
-<div class="math-block anchor"> 
-$$
-
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 \begin{bmatrix}
          |      &amp;    |       &amp;    |
   \\ \mathbf{x} &amp; \mathbf{y} &amp; \mathbf{1}_3 
@@ -1393,8 +1389,7 @@ $$
     D \\ E \\ F
 \end{bmatrix}
 = - (\mathbf{x}.^2 + \, \mathbf{y}.^2)
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -1403,28 +1398,26 @@ where
 
 <ul class="">
 <li>
-<span class="math-inline">\(\mathbf{x} = (x_1, x_2, x_3)\)</span> (column vector) 
+<span class="math-inline">\mathbf{x} = (x_1, x_2, x_3)</span> (column vector) 
 </li>
 <li>
-<span class="math-inline">\(\mathbf{y} = (y_1, y_2, y_3)\)</span> (column vector) 
+<span class="math-inline">\mathbf{y} = (y_1, y_2, y_3)</span> (column vector) 
 </li>
 <li>
-<span class="math-inline">\(\mathbf{x}.^2 = (x_1^2, x_2^2, x_3^2)\)</span> - element-wise square of vector elements instead of square of matrix. NOTE: That many technical and scientific programming languages, including, APL, R (Rlang), Matlab and Fortran and Python/numpy uses functions that are applied to all elements of a matrix or vector. For instance, in Matlab or Python's Numpy, if v is vector v = [v1, v2, ..., v3], the function sin(v) will return [ sin(v1), ..., sin(v3)]. Although this type vectorized operations are common, there is no standard mathematical notation for denoting them. 
+<span class="math-inline">\mathbf{x}.^2 = (x_1^2, x_2^2, x_3^2)</span> - element-wise square of vector elements instead of square of matrix. NOTE: That many technical and scientific programming languages, including, APL, R (Rlang), Matlab and Fortran and Python/numpy uses functions that are applied to all elements of a matrix or vector. For instance, in Matlab or Python's Numpy, if v is vector v = [v1, v2, ..., v3], the function sin(v) will return [ sin(v1), ..., sin(v3)]. Although this type vectorized operations are common, there is no standard mathematical notation for denoting them. 
 </li>
 </ul>
 
 <p>
-The position of circle center <span class="math-inline">\(\mathbf{r}_o = (x_o, y_o)\)</span> and the radius <span class="math-inline">\(\rho\)</span> can be found as
+The position of circle center <span class="math-inline">\mathbf{r}_o = (x_o, y_o)</span> and the radius <span class="math-inline">\rho</span> can be found as
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-        x_o = - \frac{1}{2} D 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+x_o = - \frac{1}{2} D 
   \quad y_o = -\frac{1}{2} E
   \quad \rho^2 = x_o^2 + y_o^2 - F
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -1435,12 +1428,8 @@ $$
 Find the equation of the circle passing through the pointsP(2,1), Q(0,5), R(-1,2).
 </p>
 
-<p>
-Solution in Python's numpy
-</p>
-
 <div class="foldabel-block-div"><details >
-<summary><u class="solution-label"><label data-i18n="foldable-math-solution-block-label">Solution</label> </u></summary>
+<summary><u class="solution-label"><label data-i18n="foldable-math-solution-block-label">Solution</label> - Python Numpy (1)</u></summary>
 
 <div class="foldable-block" style=""><p>
 Import numpy
@@ -1480,7 +1469,7 @@ Create coefficients array of the linear system.
 </pre>
 
 <p>
-Define vector of constants. NOTE: the method call .reshape(-1, 1) is used for ensure that <span class="math-inline">\(\mathbf{b}\)</span> is a column vector with shape (2, 1).
+Define vector of constants. NOTE: the method call .reshape(-1, 1) is used for ensure that <span class="math-inline">\mathbf{b}</span> is a column vector with shape (2, 1).
 </p>
 
 <pre>
@@ -1495,7 +1484,7 @@ Define vector of constants. NOTE: the method call .reshape(-1, 1) is used for en
 </pre>
 
 <p>
-Solve the system of equations <span class="math-inline">\(A \mathbf{x} = \mathbf{b}\)</span>.
+Solve the system of equations <span class="math-inline">A \mathbf{x} = \mathbf{b}</span>.
 </p>
 
 <pre>
@@ -1510,7 +1499,7 @@ Solve the system of equations <span class="math-inline">\(A \mathbf{x} = \mathbf
 </pre>
 
 <p>
-Find the parameters, <span class="math-inline">\(D\)</span>, <span class="math-inline">\(E\)</span> and <span class="math-inline">\(F\)</span>.
+Find the parameters, <span class="math-inline">D</span>, <span class="math-inline">E</span> and <span class="math-inline">F</span>.
 </p>
 
 <pre>
@@ -1523,7 +1512,7 @@ Find the parameters, <span class="math-inline">\(D\)</span>, <span class="math-i
 </pre>
 
 <p>
-Determine <span class="math-inline">\(x_o\)</span>, <span class="math-inline">\(y_o\)</span>, the position of the circle center and its radius <span class="math-inline">\(\rho\)</span>.
+Determine <span class="math-inline">x_o</span>, <span class="math-inline">y_o</span>, the position of the circle center and its radius <span class="math-inline">\rho</span>.
 </p>
 
 <pre>
@@ -1538,7 +1527,7 @@ Determine <span class="math-inline">\(x_o\)</span>, <span class="math-inline">\(
 </pre>
 
 <p>
-Circle radius <span class="math-inline">\(\rho\)</span>.
+Circle radius <span class="math-inline">\rho</span>.
 </p>
 
 <pre>
@@ -1556,25 +1545,25 @@ So, for this set of points
 
 <ul class="">
 <li>
-<span class="math-inline">\(D = -2\)</span> 
+<span class="math-inline">D = -2</span> 
 </li>
 <li>
-<span class="math-inline">\(E = -6\)</span> 
+<span class="math-inline">E = -6</span> 
 </li>
 <li>
-<span class="math-inline">\(F =  5\)</span> 
+<span class="math-inline">F =  5</span> 
 </li>
 <li>
-<span class="math-inline">\(x_o = 1\)</span> 
+<span class="math-inline">x_o = 1</span> 
 </li>
 <li>
-<span class="math-inline">\(y_o = 3\)</span> 
+<span class="math-inline">y_o = 3</span> 
 </li>
 <li>
-<span class="math-inline">\(\rho^2 = 5\)</span> 
+<span class="math-inline">\rho^2 = 5</span> 
 </li>
 <li>
-<span class="math-inline">\(\rho = \sqrt{5}\)</span> 
+<span class="math-inline">\rho = \sqrt{5}</span> 
 </li>
 </ul>
 
@@ -1589,7 +1578,7 @@ This result can be confirmed by defining the function
 </pre>
 
 <p>
-and applying it to <span class="math-inline">\(\mathbf{x}\)</span> and <span class="math-inline">\(\mathbf{y}\)</span>.
+and applying it to <span class="math-inline">\mathbf{x}</span> and <span class="math-inline">\mathbf{y}</span>.
 </p>
 
 <pre>
@@ -1603,37 +1592,33 @@ and applying it to <span class="math-inline">\(\mathbf{x}\)</span> and <span cla
 Hence, the equation of the circle passing through the given three points is
 </p>
 
-<div class="math-block anchor"> 
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 
 \notag
-   x^2 + y^2 - 2x - 6y + 5 = 0
 
-$$
+   x^2 + y^2 - 2x - 6y + 5 = 0
+</div><div class="div-latex-enum"></div>
 </div>
 
 <p>
 or
 </p>
 
-<div class="math-block anchor"> 
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 
 \notag
-  (x - 1)^2 + (y - 3)^2 = 5
 
-$$
+  (x - 1)^2 + (y - 3)^2 = 5
+</div><div class="div-latex-enum"></div>
 </div>
 
 </div>
 </details></div>
 
-<p>
-Solution 2 in Python's Numpy.
-</p>
-
 <div class="foldabel-block-div"><details >
-<summary><u class="solution-label"><label data-i18n="foldable-math-solution-block-label">Solution</label> </u></summary>
+<summary><u class="solution-label"><label data-i18n="foldable-math-solution-block-label">Solution</label> - Python Numpy (2)</u></summary>
 
 <div class="foldable-block" style=""><p>
 Import numpy
@@ -1701,77 +1686,67 @@ Find the circle that fits the points.
 
 <div class="div-heading"> 
 <h2 id="H_Trigonometric_Functions_and_Identities" class="document-heading anchor">3 Trigonometric Functions and Identities <a class="link-heading" href="#H_Trigonometric_Functions_and_Identities">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=614&end=770&anchor=H_Trigonometric_Functions_and_Identities&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 3 Trigonometric Functions and Identities" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{3}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=615&end=771&anchor=H_Trigonometric_Functions_and_Identities&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 3 Trigonometric Functions and Identities" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Trigonometric_Functions" class="document-heading anchor">3.1 Trigonometric Functions <a class="link-heading" href="#H_Trigonometric_Functions">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=616&end=686&anchor=H_Trigonometric_Functions&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 3.1 Trigonometric Functions" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=617&end=687&anchor=H_Trigonometric_Functions&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 3.1 Trigonometric Functions" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 <strong>Basic Trigonometric Identities</strong>
 </p>
 
-<div class="math-block anchor"> 
-$$
-
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 \cos^2 \alpha + \sin^2 \alpha = 1
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 <strong>Euler's Identity</strong>
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-   e^{j \theta} = \cos\theta + j \sin \theta
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+e^{j \theta} = \cos\theta + j \sin \theta
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-Note: <span class="math-inline">\(j = \sqrt{-1}\)</span> imaginary unit and <span class="math-inline">\(\theta\)</span> is the angle in radians.
+Note: <span class="math-inline">j = \sqrt{-1}</span> imaginary unit and <span class="math-inline">\theta</span> is the angle in radians.
 </p>
 
 <p>
 <strong>Half Angle Trigonometric Identities</strong>
 </p>
 
-<div class="math-block anchor"> 
-$$
-
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 \begin{split}
       \sin \frac{\alpha}{2} &amp;= \pm \sqrt{ \frac{1 - \cos \alpha}{2}  }
    \\ \cos \frac{\alpha}{2} &amp;= \pm \sqrt{ \frac{1 + \cos \alpha}{2}}
    \\ \tan \frac{\alpha}{2} &amp;= \frac{1 - \cos \alpha}{\sin \alpha} 
                             = \frac{\sin \alpha}{ 1 + \cos \alpha}
 \end{split}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 <strong>Double Angle Formulas Trigonometric Identities</strong>
 </p>
 
-<div class="math-block anchor"> 
-$$
-
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 \begin{split}
      \sin 2 \alpha &amp;= 2 \sin \alpha \cos \alpha
   \\ \cos 2 \alpha &amp;= \cos^2 \alpha - \sin^2 \alpha
   \\ \cos 2 \alpha &amp;= 1 - 2 \sin^2 \alpha
   \\ \tan 2 \alpha &amp;= \frac{ 2 \tan \alpha }{ 1 - \tan^2 \alpha }
 \end{split}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -1811,35 +1786,35 @@ $$
 
 <td>Cosine is an even function (pt: função par)</td>
  
-<td><span class="math-inline">\(\cos (-x) = \cos (x)\)</span></td>
+<td><span class="math-inline">\cos (-x) = \cos (x)</span></td>
 </tr>
  
 <tr>
 
 <td>Sine is a odd function (pt: função impar)</td>
  
-<td><span class="math-inline">\(\sin (-x) = - \sin(x)\)</span></td>
+<td><span class="math-inline">\sin (-x) = - \sin(x)</span></td>
 </tr>
  
 <tr>
 
 <td></td>
  
-<td><span class="math-inline">\(\sin (\pi/2 - x) = \sin(90 - x) = \cos x\)</span></td>
+<td><span class="math-inline">\sin (\pi/2 - x) = \sin(90 - x) = \cos x</span></td>
 </tr>
  
 <tr>
 
 <td></td>
  
-<td><span class="math-inline">\(\cos (\pi/2 - x) = \cos(90 - x) = \sin x\)</span></td>
+<td><span class="math-inline">\cos (\pi/2 - x) = \cos(90 - x) = \sin x</span></td>
 </tr>
  
 <tr>
 
 <td></td>
  
-<td><span class="math-inline">\(\cos (\pi/2 - x) = \cos(90 - x) = \sin x\)</span></td>
+<td><span class="math-inline">\cos (\pi/2 - x) = \cos(90 - x) = \sin x</span></td>
 </tr>
  
 <tr>
@@ -1853,14 +1828,14 @@ $$
 
 <td>Sin of the sum of angles</td>
  
-<td><span class="math-inline">\(\sin(x + y) = \sin x . \cos y + \cos x . \sin y\)</span></td>
+<td><span class="math-inline">\sin(x + y) = \sin x . \cos y + \cos x . \sin y</span></td>
 </tr>
  
 <tr>
 
 <td>Cos of the sum of angles</td>
  
-<td><span class="math-inline">\(\cos(x + y) = \cos x . \cos y - \sin x . \sin y\)</span></td>
+<td><span class="math-inline">\cos(x + y) = \cos x . \cos y - \sin x . \sin y</span></td>
 </tr>
  
 <tr>
@@ -1881,7 +1856,7 @@ $$
 
 <td>Pythagorean identity</td>
  
-<td><span class="math-inline">\((\sin x)^2 + (\cos x)^2 = 1\)</span></td>
+<td><span class="math-inline">(\sin x)^2 + (\cos x)^2 = 1</span></td>
 </tr>
 </tbody>
 </table>
@@ -1928,24 +1903,24 @@ $$
 
 <td>30</td>
  
-<td><span class="math-inline">\(\pi/6\)</span></td>
+<td><span class="math-inline">\pi/6</span></td>
  
 <td>1/2</td>
  
-<td><span class="math-inline">\(\sqrt{3}/2\)</span></td>
+<td><span class="math-inline">\sqrt{3}/2</span></td>
  
-<td><span class="math-inline">\(\sqrt{3}/3\)</span></td>
+<td><span class="math-inline">\sqrt{3}/3</span></td>
 </tr>
  
 <tr>
 
 <td>45</td>
  
-<td><span class="math-inline">\(\pi/4\)</span></td>
+<td><span class="math-inline">\pi/4</span></td>
  
-<td><span class="math-inline">\(\sqrt{2}/2\)</span></td>
+<td><span class="math-inline">\sqrt{2}/2</span></td>
  
-<td><span class="math-inline">\(\sqrt{2}/2\)</span></td>
+<td><span class="math-inline">\sqrt{2}/2</span></td>
  
 <td>1</td>
 </tr>
@@ -1954,33 +1929,33 @@ $$
 
 <td>60</td>
  
-<td><span class="math-inline">\(\pi/3\)</span></td>
+<td><span class="math-inline">\pi/3</span></td>
  
-<td><span class="math-inline">\(\sqrt{3}/2\)</span></td>
+<td><span class="math-inline">\sqrt{3}/2</span></td>
  
 <td>1/2</td>
  
-<td><span class="math-inline">\(\sqrt{3}\)</span></td>
+<td><span class="math-inline">\sqrt{3}</span></td>
 </tr>
  
 <tr>
 
 <td>90</td>
  
-<td><span class="math-inline">\(\pi/2\)</span></td>
+<td><span class="math-inline">\pi/2</span></td>
  
 <td>1</td>
  
 <td>0</td>
  
-<td><span class="math-inline">\(\infty\)</span></td>
+<td><span class="math-inline">\infty</span></td>
 </tr>
  
 <tr>
 
 <td>180</td>
  
-<td><span class="math-inline">\(\pi\)</span></td>
+<td><span class="math-inline">\pi</span></td>
  
 <td>0</td>
  
@@ -1993,20 +1968,20 @@ $$
 
 <td>270</td>
  
-<td><span class="math-inline">\((3/2) \pi\)</span></td>
+<td><span class="math-inline">(3/2) \pi</span></td>
  
 <td>-1</td>
  
 <td>0</td>
  
-<td><span class="math-inline">\(-\infty\)</span></td>
+<td><span class="math-inline">-\infty</span></td>
 </tr>
  
 <tr>
 
 <td>360</td>
  
-<td><span class="math-inline">\(2\pi\)</span></td>
+<td><span class="math-inline">2\pi</span></td>
  
 <td>0</td>
  
@@ -2019,20 +1994,17 @@ $$
 
 <div class="div-heading"> 
 <h3 id="H_Trigonometric_Identities" class="document-heading anchor">3.2 Trigonometric Identities <a class="link-heading" href="#H_Trigonometric_Identities">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=686&end=770&anchor=H_Trigonometric_Identities&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 3.2 Trigonometric Identities" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=687&end=771&anchor=H_Trigonometric_Identities&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 3.2 Trigonometric Identities" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 <strong>Sine and Cosine Relation</strong>
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  (\sin \theta)^2 + (\cos \theta)^2 = 1
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+(\sin \theta)^2 + (\cos \theta)^2 = 1
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -2040,131 +2012,109 @@ $$
 </p>
 
 <p>
-Let <span class="math-inline">\(\mathrm{j} = \sqrt{-1}\)</span> be the imaginary unit.
+Let <span class="math-inline">\mathrm{j} = \sqrt{-1}</span> be the imaginary unit.
 </p>
 
 <p>
 Complex Exponential
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  e^{\mathrm{j} \theta} = \cos \theta + \mathrm{j} \sin \theta 
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+e^{\mathrm{j} \theta} = \cos \theta + \mathrm{j} \sin \theta
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 and,
 </p>
 
-<div class="math-block anchor"> 
-$$
-
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 e^{-\mathrm{j \theta}} = \cos \theta - \mathrm{j} \sin \theta
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Cosine of angle in radians expressed as linear combination of complex exponential
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \cos \theta 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\cos \theta 
     = \frac{1}{2} (e^{\mathrm{j} \theta} + e^{ - \mathrm{j} \theta}  )
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Sine of angle in radians expressed as linear combination of complex exponential
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \cos \theta = 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\cos \theta = 
      \frac{1}{2 \mathrm{j}} 
        (e^{\mathrm{j}  \theta} + e^{ - \mathrm{j}  \theta}  )
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Derivative of complex exponential with respect to angle in radians.
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \frac{d}{d \theta} e^{j \theta} = j \cdot e^{j \theta}
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\frac{d}{d \theta} e^{j \theta} = j \cdot e^{j \theta}
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 <strong>Functions Symmetry</strong>
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \cos(-x) = \cos(x)
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\cos(-x) = \cos(x)
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-  \sin(-x) = -\sin(x)
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\sin(-x) = -\sin(x)
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 <strong>Trigonometric expansions</strong>
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \cos (a + b) = \cos a \cdot \cos b - \sin a  \sin b
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\cos (a + b) = \cos a \cdot \cos b - \sin a  \sin b
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-  \sin (a + b) = \sin a \cdot \cos b - \sin a  \cos b
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\sin (a + b) = \sin a \cdot \cos b - \sin a  \cos b
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-  \tan(b - a) = \dfrac{ \tan y - \tan x }{\tan x  \tan y + 1 }
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\tan(b - a) = \dfrac{ \tan y - \tan x }{\tan x  \tan y + 1 }
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div class="div-heading"> 
 <h2 id="H_Derivatives" class="document-heading anchor">4 Derivatives <a class="link-heading" href="#H_Derivatives">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=770&end=1058&anchor=H_Derivatives&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 4 Derivatives" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{4}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=771&end=1059&anchor=H_Derivatives&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 4 Derivatives" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Derivative_Rules" class="document-heading anchor">4.1 Derivative Rules <a class="link-heading" href="#H_Derivative_Rules">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=772&end=788&anchor=H_Derivative_Rules&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 4.1 Derivative Rules" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=773&end=789&anchor=H_Derivative_Rules&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 4.1 Derivative Rules" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -2188,14 +2138,14 @@ $$
 
 <td>f(x)</td>
  
-<td><span class="math-inline">\(\dot{f}(x) = \dfrac{df}{dx}\)</span></td>
+<td><span class="math-inline">\dot{f}(x) = \dfrac{df}{dx}</span></td>
  
 <td>Derivative of generic function</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(r(x) = c\)</span></td>
+<td><span class="math-inline">r(x) = c</span></td>
  
 <td>0</td>
  
@@ -2204,81 +2154,81 @@ $$
  
 <tr>
 
-<td><span class="math-inline">\(c f(x)\)</span></td>
+<td><span class="math-inline">c f(x)</span></td>
  
-<td><span class="math-inline">\(c \dfrac{df}{dx}\)</span></td>
+<td><span class="math-inline">c \dfrac{df}{dx}</span></td>
  
 <td>Function multiplied by constant</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(c + f(x)\)</span></td>
+<td><span class="math-inline">c + f(x)</span></td>
  
-<td><span class="math-inline">\(\dfrac{df}{dx}\)</span></td>
+<td><span class="math-inline">\dfrac{df}{dx}</span></td>
  
 <td>Function added to constant</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(f(x) + g(x)\)</span></td>
+<td><span class="math-inline">f(x) + g(x)</span></td>
  
-<td><span class="math-inline">\(\dfrac{df}{dx} + \dfrac{dg}{dx}\)</span></td>
+<td><span class="math-inline">\dfrac{df}{dx} + \dfrac{dg}{dx}</span></td>
  
 <td>Sum of functions</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(f(x) g(x)\)</span></td>
+<td><span class="math-inline">f(x) g(x)</span></td>
  
-<td><span class="math-inline">\(f \dfrac{f}{dx} + g \dfrac{df}{dx}\)</span></td>
+<td><span class="math-inline">f \dfrac{f}{dx} + g \dfrac{df}{dx}</span></td>
  
 <td>Product of functions</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(f(u(x))\)</span></td>
+<td><span class="math-inline">f(u(x))</span></td>
  
-<td><span class="math-inline">\(\left[\dfrac{d}{du} f(u) \right] \dfrac{du}{dx} = \dfrac{df}{du} \dfrac{du}{dx}\)</span></td>
+<td><span class="math-inline">\left[\dfrac{d}{du} f(u) \right] \dfrac{du}{dx} = \dfrac{df}{du} \dfrac{du}{dx}</span></td>
  
 <td>Chain Rule</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(\dfrac{1}{f(x)}\)</span></td>
+<td><span class="math-inline">\dfrac{1}{f(x)}</span></td>
  
-<td><span class="math-inline">\(-\dfrac{1}{f^2} \dfrac{df}{dx}\)</span></td>
+<td><span class="math-inline">-\dfrac{1}{f^2} \dfrac{df}{dx}</span></td>
  
 <td>Dertivative of function</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(\dfrac{g}{f}\)</span></td>
+<td><span class="math-inline">\dfrac{g}{f}</span></td>
  
-<td><span class="math-inline">\(\dfrac{f \dot{g} - g \dot{f}}{f^2}\)</span></td>
+<td><span class="math-inline">\dfrac{f \dot{g} - g \dot{f}}{f^2}</span></td>
  
 <td>Derivative of ratio</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(f^{-1}(x)\)</span></td>
+<td><span class="math-inline">f^{-1}(x)</span></td>
  
-<td><span class="math-inline">\(\left. \left[ \dfrac{d}{dy} f(y) \right]^{-1}    \right\vert_{y = f^{-1}(x)}\)</span></td>
+<td><span class="math-inline">\left. \left[ \dfrac{d}{dy} f(y) \right]^{-1}    \right\vert_{y = f^{-1}(x)}</span></td>
  
 <td>Derivative of inverse function</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(\left. \dfrac{d}{dx} f^{-1}(x) \right\vert_{x = a}\)</span></td>
+<td><span class="math-inline">\left. \dfrac{d}{dx} f^{-1}(x) \right\vert_{x = a}</span></td>
  
-<td><span class="math-inline">\(\left. \left[ \dfrac{d}{dy} f(y) \right]^{-1}    \right\vert_{y = f^{-1}(a)}\)</span></td>
+<td><span class="math-inline">\left. \left[ \dfrac{d}{dy} f(y) \right]^{-1}    \right\vert_{y = f^{-1}(a)}</span></td>
  
 <td>Derivative of inverse function evaluated at x = a</td>
 </tr>
@@ -2287,8 +2237,7 @@ $$
 
 <div class="div-heading"> 
 <h3 id="H_Basic_Derivatives" class="document-heading anchor">4.2 Basic Derivatives <a class="link-heading" href="#H_Basic_Derivatives">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=788&end=814&anchor=H_Basic_Derivatives&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 4.2 Basic Derivatives" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=789&end=815&anchor=H_Basic_Derivatives&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 4.2 Basic Derivatives" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -2310,7 +2259,7 @@ $$
 
 <tr>
 
-<td><span class="math-inline">\(x\)</span></td>
+<td><span class="math-inline">x</span></td>
  
 <td>1</td>
  
@@ -2319,162 +2268,162 @@ $$
  
 <tr>
 
-<td><span class="math-inline">\(x^2\)</span></td>
+<td><span class="math-inline">x^2</span></td>
  
-<td><span class="math-inline">\(2x\)</span></td>
- 
-<td></td>
-</tr>
- 
-<tr>
-
-<td><span class="math-inline">\(x^3\)</span></td>
- 
-<td><span class="math-inline">\(3 x^2\)</span></td>
+<td><span class="math-inline">2x</span></td>
  
 <td></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(x^p\)</span></td>
+<td><span class="math-inline">x^3</span></td>
  
-<td><span class="math-inline">\(p x^{p - 1}\)</span></td>
- 
-<td><span class="math-inline">\(p \in \mathbb{R}\)</span></td>
-</tr>
- 
-<tr>
-
-<td><span class="math-inline">\(1/x\)</span></td>
- 
-<td><span class="math-inline">\(-1/x^2\)</span></td>
+<td><span class="math-inline">3 x^2</span></td>
  
 <td></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(\sqrt{x}\)</span></td>
+<td><span class="math-inline">x^p</span></td>
  
-<td><span class="math-inline">\(\dfrac{1}{2 \sqrt{x}}\)</span></td>
+<td><span class="math-inline">p x^{p - 1}</span></td>
+ 
+<td><span class="math-inline">p \in \mathbb{R}</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">1/x</span></td>
+ 
+<td><span class="math-inline">-1/x^2</span></td>
  
 <td></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(e^x\)</span></td>
+<td><span class="math-inline">\sqrt{x}</span></td>
  
-<td><span class="math-inline">\(e^x\)</span></td>
- 
-<td></td>
-</tr>
- 
-<tr>
-
-<td><span class="math-inline">\(e^{a x}\)</span></td>
- 
-<td><span class="math-inline">\(a e^{a x}\)</span></td>
+<td><span class="math-inline">\dfrac{1}{2 \sqrt{x}}</span></td>
  
 <td></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(a^x\)</span></td>
+<td><span class="math-inline">e^x</span></td>
  
-<td><span class="math-inline">\(a^x \ln a\)</span></td>
- 
-<td></td>
-</tr>
- 
-<tr>
-
-<td><span class="math-inline">\(e^{f(x)}\)</span></td>
- 
-<td><span class="math-inline">\(e^{f(x)} f(x) \dot{f}(x)\)</span></td>
+<td><span class="math-inline">e^x</span></td>
  
 <td></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(\ln x\)</span></td>
+<td><span class="math-inline">e^{a x}</span></td>
  
-<td><span class="math-inline">\(1/x\)</span></td>
+<td><span class="math-inline">a e^{a x}</span></td>
  
-<td>Derivative of natural logarithm base <span class="math-inline">\(\mathrm{e}\)</span></td>
+<td></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(\log_a x\)</span></td>
+<td><span class="math-inline">a^x</span></td>
  
-<td><span class="math-inline">\(\dfrac{1}{x \ln a}\)</span></td>
+<td><span class="math-inline">a^x \ln a</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">e^{f(x)}</span></td>
+ 
+<td><span class="math-inline">e^{f(x)} f(x) \dot{f}(x)</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\ln x</span></td>
+ 
+<td><span class="math-inline">1/x</span></td>
+ 
+<td>Derivative of natural logarithm base <span class="math-inline">\mathrm{e}</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\log_a x</span></td>
+ 
+<td><span class="math-inline">\dfrac{1}{x \ln a}</span></td>
  
 <td>Derivative of logarithm of base a</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(\sin x\)</span></td>
+<td><span class="math-inline">\sin x</span></td>
  
-<td><span class="math-inline">\(\cos x\)</span></td>
- 
-<td></td>
-</tr>
- 
-<tr>
-
-<td><span class="math-inline">\(\cos x\)</span></td>
- 
-<td><span class="math-inline">\(- \sin x\)</span></td>
+<td><span class="math-inline">\cos x</span></td>
  
 <td></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(\tan x\)</span></td>
+<td><span class="math-inline">\cos x</span></td>
  
-<td><span class="math-inline">\(\sec^2 x\)</span></td>
- 
-<td></td>
-</tr>
- 
-<tr>
-
-<td><span class="math-inline">\(\sec x\)</span></td>
- 
-<td><span class="math-inline">\(\sec x \tan x\)</span></td>
+<td><span class="math-inline">- \sin x</span></td>
  
 <td></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(\sin^{-1}(x)\)</span></td>
+<td><span class="math-inline">\tan x</span></td>
  
-<td><span class="math-inline">\(\dfrac{1}{\sqrt{1 - x^2}}\)</span></td>
+<td><span class="math-inline">\sec^2 x</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\sec x</span></td>
+ 
+<td><span class="math-inline">\sec x \tan x</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\sin^{-1}(x)</span></td>
+ 
+<td><span class="math-inline">\dfrac{1}{\sqrt{1 - x^2}}</span></td>
  
 <td>arc sine</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(\cos^{-1}(x)\)</span></td>
+<td><span class="math-inline">\cos^{-1}(x)</span></td>
  
-<td><span class="math-inline">\(-\dfrac{1}{\sqrt{1 - x^2}}\)</span></td>
+<td><span class="math-inline">-\dfrac{1}{\sqrt{1 - x^2}}</span></td>
  
 <td>arc cosine</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\(\tan^{-1}(x)\)</span></td>
+<td><span class="math-inline">\tan^{-1}(x)</span></td>
  
-<td><span class="math-inline">\(\dfrac{1}{1 + x^2}\)</span></td>
+<td><span class="math-inline">\dfrac{1}{1 + x^2}</span></td>
  
 <td>arc tangent or arctan</td>
 </tr>
@@ -2483,18 +2432,16 @@ $$
 
 <div class="div-heading"> 
 <h3 id="H_Derivative_of_Inverse_Function" class="document-heading anchor">4.3 Derivative of Inverse Function <a class="link-heading" href="#H_Derivative_of_Inverse_Function">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=814&end=931&anchor=H_Derivative_of_Inverse_Function&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 4.3 Derivative of Inverse Function" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=815&end=932&anchor=H_Derivative_of_Inverse_Function&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 4.3 Derivative of Inverse Function" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
-Derivative of inverse function <span class="math-inline">\(f^{-1}(x)\)</span> of <span class="math-inline">\(f(x)\)</span> at <span class="math-inline">\(x = a\)</span>.
+Derivative of inverse function <span class="math-inline">f^{-1}(x)</span> of <span class="math-inline">f(x)</span> at <span class="math-inline">x = a</span>.
 </p>
 
-<div class="math-block anchor"> 
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 
- \notag
  
   \left. \dfrac{d}{dx} f^{-1}(x) 
       \right\vert_{\displaystyle x = a} 
@@ -2502,8 +2449,7 @@ $$
   = \left. \left[ 
        \dfrac{df}{dy} \right]^{-1} 
          \right\vert_{\displaystyle y = f^{-1}(a)}
-
-$$
+</div><div class="div-latex-enum"></div>
 </div>
 
 <p>
@@ -2511,43 +2457,37 @@ $$
 </p>
 
 <p>
-STEP 1: Given a, solve the following equation for y, in order to find <span class="math-inline">\(y_a\)</span>, the solution of this equation.
+STEP 1: Given a, solve the following equation for y, in order to find <span class="math-inline">y_a</span>, the solution of this equation.
 </p>
 
-<div class="math-block anchor"> 
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 
-\notag
    a = f(y)
-
-$$
+</div><div class="div-latex-enum"></div>
 </div>
 
 <p>
-STEP 2: Compute the derivative of <span class="math-inline">\(f(y)\)</span> with respect to y at <span class="math-inline">\(y = y_a\)</span>.
+STEP 2: Compute the derivative of <span class="math-inline">f(y)</span> with respect to y at <span class="math-inline">y = y_a</span>.
 </p>
 
-<div class="math-block anchor"> 
-$$
-
- \notag 
-  w = \left. \dfrac{d}{dy} f(y) \right\vert_{\displaystyle y = y_a} 
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+ 
+  w = \left. \dfrac{d}{dy} f(y) \right\vert_{\displaystyle y = y_a}
+</div><div class="div-latex-enum"></div>
 </div>
 
 <p>
 STEP 3: Compute the value of the derivative of the inverse function of f(x) by taking the inverse of the previous result w.
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \left. \dfrac{d}{dx} f^{-1}(x) 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\left. \dfrac{d}{dx} f^{-1}(x) 
            \right\vert_{\displaystyle x = a} 
    = \frac{1}{w}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -2556,70 +2496,71 @@ $$
 
 <aside class="example admonition anchor" style="background:;"  class="admonition example">
 <span class="admonition-title"><strong>
-<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Derivative of Inverse Function<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Math - Calculus Reference Card?start=856&end=928&page=Math - Calculus Reference Card&timestamp=176064157280165" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Derivative of Inverse Function<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Math - Calculus Reference Card?start=857&end=929&page=Math - Calculus Reference Card&timestamp=176359801292363" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 </strong></span>
 
 <p>
-Suppose <span class="math-inline">\(f(x)=x^5+2x^3+7x+1\)</span>, find <span class="math-inline">\([{f}]^{-1}(1)\)</span>, the derivative of the inverse function of f(x) at x = 1.  <a href="https://www.sfu.ca/math-coursenotes/Math%20157%20Course%20Notes/sec_DerivativesofInverse.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >(sfu.ca)</a>
+Suppose <span class="math-inline">f(x)=x^5+2x^3+7x+1</span>, find <span class="math-inline">[{f}]^{-1}(1)</span>, the derivative of the inverse function of f(x) at x = 1.  <a href="https://www.sfu.ca/math-coursenotes/Math%20157%20Course%20Notes/sec_DerivativesofInverse.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >(sfu.ca)</a>
 </p><div class="foldabel-block-div"><details >
 <summary><u class="solution-label"><label data-i18n="foldable-math-solution-block-label">Solution</label> </u></summary>
 
 <div class="foldable-block" style=""><p>
-Recall tha the derivative of <span class="math-inline">\(f^{-1}(x)\)</span> can be determined as,
+Recall tha the derivative of <span class="math-inline">f^{-1}(x)</span> can be determined as,
 </p>
 
-<div class="math-block anchor"> 
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 
- \notag
+\notag
+
  
   \left. \dfrac{d}{dx} f^{-1}(x) \right\vert_{x = a} 
  
   = \left. \left[ 
        \dfrac{df}{dy} \right]^{-1} 
          \right\vert_{y = f^{-1}(a)}
-
-$$
+</div><div class="div-latex-enum"></div>
 </div>
 
 <p>
-The first step is to determine <span class="math-inline">\(y = f^{-1}(1)\)</span>. Isolate y in this equation in order to find y corresponding to <span class="math-inline">\(a = 1\)</span>. that yields,
+The first step is to determine <span class="math-inline">y = f^{-1}(1)</span>. Isolate y in this equation in order to find y corresponding to <span class="math-inline">a = 1</span>. that yields,
 </p>
 
-<div class="math-block anchor"> 
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 
- \notag
+\notag
+
      f(y) = 1
-
-$$
+</div><div class="div-latex-enum"></div>
 </div>
 
 <p>
-Solve the equation <span class="math-inline">\(f(y) = 1\)</span>.
+Solve the equation <span class="math-inline">f(y) = 1</span>.
 </p>
 
-<div class="math-block anchor"> 
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 
- \notag 
+\notag
+ 
  f(y) = y^5 + 2y^3 + 7y + 1 = 1
-
-$$
+</div><div class="div-latex-enum"></div>
 </div>
 
 <p>
-It is observable that the solution of the previous equation is <span class="math-inline">\(y = 0\)</span>.
+It is observable that the solution of the previous equation is <span class="math-inline">y = 0</span>.
 </p>
 
 <p>
 Compute the derivative of f(y) at y = 0.
 </p>
 
-<div class="math-block anchor"> 
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 
- \notag
+\notag
+
   \begin{split}
  
  \left. \dfrac{d}{dy} f(y) \right\vert_{y = 0}
@@ -2631,18 +2572,18 @@ $$
              \right\vert_{\displaystyle y = 0}
      \\ &amp;=  7
 \end{split}
-
-$$
+</div><div class="div-latex-enum"></div>
 </div>
 
 <p>
-Finally, the derivative of <span class="math-inline">\(\dfrac{d}{dx} f^{-1}(x)\)</span> can be evaluted at x = 1 by replacing the result of the previous computation in the formula for determining the derivative of the inverse function.
+Finally, the derivative of <span class="math-inline">\dfrac{d}{dx} f^{-1}(x)</span> can be evaluted at x = 1 by replacing the result of the previous computation in the formula for determining the derivative of the inverse function.
 </p>
 
-<div class="math-block anchor"> 
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 
- \notag
+\notag
+
  
   \begin{split}
        \left. \dfrac{d}{dx} f^{-1}(x) \right\vert_{x = 0} 
@@ -2652,12 +2593,11 @@ $$
  \\    &amp;= (7)^{-1} = \frac{1}{7}
 
   \end{split}
-
-$$
+</div><div class="div-latex-enum"></div>
 </div>
 
 <p>
-Solution: <span class="math-inline">\([f^{-1}]'(1) = \dfrac{1}{7}\)</span>
+Solution: <span class="math-inline">[f^{-1}]&apos;(1) = \dfrac{1}{7}</span>
 </p>
 
 </div>
@@ -2668,8 +2608,7 @@ Solution: <span class="math-inline">\([f^{-1}]'(1) = \dfrac{1}{7}\)</span>
 
 <div class="div-heading"> 
 <h3 id="H_Chain_Rule" class="document-heading anchor">4.4 Chain Rule <a class="link-heading" href="#H_Chain_Rule">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=931&end=1021&anchor=H_Chain_Rule&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 4.4 Chain Rule" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=932&end=1022&anchor=H_Chain_Rule&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 4.4 Chain Rule" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -2680,37 +2619,31 @@ Solution: <span class="math-inline">\([f^{-1}]'(1) = \dfrac{1}{7}\)</span>
 This notation explicitly states that the in the right-hand side of the equation f is expressed as function of u and not as function of x.
 </p>
 
-<div class="math-block anchor"> 
-$$
-
- \dfrac{d}{dx} f(u(x)) 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\dfrac{d}{dx} f(u(x)) 
    = \left[ \dfrac{d}{du} f(u) \right] \dfrac{du}{dx}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Concise notation for chain rule for functions of a single variable
 </p>
 
-<div class="math-block anchor"> 
-$$
-
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 \dfrac{d}{dx} f(u(x)) = \dfrac{df}{du} \dfrac{du}{dx}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 <strong>Chain rule for function of multi-variable functions</strong>
 </p>
 
-<div class="math-block anchor"> 
-$$
-
- \dfrac{d}{dt} f(x(t), y(t)) = \dfrac{\partial f}{\partial x} \dfrac{dx}{dt} + \dfrac{\partial f}{\partial y} \dfrac{dy}{dt}
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\dfrac{d}{dt} f(x(t), y(t)) = \dfrac{\partial f}{\partial x} \dfrac{dx}{dt} + \dfrac{\partial f}{\partial y} \dfrac{dy}{dt}
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -2718,12 +2651,11 @@ $$
 </p>
 
 <p>
-Let f be function of <span class="math-inline">\(x\)</span> and <span class="math-inline">\(y\)</span>. A new coordinate is introduced withcoordinates <span class="math-inline">\(v\)</span> and <span class="math-inline">\(w\)</span> in a way that <span class="math-inline">\(x = x(v, w)\)</span> and <span class="math-inline">\(y = y(v, w)\)</span>. The partial derivative of f with respect to the new coordinate <span class="math-inline">\(v\)</span>, <span class="math-inline">\(w\)</span> can be determined as:
+Let f be function of <span class="math-inline">x</span> and <span class="math-inline">y</span>. A new coordinate is introduced withcoordinates <span class="math-inline">v</span> and <span class="math-inline">w</span> in a way that <span class="math-inline">x = x(v, w)</span> and <span class="math-inline">y = y(v, w)</span>. The partial derivative of f with respect to the new coordinate <span class="math-inline">v</span>, <span class="math-inline">w</span> can be determined as:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 \begin{split}
   x &amp;= x(v, w) \quad y = y(v, w) \\
 
@@ -2735,8 +2667,7 @@ $$
   \frac{\partial f}{\partial w} &amp;=
       \frac{\partial f}{\partial x}  \frac{\partial x}{\partial w} 
     + \frac{\partial f}{\partial y}  \frac{\partial y}{\partial w} \\\end{split}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -2745,11 +2676,11 @@ $$
 
 <aside class="example admonition anchor" style="background:;"  class="admonition example">
 <span class="admonition-title"><strong>
-<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Chain Rule for Derivative Multi-Variate Functions<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Math - Calculus Reference Card?start=978&end=1019&page=Math - Calculus Reference Card&timestamp=176064157280165" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Chain Rule for Derivative Multi-Variate Functions<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Math - Calculus Reference Card?start=979&end=1020&page=Math - Calculus Reference Card&timestamp=176359801292363" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 </strong></span>
 
 <p>
-Let the function f be <span class="math-inline">\(f(x, y) = x^2/A^2 + y^2/B^2 - C\)</span>.  Find the derivative of f with respect to t. And x and y are functions of t, <span class="math-inline">\(x = x(t) = A \cos t\)</span> and <span class="math-inline">\(y = y(t) = B \sin t\)</span>.
+Let the function f be <span class="math-inline">f(x, y) = x^2/A^2 + y^2/B^2 - C</span>.  Find the derivative of f with respect to t. And x and y are functions of t, <span class="math-inline">x = x(t) = A \cos t</span> and <span class="math-inline">y = y(t) = B \sin t</span>.
 </p><div class="foldabel-block-div"><details >
 <summary><u class="solution-label"><label data-i18n="foldable-math-solution-block-label">Solution</label> </u></summary>
 
@@ -2757,26 +2688,27 @@ Let the function f be <span class="math-inline">\(f(x, y) = x^2/A^2 + y^2/B^2 - 
 Method 1:  Find the derivative directly, by expressing x and y as function of t and replacing their values in the function f.
 </p>
 
-<div class="math-block anchor"> 
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 
- \notag 
+\notag
+ 
 \begin{split}
 
   \frac{df}{dt} &amp;=&amp; \frac{d}{dt} \left[ (A \cos t)^2 / A^2  + (B \sin t)^2 / B^2 - C\right] = 0 \\
 \end{split}
-
-$$
+</div><div class="div-latex-enum"></div>
 </div>
 
 <p>
 Method 2: Find the derivative using the chain rule
 </p>
 
-<div class="math-block anchor"> 
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 
- \notag 
+\notag
+ 
 \begin{split}
   \frac{df}{dt} 
     &amp;= \frac{\partial f}{\partial x} \frac{dx}{dt}  
@@ -2793,8 +2725,7 @@ $$
     &amp;=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
     &amp;=  0 
 \end{split}
-
-$$
+</div><div class="div-latex-enum"></div>
 </div>
 
 </div>
@@ -2805,79 +2736,69 @@ $$
 
 <div class="div-heading"> 
 <h3 id="H_Tangent_Line_Equation" class="document-heading anchor">4.5 Tangent Line Equation <a class="link-heading" href="#H_Tangent_Line_Equation">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1021&end=1058&anchor=H_Tangent_Line_Equation&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 4.5 Tangent Line Equation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{5}">\(\setSubSection{5}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1022&end=1059&anchor=H_Tangent_Line_Equation&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 4.5 Tangent Line Equation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
-The derivative can be used for obtaining the tangent line equation <span class="math-inline">\(\eqref{eqtanget_diff}\)</span> to a curve represented by a function f(x) at a particular point, where <span class="math-inline">\(\alpha \in \mathbb{R}\)</span> and <span class="math-inline">\(\beta \in \mathbb{R}\)</span> are the coefficients of the line equation.
+The derivative can be used for obtaining the tangent line equation <a class="eqref link-internal" href="#equation-eqtanget_diff" data-equation="y = \alpha x + \beta 
+  ">(4.5.1)</a> to a curve represented by a function f(x) at a particular point, where <span class="math-inline">\alpha \in \mathbb{R}</span> and <span class="math-inline">\beta \in \mathbb{R}</span> are the coefficients of the line equation.
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  y = \alpha x + \beta 
-  \label{eqtanget_diff}
-
-$$
+<div id="equation-eqtanget_diff" class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+y = \alpha x + \beta 
+  
+</div><div class="div-latex-enum"><span>(4.5.1)</span></div>
 </div>
 
 <p>
-The coefficient <span class="math-inline">\(\alpha\)</span>, the line slope, can be computed as:
+The coefficient <span class="math-inline">\alpha</span>, the line slope, can be computed as:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 \alpha = f&apos;(x_a) = 
     \left. \frac{df}{dx} \right\vert_{\displaystyle x = x_a}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-Then, the coefficient <span class="math-inline">\(\beta\)</span> can be found by replacing the pair $x_a, : <span class="math-inline">\(y_a = f(x_a)\)</span> in <span class="math-inline">\(\eqref{eqtanget_diff}\)</span> and solving it for <span class="math-inline">\(\beta\)</span>.
+Then, the coefficient <span class="math-inline">\beta</span> can be found by replacing the pair $x_a, : <span class="math-inline">y_a = f(x_a)</span> in <a class="eqref link-internal" href="#equation-eqtanget_diff" data-equation="y = \alpha x + \beta 
+  ">(4.5.1)</a> and solving it for <span class="math-inline">\beta</span>.
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \beta = y_a - \alpha x_a
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\beta = y_a - \alpha x_a
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 so,
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \beta = f(x_a) - f&apos;(x_a) x_a
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\beta = f(x_a) - f&apos;(x_a) x_a
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-The, the coefficients of the line equation tangent to the point <span class="math-inline">\((x_a, y_a)\)</span> are given by:
+The, the coefficients of the line equation tangent to the point <span class="math-inline">(x_a, y_a)</span> are given by:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
- \begin{cases}
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\begin{cases}
         \alpha = f&apos;(x_a)
     \\  \beta  = f(x_a) - f&apos;(x_a) x_a
  \end{cases}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div class="div-heading"> 
 <h2 id="H_Integrals" class="document-heading anchor">5 Integrals <a class="link-heading" href="#H_Integrals">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1058&end=1172&anchor=H_Integrals&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 5 Integrals" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{5}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1059&end=1173&anchor=H_Integrals&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 5 Integrals" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -2899,36 +2820,30 @@ References:
 Linear combination of integrals:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \int [a \cdot f(x) + b \cdot g(x)] dx  =  a \int f(x) dx + b \int g(x) dx 
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\int [a \cdot f(x) + b \cdot g(x)] dx  =  a \int f(x) dx + b \int g(x) dx
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Power of a function:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \int  [g(x)]^n g&apos;(x) dx = \frac{1}{n + 1} [g(x)]^{n + 1} \quad n \neq -1
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\int  [g(x)]^n g&apos;(x) dx = \frac{1}{n + 1} [g(x)]^{n + 1} \quad n \neq -1
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Ratio between function's derivate and itself:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \int \frac{g&apos;(x)}{g(x)} dx = \ln || g(x) ||
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\int \frac{g&apos;(x)}{g(x)} dx = \ln || g(x) ||
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -2939,138 +2854,115 @@ $$
 Constant:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \int C \cdot dx  = C \cdot x
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\int C \cdot dx  = C \cdot x
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Power:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \int x^n \cdot dx  = \frac{x^{n + 1}}{n + 1} \quad \neq -1
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\int x^n \cdot dx  = \frac{x^{n + 1}}{n + 1} \quad \neq -1
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Power:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \int a^x \cdot dx  = \frac{a^x}{\ln a} \quad a &gt; 0
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\int a^x \cdot dx  = \frac{a^x}{\ln a} \quad a &gt; 0
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Exponential:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \int e^x \cdot dx  = e^x 
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\int e^x \cdot dx  = e^x
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Logarithm:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \int \frac{1}{x} \cdot dx  = \ln || x ||
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\int \frac{1}{x} \cdot dx  = \ln || x ||
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Sine:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \int \sin x = - \cos x
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\int \sin x = - \cos x
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Cosine:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \int \cos x \cdot dx = \sin x
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\int \cos x \cdot dx = \sin x
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Square sine:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \int \sin^2 x \cdot dx = \frac{x}{2} - \frac{1}{4} \sin 2x
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\int \sin^2 x \cdot dx = \frac{x}{2} - \frac{1}{4} \sin 2x
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Square cosine:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \int \cos^2 x \cdot dx = \frac{x}{2} + \frac{1}{4} \sin 2x
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\int \cos^2 x \cdot dx = \frac{x}{2} + \frac{1}{4} \sin 2x
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Sinh - hyperbolic sine:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \int \text{sinh} x \cdot dx = \text{cosh} x
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\int \text{sinh} x \cdot dx = \text{cosh} x
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Cosh - hyperbolic consine:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \int \text{cosh} x \cdot dx = \text{sinh} x
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\int \text{cosh} x \cdot dx = \text{sinh} x
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div class="div-heading"> 
 <h2 id="H_Sums_of_Series" class="document-heading anchor">6 Sums of Series <a class="link-heading" href="#H_Sums_of_Series">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1172&end=1194&anchor=H_Sums_of_Series&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 6 Sums of Series" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{6}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1173&end=1195&anchor=H_Sums_of_Series&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 6 Sums of Series" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -3080,51 +2972,42 @@ Reference: Dan Stefanica, <em>A Primer for Mathematics of FinancialEngineering</
 </li>
 </ul>
 
-<div class="math-block anchor"> 
-$$
-
-  \sum_{k = 1}^{n} k = \frac{n(n+1)}{2}
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\sum_{k = 1}^{n} k = \frac{n(n+1)}{2}
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
- \sum_{k = 1}^{n} k^2 =  \frac{n(n+1)(2n + 1)}{6}
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\sum_{k = 1}^{n} k^2 =  \frac{n(n+1)(2n + 1)}{6}
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
- \sum_{k = 1}^{n} k^3 = \left(\frac{n(n+1)}{2} \right)^2
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\sum_{k = 1}^{n} k^3 = \left(\frac{n(n+1)}{2} \right)^2
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div class="div-heading"> 
 <h2 id="H_Taylor_Series" class="document-heading anchor">7 Taylor Series <a class="link-heading" href="#H_Taylor_Series">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1194&end=1332&anchor=H_Taylor_Series&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 7 Taylor Series" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{7}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1195&end=1337&anchor=H_Taylor_Series&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 7 Taylor Series" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Taylor_series_expansion" class="document-heading anchor">7.1 Taylor series expansion <a class="link-heading" href="#H_Taylor_series_expansion">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1195&end=1194&anchor=H_Taylor_series_expansion&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 7.1 Taylor series expansion" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1196&end=1195&anchor=H_Taylor_series_expansion&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 7.1 Taylor series expansion" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 The Taylor series is a expansion of a real function f(x) about a point x  a. When a is equal to 0, the expansion is also known as Maclaurin series.
 </p>
 
-<div class="math-block anchor"> 
-$$
-
- \begin{split}
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\begin{split}
   f(x) &amp;= \sum_{n = 0}^{\infty} \frac{f^{(n)}(a)}{n!}(x - a)^n 
     \\  &amp;= f(a) + f^{(1)}(a)(x - a) 
               + \frac{f^{(2)}(a)}{2!}(x - a)^2 
@@ -3132,26 +3015,23 @@ $$
               \cdots 
               
   \end{split}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 The Taylor series expansion is sometimes written as:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \begin{split}
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\begin{split}
   f(x + a)  &amp;= \sum_{n = 0}^{\infty} \frac{f^{(n)}(a)}{n!}x^n 
          \\  &amp;= f(a) + f^{(1)}(a)x 
               + \frac{f^{(2)}(a)}{2!} x^2 
               + \frac{f^{(3)}(a)}{3!} x^3 
               \cdots                        
   \end{split}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -3160,115 +3040,100 @@ where:
 
 <ul class="">
 <li>
-<span class="math-inline">\(f^{(n)}(x) = \dfrac{d^nf}{dx^n}\)</span> is the derivative of order n of a function f(x) 
+<span class="math-inline">f^{(n)}(x) = \dfrac{d^nf}{dx^n}</span> is the derivative of order n of a function f(x) 
 </li>
 <li>
-<span class="math-inline">\(f^{(0)}(x) = f(x)\)</span> - "derivative" of order zero, it is the same as f(x). 
+<span class="math-inline">f^{(0)}(x) = f(x)</span> - "derivative" of order zero, it is the same as f(x). 
 </li>
 <li>
-<span class="math-inline">\(f^{(1)}(x) = \dfrac{df}{dx}\)</span>  - first order derivative 
+<span class="math-inline">f^{(1)}(x) = \dfrac{df}{dx}</span>  - first order derivative 
 </li>
 <li>
-<span class="math-inline">\(f^{(2)}(x) = \dfrac{d^2f}{dx^2}\)</span> - second order derivative 
+<span class="math-inline">f^{(2)}(x) = \dfrac{d^2f}{dx^2}</span> - second order derivative 
 </li>
 </ul>
 
 <div class="div-heading"> 
 <h3 id="H_Some_Taylor_series_expansion" class="document-heading anchor">7.2 Some Taylor series expansion <a class="link-heading" href="#H_Some_Taylor_series_expansion">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1231&end=1281&anchor=H_Some_Taylor_series_expansion&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 7.2 Some Taylor series expansion" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1232&end=1282&anchor=H_Some_Taylor_series_expansion&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 7.2 Some Taylor series expansion" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 Exponential
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  e^{x} = \sum_{n = 0}^{\infty} \frac{x^n}{n!} 
-        = 1 + x + \frac{1}{2!} x^2 + \frac{1}{3!} 3^2 + \frac{1}{4!} 4^2 + \cdots 
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+e^{x} = \sum_{n = 0}^{\infty} \frac{x^n}{n!} 
+        = 1 + x + \frac{1}{2!} x^2 + \frac{1}{3!} 3^2 + \frac{1}{4!} 4^2 + \cdots
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Consine
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \cos x = \sum_{n = 0}^{\infty} \frac{(-1)^n}{(2n)!} x^{2n}
-         = 1 - \frac{1}{2!}x^2 + \frac{1}{4!} x^4 - \frac{1}{6!} x^6 + \cdots 
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\cos x = \sum_{n = 0}^{\infty} \frac{(-1)^n}{(2n)!} x^{2n}
+         = 1 - \frac{1}{2!}x^2 + \frac{1}{4!} x^4 - \frac{1}{6!} x^6 + \cdots
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Sine
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \sin x = \sum_{n = 0}^{\infty} \frac{(-1)^n}{(2n + 1)!} x^{2n + 1} 
-         = x -  \frac{1}{3!}x^3 + \frac{1}{5!}x^5 - \frac{1}{7!}x^7 + \cdots 
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\sin x = \sum_{n = 0}^{\infty} \frac{(-1)^n}{(2n + 1)!} x^{2n + 1} 
+         = x -  \frac{1}{3!}x^3 + \frac{1}{5!}x^5 - \frac{1}{7!}x^7 + \cdots
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Inverse tan or arctan
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \arctan x =  \sum_{n = 0}^{\infty} \frac{(-1)^n}{2n + 1} x^{2n + 1}
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\arctan x =  \sum_{n = 0}^{\infty} \frac{(-1)^n}{2n + 1} x^{2n + 1}
             = x - \frac{1}{3} x^3 + \frac{1}{5} x^5 - \frac{1}{7!} x^7 + \cdots
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Natural Logarithm
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \ln(1 + x)  = \sum_{n = 1}^{\infty} \frac{x^n}{n}  (-1)^{n+1}
-            =  x - \frac{1}{2} x^2 + \frac{1}{3}x^3 - \frac{1}{4} x^4 + \cdots 
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\ln(1 + x)  = \sum_{n = 1}^{\infty} \frac{x^n}{n}  (-1)^{n+1}
+            =  x - \frac{1}{2} x^2 + \frac{1}{3}x^3 - \frac{1}{4} x^4 + \cdots
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Geometric Power Series
 </p>
 
-<div class="math-block anchor"> 
-$$
-
- \frac{1}{1 + x} = 1 + x + x^2 + x^3 + \cdots 
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\frac{1}{1 + x} = 1 + x + x^2 + x^3 + \cdots
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_Approximations_for_small_values_of_x" class="document-heading anchor">7.3 Approximations for small values of x <a class="link-heading" href="#H_Approximations_for_small_values_of_x">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1281&end=1318&anchor=H_Approximations_for_small_values_of_x&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 7.3 Approximations for small values of x" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1282&end=1323&anchor=H_Approximations_for_small_values_of_x&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 7.3 Approximations for small values of x" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 Misc Approximation
 </p>
 
-<div class="math-block anchor"> 
-$$
-
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 \begin{split}
 
   e^x             &amp; \approx  1 + x  \\
@@ -3278,40 +3143,44 @@ $$
   \frac{1}{1 - x} &amp; \approx  1 + x \\ 
   (1 - x)^n       &amp; \approx  1 - n x + n(n-1) x^2 / 2
 \end{split}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Approximations for small angles
 </p>
 
-<div class="math-block anchor"> 
-$$
-
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 \begin{split}
   \theta^2 &amp;\approx 0
   \\ \sin \theta  &amp; \approx   \theta                    
-  \\ \cos \theta  &amp; \approx   1 - \frac{\theta^2}{2} \approx 0    
+  \\ \cos \theta  &amp; \approx   1 - \frac{\theta^2}{2} \approx 1
   \\ \tan \theta  &amp; \approx   \theta                    
   \\ \csc \theta  &amp; \approx   1 / \theta + \theta / 6      
   \\ \sec \theta  &amp; \approx    1 + \theta^2 / 2 \approx 0         
   \\ \cot \theta  &amp; \approx    1 / \theta - \theta* 3   
 \end{split}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<ul class="">
-<li>
-Where <span class="math-inline">\(\theta\)</span> is the angle in radians. 
-</li>
-</ul>
+<p>
+Where <span class="math-inline">\theta</span> is the angle in radians. Recall that
+</p>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\theta = \frac{\pi}{180} \theta_{deg}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+where <span class="math-inline">\theta_{deg}</span> is the angle in degrees.
+</p>
 
 <div class="div-heading"> 
 <h3 id="H_References" class="document-heading anchor">7.4 References <a class="link-heading" href="#H_References">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1318&end=1332&anchor=H_References&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 7.4 References" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1323&end=1337&anchor=H_References&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 7.4 References" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">
@@ -3347,25 +3216,22 @@ Wikipedia - <em>Small Angle Approximations</em> <ul class="">
 
 <div class="div-heading"> 
 <h2 id="H_Multivariate_Calculus" class="document-heading anchor">8 Multivariate Calculus <a class="link-heading" href="#H_Multivariate_Calculus">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1332&end=1551&anchor=H_Multivariate_Calculus&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 8 Multivariate Calculus" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{8}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1337&end=1556&anchor=H_Multivariate_Calculus&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 8 Multivariate Calculus" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Gradient_Vector" class="document-heading anchor">8.1 Gradient Vector <a class="link-heading" href="#H_Gradient_Vector">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1334&end=1370&anchor=H_Gradient_Vector&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 8.1 Gradient Vector" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1339&end=1375&anchor=H_Gradient_Vector&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 8.1 Gradient Vector" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
-Consider a scalar-valued function <span class="math-inline">\(f\)</span> of two variables <span class="math-inline">\(f = f(x, y) \in \mathbb{R}\)</span>, the gradient of this function is the vector
+Consider a scalar-valued function <span class="math-inline">f</span> of two variables <span class="math-inline">f = f(x, y) \in \mathbb{R}</span>, the gradient of this function is the vector
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-   \nabla f =  \frac{\partial f}{\partial \mathbf{r}}
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\nabla f =  \frac{\partial f}{\partial \mathbf{r}}
     =
      \dfrac{\partial f}{\partial x} \hat{\mathbf{x}} 
    + \dfrac{\partial f}{\partial y} \hat{\mathbf{y}}
@@ -3374,99 +3240,86 @@ $$
           \dfrac{\partial f}{\partial x}
        \\ \dfrac{\partial f}{\partial y}
     \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-Where <span class="math-inline">\(\hat{\mathbf{x}}\)</span> is the unit vector of <span class="math-inline">\(x\)</span> axis, <span class="math-inline">\(\hat{\mathbf{y}}\)</span> is the unit vector of the <span class="math-inline">\(y\)</span> axis and <span class="math-inline">\(\nabla\)</span> is the operator
+Where <span class="math-inline">\hat{\mathbf{x}}</span> is the unit vector of <span class="math-inline">x</span> axis, <span class="math-inline">\hat{\mathbf{y}}</span> is the unit vector of the <span class="math-inline">y</span> axis and <span class="math-inline">\nabla</span> is the operator
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \nabla = 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\nabla = 
      \dfrac{\partial}{\partial x} \hat{\mathbf{x}} 
    + \dfrac{\partial}{\partial y} \hat{\mathbf{y}}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 or in matrix form,
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \nabla =
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\nabla =
     \begin{bmatrix}
           \dfrac{\partial f}{\partial x}
        \\ \dfrac{\partial f}{\partial y}
     \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-In some text books, the <span class="math-inline">\(x\)</span> axis unit vector is referred as <span class="math-inline">\(i\)</span> or <span class="math-inline">\(\mathbf{i}\)</span> and the <span class="math-inline">\(y\)</span> axis unit vector is referred as <span class="math-inline">\(j\)</span> or <span class="math-inline">\(\mathbf{j}\)</span>. Those notations are avoided due to the possible confusion since <span class="math-inline">\(i\)</span> is sometimes used to referrer to either electrical current or the imaginary unit <span class="math-inline">\(i = \sqrt{-1}\)</span> and the letter <span class="math-inline">\(j\)</span> is also used in electrical engineering for denoting the imaginary unit <span class="math-inline">\(j = \sqrt{-1}\)</span>.
+In some text books, the <span class="math-inline">x</span> axis unit vector is referred as <span class="math-inline">i</span> or <span class="math-inline">\mathbf{i}</span> and the <span class="math-inline">y</span> axis unit vector is referred as <span class="math-inline">j</span> or <span class="math-inline">\mathbf{j}</span>. Those notations are avoided due to the possible confusion since <span class="math-inline">i</span> is sometimes used to referrer to either electrical current or the imaginary unit <span class="math-inline">i = \sqrt{-1}</span> and the letter <span class="math-inline">j</span> is also used in electrical engineering for denoting the imaginary unit <span class="math-inline">j = \sqrt{-1}</span>.
 </p>
 
 <div class="div-heading"> 
 <h3 id="H_Directional_Derivative" class="document-heading anchor">8.2 Directional Derivative <a class="link-heading" href="#H_Directional_Derivative">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1370&end=1391&anchor=H_Directional_Derivative&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 8.2 Directional Derivative" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1375&end=1396&anchor=H_Directional_Derivative&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 8.2 Directional Derivative" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
-The directional derivative $ D_{\mathbf{u}} f$ in the direction <span class="math-inline">\(\mathbf{u}\)</span> of a function <span class="math-inline">\(z = f(x, y)\)</span> of two variables, which represents a surface in space, is given by
+The directional derivative $ D_{\mathbf{u}} f$ in the direction <span class="math-inline">\mathbf{u}</span> of a function <span class="math-inline">z = f(x, y)</span> of two variables, which represents a surface in space, is given by
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  D_{\mathbf{u}} f = \nabla f \cdot \hat{\mathbf{u}}
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+D_{\mathbf{u}} f = \nabla f \cdot \hat{\mathbf{u}}
         = \frac{\partial f}{\partial x} u_x
         + \frac{\partial f}{\partial y} u_y
-    
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 or
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  D_{\mathbf{u}} f =  \| \nabla f \| \| \mathbf{u} \| \cos \theta
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+D_{\mathbf{u}} f =  \| \nabla f \| \| \mathbf{u} \| \cos \theta
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-Where <span class="math-inline">\(\mathbf{u} = (u_x, u_y)\)</span> and <span class="math-inline">\(\theta\)</span> is the angle betwen <span class="math-inline">\(\mathbf{u}\)</span> and the gradient vector <span class="math-inline">\(\nabla f\)</span>. The directional derivative has the highest positive value when <span class="math-inline">\(\theta = 0\)</span> in the direction of the gradient vector. The direction of the highest decrease of the directional derivative is in the opposite direction of the gradient vector when <span class="math-inline">\(\theta = \pi\)</span> (180 degrees).
+Where <span class="math-inline">\mathbf{u} = (u_x, u_y)</span> and <span class="math-inline">\theta</span> is the angle betwen <span class="math-inline">\mathbf{u}</span> and the gradient vector <span class="math-inline">\nabla f</span>. The directional derivative has the highest positive value when <span class="math-inline">\theta = 0</span> in the direction of the gradient vector. The direction of the highest decrease of the directional derivative is in the opposite direction of the gradient vector when <span class="math-inline">\theta = \pi</span> (180 degrees).
 </p>
 
 <div class="div-heading"> 
 <h3 id="H_Change_of_Variables_and_Jacobian_Matrix_in_a_Plane" class="document-heading anchor">8.3 Change of Variables and Jacobian Matrix in a Plane <a class="link-heading" href="#H_Change_of_Variables_and_Jacobian_Matrix_in_a_Plane">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1391&end=1535&anchor=H_Change_of_Variables_and_Jacobian_Matrix_in_a_Plane&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 8.3 Change of Variables and Jacobian Matrix in a Plane" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1396&end=1540&anchor=H_Change_of_Variables_and_Jacobian_Matrix_in_a_Plane&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 8.3 Change of Variables and Jacobian Matrix in a Plane" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
-Let <span class="math-inline">\((x, y)\)</span> be the cartesian coordinates of a plance, a 2-dimensional space, where <span class="math-inline">\(x = x(u, v)\)</span> and <span class="math-inline">\(y = y(u, v)\)</span>.
+Let <span class="math-inline">(x, y)</span> be the cartesian coordinates of a plance, a 2-dimensional space, where <span class="math-inline">x = x(u, v)</span> and <span class="math-inline">y = y(u, v)</span>.
 </p>
 
 <p>
 The <em><strong>jacobian matrix</strong></em> of this variable transformation is defined as
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-    J = \begin{bmatrix}
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+J = \begin{bmatrix}
               \dfrac{ \partial \mathbf{r} }{\partial u}
             &amp; \dfrac{ \partial \mathbf{r} }{\partial v}
         \end{bmatrix}
@@ -3482,8 +3335,7 @@ $$
          \\    \dfrac{ \partial{y} }{ \partial u}
             &amp;  \dfrac{ \partial{y} }{ \partial v}
         \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -3492,13 +3344,13 @@ Where
 
 <ul class="">
 <li>
-<span class="math-inline">\(\mathbf{r} = (x, y)\)</span> is the position vector, which is a 2 by 1 column matrix (column vector); 
+<span class="math-inline">\mathbf{r} = (x, y)</span> is the position vector, which is a 2 by 1 column matrix (column vector); 
 </li>
 <li>
-<span class="math-inline">\(\nabla_{(u, v)}^T x\)</span> is the transpose of the gradient of the scalar <span class="math-inline">\(x\)</span> with respect to the vector <span class="math-inline">\((u, v)\)</span>. 
+<span class="math-inline">\nabla_{(u, v)}^T x</span> is the transpose of the gradient of the scalar <span class="math-inline">x</span> with respect to the vector <span class="math-inline">(u, v)</span>. 
 </li>
 <li>
-<span class="math-inline">\(\nabla_{(u, v)}^T y\)</span> is the trnaspose of the graident of the scalar <span class="math-inline">\(y\)</span> with respec to the vector <span class="math-inline">\((u, v)\)</span>. 
+<span class="math-inline">\nabla_{(u, v)}^T y</span> is the trnaspose of the graident of the scalar <span class="math-inline">y</span> with respec to the vector <span class="math-inline">(u, v)</span>. 
 </li>
 </ul>
 
@@ -3510,13 +3362,11 @@ Where
 The area in double integral is given by
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  A = \iint dA = \iint dx \, dy 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+A = \iint dA = \iint dx \, dy 
     = \iint | \det J | \, du \, dv
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -3527,16 +3377,14 @@ $$
 The area differential is given by
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  dA = dx \, dy = | \det J | \, du \, dv
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+dA = dx \, dy = | \det J | \, du \, dv
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-where <span class="math-inline">\(| \det J |\)</span> is absolute value of the determinant of the jacobian matrix.
+where <span class="math-inline">| \det J |</span> is absolute value of the determinant of the jacobian matrix.
 </p>
 
 <p>
@@ -3544,26 +3392,25 @@ where <span class="math-inline">\(| \det J |\)</span> is absolute value of the d
 </p>
 
 <p>
-Planar cartesian coordinates <span class="math-inline">\((x, y)\)</span> can be turned into polar coordinates as <span class="math-inline">\((\theta, r)\)</span>, where
+Planar cartesian coordinates <span class="math-inline">(x, y)</span> can be turned into polar coordinates as <span class="math-inline">(\theta, r)</span>, where
 </p>
 
 <ul class="">
 <li>
-<span class="math-inline">\(x = x(\theta, r) = r \cos \theta\)</span> 
+<span class="math-inline">x = x(\theta, r) = r \cos \theta</span> 
 </li>
 <li>
-<span class="math-inline">\(y = y(\theta, r) = r \sin \theta\)</span> 
+<span class="math-inline">y = y(\theta, r) = r \sin \theta</span> 
 </li>
 </ul>
 
 <p>
-Compute the partial derivative of <span class="math-inline">\(\mathbf{r} = (x, y)\)</span> vector with respec to <span class="math-inline">\(\theta\)</span>.
+Compute the partial derivative of <span class="math-inline">\mathbf{r} = (x, y)</span> vector with respec to <span class="math-inline">\theta</span>.
 </p>
 
-<div class="math-block anchor"> 
-$$
-
- \frac{\partial \mathbf{r} }{\partial \theta} 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\frac{\partial \mathbf{r} }{\partial \theta} 
         = \frac{\partial}{\partial \theta}
           \begin{bmatrix}
             r \cos \theta \\ r \sin \theta          
@@ -3572,19 +3419,16 @@ $$
           \begin{bmatrix}
             - r \sin \theta \\ r \cos \theta          
           \end{bmatrix}
-          
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-Compute the partial derivative of <span class="math-inline">\(\mathbf{r} = (x, y)\)</span> vector with respec to <span class="math-inline">\(\theta\)</span>.
+Compute the partial derivative of <span class="math-inline">\mathbf{r} = (x, y)</span> vector with respec to <span class="math-inline">\theta</span>.
 </p>
 
-<div class="math-block anchor"> 
-$$
-
- \frac{\partial \mathbf{r} }{\partial r} 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\frac{\partial \mathbf{r} }{\partial r} 
         = \frac{\partial}{\partial r}
           \begin{bmatrix}
             r \cos \theta \\ r \sin \theta          
@@ -3593,132 +3437,107 @@ $$
           \begin{bmatrix}
              \cos \theta \\  \sin \theta          
           \end{bmatrix}
-          
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Determine the jacobian matrix
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  J = \begin{bmatrix}
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+J = \begin{bmatrix}
             \dfrac{\partial \mathbf{r} }{\partial \theta}
          &amp;  \dfrac{\partial \mathbf{r} }{\partial r} 
       \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-  J =  
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+J =  
      \begin{bmatrix}
            - r \sin \theta  &amp; \cos \theta
         \\   r \cos \theta  &amp; \sin \theta
      \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Compute the determinant of the jacobian matrix.
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \det J = (- r \sin \theta) (\sin \theta) - (r \cos \theta) (\cos \theta)
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\det J = (- r \sin \theta) (\sin \theta) - (r \cos \theta) (\cos \theta)
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-  \det J = - r \sin^2 \theta - r \cos^2 \theta 
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\det J = - r \sin^2 \theta - r \cos^2 \theta
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-  \det J = -r (\sin^2 \theta + \cos^2 \theta)
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\det J = -r (\sin^2 \theta + \cos^2 \theta)
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-  \det J = -r
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\det J = -r
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 The area differential in polar coordinates is given by
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  dA = | \det J | \, d\theta \, dr
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+dA = | \det J | \, d\theta \, dr
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-  dA = | - r | \, d\theta \, dr
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+dA = | - r | \, d\theta \, dr
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
- dA = r \, \d\theta \, dr
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+dA = r \, \d\theta \, dr
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Therefore, the area of a region in polar coordinates is
 </p>
 
-<div class="math-block anchor"> 
-$$
-
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 \boxed{
   A = \iint dA = \iint  r \, \d\theta \, dr
 }
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_Change_of_Variables_and_Jacobian_Matrix_in_a_Space" class="document-heading anchor">8.4 Change of Variables and Jacobian Matrix in a Space <a class="link-heading" href="#H_Change_of_Variables_and_Jacobian_Matrix_in_a_Space">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1535&end=1537&anchor=H_Change_of_Variables_and_Jacobian_Matrix_in_a_Space&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 8.4 Change of Variables and Jacobian Matrix in a Space" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1540&end=1542&anchor=H_Change_of_Variables_and_Jacobian_Matrix_in_a_Space&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 8.4 Change of Variables and Jacobian Matrix in a Space" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_Derivative_Chain_Rule" class="document-heading anchor">8.5 Derivative Chain Rule <a class="link-heading" href="#H_Derivative_Chain_Rule">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1537&end=1541&anchor=H_Derivative_Chain_Rule&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 8.5 Derivative Chain Rule" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{5}">\(\setSubSection{5}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1542&end=1546&anchor=H_Derivative_Chain_Rule&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 8.5 Derivative Chain Rule" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_See_also" class="document-heading anchor">8.6 See also <a class="link-heading" href="#H_See_also">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1541&end=1551&anchor=H_See_also&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 8.6 See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{6}">\(\setSubSection{6}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1546&end=1556&anchor=H_See_also&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 8.6 See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">
@@ -3747,8 +3566,7 @@ $$
 
 <div class="div-heading"> 
 <h2 id="H_Statistical_Formulas" class="document-heading anchor">9 Statistical Formulas <a class="link-heading" href="#H_Statistical_Formulas">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1551&end=1615&anchor=H_Statistical_Formulas&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 9 Statistical Formulas" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{9}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1556&end=1620&anchor=H_Statistical_Formulas&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 9 Statistical Formulas" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -3771,7 +3589,7 @@ Notation:
 
 <ul class="">
 <li>
-<span class="math-inline">\(\pmb{X}\)</span> bold capital letters mean probability distribution. 
+<span class="math-inline">\pmb{X}</span> bold capital letters mean probability distribution. 
 </li>
 <li>
 Var(X) => Variance of the distribution X 
@@ -3780,10 +3598,10 @@ Var(X) => Variance of the distribution X
 Cov(X, Y) => Covariance of the proabilities distributions X and Y 
 </li>
 <li>
-<span class="math-inline">\(\sigma_x\)</span> => Standard deviation of variable X 
+<span class="math-inline">\sigma_x</span> => Standard deviation of variable X 
 </li>
 <li>
-<span class="math-inline">\(\mu\)</span> => Average or menan of random variable X 
+<span class="math-inline">\mu</span> => Average or menan of random variable X 
 </li>
 </ul>
 
@@ -3795,92 +3613,74 @@ Cov(X, Y) => Covariance of the proabilities distributions X and Y
 Expected value of constant 'a':
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-   E(a) = a
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+E(a) = a
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Expected value of a linear combination of random variables, 'a' and 'b' are constants.
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-   E( a \cdot \pmb{X} + b \cdot \pmb{Y} ) = a \cdot \pmb{X} + b \cdot \pmb{Y}
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+E( a \cdot \pmb{X} + b \cdot \pmb{Y} ) = a \cdot \pmb{X} + b \cdot \pmb{Y}
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 <strong>Covariance, Variance, Standard Deviation Identities</strong>
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \text{Var}( \pmb{X} )  E[(X - \mu)^2]  E(X^2) - \mu^2 = \sigma_x^2
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\text{Var}( \pmb{X} )  E[(X - \mu)^2]  E(X^2) - \mu^2 = \sigma_x^2
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-  \text{Var}(c \cdot \pmb{X} + d) = c^2 \cdot \text{Var}( \pmb{X} )
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\text{Var}(c \cdot \pmb{X} + d) = c^2 \cdot \text{Var}( \pmb{X} )
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-  \text{Cov}( \pmb{X}, \pmb{Y} ) = \text{Cov}( \pmb{Y}, \pmb{X} )
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\text{Cov}( \pmb{X}, \pmb{Y} ) = \text{Cov}( \pmb{Y}, \pmb{X} )
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-  \text{Cov}(c \cdot \pmb{X}, \pmb{Y} ) 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\text{Cov}(c \cdot \pmb{X}, \pmb{Y} ) 
          = \text{Cov}( \pmb{X}, c \cdot \pmb{Y} ) 
          = c \cdot \text{Cov}( \pmb{X}, \pmb{Y} )
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-   \text{Cov}( \pmb{X} + \pmb{Y}, \pmb{Z} ) 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\text{Cov}( \pmb{X} + \pmb{Y}, \pmb{Z} ) 
         =  \text{Cov}( \pmb{X}, \pmb{Y} ) +  \text{Cov}( \pmb{X}, \pmb{Z} )
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-   \text{Var}( \pmb{X} + \pmb{Y}) =  \text{Var}( \pmb{X} ) + \text{Var}( \pmb{Y} ) + 2 \text{Cov}( \pmb{X},\pmb{Y})
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\text{Var}( \pmb{X} + \pmb{Y}) =  \text{Var}( \pmb{X} ) + \text{Var}( \pmb{Y} ) + 2 \text{Cov}( \pmb{X},\pmb{Y})
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div class="div-heading"> 
 <h2 id="H_Linear_algebra" class="document-heading anchor">10 Linear algebra <a class="link-heading" href="#H_Linear_algebra">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1615&end=1764&anchor=H_Linear_algebra&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 10 Linear algebra" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{10}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1620&end=1769&anchor=H_Linear_algebra&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 10 Linear algebra" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Notation" class="document-heading anchor">10.1 Notation <a class="link-heading" href="#H_Notation">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1616&end=1615&anchor=H_Notation&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 10.1 Notation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1621&end=1620&anchor=H_Notation&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 10.1 Notation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -3889,33 +3689,33 @@ General:
 
 <ul class="">
 <li>
-<span class="math-inline">\(I = I_n\)</span> (n x n) <ul class="">
+<span class="math-inline">I = I_n</span> (n x n) <ul class="">
 <li>
 identity matrix with all diagonal elements set to 1. 
 </li>
 </ul>
 </li>
 <li>
-<span class="math-inline">\(1_{n, m}\)</span> (n x m) <ul class="">
+<span class="math-inline">1_{n, m}</span> (n x m) <ul class="">
 <li>
 Matrix with n rows and m columsn with all elements set to 1. 
 </li>
 </ul>
 </li>
 <li>
-<span class="math-inline">\(A_{(n x m )}\)</span> or A (n x m) <ul class="">
+<span class="math-inline">A_{(n x m )}</span> or A (n x m) <ul class="">
 <li>
 A is a matirx with n rows and m columns 
 </li>
 </ul>
 </li>
 <li>
-<span class="math-inline">\(A^T\)</span> (m x n) - Transpose matrix of A 
+<span class="math-inline">A^T</span> (m x n) - Transpose matrix of A 
 </li>
 <li>
-<span class="math-inline">\(A^{-1}\)</span> inverse matrix of A for which: <ul class="">
+<span class="math-inline">A^{-1}</span> inverse matrix of A for which: <ul class="">
 <li>
-<span class="math-inline">\(A  A^{-1} =  A^{-1} = A  I\)</span> 
+<span class="math-inline">A  A^{-1} =  A^{-1} = A  I</span> 
 </li>
 </ul>
 </li>
@@ -3931,13 +3731,11 @@ Vcol (n x 1) matrix of a single column containing n elements.
 </li>
 </ul>
 
-<div class="math-block anchor"> 
-$$
-
-  \text{Vcol}_{(n x 1)} = 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\text{Vcol}_{(n x 1)} = 
     \begin{bmatrix} v_1 \\ v_2 \\ \cdots \\ v_n \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -3950,36 +3748,31 @@ Row vector:
 </li>
 </ul>
 
-<div class="math-block anchor"> 
-$$
-
-  \text{Vrow}_{(1 x n)} = 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\text{Vrow}_{(1 x n)} = 
     \begin{bmatrix} v_1 &amp; v_2 &amp; \cdots &amp; v_n \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_Special_matrices" class="document-heading anchor">10.2 Special matrices <a class="link-heading" href="#H_Special_matrices">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1650&end=1764&anchor=H_Special_matrices&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 10.2 Special matrices" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1655&end=1769&anchor=H_Special_matrices&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 10.2 Special matrices" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 Zero matrix:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  0_{3 x 4} =  \begin{bmatrix}
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+0_{3 x 4} =  \begin{bmatrix}
                   0 &amp; 0 &amp; 0 &amp; 0 \\
                   0 &amp; 0 &amp; 0 &amp; 0 \\
                   0 &amp; 0 &amp; 0 &amp; 0 \\
                   0 &amp; 0 &amp; 0 &amp; 0 \\
                 \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <pre>
@@ -4009,27 +3802,23 @@ All diagonal elements are 1.
 </li>
 </ul>
 
-<div class="math-block anchor"> 
-$$
-
-  I_{2} =  \begin{bmatrix}
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+I_{2} =  \begin{bmatrix}
                   1 &amp; 0 \\
                   0 &amp; 1 \\
                 \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-  I_{3} =  \begin{bmatrix}
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+I_{3} =  \begin{bmatrix}
                   1 &amp; 0 &amp; 0 \\
                   0 &amp; 1 &amp; 0 \\
                   0 &amp; 0 &amp; 1 \\
                 \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <pre>
@@ -4061,7 +3850,7 @@ Ones-based matrices:
 </p>
 
 <p>
-<span class="math-inline">\(1_{n, n} = 1 \quad \text{for every i, j}\)</span>
+<span class="math-inline">1_{n, n} = 1 \quad \text{for every i, j}</span>
 </p>
 
 <pre>
@@ -4089,8 +3878,7 @@ Ones-based matrices:
 
 <div class="div-heading"> 
 <h2 id="H_Types_of_matrices" class="document-heading anchor">11 Types of matrices <a class="link-heading" href="#H_Types_of_matrices">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1764&end=1932&anchor=H_Types_of_matrices&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 11 Types of matrices" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{11}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1769&end=1937&anchor=H_Types_of_matrices&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 11 Types of matrices" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -4157,20 +3945,17 @@ Non Symmetric Matrix:
 
 <div class="div-heading"> 
 <h3 id="H_Matrix_Operations_Rules" class="document-heading anchor">11.1 Matrix Operations Rules <a class="link-heading" href="#H_Matrix_Operations_Rules">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1821&end=1897&anchor=H_Matrix_Operations_Rules&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 11.1 Matrix Operations Rules" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1826&end=1902&anchor=H_Matrix_Operations_Rules&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 11.1 Matrix Operations Rules" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 <strong>Matrix multiplication is not symmetric</strong>
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  A  B \neq B  A
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+A  B \neq B  A
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <pre>
@@ -4208,12 +3993,10 @@ $$
 <strong>Associativity</strong>
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  A B C  = (A  B) C = A (B  C)
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+A B C  = (A  B) C = A (B  C)
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -4224,149 +4007,126 @@ $$
 Tranpose of product:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  (A  B)^T = B^T  A^T
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+(A  B)^T = B^T  A^T
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-  (A  B  C)^T  
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+(A  B  C)^T  
    = C^T (A  B)^T  
    = (B  C)^T  A 
    =  C^T  B^T  A^T
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 Transpose of sum:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  (A + B)^T = A^T + B^T
-
-$$
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+(A + B)^T = A^T + B^T
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_Column_vector_properties" class="document-heading anchor">11.2 Column vector properties <a class="link-heading" href="#H_Column_vector_properties">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1897&end=1932&anchor=H_Column_vector_properties&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 11.2 Column vector properties" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1902&end=1937&anchor=H_Column_vector_properties&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 11.2 Column vector properties" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 Let <em><em>a</em> and <em>b</em></em> be two (n x 1) column vectors:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  a_{(n x 1)} = 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+a_{(n x 1)} = 
     \begin{bmatrix} a_1 \\ a_2 \\ \cdots \\ a_n \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-  b_{(n x 1)} = 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+b_{(n x 1)} = 
     \begin{bmatrix} b_1 \\ b_2 \\ \cdots \\ b_n \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 The scalar product (dot product) between <em><em>a</em> and <em>b</em></em> is:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \mathbf{a} \cdot \mathbf{b} =  \sum_{i = 1}^n a_i  b_i 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\mathbf{a} \cdot \mathbf{b} =  \sum_{i = 1}^n a_i  b_i 
             =  \mathbf{a}^T \mathbf{b}
             =  \mathbf{b}^T \mathbf{a}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
 The L-2 norm or euclidian norm of a vector is given by:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  \text{norm}(\mathbf{a}) 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\text{norm}(\mathbf{a}) 
     = \| \mathbf{a} \| 
     = \sqrt{ \sum_{i = 1}^n a_i^2 } 
-    = \sqrt{ \mathbf{a}^T \cdot \mathbf{a}} 
-
-$$
+    = \sqrt{ \mathbf{a}^T \cdot \mathbf{a}}
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div class="div-heading"> 
 <h2 id="H_Matrix_Calculus" class="document-heading anchor">12 Matrix Calculus <a class="link-heading" href="#H_Matrix_Calculus">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1932&end=end&anchor=H_Matrix_Calculus&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 12 Matrix Calculus" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{12}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1937&end=end&anchor=H_Matrix_Calculus&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 12 Matrix Calculus" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Definitions" class="document-heading anchor">12.1 Definitions <a class="link-heading" href="#H_Definitions">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1934&end=1951&anchor=H_Definitions&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 12.1 Definitions" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1939&end=1956&anchor=H_Definitions&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 12.1 Definitions" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 Let <strong>x</strong> be a (n x 1) column vector and y be a (m x 1) column vector.
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  x_{(n x 1)} = 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+x_{(n x 1)} = 
     \begin{bmatrix} x_1 \\ x_2 \\ \cdots \\ x_n \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<div class="math-block anchor"> 
-$$
-
-  y_{(m x 1)} = 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+y_{(m x 1)} = 
     \begin{bmatrix} y_1 \\ y_2 \\ \cdots \\ y_n \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_Derivate_of_a_scalar_with_respect_to_a_vector" class="document-heading anchor">12.2 Derivate of a scalar with respect to a vector <a class="link-heading" href="#H_Derivate_of_a_scalar_with_respect_to_a_vector">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1951&end=1978&anchor=H_Derivate_of_a_scalar_with_respect_to_a_vector&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 12.2 Derivate of a scalar with respect to a vector" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1956&end=1983&anchor=H_Derivate_of_a_scalar_with_respect_to_a_vector&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 12.2 Derivate of a scalar with respect to a vector" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
-If <span class="math-inline">\(F(X): R^N \rightarrow R\)</span> - F(X) = F(x1, x2, ... xn) is a multivariate function, the derivate of the scalar function F(X) with respect to the vector X is:
+If <span class="math-inline">F(X): R^N \rightarrow R</span> - F(X) = F(x1, x2, ... xn) is a multivariate function, the derivate of the scalar function F(X) with respect to the vector X is:
 </p>
 
 <ul class="">
 <li>
-Note: <span class="math-inline">\(\nabla F\)</span> means gradient vector of F(X) 
+Note: <span class="math-inline">\nabla F</span> means gradient vector of F(X) 
 </li>
 </ul>
 
-<div class="math-block anchor"> 
-$$
-
-  \frac{\partial F}{\partial x}  
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\frac{\partial F}{\partial x}  
      = \nabla F
      =   \begin{bmatrix} 
             \frac{\partial F}{\partial x_1} \\             
@@ -4374,10 +4134,7 @@ $$
             \cdots \\ 
             \frac{\partial F}{\partial x_n} \\
          \end{bmatrix}
-
-
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -4396,18 +4153,16 @@ Page 38, page 39
 
 <div class="div-heading"> 
 <h3 id="H_Derivate_of_a_vector_with_respect_to_a_scalar" class="document-heading anchor">12.3 Derivate of a vector with respect to a scalar <a class="link-heading" href="#H_Derivate_of_a_vector_with_respect_to_a_scalar">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1978&end=1993&anchor=H_Derivate_of_a_vector_with_respect_to_a_scalar&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 12.3 Derivate of a vector with respect to a scalar" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1983&end=1998&anchor=H_Derivate_of_a_vector_with_respect_to_a_scalar&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 12.3 Derivate of a vector with respect to a scalar" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 If the vector Y is a function (Y = Y(t)) of the scalar t, the derivate of Y with respect to t is:
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-   \frac{\partial Y(t)}{\partial t} = 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\frac{\partial Y(t)}{\partial t} = 
      \begin{bmatrix} 
          \frac{\partial y_1(t)}{\partial t}  \\
          \frac{\partial y_2(t)}{\partial t}  \\
@@ -4415,14 +4170,12 @@ $$
          \cdots                              \\
          \frac{\partial y_m(t)}{\partial t}  \\
      \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_Derivate_of_a_vector_with_respect_to_a_vector" class="document-heading anchor">12.4 Derivate of a vector with respect to a vector <a class="link-heading" href="#H_Derivate_of_a_vector_with_respect_to_a_vector">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1993&end=2025&anchor=H_Derivate_of_a_vector_with_respect_to_a_vector&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 12.4 Derivate of a vector with respect to a vector" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{4}">\(\setSubSection{4}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1998&end=2030&anchor=H_Derivate_of_a_vector_with_respect_to_a_vector&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 12.4 Derivate of a vector with respect to a vector" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -4435,10 +4188,9 @@ where J[Y(X)] is the <u>Jacobian</u> matrix of Y(X)
 </li>
 </ul>
 
-<div class="math-block anchor"> 
-$$
-
-   \frac{\partial Y(X)}{\partial X} 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\frac{\partial Y(X)}{\partial X} 
        =  J[Y(X)] 
        =
        \begin{bmatrix} 
@@ -4462,14 +4214,12 @@ $$
          &amp; \cdots 
          &amp; \frac{\partial y_m}{\partial x_2}  \\
        \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_Derivate_rules_for_matrices_and_vectors" class="document-heading anchor">12.5 Derivate rules for matrices and vectors <a class="link-heading" href="#H_Derivate_rules_for_matrices_and_vectors">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=2025&end=2140&anchor=H_Derivate_rules_for_matrices_and_vectors&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 12.5 Derivate rules for matrices and vectors" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{5}">\(\setSubSection{5}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=2030&end=2145&anchor=H_Derivate_rules_for_matrices_and_vectors&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 12.5 Derivate rules for matrices and vectors" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -4495,34 +4245,30 @@ References:
 </ul>
 
 <p>
-Let X be n x 1 vector where <span class="math-inline">\(x \in R^n\)</span>
+Let X be n x 1 vector where <span class="math-inline">x \in R^n</span>
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  x_{(n x 1)} = 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+x_{(n x 1)} = 
     \begin{bmatrix} x_1 \\ x_2 \\ \cdots \\ x_n \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-Let C be matrix of (n x n) constant elements where <span class="math-inline">\(C \in R^{n x n}\)</span>
+Let C be matrix of (n x n) constant elements where <span class="math-inline">C \in R^{n x n}</span>
 </p>
 
-<div class="math-block anchor"> 
-$$
-
-  C = \begin{bmatrix}
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+C = \begin{bmatrix}
         c_{11} &amp; c_{12} &amp; c_{13} \cdots c_{1n} \\ 
         c_{21} &amp; c_{22} &amp; c_{23} \cdots c_{2n} \\ 
         c_{31} &amp; c_{32} &amp; c_{33} \cdots c_{3n} \\ 
        \cdots  &amp; \cdots &amp; \cdots &amp; \cdots      \\
         c_{n1} &amp; c_{n2} &amp; c_{n3} \cdots c_{nn} \\ 
       \end{bmatrix}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -4535,14 +4281,12 @@ Derivate of product between constant matrix and column vector.
 </li>
 </ul>
 
-<div class="math-block anchor"> 
-$$
-
-   \frac{\partial }{\partial X} (C . X)  
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\frac{\partial }{\partial X} (C . X)  
         = \frac{\partial (C . x)}{\partial X} 
-        = C^T 
-
-$$
+        = C^T
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <ul class="">
@@ -4551,14 +4295,12 @@ Derivate of product between column vector and constant matrix.
 </li>
 </ul>
 
-<div class="math-block anchor"> 
-$$
-
-   \frac{\partial }{\partial X} (X^T . C)  
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\frac{\partial }{\partial X} (X^T . C)  
         = \frac{\partial (X^T C)}{\partial X} 
-        = C 
-
-$$
+        = C
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <ul class="">
@@ -4571,14 +4313,12 @@ Note: this result is a vector.
 </li>
 </ul>
 
-<div class="math-block anchor"> 
-$$
-
-   \frac{\partial }{\partial X} (X^T . X)  
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\frac{\partial }{\partial X} (X^T . X)  
         = \frac{\partial (X^T . X)}{\partial X} 
         = 2 X
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <ul class="">
@@ -4591,14 +4331,12 @@ Let Y be a (n x 1) vector.
 </li>
 </ul>
 
-<div class="math-block anchor"> 
-$$
-
-   \frac{\partial }{\partial X} (y^T x)  
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\frac{\partial }{\partial X} (y^T x)  
     = \frac{\partial }{\partial X} (x^T y)  
     = y^T
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <ul class="">
@@ -4607,20 +4345,18 @@ Derivative of quadratic form.
 </li>
 </ul>
 
-<div class="math-block anchor"> 
-$$
-
-   \frac{\partial }{\partial X} (X^T . C . X)  
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\frac{\partial }{\partial X} (X^T . C . X)  
         = \frac{\partial (X^T . C. X)}{\partial X} 
         = (C + C^T) . x 
-        = x^T (C + C^T) 
-
-$$
+        = x^T (C + C^T)
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <ul class="">
 <li>
-Derivative of scalar defined by <span class="math-inline">\(\alpha = y^T . A . x\)</span> <ul class="">
+Derivative of scalar defined by <span class="math-inline">\alpha = y^T . A . x</span> <ul class="">
 <li>
 A is a (m x n) matrix independent of both X and Y. 
 </li>
@@ -4634,21 +4370,19 @@ X is a (n x 1) vector.
 </li>
 </ul>
 
-<div class="math-block anchor"> 
-$$
-
-    \frac{\partial \alpha}{\partial X}
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\frac{\partial \alpha}{\partial X}
      = \frac{\partial}{\partial X} \left( y^T . A . x \right)
      = y^T . A
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <ul class="">
 <li>
 Chain rule of the derivate of scalar product. <ul class="">
 <li>
-Note: <span class="math-inline">\(\alpha\)</span> is a scalar. 
+Note: <span class="math-inline">\alpha</span> is a scalar. 
 </li>
 <li>
 Note: v is a vector and dependent on vector x. 
@@ -4657,20 +4391,17 @@ Note: v is a vector and dependent on vector x.
 </li>
 </ul>
 
-<div class="math-block anchor"> 
-$$
-
-  \frac{\partial \alpha(x)}{\partial x} 
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\frac{\partial \alpha(x)}{\partial x} 
        = \frac{\partial}{\partial x} (v^t . v)
        = 2 v^T \frac{\partial v}{\partial x}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_Useful__gradients" class="document-heading anchor">12.6 Useful  gradients <a class="link-heading" href="#H_Useful__gradients">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=2140&end=end&anchor=H_Useful__gradients&page=Math - Calculus Reference Card&timestamp=176064157280165" title="[i18n]: 12.6 Useful  gradients" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{6}">\(\setSubSection{6}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=2145&end=end&anchor=H_Useful__gradients&page=Math - Calculus Reference Card&timestamp=176359801292363" title="[i18n]: 12.6 Useful  gradients" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -4681,9 +4412,8 @@ Reference: <a href="https://www.doc.ic.ac.uk/~dfg/ProbabilisticInference/Inferen
 List of useful and pervasive identities for computing gradient in machine learning.
 </p>
 
-<div class="math-block anchor"> 
-$$
-
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
 \displaystyle 
 
 \begin{cases}
@@ -4711,8 +4441,7 @@ $$
   \\ \dfrac{\partial}{\partial x} (x^t \cdot B \cdot x) 
         &amp;=&amp; x^t (B + B^t)
 \end{cases}
-
-$$
+</div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
@@ -4721,18 +4450,21 @@ Where,
 
 <ul class="">
 <li>
-<span class="math-inline">\(\det A\)</span> is the determinant (scalar) of a square matrix A. 
+<span class="math-inline">\det A</span> is the determinant (scalar) of a square matrix A. 
 </li>
 <li>
-<span class="math-inline">\(\mathrm{tr}(A)\)</span> is the trace of matrix A, sum of diagonal elements. 
+<span class="math-inline">\mathrm{tr}(A)</span> is the trace of matrix A, sum of diagonal elements. 
 </li>
 </ul>
 
 
         </main>
+
+        
     </div>
     <script>
     </script>
+
 </body>
 
 </html>

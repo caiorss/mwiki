@@ -7,8 +7,8 @@
     
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
     
-    <title data-i18n="">MBook - README</title>
-    <meta name="description" content="" />
+    <title data-i18n="source-page-title">MBook - Linux Magic SysRq Key and OOM</title>
+    <meta name="description" content="Command for recovering frozen Linux machine using the SysRq keybinding." />
     <meta name=generator content="MWiki">
     
    
@@ -118,16 +118,16 @@
     const FONT_FAMILY_CODE = "Libertinus Mono"
     const DEFAULT_LOCALE = "en-US";
 	  const USE_DEFAULT_LOCALE = "True" === "True";
-    const LATEX_RENDERER = "katex";
+    const LATEX_RENDERER = "";
     const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
     const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
-    const KATEX_MACROS = "eyJcXGIiOiAiXFxtYXRoYmZ7IzF9IiwgIlxcc2IiOiAiXFxib2xkc3ltYm9seyMxfSIsICJcXGFyZ21heCI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtYXh9IiwgIlxcYXJnbWluIjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1pbn0iLCAiXFxSIjogInsgXFxtYXRoYmJ7Un0gfSIsICJcXFoiOiAiXFxtYXRoYmJ7Wn0iLCAiXFxsYXBsYWNlIjogIlxcbWF0aGNhbHtMfVxceyMxXFx9IiwgIlxcZm91cmllciI6ICJcXG1hdGhjYWx7Rn1cXHsjMVxcfSIsICJcXGQiOiAiXFxtYXRocm17ZH0iLCAiXFxwIjogIlxccGFydGlhbCIsICJcXGUiOiAiXFxtYXRocm17ZX0iLCAiXFxDIjogInsgXFxtYXRoYmJ7Q30gfSIsICJcXEJpZ08iOiAiXFxtYXRoY2Fse099XFwhXFxsZWZ0KCMxXFxyaWdodCkiLCAiXFxtZGVmIjogIntcXHRyaWFuZ2xlcSBcXDt9IiwgIlxcc2duIjogIlxcb3BlcmF0b3JuYW1le3Nnbn0ifQ==";
+    const KATEX_MACROS = "";
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
     // NOTE: It is encoded as base64 
     const PAGE_SOURCE_CODE = "";
-    const PAGE_SOURCE_URL  = "/mwiki/src_pages/README.html"
+    const PAGE_SOURCE_URL  = ""
 	
     // Possible values: 'none', 'nosection' 'section', 'subsection'
     //  none      => no enumeration 
@@ -143,7 +143,7 @@
     //      Schema:  => <section>.<subsection>.<equation-number>
     //      Example: => 1.3.1 , 1.3.2, 2.4.5 
     //
-    let equation_enumeration = "section";
+    let equation_enumeration = "";
 
     MathJax = {
         loader: {load: ['[tex]/tagformat', '[tex]/mathtools', 'output/chtml']}
@@ -267,19 +267,8 @@
     
 
     
-        
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi" crossorigin="anonymous">
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js" integrity="sha384-J+9dG2KMoiR9hqcFao0IBLwxt6zpcyN68IgwzsCSkbreXUjmNVRhPFTssqdSGjwQ" crossorigin="anonymous"></script>
-        <!-- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" -->
-            <!-- onload="renderMathInElement(document.body);"></script> -->
-        
-    
   
 
-    
-        <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js" async> </script>
     
 
 
@@ -323,88 +312,152 @@
 <body>
 
     
-    <aside class="sidebar sidebar-visibility">
-        
-        <h2 data-i18n="sidebar-table-of-contentes-label">Contents</h2>
-        
-        <div class="toc">
-            <!-- Table of contents template placeholder -->
-            <ol></ol>
-        </div>
-    </aside>
-    
     
     <div class="main main-shift">
         
-        <header class="header">
-            <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/mwiki/static/hamburger-menu.svg" style="height: 25px;"/> </a>
-            <a data-i18n="home-page-button" class="sidebar-toggle-button" 
-			   title="Go to home page (Index)" href="/mwiki/"><img class="img-icon" src="/mwiki/static/icon-home.svg"></a>
-            <div class="dropdown">
-              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button" 
-                 href="#" 
-                 title="Main menu."
-                 class="dropbtn"
-                 >
-                <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
-                </a>
-                
-            <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
-                
-                <a data-i18n="show-source-menu-item-label" class="sidebar-toggle-button" href="#" onclick="displayPageSourceWindow();">Show source</a>
-                
-                
-                 <a data-i18n="popup-window-change-language-menu-launcher" class="sidebar-toggle-button" href="#"
-                    onclick="changeLanguageForm.toggle();"
-                    title="Open form that allows overriding the current user interface language."
-                 >Language</a>
-                
-                   <a data-i18n="keybindings-menu-item" class="sidebar-toggle-button" href="#"
-                    onclick="toggleShortcutKeybindingWinodw();"
-                    title="Display a window showing all keyboard shortcuts, also known as keybindings."
-                 >Keybindings</a>
-                 <a data-i18n="about-menu-item-label" class="sidebar-toggle-button" href="/mwiki/about.html">About</a>
-              </div>
-            </div>
-
-            <a data-i18n="button-toggle-sections" class="sidebar-toggle-button"
-                 href="#" 
-                 onclick="toggleHeadings();"
-                 id="btn-scroll-bottom" 
-                 title="Fold/Unfold all sections."
-                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg"></a> 
-            <!-- 
-             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
-                 href="#" 
-                 onclick="quickOpenPage();"
-                 id="btn-scroll-bottom" 
-                 title="Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry."
-                 >
-               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E"> 
-                </a>
-            --> 
-              
-        </header>
-        
 
         <main class="content">
-            
-            <div class="div-heading-h1">
-                <h1 data-i18n="" class="document-heading">README</h1>
-            </div>
             
             <p class="hidden-mathjax-macros" style="display: none;">
                 $$
                 
                 $$
             </p>
-            <p>
-Sample wiki/notebook example of MWiki engine
-</p>
+            <div class="highlight"><pre><span></span>---
+title:       Linux Magic SysRq Key and OOM
+lable:       
+description: Command for recovering frozen Linux machine using the SysRq keybinding.
+<span class="gu">keywords:    </span>
+<span class="gu">---</span>
 
+<span class="gu">## Overview</span>
+
+Unlike MacOSX and Microsoft Windows NT, the Linux kernel and consequentely, Linux distributions still have an OOM - Out-Of-Memory bug, which freezes the computer and makes it unresponsive when almost all memory is used. This issue is annoying as even the keyboard becomes unresponsive and key combination similar to Windows&#39; Ctrl+Al+Del for invoking a process manager does not work. 
+
+For many users, the solution is a forced system reboot. However, it may lead to data loss, data corruption and loss of productivity. An alternative to system reboot is the Linux&#39;s kernel <span class="gs">**magic SysReq**</span> key combination, which is available in Linux kenels compiled with CONFIG_MAGIC_SYSREQ option enabled. Nowadays, most Linux distributions are shipped with a kernel using this option enabled. In order to  use SysReq keyboard shortcut for system recovery, it is necessary to enable it either temporarily or permanently by editing the appropriate configuration file.
+  
+<span class="gu">## SysRq Settings</span>
+
+<span class="gu">### Check whether SysRq status</span>
+
+To check whether SysRq is eanabled, run 
+
+<span class="sb">```sh</span>
+$<span class="w"> </span>cat<span class="w"> </span>/proc/sys/kernel/sysrq
+<span class="m">1</span>
+<span class="sb">```</span>
+
+if the output is 0, then sysrq is disabled, otherwise sysrq is enabled. All sysrq functions are only enabled when this pseudo-file, created by the Linux kernel, is set to 1. 
+
+<span class="gu">### Set SySrq Value without reboot</span>
+
+Enable all SysRq options/functions.
+
+<span class="sb">```sh</span>
+$<span class="w"> </span>sudo<span class="w"> </span>sysctl<span class="w"> </span>kernel.sysrq<span class="o">=</span><span class="m">1</span>
+<span class="sb">```</span>
+
+All SysRq options can be enabled by setting the pseudo-file (a kernel interface) using the command.
+
+<span class="sb">```sh</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/proc/sys/kernel/sysrq
+<span class="sb">```</span>
+
+<span class="gu">### Persist SysRq Value on Reboot</span>
+
+Create backup of the configuration file.
+
+<span class="sb">```sh</span>
+$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/sysctl.d/99-sysctl.conf<span class="w"> </span>-v<span class="w"> </span>/etc/sysctl.d/99-sysctl.conf.back
+<span class="sb">```</span>
+
+Override the file 99-sysctl.conf with the line <span class="sb">`kernel.sysrq = 1`</span>. 
+
+<span class="sb">```sh</span>
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;kernel.sysrq = 1&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/sysctl.d/99-sysctl.conf
+<span class="sb">```</span>
+
+
+<span class="gu">## Commands</span>
+
+SysRq key-combination provide the following commands.
+
+<span class="k">-</span><span class="w"> </span>b – reboots the computer
+<span class="k">-</span><span class="w"> </span>e – ask all processes to terminate gracefully
+<span class="k">-</span><span class="w"> </span>f – to get rid of an [<span class="nt">Out Of Memory condition</span>](<span class="na">https://en.wikipedia.org/wiki/Out_of_memory &quot;Out Of Memory Condition&quot;</span>) via oom\_kills
+<span class="k">-</span><span class="w"> </span>i – to kill all processes immediately except init
+<span class="k">-</span><span class="w"> </span>k – to kill absolutely all processes, including X
+<span class="k">-</span><span class="w"> </span>m – to output the current memory information
+<span class="k">-</span><span class="w"> </span>o – to shut down the computer
+<span class="k">-</span><span class="w"> </span>r – very useful, to take the keyboard out of the X server control
+<span class="k">-</span><span class="w"> </span>s – to sync data from all mounted devices (avoid data loss in case of violent reboot)
+<span class="k">-</span><span class="w"> </span>t – to display a list of the current tasks
+<span class="k">-</span><span class="w"> </span>u – to remount all file system in read-only mode
+ 
+
+<span class="gu">### Unfreeze Computer in OOM </span>
+
+Unfreeze computer in OOM (Out-Of-Memory) by terminating memory hogging processes.
+
++ <span class="gs">**SysRq + Alt + f**</span> 
+
+<span class="gu">### Safe System Reboot</span>
+
+Safe system reboot with graceful termination of processes for avoiding data loss and file system damage.
+
++ <span class="gs">**Alt + SysRq + reisub**</span>
+
+This keybinding peforms the following sequence of operations.
+
+<span class="k">-</span><span class="w"> </span>(r) - Take the keyboard from X
+<span class="k">-</span><span class="w"> </span>(e) - Ask all programs to end gently
+<span class="k">-</span><span class="w"> </span>(i) Kill the one who did not
+<span class="k">-</span><span class="w"> </span>(s) - Save the data from the cache to the hard drive
+<span class="k">-</span><span class="w"> </span>(u) - Remounts the file systems
+<span class="k">-</span><span class="w"> </span>(b) - Reboot
+
+reisub meneumonic: 
+
+  + opposite of &quot;busier&quot;
+  + &quot;[R]aising an [E]lephant is so [U]tterly [B]oring&quot;
+<span class="gu">## See </span>
+
++ <span class="ge">*Linux Magic System Request Key Hacks*</span>, Kernel\.org
+  + https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html
++ <span class="ge">*How to enable all SysRq functions on Linux*</span>, Linux Config (2020)
+  + https://linuxconfig.org/how-to-enable-all-sysrq-functions-on-linux 
++ <span class="ge">*Understanding the SysRq Key – The Magic Key To Control Linux*</span>, MakeTechEasier (2012)
+  + https://www.maketecheasier.com/the-usage-of-sysrq-key-in-linux/ 
++ <span class="ge">*What is /proc/sysrq-trigger in linux and how to use sysrq kernel feature ?*</span>
+  + https://ngelinux.com/what-is-proc-sysrq-trigger-in-linux-and-how-to-use-sysrq-kernel-feature/
++ <span class="ge">*Use the Magic SysRq Key on Linux to Fix Frozen X Servers, Cleanly Reboot, and Run Other Low-Level Commands*</span>, Chris Hoffman, How-To Geek (2012)
+  + https://www.howtogeek.com/119127/use-the-magic-sysrq-key-on-linux-to-fix-frozen-x-servers-cleanly-reboot-and-run-other-low-level-commands/
+</pre></div>
 
         </main>
 
+        
+        <style>
+            .highlight {
+                max-height: none !important;
+            }
+
+            .highlight pre {
+                overflow-wrap: break-word;
+                word-break: break-word;
+                text-wrap: balance;
+            }
+
+            .content {
+                width: 100% !important;
+                height: 100% !important;
+                margin-left: -50px !important;
+            }
+ 
+            .sidebar {
+                display: none;
+            }
+        </style>
         
     </div>
     <script>

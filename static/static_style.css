@@ -139,8 +139,37 @@ div.math-container {
     margin-bottom: 10px;
     /* background-color: aliceblue; */
 }
+
+
+.katex-math-block { 
+    display:         flex;
+    justify-content: space-between;
+    align-items:     center;
+}
+
+.div-latex-before {
+    margin-right: auto;
+}
+
+/* .div-latex-code { } */
+
+.div-latex-enum {
+    margin-left: auto;
+    margin-right: 0px;
+    justify-content: right;    
+}
+
+/* Hide KaTeX's built-in equation enumeration */
+.eqn-num {
+    display: none !important;;
+}
     
     
+img.math {
+    transform: scale(1.5) !important;
+    margin-bottom: 15px !important;
+}
+
 img.inline-math {
     vertical-align: -2pt;
     max-height: 15px;
@@ -562,6 +591,38 @@ select:focus {
     text-align: center;
 }
 
+
+/*--- Center image ---*/
+.div-wiki-image {
+    text-align: center;
+}
+
+
+.btn-show-alt-text {
+    position: relative;
+    padding: 3px 8px;
+    z-index: 5;
+    right: 50px;
+    bottom: 20px;
+    background: rgba(0,0,0,.65);
+    backdrop-filter: blur(10px) saturate(180%) contrast(75%) brightness(70%);    color: #fff;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    pointer-events: auto;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Mobile devices      */
+@media (max-width: 810px)
+{
+    .btn-show-alt-text {
+        right: 0px;
+        bottom: 40px !important;
+    }
+}
+
 /** Center document title heading */
 .div-heading-h1 {
     text-align: center;
@@ -738,15 +799,22 @@ main thead th {
 
     .popup-window {
         max-height: 80% !important; 
-        height: 30%;
         /* max-width: 25%; */
         top: 10px;
         left: 20px;
         font-size: 1rem;
+        background: aliceblue;
+        border: 1px solid;
+        display: inline-block;
+        position: absolute;
+        z-index:   1000;
+        top: 10%;
+        left: 30%;
     }
 
-
-
+    .popup-window-iframe {
+        min-height: 98%;
+    }
 }
 
 /** For mobile devices with small screen */

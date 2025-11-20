@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+    
+    <title data-i18n="">MBook - LaTeX Reference Card</title>
+    <meta name="description" content="Comprehensive overview of LaTeX and examples." />
+    <meta name=generator content="MWiki">
+    
+   
+    
+   <style>
+
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: normal;
+    
+    
+    
+    src: url('/mwiki/static/fonts/cmu-concrete-regular.woff');
+    
+}
+    
+
+
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: italic;
+    
+    
+    
+    src: url('/mwiki/static/fonts/cmu-concrete-italic.woff');
+    
+}
+    
+
+@font-face {
+    font-family: 'Libertinus Mono';
+    
+    
+    
+    src: url('/mwiki/static/fonts/LibertinusMono-Regular.woff2');
+    
+}
+    
+
+@font-face {
+    font-family: 'Chicago MacOS';
+    
+    
+    
+    src: url('/mwiki/static/fonts/ChicagoFLF.ttf');
+    
+}
+    
+
+:root {
+    /*--- Desktop screen Width ----------------*/
+    --screen-width-desktop: 850px;
+
+    /* --bg-sidebar: #F2EACA; */  /* #F7F4ED; */
+    --bg-sidebar: white;  /* #F7F4ED; */
+    /* --bg-main:   #F2EACA ; */
+    --bg-main: white;
+    --typography-main-line-height: 1.7em;
+    --typography-main-leter-spacing: 0.5px;
+    --screen-type: "desktop";
+    --link-external-color: blue; /* hsl(0, 100%, 33%); */
+    --link-internal-color: blue;
+    --form-background-color: #fbfcfc;
+    --form-border-color: #cfd5e2;
+    --primary-button-background-color: #0172ad;
+
+
+    
+    --font-family-main: 'CMU Concrete';
+    
+    
+    --font-family-title: 'Chicago MacOS';
+    
+
+    --font-size-h1:  1.800rem;
+    --font-size-h2:  1.350rem;
+    --font-size-h3:  1.125rem;
+    --font-size-h4:  1.000rem;
+    --font-size-h5:  0.875rem;
+    --font-size-h6:  0.750rem;
+    --font-size-text: 0.720rem;
+    --font-size-code: 0.700rem;
+    --font-size-sidebar: 0.850rem;
+
+    --code-block-background-color: rgb(243, 244.5, 246.75);
+
+    /* Magnifier icon */
+    --icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(136, 145, 164)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+}
+
+
+        
+    </style>
+  
+    
+    <link rel="stylesheet" href="/mwiki/static/static_style.css">
+    
+    
+    
+    <!-- MathJax Settings -->
+    <script>
+
+    const FONT_FAMILY_MAIN = "CMU Concrete"
+    const FONT_FAMILY_TITLE = "Chicago MacOS"
+    const FONT_FAMILY_CODE = "Libertinus Mono"
+    const DEFAULT_LOCALE = "en-US";
+	  const USE_DEFAULT_LOCALE = "True" === "True";
+    const LATEX_RENDERER = "katex";
+    const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
+    const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
+    const KATEX_MACROS = "eyJcXGIiOiAiXFxtYXRoYmZ7IzF9IiwgIlxcc2IiOiAiXFxib2xkc3ltYm9seyMxfSIsICJcXGFyZ21heCI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtYXh9IiwgIlxcYXJnbWluIjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1pbn0iLCAiXFxSIjogInsgXFxtYXRoYmJ7Un0gfSIsICJcXFoiOiAiXFxtYXRoYmJ7Wn0iLCAiXFxsYXBsYWNlIjogIlxcbWF0aGNhbHtMfVxceyMxXFx9IiwgIlxcZm91cmllciI6ICJcXG1hdGhjYWx7Rn1cXHsjMVxcfSIsICJcXGQiOiAiXFxtYXRocm17ZH0iLCAiXFxwIjogIlxccGFydGlhbCIsICJcXGUiOiAiXFxtYXRocm17ZX0iLCAiXFxDIjogInsgXFxtYXRoYmJ7Q30gfSIsICJcXEJpZ08iOiAiXFxtYXRoY2Fse099XFwhXFxsZWZ0KCMxXFxyaWdodCkiLCAiXFxtZGVmIjogIntcXHRyaWFuZ2xlcSBcXDt9IiwgIlxcc2duIjogIlxcb3BlcmF0b3JuYW1le3Nnbn0ifQ==";
+    const CSRF_TOKEN = ""
+    const STATIC_COMPILATION = true;
+    const IS_USER_ADMIN = false;
+    // NOTE: It is encoded as base64 
+    const PAGE_SOURCE_CODE = "";
+    const PAGE_SOURCE_URL  = "/mwiki/src_pages/LaTeX_Reference_Card.html"
+	
+    // Possible values: 'none', 'nosection' 'section', 'subsection'
+    //  none      => no enumeration 
+    //  nosection 
+    //      Schema: <equation-number>
+    //      Example: Equations are enumerated as 1, 2, ..., 200
+    //              in the order that they are shown without section or 
+    //              subsection number
+    //  section   
+    //      Schema:  => <section>.<equation-number>
+    //      Exmaple: => 2.1, 2.5, 6.8
+    //  subsection 
+    //      Schema:  => <section>.<subsection>.<equation-number>
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5 
+    //
+    let equation_enumeration = "subsection";
+
+    MathJax = {
+        loader: {load: ['[tex]/tagformat', '[tex]/mathtools', 'output/chtml']}
+
+      , section: 1
+      , tex: {
+          inlineMath: [['$','$'], ['\\(','\\)']]
+        , displayMath: [['$$','$$'], ['\\[','\\]']]
+        , processEscapes: true
+        , processEnvironments: true
+          // Location of equation numbers
+        , tagSide: "right"  
+        // Possible values 'ams' or 'all' (all equations are numbered by default)
+        , tags: equation_enumeration !== "none" ? "all" : "ams"
+        //, tags: 'ams'
+        , packages: {'[+]': [
+                                  'tagformat'
+                                , 'sections'
+                                , 'subsections'
+                                , 'autoload-all'
+                            ]}
+        , tagformat: {
+          number: (n) => { 
+            if( equation_enumeration === "cont" 
+                || equation_enumeration == "continuous")
+            {
+                return '' + n;
+            }
+
+            let nsec = MathJax.config.section;
+            let nsub = MathJax.config.subsection;
+            var out = '';
+            if (nsub === 0 || equation_enumeration == "section") 
+            {
+                out = nsec + '.' + n;
+            } else {
+                out = nsec + '.' + nsub +  '.' + n;
+            }
+            // console.log("Display section = ", out);
+            return out;
+          }
+        }
+      }
+
+     , startup: {
+
+            ready() {
+                // console.log(" [TRACE] I was called from ready()");
+                const Configuration = MathJax._.input.tex.Configuration.Configuration;
+                const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+                new CommandMap('sections', {
+                      nextSection: 'NextSection'
+                    , setSection:  'SetSection'
+                }, {
+                     NextSection(parser, name) {
+                        // console.log(" [TRACE] Called NextSection()");
+                        MathJax.config.section++;
+                        MathJax.config.subsection = 0;
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                    , SetSection(parser, name) {
+                        // console.log(" [TRACE] Called SetSection()");
+                        const n = parser.GetArgument(name);
+                        MathJax.config.section = parseInt(n);
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                });
+                if (equation_enumeration === "subsection")
+                {
+                    new CommandMap('subsections', {
+                          nextSubSection: 'NextSubSection'
+                        , setSubSection:  'SetSubSection'
+                    }, {
+                         NextSubSection(parser, name) {
+                            // console.log(" [TRACE] NextSubSection() called.");
+                            MathJax.config.subsection++;
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                        , SetSubSection(parser, name) {
+                            const n = parser.GetArgument(name);
+                            // console.log(" [TRACE] SetSubSection to ", n);
+                            MathJax.config.subsection = parseInt(n);
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                    });
+                }
+
+                Configuration.create(
+                      'sections', { handler: { macro: ['sections'] } }
+                );
+
+                if( equation_enumeration === "subsection" )
+                {
+                    Configuration.create(
+                        'subsections', { handler: { macro: ['subsections'] } }
+                    );
+
+                }
+
+                MathJax.startup.defaultReady();
+                pseudocode.renderClass("pseudocode", { "lineNumber": true, "scopeLines": true });
+                // This function is provided by main.js.
+                if( isMobileScreen() ) { setHeadingVisibility(false); }
+                /// setHeadingsVisibility(false)
+            }
+        }
+    , chtml: {
+        /// displayAlign: "left"
+      }
+    // options for when overflow is linebreak
+    , linebreaks: {             
+        inline:           true,   // true for browser-based breaking of inline equations
+        width:            '100%', // a fixed size or a percentage of the container width
+        lineleading:      .2,     // the default lineleading in em units
+        LinebreakVisitor: null,   // The LinebreakVisitor to use
+    },
+
+    }
+    </script>
+
+    
+
+    
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js" integrity="sha384-J+9dG2KMoiR9hqcFao0IBLwxt6zpcyN68IgwzsCSkbreXUjmNVRhPFTssqdSGjwQ" crossorigin="anonymous"></script>
+        <!-- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" -->
+            <!-- onload="renderMathInElement(document.body);"></script> -->
+        
+    
+  
+
+    
+        <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js" async> </script>
+    
+
+
+    
+
+    
+    <!-- Additional Javascript libraries -->
+    
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", (event) => {
+            // Select graphviz code blocks 
+            let lst = document.querySelectorAll(".graphviz-dot");
+            for(let x of lst){
+
+                Viz.instance().then(function(viz) {
+                    // console.log("[TRACE] x = ", x);
+                    let code = x.innerText;
+                    // console.log(" [TRACE] code = ", code);
+                    let svg = viz.renderSVGElement(code);
+                    // console.log(" [TRACE] svg = ", svg);
+                    x.replaceWith(svg); 
+                    // x.outerHTML = svg;
+                    /// document.getElementById("graph").appendChild(svg);
+                });
+
+
+            }
+        }, false);
+        
+    </script>
+
+    
+    <script type="text/javascript" src="/mwiki/static/main.js"></script>
+    
+
+</head>
+
+<body>
+
+    
+    <aside class="sidebar sidebar-visibility">
+        
+        <h2 data-i18n="sidebar-table-of-contentes-label">Contents</h2>
+        
+        <div class="toc">
+            <!-- Table of contents template placeholder -->
+            <ol><ol>
+<li><a href="#H_Typesetting" class="link-sidebar" >Typesetting</a>
+<ol>
+<li><a href="#H_Font_Types" class="link-sidebar" >Font Types</a>
+</li><li><a href="#H_Font_Sizes" class="link-sidebar" >Font Sizes</a>
+</li><li><a href="#H_Table" class="link-sidebar" >Table</a>
+</li>
+</ol></li><li><a href="#H_Symbols" class="link-sidebar" >Symbols</a>
+<ol>
+<li><a href="#H_Greek_Letters_and_Math_Symbol" class="link-sidebar" >Greek Letters and Math Symbol</a>
+</li><li><a href="#H_Equality_and_comparison" class="link-sidebar" >Equality and comparison</a>
+</li><li><a href="#H_Sets_Symbols_and_Logical_Operators" class="link-sidebar" >Sets Symbols and Logical Operators</a>
+</li>
+</ol></li><li><a href="#H_Common_Cases" class="link-sidebar" >Common Cases</a>
+<ol>
+<li><a href="#H_Fractions" class="link-sidebar" >Fractions</a>
+</li><li><a href="#H_Complex_Numbers" class="link-sidebar" >Complex Numbers</a>
+</li>
+</ol></li><li><a href="#H_Matrix" class="link-sidebar" >Matrix</a>
+</li>
+</ol></ol>
+        </div>
+    </aside>
+    
+    
+    <div class="main main-shift">
+        
+        <header class="header">
+            <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/mwiki/static/hamburger-menu.svg" style="height: 25px;"/> </a>
+            <a data-i18n="home-page-button" class="sidebar-toggle-button" 
+			   title="Go to home page (Index)" href="/mwiki/"><img class="img-icon" src="/mwiki/static/icon-home.svg"></a>
+            <div class="dropdown">
+              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button" 
+                 href="#" 
+                 title="Main menu."
+                 class="dropbtn"
+                 >
+                <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
+                </a>
+                
+            <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                
+                <a data-i18n="show-source-menu-item-label" class="sidebar-toggle-button" href="#" onclick="displayPageSourceWindow();">Show source</a>
+                
+                
+                 <a data-i18n="popup-window-change-language-menu-launcher" class="sidebar-toggle-button" href="#"
+                    onclick="changeLanguageForm.toggle();"
+                    title="Open form that allows overriding the current user interface language."
+                 >Language</a>
+                
+                   <a data-i18n="keybindings-menu-item" class="sidebar-toggle-button" href="#"
+                    onclick="toggleShortcutKeybindingWinodw();"
+                    title="Display a window showing all keyboard shortcuts, also known as keybindings."
+                 >Keybindings</a>
+                 <a data-i18n="about-menu-item-label" class="sidebar-toggle-button" href="/mwiki/about.html">About</a>
+              </div>
+            </div>
+
+            <a data-i18n="button-toggle-sections" class="sidebar-toggle-button"
+                 href="#" 
+                 onclick="toggleHeadings();"
+                 id="btn-scroll-bottom" 
+                 title="Fold/Unfold all sections."
+                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg"></a> 
+            <!-- 
+             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
+                 href="#" 
+                 onclick="quickOpenPage();"
+                 id="btn-scroll-bottom" 
+                 title="Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry."
+                 >
+               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E"> 
+                </a>
+            --> 
+              
+        </header>
+        
+
+        <main class="content">
+            
+            <div class="div-heading-h1">
+                <h1 data-i18n="" class="document-heading">LaTeX Reference Card</h1>
+            </div>
+            
+            <p class="hidden-mathjax-macros" style="display: none;">
+                $$
+                
+                $$
+            </p>
+            
+
+<div class="div-heading"> 
+<h2 id="H_Typesetting" class="document-heading anchor">Typesetting <a class="link-heading" href="#H_Typesetting">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=9&end=90&anchor=H_Typesetting&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Typesetting" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Font_Types" class="document-heading anchor">Font Types <a class="link-heading" href="#H_Font_Types">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=11&end=32&anchor=H_Font_Types&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Font Types" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>LaTex</th>
+ 
+<th>Typesetting</th>
+ 
+<th>Typical Use</th>
+</tr>
+</thead>
+ 
+<tbody>
+
+<tr>
+
+<td>ℜ</td>
+ 
+<td><code>\Re</code></td>
+ 
+<td>Real part of a complex number</td>
+</tr>
+ 
+<tr>
+
+<td>ℑ</td>
+ 
+<td><code>\Im</code></td>
+ 
+<td>Imaginary part of a complex number</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\mathbb{R}</span></td>
+ 
+<td><code>\mathbb{R}</code></td>
+ 
+<td>Sets</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\mathbb{F}</span></td>
+ 
+<td><code>\mathbb{F}</code></td>
+ 
+<td>Vectors</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\mathfrak{J}</span></td>
+ 
+<td><code>\mathfrak{J}</code></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\mathscr{I}</span></td>
+ 
+<td><code>\mathscr{I}</code></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\mathcal{S}</span></td>
+ 
+<td><code>\mathcal{S}</code></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\mathcal{G}</span></td>
+ 
+<td><code>\mathcal{G}</code></td>
+ 
+<td>Note: Used for describing lie algebra</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\bar{Q}</span></td>
+ 
+<td><code>\bar{Q}</code></td>
+ 
+<td>Bar over symbol</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\hat{v}</span></td>
+ 
+<td><code>\hat{v}</code></td>
+ 
+<td>Unit vector</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\vec{u}</span></td>
+ 
+<td><code>\vec{u}</code></td>
+ 
+<td>handwritten vector notation</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\mathbf{r}</span></td>
+ 
+<td><code>\mathbf{r}</code></td>
+ 
+<td>vector notation used in most university-level books</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\hat{\mathbf{n}}</span></td>
+ 
+<td><code>\hat\mathbf{n}</code></td>
+ 
+<td>Unit vector using bold face</td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\tilde{n}</span></td>
+ 
+<td><code>\tilde{n}</code></td>
+ 
+<td>Tilde over symbol</td>
+</tr>
+ 
+<tr>
+
+<td></td>
+ 
+<td></td>
+ 
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<div class="div-heading"> 
+<h3 id="H_Font_Sizes" class="document-heading anchor">Font Sizes <a class="link-heading" href="#H_Font_Sizes">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=32&end=57&anchor=H_Font_Sizes&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Font Sizes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>+ $\Huge Hello!$
++ $\huge Hello!$
++ $\LARGE Hello!$
++ $\Large Hello!$
++ $\large Hello!$
++ $\normalsize Hello!$
++ $\small Hello!$
++ $\scriptsize Hello!$
++ $\tiny Hello!$
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering
+</p>
+
+<ul class="">
+<li>
+<span class="math-inline">\Huge Hello!</span> 
+</li>
+<li>
+<span class="math-inline">\huge Hello!</span> 
+</li>
+<li>
+<span class="math-inline">\LARGE Hello!</span> 
+</li>
+<li>
+<span class="math-inline">\Large Hello!</span> 
+</li>
+<li>
+<span class="math-inline">\large Hello!</span> 
+</li>
+<li>
+<span class="math-inline">\normalsize Hello!</span> 
+</li>
+<li>
+<span class="math-inline">\small Hello!</span> 
+</li>
+<li>
+<span class="math-inline">\scriptsize Hello!</span> 
+</li>
+<li>
+<span class="math-inline">\tiny Hello!</span> 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Table" class="document-heading anchor">Table <a class="link-heading" href="#H_Table">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=57&end=90&anchor=H_Table&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Table" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\notag</span> 
+
+<span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}</span> <span class="nb">{</span>|l|l|<span class="nb">}</span>
+      <span class="k">\hline</span> symbol <span class="nb">&amp;</span> description               <span class="nb">&amp;</span> value <span class="nb">&amp;</span> unit 
+   <span class="k">\\</span> <span class="k">\hline</span> m      <span class="nb">&amp;</span> <span class="k">\text</span><span class="nb">{</span>rod mass<span class="nb">}</span>           <span class="nb">&amp;</span> 0.15  <span class="nb">&amp;</span> kg 
+   <span class="k">\\</span> <span class="k">\hline</span> m      <span class="nb">&amp;</span> <span class="k">\text</span><span class="nb">{</span>cart mass<span class="nb">}</span>          <span class="nb">&amp;</span> 0.4   <span class="nb">&amp;</span> kg 
+   <span class="k">\\</span> <span class="k">\hline</span> l      <span class="nb">&amp;</span> <span class="k">\text</span><span class="nb">{</span>rod length<span class="nb">}</span>         <span class="nb">&amp;</span> 0.05  <span class="nb">&amp;</span> m 
+   <span class="k">\\</span> <span class="k">\hline</span> j      <span class="nb">&amp;</span> <span class="k">\text</span><span class="nb">{</span>rod intertia<span class="nb">}</span>       <span class="nb">&amp;</span> 0.005 <span class="nb">&amp;</span> kg.m<span class="nb">^</span>2 
+   <span class="k">\\</span> <span class="k">\hline</span> b      <span class="nb">&amp;</span> <span class="k">\text</span><span class="nb">{</span>friction constant<span class="nb">}</span>  <span class="nb">&amp;</span> 0.8 <span class="nb">&amp;</span> n.m.s 
+   <span class="k">\\</span> <span class="k">\hline</span>  
+<span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup class="footnote-reference" data-counter="1" data-footnote="Note that MWiki markdown and MyST markdown already support tables.">[1]</sup></a>
+</p>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+ 
+
+\begin{array} {|l|l|}
+      \hline symbol &amp; description               &amp; value &amp; unit 
+   \\ \hline m      &amp; \text{rod mass}           &amp; 0.15  &amp; kg 
+   \\ \hline m      &amp; \text{cart mass}          &amp; 0.4   &amp; kg 
+   \\ \hline l      &amp; \text{rod length}         &amp; 0.05  &amp; m 
+   \\ \hline j      &amp; \text{rod intertia}       &amp; 0.005 &amp; kg.m^2 
+   \\ \hline b      &amp; \text{friction constant}  &amp; 0.8 &amp; n.m.s 
+   \\ \hline  
+\end{array}
+</div><div class="div-latex-enum"></div>
+</div>
+
+<div class="div-heading"> 
+<h2 id="H_Symbols" class="document-heading anchor">Symbols <a class="link-heading" href="#H_Symbols">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=90&end=165&anchor=H_Symbols&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Symbols" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Greek_Letters_and_Math_Symbol" class="document-heading anchor">Greek Letters and Math Symbol <a class="link-heading" href="#H_Greek_Letters_and_Math_Symbol">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=92&end=131&anchor=H_Greek_Letters_and_Math_Symbol&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Greek Letters and Math Symbol" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Rendering</th>
+ 
+<th>Code</th>
+</tr>
+</thead>
+ 
+<tbody>
+
+<tr>
+
+<td><span class="math-inline">\alpha</span></td>
+ 
+<td><code>\alpha</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\beta</span></td>
+ 
+<td><code>\beta</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\gamma</span></td>
+ 
+<td><code>\gamma</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\Gamma</span></td>
+ 
+<td><code>\Gamma</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\delta</span></td>
+ 
+<td><code>\delta</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\Delta</span></td>
+ 
+<td><code>\Delta</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\theta</span></td>
+ 
+<td><code>\theta</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\Theta</span></td>
+ 
+<td><code>\Theta</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\vartheta</span></td>
+ 
+<td><code>\vartheta</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\varTheta</span></td>
+ 
+<td><code>\varTheta</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\phi</span></td>
+ 
+<td><code>\phi</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\Phi</span></td>
+ 
+<td><code>\Phi</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\psi</span></td>
+ 
+<td><code>\psi</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\Psi</span></td>
+ 
+<td><code>\Psi</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\zeta</span></td>
+ 
+<td><code>\zeta</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\eta</span></td>
+ 
+<td><code>\eta</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\iota</span></td>
+ 
+<td><code>\iota</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\kappa</span></td>
+ 
+<td><code>\kappa</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\nu</span></td>
+ 
+<td><code>\nu</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\mu</span></td>
+ 
+<td><code>\mu</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\xi</span></td>
+ 
+<td><code>\xi</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\Xi</span></td>
+ 
+<td><code>\Xi</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\tau</span></td>
+ 
+<td><code>\tau</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\rho</span></td>
+ 
+<td><code>\rho</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\pi</span></td>
+ 
+<td><code>\pi</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\Pi</span></td>
+ 
+<td><code>\Pi</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\sigma</span></td>
+ 
+<td><code>\sigma</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\Sigma</span></td>
+ 
+<td><code>\Sigma</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\epsilon</span></td>
+ 
+<td><code>\epsilon</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\varepsilon</span></td>
+ 
+<td><code>\varepsilon</code></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\nabla</span></td>
+ 
+<td><code>\nabla</code><a href="#" id="footnote-reference-link-2" class="footnote-link"><sup class="footnote-reference" data-counter="2" data-footnote="Not a greek letter, but it is a widely used symbol in calculus and fluid mechanics.">[2]</sup></a></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline">\partial</span></td>
+ 
+<td><code>\partial</code><a href="#" id="footnote-reference-link-3" class="footnote-link"><sup class="footnote-reference" data-counter="3" data-footnote="Not a greek letter. This symbol is used for partial derivatives.">[3]</sup></a></td>
+</tr>
+</tbody>
+</table>
+
+<div class="div-heading"> 
+<h3 id="H_Equality_and_comparison" class="document-heading anchor">Equality and comparison <a class="link-heading" href="#H_Equality_and_comparison">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=131&end=146&anchor=H_Equality_and_comparison&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Equality and comparison" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+ 
+<th>LaTeX</th>
+ 
+<th>Symbol</th>
+ 
+<th></th>
+</tr>
+</thead>
+ 
+<tbody>
+
+<tr>
+
+<td>Less or equal than</td>
+ 
+<td><code>\leq</code></td>
+ 
+<td><span class="math-inline">\leq</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Greater or equal than</td>
+ 
+<td><code>\geq</code></td>
+ 
+<td><span class="math-inline">\geq</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Much greater than<br></td>
+ 
+<td><code>\gg</code></td>
+ 
+<td><span class="math-inline">\gg</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Much less than</td>
+ 
+<td><code>\ll</code></td>
+ 
+<td><span class="math-inline">\ll</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Not equal to</td>
+ 
+<td><code>\neq</code></td>
+ 
+<td><span class="math-inline">\neq</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Is equivalent to</td>
+ 
+<td><code>\equiv</code></td>
+ 
+<td><span class="math-inline">\equiv</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Is approximately equal to</td>
+ 
+<td><code>\approx</code></td>
+ 
+<td><span class="math-inline">\approx</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Is proportional to</td>
+ 
+<td><code>\propto</code></td>
+ 
+<td><span class="math-inline">\propto</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td></td>
+ 
+<td></td>
+ 
+<td></td>
+ 
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<div class="div-heading"> 
+<h3 id="H_Sets_Symbols_and_Logical_Operators" class="document-heading anchor">Sets Symbols and Logical Operators <a class="link-heading" href="#H_Sets_Symbols_and_Logical_Operators">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=146&end=165&anchor=H_Sets_Symbols_and_Logical_Operators&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Sets Symbols and Logical Operators" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+ 
+<th>LaTeX</th>
+ 
+<th>Symbol</th>
+ 
+<th></th>
+</tr>
+</thead>
+ 
+<tbody>
+
+<tr>
+
+<td>Empty set</td>
+ 
+<td><code>\emptyset</code></td>
+ 
+<td></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Natural Numbers</td>
+ 
+<td><code>\mathbb{N}</code></td>
+ 
+<td><span class="math-inline">\mathbb{N}</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Real Numbers</td>
+ 
+<td><code>\mathbb{R}</code></td>
+ 
+<td><span class="math-inline">\mathbb{R}</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Complex Numbers</td>
+ 
+<td><code>\mathbb{Q}</code></td>
+ 
+<td><span class="math-inline">\mathbb{Q}</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Quaternions</td>
+ 
+<td><code>\mathbb{H}</code></td>
+ 
+<td><span class="math-inline">\mathbb{H}</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td></td>
+ 
+<td></td>
+ 
+<td></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Element in set</td>
+ 
+<td><code>\in</code></td>
+ 
+<td><span class="math-inline">\in</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Element not in set</td>
+ 
+<td><code>\notin</code></td>
+ 
+<td><span class="math-inline">\notin</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Exists</td>
+ 
+<td><code>\exists</code></td>
+ 
+<td><span class="math-inline">\exists</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>For all</td>
+ 
+<td><code>\forall</code></td>
+ 
+<td><span class="math-inline">\forall</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Union of sets</td>
+ 
+<td><code>\cup</code></td>
+ 
+<td><span class="math-inline">\cup</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Intersection of sets</td>
+ 
+<td><code>\cap</code></td>
+ 
+<td><span class="math-inline">\cap</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td>Right arrow</td>
+ 
+<td><code>\Rightarrow</code></td>
+ 
+<td><span class="math-inline">\Rightarrow</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td></td>
+ 
+<td></td>
+ 
+<td></td>
+ 
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<div class="div-heading"> 
+<h2 id="H_Common_Cases" class="document-heading anchor">Common Cases <a class="link-heading" href="#H_Common_Cases">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=165&end=217&anchor=H_Common_Cases&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Common Cases" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Fractions" class="document-heading anchor">Fractions <a class="link-heading" href="#H_Fractions">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=167&end=183&anchor=H_Fractions&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Fractions" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Expression</th>
+ 
+<th>Example</th>
+ 
+<th>Description</th>
+</tr>
+</thead>
+ 
+<tbody>
+
+<tr>
+
+<td><code>\frac{num}{den}</code></td>
+ 
+<td><span class="math-inline">\frac{a}{b}</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><code>\displaystyle \frac{num}{den}</code></td>
+ 
+<td><span class="math-inline">\displaystyle \frac{b}{a}</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><code>\dfrac{num}{den}</code></td>
+ 
+<td><span class="math-inline">\dfrac{a}{b}</span></td>
+ 
+<td>typesets the numerator and denominator in display style, it is equivalent to add <code>\displaystyle</code> to a latex commadn.</td>
+</tr>
+ 
+<tr>
+
+<td><code>\left(\dfrac{a}{b}\right)</code></td>
+ 
+<td><span class="math-inline">\left(\dfrac{a}{b}\right)</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><code>\tfrac{num}{den}</code></td>
+ 
+<td></td>
+ 
+<td>uses text style (inline math)</td>
+</tr>
+ 
+<tr>
+
+<td><code>\cfrac{num}{den}</code></td>
+ 
+<td></td>
+ 
+<td>continous fraction</td>
+</tr>
+ 
+<tr>
+
+<td><code>a \over b</code></td>
+ 
+<td><span class="math-inline">a \over b</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><code>a \atop b</code></td>
+ 
+<td><span class="math-inline">a \atop b</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><code>n \choose k</code></td>
+ 
+<td><span class="math-inline">n \choose k</span></td>
+ 
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<div class="div-heading"> 
+<h3 id="H_Complex_Numbers" class="document-heading anchor">Complex Numbers <a class="link-heading" href="#H_Complex_Numbers">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=183&end=217&anchor=H_Complex_Numbers&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Complex Numbers" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+ 
+<th>Symbol</th>
+ 
+<th>LaTeX</th>
+</tr>
+</thead>
+ 
+<tbody>
+
+<tr>
+
+<td>Real Numbers</td>
+ 
+<td><span class="math-inline">\mathbb{R}</span></td>
+ 
+<td><code>\mathbb{R}</code></td>
+</tr>
+ 
+<tr>
+
+<td>Complex Numbers</td>
+ 
+<td><span class="math-inline">\mathbb{Q}</span></td>
+ 
+<td><code>\mathbb{Q}</code></td>
+</tr>
+ 
+<tr>
+
+<td>Imaginary Unit 'i' (Europe)</td>
+ 
+<td><span class="math-inline">\mathrm{i}</span></td>
+ 
+<td><code>\mathrm{i}</code></td>
+</tr>
+ 
+<tr>
+
+<td>Imaginary Unit 'j' (Europe)</td>
+ 
+<td><span class="math-inline">\mathrm{j}</span></td>
+ 
+<td><code>\mathrm{j}</code></td>
+</tr>
+ 
+<tr>
+
+<td>Imaginary Unit 'i' (Italic)</td>
+ 
+<td><span class="math-inline">\textit{i}</span></td>
+ 
+<td><code>\textit{i}</code></td>
+</tr>
+ 
+<tr>
+
+<td>Imaginary Unit 'j' (Italic)</td>
+ 
+<td><span class="math-inline">\textit{j}</span></td>
+ 
+<td><code>\textit{j}</code></td>
+</tr>
+ 
+<tr>
+
+<td>Imaginary Unit (i - imath)</td>
+ 
+<td><span class="math-inline">\imath</span></td>
+ 
+<td><code>\imath{i}</code></td>
+</tr>
+ 
+<tr>
+
+<td>Imaginary Unit (j - jmath)</td>
+ 
+<td><span class="math-inline">\jmath</span></td>
+ 
+<td><code>\jmath{j}</code></td>
+</tr>
+ 
+<tr>
+
+<td>Real part of z</td>
+ 
+<td><span class="math-inline">\Re\{z\}</span></td>
+ 
+<td><code>\Re\{z\}</code></td>
+</tr>
+ 
+<tr>
+
+<td>Imaginary part of z</td>
+ 
+<td><span class="math-inline">\Im\{z\}</span></td>
+ 
+<td><code>\Im\{z\}</code></td>
+</tr>
+ 
+<tr>
+
+<td>Argument or phase angle of z</td>
+ 
+<td><span class="math-inline">\arg z</span></td>
+ 
+<td><code>\arg z</code></td>
+</tr>
+ 
+<tr>
+
+<td>Argument or phase angle of z</td>
+ 
+<td><span class="math-inline">\angle z</span></td>
+ 
+<td><code>\angle z</code></td>
+</tr>
+ 
+<tr>
+
+<td>Argument or phase angle of z</td>
+ 
+<td><span class="math-inline">\angle\{z\}</span></td>
+ 
+<td><code>\angle\{z\}</code></td>
+</tr>
+ 
+<tr>
+
+<td>Magnitude of complex number of z</td>
+ 
+<td><span class="math-inline">\rho = | z|</span></td>
+ 
+<td><code>\rho = | z |</code></td>
+</tr>
+ 
+<tr>
+
+<td>Complex number     (Europe)</td>
+ 
+<td><span class="math-inline">z = x +  \mathrm{i} y</span></td>
+ 
+<td><code>z = x + \mathrm{i} y</code></td>
+</tr>
+ 
+<tr>
+
+<td>Complex number     (Europe)</td>
+ 
+<td><span class="math-inline">z = x + \mathrm{j} y</span></td>
+ 
+<td><code>z = x + \mathrm{j} y</code></td>
+</tr>
+ 
+<tr>
+
+<td>Complex number     (Italic)</td>
+ 
+<td><span class="math-inline">z = x  + \textit{i} y</span></td>
+ 
+<td><code>z = x + \textit{i} y</code></td>
+</tr>
+ 
+<tr>
+
+<td>Complex number     (Italic)</td>
+ 
+<td><span class="math-inline">z = x + \textit{j} y</span></td>
+ 
+<td><code>z = x + \textit{j} y</code></td>
+</tr>
+ 
+<tr>
+
+<td>Complex number in polar form</td>
+ 
+<td><span class="math-inline">z = \rho e^{j \phi}</span></td>
+ 
+<td><code>z = \rho e^{j \phi}</code></td>
+</tr>
+ 
+<tr>
+
+<td>Complex number in polar form</td>
+ 
+<td><span class="math-inline">z = \rho \angle \phi</span></td>
+ 
+<td><code>z = \rho \angle \phi</code></td>
+</tr>
+ 
+<tr>
+
+<td>Complex number in polar form</td>
+ 
+<td><span class="math-inline">z = \rho\ \angle\{\phi\}</span></td>
+ 
+<td><code>z = \rho \angle \{ \phi \}</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Note:
+</p>
+
+<ul class="">
+<li>
+The imaginary unit 'j' is preferred in electrical engineering-related fields, instead of 'i' because the symbol 'i' is used in those fields for denoting electrical current. 
+</li>
+<li>
+In Europe, it considered as good typography the imaginary unit as an upright 'i' or 'j' written in LaTeX as  <span class="math-inline">\mathrm{i}</span> (\mathrm{i}) or j <span class="math-inline">\mathrm{j}</span> (\mathrm{j}). The letter 'i' in written in italic  <span class="math-inline">\textit{i}</span> (\textit{i}) style when used as an index or summation index. 
+</li>
+<li>
+Shortcut for writing imaginary unit \renewcommand{\i}{{\mathrm{i}}, then the imaginary unit can be written in LaTeX as just 'z + \i y'. 
+</li>
+<li>
+(<a href="https://groups.google.com/g/comp.text.tex/c/1xisGZPVB6s"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Usenet comp.text.tex</a>, 2001) 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Matrix" class="document-heading anchor">Matrix <a class="link-heading" href="#H_Matrix">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=217&end=end&anchor=H_Matrix&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Matrix" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<p>
+<strong>Basic Matrix (bmatrix)</strong>
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+     a<span class="nb">_{</span>11<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>12<span class="nb">}</span>
+  <span class="k">\\</span> a<span class="nb">_{</span>21<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>22<span class="nb">}</span>
+<span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\begin{bmatrix}
+     a_{11} &amp; a_{12}
+  \\ a_{21} &amp; a_{22}
+\end{bmatrix}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+<strong>Basic matrix (PMatrix)</strong>
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>pmatrix<span class="nb">}</span>
+A <span class="nb">&amp;</span> B <span class="nb">&amp;</span> C <span class="k">\cr</span>
+d <span class="nb">&amp;</span> e <span class="nb">&amp;</span> f <span class="k">\cr</span>
+1 <span class="nb">&amp;</span> 2 <span class="nb">&amp;</span> 3 <span class="k">\cr</span>
+<span class="k">\end</span><span class="nb">{</span>pmatrix<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\begin{pmatrix}
+A &amp; B &amp; C \cr
+d &amp; e &amp; f \cr
+1 &amp; 2 &amp; 3 \cr
+\end{pmatrix}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+<strong>Basic matrix (BMatrix)</strong>
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>Bmatrix<span class="nb">}</span> 
+ x <span class="nb">&amp;</span> y <span class="k">\\</span> 
+ z <span class="nb">&amp;</span> v 
+<span class="k">\end</span><span class="nb">{</span>Bmatrix<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\begin{Bmatrix} 
+ x &amp; y \\ 
+ z &amp; v 
+\end{Bmatrix}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+<strong>Matrix with N elements and dots</strong>
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
+      d<span class="nb">_</span>1     <span class="nb">&amp;</span> c<span class="nb">_</span>1      <span class="nb">&amp;</span> 0         <span class="nb">&amp;</span> <span class="k">\cdots</span>   <span class="nb">&amp;</span> 0        <span class="k">\\</span> 
+      a<span class="nb">_</span>1     <span class="nb">&amp;</span> d<span class="nb">_</span>2      <span class="nb">&amp;</span> c<span class="nb">_</span>2       <span class="nb">&amp;</span> <span class="k">\cdots</span>   <span class="nb">&amp;</span> 0        <span class="k">\\</span>
+      0       <span class="nb">&amp;</span> a<span class="nb">_</span>2      <span class="nb">&amp;</span> d<span class="nb">_</span>3       <span class="nb">&amp;</span> <span class="k">\cdots</span>   <span class="nb">&amp;</span> 0        <span class="k">\\</span>
+      <span class="k">\vdots</span>  <span class="nb">&amp;</span> <span class="k">\vdots</span>   <span class="nb">&amp;</span> <span class="k">\ddots</span>    <span class="nb">&amp;</span> <span class="k">\ddots</span>   <span class="nb">&amp;</span> c<span class="nb">_{</span>n-1<span class="nb">}</span>  <span class="k">\\</span>
+      0       <span class="nb">&amp;</span>  0       <span class="nb">&amp;</span> <span class="k">\cdots</span>    <span class="nb">&amp;</span> a<span class="nb">_{</span>n-1<span class="nb">}</span>  <span class="nb">&amp;</span> d<span class="nb">_{</span>n<span class="nb">}</span>
+    <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\begin{bmatrix} 
+      d_1     &amp; c_1      &amp; 0         &amp; \cdots   &amp; 0        \\ 
+      a_1     &amp; d_2      &amp; c_2       &amp; \cdots   &amp; 0        \\
+      0       &amp; a_2      &amp; d_3       &amp; \cdots   &amp; 0        \\
+      \vdots  &amp; \vdots   &amp; \ddots    &amp; \ddots   &amp; c_{n-1}  \\
+      0       &amp;  0       &amp; \cdots    &amp; a_{n-1}  &amp; d_{n}
+    \end{bmatrix}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+<strong>Matrix written in indices notation</strong>
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span>R =  <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+            R<span class="nb">_{</span>11<span class="nb">}</span> <span class="nb">&amp;</span> R<span class="nb">_{</span>12<span class="nb">}</span> <span class="nb">&amp;</span> R<span class="nb">_{</span>13<span class="nb">}</span>
+        <span class="k">\\</span>  R<span class="nb">_{</span>21<span class="nb">}</span> <span class="nb">&amp;</span> R<span class="nb">_{</span>22<span class="nb">}</span> <span class="nb">&amp;</span> R<span class="nb">_{</span>23<span class="nb">}</span>
+        <span class="k">\\</span>  R<span class="nb">_{</span>31<span class="nb">}</span> <span class="nb">&amp;</span> R<span class="nb">_{</span>32<span class="nb">}</span> <span class="nb">&amp;</span> R<span class="nb">_{</span>33<span class="nb">}</span>
+      <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+R =  \begin{bmatrix}
+            R_{11} &amp; R_{12} &amp; R_{13}
+        \\  R_{21} &amp; R_{22} &amp; R_{23}
+        \\  R_{31} &amp; R_{32} &amp; R_{33}
+      \end{bmatrix}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+<strong>Matrix that consists of column vectors</strong> (Rotation Matrix in this case)
+</p>
+
+<p>
+A rotation 3 by matrix <span class="math-inline">R</span> consists of 3 column vectors <span class="math-inline">\mathbf{u}</span>, <span class="math-inline">\mathbf{v}</span> and <span class="math-inline">\mathbf{w}</span>, which are basis vectors of the rotated reference frame expressed in the fixed frame. The unit vector<span class="math-inline">\mathbf{u}</span> is the x axis of the rotated frame, <span class="math-inline">\mathbf{v}</span> is the y axis of the rotated frame and <span class="math-inline">\mathbf{w}</span> is its z axis.
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span>R = <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+             |      <span class="nb">&amp;</span>     |      <span class="nb">&amp;</span>    |       
+      <span class="k">\\</span> <span class="k">\mathbf</span><span class="nb">{</span>u<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\mathbf</span><span class="nb">{</span>w<span class="nb">}</span>
+      <span class="k">\\</span>     |      <span class="nb">&amp;</span>     |      <span class="nb">&amp;</span>    |       
+    <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+
+    <span class="k">\in</span> <span class="k">\mathbb</span><span class="nb">{</span>R<span class="nb">}^{</span>3 <span class="k">\times</span> 3<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+R = \begin{bmatrix}
+             |      &amp;     |      &amp;    |       
+      \\ \mathbf{u} &amp; \mathbf{v} &amp; \mathbf{w}
+      \\     |      &amp;     |      &amp;    |       
+    \end{bmatrix}
+    
+    \in \mathbb{R}^{3 \times 3}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+<strong>Jacobian Matrix</strong>
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>align<span class="nb">}</span>
+ J(<span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span>) <span class="nb">&amp;</span>= 
+	 <span class="k">\frac</span><span class="nb">{</span><span class="k">\partial</span> <span class="k">\mathbf</span><span class="nb">{</span>f<span class="nb">}}{</span><span class="k">\partial</span> <span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}}</span> =
+    <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+            <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>1<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>1<span class="nb">}</span>
+          <span class="nb">&amp;</span> <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>1<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>2<span class="nb">}</span>
+          <span class="nb">&amp;</span> <span class="k">\cdots</span>
+          <span class="nb">&amp;</span> <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>n<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>n<span class="nb">}</span>    <span class="k">\\</span>
+
+            <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>2<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>1<span class="nb">}</span>
+          <span class="nb">&amp;</span> <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>2<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>2<span class="nb">}</span>
+          <span class="nb">&amp;</span> <span class="k">\cdots</span>
+          <span class="nb">&amp;</span> <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>n<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>n<span class="nb">}</span>     <span class="k">\\</span>
+
+         <span class="k">\vdots</span>  <span class="nb">&amp;</span> <span class="k">\vdots</span>   <span class="nb">&amp;</span> <span class="k">\ddots</span>    <span class="nb">&amp;</span> <span class="k">\ddots</span>  <span class="k">\\</span>
+
+          <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>n<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>1<span class="nb">}</span>
+        <span class="nb">&amp;</span> <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>n<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>2<span class="nb">}</span>
+        <span class="nb">&amp;</span> <span class="k">\cdots</span>
+        <span class="nb">&amp;</span> <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>n<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>n<span class="nb">}</span>
+       <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+     <span class="k">\\</span> <span class="k">\text</span><span class="nb">{</span>where<span class="nb">}</span>
+     <span class="k">\\</span>
+     <span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span> <span class="nb">&amp;</span>= <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
+				     x<span class="nb">_</span>1 <span class="nb">&amp;</span> <span class="k">\cdots</span> <span class="nb">&amp;</span> x<span class="nb">_</span>n 
+				  <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}^</span>T
+	 <span class="k">\\</span> <span class="k">\mathbf</span><span class="nb">{</span>f<span class="nb">}</span>(<span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span>) <span class="nb">&amp;</span>= 
+	    <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
+		    f<span class="nb">_</span>1(<span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span>) <span class="nb">&amp;</span> <span class="k">\cdots</span> <span class="nb">&amp;</span> f<span class="nb">_</span>m(<span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span>)
+		<span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}^</span>T
+<span class="k">\end</span><span class="nb">{</span>align<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\begin{align}
+ J(\mathbf{x}) &amp;= 
+	 \frac{\partial \mathbf{f}}{\partial \mathbf{x}} =
+    \begin{bmatrix}
+            \dfrac{\partial f_1}{\partial x_1}
+          &amp; \dfrac{\partial f_1}{\partial x_2}
+          &amp; \cdots
+          &amp; \dfrac{\partial f_n}{\partial x_n}    \\
+
+            \dfrac{\partial f_2}{\partial x_1}
+          &amp; \dfrac{\partial f_2}{\partial x_2}
+          &amp; \cdots
+          &amp; \dfrac{\partial f_n}{\partial x_n}     \\
+
+         \vdots  &amp; \vdots   &amp; \ddots    &amp; \ddots  \\
+
+          \dfrac{\partial f_n}{\partial x_1}
+        &amp; \dfrac{\partial f_n}{\partial x_2}
+        &amp; \cdots
+        &amp; \dfrac{\partial f_n}{\partial x_n}
+       \end{bmatrix}
+     \\ \text{where}
+     \\
+     \mathbf{x} &amp;= \begin{bmatrix} 
+				     x_1 &amp; \cdots &amp; x_n 
+				  \end{bmatrix}^T
+	 \\ \mathbf{f}(\mathbf{x}) &amp;= 
+	    \begin{bmatrix} 
+		    f_1(\mathbf{x}) &amp; \cdots &amp; f_m(\mathbf{x})
+		\end{bmatrix}^T
+\end{align}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+<strong>Matrix with Row Labels (Labeled Matrix)</strong>
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>cc<span class="nb">}</span> 
+<span class="nb">&amp;</span>
+<span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>ccccc<span class="nb">}</span> 1 <span class="nb">&amp;</span> 2 <span class="nb">&amp;</span> 3 <span class="nb">&amp;</span> 4 <span class="nb">&amp;</span> 5<span class="k">\\</span>
+<span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span>
+<span class="k">\\</span>
+A =
+<span class="nb">&amp;</span>
+<span class="k">\left</span>[
+<span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>ccccc<span class="nb">}</span>
+h <span class="nb">&amp;</span> e <span class="nb">&amp;</span> l <span class="nb">&amp;</span> l <span class="nb">&amp;</span> o <span class="k">\\</span>
+m <span class="nb">&amp;</span> s <span class="nb">&amp;</span> e <span class="nb">&amp;</span> * <span class="nb">&amp;</span> * <span class="k">\\</span>
+m <span class="nb">&amp;</span> e <span class="nb">&amp;</span> t <span class="nb">&amp;</span> a <span class="nb">&amp;</span> *
+<span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span>
+<span class="k">\right</span>]
+<span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\begin{array}{cc} 
+&amp;
+\begin{array}{ccccc} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5\\
+\end{array}
+\\
+A =
+&amp;
+\left[
+\begin{array}{ccccc}
+h &amp; e &amp; l &amp; l &amp; o \\
+m &amp; s &amp; e &amp; * &amp; * \\
+m &amp; e &amp; t &amp; a &amp; *
+\end{array}
+\right]
+\end{array}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+<strong>Matrix with Rows and Columns Labels</strong>
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>c c<span class="nb">}</span> 
+<span class="nb">&amp;</span> <span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>c c c<span class="nb">}</span> a <span class="nb">&amp;</span> b <span class="nb">&amp;</span>c <span class="k">\\</span> <span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span> <span class="k">\\</span>
+<span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>c c c<span class="nb">}</span>p<span class="k">\\</span>q<span class="k">\\</span>r <span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span> <span class="nb">&amp;</span>
+<span class="k">\left</span>[
+<span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>c c c<span class="nb">}</span>
+.1 <span class="nb">&amp;</span> .1 <span class="nb">&amp;</span> 0 <span class="k">\\</span>
+.4 <span class="nb">&amp;</span> 1 <span class="nb">&amp;</span> 0 <span class="k">\\</span>
+.8 <span class="nb">&amp;</span> 0 <span class="nb">&amp;</span> .4
+<span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span>
+<span class="k">\right</span>]
+<span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\begin{array}{c c} 
+&amp; \begin{array}{c c c} a &amp; b &amp;c \\ \end{array} \\
+\begin{array}{c c c}p\\q\\r \end{array} &amp;
+\left[
+\begin{array}{c c c}
+.1 &amp; .1 &amp; 0 \\
+.4 &amp; 1 &amp; 0 \\
+.8 &amp; 0 &amp; .4
+\end{array}
+\right]
+\end{array}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+
+        </main>
+
+        
+    </div>
+    <script>
+    </script>
+
+</body>
+
+</html>

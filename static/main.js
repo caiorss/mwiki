@@ -5,7 +5,7 @@ class PopupWindow
         let title = options.title || "";
         let html  = options.html  || "";
         let width = options.width || "500px";
-        let height = options.height || "400px";
+        // let height = options.height || "400px";
         let top = options.top || "10%";
         let left = options.left || "30%";
         let zIndex = options.zIndex || "1000";
@@ -18,11 +18,12 @@ class PopupWindow
         this._dom.style.zIndex = zIndex;
         this._dom.style.position = "absolute";
         this._dom.style.width  = width;
-        this._dom.style.height = height;
+        // if( options.height ){ this._dom.style.height = options.height; }
         this._dom.style.top    = top;
         this._dom.style.left   = left;
         this._dom.style.background = "aliceblue";
         this._dom.style.padding = "10px";
+        this._dom.style.display = "inline-block";
         if(!visible){ this.hide() };
         let code = `<h2 data-i18n="${windowI18NTitleTag}" class="window-title">${title}</h2> <button class="btn-window-close">[X]</button><hr>`;
         // console.log(" [TRACE] code = ", code);
@@ -30,6 +31,33 @@ class PopupWindow
         this._dom.innerHTML += html; 
         let self = this;
         this.onClick(".btn-window-close", () => self.close());
+    }
+
+    dom(){
+      return this._dom;
+    }
+
+    setHeight(height)
+    {
+      this._dom.style.height = height;
+    }
+
+    /* Add a CSS Class name to change Window presentation. */
+    addClass(cssClassNameStr)
+    {
+       this._dom.classList.add(cssClassNameStr);
+    }
+
+    querySelector(selector)
+    {
+      let dom = this._dom.querySelector(selector);
+      return dom;
+    }
+
+    childElementByClass(cssClassSelector)
+    {
+      let dom = this._dom.querySelector("." + cssClassSelector);
+      return dom;
     }
 
     setTitle(title)
@@ -52,6 +80,25 @@ class PopupWindow
             return;
         }
         x.innerHTML = message;
+    }
+
+    /* Add event to DOM element of this window, given the DOM
+     * element CSS selector. For instance, if this window has
+     * a button <button class="btn-submit">Submit</button>
+     *
+     * pwindo.onEvent(".btn-submit", "click", () => console.log("Button clicked"));
+     *------------------------------------------- */
+    onEvent(cssSelector, eventName, handler)
+    {
+      
+        let x =  this._dom.querySelector(cssSelector);
+        if(!x)
+        { 
+            console.error(`PopUpWindow.onEvent(selector, eventName, handler) => Not found container of CSS class 'pupup-message-text'. 
+                              Failed to set popup window messasge.`) ;
+            return;
+        }
+        x.addEventListener(eventName, handler);
     }
 
     onWindowClick(handler)
@@ -77,6 +124,12 @@ class PopupWindow
             return;
         }
         q.addEventListener('click', handler);
+    }
+
+    closeWindowOnClick(query)
+    {
+      self = this;
+      this.onClick(query, () => self.close());
     }
 
     value(query)
@@ -140,7 +193,8 @@ function localStorageGet(key)
 }
 
 /** Unescape/decode Html code.*/
-function htmlUnescape(htmlStr) {
+function htmlUnescape(htmlStr)
+{
     htmlStr = htmlStr.replace(/&lt;/g , "<");
     htmlStr = htmlStr.replace(/&gt;/g , ">");
     htmlStr = htmlStr.replace(/&quot;/g , "\"");
@@ -148,6 +202,238 @@ function htmlUnescape(htmlStr) {
     htmlStr = htmlStr.replace(/&amp;/g , "&");
     return htmlStr;
 }
+
+
+function htmlEscape(htmlStr){
+
+    htmlStr = htmlStr.replace("<",  "&lt;");
+    htmlStr = htmlStr.replace(">",  "&gt;");
+    htmlStr = htmlStr.replace("\"", "&quot;");
+    htmlStr = htmlStr.replace("\'", "&#39;");
+    htmlStr = htmlStr.replace("&",  "&amp;");
+    return htmlStr;
+}
+
+
+// Function to encode a UTF-8 string to Base64
+function utf8ToBase64(str) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(str);
+
+    const binaryString = String.fromCharCode.apply(null, data);
+    return btoa(binaryString);
+}
+
+// Function to decode a Base64 string to UTF-8
+function base64ToUtf8(b64) {
+    const binaryString = atob(b64);
+    // Create a Uint8Array from the binary string.
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+    const decoder = new TextDecoder();
+    return decoder.decode(bytes);
+}
+
+function kateRenderDOMLatex(domElement)
+{
+   if( !IS_LATEX_RENDERER_KATEX ){ return; }
+   var macros = {};
+   try {
+     macros = JSON.parse(base64ToUtf8(KATEX_MACROS));
+    } catch(error){
+        console.log(" JSON Parsing error: ", error);
+    }
+    if ( domElement.classList.contains("math-inline")
+         || domElement.classList.contains(".div-latex-code") )
+    {
+      try{
+         let isDisplayMode = domElement.classList.contains(".div-latex-code");
+         katex.render(domElement.textContent, domElement, { displayMode: isDisplayMode, macros: macros});
+      } catch(error){
+          domElement.textContent = prev + error;
+      }
+       return;
+    }
+   // console.log("Katex macros = ",macros);
+   // Render inline nodes (non display math)
+   let nodesInline = domElement.querySelectorAll(".math-inline");
+   for(let n of nodesInline)
+   {
+     let prev = n.textContent;
+     try{ 
+       katex.render(n.textContent, n, { displayMode: false, macros: macros});
+    } catch(error){
+        n.textContent = prev + error;
+    }
+   }
+   // Render display math 
+   let nodesDisplayMode = domElement.querySelectorAll(".div-latex-code");
+   for(let n of nodesDisplayMode)
+   {
+      let prev = n.textContent;
+      try{
+        katex.render(n.textContent, n, { displayMode: true, macros: macros });
+      } catch(error) {
+        n.textContent = prev + `\n${error}`;
+      }
+  }
+}
+
+function katexRenderDocumentLatex()
+{
+   kateRenderDOMLatex(document.body);
+}
+
+document.addEventListener("DOMContentLoaded", katexRenderDocumentLatex);
+
+/** Render DOM (Document Object Model) node using either KaTeX or MathJax
+ *
+ *  Example:
+ *  let dom = document.querySelect(".someDomElementCssSelector");
+ *  renderDOMLatex(dom);
+ */
+function renderDOMLatex(domElementObject)
+{
+   if(IS_LATEX_RENDERER_KATEX)
+   {
+      kateRenderDOMLatex(domElementObject);
+   }
+   if(IS_LATEX_RENDERER_MATHJAX)
+   {
+     MathJax.typeset();
+   }
+}
+
+/* Get the maximum random integer within the range (0, size - 1)
+   without repetition
+*/
+function nextRandomInt(size, current)
+{
+  var out = current;
+  while( out === current )
+  {
+    out = Math.floor(Math.random() * size);
+  }
+  return out;
+}
+
+
+class FlashCard
+{
+  constructor(root)
+  {
+     this._handlers = {}; 
+     this._root = root;
+     this._visible = false;
+     // Number of flashcards in this set of flashcards
+     this._size = JSON.parse(root.dataset.size);
+     // Current visible flashcard in practice mode (when all cards are hidden)
+     this._current = 0;
+     let self = this;
+     this.bindClick("btn-flashcard-next", (target) => self.next(target));
+     this.bindClick("btn-flashcard-prev", (target) => self.prev(target));
+     this.bindClick("btn-flashcard-view", (target) => self.toggle(target));
+     this.bindClick("btn-show-card", (target) => self.showAnswer(target));
+  }
+  
+  toggle(target)
+  {
+    if(this._visible){ this.hide(); } 
+    else 						 { this.show(); }
+  }
+  
+  show(target)
+  {
+    	this._visible = true;
+      let entries = this._root.querySelectorAll(".card-entry");
+      for(let x of entries)
+      {
+         x.classList.remove("hidden");    
+         x.querySelector(".card-answer").classList.remove("hidden");
+      }
+  }
+  
+  hide(target)
+  {
+    	this._visible = false;
+      let entries = this._root.querySelectorAll(".card-entry");
+      for(let x of entries)
+      {
+         x.classList.add("hidden");    
+         x.querySelector(".card-answer").classList.add("hidden");
+      }
+    	// entries[0].classList.remove("hidden");
+      this._root.querySelectorAll(".card-entry")[this._current].classList.remove("hidden");
+  }
+  
+  /* Switch to next flashcard in the current cardset. */
+  next(target)
+  {
+    if(this._visible){ return; }
+    this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
+    let randomMode = this._root.querySelector(".random-mode-checkbox").checked;
+    if(randomMode){
+      this._current = nextRandomInt(this._size, this._current);
+    } else {
+      this._current = this._current + 1;
+      if(this._current >= this._size){ this._current = this._size - 1}
+    }
+    this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
+    // alert("Error not implementd");
+  }
+  
+  /* Switch to previous flashcard of the cardset. */
+  prev(target)
+  {
+    if(this._visible){ return; }
+    this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
+    this._current = this._current - 1;
+    if(this._current <= 0){ this._current = 0; }
+    this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
+  
+  }
+
+  /* Show back side of the current flashcard. */
+  showAnswer(target)
+  {
+      let answer = target.parentElement.querySelector(".card-answer");
+      let label  = answer.classList.contains("hidden") ? "close" : "open";
+      target.textContent = label;
+      answer.classList.toggle("hidden");
+  }
+ 
+  bindClick(buttonClassNameTarget, handler)
+  {
+    this._handlers[buttonClassNameTarget] = handler;
+  }
+  
+  dispatchClick(targetClass, target)
+  {
+     let action = this._handlers[targetClass];
+     if(!action){
+       console.error(`Button class target not found: ${targetClass}`);
+       return;
+     }
+     action(target);
+  }
+}
+
+let flashcardObjects = {};
+
+function cardHandler(event)
+{
+   let cardset = this;
+   let obj = flashcardObjects[this.dataset.id];
+   //console.log(" [TRACE] obj ", obj);
+   let targetClass = event.target.classList[0];
+   //console.log(" [TRACE] target = ", event.target);
+   
+   obj.dispatchClick(targetClass, event.target);
+}
+
+
 
 // I18N Internationalization for the Website GUI - Graphics User Interface.
 // It allows adding new localization without changing the UI code.
@@ -169,6 +455,7 @@ translationsi18n =
 		, "pages-menu":               { "title": "Menu containing actions for current page." } 
 		, "home-page-button":         { "title": "Go to the initial page (index)" }
 		, "button-quick-switch-to-page": { "title": "Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry." }
+		, "user-accounts-menu-item-label": { "label": "Accounts", "title": "User accounts management." }
 		, "menu-item-view-label":     "View"
 		, "menu-item-edit-label":     "Edit"
 		, "menu-item-new-label":      { "label": "New", "title": "Create new Wiki page" }
@@ -192,13 +479,13 @@ translationsi18n =
 			}
 		, "login-menu-item-label": 	  "Log in"
 		, "logoff-menu-item-label":   "Log off"
-        , "settings-menu-item-label": {  "label": "Settings"
+      , "settings-menu-item-label": {  "label": "Settings"
 										,"title": "Form for changing web site settings, including description and site name."
 									  }
-        , "about-menu-item-label":    "About"
-        , "new-account-menu-item-label": "New Account"
-        , "user-settings-item-label": "My Account"
-        , "licenses-menu-item-label": 
+      , "about-menu-item-label":    "About"
+      , "new-account-menu-item-label": "New Account"
+      , "user-settings-item-label": "My Account"
+      , "licenses-menu-item-label": 
 				{  "label": "Licenses"
 				 , "title": "Licenses of open source libraries used by this project."
 				}
@@ -229,6 +516,10 @@ translationsi18n =
 		, "settings-sitename-label": "Website Name"
 		, "settings-website-description-label": "Website Description"
 		, "settings-public-checkbox-label": "Public"
+		, "settings-language-switch-checkbox-label":     "Allow language switch "
+		, "settings-language-switch-description":        "Allow users to switch the user interface language."
+		, "settings-display-alt-button-checkbox-label":  "Display alt text button"
+		, "settings-display-alt-button-description":     "Display a Mastodon-like alt text button for figures, which shows the alt text in a popup window when clicked."
 		, "settings-display-edit-button-checkbox-label": "Diplay edit button"
 		, "settings-vim-emulation-checkbox-label":       "Vim Emulation"
 		, "settings-show-source-checkbox-label":         "Show Page Source"
@@ -240,8 +531,16 @@ translationsi18n =
 		, "settings-show-source-checkbox-description":   "Provides a button that allows viewing the Markdown (wiki text) source code a wiki"
 		, "settings-vim-emulation-checkbox-description": "Enable VIM editor emulation in the Wiki code editor (Ace9)"
 		, "settings-display-edit-button-checkbox-description": "Display the wiki edit button for all users [E]. If this setting is disabled,  only admin users or users with permission to edit pages will be able to view the edit button."
+		, "settings-default-locale-label":               "Default locale"
+		, "settings-use-default-locale-checkbox-label":  "Use Default Locale"
+		, "settings-use-default-locale-description": 	   "Always use the default locale (language) regardless of the user preferred language provided by the web browser."
+		
 		, "settings-public-checkbox-description": "If enabled, everybody including non logged in users will be able to view the wiki content. Note that only logged in users can edit the wiki." 
-
+    , "settings-use-cdn-checkbox-label":      "Use CDN"
+		, "settings-use-cdn-description":         "Load JavaScript libraries from a CDN Content-Delivery Network instead of loading them from this server."
+    , "settings-latex-renderer-label":        "LaTeX Renderer"
+    , "settings-latex-renderer-description":  "JavaScript library used for rendering LaTeX math formulas. Note that the support for KaTeX is still experimental. "
+		
         , "popup-window-change-language-menu-launcher": { "label": "Language"
                                                           , "title": "Open form that allows overriding the current user interface language." }
         , "popup-window-change-language": "Change the User Interface Language"
@@ -267,7 +566,7 @@ translationsi18n =
 										  "label": "Save"
 										, "title": "Save document and switch to view mode."
 									}
-        , "edit-page-save-icon-button": { "title": "Save document and switch to view mode." }
+    , "edit-page-save-icon-button": { "title": "Save document and switch to view mode." }
 		, "edit-page-undo-button": "Undo"
 		, "edit-page-redo-button": "Redo"
 		, "edit-page-refcard-button": {
@@ -313,6 +612,7 @@ translationsi18n =
         , "popup-window-note-myst-role-title":    "Note"
         , "foldable-math-solution-block-label":   "Solution"
         , "foldable-math-proof-block-label":      "Proof"
+        , "foldable-math-derivation-block-label": "Derivation"
         , "foldable-math-example-block-label":    "Example"
         , "admonition-math-defintion-label":      "DEFINITION"
         , "admonition-math-theorem-label":        "THEOREM"
@@ -331,7 +631,26 @@ translationsi18n =
         , "statusbar-upload-image-finished-text": "Imagem uploaded successfully."
         , "statusbar-upload-image-error-text": "Error: failed to upload image."
         , "popup-window-footnote-title":          "Footnote"
+        , "popup-window-equation-display-title":  "Equation"
 
+        , "edit-page-latex-input-window":
+          {
+              "label": "LaTeX Input Window"
+            , "title": "Open a LaTeX input popup window that allows typing LaTeX equations and getting immediate feedback about how the formula looks like when rendered."
+          }
+        
+        , "latex-input-window-title": "LaTeX Input Window"
+        , "latex-input-window-btn-insert": {  "label": "Insert"
+                                            , "title": "Close this window and insert LaTeX formula at current cursor position. Keyboard shortcut: Alt + Enter"
+                                           }
+        , "latex-input-window-btn-clear": { "label":  "Clear"
+                                          , "title":  "Clear LaTeX code entry. Keyboard shortcut: Ctrl + l" 
+                                          }
+        , "latex-input-window-btn-close": {
+                                              "label": "Close"
+                                            , "title": "Close this window."
+                                          }
+        , "latex-input-window-p": "Output:"
 	}
    ,"pt-BR": {
 		  "locale":                   "Brazilian Portuguese"
@@ -346,6 +665,7 @@ translationsi18n =
 		, "pages-menu":               { "title": "Menu contendo ações para a página atual." } 
 		, "home-page-button":         { "title": "Ir para a página inicial (Index)" }
 		, "button-quick-switch-to-page": { "title": "Troca rápida de página. Abra uma janela que permite alternar para a página Wiki digitando seu nome ou buscar a entrada do usuário." }
+		, "user-accounts-menu-item-label": { "label": "Contas", "title": "Gerenciamento de contas de usuário." }
 		, "menu-item-view-label":     "Ver"
 		, "menu-item-edit-label":     "Editar"
 		, "menu-item-new-label":      { "label": "Nova", "title": "Criar nova página Wiki" }
@@ -408,6 +728,10 @@ translationsi18n =
 		, "settings-sitename-label": "Nome do Website"
 		, "settings-website-description-label": "Descrição do Website"
 		, "settings-public-checkbox-label": "Público"
+		, "settings-language-switch-checkbox-label": "Permitir troca de idioma"
+		, "settings-language-switch-description":    "Permitir que os usuários mudem o idioma da interface do usuário."
+		, "settings-display-alt-button-checkbox-label":  "Exibir botão de texto alternativo"
+		, "settings-display-alt-button-description":     "Exibir um botão de texto alternativo semelhante ao do Mastodon para as figuras, que mostre o texto alternativo em uma janela pop-up ao ser clicado."
 		, "settings-display-edit-button-checkbox-label": "Mostrar botão editar"
 		, "settings-vim-emulation-checkbox-label":       "Emulação do Vim"
 		, "settings-show-source-checkbox-label":         "Mostrar Código de Fonte de Página"
@@ -423,6 +747,10 @@ translationsi18n =
 		, "settings-default-locale-label":               "Idioma/locale padrão"
 		, "settings-use-default-locale-checkbox-label":  "Usar idioma/locale padrão"
 		, "settings-use-default-locale-description": 	 "Sempre usar o idioma padrão (default locale), independentemente do idioma preferido do usuário fornecido pelo navegador da web."
+    , "settings-use-cdn-checkbox-label": "Usar CDN"
+		, "settings-use-cdn-description":   "Carregar as bibliotecas JavaScript de uma CDN (Rede de Distribuição de Conteúdo) em vez de carregá-las deste servidor."
+    , "settings-latex-renderer-label":  "Renderizador LaTeX"
+    , "settings-latex-renderer-description":  "Biblioteca JavaScript usada para renderizar fórmulas matemáticas em LaTeX. Observe que o suporte para KaTeX ainda é experimental."
         , "popup-window-change-language-menu-launcher": { "label": "Idioma"
                                                           , "title": "Formulário que permite sobrepor/mudar o idioma atual da interface do usuário." }
         , "popup-window-change-language": "Alterar o idioma da interface do usuário"
@@ -493,6 +821,7 @@ translationsi18n =
         , "popup-window-note-myst-role-title":    "Nota"
         , "foldable-math-solution-block-label":   "Solução"
         , "foldable-math-proof-block-label":      "Prova"
+        , "foldable-math-derivation-block-label": "Derivação"
         , "foldable-math-example-block-label":    "Exemplo"
         , "admonition-math-defintion-label":      "DEFINIÇÃO"
         , "admonition-math-theorem-label":        "TEOREMA"
@@ -511,8 +840,33 @@ translationsi18n =
         , "statusbar-upload-image-finished-text": "Imagem enviada com sucesso."
         , "statusbar-upload-image-error-text":    "Error: falha de envio de imagem."
         , "popup-window-footnote-title":          "Nota de Rodapé"
+        , "popup-window-equation-display-title":  "Equação"
 
-	}
+        , "edit-page-latex-input-window":
+            {
+                "label": "Janela de Entrada LaTeX"
+              , "title": "Abre uma janela pop-up de entrada LaTeX que permite digitar equações LaTeX e obter feedback imediato sobre a aparência da fórmula quando renderizada."
+
+            }
+
+        , "latex-input-window-title": "Janela de Entrada LaTeX"
+        , "latex-input-window-btn-insert":
+            { "label": "Inserir"
+            , "title": "Fecha esta janela e insere a fórmula LaTeX na posição atual do cursor. Atalho de teclado: Alt + Enter"
+            }
+        , "latex-input-window-btn-clear":
+          { "label": "Limpar"
+          ,"title": "Limpar a entrada de código LaTeX. Atalho de teclado: Ctrl + l"
+          }
+        , "latex-input-window-btn-close":
+          {
+            "label": "Fechar"
+           ,"title": "Fecha esta janela."
+          }
+        , "latex-input-window-p": "Saída:"
+
+  }
+        
 
 };
 
@@ -712,19 +1066,23 @@ function popupIframe (title, url, options)
         options = {};
     }
     let hidden = (options.hidden || false);
-    let width = (options.hidden || "80%");
-    let height = (options.hidden || "90%");
+    let width = (options.width || "80%");
+    // let minHeight = (options.minHeight || "90%");
     let html_ = `
         <iframe src="${url}" title="${title}" width="100%" height="100%" ></iframe> 
     `;
-    let pwindow = new PopupWindow({
+    let options_ =  {
           title: title 
         , html: html_
         , width: width
         , height: height
         , top: "20px"
         , left: "50px" 
-    });
+        , zIndex: "500"
+    };
+    let pwindow = new PopupWindow(options_);
+    // pwindow.addClass("popup-window-iframe");
+    pwindow.setHeight("90%");
     pwindow.onWindowClick( (className) => {
         if(className == "btn-popup-close"){ pwindow.close(); }
     });
@@ -839,6 +1197,8 @@ addEventListener("DOMContentLoaded", (ev) => {
 });
 
 
+
+
 function toggle_sidebar()
 {
     /// console.log(" [TRACE] Toggle side bar");
@@ -868,6 +1228,34 @@ var quickOpenWindow = null;
 var keybindDisplayWindow = null;
 
 var changeLanguageForm = null;
+
+
+function displayPageSourceWindow()
+{
+    // let html = document.querySelector("#template-page-source").innerHTML;
+    // let html = base64ToUtf8(PageSource);
+    let srcWindow= new PopupWindow({
+          title: `Source:`
+        , html:   `<iframe class="iframe-preview" 
+                           sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation-by-user-activation"
+                           src="${PAGE_SOURCE_URL}"
+                           width="100%" 
+                           height="100%" 
+                           ></iframe> `
+        , width:  "95%"
+        , height: "98%"
+        , top: "0px"
+        , left: "0px" 
+    });
+
+
+    let dom = srcWindow.childElementByClass("iframe-page-source");
+    // dom.srcdoc = html;
+    srcWindow.setHeight("90%");
+    srcWindow.show();
+}
+
+
 
 function isMobileScreen()
 {
@@ -926,22 +1314,17 @@ var user_data = null;
 
 async function displayEditButtons()
 {
-    let data = await httpRequest("GET", "/api/auth", null);
-    user_data = data;
-    if( data.show_buttons )
-    {
-        /// console.log(" [TRACE] show buttons ok. ");
-        // Make all edit  buttons (pencil icons) of wiki sections visible
-        for(let q of document.querySelectorAll(".link-edit"))
-        { q.style.display = ""; }
-    }
+    if(!IS_USER_ADMIN){ return; }
+    // Make all edit  buttons (pencil icons) of wiki sections visible
+    for(let q of document.querySelectorAll(".link-edit"))
+    { q.style.display = ""; }
 }
 
+var equationPopupWindow = null;
 
 document.addEventListener("DOMContentLoaded", async function()
 {
-    
-    
+     
     lazyLoadImages();
     // Call function every 500 ms
     timerId = setInterval(lazyLoadImages, 500);
@@ -954,6 +1337,19 @@ document.addEventListener("DOMContentLoaded", async function()
     document.documentElement.style.setProperty('--font-family-title', FONT_FAMILY_TITLE);
 
     displayEditButtons();
+
+
+    let cardsets = document.querySelectorAll(".div-flashcard");
+    var id = 0;
+    for(let x of cardsets)
+    {
+      
+       flashcardObjects[id] = new FlashCard(x);
+       x.dataset.id = id;
+       x.addEventListener("click", cardHandler);
+       id = id + 1;
+    }
+  
 
     // Event bubbling
     onClick(".toc", (evt) => {
@@ -1020,6 +1416,17 @@ document.addEventListener("DOMContentLoaded", async function()
         This form allows overriding the current UI - User Interface language.
         </p>
     `
+    });
+
+    equationPopupWindow = new PopupWindow({
+         title:        ""
+       , titleI18nTag: "popup-window-equation-display"
+       , html: `
+            <div class="equation-view">
+            <div>
+          `
+       , width: "500px"
+       , height: "95px"
     });
 
     let localeEntry = document.querySelector("#select-user-locale");
@@ -1192,7 +1599,8 @@ function showRefcard()
         // Lazy Initialization
         refcard_window =  popupIframe( "Reference Card"
                                      , "/wiki/special:refcard"
-                                     , { width: "100%", height: null} );
+                                     , { width: "90%" } );
+        refcard_window.setHeight("90%");
     }
     refcard_window.show();
 }
@@ -1224,6 +1632,20 @@ document.addEventListener("mouseover", (event) => {
         {
             tooltip_window.close();
         }
+    }
+
+    // Hyperlink to equation 
+    // NOTE: It is only supported for KaTeX. 
+    if( target.classList.contains("eqref") )
+    {
+       let div = document.querySelector(".equation-view");
+       katex.render(target.dataset.equation, div, { throwOnError: false });
+       equationPopupWindow.show();
+       let title = geti18nTranslation("popup-window-equation-display-title") || "Equation";
+       // console.log(` [TRACE] Title = ${title}`);
+       equationPopupWindow.setTitle(`${title} ${target.innerText}`);
+    } else {
+        // equationPopupWindow.close();
     }
 
 
@@ -1268,10 +1690,21 @@ document.addEventListener("click", (event) => {
         tooltip_window.setTitle(title)
         tooltip_window.setMessage(note);
         tooltip_window.show();
+        let dom = tooltip_window.childElementByClass("popup-message-text");
+        renderDOMLatex(dom);
         return;
     }
 
-
+    if(target.classList[0] === "btn-show-alt-text")
+    {
+       let title = "Alt text";
+       let text = target.previousElementSibling.alt;
+       tooltip_window.setTitle(title);
+       tooltip_window.setMessage(text);
+       tooltip_window.show();
+       return;
+    }
+    
     // Toggle zoom images (expand to 100% width) when they are clicked
     if(target.classList[0] == "wiki-image")
     {
@@ -1353,11 +1786,11 @@ document.addEventListener("click", (event) => {
         lazyLoadImages();
     }
 
-    if( lastToolTipTarget === "footnote-reference")
-    {
-        tooltip_window.close();
-    }
+  tooltip_window.close();
 
+  if(equationPopupWindow){
+     equationPopupWindow.close();
+  }   
 });
 
 
@@ -1557,8 +1990,7 @@ document.addEventListener("keydown", (event) => {
     // Open window within current that allows quick switching
     // to a Wiki page by typing its title.
     if (event.ctrlKey && event.key === "e") {
-        quickOpenPage();
-
+        quickOp
         let dom = document.querySelector("#prompt-open-page");
         setTimeout(() => { dom.focus(); }, 500);
 
