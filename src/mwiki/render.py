@@ -1617,6 +1617,8 @@ class HtmlRenderer(AbstractAstRenderer):
                             if match else "#"
                     if self._self_contained and match:
                         image = utils.file_to_base64_data_uri(match)
+            else:
+                image = image.replace("@root", self._root_url)
             content, directives = mparser.get_code_block_directives(node.content)
             # Image caption 
             caption = content.strip()
@@ -1777,8 +1779,7 @@ class HtmlRenderer(AbstractAstRenderer):
     def render_image(self, node: SyntaxTreeNode):
         assert node.type == "image"
         src = node.attrs.get("src", "")
-        if src.startswith("/"):
-            src = self._root_url + src 
+        src = src.replace("@root", self._root_url) 
         inner = "".join([ self.render(n) for n in node.children ])
         html = """<div class="div-wiki-image"><img class="external-image anchor" src="%s" alt="%s"></div>""" % (src, inner)
         return html 
