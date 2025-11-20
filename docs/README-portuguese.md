@@ -285,20 +285,28 @@ Instalar versão estável  mais recente. NOTA: agora a linha de desenvolvimento 
 ```sh
 $ uv tool install git+https://github.com/caiorss/mwiki
 ... ... ... ... ... ... ... ..
-Instalou 2 executáveis: mwiki, mwiki-convert
+  Installed 2 executables: mwiki, mwiki-convert
 ```
 
+Instalar a versão estável mais recente: versão v0.9
 
-Instalar a versão estável mais recente: versão v0.8.1
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.9.zip
+```
+
+Instalar versão estável mais recente v0.9 usando o hash de commit (reproduzível e imutável).
+
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/a381108846b8044cad5466385de0cae3ee4122e9.zip
+```
+
+Instalar a versão: versão v0.81
 
 ```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.8.1.zip
-```
 
+# Ou
 
-Instalar versão estável mais recente v0.8.1 usando o hash de commit (reproduzível e imutável).
-
-```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/bbd1f292b7bb2d4c9c2e948ed4d907f525388896.zip
 ```
 
