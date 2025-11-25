@@ -1,18 +1,14 @@
 {% extends "base.html" %}
 
 {% block topbar_buttons %}
-    {% include 'page_menu.html' %}
+{% include 'page_menu.html' %}
 {% endblock %}
 
 {% block topbar_buttons_last %}
-    <a  data-i18n="edit-page-save-icon-button"
-        href="#"
-        onclick="editorSaveDocument();"
-        title="Save document and switch to view mode."
-                >
-                <img class="img-icon" style="height: 25px;"
-                     src="/static/icon-save-all.svg">
-                </a>
+<a data-i18n="edit-page-save-icon-button" href="#" onclick="editorSaveDocument();"
+  title="Save document and switch to view mode.">
+  <img class="img-icon" style="height: 25px;" src="/static/icon-save-all.svg">
+</a>
 {% endblock %}
 
 
@@ -22,198 +18,204 @@
 {% block style %}
 
 <style type="text/css" media="screen">
-
-
-/** For desktop systems */
-@media (min-width: 600px)
-{
-    #editor { 
-        position: absolute;
-        display: block;
-        width: 100%;
-        height: 70%;
-        font-size: 14pt;
-        /* top: 0;
+  /** For desktop systems */
+  @media (min-width: 600px) {
+    #editor {
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 70%;
+      font-size: 14pt;
+      /* top: 0;
         right: 0;
         bottom: 0;
         left: 0; */
     }
-}
+  }
 
-/** For desktop systems */
-@media (max-width: 600px)
-{
-    #editor { 
-        position: absolute;
-        display: block;
-        width: 90%;
-        height: 80%;
-        font-size: 8pt;
-        /* top: 0;
+  /** For desktop systems */
+  @media (max-width: 600px) {
+    #editor {
+      position: absolute;
+      display: block;
+      width: 90%;
+      height: 80%;
+      font-size: 8pt;
+      /* top: 0;
         right: 0;
         bottom: 0;
         left: 0; */
     }
-}
+  }
 
-.div-vertical-toolbar {
-    display:     inline-block;
+  .div-vertical-toolbar {
+    display: inline-block;
     margin-left: 3rem;
-    padding:     0.6rem;
-    height:      100vh;
+    padding: 0.6rem;
+    height: 100vh;
     width: fit-content;
-}
+  }
 
-.vtoolbar-button  {
+  .vtoolbar-button {
     background-color: whitesmoke;
     text-align: left;
-    width:    14rem; 
+    width: 14rem;
     margin: 0.1rem;
     padding: 0.28em;
-}
+  }
 
-.vtoolbar-table {
+  .vtoolbar-table {
     background-color: unset;
-}
+  }
 
+  .div-unicode-emoji-symbol {
+    max-height: 400px !important;
+    padding: 20px;
+    display: inline-block;
+    overflow-y: scroll;
+  }
 </style>
 {% endblock %}
 
-{% block toc  %}
+{% block toc %}
 <div class="div-vertical-toolbar">
-    <h2 data-i18n="edit-page-toolbar-title">Toolbar</h2>
+  <h2 data-i18n="edit-page-toolbar-title">Toolbar</h2>
 
 
-    <h3>Status</h3>
-    
-    <label data-i18n="edit-page-document-status-label" id="status-info">Document not saved yet.</label>
+  <h3>Status</h3>
 
-    <h3 data-i18n="edit-page-h3-actions-label">Actions</h3>
-    <table class="vtoolbar-table">
-        <tr>
-           <td>
-            <input id="editor-line-wrapping-checkbox"
-                   data-i18n="edit-page-line-wrapping-checkbox"
-                   type="checkbox" checked="" name="line-wrapping-checkbox"
-                   title="line wrapping.">
-            <label
-                 data-i18n="edit-page-line-wrapping-checkbox-label"
-                 for="line-wrapping-checkbox">Line Wrapping</label>
+  <label data-i18n="edit-page-document-status-label" id="status-info">Document not saved yet.</label>
 
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input
-                    id="editor-vim-emulation-checkbox"
-                    data-i18n="edit-page-vim-emulation-checkbox"
-                    type="checkbox"
-                    name="editor-vim-emulation-checkbox"
-                    title="Toggle emulation of Vim editor keybindings.">
-                <label
-                    data-i18n="edit-page-vim-emulation-checkbox-label"
-                    for="editor-vim-emulation-checkbox">Vim editor emulation</label>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button data-i18n="edit-page-back-button" class="vtoolbar-button" onclick="editorViewDocument();" title="Switch to document view mode and exit editing mode.">Back</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button data-i18n="edit-page-preview-button" class="vtoolbar-button" onclick="editorPreviewDocument();" title="View how page will look like before saving.">Preview</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button data-i18n="edit-page-save-button" class="vtoolbar-button" onclick="editorSaveDocument();" title="Save document and switch to view mode.">Save</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button data-i18n="edit-page-undo-button" class="vtoolbar-button" onclick="editorUndo();" title="Undo changes.">Undo</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button data-i18n="edit-page-redo-button" class="vtoolbar-button" onclick="editorRedo();" title="Redo changes.">Redo</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button data-i18n="edit-page-refcard-button" class="vtoolbar-button" 
-                        onclick="showRefcard();"
-                        title="Displays reference card containing examples about the markdown syntax.">Reference Card</button>
-            </td>
-        </tr>
+  <h3 data-i18n="edit-page-h3-actions-label">Actions</h3>
+  <table class="vtoolbar-table">
+    <tr>
+      <td>
+        <input id="editor-line-wrapping-checkbox" data-i18n="edit-page-line-wrapping-checkbox" type="checkbox"
+          checked="" name="line-wrapping-checkbox" title="line wrapping.">
+        <label data-i18n="edit-page-line-wrapping-checkbox-label" for="line-wrapping-checkbox">Line Wrapping</label>
+
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="editor-vim-emulation-checkbox" data-i18n="edit-page-vim-emulation-checkbox" type="checkbox"
+          name="editor-vim-emulation-checkbox" title="Toggle emulation of Vim editor keybindings.">
+        <label data-i18n="edit-page-vim-emulation-checkbox-label" for="editor-vim-emulation-checkbox">Vim editor
+          emulation</label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button data-i18n="edit-page-back-button" class="vtoolbar-button" onclick="editorViewDocument();"
+          title="Switch to document view mode and exit editing mode.">Back</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button data-i18n="edit-page-preview-button" class="vtoolbar-button" onclick="editorPreviewDocument();"
+          title="View how page will look like before saving.">Preview</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button data-i18n="edit-page-save-button" class="vtoolbar-button" onclick="editorSaveDocument();"
+          title="Save document and switch to view mode.">Save</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button data-i18n="edit-page-undo-button" class="vtoolbar-button" onclick="editorUndo();"
+          title="Undo changes.">Undo</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button data-i18n="edit-page-redo-button" class="vtoolbar-button" onclick="editorRedo();"
+          title="Redo changes.">Redo</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button data-i18n="edit-page-refcard-button" class="vtoolbar-button" onclick="showRefcard();"
+          title="Displays reference card containing examples about the markdown syntax.">Reference Card</button>
+      </td>
+    </tr>
 
 
-    </table>
+  </table>
 
-    <h3 data-i18n="edit-page-h3-insert-label">Insert</h3>
-    <table class="vtoolbar-table">
-        <tr>
-            <td>
-                <button data-i18n="edit-page-insert-link-button" class="vtoolbar-button" onclick="insertLinkToPage();" 
-                        title="Insert hyperlink to existing wiki page at current cursor position.">Link to Wiki page</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button data-i18n="edit-page-upload-button" class="vtoolbar-button" onclick="openUploadWindow();" 
-                    title="Upload file and insert link to it at current cursor position in the editor.">Link to Uploaded File</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button data-i18n="edit-page-latex-input-window"
-                        class="vtoolbar-button"
-                        onclick="latexEntryWindow.show();" 
-                        title="Open a LaTeX input popup window that allows typing LaTeX equations and getting immediate feedback about how the formula looks like when rendered.">LaTeX Input Window</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button data-i18n="edit-page-insert-latex-equation" class="vtoolbar-button" onclick="editorInsertLatexEquation();" 
-                        title="Insert LaTeX equation">LaTeX Equation</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button data-i18n="edit-page-insert-latex-non-numbered-button" class="vtoolbar-button" onclick="editorInsertLatexEquationNonNumered();" 
-                        title="Insert non numbered LaTeX equation">Non Numbered Latex Equation</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button data-i18n="edit-page-insert-theorem-button" class="vtoolbar-button" onclick="editorInsertTheorem();" title="Insert theorem box.">Theorem</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button data-i18n="edit-page-insert-details-button" class="vtoolbar-button" onclick="editorInsertDetails();" title="Insert foldable details box.">Details</button>
-            </td>
-        </tr>
+  <h3 data-i18n="edit-page-h3-insert-label">Insert</h3>
+  <table class="vtoolbar-table">
+    <tr>
+      <td>
+        <button data-i18n="edit-page-insert-link-button" class="vtoolbar-button" onclick="insertLinkToPage();"
+          title="Insert hyperlink to existing wiki page at current cursor position.">Link to Wiki page</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button data-i18n="edit-page-upload-button" class="vtoolbar-button" onclick="openUploadWindow();"
+          title="Upload file and insert link to it at current cursor position in the editor.">Link to Uploaded
+          File</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button data-i18n="edit-page-latex-input-window" class="vtoolbar-button" onclick="latexEntryWindow.show();"
+          title="Open a LaTeX input popup window that allows typing LaTeX equations and getting immediate feedback about how the formula looks like when rendered.">LaTeX
+          Input Window</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button data-i18n="edit-page-insert-latex-equation" class="vtoolbar-button"
+          onclick="editorInsertLatexEquation();" title="Insert LaTeX equation">LaTeX Equation</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button data-i18n="edit-page-insert-latex-non-numbered-button" class="vtoolbar-button"
+          onclick="editorInsertLatexEquationNonNumered();" title="Insert non numbered LaTeX equation">Non Numbered Latex
+          Equation</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button data-i18n="edit-page-insert-theorem-button" class="vtoolbar-button" onclick="editorInsertTheorem();"
+          title="Insert theorem box.">Theorem</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button data-i18n="edit-page-insert-details-button" class="vtoolbar-button" onclick="editorInsertDetails();"
+          title="Insert foldable details box.">Details</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button data-i18n="edit-page-unicode-button" class="vtoolbar-button" onclick="openUnicodeWindow();"
+          title="Dialog for inserting unicode or emoji symbol.">Unicode Symbols and Emoji</button>
+      </td>
+    </tr>
 
-    </table>
+  </table>
 
-    <h3 data-i18n="edit-page-clipboard-h3-label">Clipboard Options</h3>
+  <h3 data-i18n="edit-page-clipboard-h3-label">Clipboard Options</h3>
+  <div>
+    <label data-i18n="edit-page-p-clipobard">Select the clipboard pasting mode</label>
     <div>
-        <label data-i18n="edit-page-p-clipobard">Select the clipboard pasting mode</label>
-        <div>
-            <input type="radio" name="clipboardChoice" value="plain" id="clipboard-plain-text" checked="checked">
-            <label for="clipboard-plain-text">Plain text</label>
-        </div>
-        <div>
-            <input type="radio" name="clipboardChoice" value="markdown" id="clipboard-markdown">
-            <label for="clipboard-markdown">MWiki Markdown</label>
-        </div>
-        <div>
-            <input type="radio" name="clipboardChoice" value="html" id="clipboard-raw-html">
-            <label for="clipboard-raw-html">Raw html</label>
-        </div>
+      <input type="radio" name="clipboardChoice" value="plain" id="clipboard-plain-text" checked="checked">
+      <label for="clipboard-plain-text">Plain text</label>
     </div>
+    <div>
+      <input type="radio" name="clipboardChoice" value="markdown" id="clipboard-markdown">
+      <label for="clipboard-markdown">MWiki Markdown</label>
+    </div>
+    <div>
+      <input type="radio" name="clipboardChoice" value="html" id="clipboard-raw-html">
+      <label for="clipboard-raw-html">Raw html</label>
+    </div>
+  </div>
 
 </div>
 
@@ -222,10 +224,7 @@
 {% block content %}
 
 <!-- Placement point for Ace Text Editor -->
-<div id="editor" 
-    ondrop="dropHandler(event);"
-    ondragover="dragOverHandler(event);"
-    >{{content}} </div>
+<div id="editor" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">{{content}} </div>
 
 <script src="/static/acebuild/src-min/ace.js"></script>
 <script src="/static/acebuild/src-min/keybinding-vim.js"></script>
@@ -253,13 +252,12 @@
 -->
 
 <script>
-    currentWikiPage = "{{page_link}}";
-    currentWikiPageTitle = "{{page}}";
-    // console.trace(`Current Wiki page being edited ${currentWikiPage}`);
-    let VIM_EMULATION_ENABLED = "{{ config_vim_emulation() }}" === "True";
+  currentWikiPage = "{{page_link}}";
+  currentWikiPageTitle = "{{page}}";
+  // console.trace(`Current Wiki page being edited ${currentWikiPage}`);
+  let VIM_EMULATION_ENABLED = "{{ config_vim_emulation() }}" === "True";
 </script>
 <!-- See file:  file://../static/editor.js -->
 <script src="/static/editor.js"></script>
 
 {% endblock %}
-

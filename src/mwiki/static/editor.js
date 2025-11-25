@@ -790,3 +790,257 @@ function openLatexInputWindow()
 
     // let output = domToMarkdownCompiler(el);
     // console.log("output \n", output);
+
+unicodeWindow = new PopupWindow({
+       title: "Insert unicode or emoji symbol"
+    ,  titleI18nTag: "unicode-emoji-dialog-title"
+    ,  html: `
+        <div class="div-unicode-emoji-symbol">
+            <div>
+                <h3>Symbols</h3>
+                <button title="Section symbol">§</button>
+                <button title="Pillcrow sign, paragrapha mark, paragraph sign also known as pargraph symbol or blind P">¶</button>
+                <button title="Copyright symbol">©</buttom>
+                <button title="Registered Trademark Symbol">®</button>
+                <button title="Official Mark (Canada)">Ⓜ</button>
+                <button title="Trademark symbol">™</button>
+                <button title="Service mark">℠</button>
+                <button title="Raised MC sign">🅪</button>
+                <button title="Warenzeichen grapheme (Germany)">🄮</button>
+                <button title="Euro currency sign">£</title>
+                <button title="Pound currency sign">€</title>
+                <button title="Yen (Japan) and Yuan (China) Sign">¥</title>
+                <button>▼</button>
+            </div>
+            <div>
+                <h3>Stuffs</h3>
+                <button>📚️</button>
+                <button>📜</button>
+                <button>📖</button>
+                <button>Ⓥ</button>
+                <button>🚨</button>
+                <button>📍</button>
+                <button>🎧️</button>
+                <button>💻️</button><button>🧰</button>
+                <button>📱</button><button>🎮</button>
+                <button>✅️</button>
+                <button>💊</button><button>👑</button>
+                <button>🎮</button>
+                <button>🕹️</button>
+                <button>🧵</button>
+                <button>🎞️</button>
+                <button>🚴</button>
+                <button>📺️</button>
+                <button>🎵</button>
+                <button>⛔️️</button>
+                <button>🎞️</button>
+                <button>🛒</button>
+                <button>🎨</button>
+                <button>🔔</button>
+                <button>🎁</button>
+                <button>🤖</button>
+                <button>🚧</button>
+                <button>💼</button>
+                <button>🧱</button>
+            </div>
+            <div>
+                <h3>Emojis</h3>
+                <button>👨🏻‍💼</button>
+                <button>🫣</button>
+                <button>😹</button>
+                <button>😵‍💫</button>
+                <button>☣️</button>
+                <button>✊️</button>
+                <button>🥋</button>
+                <button>🙇‍♂️</button>
+                <button>🙇</button>
+                <button>🫡</button>
+                <button>🤬</button>
+                <button>😔</button>
+                <button>🤗</button>
+                <button>🫶</button>
+                <button>🫂</button>
+                <button>🎃</button>
+                <button>👉</button>
+                <button>👀</button>
+                <button>✨️</button>
+                <button>⚽️</button>
+                <button>👾</button>
+                <button>👽️</button>
+                <button>💀</button>
+                <button>😷</button>
+                <button>😱</button>
+                <button>🖖</button>
+                <button>🔥</button>
+            </div>
+            <div>
+                <h3>Nature</h3>
+                <button>🌿</button>
+                <button>🍂</button>
+                <button>🎄</button>
+                <button>🌴</button>            
+                <button>🌳</button>
+                <button>🌱</button>
+                <button>🌾</button>
+                <button>🍁</button>
+                <button>🍄</button>
+                <button>❄️</button>
+                <button>💭</button>
+                <button>💦</button>
+                <button>🌎️</button>
+                <button>🌍️</button>
+                <button>🌏️</button>
+            </div>
+            <div>
+                <h3>Animals</h3>
+                <button>🦉</button>
+                <button>🦅</button>
+                <button>🦣</button>
+                <button>🐀</button>
+                <button>🦃</button>
+                <button>🦦</button>
+                <button>🐧</button>
+                <button>🐈️</button>
+                <button>🐾</button>
+                <button>🦮</button>
+                <button>🐕️</button>
+                <button>🐿 </button>
+                <button>🐇</button>
+                <button>🕊 </button>
+                <button>🐝</button>
+                <button>🦋</button>
+                <button>🦌</button>
+                <button>🐐</button>
+                <button>🐦️</button>
+                <button>🐂</button>
+                <button>🦜</button>
+                <button>🍃</button>
+                <button>🕷️</button>
+                <button>🐖</button>
+                <button>🦇</button>
+                <button>🦝</button>
+                <button>🕊️</button>
+            </div>
+            <div>
+                <h3>Space</h3>
+                <button>🚀</button>
+                <button>🪐</button>
+                <button>☀️</button>
+                <button>🌒</button>
+                <button>⚡️</button>
+            </div>
+            <div>
+                <h3>Food and Beverage</h3>
+                <button>☕️️</button>
+                <button>🍓</button>
+                <button>🍉</button>
+                <button>🍋</button>
+                <button>🍔</button>
+                <button>🍕</button>
+                <button>🍗</button>
+            </div>
+            <div>
+                <h3>Flags</h3>
+                <button title="Flag of European Union">🇪🇺</button>
+                <button title="Spain's flag, Spanish flag">🇪🇸</button>
+                <button title="Portugal's flag, Flag of Portugal, Portuguese Flag">🇵🇹</button>
+                <button title="Italy's flag">🇮🇹</button>
+                <button title="Flag of France">🇫🇷</button>
+                <button title="Germany's flag">🇩🇪</button>
+                <button title="Austrian flag">🇦🇹</button>
+                <button title="Flag of Switzerland, Swiss flag">🇨🇭</button>
+                <button title="Belgian flag">🇧🇪</button>
+                <button title="Denmark's flag">🇩🇰</button>
+                <button title="Poland's flag">🇵🇱</button>
+                <button title="Bulgaria's flag">🏴󠁧󠁢󠁷󠁬󠁳󠁿</button>
+                <button title="Greece's flag">🇬🇷</button>
+                <button title="Croacia's flag">🇭🇷</button>
+                <button title="Ireland's flag, Irish flag">🇮🇪</button>
+                <button title="Flag of United Kingdom">🇬🇧</button>
+                <button title="England's flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿<button>
+                <button title="Scotland's flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿<button>
+                <button title="Wale's flag">🏴󠁧󠁢󠁷󠁬󠁳󠁿<button>
+                <button title="Canadian flag" >🇨🇦</button>
+                <button title="Australian flag">🇦🇺</button>
+                <button title="American/USA flag">🇺🇲</button>
+                <button title="South Africa's flag, South African flag">🇿🇦</button>
+                <button title="Turkey'ws flag, Turkish flag">🇹🇷</button>
+                <button title="Japanese flag">🇯🇵</button>
+                <button title="Ukraine's flag">🇺🇦</button>
+                <button title="Mexico's flag, Mexican flag">🇲🇽</button>
+                <button title="Flag of Argentina">🇦🇷</button>
+                <button title="Chile's flag">🇨🇱</button>
+                <button title="Colombia's flag">🇨🇴</button>
+                <button title="Dominican Republic's flag">🇩🇴</button>
+                <button title="Flag of Brazil, Brazilian flag">🇧🇷</button>
+                <button title="Vietnan's flag, Vietnamese flag">🇻🇳</button>
+                <button title="Flag of South Korea">🇰🇷</button>
+                <button title="Singapore's flag">🇸🇬</button>
+                <button title="Taiwan's flag, Taiwanese flag">🇹🇼</button>
+                <button title="China's flag">🇨🇳</button>
+                <button title="Hong Kong (China's SAR - Special Administrative Region)">🇭🇰</button>
+                <button title="Macao (China's SAR)">🇲🇴</button>
+                <button title="Leabanon's flag">🇱🇧</button>
+                <button title="Tunisia's flag">🇹🇳</button>
+                <button title="Egypt's flag">🇪🇬</button>
+                <button title="Jordan's flag">🇯🇴</button>
+                <buttton title="Flag of Morocco">🇲🇦</button>
+                <button>🏴‍☠️</button>
+            </div>
+            <div>
+                <h3>Non Categorized</h3>
+                <button>🔗</button>
+                <button>❌️</button>
+                <button>🔙</button>
+                <button>🥗</button>
+                <button>💤</button>
+                <button>✊🏽</button>
+                <button>🏘️</button>
+                <button>🖋</button>
+                <button>✉️</button>
+                <button>📊</button>
+                <button>🖼️</button>
+                <button>🃏</button>
+                <button>📷️</button>
+                <button>🏵</button>
+                <button>🕸️</button>
+                <button>📸</button>
+                <button>🦡</button>
+                <button>👀</button>
+                <button>⤵️</button>
+                <button>🚂</button>
+                <button>🏳 </button>
+                <button>🔡</button>
+                <button>🌍️</button>
+                <button>🏆️</button>
+                <button>🏭️</button>
+                <button>📖</button>
+                <button>🔁</button>
+                <button>🧪</button>
+                <button>⚖️</button>
+                <button>🍉</button>
+                <button>↕️</button>
+                <button>🎉</button>
+                <button>🔒</button>
+                <button>∞</button>
+                <button>∫</button>
+            </div>            
+       </div>
+    `
+});
+
+unicodeWindow.querySelector(".div-unicode-emoji-symbol")
+             .addEventListener("click", (event) => {
+                 if(event.target.tagName !== "BUTTON"){
+                     return;
+                 }
+                 console.log(" [TRACE] insert unicode symbol = ", event.target.textContent);
+                 editorInsertTextArCursor(event.target.textContent);
+             });
+
+
+function openUnicodeWindow()
+{
+    unicodeWindow.show();
+}
+
