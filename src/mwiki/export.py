@@ -658,6 +658,13 @@ fonts_database  = [
         
     }
     ,{
+          "key":     "linux-libertine"
+        , "family":  "Linux Libertine"
+        , "regular": "LinuxLibertine-Regular.woff"
+        , "italic":  "LinuxLibertine-Italic.woff"
+        , "bold":    "LinuxLibertine-Bold.woff"
+    }
+    ,{
           "family":  "EBGaramond"
         , "key":     "ebgaramond"
         , "regular": "EBGaramond-400-Normal.woff2"
