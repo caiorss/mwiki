@@ -811,6 +811,15 @@ unicodeWindow = new PopupWindow({
                 <button title="Euro currency sign">£</button>
                 <button title="Pound currency sign">€</button>
                 <button title="Yen (Japan) and Yuan (China) Sign">¥</button>
+                <button>⚠️</button>
+                <button>‼️</button>
+                <button>🚫</button>
+                <button>⭕️️</button>
+                <button>⛔️️</button>
+                <button>❌️</button>
+                <button>🚨</button>
+                <button title="Bookmark">🔖</button>
+                <button>🔗</button>
                 <button>·</button>
                 <button>°</button>
                 <button>→</button>
@@ -908,7 +917,9 @@ unicodeWindow = new PopupWindow({
                 <h3>Emojis</h3>
                 <button>👨🏻‍💼</button>
                 <button>🫣</button>
+                <button>🙀</button>
                 <button>😹</button>
+                <button>😼</button>
                 <button>😵‍💫</button>
                 <button>☣️</button>
                 <button>✊️</button>
@@ -923,6 +934,8 @@ unicodeWindow = new PopupWindow({
                 <button>🫂</button>
                 <button>🎃</button>
                 <button>👉</button>
+                <button>✌️</button>
+                <button>🤷</button>
                 <button>👀</button>
                 <button>✨️</button>
                 <button>⚽️</button>
@@ -939,16 +952,17 @@ unicodeWindow = new PopupWindow({
                 <button>😑</button>
                 <button>🗣</button>
                 <button>😍</button>
+                <button>😻</button>
                 <button>😅</button>
                 <button>🤣</button>
                 <button>👨🏻‍💻</button>
+                <button>🤯</button>
                 <button>💪</button>
                 <button>😃</button>
                 <button>👌</button>
                 <button>👋🏼<button>
                 <button>😊</button>
                 <button>🔥</button>
-                <button>⚠️</button>
 
             </div>
             <div>
@@ -972,6 +986,7 @@ unicodeWindow = new PopupWindow({
             </div>
             <div>
                 <h3>Animals</h3>
+                <button>🦊</button>
                 <button>🦉</button>
                 <button>🦅</button>
                 <button>🦣</button>
@@ -1011,6 +1026,7 @@ unicodeWindow = new PopupWindow({
                 <button>🚀</button>
                 <button>🪐</button>
                 <button>☀️</button>
+                <button>🌟</button>
                 <button>🌒</button>
                 <button>⚡️</button>
                 <button>✨</button>
@@ -1033,19 +1049,24 @@ unicodeWindow = new PopupWindow({
             </div>
             <div>
                 <h3>Flags</h3>
+                <button title="Flag of United Nations (UN)">🇺🇳</button>
                 <button title="Flag of European Union">🇪🇺</button>
+                <button title="Vatican's flag">🇻🇦</button>
+                <button title="Italy's flag">🇮🇹</button>
                 <button title="Spain's flag, Spanish flag">🇪🇸</button>
                 <button title="Portugal's flag, Flag of Portugal, Portuguese Flag">🇵🇹</button>
-                <button title="Italy's flag">🇮🇹</button>
                 <button title="Flag of France">🇫🇷</button>
                 <button title="Germany's flag">🇩🇪</button>
-                <button title="Austrian flag">🇦🇹</button>
+                <button title="Austria's flag, Austrian flag">🇦🇹</button>
                 <button title="Flag of Switzerland, Swiss flag">🇨🇭</button>
                 <button title="Belgian flag">🇧🇪</button>
+                <button title="Netherlands">🇳🇱</button>
                 <button title="Denmark's flag">🇩🇰</button>
                 <button title="Poland's flag">🇵🇱</button>
                 <button title="Bulgaria's flag">🏴󠁧󠁢󠁷󠁬󠁳󠁿</button>
                 <button title="Greece's flag">🇬🇷</button>
+                <button title="Cyprus' flag">🇨🇾</button>
+                <button title="Hungrary">🇭🇺</button>
                 <button title="Croacia's flag">🇭🇷</button>
                 <button title="Ireland's flag, Irish flag">🇮🇪</button>
                 <button title="Flag of United Kingdom">🇬🇧</button>
@@ -1054,19 +1075,38 @@ unicodeWindow = new PopupWindow({
                 <button title="Wale's flag">🏴󠁧󠁢󠁷󠁬󠁳󠁿</button>
                 <button title="Canadian flag" >🇨🇦</button>
                 <button title="Australian flag">🇦🇺</button>
+                <button title="New Zelanda">🇳🇿</button>
                 <button title="American/USA flag">🇺🇲</button>
                 <button title="South Africa's flag, South African flag">🇿🇦</button>
+                <button title="Cape Verde's flag">🇨🇻</button>
+                <button tilte="Nigeria's flag">🇳🇬</button>
                 <button title="Flag of India, Indian flag">🇮🇳</button>
-                <button title="Turkey'ws flag, Turkish flag">🇹🇷</button>
+                <button title="Bangladesh flag">🇧🇩</button>
+                <button title="Turkish flag">🇹🇷</button>
+                <button titte="Azebaijan's flag">🇦🇿</button>
+                <button title="Armenia flag">🇦🇲</button>
                 <button title="Japanese flag">🇯🇵</button>
                 <button title="Ukraine's flag">🇺🇦</button>
+                <button title="Belarus">🇧🇾</button>
+                <button>🇷🇺</button>
+                <button title="Bahamas' flag">🇧🇸</button>
+                <button title="Jamaican flag">🇯🇲</button>
                 <button title="Mexico's flag, Mexican flag">🇲🇽</button>
                 <button title="Flag of Argentina">🇦🇷</button>
+                <button title="Uruguay's flag">🇺🇾</button>
                 <button title="Chile's flag">🇨🇱</button>
+                <button title="Peru's flag, Peruvian flag">🇵🇪</button>
                 <button title="Colombia's flag">🇨🇴</button>
+                <button title="Venezuela's flag, Venezuelan flag">🇻🇪</button>
                 <button title="Puerto Rico's flag">🇵🇷</button>
+                <button tilte="Hondura's flag">🇭🇳</button>
+                <button title="Bolivia's flag">🇧🇴</button>
+                <button title="Flag of Costa Rica">🇨🇷</button>
+                <button title="Suriname">🇸🇷</button>
+                <button title="El Salvador">🇸🇻</button>
                 <button title="Dominican Republic's flag">🇩🇴</button>
                 <button title="Flag of Brazil, Brazilian flag">🇧🇷</button>
+                <button title="Japan's flag, Japanese flag">🇯🇵</button>
                 <button title="Vietnan's flag, Vietnamese flag">🇻🇳</button>
                 <button title="Flag of South Korea">🇰🇷</button>
                 <button title="Singapore's flag">🇸🇬</button>
@@ -1074,17 +1114,31 @@ unicodeWindow = new PopupWindow({
                 <button title="China's flag">🇨🇳</button>
                 <button title="Hong Kong (China's SAR - Special Administrative Region)">🇭🇰</button>
                 <button title="Macao (China's SAR)">🇲🇴</button>
+                <button title="Mongolia flag">🇲🇳</button>
                 <button title="Leabanon's flag">🇱🇧</button>
+                <button title="🇸🇾">Flag of Syria></button>
+                <button title="Flag of Morocco">🇲🇦</button>
+                <button title="Algeria's flag">🇩🇿</button>
                 <button title="Tunisia's flag">🇹🇳</button>
                 <button title="Egypt's flag">🇪🇬</button>
+                <button title="Flag of UAE - United Arabs Emirates">🇦🇪</button>
                 <button title="Jordan's flag">🇯🇴</button>
-                <button title="Flag of Morocco">🇲🇦</button>
+                <button title="Qatar">🇶🇦</button>
+                <button title="Saudi Arabia">🇸🇦</button>
+                <button title="Bahrain flag">🇧🇭</button>
                 <button tilte="Pirate flag, used by pirate ships (funny)">🏴‍☠️</button>
+                <button title="Chequered flag">🏁</button>
+                <button title="Triangular flag">🚩</button>
+                <button title="Crossed flags">🎌</button>
+                <button title="Black flag">🏴</button>
+                <button title="White flag">🏳</button>
             </div>
             <div>
                 <h3>Non Categorized</h3>
+                <button>🎓</button>
                 <button title="Canoe - boat">🛶</button>
                 <button>🪑</button> 	
+                <button>▶</button>
                 <button>🔗</button>
                 <button>❌️</button>
                 <button>🔙</button>
