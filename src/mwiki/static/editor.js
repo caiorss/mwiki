@@ -853,6 +853,27 @@ unicodeWindow = new PopupWindow({
                 <button title="Ominus">⊖</button>
                 <button title="Otimes or outer product operator">⊗</button>
                 <button title="Odot">⊙</button>
+                <button title="Box drawing character">╔</button>
+                <button title="Box drawing character">═</button>
+                <button title="Box drawing character">╦</button>
+                <button title="Box drawing character">╗</button>
+                <button title="Box drawing character">╠</button>
+                <button title="Box drawing character">╣</button>
+                <button title="Box drawing character">║</button>
+                <button title="Box drawing character">╚</button>
+                <button title="Box drawing character">╩</button>
+                <button title="Box drawing character">╝</button>
+                <button title="Box drawing character">┏</button>
+                <button title="Box drawing character">━</button>
+                <button title="Box drawing character">┳</button>
+                <button title="Box drawing character">┓</button>
+                <button title="Box drawing character">┣</button>
+                <button title="Box drawing character">╋</button>
+                <button title="Box drawing character">┫</button>
+                <button title="Box drawing character">┃</button>
+                <button title="Box drawing character">┗</button>
+                <button title="Box drawing character">┻</button>
+                <button title="Box drawing character">┛</button>
             </div>
             <div>
                 <h3>Stuffs</h3>
