@@ -2,43 +2,84 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
-    <title data-i18n="{{page_title_i18n_tag}}">{{ config_sitename() }} - {{title}}</title>
-    <meta name="description" content="{{page_description}}" />
-    <meta name=generator content="MWiki">
-    {% if page_author %} <meta name="author" content="{{page_author}}"> {% endif %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+  <title data-i18n="{{page_title_i18n_tag}}">{{ config_sitename() }} - {{title}}</title>
+  <meta name="description" content="{{page_description}}" />
+  <meta name=generator content="MWiki">
+  {% if page_author %}
+  <meta name="author" content="{{page_author}}"> {% endif %}
 
-    <style>
+  <style>
+    {
+        {
+        conf.font_main_css|safe
+      }
+    }
 
-    {{conf.font_main_css|safe}}
-    {{conf.font_code_css|safe}}
-    {{conf.font_title_css|safe}}
+      {
+        {
+        conf.font_code_css|safe
+      }
+    }
+
+      {
+        {
+        conf.font_title_css|safe
+      }
+    }
 
     :root {
-        {% if main_font %}  --font-family-main:  '{{conf.main_font}}';  {% endif %}
-        {% if code_font %}  --font-family-code:  '{{conf.code_font}}';  {% endif %}
-        {% if title_font %} --font-family-title: '{{conf.title_font}}'; {% endif %}
+        {
+        % if main_font %
+      }
+
+      --font-family-main: '{{conf.main_font}}';
+
+        {
+        % endif %
+      }
+
+        {
+        % if code_font %
+      }
+
+      --font-family-code: '{{conf.code_font}}';
+
+        {
+        % endif %
+      }
+
+        {
+        % if title_font %
+      }
+
+      --font-family-title: '{{conf.title_font}}';
+
+        {
+        % endif %
+      }
     }
-    </style>
-    
-    <link rel="stylesheet" href="/static/style.css">
-    {% block style %}{% endblock %}
-    <!-- MathJax Settings -->
-    <script>
+  </style>
+
+  <link rel="stylesheet" href="/static/style.css">
+  {% block style %}{% endblock %}
+  <!-- MathJax Settings -->
+  <script>
 
     const FONT_FAMILY_MAIN = "{{ config_main_font() }}"
     const FONT_FAMILY_TITLE = "{{ config_title_font() }}"
     const FONT_FAMILY_CODE = "{{ config_code_font() }}"
     const DEFAULT_LOCALE = "{{ default_locale() }}";
-  	const USE_DEFAULT_LOCALE = "{{ use_default_locale() }}" === "True";
+    const USE_DEFAULT_LOCALE = "{{ use_default_locale() }}" === "True";
     const LATEX_RENDERER = "{{ latex_renderer }}";
     const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
-    const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
+    const IS_LATEX_RENDERER_KATEX = LATEX_RENDERER === "katex";
     const KATEX_MACROS = "{{ katex_macros }}";
     const IS_USER_ADMIN = "{{ current_user().is_admin() }}" === "True";
-	
+
     // Possible values: 'none', 'nosection' 'section', 'subsection'
     //  none      => no enumeration 
     //  nosection 
@@ -58,43 +99,42 @@
     // console.log(" [TRACE] equation_enumeration = ", equation_enumeration);
 
     MathJax = {
-        loader: {load: ['[tex]/tagformat', '[tex]/mathtools', 'output/chtml']}
+      loader: {load: ['[tex]/tagformat', '[tex]/mathtools', 'output/chtml']}
 
       , section: 1
       , tex: {
-          inlineMath: [['$','$'], ['\\(','\\)']]
-        , displayMath: [['$$','$$'], ['\\[','\\]']]
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+        , displayMath: [['$$', '$$'], ['\\[', '\\]']]
         , processEscapes: true
         , processEnvironments: true
-          // Location of equation numbers
-        , tagSide: "right"  
+        // Location of equation numbers
+        , tagSide: "right"
         // Possible values 'ams' or 'all' (all equations are numbered by default)
         , tags: enumeration_enabled ? "all" : "ams"
         //, tags: 'ams'
-        , packages: {'[+]': [
-                                  'tagformat'
-                                , 'sections'
-                                , 'subsections'
-                                , 'autoload-all'
-                            ]}
+        , packages: {
+          '[+]': [
+            'tagformat'
+            , 'sections'
+            , 'subsections'
+            , 'autoload-all'
+          ]
+        }
         , tagformat: {
-          number: (n) => { 
+          number: (n) => {
             <!-- if( !enumeration_enabled ){ return ''; } -->
-            if( equation_enumeration === "cont"
-                || equation_enumeration == "continuous")
-            {
-                return '' + n;
+            if (equation_enumeration === "cont"
+              || equation_enumeration == "continuous") {
+              return '' + n;
             }
 
             let nsec = MathJax.config.section;
             let nsub = MathJax.config.subsection;
             var out = '';
-            if (nsub === 0 || equation_enumeration == "section")
-            {
-                out = nsec + '.' + n;
-            } else 
-            {
-                out = nsec + '.' + nsub +  '.' + n;
+            if (nsub === 0 || equation_enumeration == "section") {
+              out = nsec + '.' + n;
+            } else {
+              out = nsec + '.' + nsub + '.' + n;
             }
             console.log("Display section = ", out);
             return out;
@@ -102,176 +142,176 @@
         }
       }
 
-     , startup: {
+      , startup: {
 
-            ready() {
-                // console.log(" [TRACE] I was called from ready()");
-                const Configuration = MathJax._.input.tex.Configuration.Configuration;
-                const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
-                new CommandMap('sections', {
-                      nextSection: 'NextSection'
-                    , setSection:  'SetSection'
-                }, {
-                     NextSection(parser, name) {
-                        // console.log(" [TRACE] Called NextSection()");
-                        MathJax.config.section++;
-                        MathJax.config.subsection = 0;
-                        parser.tags.counter = parser.tags.allCounter = 0;
-                    }
-                    , SetSection(parser, name) {
-                        // console.log(" [TRACE] Called SetSection()");
-                        const n = parser.GetArgument(name);
-                        MathJax.config.section = parseInt(n);
-                        parser.tags.counter = parser.tags.allCounter = 0;
-                    }
-                });
-                if (equation_enumeration === "subsection")
-                {
-                    new CommandMap('subsections', {
-                          nextSubSection: 'NextSubSection'
-                        , setSubSection:  'SetSubSection'
-                    }, {
-                         NextSubSection(parser, name) {
-                            // console.log(" [TRACE] NextSubSection() called.");
-                            MathJax.config.subsection++;
-                            parser.tags.counter = parser.tags.allCounter = 0;
-                        }
-                        , SetSubSection(parser, name) {
-                            const n = parser.GetArgument(name);
-                            // console.log(" [TRACE] SetSubSection to ", n);
-                            MathJax.config.subsection = parseInt(n);
-                            parser.tags.counter = parser.tags.allCounter = 0;
-                        }
-                    });
-                }
-
-                Configuration.create(
-                      'sections', { handler: { macro: ['sections'] } }
-                );
-
-                if( equation_enumeration === "subsection" )
-                {
-                    Configuration.create(
-                        'subsections', { handler: { macro: ['subsections'] } }
-                    );
-
-                }
-
-                MathJax.startup.defaultReady();
-                pseudocode.renderClass("pseudocode", { "lineNumber": true, "scopeLines": true });
-                // This function is provided by main.js.
-                if( isMobileScreen() ) { setHeadingVisibility(false); }
-                /// setHeadingsVisibility(false)
+        ready() {
+          // console.log(" [TRACE] I was called from ready()");
+          const Configuration = MathJax._.input.tex.Configuration.Configuration;
+          const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+          new CommandMap('sections', {
+            nextSection: 'NextSection'
+            , setSection: 'SetSection'
+          }, {
+            NextSection(parser, name) {
+              // console.log(" [TRACE] Called NextSection()");
+              MathJax.config.section++;
+              MathJax.config.subsection = 0;
+              parser.tags.counter = parser.tags.allCounter = 0;
             }
+            , SetSection(parser, name) {
+              // console.log(" [TRACE] Called SetSection()");
+              const n = parser.GetArgument(name);
+              MathJax.config.section = parseInt(n);
+              parser.tags.counter = parser.tags.allCounter = 0;
+            }
+          });
+          if (equation_enumeration === "subsection") {
+            new CommandMap('subsections', {
+              nextSubSection: 'NextSubSection'
+              , setSubSection: 'SetSubSection'
+            }, {
+              NextSubSection(parser, name) {
+                // console.log(" [TRACE] NextSubSection() called.");
+                MathJax.config.subsection++;
+                parser.tags.counter = parser.tags.allCounter = 0;
+              }
+              , SetSubSection(parser, name) {
+                const n = parser.GetArgument(name);
+                // console.log(" [TRACE] SetSubSection to ", n);
+                MathJax.config.subsection = parseInt(n);
+                parser.tags.counter = parser.tags.allCounter = 0;
+              }
+            });
+          }
+
+          Configuration.create(
+            'sections', {handler: {macro: ['sections']}}
+          );
+
+          if (equation_enumeration === "subsection") {
+            Configuration.create(
+              'subsections', {handler: {macro: ['subsections']}}
+            );
+
+          }
+
+          MathJax.startup.defaultReady();
+          pseudocode.renderClass("pseudocode", {"lineNumber": true, "scopeLines": true});
+          // This function is provided by main.js.
+          if (isMobileScreen()) {setHeadingVisibility(false);}
+          /// setHeadingsVisibility(false)
         }
-    , chtml: {
+      }
+      , chtml: {
         /// displayAlign: "left"
       }
-    // options for when overflow is linebreak
-    , linebreaks: {             
-        inline:           true,   // true for browser-based breaking of inline equations
-        width:            '100%', // a fixed size or a percentage of the container width
-        lineleading:      .2,     // the default lineleading in em units
+      // options for when overflow is linebreak
+      , linebreaks: {
+        inline: true,   // true for browser-based breaking of inline equations
+        width: '100%', // a fixed size or a percentage of the container width
+        lineleading: .2,     // the default lineleading in em units
         LinebreakVisitor: null,   // The LinebreakVisitor to use
-    },
+      },
 
     }
+  </script>
+
+
+  {%if latex_renderer == "mathjax" and not use_cdn() %}
+  {% if mathjax_enabled or latex_algorithm %}
+  <script src="/static/mathjax/es5/tex-chtml.js" id="MathJax-script" async></script>
+  {% endif %}
+  {% if latex_algorithm %}
+  <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
+  <script src="/static/pseudocode.min.js"></script>
+  <link rel="stylesheet" href="/static/pseudocode.min.css">
+  {% endif %}
+  {% endif %}
+
+  {%if latex_renderer == "mathjax" and use_cdn() %}
+  {% if mathjax_enabled or latex_algorithm %}
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml-full.js"
+    integrity="sha256-kbAFUDxdHwlYv01zraGjvjNZayxKtdoiJ38bDTFJtaQ=" crossorigin="anonymous">
     </script>
 
+  {% endif %}
+  {% if latex_algorithm %}
+  <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js"> </script>
+  {% endif %}
+  {% endif %}
 
-{%if latex_renderer == "mathjax" and not use_cdn() %}
-    {% if mathjax_enabled or latex_algorithm %}
-        <script src="/static/mathjax/es5/tex-chtml.js" id="MathJax-script" async></script>
-    {% endif %}
-    {% if latex_algorithm %}
-        <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
-        <script src="/static/pseudocode.min.js"></script>
-        <link rel="stylesheet" href="/static/pseudocode.min.css">
-    {% endif %}
-{% endif %}
-
-{%if latex_renderer == "mathjax" and  use_cdn() %}
-    {% if mathjax_enabled or latex_algorithm %}
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml-full.js"
-        integrity="sha256-kbAFUDxdHwlYv01zraGjvjNZayxKtdoiJ38bDTFJtaQ="
-        crossorigin="anonymous">
-    </script>
-
-    {% endif %}
-    {% if latex_algorithm %}
-    <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js"> </script>
-    {% endif %}
-{% endif %}
-
-{% if latex_renderer == "katex" and not use_cdn() and mathjax_enabled %}
-    <link rel="stylesheet" href="/static/katex/node_modules/katex/dist/katex.min.css">
-    <!-- The loading of KaTeX is deferred to speed up page rendering -->
-    <script defer src="/static/katex/node_modules/katex/dist/katex.min.js"></script>
-    <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <!-- <script defer src="/static/katex/node_modules/katex/dist/contrib/auto-render.min.js" 
+  {% if latex_renderer == "katex" and not use_cdn() and mathjax_enabled %}
+  <link rel="stylesheet" href="/static/katex/node_modules/katex/dist/katex.min.css">
+  <!-- The loading of KaTeX is deferred to speed up page rendering -->
+  <script defer src="/static/katex/node_modules/katex/dist/katex.min.js"></script>
+  <!-- To automatically render math in text elements, include the auto-render extension: -->
+  <!-- <script defer src="/static/katex/node_modules/katex/dist/contrib/auto-render.min.js" 
             onload="renderMathInElement(document.body);"></script> -->
-    {% if latex_algorithm %}
-        <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
-        <script src="/static/pseudocode.min.js"></script>
-        <link rel="stylesheet" href="/static/pseudocode.min.css">
-    {% endif %}
-{% endif %}
-    
-{% if latex_renderer == "katex" and use_cdn() and mathjax_enabled %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi" crossorigin="anonymous">
-    <!-- The loading of KaTeX is deferred to speed up page rendering -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js" integrity="sha384-J+9dG2KMoiR9hqcFao0IBLwxt6zpcyN68IgwzsCSkbreXUjmNVRhPFTssqdSGjwQ" crossorigin="anonymous"></script>
+  {% if latex_algorithm %}
+  <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
+  <script src="/static/pseudocode.min.js"></script>
+  <link rel="stylesheet" href="/static/pseudocode.min.css">
+  {% endif %}
+  {% endif %}
 
-    <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <!-- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" -->
-            <!-- onload="renderMathInElement(document.body);"></script> -->
-    {% if latex_algorithm %}
-    <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js"> </script>
-    {% endif %}
-{% endif %}
-    
-    {% block jslibs %}
-    <!-- Additional Javascript libraries -->
-    {% endblock %}
+  {% if latex_renderer == "katex" and use_cdn() and mathjax_enabled %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css"
+    integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi" crossorigin="anonymous">
+  <!-- The loading of KaTeX is deferred to speed up page rendering -->
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"
+    integrity="sha384-J+9dG2KMoiR9hqcFao0IBLwxt6zpcyN68IgwzsCSkbreXUjmNVRhPFTssqdSGjwQ"
+    crossorigin="anonymous"></script>
+
+  <!-- To automatically render math in text elements, include the auto-render extension: -->
+  <!-- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" -->
+  <!-- onload="renderMathInElement(document.body);"></script> -->
+  {% if latex_algorithm %}
+  <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js"> </script>
+  {% endif %}
+  {% endif %}
+
+  {% block jslibs %}
+  <!-- Additional Javascript libraries -->
+  {% endblock %}
 
 
-    {% if graphviz_enabled %}
-    <!-- Graphviz Rendering Engine (WASM Build)
+  {% if graphviz_enabled %}
+  <!-- Graphviz Rendering Engine (WASM Build)
         From: https://viz-js.com/api/
      -->
-    <script src="/static/viz/node_modules/@viz-js/viz/lib/viz-standalone.js"></script>
-    {% endif %}
+  <script src="/static/viz/node_modules/@viz-js/viz/lib/viz-standalone.js"></script>
+  {% endif %}
 
-    <script>
-        const CSRF_TOKEN = "{{ csrf_token() }}";
+  <script>
+    var CSRF_TOKEN = "{{ csrf_token() }}";
 
-        document.addEventListener("DOMContentLoaded", (event) => {
-            // Select graphviz code blocks 
-            let lst = document.querySelectorAll(".graphviz-dot");
-            for(let x of lst){
+    document.addEventListener("DOMContentLoaded", (event) => {
+      // Select graphviz code blocks 
+      let lst = document.querySelectorAll(".graphviz-dot");
+      for (let x of lst) {
 
-                Viz.instance().then(function(viz) {
-                    // console.log("[TRACE] x = ", x);
-                    let code = x.innerText;
-                    // console.log(" [TRACE] code = ", code);
-                    let svg = viz.renderSVGElement(code);
-                    // console.log(" [TRACE] svg = ", svg);
-                    x.replaceWith(svg); 
-                    // x.outerHTML = svg;
-                    /// document.getElementById("graph").appendChild(svg);
-                });
+        Viz.instance().then(function (viz) {
+          // console.log("[TRACE] x = ", x);
+          let code = x.innerText;
+          // console.log(" [TRACE] code = ", code);
+          let svg = viz.renderSVGElement(code);
+          // console.log(" [TRACE] svg = ", svg);
+          x.replaceWith(svg);
+          // x.outerHTML = svg;
+          /// document.getElementById("graph").appendChild(svg);
+        });
 
 
-            }
-        }, false);
-        
-    </script>
+      }
+    }, false);
 
-    <!--
+  </script>
+
+  <!--
     <script type="module">
         /** Mermaid JS from CDN */
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
@@ -280,77 +320,80 @@
         mermaid.initialize({ startOnLoad: true });
     </script>
     -->
-    
-    <script type="text/javascript" src="/static/main.js"></script>
+
+  <script type="text/javascript" src="/static/main.js"></script>
 
 </head>
 
 <body>
-    <aside class="sidebar sidebar-visibility">
-        <h2 data-i18n="sidebar-search-label">Search</h2>
-        <form action="/pages" mehtod="GET">
-            <!--<label for="site-search-bar">Search all Markdown Files</label> -->
-            <input data-i18n="search-entry-placeholder" type="search" id="site-search-bar" name="search" placeholder="Search..." value="{{query}}" />
-        </form>
+  <aside class="sidebar sidebar-visibility">
+    <h2 data-i18n="sidebar-search-label">Search</h2>
+    <form action="/pages" mehtod="GET">
+      <!--<label for="site-search-bar">Search all Markdown Files</label> -->
+      <input data-i18n="search-entry-placeholder" type="search" id="site-search-bar" name="search"
+        placeholder="Search..." value="{{query}}" />
+    </form>
 
-        {% if toc %}
-        <h2 data-i18n="sidebar-table-of-contentes-label">Contents</h2>
-        {% endif %}
-        <div class="toc">
-            <!-- Table of contents template placeholder -->
-            {% block toc %}{% endblock %} 
+    {% if toc %}
+    <h2 data-i18n="sidebar-table-of-contentes-label">Contents</h2>
+    {% endif %}
+    <div class="toc">
+      <!-- Table of contents template placeholder -->
+      {% block toc %}{% endblock %}
+    </div>
+
+  </aside>
+  <div class="main main-shift">
+    <header class="header">
+      <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img
+          class="img-icon" src="/static/hamburger-menu.svg" style="height: 25px;" /> </a>
+      <a data-i18n="home-page-button" class="sidebar-toggle-button" title="Go to home page (Index)" href="/"><img
+          class="img-icon" src="/static/icon-home.svg"></a>
+      <div class="dropdown">
+        <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button" href="#" title="Main menu."
+          class="dropbtn">
+          <img class="header-icon img-icon"
+            src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
+        </a>
+        <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+          {% if conf.language_switch %}
+          <a data-i18n="popup-window-change-language-menu-launcher" class="sidebar-toggle-button" href="#"
+            onclick="changeLanguageForm.toggle();"
+            title="Open form that allows overriding the current user interface language.">Language
+            {{conf.language_switch}}</a>
+          {% endif %}
+          <a data-i18n="keybindings-menu-item" class="sidebar-toggle-button" href="#"
+            onclick="toggleShortcutKeybindingWinodw();"
+            title="Display a window showing all keyboard shortcuts, also known as keybindings.">Keybindings</a>
+          {% if current_user().is_authenticated() %}
+          <a data-i18n="logoff-menu-item-label" class="sidebar-toggle-button"
+            href="/logoff?path={{request.path|encode_url}}">Log off</a>
+          {% else %}
+          <a data-i18n="login-menu-item-label" class="sidebar-toggle-button"
+            href="/login?path={{request.path|encode_url}}">Log in</a>
+          {% endif %}
+          {% if current_user().is_admin() %}
+          <a data-i18n="edit-latex-macros-menu-item-label" class="sidebar-toggle-button"
+            href="/edit/special:macros?back={{request.path|encode_url}}" title="Edit global LaTeX macros">Edit
+            Macros</a>
+          <a data-i18n="settings-menu-item-label" class="sidebar-toggle-button"
+            href="/settings?back={{request.path|encode_url}}"
+            title="Form for changing web site settings, including description and site name.">Settings</a>
+          <a data-i18n="user-accounts-menu-item-label" class="sidebar-toggle-button" title="User accounts management."
+            href="/users">Accounts</a>
+          {% endif %}
+          {% if current_user().is_authenticated() %}
+          <a data-i18n="user-settings-item-label" class="sidebar-toggle-button" href="/user">My Account</a>
+          {% endif %}
+          <a data-i18n="about-menu-item-label" class="sidebar-toggle-button" href="/about">About</a>
+          {% if show_licenses() %}
+          <a data-i18n="licenses-menu-item-label" class="sidebar-toggle-button" href="/licenses"
+            title="Licenses of open source libraries used by this project.">Licenses</a>
+          {% endif %}
         </div>
-
-    </aside>
-    <div class="main main-shift">
-        <header class="header">
-            <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/static/hamburger-menu.svg" style="height: 25px;"/> </a>
-            <a data-i18n="home-page-button" class="sidebar-toggle-button" 
-			   title="Go to home page (Index)" href="/"><img class="img-icon" src="/static/icon-home.svg"></a>
-            <div class="dropdown">
-              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button" 
-                 href="#" 
-                 title="Main menu."
-                 class="dropbtn"
-                 >
-                <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
-                </a>
-              <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
-                {% if conf.language_switch %}
-                 <a data-i18n="popup-window-change-language-menu-launcher" class="sidebar-toggle-button" href="#"
-                    onclick="changeLanguageForm.toggle();"
-                    title="Open form that allows overriding the current user interface language."
-                 >Language {{conf.language_switch}}</a>
-                {% endif %}
-                   <a data-i18n="keybindings-menu-item" class="sidebar-toggle-button" href="#"
-                    onclick="toggleShortcutKeybindingWinodw();"
-                    title="Display a window showing all keyboard shortcuts, also known as keybindings."
-                 >Keybindings</a>
-                 {% if  current_user().is_authenticated()  %}
-                 <a data-i18n="logoff-menu-item-label" class="sidebar-toggle-button" href="/logoff?path={{request.path|encode_url}}">Log off</a>
-                 {% else %}
-                 <a data-i18n="login-menu-item-label" class="sidebar-toggle-button" href="/login?path={{request.path|encode_url}}">Log in</a>
-                 {% endif %}
-                 {% if  current_user().is_admin() %}
-                 <a data-i18n="edit-latex-macros-menu-item-label" class="sidebar-toggle-button" href="/edit/special:macros?back={{request.path|encode_url}}"
-                    title="Edit global LaTeX macros">Edit Macros</a>
-                 <a data-i18n="settings-menu-item-label" class="sidebar-toggle-button" href="/settings?back={{request.path|encode_url}}"
-                    title="Form for changing web site settings, including description and site name."
-                    >Settings</a>
-                 <a data-i18n="user-accounts-menu-item-label" class="sidebar-toggle-button" title="User accounts management." href="/users">Accounts</a>
-                 {% endif %}
-                 {% if current_user().is_authenticated() %}
-                 <a data-i18n="user-settings-item-label" class="sidebar-toggle-button" href="/user">My Account</a>
-                 {% endif %}
-                 <a data-i18n="about-menu-item-label" class="sidebar-toggle-button" href="/about">About</a>
-                 {% if show_licenses() %}
-                 <a data-i18n="licenses-menu-item-label" class="sidebar-toggle-button" href="/licenses" 
-					title="Licenses of open source libraries used by this project.">Licenses</a>
-				 {% endif %}
-              </div>
-            </div>
-            {% block topbar_buttons %}{% endblock %} 
-            <!-- 
+      </div>
+      {% block topbar_buttons %}{% endblock %}
+      <!-- 
             <a class="sidebar-toggle-button" 
                  href="#" 
                  id="btn-scroll-top" 
@@ -362,42 +405,38 @@
                  title="Scroll to bottom the page"
                  >👇</a>           
              -->
-             <a data-i18n="button-toggle-sections" class="sidebar-toggle-button" 
-                 href="#" 
-                 onclick="toggleHeadings();"
-                 id="btn-scroll-bottom" 
-                 title="Fold/Unfold all sections."
-                 ><img class="img-icon" src="/static/dots-vertical.svg" ></a> 
-             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
-                 href="#" 
-                 onclick="quickOpenPage();"
-                 id="btn-scroll-bottom" 
-                 title="Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry."
-                 >
-               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E"> 
-                </a> 
-              {% block topbar_buttons_last %}{% endblock %}
-        </header>
+      <a data-i18n="button-toggle-sections" class="sidebar-toggle-button" href="#" onclick="toggleHeadings();"
+        id="btn-scroll-bottom" title="Fold/Unfold all sections."><img class="img-icon"
+          src="/static/dots-vertical.svg"></a>
+      <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" href="#" onclick="quickOpenPage();"
+        id="btn-scroll-bottom"
+        title="Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry.">
+        <img class="img-icon"
+          src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E">
+      </a>
+      {% block topbar_buttons_last %}{% endblock %}
+    </header>
 
-        <main class="content">
-            {% if pagename %}
-            <a class="link-edit link-internal" style="display:none" title="Edit page {{title}}" href="/edit/{{page_link}}?timestamp={{timestamp}}"><img class="img-icon" src="/static/pencil.svg"></a>
-            {% endif %}
+    <main class="content">
+      {% if pagename %}
+      <a class="link-edit link-internal" style="display:none" title="Edit page {{title}}"
+        href="/edit/{{page_link}}?timestamp={{timestamp}}"><img class="img-icon" src="/static/pencil.svg"></a>
+      {% endif %}
 
-            <div class="div-heading-h1">
-                <h1 data-i18n="{{page_title_i18n_tag}}" class="document-heading">{{title}}</h1>
-            </div>
-            <p class="hidden-mathjax-macros" style="display: none;">
-                $$
-                {{ latex_macros }}
-                $$
-            </p>
-            {% block content %}
-            {% endblock %}
-        </main>
-    </div>
-    <script>
-    </script>
+      <div class="div-heading-h1">
+        <h1 data-i18n="{{page_title_i18n_tag}}" class="document-heading">{{title}}</h1>
+      </div>
+      <p class="hidden-mathjax-macros" style="display: none;">
+        $$
+        {{ latex_macros }}
+        $$
+      </p>
+      {% block content %}
+      {% endblock %}
+    </main>
+  </div>
+  <script>
+  </script>
 </body>
 
 </html>

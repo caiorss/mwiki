@@ -14,7 +14,7 @@ from flask import request, session
 from werkzeug.security import generate_password_hash
 from PIL import Image
 import flask_session
-
+from flask_wtf.csrf import generate_csrf
 from typing import Any, Tuple, List, Optional
 import datetime
 import mimetypes
@@ -527,6 +527,14 @@ def make_app_server(  host:        str
         pages  = sorted([x.name.split(".md")[0] for  x in base_path.rglob("*.md")])
         resp  = flask.jsonify(pages)
         return resp 
+
+    @app.get("/api/token")
+    @check_login(required = True)
+    def apik_token():
+        """Generate a new periodic CSRF token for the text editor"""
+        token = generate_csrf(secret_key)
+        resp = flask.jsonify({"token": token, "status": "ok"})
+        return resp
         
 
     @app.route("/api/wiki/<path>", methods = [M_GET, M_POST, M_DELETE])

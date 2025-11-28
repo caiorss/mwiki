@@ -1227,3 +1227,17 @@ function openUnicodeWindow()
     unicodeWindow.show();
 }
 
+async function updateCSRFToken()
+{
+    let resp = await httpRequest("GET", "/api/token", null);
+    if(resp.status === "ok")
+    {
+        CSRF_TOKEN = resp.token;
+    }   
+}
+
+// Update CSRF token every 30 minutes
+//   = 30 minutes * 60 seconds/minutes * 1000 milliseconds/seconds
+//   = 1,800,000
+let INTERVAL_30_MINUTES = 1800000;
+setInterval(updateCSRFToken, INTERVAL_30_MINUTES);
