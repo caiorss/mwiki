@@ -1201,3 +1201,47 @@ code {
     display: none;
     visibility: none;
 }   
+
+
+
+@media print {
+    
+    * { overflow: visible !important; }
+    
+    @page { margin: 0; }
+
+    body { margin: 1.6cm; }
+    
+    body {
+        background: yellow !important;
+        font-size: 20pt !important;
+    }
+    
+    header {
+        display: none !important;
+        visibility: none !important;
+    }
+    
+    /** Hide pencil buttons for editing */
+    .div-heading img {
+        display: none !important;;
+        visibility: none !important;;
+    }
+    
+    .link-edit {
+        display: none !important;
+        visibility: none !important;
+    }
+    
+    .link-heading {
+        display: none !important;
+        visibility: none !important;
+    }
+
+    aside {
+        display: none !important;
+        visibility: none !important;
+    }
+    
+
+}
