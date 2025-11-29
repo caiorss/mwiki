@@ -463,6 +463,7 @@ translationsi18n =
 		, "menu-item-delete-label":   { "label": "Delete", "title": "Delete this wiki page" }
 		, "menu-item-source-label":   { "label": "Source", "title": "Display source code of current wiki page." }
 		, "links-menu-item-label":    { "label": "Links", "title": "Display all external and internal links of this wiki page." }
+		, "menu-item-print-label":    { "label": "Print", "title": "Print current page or export it to PDF."}
 		, "login-button": 			  "LOG IN"
 		, "username-label": 		  "User Name"
 		, "username-placeholder": 	  "Enter your username"
@@ -492,8 +493,8 @@ translationsi18n =
 		, "edit-section-button": { "title": "Edit section" }
 		, "search-entry-placeholder": "Search"
 		, "search-menu-item-label" :  "Search"
-        , "sidebar-search-label":     "Search"
-        , "sidebar-table-of-contentes-label": "Contents"
+    , "sidebar-search-label":     "Search"
+    , "sidebar-table-of-contentes-label": "Contents"    
 		, "figure-prefix-label": "Figure"
         , "video-prefix-label":   "Video"
 		, "title-listing-all-pages":   "All pages"
@@ -671,8 +672,9 @@ translationsi18n =
 		, "menu-item-new-label":      { "label": "Nova", "title": "Criar nova página Wiki" }
 		, "tags-menu-item-label":     { "label": "Tags", "title": "Navegar pelas páginas usando tags." }
 		, "menu-item-delete-label":   { "label": "Deletar", "title":  "Excluir esta página wiki"}
-		, "menu-item-source-label":   { "label": "Fonte", "title": "Exibir código-fonte da página wiki atual." }
+		, "menu-item-source-label":   { "label": "Código", "title": "Exibir código-fonte da página wiki atual." }
 		, "links-menu-item-label":    { "label": "Links", "title": "Exibir todos os links externos e internos desta página wiki." }
+		, "menu-item-print-label":    { "label": "Imprimir", "title": "Imprimir página atual ou exporte-a para PDF."}
 		, "login-button": 			  "LOGAR"
 		, "username-label":			  "Nome de Usuário"
 		, "username-placeholder":     "Entre com o nome de usuário"
