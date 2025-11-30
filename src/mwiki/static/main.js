@@ -894,6 +894,10 @@ function setLocaleI18n(locale)
 	for(let elem of elements)
 	{
 		let tag = elem.getAttribute("data-i18n");
+		if( elem.textContent.includes("[i18n]") && !elem.dataset.textContentI18N )
+		{
+		  elem.dataset.textContentI18N = elem.textContent;
+		}
 		let value_ = translations[tag];
 		if( !value_){ continue; }
 		let value = value_.label || value_;
@@ -902,7 +906,10 @@ function setLocaleI18n(locale)
 		{
 			if( elem.title.includes("[i18n]") )
 			{
-				elem.title = elem.title.replace("[i18n]", value_.title);
+
+        let out = elem.textContent.replace("[i18n]", value._title);
+        elem.title = out;
+				// elem.title = elem.title.replace("[i18n]", value_.title);
 			} else {
 				elem.title = value_.title;
 			}
@@ -921,9 +928,12 @@ function setLocaleI18n(locale)
 		}
 		if( value_.title && !value_.label ){ continue; }
 		// elem.textContent = value;
-		if( elem.textContent.includes("[i18n]") )
+//		if( elem.textContent.includes("[i18n]") )
+    if( elem.dataset.textContentI18N && elem.dataset.textContentI18N.includes("[i18n]") )
 		{
-			elem.textContent = elem.textContent.replace("[i18n]", value);
+		  let out =  elem.dataset.textContentI18N.replace("[i18n]", value);
+		  // let out = elem.textContent.replace("[i18n]", value);
+			elem.textContent = out;
 		} else {
 			elem.textContent = value;
 		}
