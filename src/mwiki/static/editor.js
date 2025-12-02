@@ -855,6 +855,41 @@ unicodeWindow = new PopupWindow({
                 <button title="Ominus">⊖</button>
                 <button title="Otimes or outer product operator">⊗</button>
                 <button title="Odot">⊙</button>
+                <button title="Iota">⍳</button>
+                <button title="LEQ - Less or Equal Than">≤</button>
+                <button title="GEQ - Greater or Equal Than">≥</button>
+                <button title="Not equal">≠</button>
+                <button>≡</button>
+                <button>≢</button>
+                <button>∊</button>
+                <button>⍷</button>
+                <button title="Greek letter rho or shape operator in APL.">⍴</button>
+                <button title="Greek letter phi or transpose operator in APL">⌽</button>
+                <button>⍉</button>
+                <button>↑</button>
+                <button>↓</button>
+                <button>⊥</button>
+                <button>⊤</button>
+                <button>⊂</button>
+                <button>∩</button>
+                <button>∪</button>
+                <button>⊢</button>
+                <button>⊣</button>
+                <button>⍋</button>
+                <button>⍒</button>
+                <button>⎕</button>
+                <button>⍞</button>
+                <button>◊</button>
+                <button title="Symbol used for comment in APL.">⍝</button>
+                <button>⍎</button>
+                <button>⍕</button>
+                <button>⌷</button>
+                <button>⍬</button>
+                <button>⍨</button>
+                <button title="APL - Slash bar operator">⌿</button>
+                <button title="APL - Backslash bar operator">⍀</button>
+                <button title="APL Outer Product">∘.</button>
+                <button title="APL symbol for matrix inversion.">⌹</button>
                 <button title="Box drawing character">╔</button>
                 <button title="Box drawing character">═</button>
                 <button title="Box drawing character">╦</button>
@@ -1029,6 +1064,7 @@ unicodeWindow = new PopupWindow({
                 <button>🌻</button>
                 <button>🌹</button>
                 <button>🍄</button>
+                <button>🪹</button>
                 <button>❄️</button>
                 <button>💭</button>
                 <button>💦</button>
@@ -1186,7 +1222,7 @@ unicodeWindow = new PopupWindow({
                 <button title="Macao (China's SAR)">🇲🇴</button>
                 <button title="Mongolia flag">🇲🇳</button>
                 <button title="Leabanon's flag">🇱🇧</button>
-                <button title="Flag of Syria, Syrian Flag">🇸🇾></button>
+                <button title="Flag of Syria, Syrian Flag">🇸🇾</button>
                 <button title="Flag of Morocco">🇲🇦</button>
                 <button title="Algeria's flag">🇩🇿</button>
                 <button title="Tunisia's flag">🇹🇳</button>
