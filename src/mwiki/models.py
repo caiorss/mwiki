@@ -349,6 +349,7 @@ class TitleFontFamily(enum.Enum):
     dinweb_balck = "DINWeb-Black"
     saira_thin_normal  = "Saira Thin Normal"
     saira_thin_bold    = "Saira Thin Bold"
+    orbitron_bold = "Orbitron Bold"
 
 
 root_path = utils.get_module_path(mwiki)

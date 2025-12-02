@@ -824,6 +824,11 @@ fonts_database  = [
         , "info":    "Modieval goth-like font used in framce."
         , "role":    "title"
     }
+    ,{
+          "key":    "orbitron-bold"
+        , "family": "Orbitron Bold"
+        , "regular": "Orbitron-Bold.woff2"
+    }
 ]
 
 fonts_database_by_name = dict([(x.get("family"), x) for x in fonts_database])
