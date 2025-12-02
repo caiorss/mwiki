@@ -339,6 +339,7 @@ class TitleFontFamily(enum.Enum):
     space_grotesk = "Space Grotesk"
     bricolage_grotesque = "Bricolage Grotesque"
     graphik_regular_web = "Graphik Regular"
+    rokkit_semibold = "Rokkit Semibold"
     peachi_medium = "Peachi Medium"
     dinweb_light = "DINWeb-Light"
     dinweb_medium = "DINWeb-Medium"

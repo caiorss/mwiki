@@ -614,6 +614,11 @@ fonts_database  = [
         , "regular":  "range-regular-webfont.woff"
     }    
    ,{
+         "key":     "rokkit-semibold"
+       , "family":  "Rokkit Semibold"
+       , "regular": "rokkit-semibold.woff2"
+   }
+   ,{
          "key":           "epson-dotmatrix"
        , "family":        "Epson DotMatrix"
        , "regular":       "DotMatrix-Regular.otf"
