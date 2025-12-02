@@ -464,6 +464,7 @@ translationsi18n =
 		, "menu-item-source-label":   { "label": "Source", "title": "Display source code of current wiki page." }
 		, "links-menu-item-label":    { "label": "Links", "title": "Display all external and internal links of this wiki page." }
 		, "menu-item-print-label":    { "label": "Print", "title": "Print current page or export it to PDF."}
+		, "menu-item-print-icon":     { "title": "Print current page or export it to PDF."}
 		, "login-button": 			  "LOG IN"
 		, "username-label": 		  "User Name"
 		, "username-placeholder": 	  "Enter your username"
@@ -675,6 +676,7 @@ translationsi18n =
 		, "menu-item-source-label":   { "label": "Código", "title": "Exibir código-fonte da página wiki atual." }
 		, "links-menu-item-label":    { "label": "Links", "title": "Exibir todos os links externos e internos desta página wiki." }
 		, "menu-item-print-label":    { "label": "Imprimir", "title": "Imprimir página atual ou exporte-a para PDF."}
+		, "menu-item-print-icon":     { "title": "Imprimir página atual ou exporte-a para PDF."}
 		, "login-button": 			  "LOGAR"
 		, "username-label":			  "Nome de Usuário"
 		, "username-placeholder":     "Entre com o nome de usuário"

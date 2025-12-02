@@ -12,3 +12,12 @@
     {{ content|safe }}
 {% endblock %}
 
+{% block topbar_buttons_last %}
+    <a data-i18n="menu-item-print-icon"
+        class="sidebar-toggle-button" 
+			  title="Print current page or export it to PDF."
+        href="#"
+        onclick="window.print();">
+        <img class="img-icon" src="/static/printer-outline.svg">
+    </a>
+{% endblock %}
