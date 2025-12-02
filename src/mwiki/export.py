@@ -596,7 +596,7 @@ fonts_database  = [
     ,{
           "key":      "DMMono Regular"
         , "family":   "DMMono Regular"
-        , "regular":  "DMono-Regular.woff2"
+        , "regular":  "DMMono-Regular.woff2"
     }
     ,{
           "key":     "DMMono Medium"
@@ -607,6 +607,14 @@ fonts_database  = [
           "key":      "range-mono"
         , "family":   "Range Mono"
         , "regular":  "range-mono-medium-webfont.woff"
+    }
+    ,{
+          "key":         "ia-writer-quattro-s"
+        , "family":      "iA Writer Quatro S"
+        , "regular":     "iA-Writer-Quattro-S-regular.woff2"
+        , "italic":      "iA-Writer-Quattro-S-italic.woff2"
+        , "bold":        "iA-Writer-Quattro-S-bold.woff2"
+        , "bold-itliac": "iA-Writer-Quattro-S-bold-italic.woff2"
     }
    ,{
           "key":      "range"

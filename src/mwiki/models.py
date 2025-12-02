@@ -233,6 +233,7 @@ class FontFamiliyEnum(enum.Enum):
     notosans = "NotoSans"
     neo_euler = "Neo Euler"
     munson = "Munson"
+    ia_writer_quator_s = "iA Writer Quatro S"
     # IBM old-chool monospace that gives back the 
     # nolstagic feeling of typewriters.
     ibm_plex_mono = "IBM Plex Mono"
@@ -282,6 +283,7 @@ class CodeFontFamily(enum.Enum):
     range_mono = "Range Mono"
     dmono_regular  = "DMMono Regular"
     dmmono_medium  = "DMMono Medium"
+    ia_writer_quator_s = "iA Writer Quatro S"
     # Font that mimics Epson's dot-matrix font used in the 1980's for
     # printing code in computer magazines.
     dotmatrix = "Epson DotMatrix"
@@ -302,6 +304,7 @@ class TitleFontFamily(enum.Enum):
     ebgaramond = "EBGaramond"
     chicago_macos_system6 = "Chicago MacOS"
     notosans = "NotoSans"
+    ia_writer_quator_s = "iA Writer Quatro S"
     # nolstagic font mimics typewriters in old documents with ink leakage.
     jackwrite = "Jackwrite"
     jackwrite_bold = "Jackwrite Bold"
