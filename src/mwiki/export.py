@@ -704,6 +704,12 @@ fonts_database  = [
       , "info":    "Nostalgic noir font/typeface that mimics typewriter ink leaked on old paper."
    }
    ,{
+         "key":     "essays1743"
+       , "family":  "Essays1743"
+       , "regular": "Essays1743.woff"
+       , "info":    "Nostalgia noir font\typeface that looks like typewriter font with leaked ink."
+   }
+   ,{
        "key":    "cmu-concrete"
       ,"family": "CMU Concrete"
       ,"regular": "cmu-concrete-regular.woff"

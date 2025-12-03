@@ -239,6 +239,7 @@ class FontFamiliyEnum(enum.Enum):
     ibm_plex_mono = "IBM Plex Mono"
     # nolstagic font mimics typewriters in old documents with ink leakage.
     jackwrite = "Jackwrite"
+    essays1743 =  "Essays1743"
     # Font that mimics Epson's dot-matrix font used in the 1980's for
     # printing code in computer magazines.
     dotmatrix = "Epson DotMatrix"
@@ -308,6 +309,7 @@ class TitleFontFamily(enum.Enum):
     # nolstagic font mimics typewriters in old documents with ink leakage.
     jackwrite = "Jackwrite"
     jackwrite_bold = "Jackwrite Bold"
+    essays1743 =  "Essays1743"
     # IBM old-chool monospace that gives back the nolstagic
     # feeling of the typewriter 
     ibm_plex_mono = "IBM Plex Mono"
