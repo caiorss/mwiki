@@ -16,7 +16,7 @@ Applications:
 
 **Changelog:**
 
-+ [./docs/changelog.md](./docs/changelog.md)
++ [./changelog.md](./changelog.md)
 
 **NOTES:**
 

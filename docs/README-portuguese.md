@@ -15,7 +15,7 @@ Aplicações:
 
 **Registro de Mudanças (Changelog):**
 
-+ [./docs/changelog.md](./docs/changelog.md)
++ [changelog.md](../changelog.md)
 
 
 **NOTAS:**
