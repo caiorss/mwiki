@@ -1,8 +1,17 @@
 # Changelog 
 
+## Release v0.9.1
+
++ Add fonts/typefaces choices in the settings form: IBM's  iA Writer Quattro S, Roboto, Essay1743, Rokkit Semibold
++ Implement printer (printing machine) icon on the page header (topbard) for printing the current Wiki page or exporting it to PDF (Adobe's Portable Document File).
++ Implement editor's dialog window for inserting unicode and emoji symbols.
+   + The dialog allows inserting several types of unicode and emoji symbols, including coutry flags, emojis and unicode symbols related to nature, food, beverage,technology, math symbols, APL (array-oriented programming language) symbols.
++ Bugfix - The code editor's session no longer becomes invalid due to old CSRF (Cross Site Request Forgery) token expiration. Now the CSRF token is automatically renewed by Ajax JavaScript requests to a REST API endpoint, that requires authentication.
++ Bugfix - Fix I8N internationalization of elements with string interpolation.
+
 ## Release v0.9
 
-+ Add new fonts/typefaces choices  Averia, AveriaSans, Averia Gruesa, NotoSans, Space Groteske, EBGaramond, Jet Brains Mono (monospace font for source code listing), DMMono Regular.
++ Add new fonts/typefaces choices:  Averia, AveriaSans, Averia Gruesa, NotoSans, Space Groteske, EBGaramond, Jet Brains Mono (monospace font for source code listing), DMMono Regular.
 + Generate CSS font-face data dynamically instead of hardcoding them in the CSS file. This change improves the website loading speed.
 + Create custom markdown/JSON syntax for flashcard deck `{flashcard}`. NOTE that this feature is still under development.
 + Implement mastodon-like button for displaying alt text of figures, images with metadata defined with a `{figure}` block, in popup windows.
