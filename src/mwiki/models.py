@@ -268,6 +268,7 @@ class FontFamiliyEnum(enum.Enum):
     bricolage_grotesque = "Bricolage Grotesque"
     textura_modern = "Textura Modern"
     bastarda = "Bastarda"
+    roboto = "Roboto"
 
 
 class CodeFontFamily(enum.Enum):
@@ -289,6 +290,7 @@ class CodeFontFamily(enum.Enum):
     # printing code in computer magazines.
     dotmatrix = "Epson DotMatrix"
     dotmatrix_duo = "Epson DotMatrixDuo"
+    
 
 
 class TitleFontFamily(enum.Enum):
@@ -352,6 +354,7 @@ class TitleFontFamily(enum.Enum):
     saira_thin_normal  = "Saira Thin Normal"
     saira_thin_bold    = "Saira Thin Bold"
     orbitron_bold = "Orbitron Bold"
+    roboto = "Roboto"
 
 
 root_path = utils.get_module_path(mwiki)

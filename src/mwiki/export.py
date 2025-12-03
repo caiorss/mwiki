@@ -835,6 +835,12 @@ fonts_database  = [
         , "family": "Orbitron Bold"
         , "regular": "Orbitron-Bold.woff2"
     }
+   ,{
+         "key":     "roboto"
+       , "family":  "Roboto"
+       , "regular": "roboto-regular.woff2"
+       , "bold":    "roboto-medium.woff2"
+   }
 ]
 
 fonts_database_by_name = dict([(x.get("family"), x) for x in fonts_database])
