@@ -1739,18 +1739,22 @@ class HtmlRenderer(AbstractAstRenderer):
                     back  = card[1] # Contains the response 
                     style = "hidden" if k != 0 else ""
                     html += ("""<div class="card-entry %s" data-index="%s">\n""" % (style , k)
-                                + """<button class="btn-show-card">open</button>""" 
+                                + """<button class="btn-show-card primary-button">open</button>""" 
                                 + """<label class="label-card-front">(%d/%d) %s</label>""" % (k+1, n, front) 
                                 + """<p class="card-answer hidden">ANSWER: %s</p>""" % back 
                                 + """</div>""")
                     k = k + 1
                 html = (  """<div class="div-flashcard"  data-size="%s">""" % len(entries)
-                        + """<div><b class="flashcard-title">%s</b></div>""" % title
+                        + """<div><h2 class="flashcard-title">%s</h2></div>""" % title
                         + """<div class="div-flashcard-button-panel">""" 
-                            + """<button class="btn-flashcard-view">View</button>""" 
-                            + """<button class="btn-flashcard-prev">Prev</button>""" 
-                            + """<button class="btn-flashcard-next">Next</button>""" 
-                            + """<input class="random-mode-checkbox" type="checkbox" name="random" /><label for="random">Random</label>"""
+                            + """<button class="btn-flashcard-view primary-button" title="Show all flashcards and their backsides (answers).">View</button>""" 
+                            + """<button class="btn-flashcard-prev primary-button" title="Show previous flashcard.">Prev</button>""" 
+                            + """<button class="btn-flashcard-next primary-button" title="Show next flashcard in this deck.">Next</button>""" 
+                            + """<div>"""
+                                + """<button class="btn-flashcard-reset primary-button" title="Reset flashcard deck.">Reset</button>""" 
+                               + """<input class="random-mode-checkbox" type="checkbox" name="random" title="Pick flashcards in random order."><label for="random">Random</label>"""
+                               + """<input class="display-backside-checkbox" type="checkbox" name="display-backside" title="Always display backside of current flashcard."><label for="display-backside-checkbox">Show backside</label>"""
+                            + """</div>"""
                             + """</div>""" 
                             
                         + """<div class="flashcard-entries">\n""" +  html  + """\n</div>"""

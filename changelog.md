@@ -9,6 +9,7 @@
 + Printer icon button opens page in new tab and displays it in desktop mode for better printing or exporting to PDF in mobile devices. In mobile devices this feature is useful for downloading pages as PDF files for offile reading.
 + Implement editor's dialog window for inserting unicode and emoji symbols.
    + The dialog allows inserting several types of unicode and emoji symbols, including coutry flags, emojis and unicode symbols related to nature, food, beverage,technology, math symbols, APL (array-oriented programming language) symbols.
++ Improve flashcard system. Add reset button to flashcard decks. Improve button style of flashcard decks and add checkbox "[] Show backside" for always displaying backside (answer) of flashcards, which is useful during a study session for a later review.
 + Fix font size of dialog windows for mobile devices.
 + Bugfix - The code editor's session no longer becomes invalid due to old CSRF (Cross Site Request Forgery) token expiration. Now the CSRF token is automatically renewed by Ajax JavaScript requests to a REST API endpoint, that requires authentication.
 + Bugfix - Fix I8N internationalization of elements with string interpolation.

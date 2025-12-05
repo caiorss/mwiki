@@ -327,7 +327,7 @@ class FlashCard
      this._handlers = {}; 
      this._root = root;
      this._visible = false;
-     // Number of flashcards in this set of flashcards
+     // Number of flashcards in this deck of flashcards
      this._size = JSON.parse(root.dataset.size);
      // Current visible flashcard in practice mode (when all cards are hidden)
      this._current = 0;
@@ -336,12 +336,76 @@ class FlashCard
      this.bindClick("btn-flashcard-prev", (target) => self.prev(target));
      this.bindClick("btn-flashcard-view", (target) => self.toggle(target));
      this.bindClick("btn-show-card", (target) => self.showAnswer(target));
+     this.bindClick("btn-flashcard-reset", (target) => {
+        this._current = 0;
+        let entries = this._root.querySelectorAll(".card-entry");
+        for(let x of entries)
+        {
+           x.classList.add("hidden");    
+           let backside = x.querySelector(".card-answer");
+           backside.classList.add("hidden");
+           x.querySelector(".btn-show-card").textContent = "open";
+        }
+        this.toggleCard(0);
+        let checkbox = this._root.querySelector(".display-backside-checkbox");
+        // checkbox.checkbox = false;
+        let displayBackSide = checkbox.checked;
+        if(displayBackSide){
+          checkbox.click();  
+        }
+     });
+     let toggleBackSide = () => {
+        //this.toggleBackside(this._current);
+        let entries = this._root.querySelectorAll(".card-entry");
+        for(let x of entries)
+        {
+           // x.classList.remove("hidden");    
+           let backside = x.querySelector(".card-answer");
+           backside.classList.toggle("hidden");
+           let label = backside.classList.contains("hidden") ? "open" : "close";
+           x.querySelector(".btn-show-card").textContent = label;
+        }
+     };
+    this.bindClick("display-backside-checkbox", toggleBackSide);
+    let displayBackside = this.checkboxValue(".display-backside-checkbox");
+    if(displayBackside){ toggleBackSide(); }
   }
   
   toggle(target)
   {
     if(this._visible){ this.hide(); } 
     else 						 { this.show(); }
+  }
+
+  /** Toggle visibility of the the it-th flashcard
+    * @param {number} index
+    */
+  toggleCard(index)
+  {
+    
+    let card = this._root.querySelectorAll(".card-entry")[index];
+    card.classList.toggle("hidden");
+  }
+
+  /** Tooggle visibility of the backside of the i-th flashcard
+    * @param {number} index
+    */
+  toggleBackside(index)
+  {
+    let card = this._root.querySelectorAll(".card-entry")[index];
+    let backside = card.querySelector(".card-answer");
+    backside.classList.toggle("hidden");
+  }
+
+  
+  /** Display the backside of the i-th flashcard
+    * @param {number} index
+    */
+  displayBackside(index)
+  {
+    let card = this._root.querySelectorAll(".card-entry")[index];
+    let backside = card.querySelector(".card-answer");
+    backside.classList.remove("hidden");
   }
   
   show(target)
@@ -372,16 +436,34 @@ class FlashCard
   next(target)
   {
     if(this._visible){ return; }
-    this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
-    let randomMode = this._root.querySelector(".random-mode-checkbox").checked;
+    //this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
+    this.toggleCard(this._current);
+    let randomMode = this.checkboxValue(".random-mode-checkbox");
+    let displayBackside = this.checkboxValue(".display-backside-checkbox");
     if(randomMode){
       this._current = nextRandomInt(this._size, this._current);
     } else {
       this._current = this._current + 1;
       if(this._current >= this._size){ this._current = this._size - 1}
     }
-    this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
+    this.toggleCard(this._current);
+    if(displayBackside){
+      this.displayBackside(this._current);
+    }
+    //this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
     // alert("Error not implementd");
+  }
+
+  /** Get value of a checkbox, given its CSS selector. 
+    * @param {string} selector 
+    * @return {boolean}
+    */   
+  checkboxValue(selector)
+  {
+    let dom = this._root.querySelector(selector)
+    if(!dom){ console.error(`DOM element with selector ${selector} not found.`)}
+    let out = dom.checked;
+    return out;
   }
   
   /* Switch to previous flashcard of the cardset. */
