@@ -29,6 +29,7 @@ import mwiki.models as models
 from . models import db, User, Settings, BookmarkedPage, WikiPage, WikiRepository, MwikiConfig
 from . login import add_login
 from . forms import UserAddForm, UserSettingsForm, SettingsForm, UserEditForm, UserCreateForm
+from werkzeug.datastructures.file_storage import FileStorage
 from . constants import ( M_GET, M_POST, M_DELETE
                         , STATUS_CODE_400_BAD_REQUEST, STATUS_CODE_401_UNAUTHORIZED
                         , STATUS_CODE_403_FORBIDDEN,   STATUS_CODE_404_NOT_FOUND
@@ -883,23 +884,33 @@ def make_app_server(  host:        str
             flask.abort(STATUS_CODE_401_UNAUTHORIZED)
         if not user.user_can_edit():
             flask.abort(STATUS_CODE_403_FORBIDDEN)
-        afile = request.files.get('file')
-        ## breakpoint()
+        afile: Optional[FileStorage] = request.files.get('file')
+        assert afile is not None 
+        # Checkbox for converting images to JPEG
+        convert_jpeg = flask.request.form.get("convert-jpeg", "") == "on"
         if afile is None:
             flask.abort(STATUS_CODE_400_BAD_REQUEST)        
         upload_dir = pathlib.Path(wikipath).joinpath("upload")
         utils.mkdir(str(upload_dir))
-        file_ = request.form.get("fileLabel") or afile.filename
+        ## file_ = request.form.get("fileLabel") or afile.filename
         fname, extension = os.path.splitext(afile.filename)
         # Note that the extension alread starts with "."
         assert extension.startswith(".")
         filename = utils.slugify(fname) + extension
         path = upload_dir.joinpath(filename)
-        if path.exists():
-            out = flask.jsonify({ "status": "ok", "error": "", "file": filename})
-            return out 
-        afile.save(path)
         out = flask.jsonify({ "status": "ok", "error": "", "file": filename})
+        if path.exists():
+            return out
+        if convert_jpeg and extension.lower() in [".jpeg", ".jpg", ".png", ".bmp"]:
+            img = Image.open(io.BytesIO(afile.read()))
+            jpeg_image = img.convert('RGB')
+            filep = fname + ".jpg"
+            path = upload_dir.joinpath(filep)
+            jpeg_image.save(path, "JPEG")
+            out = flask.jsonify({ "status": "ok", "error": "", "file": filep})
+        else:
+            afile.save(path)
+            out = flask.jsonify({ "status": "ok", "error": "", "file": filename})
         return out
 
     @app.route("/auth", methods = [M_POST, M_GET])

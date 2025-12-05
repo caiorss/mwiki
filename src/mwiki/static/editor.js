@@ -498,6 +498,13 @@ uploadWindow = new PopupWindow({
                 <label data-i18n="upload-form-choose-file-label" for="file">Choose a file</label>
                 <input type="file" id="fileInput" name="file" required>
             </fieldset>
+            <fieldset>
+                <input type="checkbox" name="convert-jpeg">
+                <label data-i18n="upload-form-convert-jpeg-checkbox-label" for="convert-jpeg">Convert Images to JPEG</label>
+                <p data-i18n="upload-form-convert-jpeg-checkbox-description">
+                    Reduce image file size by converting uploaded image to JPEG
+                </p>
+            </fieldset>
             <fielset>
                 <button class="primary-button" data-i18n="upload-form-submit-button" type="submit" name="submit">Upload</button>
             </fieldset>

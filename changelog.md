@@ -3,6 +3,7 @@
 ## Release v0.9.1
 
 + Add fonts/typefaces choices in the settings form: IBM's  iA Writer Quattro S, Roboto, Essay1743, Rokkit Semibold, Linux Libertine, Orbitron Bold.
++ Add "convert to JPEG" checkbox to the upload form for reducing the file size of uploaded images. This feature reduces disk storage space and bandwidth usage.
 + Implement printer (printing machine) icon on the page header (topbard) for printing the current Wiki page or exporting it to PDF (Adobe's Portable Document File).
 + Implement editor's dialog window for inserting unicode and emoji symbols.
    + The dialog allows inserting several types of unicode and emoji symbols, including coutry flags, emojis and unicode symbols related to nature, food, beverage,technology, math symbols, APL (array-oriented programming language) symbols.
