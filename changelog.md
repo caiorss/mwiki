@@ -4,6 +4,7 @@
 
 + Add fonts/typefaces choices in the settings form: IBM's  iA Writer Quattro S, Roboto, Essay1743, Rokkit Semibold, Linux Libertine, Orbitron Bold.
 + Add "convert to JPEG" checkbox to the upload form for reducing the file size of uploaded images. This feature reduces disk storage space and bandwidth usage.
++ Command $ mwiki export for static websiste generation or creating self-contained html files now has the command line switch --unicode-emoji-favicon, which allows using using a emoji or unicode symbol such as "🎓" as web site favicon.
 + Implement printer (printing machine) icon on the page header (topbard) for printing the current Wiki page or exporting it to PDF (Adobe's Portable Document File).
 + Printer icon button opens page in new tab and displays it in desktop mode for better printing or exporting to PDF in mobile devices. In mobile devices this feature is useful for downloading pages as PDF files for offile reading.
 + Implement editor's dialog window for inserting unicode and emoji symbols.

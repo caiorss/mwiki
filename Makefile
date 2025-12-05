@@ -20,6 +20,7 @@ gh-pages:
 		--allow-language-switch \
 		--latex-renderer=katex \
 		--root-url=/mwiki --source \
+		--unicode-emoji-favicon="🎓" \
 		--output=./dist
 
 

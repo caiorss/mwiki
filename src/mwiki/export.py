@@ -23,6 +23,7 @@ def export(   wikipath:              Optional[str]
             , main_font:             str 
             , code_font:             str 
             , title_font:            str 
+            , unicode_emoji_favicon: Optional[str]
             , list_fonts:            bool 
             , allow_language_switch: bool
             , self_contained:        bool 
@@ -159,6 +160,7 @@ def export(   wikipath:              Optional[str]
     print(" [*]                    Main font family: ", main_font_family)
     print(" [*]                   Title Font Family: ", title_font_family)
     print(" [*]                    Code Font Family: ", code_font_family)
+    print(" [*]               Unicode/emoji favicon: ", unicode_emoji_favicon)
     print()
     print("Status:")
     print()
@@ -274,6 +276,7 @@ def export(   wikipath:              Optional[str]
                , "src_page_html_url":    src_page_html_url 
                , "page_type":           "main"
                , "katex_macros":         utils.base64_encode( renderer.katex_macros )
+               , "unicode_emoji_favicon": unicode_emoji_favicon
               }
         ## html = tpl.render(env)
         html = static_html_renderer(env)

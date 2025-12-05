@@ -258,6 +258,7 @@ def watch(wikipath: str):
 @click.option("--main-font", default = "literata", help="Main font used in document text.") 
 @click.option("--code-font", default = "libertinus-mono", help="Code monospace font used in code blocks.") 
 @click.option("--title-font", default = "news-reader", help="Title font used in document section headings.") 
+@click.option("--unicode-emoji-favicon", default = "📚", help = "Use unicode or emoji symbol as favicon.")
 @click.option("--list-fonts", is_flag = True, help="List all available fonts.") 
 @click.option("--allow-language-switch", is_flag = True
               , help = ( "Allow end-user to switch the user interface language." ))
@@ -292,6 +293,7 @@ def export(   wikipath:              Optional[str]
             , main_font:             str 
             , code_font:             str 
             , title_font:            str 
+            , unicode_emoji_favicon: Optional[str]
             , list_fonts:            bool 
             , allow_language_switch: bool
             , self_contained:        bool 
@@ -305,7 +307,7 @@ def export(   wikipath:              Optional[str]
     "Export a MWiki repository or a markdown files repository to a static website."""
     mwiki.export.export(  wikipath, output, page, website_name
                         , root_url, locale, icon, main_font
-                        , code_font, title_font
+                        , code_font, title_font, unicode_emoji_favicon
                         , list_fonts, allow_language_switch, self_contained
                         , embed_latex_renderer, latex_renderer, compile_latex, verbose, author, source)        
  
