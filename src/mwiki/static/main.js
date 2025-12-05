@@ -1093,10 +1093,10 @@ function popupIframe (title, url, options)
           title: title 
         , html: html_
         , width: width
-        , height: height
+        // , height: height
         , top: "20px"
         , left: "50px" 
-        , zIndex: "500"
+        , zIndex: "1000"
     };
     let pwindow = new PopupWindow(options_);
     // pwindow.addClass("popup-window-iframe");
