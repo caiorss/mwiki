@@ -922,7 +922,10 @@ unicodeWindow = new PopupWindow({
             <div>
                 <h3>Stuffs</h3>
                 <button>☀</button>
+                <button title="Mailbox">📬</button> 
+                <button>⏰</button> 
                 <button>🕙️</button> 
+                <button title="Dice">🎲</button> 
                 <button>📍</button>
                 <button>🎟️</button>
                 <button>💡</button> 	
@@ -996,6 +999,7 @@ unicodeWindow = new PopupWindow({
                 <button>😎</button> 
                 <button>🤓</button>
                 <button>😃</button>
+                <button>🥳</button> 
                 <button>😊</button>
                 <button>👻</button>
                 <button>🤡</button> 	
@@ -1038,6 +1042,7 @@ unicodeWindow = new PopupWindow({
                 <button>🤏🏾</button>
                 <button>👏🏾</button>
                 <button>👊🏾</button>
+                <button>🙌🏻</button>
                 <button>💯</button>
                 <button>🎉</button>
                 <button>😑</button>
@@ -1058,6 +1063,7 @@ unicodeWindow = new PopupWindow({
                 <button>😡</button>
                 <button>👿</button>
                 <button>⚔️</button>
+                <button title="Soldier's helmet, serviceman helmet">🪖</button> 
                 <button>☠️ </button>
                 <button>🏴‍☠️</button>
                 <button>🔥</button>
@@ -1083,16 +1089,19 @@ unicodeWindow = new PopupWindow({
                 <button>🌎️</button>
                 <button>🌍️</button>
                 <button>🌏️</button>
+                <button title="Volcano">🌋</button> 
             </div>
             <div>
                 <h3>Animals</h3>
                 <button title="Dragon">🐉</button>
+                <button title="blue bird">🐦</button> 
                 <button>🦊</button>
                 <button>🦉</button>
                 <button>🦅</button>
                 <button>🐘</button>
                 <button>🦣</button>
                 <button>🦏</button>
+                <button>🐻</button>
                 <button>🦧</button>
                 <button>🐒</button>
                 <button>🐍</button>
@@ -1134,13 +1143,15 @@ unicodeWindow = new PopupWindow({
             </div>
             <div>
                 <h3>Space</h3>
-                <button>🚀</button>
                 <button>🪐</button>
                 <button>☀️</button>
                 <button>🌟</button>
                 <button>🌒</button>
                 <button>🌔</button>
+                <button>🚀</button>
+                <button>🔭</button> 
                 <button>🛰️</button>
+                <button>📡</button> 
                 <button>⚡️</button>
                 <button>✨</button>
                 <button>✧</button>
@@ -1150,6 +1161,7 @@ unicodeWindow = new PopupWindow({
                 <h3>Food and Beverage</h3>
                 <button title="A cup of coffee">☕️️</button>
                 <button title="A glass of beer - beverage">🍺</button> 
+                <button>🍸</button> 
                 <button>🍓</button>
                 <button>🍎</button>
                 <button>🍍</button>
@@ -1240,11 +1252,13 @@ unicodeWindow = new PopupWindow({
                 <button title="Algeria's flag">🇩🇿</button>
                 <button title="Tunisia's flag">🇹🇳</button>
                 <button title="Egypt's flag">🇪🇬</button>
+                <button>🇾🇪</button>
                 <button title="Flag of UAE - United Arabs Emirates">🇦🇪</button>
                 <button title="Jordan's flag">🇯🇴</button>
                 <button title="Qatar">🇶🇦</button>
                 <button title="Saudi Arabia">🇸🇦</button>
                 <button title="Bahrain flag">🇧🇭</button>
+                <button>🇮🇷</button>
                 <button tilte="Pirate flag, used by pirate ships (funny)">🏴‍☠️</button>
                 <button title="Chequered flag">🏁</button>
                 <button title="Triangular flag">🚩</button>
@@ -1255,7 +1269,10 @@ unicodeWindow = new PopupWindow({
             <div>
                 <h3>Non Categorized</h3>
                 <button>🎓</button>
-                <button>🧮</button>
+                <button title="Letter">✉️</button> 
+                <button title="Newspaper>📰</button>
+                <button title="Abacus">🧮</button>
+                <button title="Brain">🧠</button> 
                 <button>🕟</button> 
                 <button>📬</button>
                 <button>⛏️</button> 
@@ -1309,6 +1326,8 @@ unicodeWindow = new PopupWindow({
                 <button>乁_益_ㄏ</button>
             </div>
       </div>
+
+<button>✍</button>️ 
 <button>
 
 
