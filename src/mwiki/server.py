@@ -890,8 +890,10 @@ def make_app_server(  host:        str
         upload_dir = pathlib.Path(wikipath).joinpath("upload")
         utils.mkdir(str(upload_dir))
         file_ = request.form.get("fileLabel") or afile.filename
-        _, extension = os.path.splitext(afile.filename)
-        filename = utils.slugify(file_) + extension
+        fname, extension = os.path.splitext(afile.filename)
+        # Note that the extension alread starts with "."
+        assert extension.startswith(".")
+        filename = utils.slugify(fname) + extension
         path = upload_dir.joinpath(filename)
         if path.exists():
             out = flask.jsonify({ "status": "ok", "error": "", "file": filename})
