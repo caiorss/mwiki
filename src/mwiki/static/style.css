@@ -881,118 +881,125 @@ main thead th {
 /** For mobile devices with small screen */
 @media (max-width: 810px) {
 
-  /* Scroll horizontally if the LaTeX equation
+  :root {
+    --screen-type: mobile;
+  }
+
+  .force-desktop {
+    :root {
+      --screen-type: desktop;
+    }
+  }
+
+  body:not(.force-desktop) {
+
+    /* Scroll horizontally if the LaTeX equation
     *  does not fit the mobile screen.
     */
-  .div-latex-code {
-    overflow: scroll;
-    display: inline-block;
-  }
+    .div-latex-code {
+      overflow: scroll;
+      display: inline-block;
+    }
 
-  .sidebar-toggle-button {
-    font-size: 1.5rem !important;
-  }
+    .sidebar-toggle-button {
+      font-size: 1.5rem !important;
+    }
 
 
-  /*    
+    /*    
     .content {
         font-size: 14px !important;
     }
     */
 
-  a.link-edit {
-    /** Align Button to the right **/
-    position: absolute;
-    right: 10px;
-  }
+    a.link-edit {
+      /** Align Button to the right **/
+      position: absolute;
+      right: 10px;
+    }
 
-  .table {
-    font-size: 8pt;
-  }
+    .table {
+      font-size: 8pt;
+    }
 
-  .highlight {
-    margin-bottom: -30px !important;
-  }
+    .highlight {
+      margin-bottom: -30px !important;
+    }
 
-  .sidebar {
-    max-width: min(70%, 300px);
-    z-index: 2;
-  }
+    .sidebar {
+      max-width: min(70%, 300px);
+      z-index: 2;
+    }
 
-  .sidebar-visibility {
-    display: None;
-  }
-
-
-  .main-shift {
-    left: 0;
-  }
-
-  .main-visiblity {
-    left: min(70%, 300px);
-  }
+    .sidebar-visibility {
+      display: None;
+    }
 
 
-  .content {
-    font-size: 1rem;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
+    .main-shift {
+      left: 0;
+    }
 
-  :root {
-    --screen-type: mobile;
-  }
-
-  .sidebar-toggle-button {
-    height: 50px;
-    padding: 0 5px;
-    line-height: 50px;
-    font-size: 1.0rem;
-    color: cadetblue;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  img.admonition-icon {
-    max-width: 12px;
-    margin-top: 0px !important;
-    padding: 0px !important;
-  }
-
-  .admonition-title {
-    /* margin: -6px -30px !important; */
-    margin-top: 0px !important;
-  }
+    .main-visiblity {
+      left: min(70%, 300px);
+    }
 
 
+    .content {
+      font-size: 1rem;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
 
-  img.inline-math-single {
-    height: 12px;
-    max-height: 12px;
-  }
 
-  img.math {
-    transform: scale(0.8);
-    margin-left: 0px;
-    /* padding-bottom: 10px;  */
-    margin-top: 5px !important;
-    /* margin: -20px !important; */
+    .sidebar-toggle-button {
+      height: 50px;
+      padding: 0 5px;
+      line-height: 50px;
+      font-size: 1.0rem;
+      color: cadetblue;
+      text-decoration: none;
+      cursor: pointer;
+    }
 
-    /** Debug */
-    /* background-color: gray; */
-  }
+    img.admonition-icon {
+      max-width: 12px;
+      margin-top: 0px !important;
+      padding: 0px !important;
+    }
 
-  .popup-window {
-    max-height: 80% !important;
-    max-width: 90% !important;
-    /* top: 10px !important; */
-    left: 10px !important;
-    margin: 0px;
-    padding: 0px;
-    font-size: 1rem;
-  }
+    .admonition-title {
+      /* margin: -6px -30px !important; */
+      margin-top: 0px !important;
+    }
 
-  /**
+    img.inline-math-single {
+      height: 12px;
+      max-height: 12px;
+    }
+
+    img.math {
+      transform: scale(0.8);
+      margin-left: 0px;
+      /* padding-bottom: 10px;  */
+      margin-top: 5px !important;
+      /* margin: -20px !important; */
+
+      /** Debug */
+      /* background-color: gray; */
+    }
+
+    .popup-window {
+      max-height: 80% !important;
+      max-width: 90% !important;
+      /* top: 10px !important; */
+      left: 10px !important;
+      margin: 0px;
+      padding: 0px;
+      font-size: 1rem;
+    }
+
+    /**
     .popup-window {
         max-height: 50% !important;
         max-width: 80% !important;
@@ -1005,7 +1012,10 @@ main thead th {
     }
     */
 
-}
+  }
+
+
+} /* -- End of mobile media query -- */
 
 .main-left {
   left: 0px !important;
@@ -1488,29 +1498,36 @@ code {
   }
 
   @page {
-    margin: 0;
+    margin: 1cm;
   }
 
   body {
     margin: 1.6cm;
+    font-size: 12pt;
+    color: black;
+    background-color: white;
   }
 
-  body {
-    background: yellow !important;
-    font-size: 20pt !important;
-  }
 
   header {
     display: none !important;
     visibility: none !important;
   }
 
+
+  pre {
+    font-size: 8pt;
+  }
+
+  pre code {
+    break-insde: avoid;
+    font-size: 8pt;
+  }
+
   /** Hide pencil buttons for editing */
   .div-heading img {
     display: none !important;
-    ;
     visibility: none !important;
-    ;
   }
 
   .link-edit {

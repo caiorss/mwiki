@@ -1282,6 +1282,18 @@ function isMobileScreen()
     return isMobile;
 }
 
+function printPage()
+{
+  if( isMobileScreen() ){
+    // Open document in new table in printing mode
+    let url = document.location.href.replace("#", "") + "?print=true";
+    window.open(url, "_blank");
+  } else {
+    // print current wiki page
+    window.print();
+  }
+}
+
 
 var timerId = -1;
 
@@ -1536,13 +1548,21 @@ document.addEventListener("DOMContentLoaded", async function()
 		            });
 	    });
     }
+
+    // Translate user interface I18N
+    doTranslationI18N();
 	
-    if( isMobileScreen() ) { setHeadingsVisibility(false); }
-    _visibilityFlag =  !isMobileScreen();
+    let params = new URLSearchParams(window.location.search);
+    if( params.get("print") === "true" )
+    {
+       document.body.classList.add("force-desktop");
+       window.print();
+    } else {
+      if( isMobileScreen() ) { setHeadingsVisibility(false); }
+      _visibilityFlag =  !isMobileScreen();
+    }
     // setHeadingsVisibility(false);
 
-    // Translate ser interface I18N
-    doTranslationI18N();
 });
 
 
