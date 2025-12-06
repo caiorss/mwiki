@@ -108,6 +108,7 @@ def cli1():
                          "Linux, BSD or Apple's MacOS. This option is recommended for "
                          "deploying the server in production."
                          ))
+@click.option("--clean-cache", is_flag = True, help = "Clean MWIKI cache in $MWIKI_REPO/.data directory.")
 @click.option("--pdb", is_flag = True, 
                 help = ( "Enable post-mortem debugger." ))
 @click.option("--auth", is_flag = True, help = "Create 20 seconds authenticatiion token and URL for passwordless login. (default user 'admin')")
@@ -121,6 +122,7 @@ def server(  host:       str
            , config:     str
            , secret_key: Optional[str]
            , pdb:        bool
+           , clean_cache: bool 
            , wsgi:       bool
            , auth:       bool
            , auth_user:  str 
@@ -168,7 +170,11 @@ def server(  host:       str
         _secret_key = server.get("secret_key", None)
         #make_app_server(_host, _port, _debug, _login, _wikipath, _random_ssl, _secret_key)
     _wikipath = utils.expand_path(_wikipath)
-
+    if clean_cache:
+        cachedir = pathlib.Path(_wikipath) / ".data/cache"
+        print(" [INFO] Deleting cache directory: "+ str(cachedir))
+        shutil.rmtree(cachedir)
+        cachedir.mkdir(exist_ok= True)
     if auth:
         generate_login_token_url(_wikipath, auth_user)
     

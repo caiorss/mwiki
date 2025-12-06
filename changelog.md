@@ -3,6 +3,7 @@
 ## Release v0.9.1
 
 + Add fonts/typefaces choices in the settings form: IBM's  iA Writer Quattro S, Roboto, Essay1743, Rokkit Semibold, Linux Libertine, Orbitron Bold.
++ Add flag `--clean-cache` to command `$ mwiki server` for cleaning the cache directory `$MWIKI_DIRECTORY/.data/cache` containing pages compiled to html. Cleaning the cache may be useful for changing the site favicon without manually deleting the cached directory.
 + Implement ability to use user-defined favicon (Ruby-On-Rail-like convention over configuration). Any image file named as favicon, for instance favicon.ico, favicon.png, favicon.jpeg or favicon.png in the Wiki repository's root directory can be used as the website favicon without any configuration. 
 + Add "convert to JPEG" checkbox to the upload form for reducing the file size of uploaded images. This feature reduces disk storage space and bandwidth usage.
 + Command $ mwiki export for static websiste generation or creating self-contained html files now has the command line switch --unicode-emoji-favicon, which allows using using a emoji or unicode symbol such as "🎓" as web site favicon.
