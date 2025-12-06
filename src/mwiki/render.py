@@ -1744,14 +1744,22 @@ class HtmlRenderer(AbstractAstRenderer):
                                 + """<p class="card-answer hidden">ANSWER: %s</p>""" % back 
                                 + """</div>""")
                     k = k + 1
+                show_deck = f'<img class="btn-flashcard-view btn-icon" title="Display all flashcards and their backsides." src="{self._root_url}/static/folder2-open.svg">' 
+                reset_button = f'<img class="btn-flashcard-reset btn-icon" title="Reset flashcard deck." src="{self._root_url}/static/arrow-90deg-down.svg">'
+                arrow_left_bold = f'<img class="btn-flashcard-prev btn-icon" title="Go to previous flashcard." src="{self._root_url}/static/arrow-left-bold.svg">'
+                arrow_right_bold = f'<img class="btn-flashcard-next btn-icon" title="Go to next flashcard." src="{self._root_url}/static/arrow-right-bold.svg">'
                 html = (  """<div class="div-flashcard"  data-size="%s">""" % len(entries)
                         + """<div><h2 class="flashcard-title">%s</h2></div>""" % title
                         + """<div class="div-flashcard-button-panel">""" 
-                            + """<button class="btn-flashcard-view primary-button" title="Show all flashcards and their backsides (answers).">View</button>""" 
-                            + """<button class="btn-flashcard-prev primary-button" title="Show previous flashcard.">Prev</button>""" 
-                            + """<button class="btn-flashcard-next primary-button" title="Show next flashcard in this deck.">Next</button>""" 
+                            + show_deck
+                            # + """<button class="btn-flashcard-view primary-button" title="Show all flashcards and their backsides (answers).">View</button>""" 
+                            + arrow_left_bold 
+                            ##+ f"""<a class="btn-flashcard-prev" title="Show previous flashcard." href="#">{arrow_left_bold}</a>""" 
+                            #+ f"""<a class="btn-flashcard-next" href="#" title="Show next flashcard in this deck.">{arrow_right_bold}</a>""" 
+                            + arrow_right_bold
+                            + reset_button
                             + """<div>"""
-                                + """<button class="btn-flashcard-reset primary-button" title="Reset flashcard deck.">Reset</button>""" 
+                                # + """<button class="btn-flashcard-reset primary-button" title="Reset flashcard deck.">Reset</button>""" 
                                + """<input class="random-mode-checkbox" type="checkbox" name="random" title="Pick flashcards in random order."><label for="random">Random</label>"""
                                + """<input class="display-backside-checkbox" type="checkbox" name="display-backside" title="Always display backside of current flashcard."><label for="display-backside-checkbox">Show backside</label>"""
                             + """</div>"""

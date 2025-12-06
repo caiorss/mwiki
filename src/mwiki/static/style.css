@@ -605,6 +605,16 @@ img.admonition-icon {
   appearance: none;
 }
 
+.btn-icon {
+  background-color: #0172ad !important;
+  position: relative;
+  height: 2rem;
+  width: 2rem;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
 .foldable-block {
   /* background: lightyellow; */
   padding: 10px;
@@ -720,6 +730,16 @@ fieldset select {
   text-align: center;
 }
 
+
+.btn-icon {
+  background-color: #0172ad !important;
+  position: relative;
+  height: 2rem;
+  width: 2rem;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
 
 input:focus,
 textarea:focus,
@@ -1015,7 +1035,9 @@ main thead th {
   }
 
 
-} /* -- End of mobile media query -- */
+}
+
+/* -- End of mobile media query -- */
 
 .main-left {
   left: 0px !important;

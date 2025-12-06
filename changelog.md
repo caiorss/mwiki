@@ -10,6 +10,7 @@
 + Implement editor's dialog window for inserting unicode and emoji symbols.
    + The dialog allows inserting several types of unicode and emoji symbols, including coutry flags, emojis and unicode symbols related to nature, food, beverage,technology, math symbols, APL (array-oriented programming language) symbols.
 + Improve flashcard system. Add reset button to flashcard decks. Improve button style of flashcard decks and add checkbox "[] Show backside" for always displaying backside (answer) of flashcards, which is useful during a study session for a later review.
++ Use SVG icons in the flashcard deck GUI (Graphics User Interface) as button labels instead of text. This change allows a flashcard deck to fit in small screens.
 + Fix font size of dialog windows for mobile devices.
 + Bugfix - The code editor's session no longer becomes invalid due to old CSRF (Cross Site Request Forgery) token expiration. Now the CSRF token is automatically renewed by Ajax JavaScript requests to a REST API endpoint, that requires authentication.
 + Bugfix - Fix I8N internationalization of elements with string interpolation.
