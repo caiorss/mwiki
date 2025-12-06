@@ -51,6 +51,30 @@ def export(   wikipath:              Optional[str]
     if not wikipath and not page:
         print("Error expected --wikipath or --page command line switches.")
         exit(1)
+    def favicon() -> str:
+        base_path = pathlib.Path(wikipath)
+        g = base_path.glob("favicon.*")
+        ico = next(g, None)
+        out = ""
+        if ico:
+            out = str(ico.name)
+        return out
+
+    def favicon_mimetype() -> str:
+        _extension_mimetypes = {
+              "png":  "image/png"
+            , "apng": "image/apng"
+            , "svg":  "image/svg+xml"
+            , "webp": "image/webp"
+            , "jpg":  "image/jpeg"
+            , "ico":  "imag/x-icon"
+        }
+        ico = favicon()
+        xs = ico.split(".")
+        if len(xs) != 2:
+            return ""
+        mimetype = _extension_mimetypes.get(xs[1], "")
+        return mimetype
     out = pathlib.Path(output) if output else pathlib.Path("./out")
     out.mkdir(exist_ok = True)
     root = pathlib.Path(wikipath)
@@ -134,6 +158,11 @@ def export(   wikipath:              Optional[str]
         copy_font_files(main_font, fonts)
         copy_font_files(title_font, fonts)
         copy_font_files(code_font, fonts)
+        base_path = pathlib.Path(wikipath)
+        g = pathlib.Path(wikipath).glob("favicon.*")
+        ico = next(g, None)
+        if ico:
+            shutil.copy(ico, out)
     main_font_family  = (get_font_data(main_font) or {}).get("family") 
     title_font_family = (get_font_data(title_font) or {}).get("family")  
     code_font_family  = (get_font_data(code_font) or {}).get("family")  
@@ -246,8 +275,8 @@ def export(   wikipath:              Optional[str]
                , "font_face_main":       font_face_main_font
                , "font_face_code":       font_face_code_font
                , "font_face_title":      font_face_title_font
-               , "favicon":              icon_path 
-               , "favicon_mimetype":     icon_mimetype
+               # , "favicon":              icon_path 
+               # , "favicon_mimetype":     icon_mimetype
                , "page_description":     renderer.description
                , "page_author":          renderer.author or author 
                , "toc":                  toc 
@@ -277,6 +306,8 @@ def export(   wikipath:              Optional[str]
                , "page_type":           "main"
                , "katex_macros":         utils.base64_encode( renderer.katex_macros )
                , "unicode_emoji_favicon": unicode_emoji_favicon
+               , "favicon":               favicon
+               , "favicon_mimetype":      favicon_mimetype
               }
         ## html = tpl.render(env)
         html = static_html_renderer(env)
@@ -286,6 +317,8 @@ def export(   wikipath:              Optional[str]
     # if not self_contained and compile_latex and math_svg_cache_folder.is_dir():
     #    utils.copy_folder(math_svg_cache_folder, out / "svgcache")
     # exit(0)
+
+
 
 def make_template_renderer(module, template_file: str):
     template  = utils.read_resource(module, template_file)

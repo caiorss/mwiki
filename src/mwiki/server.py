@@ -37,7 +37,7 @@ from . constants import ( M_GET, M_POST, M_DELETE
                         )
 import mwiki.constants as mconst
 import mwiki.latex 
-from .app import make_app, current_user
+from .app import make_app, current_user, favicon 
 
 # This variable is set to true if gunicorn WSGI server is being used.
 server_software =  os.environ.get("SERVER_SOFTWARE", "")
@@ -520,6 +520,7 @@ def make_app_server(  host:        str
             flask.abort(STATUS_CODE_404_NOT_FOUND)
         out = serve_static_file(base_path, path)
         return out 
+
             
     @app.get("/api/wiki") 
     @check_login()
@@ -946,6 +947,14 @@ def make_app_server(  host:        str
             session["loggedin"] = True
         return flask.redirect(path)
 
+    @app.get("/favicon")
+    def route_favicon():
+        ico = favicon()
+        print(" [TRACE] ico = ", "/" + ico)
+        ## breakpoint()
+        out = serve_static_file(base_path, ico)        
+        return out
+
     @app.get("/")
     def route_index_page():
         """Server index page '/'"""
@@ -1016,7 +1025,7 @@ def serve_static_file(base_path: pathlib.Path, path):
                                          , page    = path
                                          , content = html
                                          ## , toc     = toc
-                                         , latex_macros = latex_macros
+                                         ##, latex_macros = latex_macros
                                          )
         return response
     if not is_wsgi:

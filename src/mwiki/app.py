@@ -25,7 +25,7 @@ from . import mparser
 from . import render
 from . import search 
 from . models import db, User, Settings, BookmarkedPage, WikiPage, WikiRepository
-from . models import is_database_created
+from . models import is_database_created, MwikiConfig
 from . login import add_login
 from . forms import UserAddForm, UserSettingsForm, SettingsForm
 from . constants import *
@@ -75,7 +75,8 @@ def make_app(wikipath: str):
     app.jinja_env.globals.update(default_locale = lambda:  Settings.get_instance().default_locale)
     app.jinja_env.globals.update(use_cdn = lambda:  Settings.get_instance().use_cdn)
     app.jinja_env.globals.update(latex_renderer = lambda:  Settings.get_instance().latex_renderer)
-
+    app.jinja_env.globals.update(favicon = favicon)
+    app.jinja_env.globals.update(favicon_mimetype = favicon_mimetype)
     csrf = CSRFProtect(app)
     csrf.init_app(app)
     db.init_app(app)
@@ -138,3 +139,32 @@ def display_edit_buttons() -> bool:
     conf = Settings.get_instance()
     out =  conf.display_edit_button or user.is_admin()
     return out
+
+
+
+
+def favicon() -> str:
+    base_path = pathlib.Path(MwikiConfig.path)
+    g = base_path.glob("favicon.*")
+    ico = next(g, None)
+    out = ""
+    if ico:
+        out = str(ico.name)
+    return out
+
+def favicon_mimetype() -> str:
+    _extension_mimetypes = {
+          "png":  "image/png"
+        , "apng": "image/apng"
+        , "svg":  "image/svg+xml"
+        , "webp": "image/webp"
+        , "jpg":  "image/jpeg"
+        , "ico":  "imag/x-icon"
+    }
+    ico = favicon()
+    xs = ico.split(".")
+    if len(xs) != 2:
+        return ""
+    mimetype = _extension_mimetypes.get(xs[1], "")
+    return mimetype
+            
