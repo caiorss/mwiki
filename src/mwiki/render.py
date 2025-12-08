@@ -283,7 +283,7 @@ class AbstractAstRenderer:
             number, equation, is_referenced = data
             out = out.replace("EQUATION_NUMBER{{{%s}}}" % label, str(number))
             out = out.replace("EQUATION_CODE{{{%s}}}" % label, utils.escape_html(equation) )
-            assert number != "???"
+            ### assert number != "???"
             ## rep = number if is_referenced else ""
             pat = "{{{DIV_EQUATION_NUMBER(%s)}}}" % number
             # breakpoint()

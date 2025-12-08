@@ -16,6 +16,7 @@
 + Fix font size of dialog windows for mobile devices.
 + Bugfix - The code editor's session no longer becomes invalid due to old CSRF (Cross Site Request Forgery) token expiration. Now the CSRF token is automatically renewed by Ajax JavaScript requests to a REST API endpoint, that requires authentication.
 + Bugfix - Fix I8N internationalization of elements with string interpolation.
++ Bugfix - Disable assertion in `resolve_equation_references()` function. The assertion `number != "???"` should not crash the application.
 
 ## Release v0.9
 
