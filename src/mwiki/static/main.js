@@ -236,6 +236,35 @@ function base64ToUtf8(b64) {
     return decoder.decode(bytes);
 }
 
+
+/** Render a LaTeX formula in some DOM element obtained
+  * with document.querySelector(...) API.
+  *
+  * @param {any}     domElement  - DOM element where the equation will be rendered.
+  * @param {string}  latexCode   - LaTeX code of equation be rendered.
+  * @param {boolean} displayMode - true if the formula is display mode.
+  *
+  **/
+function katexRenderDOMLatexFormula(domElement, latexCode, displayMode = false)
+{
+  var macros = {};
+  try {
+    macros = JSON.parse(base64ToUtf8(KATEX_MACROS));
+  } catch (error) {
+    // console.log(" JSON Parsing error: ", error);
+  }
+  // console.log(" [TRACE] macros = ", macros);
+  try {
+    console.log(" [TRACE] Rendering formula: ", latexCode);
+    console.log(" [TRACE] dom = ", domElement);
+    katex.render(latexCode, domElement
+                  , { displayMode: displayMode, macros: macros });
+  } catch (error) {
+    domElement.textContent = prev + error;
+  }
+}
+
+
 function kateRenderDOMLatex(domElement)
 {
    if( !IS_LATEX_RENDERER_KATEX ){ return; }
@@ -285,6 +314,8 @@ function katexRenderDocumentLatex()
 {
    kateRenderDOMLatex(document.body);
 }
+
+
 
 document.addEventListener("DOMContentLoaded", katexRenderDocumentLatex);
 
@@ -1759,7 +1790,8 @@ document.addEventListener("mouseover", (event) => {
     if( target.classList.contains("eqref") )
     {
        let div = document.querySelector(".equation-view");
-       katex.render(target.dataset.equation, div, { throwOnError: false });
+       // katex.render(target.dataset.equation, div, { throwOnError: false });
+       katexRenderDOMLatexFormula(div, target.dataset.equation, true);
        equationPopupWindow.show();
        let title = geti18nTranslation("popup-window-equation-display-title") || "Equation";
        // console.log(` [TRACE] Title = ${title}`);
