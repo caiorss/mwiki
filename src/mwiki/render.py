@@ -2014,7 +2014,7 @@ class HtmlRenderer(AbstractAstRenderer):
             enum_style = data.get("equation_enumeration_style", "section")   
             enum_style = enum_style if enum_style in ["cont", "continuous", "section", "subsection"] else "section"
             self._equation_enumeration_style = enum_style
-            enum_enabled = data.get("equation_enumeration_enabled", "off")
+            enum_enabled = True if (x := data.get("equation_enumeration_enabled")) is None else x
             ## breakpoint()
             self._equation_enumeration_enabled = enum_enabled
             latex_renderer = data.get("latex_renderer")
