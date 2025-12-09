@@ -266,3 +266,13 @@ Syntax for embedding a picture in a MWiki page.
             and "anchor" in classes \
             and src == "" \
             and data_src == expected
+
+def test_render_text_highlight():
+    """Test text highlight syntax `==` with internal markdown code."""
+    input_ = r""" ==highlighted text with **bold text** inside==="""
+    html   = render_markdown(input_)
+    sel    = Selector(text = html)
+    span   = sel.css("span").get() 
+    bold_text = sel.css("strong::text").get() 
+    expected_span_html = """<span class="text-highlight">highlighted text with <strong>bold text</strong> inside</span>"""
+    assert bold_text == "bold text" and span == expected_span_html
