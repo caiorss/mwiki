@@ -11,6 +11,7 @@
 + Printer icon button opens page in new tab and displays it in desktop mode for better printing or exporting to PDF in mobile devices. In mobile devices this feature is useful for downloading pages as PDF files for offile reading.
 + Implement editor's dialog window for inserting unicode and emoji symbols.
    + The dialog allows inserting several types of unicode and emoji symbols, including coutry flags, emojis and unicode symbols related to nature, food, beverage,technology, math symbols, APL (array-oriented programming language) symbols.
++ Markdown syntax for text highlight `==text to be highlighted==` now supports markdown within the highlighted text and MWiki syntax. For instance, before this change the hyperlink within the `==`, such as `==some text [a linke](http://site.com)`, would not be rendered to a hyperlink (html's `<a>` tag).
 + Equation enumeration is enabled by default. For disabling it, add the directive `equation_enumeratin_enabled: off` to the document's frontmatter.
 + Improve flashcard system. Add reset button to flashcard decks. Improve button style of flashcard decks and add checkbox "[] Show backside" for always displaying backside (answer) of flashcards, which is useful during a study session for a later review.
 + The popup window that displays referenced equations now is able to display latex equations with macros. This dialog window is shown when an user hoovers the mouse (cursor) over a reference `\eqref{lableOfEquation}` to some equation. Note that this feature only works if the renderer is set to KaTeX.

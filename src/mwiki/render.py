@@ -1783,7 +1783,11 @@ class HtmlRenderer(AbstractAstRenderer):
     def render_wiki_text_highlight_inline(self, node: SyntaxTreeNode) -> str:
         assert node.type == "wiki_text_highlight_inline"
         ##inner = "".join([ self.render(n) for n in node.children ])
-        inner = node.content
+        ast =  mparser.parse_source(node.content)
+        paragraph = ast.children[0]
+        inline = paragraph.children[0]
+        ## breakpoint()
+        inner = "".join([ self.render(n) for n in inline.children ])
         html = f"""<span class="text-highlight">{inner}</span>"""
         ## breakpoint()
         return html 
