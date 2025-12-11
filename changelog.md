@@ -13,6 +13,7 @@
    + The dialog allows inserting several types of unicode and emoji symbols, including coutry flags, emojis and unicode symbols related to nature, food, beverage,technology, math symbols, APL (array-oriented programming language) symbols.
 + Markdown syntax for text highlight `==text to be highlighted==` now supports markdown within the highlighted text and MWiki syntax. For instance, before this change the hyperlink within the `==`, such as `==some text [a linke](http://site.com)`, would not be rendered to a hyperlink (html's `<a>` tag).
 + Equation enumeration is enabled by default. For disabling it, add the directive `equation_enumeratin_enabled: off` to the document's frontmatter.
++ Document preview now supports KaTeX, which provides faster math rendering and page loading.
 + Improve flashcard system. Add reset button to flashcard decks. Improve button style of flashcard decks and add checkbox "[] Show backside" for always displaying backside (answer) of flashcards, which is useful during a study session for a later review.
 + The popup window that displays referenced equations now is able to display latex equations with macros. This dialog window is shown when an user hoovers the mouse (cursor) over a reference `\eqref{lableOfEquation}` to some equation. Note that this feature only works if the renderer is set to KaTeX.
 + Use SVG icons in the flashcard deck GUI (Graphics User Interface) as button labels instead of text. This change allows a flashcard deck to fit in small screens.

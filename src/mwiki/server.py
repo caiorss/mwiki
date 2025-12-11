@@ -816,17 +816,31 @@ def make_app_server(  host:        str
         data: dict[str, Any] = request.get_json()
         content = data.get("code", "") 
         ### content = utils.read_resource(mwiki, "refcard.md")
+        conf: Settings = Settings.get_instance()
         ast = mparser.parse_source(content)
-        builder = render.HtmlRenderer(base_path=BASE_PATH, preview = True)
+        builder = render.HtmlRenderer(  base_path  = BASE_PATH
+                                      , preview    = True
+                                      , latex_renderer  = conf.latex_renderer)
         html_ = builder.render(ast)
         html = flask.render_template(  
-                                          "standalone.html"
-                                        , title   = "Preview"
-                                        , page    = data.get("page")
-                                        , content = html_
-                                        , latex_macros = latex_macros
-                                        , document_type = "preview"
-                                        )
+                  "standalone.html"
+                , title   = "Preview"
+                , page    = data.get("page")
+                , content = html_
+                ##, latex_macros = latex_macros
+                , page_author = builder.author
+                , page_description = builder.description
+                , latex_renderer = conf.latex_renderer
+                , latex_macros = builder.mathjax_macros
+                , mathjax_enabled = builder.needs_mathjax
+                , graphviz_enabled = builder.needs_graphviz 
+                , latex_algorithm = builder.needs_latex_algorithm
+                , equation_enumeration_style = builder.equation_enumeration_style
+                , equation_enumeration_enabled = builder.equation_enumeration_enabled
+                , katex_macros = utils.base64_encode(builder.katex_macros)
+                , document_type = "preview"
+                , conf = conf
+                )
         html = utils.escape_html(html)
         # print(" [TRACE] html = ", html)
         resp = flask.jsonify({ "status": "ok", "error": "", "html": html })
