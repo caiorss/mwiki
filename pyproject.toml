@@ -29,6 +29,7 @@ dependencies = [
           "watchdog",
           "Pillow",
           "whoosh>=2.7.4",
+          "flask-migrate>=4.1.0",
 ]
 
 

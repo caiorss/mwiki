@@ -16,6 +16,7 @@ import flask_wtf as fwt
 from flask_wtf.csrf import CSRFProtect
 import wtforms as wt 
 import wtforms.validators as wtfv 
+from flask_migrate import Migrate
 
 from typing import Any, Tuple, List, Optional
 import datetime
@@ -83,6 +84,9 @@ def make_app(wikipath: str):
     ## session = flask_session.Session(app)
     app.jinja_env.globals.update(current_user = current_user)
     app.jinja_env.globals.update(display_edit_buttons = display_edit_buttons)
+
+    ## print(" [TRACE] Migrating database")
+    migrate = Migrate(app, db)
 
     # --- Database Initialization -----#
     # Create all database tables if they don't exist yet.
