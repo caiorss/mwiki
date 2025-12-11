@@ -268,6 +268,7 @@ def watch(wikipath: str):
 @click.option("--list-fonts", is_flag = True, help="List all available fonts.") 
 @click.option("--allow-language-switch", is_flag = True
               , help = ( "Allow end-user to switch the user interface language." ))
+@click.option("--content-language", default = "en", help = "Set ISO language code of default content language.")
 @click.option("--self-contained", is_flag = True
              , help = ( "Embed all attachment within the current wiki page."
                  " JavaScripts and CSS are inlined and images are embedded in base64 encoding. "
@@ -295,6 +296,7 @@ def export(   wikipath:              Optional[str]
             , website_name:          str
             , root_url:              str 
             , locale:                str
+            , content_language:      str
             , icon:                  Optional[str]
             , main_font:             str 
             , code_font:             str 
@@ -312,7 +314,7 @@ def export(   wikipath:              Optional[str]
     ):
     "Export a MWiki repository or a markdown files repository to a static website."""
     mwiki.export.export(  wikipath, output, page, website_name
-                        , root_url, locale, icon, main_font
+                        , root_url, locale, content_language, icon, main_font
                         , code_font, title_font, unicode_emoji_favicon
                         , list_fonts, allow_language_switch, self_contained
                         , embed_latex_renderer, latex_renderer, compile_latex, verbose, author, source)        

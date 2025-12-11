@@ -19,6 +19,7 @@ def export(   wikipath:              Optional[str]
             , website_name:          str
             , root_url:              str 
             , locale:                str
+            , content_language:      str
             , icon:                  Optional[str]
             , main_font:             str 
             , code_font:             str 
@@ -179,6 +180,7 @@ def export(   wikipath:              Optional[str]
     print(" [*]                              Author: ", author or "")
     print(" [*]                        Website Name: ", website_name)
     print(" [*]                            Root URL: ", "/" if root_url == "" else root_url)
+    print(" [*]               Content Language Code: ", content_language)
     print(" [*]  Default User Interface (UI) Locale: ", locale)
     print(" [*]               Allow language switch: ", bool_to_on_off(allow_language_switch))
     print(" [*]             Self Contained Document: ", bool_to_on_off(self_contained))
@@ -308,6 +310,7 @@ def export(   wikipath:              Optional[str]
                , "unicode_emoji_favicon": unicode_emoji_favicon
                , "favicon":               favicon
                , "favicon_mimetype":      favicon_mimetype
+               , "content_language":      renderer.language or content_language 
               }
         ## html = tpl.render(env)
         html = static_html_renderer(env)
