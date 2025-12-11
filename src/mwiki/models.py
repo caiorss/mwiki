@@ -593,7 +593,7 @@ class Settings(db.Model):
         self.code_font = adict["code_font"]
         self.title_font = adict["title_font"]
         self.latex_renderer = adict["latex_renderer"]
-        self.language = adict["language"]
+        self.language = adict.get("language") or "en"
         # self.date_created = adict["date_create"]
         # self.date_modified = adict["date_modified"]
         self.save()
