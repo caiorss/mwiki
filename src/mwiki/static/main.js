@@ -655,7 +655,11 @@ translationsi18n =
 		, "settings-use-cdn-description":         "Load JavaScript libraries from a CDN Content-Delivery Network instead of loading them from this server."
     , "settings-latex-renderer-label":        "LaTeX Renderer"
     , "settings-latex-renderer-description":  "JavaScript library used for rendering LaTeX math formulas. Note that the support for KaTeX is still experimental. "
-		
+    , "settings-h2-general-settings":        "General Settings"
+    , "settings-h2-math-rendering-settings": "Math Rendering Settings"
+    , "settings-h2-editor-settings":         "Editor Settings"
+    , "settings-h2-language-settings":       "Language Settings"
+    , "settings-h2-font-settings":           "Font/Typeface Settings"
         , "popup-window-change-language-menu-launcher": { "label": "Language"
                                                           , "title": "Open form that allows overriding the current user interface language." }
         , "popup-window-change-language": "Change the User Interface Language"
@@ -871,6 +875,10 @@ translationsi18n =
 		, "settings-use-cdn-description":   "Carregar as bibliotecas JavaScript de uma CDN (Rede de Distribuição de Conteúdo) em vez de carregá-las deste servidor."
     , "settings-latex-renderer-label":  "Renderizador LaTeX"
     , "settings-latex-renderer-description":  "Biblioteca JavaScript usada para renderizar fórmulas matemáticas em LaTeX. Observe que o suporte para KaTeX ainda é experimental."
+    , "settings-h2-general-settings": "Configurações Gerais"
+    , "settings-h2-math-rendering-settings": "Configurações de Renderização Matemática"    , "settings-h2-editor-settings": "Configurações do Editor"
+    , "settings-h2-language-settings": "Configurações de Idioma"
+    , "settings-h2-font-settings": "Configurações de Fonte/Tipo de Letra (Typeface)"
         , "popup-window-change-language-menu-launcher": { "label": "Idioma"
                                                           , "title": "Formulário que permite sobrepor/mudar o idioma atual da interface do usuário." }
         , "popup-window-change-language": "Alterar o idioma da interface do usuário"

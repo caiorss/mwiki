@@ -30,6 +30,8 @@
     <form method="POST" action="/settings?back={{ request.values.get('back') }}" autocomplete="off" >
         <input id="csrf_token" name="csrf_token" type="hidden" value="{{ csrf_token() }}">
 
+        <h2 data-i18n="settings-h2-general-settings">General Settings</h2>
+
         <div class="grid">
         <fieldset class="form-field">
             <label data-i18n="settings-sitename-label" for="sitename">Website Name</label>
@@ -72,13 +74,6 @@
             </p>
         </fieldset>
         <fieldset class="form-field">
-            <input {% if form.vim_emulation.data %} checked="" {% endif %} id="vim_emulation" name="vim_emulation" type="checkbox" value="{{ form.vim_emulation.data }}">
-            <label data-i18n="settings-vim-emulation-checkbox-label" for="vim_emulation">VIM Emulation</label>
-            <p data-i18n="settings-vim-emulation-checkbox-description">
-            Enable VIM editor emulation in the Wiki code editor (Ace9).
-            </p>
-        </fieldset>
-        <fieldset class="form-field">
             <input  {% if form.show_source.data %} checked="" {% endif %}
 					id="show_source" name="show_source" type="checkbox" value="{{ form.show_source.data }}">
             <label data-i18n="settings-show-source-checkbox-label" for="show_source">Show Page Source</label>
@@ -95,6 +90,45 @@
             </p>
         </fieldset>
         
+
+        <fieldset class="form-field">
+            <input 	{% if form.use_cdn.data %} checked="" {% endif %}  
+					        name="use_cdn" type="checkbox" value="{{ form.use_cdn.data }}">
+            <label data-i18n="settings-use-cdn-checkbox-label"  for="use-cdn">Use CDN</label>
+            <p data-i18n="settings-use-cdn-description">
+			         Load JavaScript libraries from a CDN Content-Delivery Network
+               instead of loading them from this server.
+            </p>
+        </fieldset>
+
+        <h2 data-i18n="settings-h2-math-rendering-settings">Math Rendering Settings</h2>       
+        <fieldset class="form-field">
+            <label data-i18n="settings-latex-renderer-label" for="latex_renderer">LaTeX Renderer</label>
+            {{ form.latex_renderer }}
+            <p data-i18n="settings-latex-renderer-description">
+			         JavaScript library used for rendering LaTeX math formulas.
+               Note that the support for KaTeX is still experimental.               
+            </p>
+        </fieldset>
+                
+
+        <h2 data-i18n="settings-h2-editor-settings">Editor Settings</h2>
+            
+        <fieldset class="form-field">
+            <input {% if form.vim_emulation.data %} checked="" {% endif %} id="vim_emulation" name="vim_emulation" type="checkbox" value="{{ form.vim_emulation.data }}">
+            <label data-i18n="settings-vim-emulation-checkbox-label" for="vim_emulation">VIM Emulation</label>
+            <p data-i18n="settings-vim-emulation-checkbox-description">
+            Enable VIM editor emulation in the Wiki code editor (Ace9).
+            </p>
+        </fieldset>
+
+        <h2 data-i18n="settings-h2-language-settings">Language Settings</h2>
+
+        <fieldset class="form-field">
+            <label data-i18n="settings-default-locale-label" for="default_locale">Default Locale</label>
+            {{ form.default_locale }}
+        </fieldset>
+
         <fieldset class="form-field">
             <input 	{% if form.use_default_locale.data %} checked="" {% endif %} id="use_default_locale" 
 					name="use_default_locale" type="checkbox" value="{{ form.use_default_locale.data }}">
@@ -111,35 +145,9 @@
             <p data-i18n="settings-language-switch-description">
               Allow users to swtich the user interface language for their session.
             </p>
-        </fieldset>
+        </fieldset>      
 
-        
-
-        <fieldset class="form-field">
-            <input 	{% if form.use_cdn.data %} checked="" {% endif %}  
-					        name="use_cdn" type="checkbox" value="{{ form.use_cdn.data }}">
-            <label data-i18n="settings-use-cdn-checkbox-label"  for="use-cdn">Use CDN</label>
-            <p data-i18n="settings-use-cdn-description">
-			         Load JavaScript libraries from a CDN Content-Delivery Network
-               instead of loading them from this server.
-            </p>
-        </fieldset>
-
-       
-        <fieldset class="form-field">
-            <label data-i18n="settings-latex-renderer-label" for="latex_renderer">LaTeX Renderer</label>
-            {{ form.latex_renderer }}
-            <p data-i18n="settings-latex-renderer-description">
-			         JavaScript library used for rendering LaTeX math formulas.
-               Note that the support for KaTeX is still experimental.               
-            </p>
-        </fieldset>
-                
-            
-        <fieldset class="form-field">
-            <label data-i18n="settings-default-locale-label" for="default_locale">Default Locale</label>
-            {{ form.default_locale }}
-        </fieldset>
+        <h2 data-i18n="settings-h2-font-settings">Font/Typeface Settings</h2>
         
         <fieldset class="form-field">
             <label data-i18n="settings-main-font-label" for="main_font">Main Font</label>
@@ -156,10 +164,6 @@
         <input class="primary-button" data-i18n="settings-update-button" id="submit" name="submit" type="submit" value="Update">
     </form>
 </div>
-
-
-
-
 {% endblock %}
 
 
