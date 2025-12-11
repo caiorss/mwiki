@@ -357,6 +357,74 @@ class TitleFontFamily(enum.Enum):
     roboto = "Roboto"
 
 
+# Database of ISO 639 language codes obtained from Wikipedia
+#   + https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes
+#
+LanguagesDatabase = [
+      ("en - English",                                 "en")
+    , ("de - Deutsch (German)",                        "de")
+    , ("nl - Nederlands (Dutch or Flemish)",           "nl")
+    , ("da - Dansk (Danish)",                          "da")
+    , ("fr - Français (French)",                       "fr")
+    , ("es - Español (Spanish)",                       "es")
+    , ("it - Italiano (Italian)",                      "it")
+    , ("pt - Português (Portuguese)",                  "pt")
+    , ("la - Latinum (Latin)",                         "la")
+    , ("ga - Irish (Gaeilge)",                         "ga")
+    , ("cy - Cymraeg (Welsh)",                         "cy")
+    , ("co - Corsu (Corsican)",                        "co")
+    , ("ca - Català; Valencià (Catalan)",              "ca")
+    , ("ga - Galego (Galician)",                       "ga")
+    , ("eu - Euskera (Basque)",                        "eu")
+    , ("el - ελληνικά (Greek)",                        "el")
+    , ("hu - Magyar nyelv (Hungarian)",                "hu")
+    , ("ro - Română, Ромынэ (Romanian)",               "ro")
+    , ("pl - Polski (Polish)",                         "pl")
+    , ("ua - українська (Ukranian)",                   "ua")
+    , ("sk - Slovenčina (Slovak)",                     "sk")
+    , ("sl - Slovenščina (Slovenian)",                 "sl")
+    , ("sr - Српски (Serbian)",                        "sr")
+    , ("hr - Hrvatski (Croatian)",                     "hr")
+    , ("bs - Босански, Bosanski (Bosnian)",            "bs")
+    , ("be - Беларуская мова (Belarusian)",            "be")
+    , ("ru - Русский (Russian)",                       "ru")
+    , ("cu - Славе́нскїй ѧ҆зы́къ (Church Slavonic)",      "cu")
+    , ("ce - Нохчийн мотт (Chechen)",                  "ce")
+    , ("jp - 日本語 (Japanise)",                       "jp")
+    , ("ko - 한국어, 조선말 (Korean)",                 "ko")
+    , ("zh - 中文 (Chinese)",                          "zh")
+    , ("vi - tiếng Việt (Vietnamese)",                 "vi")
+    , ("th - ภาษาไทย (Thai)",                          "th")
+    , ("ms - Bahasa Melayu (Malay)",                   "ms")
+    , ("id - Bahasa Indonesia (Indonesian)",           "id")
+    , ("tr - Türkçe (Turkish)",                        "tr")
+    , ("tk - Türkmençe, үркменче, تۆرکمنچه (Turkmen)", "tk")
+    , ("uz - Ózbekça, ўзбекча, ئوزبېچه (Uzbek)",       "uz")
+    , ("az - Azərbaycan dili (Azeri, Azerbaijani)",    "az")
+    , ("fa - فارسی (Persian, Farsi)",                  "fa")
+    , ("ta - Тоҷикӣ, Tojikī (Tajik)",                  "ta")
+    , ("prs - دری (Dari)",                             "prs")
+    , ("ar - اَلْعَرَبِيَّةُ (Arabic) ",                       "ar")
+    , ("he - עברית‎(Modern Hebrew, Ivrit)",            "he")
+    , ("hi - ייִדיש (Yiddish)",                         "hi")
+    , ("hy - Հայերեն (Armenian)",                      "hy")
+    , ("hi - हिन्दी (Hindi)",                           "hi")
+    , ("ur - اُردُو (Urdu)",                             "ur")
+    , ("ta - தமிழ் (Tamil)",                            "tm")
+    , ("mr - मराठी (Marathi)",                         "mr")
+    , ("sa - संस्कृतम् (Sanskrit)",                        "sa")
+    , ("gu - ગુજરાતી, Gujarātī (Gujurati)",             "gu")
+    , ("kok - कोंकणी, (Kokani)",                        "kok")
+    , ("bn - বাংলা  (Bengali)",                          "bn")
+    , ("pa - ਪੰਜਾਬੀ(Punjabi)",                          "pa")
+    , ("sw - Kiswahili; كِسوَحِيلِ (Swahili)",             "sw")
+    , ("af - Afrikaans (Afrikaans)",                   "af")
+    , ("eo - Esperanto (esperanto)",                   "eo")
+    , ("ia - Interlingua (Interlingua)",               "ia")
+    , ("ie - Interlingue (Interlingue)",               "ie")
+]
+
+
 root_path = utils.get_module_path(mwiki)
 
 class Settings(db.Model):
@@ -396,11 +464,30 @@ class Settings(db.Model):
     # instead of using the vendored depencies such as MathJax, KaTeX
     # and GraphViz renderer.
     use_cdn: so.Mapped[bool] = so.mapped_column(default = False)
-    # Allow users to switch the user interface language locale
-    # # during their session if this flag is set to true.
+    
+    language: so.Mapped[str] = so.mapped_column(default = "en")
+    """ISO language code of default document language. Default language is English.
+    For instance, "en" for English, "fr" for French, "es" for Spanish.
+    This field is used in HTML lang attribute for the declaring the document
+    language. For instance, if the document language is French, the ISO language
+    code is "fr", the HTML lang attribute will be `<html lang="fr">`. 
+    Note that if a document's language is different than the default language,
+    it is possible to override the language declaration by using the frontmatter
+    directive `language: es`, that will declare the language of current wiki page
+    as Spanish.  
+    """
+    
     language_switch: so.Mapped[bool] = so.mapped_column(default = True)
-    # Display a mastodon-like alt text button in figures (images with metadat)
+    """
+    Allow users to switch the user interface language locale
+    during their session if this flag is set to true.
+    """
+    
     display_alt_button: so.Mapped[bool] = so.mapped_column(default = True)
+    """
+    Display a mastodon-like alt text button in figures (images with metadat)
+    """
+
     ## main_font: so.Mapped[Optional[FontFamiliyEnum]]
     main_font: so.Mapped[str] = so.mapped_column(default = FontFamiliyEnum.computer_modern.value)
     title_font: so.Mapped[str] = so.mapped_column(default = FontFamiliyEnum.computer_modern.value)
@@ -480,6 +567,7 @@ class Settings(db.Model):
             ,  title_font = self.title_font
             ,  code_font = self.code_font
             ,  latex_renderer = self.latex_renderer
+            ,  language = self.language
             # ,  date_create = self.date_created
             # ,  date_modified = self.date_modified
         )
@@ -505,6 +593,7 @@ class Settings(db.Model):
         self.code_font = adict["code_font"]
         self.title_font = adict["title_font"]
         self.latex_renderer = adict["latex_renderer"]
+        self.language = adict["language"]
         # self.date_created = adict["date_create"]
         # self.date_modified = adict["date_modified"]
         self.save()

@@ -34,6 +34,9 @@ class SettingsForm(fwt.FlaskForm):
                                   "Instead of loading them from this server."
                               ))
 
+    language = wt.SelectField("Default Document Language"
+                              , choices = [(lang_code, lang_name)
+                                              for (lang_name, lang_code) in models.LanguagesDatabase])
     language_switch = wt.BooleanField("Language Swich")
     display_alt_button = wt.BooleanField("Display alt text button")
     vim_emulation = wt.BooleanField("VIM Emulation", description="Enable VIM editor emulation in the Wiki code editor (Ace9).")

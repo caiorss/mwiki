@@ -289,6 +289,7 @@ def make_app_server(  host:        str
             form.code_font.data = conf.code_font
             form.show_licenses.data = conf.show_licenses
             form.default_locale.data = conf.default_locale
+            form.language.data = conf.language
             form.use_default_locale.data = conf.use_default_locale
             form.use_cdn.data = conf.use_cdn
             form.latex_renderer.data = conf.latex_renderer
@@ -307,6 +308,7 @@ def make_app_server(  host:        str
             conf.display_edit_button = form.display_edit_button.data
             conf.vim_emulation = form.vim_emulation.data
             conf.show_licenses = form.show_licenses.data 
+            conf.language = form.language.data
             conf.default_locale = form.default_locale.data
             conf.use_default_locale = form.use_default_locale.data
             conf.use_cdn = form.use_cdn.data

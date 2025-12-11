@@ -647,6 +647,7 @@ translationsi18n =
 		, "settings-vim-emulation-checkbox-description": "Enable VIM editor emulation in the Wiki code editor (Ace9)"
 		, "settings-display-edit-button-checkbox-description": "Display the wiki edit button for all users [E]. If this setting is disabled,  only admin users or users with permission to edit pages will be able to view the edit button."
 		, "settings-default-locale-label":               "Default locale"
+		, "settings-default-content-locale-label":       "Default content language"
 		, "settings-use-default-locale-checkbox-label":  "Use Default Locale"
 		, "settings-use-default-locale-description": 	   "Always use the default locale (language) regardless of the user preferred language provided by the web browser."
 		
@@ -869,6 +870,7 @@ translationsi18n =
 		, "settings-display-edit-button-checkbox-description": "Exibir o botão de edição do wiki para todos os usuários [E]. Se esta configuração estiver desabilitada, somente usuários administradores ou usuários com permissão para editar páginas poderão visualizar o botão de edição."
 		, "settings-public-checkbox-description": 		 "Se habilitado, todos, incluindo usuários não logados, poderão visualizar o conteúdo do wiki. Observe que somente usuários logados podem editar o wiki."
 		, "settings-default-locale-label":               "Idioma/locale padrão"
+		, "settings-default-content-locale-label":       "Idioma padrão do conteúdo"
 		, "settings-use-default-locale-checkbox-label":  "Usar idioma/locale padrão"
 		, "settings-use-default-locale-description": 	 "Sempre usar o idioma padrão (default locale), independentemente do idioma preferido do usuário fornecido pelo navegador da web."
     , "settings-use-cdn-checkbox-label": "Usar CDN"
