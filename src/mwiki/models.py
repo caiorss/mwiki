@@ -390,7 +390,7 @@ LanguagesDatabase = [
     , ("ru - Русский (Russian)",                       "ru")
     , ("cu - Славе́нскїй ѧ҆зы́къ (Church Slavonic)",      "cu")
     , ("ce - Нохчийн мотт (Chechen)",                  "ce")
-    , ("jp - 日本語 (Japanise)",                       "jp")
+    , ("jp - 日本語 (Japanese)",                       "jp")
     , ("ko - 한국어, 조선말 (Korean)",                 "ko")
     , ("zh - 中文 (Chinese)",                          "zh")
     , ("vi - tiếng Việt (Vietnamese)",                 "vi")
