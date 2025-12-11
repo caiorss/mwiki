@@ -19,6 +19,7 @@
 + Use SVG icons in the flashcard deck GUI (Graphics User Interface) as button labels instead of text. This change allows a flashcard deck to fit in small screens.
 + Fix font size of dialog windows for mobile devices.
 + Bugfix - The code editor's session no longer becomes invalid due to old CSRF (Cross Site Request Forgery) token expiration. Now the CSRF token is automatically renewed by Ajax JavaScript requests to a REST API endpoint, that requires authentication.
++ Bugfix - Fix geti18nTranslation() - also get locale preference from local storage. This function failed when the user language obtained from the web browser was different than the user chosen language for the user interface, which is stored in the local storage. 
 + Bugfix - Fix I8N internationalization of elements with string interpolation.
 + Bugfix - Disable assertion in `resolve_equation_references()` function. The assertion `number != "???"` should not crash the application.
 

@@ -1090,26 +1090,10 @@ function doTranslationI18N()
     setLocaleI18n(locale);
 }
 
-
-
-function geti18nTranslation(key)
-{
-	var userLocale = navigator.language;
-	// Set all English locales to en-US (US English) as this
-	// is the only English locale available
-	if( userLocale.startsWith("en-") ){
-		userLocale = "en-US";
-	}
-	// Set all portuguese locales to pt-BR (Brazilian Portuguese)
-	if( userLocale.startsWith("pt-") ){
-		userLocale = "pt-BR";
-	}
-	if( USE_DEFAULT_LOCALE ){
-		// alert("Use default locale");
-		userLocale = DEFAULT_LOCALE;
-	}
-    let value = translationsi18n[userLocale][key];
-    return value;
+function geti18nTranslation(key) {
+  let userLocale = getCurrentLocale();
+  let value = translationsi18n[userLocale][key];
+  return value;
 }
 
 
