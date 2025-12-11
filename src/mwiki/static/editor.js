@@ -661,12 +661,10 @@ async function editorPreviewDocument()
     let payload = { "code": code, "page": currentWikiPage };
     let out = await http_post("/api/preview", payload);
     if( out.status != "ok" ){ return;}
- 
-    /// console.log(" [TRACE] out.html = ", out.html);
-    // let src = 'data:text/html;charset=utf-8,' + encodeURI(out.html); 
-
+    // Default value: "Preview of" 
+    let localizedTitlePrefix = geti18nTranslation("edit-page-preview-popup-window") || "Preview of";
     let previewWindow = new PopupWindow({
-          title: `Preview of: ${currentWikiPageTitle}`
+          title: `${localizedTitlePrefix} ${currentWikiPageTitle}`
         , html:   `<iframe id="iframe-preview" 
                            sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation-by-user-activation"
                            srcdoc="${out.html}"  

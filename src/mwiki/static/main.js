@@ -673,6 +673,7 @@ translationsi18n =
 		, "edit-page-back-button": {  "label": "Back"
 									, "title": "Switch to document view mode and exit editing mode."}
 
+		, "edit-page-preview-popup-window": "Preview of"
 		, "edit-page-preview-button": { 
 									      "label": "Preview"
 										, "title": "View how page will look like before saving."
@@ -886,9 +887,10 @@ translationsi18n =
 		, "edit-page-back-button": {  "label": "Voltar"
 									, "title": "Alternar para o modo de visualização de documento e sair do modo de edição."}
 
+		, "edit-page-preview-popup-window": "Visualização de"
 		, "edit-page-preview-button": { 
 									      "label": "Visualização"
-										, "title": "Veja como a página ficará antes de salvar."
+										  , "title": "Veja como a página ficará antes de salvar."
 									  }
 		, "edit-page-save-button":  {
 										  "label": "Salvar"
