@@ -416,7 +416,7 @@ LanguagesDatabase = [
     , ("gu - ગુજરાતી, Gujarātī (Gujurati)",             "gu")
     , ("kok - कोंकणी, (Kokani)",                        "kok")
     , ("bn - বাংলা  (Bengali)",                          "bn")
-    , ("pa - ਪੰਜਾਬੀ(Punjabi)",                          "pa")
+    , ("pa - ਪੰਜਾਬੀ (Punjabi)",                         "pa")
     , ("sw - Kiswahili; كِسوَحِيلِ (Swahili)",             "sw")
     , ("af - Afrikaans (Afrikaans)",                   "af")
     , ("eo - Esperanto (esperanto)",                   "eo")
@@ -768,6 +768,7 @@ class WikiPage():
                                       , page                 = self._title
                                       , page_link            = self._title.replace(" ", "_")
                                       , pagename             = self._title
+                                      , content_language     = renderer.language
                                       , page_description     = renderer.description
                                       , page_author          = renderer.author
                                       , content              = content

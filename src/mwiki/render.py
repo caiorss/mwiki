@@ -132,6 +132,9 @@ class AbstractAstRenderer:
         self._equation_enumeration_style = "section"
         self._equation_enumeration_enabled = False 
 
+        self._language = None
+        """ISO language code of current document language."""
+
         self._count_h1: int = 0
         """Current count of h1 headline - '## h1 headline level'"""
 
@@ -235,6 +238,11 @@ class AbstractAstRenderer:
     @property
     def description(self) -> str:
         return self._description
+
+    @property
+    def language(self) -> Optional[str]:
+        """Return ISO language code of current document language."""
+        return self._language
 
     @property
     def author(self) -> str:
@@ -2014,6 +2022,7 @@ class HtmlRenderer(AbstractAstRenderer):
             self._title       = data.get("title", "")
             self._description = data.get("description", "")
             self._author      = data.get("author", "")
+            self._language    = data.get("language", "")
             self._section_enumeration  = data.get("section_enumeration", False)
             enum_style = data.get("equation_enumeration_style", "section")   
             enum_style = enum_style if enum_style in ["cont", "continuous", "section", "subsection"] else "section"
