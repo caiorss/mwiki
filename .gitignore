@@ -47,3 +47,5 @@ tags_cache.json
 search_index/*
 dist/*
 out2/*
+mwiki/*
+.coverage
