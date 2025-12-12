@@ -816,6 +816,12 @@ unicodeWindow = new PopupWindow({
                 <button title="Euro currency sign">£</button>
                 <button title="Pound currency sign">€</button>
                 <button title="Yen (Japan) and Yuan (China) Sign">¥</button>
+                <button>—</button>
+                <button>’</button>
+                <button>“</button>
+                <button>”</button>
+                <button>«</button>
+                <button>»</button>
                 <button>💯</button>
                 <button>⚠️</button>
                 <button>‼️</button>
@@ -828,6 +834,8 @@ unicodeWindow = new PopupWindow({
                 <button title="Bookmark">🔖</button>
                 <button>🔎</button>
                 <button>🔗</button>
+                <button title="Chi Rho">☧</button>
+                <button title="Chi Rho Coptic">⳩</button>
                 <button>·</button>
                 <button>°</button>
                 <button>→</button>
