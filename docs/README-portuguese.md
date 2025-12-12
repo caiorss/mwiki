@@ -198,6 +198,11 @@ A janela de entrada LaTeX é uma janela pop-up que pode ser acessada no editor c
 
 ![](docs/images/screen4-latex-input-window.png)
 
+Janela de diálogo para inserir emojis e símbolos Unicode. Esta janela oferece diversos emojis e símbolos Unicode, incluindo símbolos matemáticos, moedas, símbolos APL (linguagem de programação orientada a arrays), bandeiras de países e muito mais.
+
+![](docs/images/screen-unicode-emoji-symbols-window.png)
+
+
 **Captura de Tela 5 do Wiki (Configurações)**
 
 Página de configurações do MWiki.

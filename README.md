@@ -195,6 +195,12 @@ LaTeX input window, a popup window that can be in the editor by clicking at the 
 
 ![](docs/images/screen4-latex-input-window.png)
 
+
+Dialog window for inserting emoji and unicode symbols. This dialog provides many emoji and unicode symbols, including math symbols, currencies, APL (array-oriented programming language) symbols, country flags and so on.
+
+![](docs/images/screen-unicode-emoji-symbols-window.png)
+
+
 **Wiki Screenshot 5 (Settings)**
 
 MWiki settings page.
