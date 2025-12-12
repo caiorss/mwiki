@@ -1067,62 +1067,68 @@ The subcommand $ mwiki export is able to generate a static website by compiling 
 
 ### Command Line Help
 
-
 ```sh
+mwiki export --help
 Usage: mwiki export [OPTIONS]
 
   Export a MWiki repository or a markdown files repository to a static
   website.
 
 Options:
-  --wikipath TEXT          Path to folder containing *.md files.
-  -o, --output TEXT        Directory that will contain the compilation output
-                           (default value ./out).
-  --page TEXT              Export single page to html, instead of the whole
-                           wiki.
-  --website-name TEXT      Name of the static website (default value 'MWiki').
-  --root-url TEXT          Root URL that the static website will be deployed
-                           to.  (default value '/').
-  --locale TEXT            Default locale of the user interface. (Default
-                           value 'en-US')
-  --icon TEXT              Favicon of the static website. (Default value MWiki
-                           icon)
-  --main-font TEXT         Main font used in document text.
-  --code-font TEXT         Code monospace font used in code blocks.
-  --title-font TEXT        Title font used in document section headings.
-  --list-fonts             List all available fonts.
-  --allow-language-switch  Allow end-user to switch the user interface
-                           language.
-  --self-contained         Embed all attachment within the current wiki page.
-                           JavaScripts and CSS are inlined and images are
-                           embedded in base64 encoding. The generated HTML
-                           self-contained file is similar to a PDF file. This
-                           flag is useful for generating self-contained
-                           documents for offline view.
-  --embed-latex-renderer   Self host MathJax or KaTeX The LaTex rendering
-                           library is copied to the output directory.
-  --latex-renderer TEXT    LaTeX renderer: 'mathjax' or 'katex'. Default:
-                           mathjax
-  --compile-latex          Render all LaTeX formulas on server-side as HTML by
-                           compiling them using KaTeX Note that this setting
-                           requires a NPM installation.and NPM interpreter
-                           available in the $PATH environment variable.
-  --verbose                Display more information about the compilation
-                           output.
-  --author TEXT            Override the frontmatter attribute author in all
-                           wiki pages. The author field is compiled to <meta
-                           name="author" content="AUTHOR NAME"> This setting
-                           only makes sense if there is a single author.
-  --source                 Add menu item for displaying markdown source code
-                           of the current page.
-  --help                   Show this message and exit.
+  --wikipath TEXT               Path to folder containing *.md files.
+  -o, --output TEXT             Directory that will contain the compilation
+                                output (default value ./out).
+  --page TEXT                   Export single page to html, instead of the
+                                whole wiki.
+  --website-name TEXT           Name of the static website (default value
+                                'MWiki').
+  --root-url TEXT               Root URL that the static website will be
+                                deployed to.  (default value '/').
+  --locale TEXT                 Default locale of the user interface. (Default
+                                value 'en-US')
+  --icon TEXT                   Favicon of the static website. (Default value
+                                MWiki icon)
+  --main-font TEXT              Main font used in document text.
+  --code-font TEXT              Code monospace font used in code blocks.
+  --title-font TEXT             Title font used in document section headings.
+  --unicode-emoji-favicon TEXT  Use unicode or emoji symbol as favicon.
+  --list-fonts                  List all available fonts.
+  --allow-language-switch       Allow end-user to switch the user interface
+                                language.
+  --content-language TEXT       Set ISO language code of default content
+                                language.
+  --self-contained              Embed all attachment within the current wiki
+                                page. JavaScripts and CSS are inlined and
+                                images are embedded in base64 encoding. The
+                                generated HTML self-contained file is similar
+                                to a PDF file. This flag is useful for
+                                generating self-contained documents for
+                                offline view.
+  --embed-latex-renderer        Self host MathJax or KaTeX The LaTex rendering
+                                library is copied to the output directory.
+  --latex-renderer TEXT         LaTeX renderer: 'mathjax' or 'katex'. Default:
+                                mathjax
+  --compile-latex               Render all LaTeX formulas on server-side as
+                                HTML by compiling them using KaTeX Note that
+                                this setting requires a NPM installation.and
+                                NPM interpreter available in the $PATH
+                                environment variable.
+  --verbose                     Display more information about the compilation
+                                output.
+  --author TEXT                 Override the frontmatter attribute author in
+                                all wiki pages. The author field is compiled
+                                to <meta name="author" content="AUTHOR NAME">
+                                This setting only makes sense if there is a
+                                single author.
+  --source                      Add menu item for displaying markdown source
+                                code of the current page.
+  --help                        Show this message and exit.
 ```
-
 
 List all available fonts:
 
 ```sh
-caesar@sbox ~/m/sample-wiki (release-v0.9)> mwiki export --list-fonts
+$ mwiki export --list-fonts
                            KEY                   FONT FAMILY
                computer-modern               Computer Modern
                  ibm-plex-mono                 IBM Plex Mono
