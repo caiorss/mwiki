@@ -35,11 +35,26 @@ Describe what is a NAS
 
 ```
 
+### Content Language
+
+The html lang attribute `<html attr="en">` is used to indicate the content language to web browsers, screen readers and search engines. The lang attribute is the ISO code of the default content language, which is set by the administrator in the settings form. If the content language is not the same as the default one, it is possible to override the content laguage code of the current document using the **language** frontmatter directive.
+
+```yaml
+language: <ISO-LANGUAGE-CODE-OF-CURRENT-DOCUMENT>
+```
+
+For instance, if the current document language is Spanish, the lang attribute can be overriden using the following directive in the frontmatter, where 'es' is the ISO language code of the Spanish language.
+
+```yaml
+language: es
+```
+
+
 ### Alternative Document Title 
 
 By default, the title of a wiki page is the same as the related mardown file name without the .md file extension. However, it is possible to change a wiki page title by adding the directive 
 
-```
+```yaml
 title:  Name of New title here 
 ```
 
@@ -49,19 +64,19 @@ to the document frontmatter.
 
 Section enumeration is disabled by default. It can be enabled by adding the following directive to the document frotmatter.
 
-```
+```yaml
 section_enumeration: on
 ```
 
 It can also be explicit disabled by adding
 
-```
+```yaml
 section_enumeration: off 
 ```
 
 or
 
-```
+```yaml
 section_enumeration: off
 ```
 
@@ -71,13 +86,13 @@ The directive *latex_renderer* allows overriding the default latex rendering eng
 
 Use KaTeX rendering engine:
 
-```
+```yaml
 latex_renderer: katex
 ```
 
 Use MathJax rendering engine:
 
-```
+```yaml 
 latex_renderer: mathjax 
 ```
 
@@ -86,20 +101,20 @@ latex_renderer: mathjax
 
 Equation enumeration can be enabled using
 
-```
+```yaml
 equation_enumeration_enabled: on
 ```
 
 or disabled by using this directive set to off. If enumeration is disabled, only referenced equations will get an enumeration on the left side of the equation (LaTeX display mode).
 
-```
+```yaml
 equation_enumeration_enabled: off  
 ```
 
 
 The frontmatter directive 'equation_enumeration_style' allows changing the equation enumeration style.
 
-```
+```yaml
 equation_enumeration_style: <style>
 ```
 
