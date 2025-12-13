@@ -660,8 +660,8 @@ $$
 | ------------------------------------------- | ------------------------------------------------- |
 |                                             |                                                   |
 | **Symmetry Properties**                     |                                                   |
-| Cosine is an even function (pt: função par) | $\cos (-x) = \cos (x)$                            |
-| Sine is a odd function (pt: função impar)   | $\sin (-x) = - \sin(x)$                           |
+| Cosine is an even function^{pt: função par} | $\cos (-x) = \cos (x)$                            |
+| Sine is a odd function^{pt: função impar}   | $\sin (-x) = - \sin(x)$                           |
 |                                             | $\sin (\pi/2 - x) = \sin(90 - x) = \cos x$        |
 |                                             | $\cos (\pi/2 - x) = \cos(90 - x) = \sin x$        |
 |                                             | $\cos (\pi/2 - x) = \cos(90 - x) = \sin x$        |
@@ -674,7 +674,7 @@ $$
 
 **Notable angles** 
 
-| Degrees | Randians    | Sin          | Cos          | Tan          |
+| Degrees | Radians    | Sin          | Cos          | Tan          |
 | ------- | ----------- | ------------ | ------------ | ------------ |
 | 0       | 0           | 0            | 1            | 0            |
 | 30      | $\pi/6$     | 1/2          | $\sqrt{3}/2$ | $\sqrt{3}/3$ |
@@ -684,7 +684,7 @@ $$
 | 180     | $\pi$       | 0            | -1           | 0            |
 | 270     | $(3/2) \pi$ | -1           | 0            | $-\infty$    |
 | 360     | $2\pi$      | 0            | 1            | 0            |
-
+ 
 ### Trigonometric Identities
 
  **Sine and Cosine Relation** 
