@@ -4,15 +4,32 @@
 % used in any MWiki page (markdown file).                %
 %--------------------------------------------------------%
 
-
 % Vector notation, short for mathbf (bold face)
 % Exmaple: \b{r} = (x, y, z)
 \newcommand{\b}[1]{ \mathbf{#1} }
 
+% Unit vector, example unit direction vector
+% for X axis, \bhat{x}
+\newcommand{\bhat}[1]{ \hat{\mathbf{#1}} }
+
+% Vector derivative with respect to time
+\newcommand{\bdot}[1]{ \dot{\mathbf{#1}} }
+
+% Second order vector derivative with respect to time
+\newcommand{\bddot}[1]{ \ddot{\mathbf{#1}}  }
+
 % Vector notation for greek letters
 % Example: A vector of robotics joint angles can be written as
-%   \sb{\theta} = (\theta_1, \theta_2, \cdots, \theta_n)
-\newcommand{\sb}[1]{ \boldsymbol{#1} }
+%   \bs{\theta} = (\theta_1, \theta_2, \cdots, \theta_n)
+\newcommand{\bs}[1]{ \boldsymbol{#1} }
+
+% Derivative of Vector notation in greek letters
+% Example: The generalized velocities of the generalized coordinates of a robotic system can be written as
+%   \bsdot{\theta} = (\theta_1, \theta_2, \cdots, \theta_n)
+% instead of
+$  \dot{\boldsymbol{\theta}}
+\newcommand{\bsdot}[1]{ \dot{\boldsymbol{#1}} }
+
 
 % Macros for numerical optmization problem
 %
@@ -27,10 +44,18 @@
 \newcommand{\Z}{ \mathbb{Z}  }
 
 % Laplace Transform  => Usage \laplace{x}
-\newcommand{\laplace}[1]{ \mathcal{L}\{#1\}  }
+\newcommand{\laplace}[1]{ \mathcal{L}\left\{#1\right\}  }
+
+% Inverse Laplace Transform  => Usage \laplace{x}
+\newcommand{\ilaplace}[1]{ \mathcal{L}^{-1}\left\{#1\right\}  }
+
 
 % Fourier Transform
-\newcommand{\fourier}[1]{ \mathcal{F}\{#1\} }
+\newcommand{\fourier}[1]{ \mathcal{F}\left\{#1\right\} }
+
+% Inverse Fourier Transform
+\newcommand{\ifourier}[1]{ \mathcal{F}^{-1}\left\{#1\right\} }
+
 
 % Derivative symbol \d instead of \mathrm{d}
 \newcommand{\d}{ \mathrm{d} }
@@ -38,6 +63,20 @@
 \newcommand{\p}{\partial}
 % Euler's Number (constant)
 \newcommand{\e}{ \mathrm{e} }
+
+
+%% derivative with respect to time
+\newcommand{\dt}[1]{ \frac{d #1}{dt} }
+
+%% second derivative with respect to time
+\newcommand{\ddt}[1]{ \frac{d^2 #1}{dt^2} }
+
+%% Partial Derivative => Usage: \pd{u}{x}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+
+%% Second order partial derivative, example: \pdff{u}{x}
+\newcommand{\pdd}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+
 
 \newcommand{\R}{ { \mathbb{R} }  }
 \newcommand{\C}{ { \mathbb{C} }  }
@@ -54,4 +93,4 @@
 
 \DeclareMathOperator{\sgn}{sgn}
 
-   
+           

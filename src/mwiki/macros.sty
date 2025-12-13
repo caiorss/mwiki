@@ -23,6 +23,14 @@
 %   \bs{\theta} = (\theta_1, \theta_2, \cdots, \theta_n)
 \newcommand{\bs}[1]{ \boldsymbol{#1} }
 
+% Derivative of Vector notation in greek letters
+% Example: The generalized velocities of the generalized coordinates of a robotic system can be written as
+%   \bsdot{\theta} = (\theta_1, \theta_2, \cdots, \theta_n)
+% instead of
+$  \dot{\boldsymbol{\theta}}
+\newcommand{\bsdot}[1]{ \dot{\boldsymbol{#1}} }
+
+
 % Macros for numerical optmization problem
 %
 % Usage example: a = \argmin_x f(x, y) 
@@ -36,10 +44,18 @@
 \newcommand{\Z}{ \mathbb{Z}  }
 
 % Laplace Transform  => Usage \laplace{x}
-\newcommand{\laplace}[1]{ \mathcal{L}\{#1\}  }
+\newcommand{\laplace}[1]{ \mathcal{L}\left\{#1\right\}  }
+
+% Inverse Laplace Transform  => Usage \laplace{x}
+\newcommand{\ilaplace}[1]{ \mathcal{L}^{-1}\left\{#1\right\}  }
+
 
 % Fourier Transform
-\newcommand{\fourier}[1]{ \mathcal{F}\{#1\} }
+\newcommand{\fourier}[1]{ \mathcal{F}\left\{#1\right\} }
+
+% Inverse Fourier Transform
+\newcommand{\ifourier}[1]{ \mathcal{F}^{-1}\left\{#1\right\} }
+
 
 % Derivative symbol \d instead of \mathrm{d}
 \newcommand{\d}{ \mathrm{d} }
@@ -77,4 +93,4 @@
 
 \DeclareMathOperator{\sgn}{sgn}
 
-        
+            
