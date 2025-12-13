@@ -215,7 +215,7 @@ Note:
  + ([Usenet comp.text.tex](https://groups.google.com/g/comp.text.tex/c/1xisGZPVB6s), 2001)
   
 
-## Matrix
+## Matrices
 
 
 **Basic Matrix (bmatrix)**
@@ -479,4 +479,257 @@ $$
 \end{array}
 \right]
 \end{array}
+$$ 
+
+## Default Latex Macros 
+
+MWiki comes has many default useful LaTeX macros that makes it easier and faster to write complex math expressions. The LaTeX macros can be edited by clicking at the main menu's item 'Edit Macros' or by opening the link:
+
++ [/edit/special:macros](/edit/special:macros)
+ 
+Note that this hyperlink does not work in the Wikis or notes exported to html, such as this one. It is only possible to edit macros by starting MWiki in server mode.
+
+### Macros for partial derivative
+
+**Partial Derivative**
+
+Partial derivative of a function $u(x, y)$ with respect to $x$.
+
+```latex
+\pd{u}{x} 
+```
+
+Output:
+
 $$
+\pd{u}{x}
+$$
+
+Instead of 
+
+```latex
+\frac{\partial u}{\partial x}
+```
+
+**Second order partial derivative**
+
+```latex
+\pdd{u}{x}
+```
+
+Output:
+
+$$
+\pdd{u}{x}
+$$
+
+Instead of
+
+```latex
+\frac{\partial^2 u}{\partial x^2}
+```
+
+### Macros for writing vectors
+
+
+The macro `\b{VECTOR}` allows writing vectors in bold face font in a more concise form than `\mathbf{VECTOR}`. For instance, 
+
+```latex
+\b{u} = \b{v} + \b{w}
+```
+
+Output:
+
+$$
+\b{u} = \b{v} + \b{w}
+$$
+
+Instead of 
+
+```latex
+\mathbf{u} = \mathbf{v} + \mathbf{w}
+```
+
+**Macro for vectors with greek letters**
+
+Example: 
+
+```latex
+\bs{\theta} = \begin{bmatrix} 
+                \theta_1 \\ \vdots \\ \theta_n 
+              \end{bmatrix}
+```
+
+$$
+\bs{\theta} = \begin{bmatrix} 
+                \theta_1 \\ \vdots \\ \theta_n 
+              \end{bmatrix}
+$$
+
+Instead of 
+
+$$
+\boldsymbol{\theta} = \begin{bmatrix} 
+                        \theta_1 \\ \vdots \\ \theta_n 
+                      \end{bmatrix}
+$$
+
+Where $\bs{\theta}$ (`\bs{\theta}`) is a vector that consists of $n$ generalized coordinates, joint angles, of a robotic system or mechanism.
+
+**Macro for writing vector derivative**
+
+Deriatives of vectors with dot notation can be written using the macro `\bdot{VECTOR}`. Example:
+
+```latex
+  \b{v} = \frac{d}{dt} \b{r} = \bdot{r}
+```
+
+Output:
+
+$$
+  \b{v} = \frac{d}{dt} \b{r} = \bdot{r}
+$$
+
+Instead of 
+
+```latex
+  \mathbf{v} = \frac{d}{dt} \mathbf{r} = \dot{\mathbf{r}}
+```
+
+The formula states that the velocity vector $\b{v}(t)$ is the derivative of the positon vector $\bdot{r}(t)$ with respect to time.
+
+**Macro for writing vector (greek letter) derivative**
+
+Example: 
+
+```latex
+\bsdot{\theta} = 
+            \begin{bmatrix} 
+                \dot{\theta}_1 \\ \vdots \\ \dot{\theta}_n 
+             \end{bmatrix}
+```
+
+$$
+\bsdot{\theta} = 
+            \begin{bmatrix} 
+                \dot{\theta}_1 \\ \vdots \\ \dot{\theta}_n 
+             \end{bmatrix}
+$$
+
+Instead of 
+
+```latex
+\dot{\boldsymbol{\theta}} = 
+            \begin{bmatrix} 
+                \dot{\theta}_1 \\ \vdots \\ \dot{\theta}_n 
+            \end{bmatrix}
+```
+
+where $\bsdot{\theta}(t)$ (`\bsdot{\theta}`) is the vector of the generalized velocities of each joint of a robotic manipulator or mechanism.
+
+
+**Macro for writing second order vector derivative**
+
+The macro `\bddot{VECTOR}` can be used for writing the second order derivative of a vector with respect to time. For instance, 
+
+```latex
+\b{a} = \bdot{v} = \bddot{r} = \frac{d^2 \b{r}}{dt^2}
+```
+
+Output:
+
+$$
+\b{a} = \bdot{v} = \bddot{r} = \frac{d^2 \b{r}}{dt^2}
+$$
+
+Instead of 
+
+```latex
+\mathbf{a} = \dot{\mathbf{v}} 
+    = \ddot{\mathbf{r}} 
+    = \frac{d^2 \mathbf{r}}{dt^2}
+```
+
+where $\bddot{r}(t)$ (`\bddot{r}(t)` is the second order derivative of the position vector $\b{r}$ with respect to time.
+
+**Macros for writing unit vectors**
+
+Unit vectors are vectors with unit magnitude, which are expressed using the hat notation with bold face. For instance,
+
+```latex
+\b{r} = x(t) \bhat{x} + y(t) \bhat{y} + z(t) \bhat{z}
+```
+
+Output
+
+$$
+\b{r} = x(t) \bhat{x} + y(t) \bhat{y} + z(t) \bhat{z}
+$$
+
+where $\bhat{x}$ (`\bhat{x}`) is the unit vector related to X axis, $\bhat{y}$ is the unit vector of the Y axis and $\bhat{z}$ is the unit vector of the Z axis.
+
+
+:::{note} Source Code of LateX Macros for vectors
+:class: dropdown
+
+```latex
+% Vector notation, short for mathbf (bold face)
+% Exmaple: \b{r} = (x, y, z)
+\newcommand{\b}[1]{ \mathbf{#1} }
+
+% Unit vector, example unit direction vector
+% for X axis, \bhat{x}
+\newcommand{\bhat}[1]{ \hat{\mathbf{#1}} }
+
+% Vector derivative with respect to time
+\newcommand{\bdot}[1]{ \dot{\mathbf{#1}} }
+
+% Second order vector derivative with respect to time
+\newcommand{\bddot}[1]{ \ddot{\mathbf{#1}}  }
+```
+
+:::
+
+### Macros for Laplace Transform 
+
+Example:
+
+```latex
+$$
+  \laplace{ \ddot{f}(t) } = -\dot{f}(0) - s f(0) + s ^ 2 \laplace{ f(t) }  
+$$
+```
+
+Output:
+
+$$
+  \laplace{ \ddot{f}(t) } = -\dot{f}(0) - s f(0) + s ^ 2 \laplace{ f(t) }  
+$$
+
+
+where $\laplace{ g(t) }$ is the laplace transform of the the function $g(t)$.
+
+### Macro for Inverse Laplace Transform
+
+Example: 
+
+```latex
+\ilaplace{ \frac{1}{s} F(s) } = \int_{0}^{\tau} f(\tau) \, d\tau 
+```
+
+$$
+\ilaplace{ \frac{1}{s} F(s) } = \int_{0}^{\tau} f(\tau) \, d\tau 
+$$ 
+### Macro for Computation Complexity
+
+Example:
+
+````markdown
++ The computational complexity of this algorithm is $\BigO{n}$.
++ The computational complexity of the second algorithm is $\BigO{n^3}$.
+````
+
+Rendering:
+
++ The comptuational complexity of this algorithm is $\BigO{n}$.   
++ The computational complexity of the second algorithm is $\BigO{n^3}$.  
