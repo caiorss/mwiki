@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+        <link rel="icon" type="imag/x-icon" href="/mwiki/favicon.ico" >
     
     <title data-i18n="">MBook - LaTeX Reference Card</title>
     <meta name="description" content="Comprehensive overview of LaTeX and examples." />
@@ -121,7 +121,7 @@
     const LATEX_RENDERER = "katex";
     const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
     const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
-    const KATEX_MACROS = "eyJcXGIiOiAiXFxtYXRoYmZ7IzF9IiwgIlxcc2IiOiAiXFxib2xkc3ltYm9seyMxfSIsICJcXGFyZ21heCI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtYXh9IiwgIlxcYXJnbWluIjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1pbn0iLCAiXFxSIjogInsgXFxtYXRoYmJ7Un0gfSIsICJcXFoiOiAiXFxtYXRoYmJ7Wn0iLCAiXFxsYXBsYWNlIjogIlxcbWF0aGNhbHtMfVxceyMxXFx9IiwgIlxcZm91cmllciI6ICJcXG1hdGhjYWx7Rn1cXHsjMVxcfSIsICJcXGQiOiAiXFxtYXRocm17ZH0iLCAiXFxwIjogIlxccGFydGlhbCIsICJcXGUiOiAiXFxtYXRocm17ZX0iLCAiXFxDIjogInsgXFxtYXRoYmJ7Q30gfSIsICJcXEJpZ08iOiAiXFxtYXRoY2Fse099XFwhXFxsZWZ0KCMxXFxyaWdodCkiLCAiXFxtZGVmIjogIntcXHRyaWFuZ2xlcSBcXDt9IiwgIlxcc2duIjogIlxcb3BlcmF0b3JuYW1le3Nnbn0ifQ==";
+    const KATEX_MACROS = "eyJcXGIiOiAiXFxtYXRoYmZ7IzF9IiwgIlxcYmhhdCI6ICJcXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRvdCI6ICJcXGRvdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRkb3QiOiAiXFxkZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxicyI6ICJcXGJvbGRzeW1ib2x7IzF9IiwgIlxcYnNkb3QiOiAiXFxkb3R7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxhcmdtYXgiOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWF4fSIsICJcXGFyZ21pbiI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtaW59IiwgIlxcUiI6ICJ7IFxcbWF0aGJie1J9IH0iLCAiXFxaIjogIlxcbWF0aGJie1p9IiwgIlxcbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxpbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1eey0xfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxkIjogIlxcbWF0aHJte2R9IiwgIlxccCI6ICJcXHBhcnRpYWwiLCAiXFxlIjogIlxcbWF0aHJte2V9IiwgIlxcZHQiOiAiXFxmcmFje2QgIzF9e2R0fSIsICJcXGRkdCI6ICJcXGZyYWN7ZF4yICMxfXtkdF4yfSIsICJcXHBkIjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCAjMn0iLCAiXFxwZGQiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgIzJeMn0iLCAiXFxDIjogInsgXFxtYXRoYmJ7Q30gfSIsICJcXEJpZ08iOiAiXFxtYXRoY2Fse099XFwhXFxsZWZ0KCMxXFxyaWdodCkiLCAiXFxtZGVmIjogIntcXHRyaWFuZ2xlcSBcXDt9IiwgIlxcc2duIjogIlxcb3BlcmF0b3JuYW1le3Nnbn0ifQ==";
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
@@ -347,8 +347,16 @@
 <li><a href="#H_Fractions" class="link-sidebar" >Fractions</a>
 </li><li><a href="#H_Complex_Numbers" class="link-sidebar" >Complex Numbers</a>
 </li>
-</ol></li><li><a href="#H_Matrix" class="link-sidebar" >Matrix</a>
+</ol></li><li><a href="#H_Matrices" class="link-sidebar" >Matrices</a>
+</li><li><a href="#H_Default_Latex_Macros" class="link-sidebar" >Default Latex Macros</a>
+<ol>
+<li><a href="#H_Macros_for_partial_derivative" class="link-sidebar" >Macros for partial derivative</a>
+</li><li><a href="#H_Macros_for_writing_vectors" class="link-sidebar" >Macros for writing vectors</a>
+</li><li><a href="#H_Macros_for_Laplace_Transform" class="link-sidebar" >Macros for Laplace Transform</a>
+</li><li><a href="#H_Macro_for_Inverse_Laplace_Transform" class="link-sidebar" >Macro for Inverse Laplace Transform</a>
+</li><li><a href="#H_Macro_for_Computation_Complexity" class="link-sidebar" >Macro for Computation Complexity</a>
 </li>
+</ol></li>
 </ol></ol>
         </div>
     </aside>
@@ -370,8 +378,12 @@
                 </a>
                 
             <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                  <a data-i18n="menu-item-print-label" class="sidebar-toggle-button"
+                     href="#" onclick="printPage();"
+                     title="Print current page or export it to PDF." >Print</a>
                 
-                <a data-i18n="show-source-menu-item-label" class="sidebar-toggle-button" href="#" onclick="displayPageSourceWindow();">Show source</a>
+                <a data-i18n="show-source-menu-item-label" class="sidebar-toggle-button"
+                    href="#" onclick="displayPageSourceWindow();">Show source</a>
                 
                 
                  <a data-i18n="popup-window-change-language-menu-launcher" class="sidebar-toggle-button" href="#"
@@ -393,6 +405,14 @@
                  id="btn-scroll-bottom" 
                  title="Fold/Unfold all sections."
                  ><img class="img-icon" src="/mwiki/static/dots-vertical.svg"></a> 
+            <a data-i18n="menu-item-print-icon"
+                class="sidebar-toggle-button" 
+        			  title="Print current page or export it to PDF."
+                href="#"
+                onclick="printPage();">
+                <img class="img-icon" src="/mwiki/static/printer-outline.svg">
+            </a>
+                
             <!-- 
              <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
                  href="#" 
@@ -422,13 +442,13 @@
 
 <div class="div-heading"> 
 <h2 id="H_Typesetting" class="document-heading anchor">Typesetting <a class="link-heading" href="#H_Typesetting">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=9&end=90&anchor=H_Typesetting&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Typesetting" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=9&end=90&anchor=H_Typesetting&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Typesetting" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Font_Types" class="document-heading anchor">Font Types <a class="link-heading" href="#H_Font_Types">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=11&end=32&anchor=H_Font_Types&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Font Types" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=11&end=32&anchor=H_Font_Types&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Font Types" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -587,7 +607,7 @@
 
 <div class="div-heading"> 
 <h3 id="H_Font_Sizes" class="document-heading anchor">Font Sizes <a class="link-heading" href="#H_Font_Sizes">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=32&end=57&anchor=H_Font_Sizes&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Font Sizes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=32&end=57&anchor=H_Font_Sizes&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Font Sizes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <pre>
@@ -640,7 +660,7 @@ Rendering
 
 <div class="div-heading"> 
 <h3 id="H_Table" class="document-heading anchor">Table <a class="link-heading" href="#H_Table">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=57&end=90&anchor=H_Table&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Table" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=57&end=90&anchor=H_Table&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Table" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <pre>
@@ -681,13 +701,13 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <div class="div-heading"> 
 <h2 id="H_Symbols" class="document-heading anchor">Symbols <a class="link-heading" href="#H_Symbols">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=90&end=165&anchor=H_Symbols&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Symbols" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=90&end=165&anchor=H_Symbols&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Symbols" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Greek_Letters_and_Math_Symbol" class="document-heading anchor">Greek Letters and Math Symbol <a class="link-heading" href="#H_Greek_Letters_and_Math_Symbol">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=92&end=131&anchor=H_Greek_Letters_and_Math_Symbol&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Greek Letters and Math Symbol" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=92&end=131&anchor=H_Greek_Letters_and_Math_Symbol&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Greek Letters and Math Symbol" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -933,7 +953,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <div class="div-heading"> 
 <h3 id="H_Equality_and_comparison" class="document-heading anchor">Equality and comparison <a class="link-heading" href="#H_Equality_and_comparison">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=131&end=146&anchor=H_Equality_and_comparison&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Equality and comparison" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=131&end=146&anchor=H_Equality_and_comparison&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Equality and comparison" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -1058,7 +1078,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <div class="div-heading"> 
 <h3 id="H_Sets_Symbols_and_Logical_Operators" class="document-heading anchor">Sets Symbols and Logical Operators <a class="link-heading" href="#H_Sets_Symbols_and_Logical_Operators">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=146&end=165&anchor=H_Sets_Symbols_and_Logical_Operators&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Sets Symbols and Logical Operators" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=146&end=165&anchor=H_Sets_Symbols_and_Logical_Operators&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Sets Symbols and Logical Operators" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -1238,13 +1258,13 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <div class="div-heading"> 
 <h2 id="H_Common_Cases" class="document-heading anchor">Common Cases <a class="link-heading" href="#H_Common_Cases">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=165&end=217&anchor=H_Common_Cases&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Common Cases" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=165&end=217&anchor=H_Common_Cases&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Common Cases" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Fractions" class="document-heading anchor">Fractions <a class="link-heading" href="#H_Fractions">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=167&end=183&anchor=H_Fractions&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Fractions" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=167&end=183&anchor=H_Fractions&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Fractions" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -1349,7 +1369,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <div class="div-heading"> 
 <h3 id="H_Complex_Numbers" class="document-heading anchor">Complex Numbers <a class="link-heading" href="#H_Complex_Numbers">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=183&end=217&anchor=H_Complex_Numbers&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Complex Numbers" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=183&end=217&anchor=H_Complex_Numbers&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Complex Numbers" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -1580,8 +1600,8 @@ Shortcut for writing imaginary unit \renewcommand{\i}{{\mathrm{i}}, then the ima
 </ul>
 
 <div class="div-heading"> 
-<h2 id="H_Matrix" class="document-heading anchor">Matrix <a class="link-heading" href="#H_Matrix">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=217&end=end&anchor=H_Matrix&page=LaTeX Reference Card&timestamp=176359801292063" title="[i18n]: Matrix" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<h2 id="H_Matrices" class="document-heading anchor">Matrices <a class="link-heading" href="#H_Matrices">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=217&end=483&anchor=H_Matrices&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Matrices" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -1892,6 +1912,426 @@ m &amp; e &amp; t &amp; a &amp; *
 \end{array}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
+
+<div class="div-heading"> 
+<h2 id="H_Default_Latex_Macros" class="document-heading anchor">Default Latex Macros <a class="link-heading" href="#H_Default_Latex_Macros">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=483&end=end&anchor=H_Default_Latex_Macros&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Default Latex Macros" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<p>
+MWiki comes has many default useful LaTeX macros that makes it easier and faster to write complex math expressions. The LaTeX macros can be edited by clicking at the main menu's item 'Edit Macros' or by opening the link:
+</p>
+
+<ul class="">
+<li>
+<a href="/edit/special:macros"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >/edit/special:macros</a> 
+</li>
+</ul>
+
+<p>
+Note that this hyperlink does not work in the Wikis or notes exported to html, such as this one. It is only possible to edit macros by starting MWiki in server mode.
+</p>
+
+<div class="div-heading"> 
+<h3 id="H_Macros_for_partial_derivative" class="document-heading anchor">Macros for partial derivative <a class="link-heading" href="#H_Macros_for_partial_derivative">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=491&end=531&anchor=H_Macros_for_partial_derivative&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Macros for partial derivative" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<p>
+<strong>Partial Derivative</strong>
+</p>
+
+<p>
+Partial derivative of a function <span class="math-inline">u(x, y)</span> with respect to <span class="math-inline">x</span>.
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\pd</span><span class="nb">{</span>u<span class="nb">}{</span>x<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Output:
+</p>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\pd{u}{x}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+Instead of
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\frac</span><span class="nb">{</span><span class="k">\partial</span> u<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+<strong>Second order partial derivative</strong>
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\pdd</span><span class="nb">{</span>u<span class="nb">}{</span>x<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Output:
+</p>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\pdd{u}{x}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+Instead of
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\frac</span><span class="nb">{</span><span class="k">\partial</span><span class="nb">^</span>2 u<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">^</span>2<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<div class="div-heading"> 
+<h3 id="H_Macros_for_writing_vectors" class="document-heading anchor">Macros for writing vectors <a class="link-heading" href="#H_Macros_for_writing_vectors">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=531&end=692&anchor=H_Macros_for_writing_vectors&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Macros for writing vectors" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<p>
+The macro <code>\b{VECTOR}</code> allows writing vectors in bold face font in a more concise form than <code>\mathbf{VECTOR}</code>. For instance,
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\b</span><span class="nb">{</span>u<span class="nb">}</span> = <span class="k">\b</span><span class="nb">{</span>v<span class="nb">}</span> + <span class="k">\b</span><span class="nb">{</span>w<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Output:
+</p>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\b{u} = \b{v} + \b{w}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+Instead of
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\mathbf</span><span class="nb">{</span>u<span class="nb">}</span> = <span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span> + <span class="k">\mathbf</span><span class="nb">{</span>w<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+<strong>Macro for vectors with greek letters</strong>
+</p>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\bs</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}</span> = <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
+                <span class="k">\theta_</span>1 <span class="k">\\</span> <span class="k">\vdots</span> <span class="k">\\</span> <span class="k">\theta_n</span> 
+              <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\bs{\theta} = \begin{bmatrix} 
+                \theta_1 \\ \vdots \\ \theta_n 
+              \end{bmatrix}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+Instead of
+</p>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\boldsymbol{\theta} = \begin{bmatrix} 
+                        \theta_1 \\ \vdots \\ \theta_n 
+                      \end{bmatrix}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+Where <span class="math-inline">\bs{\theta}</span> (<code>\bs{\theta}</code>) is a vector that consists of <span class="math-inline">n</span> generalized coordinates, joint angles, of a robotic system or mechanism.
+</p>
+
+<p>
+<strong>Macro for writing vector derivative</strong>
+</p>
+
+<p>
+Deriatives of vectors with dot notation can be written using the macro <code>\bdot{VECTOR}</code>. Example:
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\b</span><span class="nb">{</span>v<span class="nb">}</span> = <span class="k">\frac</span><span class="nb">{</span>d<span class="nb">}{</span>dt<span class="nb">}</span> <span class="k">\b</span><span class="nb">{</span>r<span class="nb">}</span> = <span class="k">\bdot</span><span class="nb">{</span>r<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Output:
+</p>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\b{v} = \frac{d}{dt} \b{r} = \bdot{r}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+Instead of
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span> = <span class="k">\frac</span><span class="nb">{</span>d<span class="nb">}{</span>dt<span class="nb">}</span> <span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}</span> = <span class="k">\dot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}}</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+The formula states that the velocity vector <span class="math-inline">\b{v}(t)</span> is the derivative of the positon vector <span class="math-inline">\bdot{r}(t)</span> with respect to time.
+</p>
+
+<p>
+<strong>Macro for writing vector (greek letter) derivative</strong>
+</p>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\bsdot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}</span> = 
+            <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
+                <span class="k">\dot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}_</span>1 <span class="k">\\</span> <span class="k">\vdots</span> <span class="k">\\</span> <span class="k">\dot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}_</span>n 
+             <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\bsdot{\theta} = 
+            \begin{bmatrix} 
+                \dot{\theta}_1 \\ \vdots \\ \dot{\theta}_n 
+             \end{bmatrix}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+Instead of
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\dot</span><span class="nb">{</span><span class="k">\boldsymbol</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}}</span> = 
+            <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
+                <span class="k">\dot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}_</span>1 <span class="k">\\</span> <span class="k">\vdots</span> <span class="k">\\</span> <span class="k">\dot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}_</span>n 
+            <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+where <span class="math-inline">\bsdot{\theta}(t)</span> (<code>\bsdot{\theta}</code>) is the vector of the generalized velocities of each joint of a robotic manipulator or mechanism.
+</p>
+
+<p>
+<strong>Macro for writing second order vector derivative</strong>
+</p>
+
+<p>
+The macro <code>\bddot{VECTOR}</code> can be used for writing the second order derivative of a vector with respect to time. For instance,
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\b</span><span class="nb">{</span>a<span class="nb">}</span> = <span class="k">\bdot</span><span class="nb">{</span>v<span class="nb">}</span> = <span class="k">\bddot</span><span class="nb">{</span>r<span class="nb">}</span> = <span class="k">\frac</span><span class="nb">{</span>d<span class="nb">^</span>2 <span class="k">\b</span><span class="nb">{</span>r<span class="nb">}}{</span>dt<span class="nb">^</span>2<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Output:
+</p>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\b{a} = \bdot{v} = \bddot{r} = \frac{d^2 \b{r}}{dt^2}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+Instead of
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\mathbf</span><span class="nb">{</span>a<span class="nb">}</span> = <span class="k">\dot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}}</span> 
+    = <span class="k">\ddot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}}</span> 
+    = <span class="k">\frac</span><span class="nb">{</span>d<span class="nb">^</span>2 <span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}}{</span>dt<span class="nb">^</span>2<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+where <span class="math-inline">\bddot{r}(t)</span> (<code>\bddot{r}(t)</code> is the second order derivative of the position vector <span class="math-inline">\b{r}</span> with respect to time.
+</p>
+
+<p>
+<strong>Macros for writing unit vectors</strong>
+</p>
+
+<p>
+Unit vectors are vectors with unit magnitude, which are expressed using the hat notation with bold face. For instance,
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\b</span><span class="nb">{</span>r<span class="nb">}</span> = x(t) <span class="k">\bhat</span><span class="nb">{</span>x<span class="nb">}</span> + y(t) <span class="k">\bhat</span><span class="nb">{</span>y<span class="nb">}</span> + z(t) <span class="k">\bhat</span><span class="nb">{</span>z<span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Output
+</p>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\b{r} = x(t) \bhat{x} + y(t) \bhat{y} + z(t) \bhat{z}
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+where <span class="math-inline">\bhat{x}</span> (<code>\bhat{x}</code>) is the unit vector related to X axis, <span class="math-inline">\bhat{y}</span> is the unit vector of the Y axis and <span class="math-inline">\bhat{z}</span> is the unit vector of the Z axis.
+</p>
+
+<div class="note admonition anchor" style="background:;"><details>
+<summary>
+<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-info.svg"/> Note: Source Code of LateX Macros for vectors<a class="link-edit link-edit-admonition" style="display:none" href="/edit/LaTeX Reference Card?start=671&end=691&page=LaTeX Reference Card&timestamp=176558581753315" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+</summary>
+<div class="details-content">
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="c">% Vector notation, short for mathbf (bold face)</span>
+<span class="c">% Exmaple: \b{r} = (x, y, z)</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\b</span><span class="nb">}</span>[1]<span class="nb">{</span> <span class="k">\mathbf</span><span class="nb">{</span>#1<span class="nb">}</span> <span class="nb">}</span>
+
+<span class="c">% Unit vector, example unit direction vector</span>
+<span class="c">% for X axis, \bhat{x}</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\bhat</span><span class="nb">}</span>[1]<span class="nb">{</span> <span class="k">\hat</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>#1<span class="nb">}}</span> <span class="nb">}</span>
+
+<span class="c">% Vector derivative with respect to time</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\bdot</span><span class="nb">}</span>[1]<span class="nb">{</span> <span class="k">\dot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>#1<span class="nb">}}</span> <span class="nb">}</span>
+
+<span class="c">% Second order vector derivative with respect to time</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\bddot</span><span class="nb">}</span>[1]<span class="nb">{</span> <span class="k">\ddot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>#1<span class="nb">}}</span>  <span class="nb">}</span>
+</pre></div>
+</code>
+</pre>
+</div> <!-- EoF div.details-content -->
+</details>
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Macros_for_Laplace_Transform" class="document-heading anchor">Macros for Laplace Transform <a class="link-heading" href="#H_Macros_for_Laplace_Transform">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=692&end=711&anchor=H_Macros_for_Laplace_Transform&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Macros for Laplace Transform" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="sb">$$</span>
+<span class="nb">  </span><span class="nv">\laplace</span><span class="nb">{ </span><span class="nv">\ddot</span><span class="nb">{f}</span><span class="o">(</span><span class="nb">t</span><span class="o">)</span><span class="nb"> } </span><span class="o">=</span><span class="nb"> </span><span class="o">-</span><span class="nv">\dot</span><span class="nb">{f}</span><span class="o">(</span><span class="m">0</span><span class="o">)</span><span class="nb"> </span><span class="o">-</span><span class="nb"> s f</span><span class="o">(</span><span class="m">0</span><span class="o">)</span><span class="nb"> </span><span class="o">+</span><span class="nb"> s ^ </span><span class="m">2</span><span class="nb"> </span><span class="nv">\laplace</span><span class="nb">{ f</span><span class="o">(</span><span class="nb">t</span><span class="o">)</span><span class="nb"> }  </span>
+<span class="s">$$</span>
+</pre></div>
+</code>
+</pre>
+
+<p>
+Output:
+</p>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\laplace{ \ddot{f}(t) } = -\dot{f}(0) - s f(0) + s ^ 2 \laplace{ f(t) }
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<p>
+where <span class="math-inline">\laplace{ g(t) }</span> is the laplace transform of the the function <span class="math-inline">g(t)</span>.
+</p>
+
+<div class="div-heading"> 
+<h3 id="H_Macro_for_Inverse_Laplace_Transform" class="document-heading anchor">Macro for Inverse Laplace Transform <a class="link-heading" href="#H_Macro_for_Inverse_Laplace_Transform">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=711&end=722&anchor=H_Macro_for_Inverse_Laplace_Transform&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Macro for Inverse Laplace Transform" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\ilaplace</span><span class="nb">{</span> <span class="k">\frac</span><span class="nb">{</span>1<span class="nb">}{</span>s<span class="nb">}</span> F(s) <span class="nb">}</span> = <span class="k">\int_</span><span class="nb">{</span>0<span class="nb">}^{</span><span class="k">\tau</span><span class="nb">}</span> f(<span class="k">\tau</span>) <span class="k">\,</span> d<span class="k">\tau</span>
+</pre></div>
+</code>
+</pre>
+
+<div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code">
+\ilaplace{ \frac{1}{s} F(s) } = \int_{0}^{\tau} f(\tau) \, d\tau
+</div><div class="div-latex-enum"><span></span></div>
+</div>
+
+<div class="div-heading"> 
+<h3 id="H_Macro_for_Computation_Complexity" class="document-heading anchor">Macro for Computation Complexity <a class="link-heading" href="#H_Macro_for_Computation_Complexity">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=722&end=end&anchor=H_Macro_for_Computation_Complexity&page=LaTeX Reference Card&timestamp=176558581753315" title="[i18n]: Macro for Computation Complexity" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<p>
+Example:
+</p>
+
+<pre>
+<code class="language-markdown"><div class="highlight"><pre><span></span>+ The computational complexity of this algorithm is $\BigO{n}$.
++ The computational complexity of the second algorithm is $\BigO{n^3}$.
+</pre></div>
+</code>
+</pre>
+
+<p>
+Rendering:
+</p>
+
+<ul class="">
+<li>
+The comptuational complexity of this algorithm is <span class="math-inline">\BigO{n}</span>. 
+</li>
+<li>
+The computational complexity of the second algorithm is <span class="math-inline">\BigO{n^3}</span>. 
+</li>
+</ul>
 
 
         </main>

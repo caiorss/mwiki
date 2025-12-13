@@ -236,6 +236,35 @@ function base64ToUtf8(b64) {
     return decoder.decode(bytes);
 }
 
+
+/** Render a LaTeX formula in some DOM element obtained
+  * with document.querySelector(...) API.
+  *
+  * @param {any}     domElement  - DOM element where the equation will be rendered.
+  * @param {string}  latexCode   - LaTeX code of equation be rendered.
+  * @param {boolean} displayMode - true if the formula is display mode.
+  *
+  **/
+function katexRenderDOMLatexFormula(domElement, latexCode, displayMode = false)
+{
+  var macros = {};
+  try {
+    macros = JSON.parse(base64ToUtf8(KATEX_MACROS));
+  } catch (error) {
+    // console.log(" JSON Parsing error: ", error);
+  }
+  // console.log(" [TRACE] macros = ", macros);
+  try {
+    console.log(" [TRACE] Rendering formula: ", latexCode);
+    console.log(" [TRACE] dom = ", domElement);
+    katex.render(latexCode, domElement
+                  , { displayMode: displayMode, macros: macros });
+  } catch (error) {
+    domElement.textContent = prev + error;
+  }
+}
+
+
 function kateRenderDOMLatex(domElement)
 {
    if( !IS_LATEX_RENDERER_KATEX ){ return; }
@@ -286,6 +315,8 @@ function katexRenderDocumentLatex()
    kateRenderDOMLatex(document.body);
 }
 
+
+
 document.addEventListener("DOMContentLoaded", katexRenderDocumentLatex);
 
 /** Render DOM (Document Object Model) node using either KaTeX or MathJax
@@ -327,7 +358,7 @@ class FlashCard
      this._handlers = {}; 
      this._root = root;
      this._visible = false;
-     // Number of flashcards in this set of flashcards
+     // Number of flashcards in this deck of flashcards
      this._size = JSON.parse(root.dataset.size);
      // Current visible flashcard in practice mode (when all cards are hidden)
      this._current = 0;
@@ -336,12 +367,76 @@ class FlashCard
      this.bindClick("btn-flashcard-prev", (target) => self.prev(target));
      this.bindClick("btn-flashcard-view", (target) => self.toggle(target));
      this.bindClick("btn-show-card", (target) => self.showAnswer(target));
+     this.bindClick("btn-flashcard-reset", (target) => {
+        this._current = 0;
+        let entries = this._root.querySelectorAll(".card-entry");
+        for(let x of entries)
+        {
+           x.classList.add("hidden");    
+           let backside = x.querySelector(".card-answer");
+           backside.classList.add("hidden");
+           x.querySelector(".btn-show-card").textContent = "open";
+        }
+        this.toggleCard(0);
+        let checkbox = this._root.querySelector(".display-backside-checkbox");
+        // checkbox.checkbox = false;
+        let displayBackSide = checkbox.checked;
+        if(displayBackSide){
+          checkbox.click();  
+        }
+     });
+     let toggleBackSide = () => {
+        //this.toggleBackside(this._current);
+        let entries = this._root.querySelectorAll(".card-entry");
+        for(let x of entries)
+        {
+           // x.classList.remove("hidden");    
+           let backside = x.querySelector(".card-answer");
+           backside.classList.toggle("hidden");
+           let label = backside.classList.contains("hidden") ? "open" : "close";
+           x.querySelector(".btn-show-card").textContent = label;
+        }
+     };
+    this.bindClick("display-backside-checkbox", toggleBackSide);
+    let displayBackside = this.checkboxValue(".display-backside-checkbox");
+    if(displayBackside){ toggleBackSide(); }
   }
   
   toggle(target)
   {
     if(this._visible){ this.hide(); } 
     else 						 { this.show(); }
+  }
+
+  /** Toggle visibility of the the it-th flashcard
+    * @param {number} index
+    */
+  toggleCard(index)
+  {
+    
+    let card = this._root.querySelectorAll(".card-entry")[index];
+    card.classList.toggle("hidden");
+  }
+
+  /** Tooggle visibility of the backside of the i-th flashcard
+    * @param {number} index
+    */
+  toggleBackside(index)
+  {
+    let card = this._root.querySelectorAll(".card-entry")[index];
+    let backside = card.querySelector(".card-answer");
+    backside.classList.toggle("hidden");
+  }
+
+  
+  /** Display the backside of the i-th flashcard
+    * @param {number} index
+    */
+  displayBackside(index)
+  {
+    let card = this._root.querySelectorAll(".card-entry")[index];
+    let backside = card.querySelector(".card-answer");
+    backside.classList.remove("hidden");
   }
   
   show(target)
@@ -372,16 +467,34 @@ class FlashCard
   next(target)
   {
     if(this._visible){ return; }
-    this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
-    let randomMode = this._root.querySelector(".random-mode-checkbox").checked;
+    //this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
+    this.toggleCard(this._current);
+    let randomMode = this.checkboxValue(".random-mode-checkbox");
+    let displayBackside = this.checkboxValue(".display-backside-checkbox");
     if(randomMode){
       this._current = nextRandomInt(this._size, this._current);
     } else {
       this._current = this._current + 1;
       if(this._current >= this._size){ this._current = this._size - 1}
     }
-    this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
+    this.toggleCard(this._current);
+    if(displayBackside){
+      this.displayBackside(this._current);
+    }
+    //this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
     // alert("Error not implementd");
+  }
+
+  /** Get value of a checkbox, given its CSS selector. 
+    * @param {string} selector 
+    * @return {boolean}
+    */   
+  checkboxValue(selector)
+  {
+    let dom = this._root.querySelector(selector)
+    if(!dom){ console.error(`DOM element with selector ${selector} not found.`)}
+    let out = dom.checked;
+    return out;
   }
   
   /* Switch to previous flashcard of the cardset. */
@@ -463,6 +576,8 @@ translationsi18n =
 		, "menu-item-delete-label":   { "label": "Delete", "title": "Delete this wiki page" }
 		, "menu-item-source-label":   { "label": "Source", "title": "Display source code of current wiki page." }
 		, "links-menu-item-label":    { "label": "Links", "title": "Display all external and internal links of this wiki page." }
+		, "menu-item-print-label":    { "label": "Print", "title": "Print current page or export it to PDF."}
+		, "menu-item-print-icon":     { "title": "Print current page or export it to PDF."}
 		, "login-button": 			  "LOG IN"
 		, "username-label": 		  "User Name"
 		, "username-placeholder": 	  "Enter your username"
@@ -492,8 +607,8 @@ translationsi18n =
 		, "edit-section-button": { "title": "Edit section" }
 		, "search-entry-placeholder": "Search"
 		, "search-menu-item-label" :  "Search"
-        , "sidebar-search-label":     "Search"
-        , "sidebar-table-of-contentes-label": "Contents"
+    , "sidebar-search-label":     "Search"
+    , "sidebar-table-of-contentes-label": "Contents"    
 		, "figure-prefix-label": "Figure"
         , "video-prefix-label":   "Video"
 		, "title-listing-all-pages":   "All pages"
@@ -532,6 +647,7 @@ translationsi18n =
 		, "settings-vim-emulation-checkbox-description": "Enable VIM editor emulation in the Wiki code editor (Ace9)"
 		, "settings-display-edit-button-checkbox-description": "Display the wiki edit button for all users [E]. If this setting is disabled,  only admin users or users with permission to edit pages will be able to view the edit button."
 		, "settings-default-locale-label":               "Default locale"
+		, "settings-default-content-locale-label":       "Default content language"
 		, "settings-use-default-locale-checkbox-label":  "Use Default Locale"
 		, "settings-use-default-locale-description": 	   "Always use the default locale (language) regardless of the user preferred language provided by the web browser."
 		
@@ -540,7 +656,11 @@ translationsi18n =
 		, "settings-use-cdn-description":         "Load JavaScript libraries from a CDN Content-Delivery Network instead of loading them from this server."
     , "settings-latex-renderer-label":        "LaTeX Renderer"
     , "settings-latex-renderer-description":  "JavaScript library used for rendering LaTeX math formulas. Note that the support for KaTeX is still experimental. "
-		
+    , "settings-h2-general-settings":        "General Settings"
+    , "settings-h2-math-rendering-settings": "Math Rendering Settings"
+    , "settings-h2-editor-settings":         "Editor Settings"
+    , "settings-h2-language-settings":       "Language Settings"
+    , "settings-h2-font-settings":           "Font/Typeface Settings"
         , "popup-window-change-language-menu-launcher": { "label": "Language"
                                                           , "title": "Open form that allows overriding the current user interface language." }
         , "popup-window-change-language": "Change the User Interface Language"
@@ -558,6 +678,7 @@ translationsi18n =
 		, "edit-page-back-button": {  "label": "Back"
 									, "title": "Switch to document view mode and exit editing mode."}
 
+		, "edit-page-preview-popup-window": "Preview of"
 		, "edit-page-preview-button": { 
 									      "label": "Preview"
 										, "title": "View how page will look like before saving."
@@ -594,6 +715,8 @@ translationsi18n =
         , "upload-form-window-title": "File Upload"
         , "upload-form-file-link-label": "Link Label"
         , "upload-form-choose-file-label": "Choose a file"
+        , "upload-form-convert-jpeg-checkbox-label": "Convert Images to JPEG"
+        , "upload-form-convert-jpeg-checkbox-description": "Reduce image file size by converting uploaded image to JPEG"
         , "upload-form-submit-button":  "Upload"
         , "upload-status-label": "Ready to upload file."
         , "upload-form-instruction": "This form allows uploading files and inserting link to it at current cursor position in the wiki code editor. NOTE: The file link label is optional. If it is empty, the file name will be used as the link label."
@@ -671,8 +794,10 @@ translationsi18n =
 		, "menu-item-new-label":      { "label": "Nova", "title": "Criar nova página Wiki" }
 		, "tags-menu-item-label":     { "label": "Tags", "title": "Navegar pelas páginas usando tags." }
 		, "menu-item-delete-label":   { "label": "Deletar", "title":  "Excluir esta página wiki"}
-		, "menu-item-source-label":   { "label": "Fonte", "title": "Exibir código-fonte da página wiki atual." }
+		, "menu-item-source-label":   { "label": "Código", "title": "Exibir código-fonte da página wiki atual." }
 		, "links-menu-item-label":    { "label": "Links", "title": "Exibir todos os links externos e internos desta página wiki." }
+		, "menu-item-print-label":    { "label": "Imprimir", "title": "Imprimir página atual ou exporte-a para PDF."}
+		, "menu-item-print-icon":     { "title": "Imprimir página atual ou exporte-a para PDF."}
 		, "login-button": 			  "LOGAR"
 		, "username-label":			  "Nome de Usuário"
 		, "username-placeholder":     "Entre com o nome de usuário"
@@ -745,12 +870,17 @@ translationsi18n =
 		, "settings-display-edit-button-checkbox-description": "Exibir o botão de edição do wiki para todos os usuários [E]. Se esta configuração estiver desabilitada, somente usuários administradores ou usuários com permissão para editar páginas poderão visualizar o botão de edição."
 		, "settings-public-checkbox-description": 		 "Se habilitado, todos, incluindo usuários não logados, poderão visualizar o conteúdo do wiki. Observe que somente usuários logados podem editar o wiki."
 		, "settings-default-locale-label":               "Idioma/locale padrão"
+		, "settings-default-content-locale-label":       "Idioma padrão do conteúdo"
 		, "settings-use-default-locale-checkbox-label":  "Usar idioma/locale padrão"
 		, "settings-use-default-locale-description": 	 "Sempre usar o idioma padrão (default locale), independentemente do idioma preferido do usuário fornecido pelo navegador da web."
     , "settings-use-cdn-checkbox-label": "Usar CDN"
 		, "settings-use-cdn-description":   "Carregar as bibliotecas JavaScript de uma CDN (Rede de Distribuição de Conteúdo) em vez de carregá-las deste servidor."
     , "settings-latex-renderer-label":  "Renderizador LaTeX"
     , "settings-latex-renderer-description":  "Biblioteca JavaScript usada para renderizar fórmulas matemáticas em LaTeX. Observe que o suporte para KaTeX ainda é experimental."
+    , "settings-h2-general-settings": "Configurações Gerais"
+    , "settings-h2-math-rendering-settings": "Configurações de Renderização Matemática"    , "settings-h2-editor-settings": "Configurações do Editor"
+    , "settings-h2-language-settings": "Configurações de Idioma"
+    , "settings-h2-font-settings": "Configurações de Fonte/Tipo de Letra (Typeface)"
         , "popup-window-change-language-menu-launcher": { "label": "Idioma"
                                                           , "title": "Formulário que permite sobrepor/mudar o idioma atual da interface do usuário." }
         , "popup-window-change-language": "Alterar o idioma da interface do usuário"
@@ -767,9 +897,10 @@ translationsi18n =
 		, "edit-page-back-button": {  "label": "Voltar"
 									, "title": "Alternar para o modo de visualização de documento e sair do modo de edição."}
 
+		, "edit-page-preview-popup-window": "Visualização de"
 		, "edit-page-preview-button": { 
 									      "label": "Visualização"
-										, "title": "Veja como a página ficará antes de salvar."
+										  , "title": "Veja como a página ficará antes de salvar."
 									  }
 		, "edit-page-save-button":  {
 										  "label": "Salvar"
@@ -803,6 +934,8 @@ translationsi18n =
         , "upload-form-window-title": "Subir Arquivo (Upload)"
         , "upload-form-file-link-label": "Rótulo do link."
         , "upload-form-choose-file-label": "Escolha um arquivo."
+        , "upload-form-convert-jpeg-checkbox-label": "Converter imagens para JPEG"
+        , "upload-form-convert-jpeg-checkbox-description": "Reduzir o tamanho do arquivo de imagem convertendo a imagem enviada para JPEG"
         , "upload-form-submit-button":  "Enviar"
         , "upload-status-label": "Pronto para enviar arquivo."
         , "upload-form-instruction": "Este formulário permite o upload de arquivos e a inserção de um link para eles na posição atual do cursor no editor de código wiki. NOTA: O rótulo do link do arquivo é opcional. Se estiver vazio, o nome do arquivo será usado como rótulo do link."
@@ -892,6 +1025,10 @@ function setLocaleI18n(locale)
 	for(let elem of elements)
 	{
 		let tag = elem.getAttribute("data-i18n");
+		if( elem.textContent.includes("[i18n]") && !elem.dataset.textContentI18N )
+		{
+		  elem.dataset.textContentI18N = elem.textContent;
+		}
 		let value_ = translations[tag];
 		if( !value_){ continue; }
 		let value = value_.label || value_;
@@ -900,7 +1037,10 @@ function setLocaleI18n(locale)
 		{
 			if( elem.title.includes("[i18n]") )
 			{
-				elem.title = elem.title.replace("[i18n]", value_.title);
+
+        let out = elem.textContent.replace("[i18n]", value._title);
+        elem.title = out;
+				// elem.title = elem.title.replace("[i18n]", value_.title);
 			} else {
 				elem.title = value_.title;
 			}
@@ -919,9 +1059,12 @@ function setLocaleI18n(locale)
 		}
 		if( value_.title && !value_.label ){ continue; }
 		// elem.textContent = value;
-		if( elem.textContent.includes("[i18n]") )
+//		if( elem.textContent.includes("[i18n]") )
+    if( elem.dataset.textContentI18N && elem.dataset.textContentI18N.includes("[i18n]") )
 		{
-			elem.textContent = elem.textContent.replace("[i18n]", value);
+		  let out =  elem.dataset.textContentI18N.replace("[i18n]", value);
+		  // let out = elem.textContent.replace("[i18n]", value);
+			elem.textContent = out;
 		} else {
 			elem.textContent = value;
 		}
@@ -959,26 +1102,10 @@ function doTranslationI18N()
     setLocaleI18n(locale);
 }
 
-
-
-function geti18nTranslation(key)
-{
-	var userLocale = navigator.language;
-	// Set all English locales to en-US (US English) as this
-	// is the only English locale available
-	if( userLocale.startsWith("en-") ){
-		userLocale = "en-US";
-	}
-	// Set all portuguese locales to pt-BR (Brazilian Portuguese)
-	if( userLocale.startsWith("pt-") ){
-		userLocale = "pt-BR";
-	}
-	if( USE_DEFAULT_LOCALE ){
-		// alert("Use default locale");
-		userLocale = DEFAULT_LOCALE;
-	}
-    let value = translationsi18n[userLocale][key];
-    return value;
+function geti18nTranslation(key) {
+  let userLocale = getCurrentLocale();
+  let value = translationsi18n[userLocale][key];
+  return value;
 }
 
 
@@ -1075,10 +1202,10 @@ function popupIframe (title, url, options)
           title: title 
         , html: html_
         , width: width
-        , height: height
+        // , height: height
         , top: "20px"
         , left: "50px" 
-        , zIndex: "500"
+        , zIndex: "1000"
     };
     let pwindow = new PopupWindow(options_);
     // pwindow.addClass("popup-window-iframe");
@@ -1262,6 +1389,18 @@ function isMobileScreen()
     let screenType = getComputedStyle(document.body).getPropertyValue("--screen-type");
     let isMobile = screenType === "mobile";
     return isMobile;
+}
+
+function printPage()
+{
+  if( isMobileScreen() ){
+    // Open document in new table in printing mode
+    let url = document.location.href.replace("#", "") + "?print=true";
+    window.open(url, "_blank");
+  } else {
+    // print current wiki page
+    window.print();
+  }
 }
 
 
@@ -1518,13 +1657,21 @@ document.addEventListener("DOMContentLoaded", async function()
 		            });
 	    });
     }
+
+    // Translate user interface I18N
+    doTranslationI18N();
 	
-    if( isMobileScreen() ) { setHeadingsVisibility(false); }
-    _visibilityFlag =  !isMobileScreen();
+    let params = new URLSearchParams(window.location.search);
+    if( params.get("print") === "true" )
+    {
+       document.body.classList.add("force-desktop");
+       window.print();
+    } else {
+      if( isMobileScreen() ) { setHeadingsVisibility(false); }
+      _visibilityFlag =  !isMobileScreen();
+    }
     // setHeadingsVisibility(false);
 
-    // Translate ser interface I18N
-    doTranslationI18N();
 });
 
 
@@ -1639,7 +1786,8 @@ document.addEventListener("mouseover", (event) => {
     if( target.classList.contains("eqref") )
     {
        let div = document.querySelector(".equation-view");
-       katex.render(target.dataset.equation, div, { throwOnError: false });
+       // katex.render(target.dataset.equation, div, { throwOnError: false });
+       katexRenderDOMLatexFormula(div, target.dataset.equation, true);
        equationPopupWindow.show();
        let title = geti18nTranslation("popup-window-equation-display-title") || "Equation";
        // console.log(` [TRACE] Title = ${title}`);

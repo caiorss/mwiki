@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22></text></svg>">
     
     <title data-i18n="source-page-title">MBook - LaTeX Reference Card</title>
     <meta name="description" content="Comprehensive overview of LaTeX and examples." />
@@ -540,7 +540,7 @@ Note:
  + ([Usenet comp.text.tex](https://groups.google.com/g/comp.text.tex/c/1xisGZPVB6s), 2001)
   
 
-<span class="gu">## Matrix</span>
+<span class="gu">## Matrices</span>
 
 
 <span class="gs">**Basic Matrix (bmatrix)**</span>
@@ -666,145 +666,398 @@ $$
  <span class="gs">**Jacobian Matrix**</span>
 
 
-```latex
-\begin{align}
- J(\mathbf{x}) &amp;= 
-	 \frac{\partial \mathbf{f}}{\partial \mathbf{x}} =
-    \begin{bmatrix}
-            \dfrac{\partial f<span class="ge">_1}{\partial x_</span>1}
-          &amp; \dfrac{\partial f<span class="ge">_1}{\partial x_</span>2}
-          &amp; \cdots
-          &amp; \dfrac{\partial f<span class="ge">_n}{\partial x_</span>n}    \\
+<span class="sb">```latex</span>
+<span class="k">\begin</span><span class="nb">{</span>align<span class="nb">}</span>
+ J(<span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span>) <span class="nb">&amp;</span>= 
+	 <span class="k">\frac</span><span class="nb">{</span><span class="k">\partial</span> <span class="k">\mathbf</span><span class="nb">{</span>f<span class="nb">}}{</span><span class="k">\partial</span> <span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}}</span> =
+    <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+            <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>1<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>1<span class="nb">}</span>
+          <span class="nb">&amp;</span> <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>1<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>2<span class="nb">}</span>
+          <span class="nb">&amp;</span> <span class="k">\cdots</span>
+          <span class="nb">&amp;</span> <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>n<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>n<span class="nb">}</span>    <span class="k">\\</span>
 
-            \dfrac{\partial f<span class="ge">_2}{\partial x_</span>1}
-          &amp; \dfrac{\partial f<span class="ge">_2}{\partial x_</span>2}
-          &amp; \cdots
-          &amp; \dfrac{\partial f<span class="ge">_n}{\partial x_</span>n}     \\
+            <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>2<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>1<span class="nb">}</span>
+          <span class="nb">&amp;</span> <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>2<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>2<span class="nb">}</span>
+          <span class="nb">&amp;</span> <span class="k">\cdots</span>
+          <span class="nb">&amp;</span> <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>n<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>n<span class="nb">}</span>     <span class="k">\\</span>
 
-         \vdots  &amp; \vdots   &amp; \ddots    &amp; \ddots  \\
+         <span class="k">\vdots</span>  <span class="nb">&amp;</span> <span class="k">\vdots</span>   <span class="nb">&amp;</span> <span class="k">\ddots</span>    <span class="nb">&amp;</span> <span class="k">\ddots</span>  <span class="k">\\</span>
 
-          \dfrac{\partial f<span class="ge">_n}{\partial x_</span>1}
-        &amp; \dfrac{\partial f<span class="ge">_n}{\partial x_</span>2}
-        &amp; \cdots
-        &amp; \dfrac{\partial f<span class="ge">_n}{\partial x_</span>n}
-       \end{bmatrix}
-     \\ \text{where}
-     \\
-     \mathbf{x} &amp;= \begin{bmatrix} 
-				     x<span class="ge">_1 &amp; \cdots &amp; x_</span>n 
-				  \end{bmatrix}^T
-	 \\ \mathbf{f}(\mathbf{x}) &amp;= 
-	    \begin{bmatrix} 
-		    f<span class="ge">_1(\mathbf{x}) &amp; \cdots &amp; f_</span>m(\mathbf{x})
-		\end{bmatrix}^T
-\end{align}
+          <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>n<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>1<span class="nb">}</span>
+        <span class="nb">&amp;</span> <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>n<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>2<span class="nb">}</span>
+        <span class="nb">&amp;</span> <span class="k">\cdots</span>
+        <span class="nb">&amp;</span> <span class="k">\dfrac</span><span class="nb">{</span><span class="k">\partial</span> f<span class="nb">_</span>n<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">_</span>n<span class="nb">}</span>
+       <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+     <span class="k">\\</span> <span class="k">\text</span><span class="nb">{</span>where<span class="nb">}</span>
+     <span class="k">\\</span>
+     <span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span> <span class="nb">&amp;</span>= <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
+				     x<span class="nb">_</span>1 <span class="nb">&amp;</span> <span class="k">\cdots</span> <span class="nb">&amp;</span> x<span class="nb">_</span>n 
+				  <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}^</span>T
+	 <span class="k">\\</span> <span class="k">\mathbf</span><span class="nb">{</span>f<span class="nb">}</span>(<span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span>) <span class="nb">&amp;</span>= 
+	    <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
+		    f<span class="nb">_</span>1(<span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span>) <span class="nb">&amp;</span> <span class="k">\cdots</span> <span class="nb">&amp;</span> f<span class="nb">_</span>m(<span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span>)
+		<span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}^</span>T
+<span class="k">\end</span><span class="nb">{</span>align<span class="nb">}</span>
 ``` 
 
-$$
-\begin{align}
- J(\mathbf{x}) &amp;= 
-	 \frac{\partial \mathbf{f}}{\partial \mathbf{x}} =
-    \begin{bmatrix}
-            \dfrac{\partial f<span class="ge">_1}{\partial x_</span>1}
-          &amp; \dfrac{\partial f<span class="ge">_1}{\partial x_</span>2}
-          &amp; \cdots
-          &amp; \dfrac{\partial f<span class="ge">_n}{\partial x_</span>n}    \\
+<span class="sb">$$</span>
+<span class="nv">\begin</span><span class="nb">{align}</span>
+<span class="nb"> J</span><span class="o">(</span><span class="nv">\mathbf</span><span class="nb">{x}</span><span class="o">)</span><span class="nb"> &amp;</span><span class="o">=</span><span class="nb"> </span>
+<span class="nb">	 </span><span class="nv">\frac</span><span class="nb">{</span><span class="nv">\partial</span><span class="nb"> </span><span class="nv">\mathbf</span><span class="nb">{f}}{</span><span class="nv">\partial</span><span class="nb"> </span><span class="nv">\mathbf</span><span class="nb">{x}} </span><span class="o">=</span>
+<span class="nb">    </span><span class="nv">\begin</span><span class="nb">{bmatrix}</span>
+<span class="nb">            </span><span class="nv">\dfrac</span><span class="nb">{</span><span class="nv">\partial</span><span class="nb"> f_</span><span class="m">1</span><span class="nb">}{</span><span class="nv">\partial</span><span class="nb"> x_</span><span class="m">1</span><span class="nb">}</span>
+<span class="nb">          &amp; </span><span class="nv">\dfrac</span><span class="nb">{</span><span class="nv">\partial</span><span class="nb"> f_</span><span class="m">1</span><span class="nb">}{</span><span class="nv">\partial</span><span class="nb"> x_</span><span class="m">2</span><span class="nb">}</span>
+<span class="nb">          &amp; </span><span class="nv">\cdots</span>
+<span class="nb">          &amp; </span><span class="nv">\dfrac</span><span class="nb">{</span><span class="nv">\partial</span><span class="nb"> f_n}{</span><span class="nv">\partial</span><span class="nb"> x_n}    </span><span class="nv">\\</span>
 
-            \dfrac{\partial f<span class="ge">_2}{\partial x_</span>1}
-          &amp; \dfrac{\partial f<span class="ge">_2}{\partial x_</span>2}
-          &amp; \cdots
-          &amp; \dfrac{\partial f<span class="ge">_n}{\partial x_</span>n}     \\
+<span class="nb">            </span><span class="nv">\dfrac</span><span class="nb">{</span><span class="nv">\partial</span><span class="nb"> f_</span><span class="m">2</span><span class="nb">}{</span><span class="nv">\partial</span><span class="nb"> x_</span><span class="m">1</span><span class="nb">}</span>
+<span class="nb">          &amp; </span><span class="nv">\dfrac</span><span class="nb">{</span><span class="nv">\partial</span><span class="nb"> f_</span><span class="m">2</span><span class="nb">}{</span><span class="nv">\partial</span><span class="nb"> x_</span><span class="m">2</span><span class="nb">}</span>
+<span class="nb">          &amp; </span><span class="nv">\cdots</span>
+<span class="nb">          &amp; </span><span class="nv">\dfrac</span><span class="nb">{</span><span class="nv">\partial</span><span class="nb"> f_n}{</span><span class="nv">\partial</span><span class="nb"> x_n}     </span><span class="nv">\\</span>
 
-         \vdots  &amp; \vdots   &amp; \ddots    &amp; \ddots  \\
+<span class="nb">         </span><span class="nv">\vdots</span><span class="nb">  &amp; </span><span class="nv">\vdots</span><span class="nb">   &amp; </span><span class="nv">\ddots</span><span class="nb">    &amp; </span><span class="nv">\ddots</span><span class="nb">  </span><span class="nv">\\</span>
 
-          \dfrac{\partial f<span class="ge">_n}{\partial x_</span>1}
-        &amp; \dfrac{\partial f<span class="ge">_n}{\partial x_</span>2}
-        &amp; \cdots
-        &amp; \dfrac{\partial f<span class="ge">_n}{\partial x_</span>n}
-       \end{bmatrix}
-     \\ \text{where}
-     \\
-     \mathbf{x} &amp;= \begin{bmatrix} 
-				     x<span class="ge">_1 &amp; \cdots &amp; x_</span>n 
-				  \end{bmatrix}^T
-	 \\ \mathbf{f}(\mathbf{x}) &amp;= 
-	    \begin{bmatrix} 
-		    f<span class="ge">_1(\mathbf{x}) &amp; \cdots &amp; f_</span>m(\mathbf{x})
-		\end{bmatrix}^T
-\end{align}
-$$
+<span class="nb">          </span><span class="nv">\dfrac</span><span class="nb">{</span><span class="nv">\partial</span><span class="nb"> f_n}{</span><span class="nv">\partial</span><span class="nb"> x_</span><span class="m">1</span><span class="nb">}</span>
+<span class="nb">        &amp; </span><span class="nv">\dfrac</span><span class="nb">{</span><span class="nv">\partial</span><span class="nb"> f_n}{</span><span class="nv">\partial</span><span class="nb"> x_</span><span class="m">2</span><span class="nb">}</span>
+<span class="nb">        &amp; </span><span class="nv">\cdots</span>
+<span class="nb">        &amp; </span><span class="nv">\dfrac</span><span class="nb">{</span><span class="nv">\partial</span><span class="nb"> f_n}{</span><span class="nv">\partial</span><span class="nb"> x_n}</span>
+<span class="nb">       </span><span class="nv">\end</span><span class="nb">{bmatrix}</span>
+<span class="nb">     </span><span class="nv">\\</span><span class="nb"> </span><span class="nv">\text</span><span class="nb">{where}</span>
+<span class="nb">     </span><span class="nv">\\</span>
+<span class="nb">     </span><span class="nv">\mathbf</span><span class="nb">{x} &amp;</span><span class="o">=</span><span class="nb"> </span><span class="nv">\begin</span><span class="nb">{bmatrix} </span>
+<span class="nb">				     x_</span><span class="m">1</span><span class="nb"> &amp; </span><span class="nv">\cdots</span><span class="nb"> &amp; x_n </span>
+<span class="nb">				  </span><span class="nv">\end</span><span class="nb">{bmatrix}^T</span>
+<span class="nb">	 </span><span class="nv">\\</span><span class="nb"> </span><span class="nv">\mathbf</span><span class="nb">{f}</span><span class="o">(</span><span class="nv">\mathbf</span><span class="nb">{x}</span><span class="o">)</span><span class="nb"> &amp;</span><span class="o">=</span><span class="nb"> </span>
+<span class="nb">	    </span><span class="nv">\begin</span><span class="nb">{bmatrix} </span>
+<span class="nb">		    f_</span><span class="m">1</span><span class="o">(</span><span class="nv">\mathbf</span><span class="nb">{x}</span><span class="o">)</span><span class="nb"> &amp; </span><span class="nv">\cdots</span><span class="nb"> &amp; f_m</span><span class="o">(</span><span class="nv">\mathbf</span><span class="nb">{x}</span><span class="o">)</span>
+<span class="nb">		</span><span class="nv">\end</span><span class="nb">{bmatrix}^T</span>
+<span class="nv">\end</span><span class="nb">{align}</span>
+<span class="s">$$</span>
 
 
 
-<span class="gs">**Matrix with Row Labels (Labeled Matrix)**</span>
+**Matrix with Row Labels (Labeled Matrix)**
 
 ```latex
-\begin{array}{cc} 
-&amp;
-\begin{array}{ccccc} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5\\
-\end{array}
-\\
+<span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>cc<span class="nb">}</span> 
+<span class="nb">&amp;</span>
+<span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>ccccc<span class="nb">}</span> 1 <span class="nb">&amp;</span> 2 <span class="nb">&amp;</span> 3 <span class="nb">&amp;</span> 4 <span class="nb">&amp;</span> 5<span class="k">\\</span>
+<span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span>
+<span class="k">\\</span>
 A =
-&amp;
-\left[
-\begin{array}{ccccc}
-h &amp; e &amp; l &amp; l &amp; o \\
-m &amp; s &amp; e &amp; * &amp; * \\
-m &amp; e &amp; t &amp; a &amp; *
-\end{array}
-\right]
-\end{array}
+<span class="nb">&amp;</span>
+<span class="k">\left</span>[
+<span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>ccccc<span class="nb">}</span>
+h <span class="nb">&amp;</span> e <span class="nb">&amp;</span> l <span class="nb">&amp;</span> l <span class="nb">&amp;</span> o <span class="k">\\</span>
+m <span class="nb">&amp;</span> s <span class="nb">&amp;</span> e <span class="nb">&amp;</span> * <span class="nb">&amp;</span> * <span class="k">\\</span>
+m <span class="nb">&amp;</span> e <span class="nb">&amp;</span> t <span class="nb">&amp;</span> a <span class="nb">&amp;</span> *
+<span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span>
+<span class="k">\right</span>]
+<span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span>
 ```  
 
-$$
-\begin{array}{cc} 
-&amp;
-\begin{array}{ccccc} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5\\
-\end{array}
-\\
-A =
-&amp;
-\left[
-\begin{array}{ccccc}
-h &amp; e &amp; l &amp; l &amp; o \\
-m &amp; s &amp; e &amp; * &amp; * \\
-m &amp; e &amp; t &amp; a &amp; *
-\end{array}
-\right]
-\end{array}
-$$
+<span class="sb">$$</span>
+<span class="nv">\begin</span><span class="nb">{array}{cc} </span>
+<span class="nb">&amp;</span>
+<span class="nv">\begin</span><span class="nb">{array}{ccccc} </span><span class="m">1</span><span class="nb"> &amp; </span><span class="m">2</span><span class="nb"> &amp; </span><span class="m">3</span><span class="nb"> &amp; </span><span class="m">4</span><span class="nb"> &amp; </span><span class="m">5</span><span class="nv">\\</span>
+<span class="nv">\end</span><span class="nb">{array}</span>
+<span class="nv">\\</span>
+<span class="nb">A </span><span class="o">=</span>
+<span class="nb">&amp;</span>
+<span class="nv">\left</span><span class="o">[</span>
+<span class="nv">\begin</span><span class="nb">{array}{ccccc}</span>
+<span class="nb">h &amp; e &amp; l &amp; l &amp; o </span><span class="nv">\\</span>
+<span class="nb">m &amp; s &amp; e &amp; </span><span class="o">*</span><span class="nb"> &amp; </span><span class="o">*</span><span class="nb"> </span><span class="nv">\\</span>
+<span class="nb">m &amp; e &amp; t &amp; a &amp; </span><span class="o">*</span>
+<span class="nv">\end</span><span class="nb">{array}</span>
+<span class="nv">\right</span><span class="o">]</span>
+<span class="nv">\end</span><span class="nb">{array}</span>
+<span class="s">$$</span>
 
 
 
-<span class="gs">**Matrix with Rows and Columns Labels**</span>
+**Matrix with Rows and Columns Labels**
 
 ```latex
-\begin{array}{c c} 
-&amp; \begin{array}{c c c} a &amp; b &amp;c \\ \end{array} \\
-\begin{array}{c c c}p\\q\\r \end{array} &amp;
-\left[
-\begin{array}{c c c}
-.1 &amp; .1 &amp; 0 \\
-.4 &amp; 1 &amp; 0 \\
-.8 &amp; 0 &amp; .4
-\end{array}
-\right]
-\end{array}
+<span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>c c<span class="nb">}</span> 
+<span class="nb">&amp;</span> <span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>c c c<span class="nb">}</span> a <span class="nb">&amp;</span> b <span class="nb">&amp;</span>c <span class="k">\\</span> <span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span> <span class="k">\\</span>
+<span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>c c c<span class="nb">}</span>p<span class="k">\\</span>q<span class="k">\\</span>r <span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span> <span class="nb">&amp;</span>
+<span class="k">\left</span>[
+<span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>c c c<span class="nb">}</span>
+.1 <span class="nb">&amp;</span> .1 <span class="nb">&amp;</span> 0 <span class="k">\\</span>
+.4 <span class="nb">&amp;</span> 1 <span class="nb">&amp;</span> 0 <span class="k">\\</span>
+.8 <span class="nb">&amp;</span> 0 <span class="nb">&amp;</span> .4
+<span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span>
+<span class="k">\right</span>]
+<span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span>
 ```   
 
+<span class="sb">$$</span>
+<span class="nv">\begin</span><span class="nb">{array}{c c} </span>
+<span class="nb">&amp; </span><span class="nv">\begin</span><span class="nb">{array}{c c c} a &amp; b &amp;c </span><span class="nv">\\</span><span class="nb"> </span><span class="nv">\end</span><span class="nb">{array} </span><span class="nv">\\</span>
+<span class="nv">\begin</span><span class="nb">{array}{c c c}p</span><span class="nv">\\</span><span class="nb">q</span><span class="nv">\\</span><span class="nb">r </span><span class="nv">\end</span><span class="nb">{array} &amp;</span>
+<span class="nv">\left</span><span class="o">[</span>
+<span class="nv">\begin</span><span class="nb">{array}{c c c}</span>
+<span class="nb">.</span><span class="m">1</span><span class="nb"> &amp; .</span><span class="m">1</span><span class="nb"> &amp; </span><span class="m">0</span><span class="nb"> </span><span class="nv">\\</span>
+<span class="nb">.</span><span class="m">4</span><span class="nb"> &amp; </span><span class="m">1</span><span class="nb"> &amp; </span><span class="m">0</span><span class="nb"> </span><span class="nv">\\</span>
+<span class="nb">.</span><span class="m">8</span><span class="nb"> &amp; </span><span class="m">0</span><span class="nb"> &amp; .</span><span class="m">4</span>
+<span class="nv">\end</span><span class="nb">{array}</span>
+<span class="nv">\right</span><span class="o">]</span>
+<span class="nv">\end</span><span class="nb">{array}</span>
+<span class="s">$$</span> 
+
+## Default Latex Macros 
+
+MWiki comes has many default useful LaTeX macros that makes it easier and faster to write complex math expressions. The LaTeX macros can be edited by clicking at the main menu&#39;s item &#39;Edit Macros&#39; or by opening the link:
+
++ [/edit/special:macros](/edit/special:macros)
+ 
+Note that this hyperlink does not work in the Wikis or notes exported to html, such as this one. It is only possible to edit macros by starting MWiki in server mode.
+
+### Macros for partial derivative
+
+**Partial Derivative**
+
+Partial derivative of a function <span class="s">$</span><span class="nb">u</span><span class="o">(</span><span class="nb">x, y</span><span class="o">)</span><span class="s">$</span> with respect to <span class="s">$</span><span class="nb">x</span><span class="s">$</span>.
+
+```latex
+<span class="k">\pd</span><span class="nb">{</span>u<span class="nb">}{</span>x<span class="nb">}</span> 
+<span class="sb">```</span>
+
+Output:
+
 $$
-\begin{array}{c c} 
-&amp; \begin{array}{c c c} a &amp; b &amp;c \\ \end{array} \\
-\begin{array}{c c c}p\\q\\r \end{array} &amp;
-\left[
-\begin{array}{c c c}
-.1 &amp; .1 &amp; 0 \\
-.4 &amp; 1 &amp; 0 \\
-.8 &amp; 0 &amp; .4
-\end{array}
-\right]
-\end{array}
+\pd{u}{x}
 $$
+
+Instead of 
+
+<span class="sb">```latex</span>
+<span class="k">\frac</span><span class="nb">{</span><span class="k">\partial</span> u<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">}</span>
+<span class="sb">```</span>
+
+<span class="gs">**Second order partial derivative**</span>
+
+<span class="sb">```latex</span>
+<span class="k">\pdd</span><span class="nb">{</span>u<span class="nb">}{</span>x<span class="nb">}</span>
+<span class="sb">```</span>
+
+Output:
+
+$$
+\pdd{u}{x}
+$$
+
+Instead of
+
+<span class="sb">```latex</span>
+<span class="k">\frac</span><span class="nb">{</span><span class="k">\partial</span><span class="nb">^</span>2 u<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">^</span>2<span class="nb">}</span>
+<span class="sb">```</span>
+
+<span class="gu">### Macros for writing vectors</span>
+
+
+The macro <span class="sb">`\b{VECTOR}`</span> allows writing vectors in bold face font in a more concise form than <span class="sb">`\mathbf{VECTOR}`</span>. For instance, 
+
+<span class="sb">```latex</span>
+<span class="k">\b</span><span class="nb">{</span>u<span class="nb">}</span> = <span class="k">\b</span><span class="nb">{</span>v<span class="nb">}</span> + <span class="k">\b</span><span class="nb">{</span>w<span class="nb">}</span>
+<span class="sb">```</span>
+
+Output:
+
+$$
+\b{u} = \b{v} + \b{w}
+$$
+
+Instead of 
+
+<span class="sb">```latex</span>
+<span class="k">\mathbf</span><span class="nb">{</span>u<span class="nb">}</span> = <span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span> + <span class="k">\mathbf</span><span class="nb">{</span>w<span class="nb">}</span>
+<span class="sb">```</span>
+
+<span class="gs">**Macro for vectors with greek letters**</span>
+
+Example: 
+
+<span class="sb">```latex</span>
+<span class="k">\bs</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}</span> = <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
+                <span class="k">\theta_</span>1 <span class="k">\\</span> <span class="k">\vdots</span> <span class="k">\\</span> <span class="k">\theta_n</span> 
+              <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+<span class="sb">```</span>
+
+$$
+\bs{\theta} = \begin{bmatrix} 
+                \theta_1 \\ \vdots \\ \theta_n 
+              \end{bmatrix}
+$$
+
+Instead of 
+
+$$
+\boldsymbol{\theta} = \begin{bmatrix} 
+                        \theta_1 \\ \vdots \\ \theta_n 
+                      \end{bmatrix}
+$$
+
+Where $\bs{\theta}$ (<span class="sb">`\bs{\theta}`</span>) is a vector that consists of $n$ generalized coordinates, joint angles, of a robotic system or mechanism.
+
+<span class="gs">**Macro for writing vector derivative**</span>
+
+Deriatives of vectors with dot notation can be written using the macro <span class="sb">`\bdot{VECTOR}`</span>. Example:
+
+<span class="sb">```latex</span>
+  <span class="k">\b</span><span class="nb">{</span>v<span class="nb">}</span> = <span class="k">\frac</span><span class="nb">{</span>d<span class="nb">}{</span>dt<span class="nb">}</span> <span class="k">\b</span><span class="nb">{</span>r<span class="nb">}</span> = <span class="k">\bdot</span><span class="nb">{</span>r<span class="nb">}</span>
+<span class="sb">```</span>
+
+Output:
+
+$$
+  \b{v} = \frac{d}{dt} \b{r} = \bdot{r}
+$$
+
+Instead of 
+
+<span class="sb">```latex</span>
+  <span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span> = <span class="k">\frac</span><span class="nb">{</span>d<span class="nb">}{</span>dt<span class="nb">}</span> <span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}</span> = <span class="k">\dot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}}</span>
+<span class="sb">```</span>
+
+The formula states that the velocity vector $\b{v}(t)$ is the derivative of the positon vector $\bdot{r}(t)$ with respect to time.
+
+<span class="gs">**Macro for writing vector (greek letter) derivative**</span>
+
+Example: 
+
+<span class="sb">```latex</span>
+<span class="k">\bsdot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}</span> = 
+            <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
+                <span class="k">\dot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}_</span>1 <span class="k">\\</span> <span class="k">\vdots</span> <span class="k">\\</span> <span class="k">\dot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}_</span>n 
+             <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+<span class="sb">```</span>
+
+$$
+\bsdot{\theta} = 
+            \begin{bmatrix} 
+                \dot{\theta}_1 \\ \vdots \\ \dot{\theta}_n 
+             \end{bmatrix}
+$$
+
+Instead of 
+
+<span class="sb">```latex</span>
+<span class="k">\dot</span><span class="nb">{</span><span class="k">\boldsymbol</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}}</span> = 
+            <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
+                <span class="k">\dot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}_</span>1 <span class="k">\\</span> <span class="k">\vdots</span> <span class="k">\\</span> <span class="k">\dot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}_</span>n 
+            <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+<span class="sb">```</span>
+
+where $\bsdot{\theta}(t)$ (<span class="sb">`\bsdot{\theta}`</span>) is the vector of the generalized velocities of each joint of a robotic manipulator or mechanism.
+
+
+<span class="gs">**Macro for writing second order vector derivative**</span>
+
+The macro <span class="sb">`\bddot{VECTOR}`</span> can be used for writing the second order derivative of a vector with respect to time. For instance, 
+
+<span class="sb">```latex</span>
+<span class="k">\b</span><span class="nb">{</span>a<span class="nb">}</span> = <span class="k">\bdot</span><span class="nb">{</span>v<span class="nb">}</span> = <span class="k">\bddot</span><span class="nb">{</span>r<span class="nb">}</span> = <span class="k">\frac</span><span class="nb">{</span>d<span class="nb">^</span>2 <span class="k">\b</span><span class="nb">{</span>r<span class="nb">}}{</span>dt<span class="nb">^</span>2<span class="nb">}</span>
+<span class="sb">```</span>
+
+Output:
+
+$$
+\b{a} = \bdot{v} = \bddot{r} = \frac{d^2 \b{r}}{dt^2}
+$$
+
+Instead of 
+
+<span class="sb">```latex</span>
+<span class="k">\mathbf</span><span class="nb">{</span>a<span class="nb">}</span> = <span class="k">\dot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}}</span> 
+    = <span class="k">\ddot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}}</span> 
+    = <span class="k">\frac</span><span class="nb">{</span>d<span class="nb">^</span>2 <span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}}{</span>dt<span class="nb">^</span>2<span class="nb">}</span>
+<span class="sb">```</span>
+
+where $\bddot{r}(t)$ (<span class="sb">`\bddot{r}(t)`</span> is the second order derivative of the position vector $\b{r}$ with respect to time.
+
+<span class="gs">**Macros for writing unit vectors**</span>
+
+Unit vectors are vectors with unit magnitude, which are expressed using the hat notation with bold face. For instance,
+
+<span class="sb">```latex</span>
+<span class="k">\b</span><span class="nb">{</span>r<span class="nb">}</span> = x(t) <span class="k">\bhat</span><span class="nb">{</span>x<span class="nb">}</span> + y(t) <span class="k">\bhat</span><span class="nb">{</span>y<span class="nb">}</span> + z(t) <span class="k">\bhat</span><span class="nb">{</span>z<span class="nb">}</span>
+<span class="sb">```</span>
+
+Output
+
+$$
+\b{r} = x(t) \bhat{x} + y(t) \bhat{y} + z(t) \bhat{z}
+$$
+
+where $\bhat{x}$ (<span class="sb">`\bhat{x}`</span>) is the unit vector related to X axis, $\bhat{y}$ is the unit vector of the Y axis and $\bhat{z}$ is the unit vector of the Z axis.
+
+
+:::{note} Source Code of LateX Macros for vectors
+:class: dropdown
+
+<span class="sb">```latex</span>
+<span class="c">% Vector notation, short for mathbf (bold face)</span>
+<span class="c">% Exmaple: \b{r} = (x, y, z)</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\b</span><span class="nb">}</span>[1]<span class="nb">{</span> <span class="k">\mathbf</span><span class="nb">{</span>#1<span class="nb">}</span> <span class="nb">}</span>
+
+<span class="c">% Unit vector, example unit direction vector</span>
+<span class="c">% for X axis, \bhat{x}</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\bhat</span><span class="nb">}</span>[1]<span class="nb">{</span> <span class="k">\hat</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>#1<span class="nb">}}</span> <span class="nb">}</span>
+
+<span class="c">% Vector derivative with respect to time</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\bdot</span><span class="nb">}</span>[1]<span class="nb">{</span> <span class="k">\dot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>#1<span class="nb">}}</span> <span class="nb">}</span>
+
+<span class="c">% Second order vector derivative with respect to time</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\bddot</span><span class="nb">}</span>[1]<span class="nb">{</span> <span class="k">\ddot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>#1<span class="nb">}}</span>  <span class="nb">}</span>
+<span class="sb">```</span>
+
+:::
+
+<span class="gu">### Macros for Laplace Transform </span>
+
+Example:
+
+<span class="sb">```latex</span>
+<span class="sb">$$</span>
+<span class="nb">  </span><span class="nv">\laplace</span><span class="nb">{ </span><span class="nv">\ddot</span><span class="nb">{f}</span><span class="o">(</span><span class="nb">t</span><span class="o">)</span><span class="nb"> } </span><span class="o">=</span><span class="nb"> </span><span class="o">-</span><span class="nv">\dot</span><span class="nb">{f}</span><span class="o">(</span><span class="m">0</span><span class="o">)</span><span class="nb"> </span><span class="o">-</span><span class="nb"> s f</span><span class="o">(</span><span class="m">0</span><span class="o">)</span><span class="nb"> </span><span class="o">+</span><span class="nb"> s ^ </span><span class="m">2</span><span class="nb"> </span><span class="nv">\laplace</span><span class="nb">{ f</span><span class="o">(</span><span class="nb">t</span><span class="o">)</span><span class="nb"> }  </span>
+<span class="s">$$</span>
+<span class="sb">```</span>
+
+Output:
+
+$$
+  \laplace{ \ddot{f}(t) } = -\dot{f}(0) - s f(0) + s ^ 2 \laplace{ f(t) }  
+$$
+
+
+where $\laplace{ g(t) }$ is the laplace transform of the the function $g(t)$.
+
+<span class="gu">### Macro for Inverse Laplace Transform</span>
+
+Example: 
+
+<span class="sb">```latex</span>
+<span class="k">\ilaplace</span><span class="nb">{</span> <span class="k">\frac</span><span class="nb">{</span>1<span class="nb">}{</span>s<span class="nb">}</span> F(s) <span class="nb">}</span> = <span class="k">\int_</span><span class="nb">{</span>0<span class="nb">}^{</span><span class="k">\tau</span><span class="nb">}</span> f(<span class="k">\tau</span>) <span class="k">\,</span> d<span class="k">\tau</span> 
+<span class="sb">```</span>
+
+$$
+\ilaplace{ \frac{1}{s} F(s) } = \int_{0}^{\tau} f(\tau) \, d\tau 
+$$ 
+<span class="gu">### Macro for Computation Complexity</span>
+
+Example:
+
+````markdown
++ The computational complexity of this algorithm is $\BigO{n}$.
++ The computational complexity of the second algorithm is $\BigO{n^3}$.
+````
+
+Rendering:
+
++ The comptuational complexity of this algorithm is $\BigO{n}$.   
++ The computational complexity of the second algorithm is $\BigO{n^3}$.
 </pre></div>
 
         </main>

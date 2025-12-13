@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+        <link rel="icon" type="imag/x-icon" href="/mwiki/favicon.ico" >
     
     <title data-i18n="">MBook - Internationalization i18n and Localization i10n concepts</title>
     <meta name="description" content="Terminology and concepts of internationalization i18N and localization i10n for building scalable software that can be localized to any world language." />
@@ -121,7 +121,7 @@
     const LATEX_RENDERER = "katex";
     const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
     const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
-    const KATEX_MACROS = "eyJcXGIiOiAiXFxtYXRoYmZ7IzF9IiwgIlxcc2IiOiAiXFxib2xkc3ltYm9seyMxfSIsICJcXGFyZ21heCI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtYXh9IiwgIlxcYXJnbWluIjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1pbn0iLCAiXFxSIjogInsgXFxtYXRoYmJ7Un0gfSIsICJcXFoiOiAiXFxtYXRoYmJ7Wn0iLCAiXFxsYXBsYWNlIjogIlxcbWF0aGNhbHtMfVxceyMxXFx9IiwgIlxcZm91cmllciI6ICJcXG1hdGhjYWx7Rn1cXHsjMVxcfSIsICJcXGQiOiAiXFxtYXRocm17ZH0iLCAiXFxwIjogIlxccGFydGlhbCIsICJcXGUiOiAiXFxtYXRocm17ZX0iLCAiXFxDIjogInsgXFxtYXRoYmJ7Q30gfSIsICJcXEJpZ08iOiAiXFxtYXRoY2Fse099XFwhXFxsZWZ0KCMxXFxyaWdodCkiLCAiXFxtZGVmIjogIntcXHRyaWFuZ2xlcSBcXDt9IiwgIlxcc2duIjogIlxcb3BlcmF0b3JuYW1le3Nnbn0ifQ==";
+    const KATEX_MACROS = "eyJcXGIiOiAiXFxtYXRoYmZ7IzF9IiwgIlxcYmhhdCI6ICJcXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRvdCI6ICJcXGRvdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRkb3QiOiAiXFxkZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxicyI6ICJcXGJvbGRzeW1ib2x7IzF9IiwgIlxcYnNkb3QiOiAiXFxkb3R7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxhcmdtYXgiOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWF4fSIsICJcXGFyZ21pbiI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtaW59IiwgIlxcUiI6ICJ7IFxcbWF0aGJie1J9IH0iLCAiXFxaIjogIlxcbWF0aGJie1p9IiwgIlxcbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxpbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1eey0xfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxkIjogIlxcbWF0aHJte2R9IiwgIlxccCI6ICJcXHBhcnRpYWwiLCAiXFxlIjogIlxcbWF0aHJte2V9IiwgIlxcZHQiOiAiXFxmcmFje2QgIzF9e2R0fSIsICJcXGRkdCI6ICJcXGZyYWN7ZF4yICMxfXtkdF4yfSIsICJcXHBkIjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCAjMn0iLCAiXFxwZGQiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgIzJeMn0iLCAiXFxDIjogInsgXFxtYXRoYmJ7Q30gfSIsICJcXEJpZ08iOiAiXFxtYXRoY2Fse099XFwhXFxsZWZ0KCMxXFxyaWdodCkiLCAiXFxtZGVmIjogIntcXHRyaWFuZ2xlcSBcXDt9IiwgIlxcc2duIjogIlxcb3BlcmF0b3JuYW1le3Nnbn0ifQ==";
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
@@ -366,8 +366,12 @@
                 </a>
                 
             <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                  <a data-i18n="menu-item-print-label" class="sidebar-toggle-button"
+                     href="#" onclick="printPage();"
+                     title="Print current page or export it to PDF." >Print</a>
                 
-                <a data-i18n="show-source-menu-item-label" class="sidebar-toggle-button" href="#" onclick="displayPageSourceWindow();">Show source</a>
+                <a data-i18n="show-source-menu-item-label" class="sidebar-toggle-button"
+                    href="#" onclick="displayPageSourceWindow();">Show source</a>
                 
                 
                  <a data-i18n="popup-window-change-language-menu-launcher" class="sidebar-toggle-button" href="#"
@@ -389,6 +393,14 @@
                  id="btn-scroll-bottom" 
                  title="Fold/Unfold all sections."
                  ><img class="img-icon" src="/mwiki/static/dots-vertical.svg"></a> 
+            <a data-i18n="menu-item-print-icon"
+                class="sidebar-toggle-button" 
+        			  title="Print current page or export it to PDF."
+                href="#"
+                onclick="printPage();">
+                <img class="img-icon" src="/mwiki/static/printer-outline.svg">
+            </a>
+                
             <!-- 
              <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
                  href="#" 
@@ -418,7 +430,7 @@
 
 <div class="div-heading"> 
 <h2 id="H_Terminology_of_Internationalization" class="document-heading anchor">Terminology of Internationalization <a class="link-heading" href="#H_Terminology_of_Internationalization">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=8&end=75&anchor=H_Terminology_of_Internationalization&page=Internationalization i18n and Localization i10n concepts&timestamp=176359801291963" title="[i18n]: Terminology of Internationalization" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=8&end=75&anchor=H_Terminology_of_Internationalization&page=Internationalization i18n and Localization i10n concepts&timestamp=176558859024730" title="[i18n]: Terminology of Internationalization" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -470,11 +482,11 @@
 
 <div class="div-heading"> 
 <h2 id="H_Internationalization_Issues" class="document-heading anchor">Internationalization Issues <a class="link-heading" href="#H_Internationalization_Issues">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=75&end=109&anchor=H_Internationalization_Issues&page=Internationalization i18n and Localization i10n concepts&timestamp=176359801291963" title="[i18n]: Internationalization Issues" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=75&end=109&anchor=H_Internationalization_Issues&page=Internationalization i18n and Localization i10n concepts&timestamp=176558859024730" title="[i18n]: Internationalization Issues" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
-<div class="div-wiki-image" div-figure><div class="inner-figure"><img id="figure-" class="wiki-image lazy-load anchor" data-src="/mwiki/pasted/pasted-image-1760618396013.jpg" alt="World map depicting major regional languages around the world. The languages are listed in the order: (1) Spanish, (2) Arabic, (3) French, (4) Russian, (5) Chinese, Hindustani (6), Portuguese (7), German (8), Swahilli (9), Persian (10) and Malay/Indonesian (11). The map assigns colors for each major language, including Spanish (mostly in Hispanic-America), Arabic (MENA - Middle East and North Africa), French (France, Quebec and Africa), Russian (Eastern Europe and Central Asia), Chinese, Hindustani (Hindi and Urdu), Portuguese (South America / Portuguese-America / Luso-America - Brazil, Angola, Mozambique and Portugal), German (mostly in Central and West Erope, including Germany, Austria, Switzerland and Luxenbourg), Swahilli (East Africa in Kenya and Tanzania), Persian (West Asia and Central Asia), and Malay/Indonesia (South East Asia - SEA, including Indonesia and Malaysia)."  ><button class="btn-show-alt-text">ALT</button> </div><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 1: World Regional Languages</p></div>
+<div class="div-wiki-image" div-figure><div class="inner-figure"><img id="figure-" class="wiki-image lazy-load anchor" data-src="/mwiki/pasted/pasted-image-1760618396013.jpg" alt="World map depicting major regional languages around the world. The languages are listed in the order: (1) Spanish, (2) Arabic, (3) French, (4) Russian, (5) Chinese, Hindustani (6), Portuguese (7), German (8), Swahilli (9), Persian (10) and Malay/Indonesian (11). The map assigns colors for each major language, including Spanish (mostly in Spain and Hispanic-America or Hispanic Latin America), Arabic (MENA - Middle East and North Africa), French (France, Quebec and Africa), Russian (Eastern Europe and Central Asia), Chinese, Hindustani (Hindi and Urdu), Portuguese (South America / Portuguese-America / Luso-America / Portuguese Latin-Amerrica, Luso Latin-America, Lusitanic Latin America - Brazil, Angola, Mozambique and Portugal), German (mostly in Central and West Erope, including Germany, Austria, Switzerland and Luxenbourg), Swahilli (East Africa in Kenya and Tanzania), Persian (West Asia and Central Asia), and Malay/Indonesia (South East Asia - SEA, including Indonesia and Malaysia)."  ><button class="btn-show-alt-text">ALT</button> </div><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 1: World Regional Languages</p></div>
 
 <p>
 Brainstorm of Major Internationalization Issues
@@ -552,7 +564,7 @@ Cultural Assumptions
 
 <div class="div-heading"> 
 <h2 id="H_Common_Mistakes" class="document-heading anchor">Common Mistakes <a class="link-heading" href="#H_Common_Mistakes">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=109&end=119&anchor=H_Common_Mistakes&page=Internationalization i18n and Localization i10n concepts&timestamp=176359801291963" title="[i18n]: Common Mistakes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=109&end=119&anchor=H_Common_Mistakes&page=Internationalization i18n and Localization i10n concepts&timestamp=176558859024730" title="[i18n]: Common Mistakes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -576,7 +588,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <div class="div-heading"> 
 <h2 id="H_Common_Locales" class="document-heading anchor">Common Locales <a class="link-heading" href="#H_Common_Locales">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=119&end=290&anchor=H_Common_Locales&page=Internationalization i18n and Localization i10n concepts&timestamp=176359801291963" title="[i18n]: Common Locales" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=119&end=290&anchor=H_Common_Locales&page=Internationalization i18n and Localization i10n concepts&timestamp=176558859024730" title="[i18n]: Common Locales" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -1444,7 +1456,7 @@ Explanation:
 
 <div class="div-heading"> 
 <h2 id="H_Falsehoods_Many_Programmers_Believe_About_Names" class="document-heading anchor">Falsehoods Many Programmers Believe About Names <a class="link-heading" href="#H_Falsehoods_Many_Programmers_Believe_About_Names">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=290&end=372&anchor=H_Falsehoods_Many_Programmers_Believe_About_Names&page=Internationalization i18n and Localization i10n concepts&timestamp=176359801291963" title="[i18n]: Falsehoods Many Programmers Believe About Names" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=290&end=372&anchor=H_Falsehoods_Many_Programmers_Believe_About_Names&page=Internationalization i18n and Localization i10n concepts&timestamp=176558859024730" title="[i18n]: Falsehoods Many Programmers Believe About Names" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -1716,7 +1728,7 @@ People only a have a single given name and there is no whitespace within a given
 
 <div class="div-heading"> 
 <h2 id="H_American_English_Vs_British_English" class="document-heading anchor">American English Vs British English <a class="link-heading" href="#H_American_English_Vs_British_English">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=372&end=406&anchor=H_American_English_Vs_British_English&page=Internationalization i18n and Localization i10n concepts&timestamp=176359801291963" title="[i18n]: American English Vs British English" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=372&end=421&anchor=H_American_English_Vs_British_English&page=Internationalization i18n and Localization i10n concepts&timestamp=176558859024730" title="[i18n]: American English Vs British English" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -1877,6 +1889,48 @@ People only a have a single given name and there is no whitespace within a given
  
 <tr>
 
+<td>football player</td>
+ 
+<td>American football player</td>
+</tr>
+ 
+<tr>
+
+<td>soccer player</td>
+ 
+<td>football player</td>
+</tr>
+ 
+<tr>
+
+<td>football stadium</td>
+ 
+<td>American football stadium</td>
+</tr>
+ 
+<tr>
+
+<td>soccer stadium</td>
+ 
+<td>football stadium</td>
+</tr>
+ 
+<tr>
+
+<td>football match</td>
+ 
+<td>American football match</td>
+</tr>
+ 
+<tr>
+
+<td>soccer match</td>
+ 
+<td>football match</td>
+</tr>
+ 
+<tr>
+
 <td>roommates</td>
  
 <td>roommates, flatmates</td>
@@ -1891,16 +1945,23 @@ People only a have a single given name and there is no whitespace within a given
  
 <tr>
 
-<td>truck</td>
+<td>man, guy, dude</td>
  
-<td>lorry</td>
+<td>bloke</td>
 </tr>
  
 <tr>
 
-<td>truck</td>
+<td>men, guys, dudes</td>
  
-<td>shorthand for pickup truck</td>
+<td>blokes</td>
+</tr>
+ 
+<tr>
+
+<td>friends</td>
+ 
+<td>friends or mates</td>
 </tr>
  
 <tr>
@@ -1914,7 +1975,7 @@ People only a have a single given name and there is no whitespace within a given
 
 <td>girlfriends</td>
  
-<td>female friends of a young woman</td>
+<td>female friends of a  woman</td>
 </tr>
  
 <tr>
@@ -1933,16 +1994,72 @@ People only a have a single given name and there is no whitespace within a given
  
 <tr>
 
+<td>freshman student</td>
+ 
+<td>first-year undergraduate student</td>
+</tr>
+ 
+<tr>
+
+<td>sophomore student</td>
+ 
+<td>second-year undergraduate student</td>
+</tr>
+ 
+<tr>
+
+<td>junior student</td>
+ 
+<td>third-year undegraduate student (university student)</td>
+</tr>
+ 
+<tr>
+
+<td>senior student</td>
+ 
+<td>university student in final year of undegraduate degree</td>
+</tr>
+ 
+<tr>
+
 <td>apartment</td>
  
 <td>flat</td>
+</tr>
+ 
+<tr>
+
+<td>truck</td>
+ 
+<td>lorry</td>
+</tr>
+ 
+<tr>
+
+<td>truck</td>
+ 
+<td>shorthand for pickup truck</td>
+</tr>
+ 
+<tr>
+
+<td>highway, freeway</td>
+ 
+<td>motorway</td>
+</tr>
+ 
+<tr>
+
+<td>gas station</td>
+ 
+<td>petrol station</td>
 </tr>
 </tbody>
 </table>
 
 <div class="div-heading"> 
 <h2 id="H_Software_Libraries" class="document-heading anchor">Software Libraries <a class="link-heading" href="#H_Software_Libraries">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=406&end=415&anchor=H_Software_Libraries&page=Internationalization i18n and Localization i10n concepts&timestamp=176359801291963" title="[i18n]: Software Libraries" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=421&end=430&anchor=H_Software_Libraries&page=Internationalization i18n and Localization i10n concepts&timestamp=176558859024730" title="[i18n]: Software Libraries" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -1968,7 +2085,7 @@ Gettext
 
 <div class="div-heading"> 
 <h2 id="H_Footnotes" class="document-heading anchor">Footnotes <a class="link-heading" href="#H_Footnotes">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=415&end=420&anchor=H_Footnotes&page=Internationalization i18n and Localization i10n concepts&timestamp=176359801291963" title="[i18n]: Footnotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=430&end=435&anchor=H_Footnotes&page=Internationalization i18n and Localization i10n concepts&timestamp=176558859024730" title="[i18n]: Footnotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -1991,16 +2108,60 @@ Gettext
 
 <div class="div-heading"> 
 <h2 id="H_See_also" class="document-heading anchor">See also <a class="link-heading" href="#H_See_also">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=420&end=end&anchor=H_See_also&page=Internationalization i18n and Localization i10n concepts&timestamp=176359801291963" title="[i18n]: See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=435&end=end&anchor=H_See_also&page=Internationalization i18n and Localization i10n concepts&timestamp=176558859024730" title="[i18n]: See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Unicode" class="document-heading anchor">Unicode <a class="link-heading" href="#H_Unicode">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=422&end=456&anchor=H_Unicode&page=Internationalization i18n and Localization i10n concepts&timestamp=176359801291963" title="[i18n]: Unicode" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=437&end=484&anchor=H_Unicode&page=Internationalization i18n and Localization i10n concepts&timestamp=176558859024730" title="[i18n]: Unicode" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">
+<li>
+<em>Punycode</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Punycode"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Punycode</a> 
+</li>
+<li>
+<em>Punycode is a representation of Unicode with the limited ASCII character subset used for Internet hostnames. Using Punycode, host names containing Unicode characters are transcoded to a subset of ASCII consisting of letters, digits, and hyphens, which is called the letter–digit–hyphen (LDH) subset. For example, the German München (English: Munich) is encoded as Mnchen-3ya. While the Domain Name System (DNS) technically supports arbitrary sequences of octets in domain name labels, the DNS standards recommend the use of the LDH subset of ASCII conventionally used for host names, and require that string comparisons between DNS domain names should be case-insensitive. The Punycode syntax is a method of encoding strings containing Unicode characters, such as internationalized domain names (IDNA), into the LDH subset of ASCII favored by DNS. It is specified in IETF Request for Comments 3492.[1]</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Emoji domain</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Emoji_domain"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Emoji_domain</a> 
+</li>
+<li>
+<em>An emoji domain is a domain name with one or more emoji in it, for example 😉.tld.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Internationalized domain name</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Internationalized_domain_name"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Internationalized_domain_name</a> 
+</li>
+<li>
+<em>An internationalized domain name (IDN) is an Internet domain name that contains at least one label displayed in software applications, in whole or in part, in non-Latin script or alphabet[a] or in the Latin alphabet-based characters with diacritics or ligatures.[b] These writing systems are encoded by computers in multibyte Unicode. Internationalized domain names are stored in the Domain Name System (DNS) as ASCII strings using Punycode transcription. The DNS, which performs a lookup service to translate mostly user-friendly names into network addresses for locating Internet resources, is restricted in practice[c] to the use of ASCII characters, a practical limitation that initially set the standard for acceptable domain names. The internationalization of domain names is a technical solution to translate names written in language-native scripts into an ASCII text representation that is compatible with the DNS. Internationalized domain names can only be used with applications that are specifically designed for such use; they require no changes in the infrastructure of the Internet.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>IDN homograph attack</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/IDN_homograph_attack"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/IDN_homograph_attack</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>IDN Display Algorithm</em>, Mozilla Wiki <ul class="">
+<li>
+<a href="https://wiki.mozilla.org/IDN_Display_Algorithm"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://wiki.mozilla.org/IDN_Display_Algorithm</a> 
+</li>
+</ul>
+</li>
 <li>
 <em>UTF-8, Explained Simply</em>, Nic Baker - Youtube Video <ul class="">
 <li>
@@ -2111,7 +2272,7 @@ Gettext
 
 <div class="div-heading"> 
 <h3 id="H_Internationalization_and_Localization__Reading" class="document-heading anchor">Internationalization and Localization  Reading <a class="link-heading" href="#H_Internationalization_and_Localization__Reading">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=456&end=581&anchor=H_Internationalization_and_Localization__Reading&page=Internationalization i18n and Localization i10n concepts&timestamp=176359801291963" title="[i18n]: Internationalization and Localization  Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=484&end=624&anchor=H_Internationalization_and_Localization__Reading&page=Internationalization i18n and Localization i10n concepts&timestamp=176558859024730" title="[i18n]: Internationalization and Localization  Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">
@@ -2129,6 +2290,46 @@ Gettext
 </li>
 <li>
 <em>International Components for Unicode (ICU) is an open-source project of mature C/C++ and Java libraries for Unicode support, software internationalization, and software globalization. ICU is widely portable to many operating systems and environments. It gives applications the same results on all platforms and between C, C++, and Java software. The ICU project is a technical committee of the Unicode Consortium and sponsored, supported, and used by IBM and many other companies.[2] ICU has been included as a standard component with Microsoft Windows since Windows 10 version 1703.[3]</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Declaring language in HTML</em>, W3C (2021) <ul class="">
+<li>
+<a href="https://www.w3.org/International/questions/qa-html-language-declarations"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.w3.org/International/questions/qa-html-language-declarations</a> 
+</li>
+<li>
+<em>How should I set the language of the content in my HTML page? This page describes how to mark up an HTML page so that it gives information about the language of the page. It begins with an overall summary, then provides additional details in subsequent sections.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Types of language declaration</em>, W3C (2019) <ul class="">
+<li>
+<a href="https://www.w3.org/International/questions/qa-text-processing-vs-metadata"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.w3.org/International/questions/qa-text-processing-vs-metadata</a> 
+</li>
+<li>
+<em>On the Web it is always important to associate content with language information. This is important on the one hand so that content can be processed or presented correctly to the reader, but on the other, it may also be important to know the language(s) of the intended audience for the resource as a whole. These are two different things: technologies should provide separate ways of expressing each, and content authors should use those appropriately. This article describes how these two types of language information, ('metadata' and 'text-processing') differ.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>HTTP headers, meta elements and language information</em>, W3C Interantionalization <ul class="">
+<li>
+<a href="https://www.w3.org/International/questions/qa-http-and-lang"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.w3.org/International/questions/qa-http-and-lang</a> 
+</li>
+<li>
+<em>In addition to the lang (and/or xml:lang) attribute on the html tag, you may come across language information in HTML meta elements, or in the HTTP header which is served with an HTML page. Here we look at whether these are useful when declaring language for HTML content, and if so, how they should be used. This article is (specifically) about language declarations in HTTP headers and meta elements. It's not a general guide to setting language on an HTML page: for that, see Declaring language in HTML. This article builds on the distinction between (1) using file metadata to identify the audience for the document, and (2) specifying the language used for the purpose of processing content. If you want to better understand the distinction see the article Types of language declaration.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Internationalization techniques: Authoring web pages</em>, W3C <ul class="">
+<li>
+<a href="https://www.w3.org/International/techniques/authoring-html?open=language&open=primarylanguage#primarylanguage"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.w3.org/International/techniques/authoring-html?open=language&open=primarylanguage#primarylanguage</a> 
+</li>
+<li>
+<em>This page lists links to resources on the W3C Internationalization Activity site and elsewhere that help you author HTML and CSS for internationalization. You are not expected to read this page from top to bottom. Instead, select topics of interest from the control just below. You can see a list of updates to this document. You can also raise an issue about this page.</em> 
 </li>
 </ul>
 </li>
@@ -2218,6 +2419,16 @@ Gettext
 <em>A Practical Guide to the ICU Message Format</em>, Mohamed Ashour (2025), Phrase <ul class="">
 <li>
 <a href="https://phrase.com/blog/posts/guide-to-the-icu-message-format/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://phrase.com/blog/posts/guide-to-the-icu-message-format/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>DOM Localization Proposal by Mozilla</em>, Mozilla <ul class="">
+<li>
+<a href="https://github.com/mozilla/explainers/blob/main/dom-localization.md"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://github.com/mozilla/explainers/blob/main/dom-localization.md</a> 
+</li>
+<li>
+<em>Users of the web are best served by being able to experience it in their native languages. Currently, localization of web content is achieved with a multitude of custom solutions, most of which are unable to express the full depth and breadth of human expressions in all languages. Introducing an easy-to-use but powerful standard localization solution would improve the experience of all users, in particular the vast majority who do not speak English natively. Most localizable content is composed of simple strings, and most of the content that has some dependency on input variables only uses them as unmodified placeholders. This has lead to most localization systems having been built up iteratively, only conservatively adding new features when the need for them has been identified. Many localization systems used on the web do not support any variance in message patterns, and the ones that do almost all limit that variance to plurals, i.e. allowing for patterns like "1 thing" and "3 things" to be separately expressed. Defining a holistic and complete standard solution for the localization of the web would allow for developers to not need to pick from a number of less capable localization systems, and for existing libraries and frameworks to start using the standard solution internally.</em> 
 </li>
 </ul>
 </li>
@@ -2534,7 +2745,7 @@ Brief: * Usually, programs are written and documented in English, and use Englis
 
 <div class="div-heading"> 
 <h3 id="H_Numbers_and_Mesurement" class="document-heading anchor">Numbers and Mesurement <a class="link-heading" href="#H_Numbers_and_Mesurement">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=581&end=end&anchor=H_Numbers_and_Mesurement&page=Internationalization i18n and Localization i10n concepts&timestamp=176359801291963" title="[i18n]: Numbers and Mesurement" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=624&end=end&anchor=H_Numbers_and_Mesurement&page=Internationalization i18n and Localization i10n concepts&timestamp=176558859024730" title="[i18n]: Numbers and Mesurement" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">

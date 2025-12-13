@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22></text></svg>">
     
     <title data-i18n="source-page-title">MBook - MWiki Syntax Reference Card</title>
     <meta name="description" content="Notes, examples and documentation about MWiki markup language syntax and constructs. This markup language borrow constructs and syntax from Mediwiki, Obsidian and MyST markdown markup languages." />
@@ -360,12 +360,27 @@ Describe what is a NAS
 
 <span class="sb">```</span>
 
+
+<span class="gu">### Content Language</span>
+
+The html lang attribute <span class="sb">`&lt;html attr=&quot;en&quot;&gt;`</span> is used to indicate the content language to web browsers, screen readers and search engines. The lang attribute is the ISO code of the default content language, which is set by the administrator in the settings form. If the content language is not the same as the default one, it is possible to override the content laguage code of the current document using the <span class="gs">**language**</span> frontmatter directive.
+
+<span class="sb">```yaml</span>
+<span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;ISO-LANGUAGE-CODE-OF-CURRENT-DOCUMENT&gt;</span>
+<span class="sb">```</span>
+
+For instance, if the current document language is Spanish, the lang attribute can be overriden using the following directive in the frontmatter, where &#39;es&#39; is the ISO language code of the Spanish language.
+
+<span class="sb">```yaml</span>
+<span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">es</span>
+<span class="sb">```</span>
+
 <span class="gu">### Alternative Document Title </span>
 
 By default, the title of a wiki page is the same as the related mardown file name without the .md file extension. However, it is possible to change a wiki page title by adding the directive 
 
-<span class="sb">```</span>
-<span class="sb">title:  Name of New title here </span>
+<span class="sb">```yaml</span>
+<span class="nt">title</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Name of New title here</span><span class="w"> </span>
 <span class="sb">```</span>
 
 to the document frontmatter.
@@ -374,20 +389,20 @@ to the document frontmatter.
 
 Section enumeration is disabled by default. It can be enabled by adding the following directive to the document frotmatter.
 
-<span class="sb">```</span>
-<span class="sb">section_enumeration: on</span>
+<span class="sb">```yaml</span>
+<span class="nt">section_enumeration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">on</span>
 <span class="sb">```</span>
 
 It can also be explicit disabled by adding
 
-<span class="sb">```</span>
-<span class="sb">section_enumeration: off </span>
+<span class="sb">```yaml</span>
+<span class="nt">section_enumeration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">off</span><span class="w"> </span>
 <span class="sb">```</span>
 
 or
 
-<span class="sb">```</span>
-<span class="sb">section_enumeration: off</span>
+<span class="sb">```yaml</span>
+<span class="nt">section_enumeration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">off</span>
 <span class="sb">```</span>
 
 <span class="gu">### LaTeX renderer</span>
@@ -396,14 +411,14 @@ The directive <span class="ge">*latex_renderer*</span> allows overriding the def
 
 Use KaTeX rendering engine:
 
-<span class="sb">```</span>
-<span class="sb">latex_renderer: katex</span>
+<span class="sb">```yaml</span>
+<span class="nt">latex_renderer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">katex</span>
 <span class="sb">```</span>
 
 Use MathJax rendering engine:
 
-<span class="sb">```</span>
-<span class="sb">latex_renderer: mathjax </span>
+<span class="sb">```yaml</span>
+<span class="nt">latex_renderer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mathjax</span><span class="w"> </span>
 <span class="sb">```</span>
 
 
@@ -411,21 +426,21 @@ Use MathJax rendering engine:
 
 Equation enumeration can be enabled using
 
-<span class="sb">```</span>
-<span class="sb">equation_enumeration_enabled: on</span>
+<span class="sb">```yaml</span>
+<span class="nt">equation_enumeration_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">on</span>
 <span class="sb">```</span>
 
 or disabled by using this directive set to off. If enumeration is disabled, only referenced equations will get an enumeration on the left side of the equation (LaTeX display mode).
 
-<span class="sb">```</span>
-<span class="sb">equation_enumeration_enabled: off  </span>
+<span class="sb">```yaml</span>
+<span class="nt">equation_enumeration_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">off</span><span class="w">  </span>
 <span class="sb">```</span>
 
 
 The frontmatter directive &#39;equation_enumeration_style&#39; allows changing the equation enumeration style.
 
-<span class="sb">```</span>
-<span class="sb">equation_enumeration_style: &lt;style&gt;</span>
+<span class="sb">```yaml</span>
+<span class="nt">equation_enumeration_style</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;style&gt;</span>
 <span class="sb">```</span>
 
 The following enumeration styles supported:
