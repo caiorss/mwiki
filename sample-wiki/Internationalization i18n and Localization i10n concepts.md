@@ -76,7 +76,7 @@ QA Testing
 ## Internationalization Issues
 
 ```{figure} ![[pasted-image-1760618396013.jpg]]
-:alt: World map depicting major regional languages around the world. The languages are listed in the order: (1) Spanish, (2) Arabic, (3) French, (4) Russian, (5) Chinese, Hindustani (6), Portuguese (7), German (8), Swahilli (9), Persian (10) and Malay/Indonesian (11). The map assigns colors for each major language, including Spanish (mostly in Hispanic-America), Arabic (MENA - Middle East and North Africa), French (France, Quebec and Africa), Russian (Eastern Europe and Central Asia), Chinese, Hindustani (Hindi and Urdu), Portuguese (South America / Portuguese-America / Luso-America - Brazil, Angola, Mozambique and Portugal), German (mostly in Central and West Erope, including Germany, Austria, Switzerland and Luxenbourg), Swahilli (East Africa in Kenya and Tanzania), Persian (West Asia and Central Asia), and Malay/Indonesia (South East Asia - SEA, including Indonesia and Malaysia).
+:alt: World map depicting major regional languages around the world. The languages are listed in the order: (1) Spanish, (2) Arabic, (3) French, (4) Russian, (5) Chinese, Hindustani (6), Portuguese (7), German (8), Swahilli (9), Persian (10) and Malay/Indonesian (11). The map assigns colors for each major language, including Spanish (mostly in Spain and Hispanic-America or Hispanic Latin America), Arabic (MENA - Middle East and North Africa), French (France, Quebec and Africa), Russian (Eastern Europe and Central Asia), Chinese, Hindustani (Hindi and Urdu), Portuguese (South America / Portuguese-America / Luso-America / Portuguese Latin-Amerrica, Luso Latin-America, Lusitanic Latin America - Brazil, Angola, Mozambique and Portugal), German (mostly in Central and West Erope, including Germany, Austria, Switzerland and Luxenbourg), Swahilli (East Africa in Kenya and Tanzania), Persian (West Asia and Central Asia), and Malay/Indonesia (South East Asia - SEA, including Indonesia and Malaysia).
 
 World Regional Languages
 ```
@@ -106,7 +106,7 @@ Brainstorm of Major Internationalization Issues
     + Cultural Standards
     + Cultural Conventions
     + Cultural Assumptions
-   
+    
 ## Common Mistakes
 
 
@@ -394,16 +394,31 @@ KWrite started with es_ES Spanish locale for Spain
 | while               | while, whilst        |  
 | football            | American football    |   
 | soccer              | football             |  
+| football player     | American football player |
+| soccer player       | football player          |
+| football stadium    | American football stadium |
+| soccer stadium      | football stadium          |
+| football match      | American football match   |
+| soccer match        | football match            |
 | roommates           | roommates, flatmates |  
 | fall                | autumn               |
-| truck               | lorry                |
-| truck               | shorthand for pickup truck | 
+| man, guy, dude      | bloke  |
+| men, guys, dudes    | blokes |
+| friends             | friends or mates   |
 | buddies (male friends of a guy)  | lads           |
-| girlfriends        | female friends of a young woman |
+| girlfriends        | female friends of a  woman |
 | college student    | university student  |
 | college kids       | undergraduate university students (pejorative, slang) |
-| apartment          | flat                  |                      
-
+| freshman student         | first-year undergraduate student  |
+| sophomore student       | second-year undergraduate student |
+| junior student        | third-year undegraduate student (university student) |
+| senior student   | university student in final year of undegraduate degree |
+| apartment          | flat                  |   
+| truck               | lorry                |
+| truck               | shorthand for pickup truck |
+| highway, freeway   | motorway              |
+| gas station        | petrol station        | 
+  
 ## Software Libraries
 
 JavaScript
@@ -422,6 +437,19 @@ Python
 
 ### Unicode 
 
++ *Punycode*, Wikipedia
+  + https://en.wikipedia.org/wiki/Punycode
+  + *Punycode is a representation of Unicode with the limited ASCII character subset used for Internet hostnames. Using Punycode, host names containing Unicode characters are transcoded to a subset of ASCII consisting of letters, digits, and hyphens, which is called the letter–digit–hyphen (LDH) subset. For example, the German München (English: Munich) is encoded as Mnchen-3ya. While the Domain Name System (DNS) technically supports arbitrary sequences of octets in domain name labels, the DNS standards recommend the use of the LDH subset of ASCII conventionally used for host names, and require that string comparisons between DNS domain names should be case-insensitive. The Punycode syntax is a method of encoding strings containing Unicode characters, such as internationalized domain names (IDNA), into the LDH subset of ASCII favored by DNS. It is specified in IETF Request for Comments 3492.[1]*
++ *Emoji domain*, Wikipedia
+   + https://en.wikipedia.org/wiki/Emoji_domain
+   + *An emoji domain is a domain name with one or more emoji in it, for example 😉.tld.*
++ *Internationalized domain name*, Wikipedia
+  + https://en.wikipedia.org/wiki/Internationalized_domain_name
+  + *An internationalized domain name (IDN) is an Internet domain name that contains at least one label displayed in software applications, in whole or in part, in non-Latin script or alphabet[a] or in the Latin alphabet-based characters with diacritics or ligatures.[b] These writing systems are encoded by computers in multibyte Unicode. Internationalized domain names are stored in the Domain Name System (DNS) as ASCII strings using Punycode transcription. The DNS, which performs a lookup service to translate mostly user-friendly names into network addresses for locating Internet resources, is restricted in practice[c] to the use of ASCII characters, a practical limitation that initially set the standard for acceptable domain names. The internationalization of domain names is a technical solution to translate names written in language-native scripts into an ASCII text representation that is compatible with the DNS. Internationalized domain names can only be used with applications that are specifically designed for such use; they require no changes in the infrastructure of the Internet.*
++ *IDN homograph attack*, Wikipedia
+  + https://en.wikipedia.org/wiki/IDN_homograph_attack
++ *IDN Display Algorithm*, Mozilla Wiki
+  + https://wiki.mozilla.org/IDN_Display_Algorithm
 + *UTF-8, Explained Simply*, Nic Baker - Youtube Video
   + https://www.youtube.com/watch?v=vpSkBV5vydg
 + *"The History of UTF-8, as told by Rob Pike"* (2003)
@@ -453,7 +481,7 @@ Python
   + *Many software and web applications that are already internationalized and are successfully supporting many languages, often suffer catastrophic failure when they add support for the Turkish language. This page explains the difficulty of supporting the Turkish language and typical solutions. There are 3 sections: A brief overview of Turkish characters and encodings. Turkish language problem and solutions. A brief history of the Turkish language is offered as background material.*
 + *Locale-agnostic case conversions by default*
   + https://github.com/Kotlin/KEEP/blob/main/proposals/stdlib/KEEP-0223-locale-agnostic-case-conversions.md
-  
+   
 ### Internationalization and Localization  Reading
 
 + *Internationalization and localization*, Wikipedia
@@ -461,6 +489,18 @@ Python
 + *International Components for Unicode*, Wikipedia
   + https://en.wikipedia.org/wiki/International_Components_for_Unicode
   + *International Components for Unicode (ICU) is an open-source project of mature C/C++ and Java libraries for Unicode support, software internationalization, and software globalization. ICU is widely portable to many operating systems and environments. It gives applications the same results on all platforms and between C, C++, and Java software. The ICU project is a technical committee of the Unicode Consortium and sponsored, supported, and used by IBM and many other companies.[2] ICU has been included as a standard component with Microsoft Windows since Windows 10 version 1703.[3]*
++ *Declaring language in HTML*, W3C (2021)
+  + https://www.w3.org/International/questions/qa-html-language-declarations
+  + *How should I set the language of the content in my HTML page? This page describes how to mark up an HTML page so that it gives information about the language of the page. It begins with an overall summary, then provides additional details in subsequent sections.*
++ *Types of language declaration*, W3C (2019)
+  + https://www.w3.org/International/questions/qa-text-processing-vs-metadata
+  + *On the Web it is always important to associate content with language information. This is important on the one hand so that content can be processed or presented correctly to the reader, but on the other, it may also be important to know the language(s) of the intended audience for the resource as a whole. These are two different things: technologies should provide separate ways of expressing each, and content authors should use those appropriately. This article describes how these two types of language information, ('metadata' and 'text-processing') differ.*
++ *HTTP headers, meta elements and language information*, W3C Interantionalization
+  + https://www.w3.org/International/questions/qa-http-and-lang
+  + *In addition to the lang (and/or xml:lang) attribute on the html tag, you may come across language information in HTML meta elements, or in the HTTP header which is served with an HTML page. Here we look at whether these are useful when declaring language for HTML content, and if so, how they should be used. This article is (specifically) about language declarations in HTTP headers and meta elements. It's not a general guide to setting language on an HTML page: for that, see Declaring language in HTML. This article builds on the distinction between (1) using file metadata to identify the audience for the document, and (2) specifying the language used for the purpose of processing content. If you want to better understand the distinction see the article Types of language declaration.*
++ *Internationalization techniques: Authoring web pages*, W3C
+  + https://www.w3.org/International/techniques/authoring-html?open=language&open=primarylanguage#primarylanguage
+  + *This page lists links to resources on the W3C Internationalization Activity site and elsewhere that help you author HTML and CSS for internationalization. You are not expected to read this page from top to bottom. Instead, select topics of interest from the control just below. You can see a list of updates to this document. You can also raise an issue about this page.*
 + *ICU-TC Home Page*
   + https://icu.unicode.org/
 + *Unicode CLDR Project*
@@ -487,6 +527,9 @@ Python
   + https://medium.com/expedia-group-tech/finally-doing-pluralization-right-948e2e9d40bb
 + *A Practical Guide to the ICU Message Format*, Mohamed Ashour (2025), Phrase
   + https://phrase.com/blog/posts/guide-to-the-icu-message-format/
++ *DOM Localization Proposal by Mozilla*, Mozilla 
+  +  https://github.com/mozilla/explainers/blob/main/dom-localization.md
+  + *Users of the web are best served by being able to experience it in their native languages. Currently, localization of web content is achieved with a multitude of custom solutions, most of which are unable to express the full depth and breadth of human expressions in all languages. Introducing an easy-to-use but powerful standard localization solution would improve the experience of all users, in particular the vast majority who do not speak English natively. Most localizable content is composed of simple strings, and most of the content that has some dependency on input variables only uses them as unmodified placeholders. This has lead to most localization systems having been built up iteratively, only conservatively adding new features when the need for them has been identified. Many localization systems used on the web do not support any variance in message patterns, and the ones that do almost all limit that variance to plurals, i.e. allowing for patterns like "1 thing" and "3 things" to be separately expressed. Defining a holistic and complete standard solution for the localization of the web would allow for developers to not need to pick from a number of less capable localization systems, and for existing libraries and frameworks to start using the standard solution internally.*
 + *Unicode and internationalization support*, Android API Docs
   + https://developer.android.com/guide/topics/resources/internationalization
   + *Android leverages the ICU library and CLDR project to provide Unicode and other internationalization support. This page's discussion of Unicode and internationalization support is divided into two sections: Android 6.0 (API level 23) and lower, and Android 7.0 (API level 24) and higher.*
@@ -578,7 +621,7 @@ Python
 + *k-yak / stati18n Public* (2014)
   + https://github.com/k-yak/stati18n   
  
-   
+     
 ### Numbers and Mesurement
 
 + *International System of Units*, Wikipedia

@@ -16,6 +16,27 @@ This is the index page. The first page shown by MWiki.
 + [[Open Source Licenses]]
 + [[Internationalization i18n and Localization i10n concepts]]
 + [[about|About Special Page]]
+
+## Overview
+
+All sources of this sample wiki are available at
+
++ https://github.com/caiorss/mwiki/tree/master/sample-wiki 
+
+This website was generated using the command
+
+```sh
+$ mwiki export --wikipath=./sample-wiki \
+          --website-name=MBook \
+          --main-font=cmu-concrete \
+          --title-font=chicago \
+          --code-font=libertinus-mono \
+          --allow-language-switch \
+          --latex-renderer=katex \
+          --root-url=/mwiki --source \
+          --unicode-emoji-favicon="🎓" \
+          --output=./dist
+```
    
 ## Bookmarks
 
