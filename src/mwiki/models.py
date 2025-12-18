@@ -719,9 +719,9 @@ class WikiPage():
         out = self._cache_html_file()
         text = self.read()
         ## print(" [TRACE] Updating cache = " + str(out))
-        headings = mparser.get_headings(text)
-        root = mparser.make_headings_hierarchy(headings)
-        toc = mparser.headings_to_html(root)
+        ## headings = mparser.get_headings(text)
+        ## root = mparser.make_headings_hierarchy(headings)
+        ## toc = mparser.headings_to_html(root)
         pagefile = str(self.path())
         base_path = str(self._base_path)
         conf: Settings = Settings.get_instance()
@@ -772,7 +772,7 @@ class WikiPage():
                                       , page_description     = renderer.description
                                       , page_author          = renderer.author
                                       , content              = content
-                                      , toc                  = toc
+                                      ## , toc                  = toc
                                       , latex_renderer       = renderer.latex_renderer
                                       , latex_macros         = renderer.mathjax_macros
                                       , mathjax_enabled      = renderer.needs_mathjax
@@ -783,6 +783,7 @@ class WikiPage():
                                       , equation_enumeration_style = renderer.equation_enumeration_style
                                       , equation_enumeration_enabled = renderer.equation_enumeration_enabled 
                                       , katex_macros         = utils.base64_encode(renderer.katex_macros)
+                                      , headings = renderer.headings 
                                       # , font_face_main       = font_face_main_font
                                       # , font_face_title      = font_face_title_font
                                       # , font_face_code       = font_face_code_font

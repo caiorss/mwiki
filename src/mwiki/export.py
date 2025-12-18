@@ -226,9 +226,9 @@ def export(   wikipath:              Optional[str]
         title = renderer.title if renderer.title != "" else str(p.name ).split(".")[0]
         # Generate table of contents 
         page_source = p.read_text()
-        headings    = mparser.get_headings(page_source)
-        root_       = mparser.make_headings_hierarchy(headings)
-        toc         = mparser.headings_to_html(root_)
+        ##headings    = mparser.get_headings(page_source)
+        ##root_       = mparser.make_headings_hierarchy(headings)
+        ##toc         = mparser.headings_to_html(root_)
         env_ = {
               "content": utils.highlight_code(page_source, "markdown")
             , "title":    title 
@@ -251,7 +251,7 @@ def export(   wikipath:              Optional[str]
             , "favicon_mimetype":     icon_mimetype
             , "page_description":     renderer.description
             , "page_author":          renderer.author or author 
-            , "toc":                  toc 
+            #, "toc":                  toc 
             , "page_type":            "src_page"
         }
         src_page_html = ""
@@ -281,7 +281,8 @@ def export(   wikipath:              Optional[str]
                # , "favicon_mimetype":     icon_mimetype
                , "page_description":     renderer.description
                , "page_author":          renderer.author or author 
-               , "toc":                  toc 
+               ## , "toc":                  toc 
+               , "headings":             renderer.headings
                , "content":              content               
                , "latex_renderer":       renderer.latex_renderer
                , "compile_latex":        compile_latex 

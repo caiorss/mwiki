@@ -4,12 +4,14 @@ import json
 import re 
 import yaml                     # Python3 stdlib Yaml Parser
 import pathlib
-from typing import Optional, Tuple, List, Dict
+from typing import Optional, Tuple, List, Dict, TypedDict 
+from dataclasses import dataclass
 from markdown_it.tree import SyntaxTreeNode
 import urllib.parse
 import os 
 import tempfile
 import subprocess
+import uuid
 import mwiki 
 from . import utils
 from . import mparser
@@ -68,6 +70,15 @@ class TempDirectory:
         os.chdir(self._prev)
         self._tempdir.cleanup()
         return False
+
+
+@dataclass
+class Heading:
+    title:    str
+    level:    int
+    number:   str 
+    anchor:   str 
+    children: list['Heading']
 
 class AbstractAstRenderer:
     """Renderer abstract class providing a framework for concrete renderers classes.
@@ -511,7 +522,6 @@ class AbstractAstRenderer:
         raise NotImplementedError()
 
     def render_code_block(self, node: SyntaxTreeNode) -> str:
- 
         raise NotImplementedError()
 
     def render_fence(self, node: SyntaxTreeNode) -> str:
@@ -696,6 +706,13 @@ class HtmlRenderer(AbstractAstRenderer):
         This database is defined in the frontmatter of the current document. 
         """
 
+        self._last_heading_level = 100
+        self._max_heading_level = 3
+        self._headings: List[Heading] = []
+        """List of page headings for rendering the TOC - Table of Contents"""
+        self._heading_counter = 1
+        self._anchor_list = {}
+
         self._unicode_database = [
               ("(TM)", "™") # Trademark 
             , ("{TM}", "™")  # Trademark 
@@ -715,6 +732,10 @@ class HtmlRenderer(AbstractAstRenderer):
             , ("{section}", "§")
 
         ]
+
+    @property
+    def headings(self) -> list[Heading]:
+        return self._headings
 
     @property
     def latex_renderer(self) -> str:
@@ -762,6 +783,22 @@ class HtmlRenderer(AbstractAstRenderer):
     def equation_enumeration_style(self):
         return self._equation_enumeration_style
 
+    def _render_table_of_contents_helpder(self, headings: List[Heading]) -> str:
+        return ""
+
+    def render_table_of_contents_helpder(self) -> str:
+        html = ""
+        for h in self._headings:
+            anchor  = "H_" + h.replace(" ", "_")
+            title_ = utils.escape_html(h.title)
+            link = """<a href="#%s" >%s</a>""" % (anchor, title)
+            div = """ """
+            for ch in h.children:
+                anchor  = "H_" + ch.replace(" ", "_")
+                title_ = utils.escape_html(ch.title)
+                link = """<a href="#%s" >%s</a>""" % (anchor, title)
+        return ""
+
     def _add_abbreviations(self, text: str) -> str:
         """Replace abbreviation words in a text by <abbr> html5 elements."""
         html = text 
@@ -806,6 +843,7 @@ class HtmlRenderer(AbstractAstRenderer):
             macros_file.touch(exist_ok = True)
             global_macros = macros_file.read_text()
             self._mathjax_macros = global_macros + "\n" + self._mathjax_macros
+        ## breakpoint()
         return html
     
     def render_text(self, node: SyntaxTreeNode) -> str:
@@ -862,7 +900,29 @@ class HtmlRenderer(AbstractAstRenderer):
         # Unix timestamp of last update of source file
         ###print(f" [TRACE] Timestamp of last file update = {timestamp}")
         title  = node.children[0].content.strip()
-        anchor = "H_" + title.replace(" ", "_")
+        anchor = "H_" + title.replace(" ", "_") 
+        if anchor not in self._anchor_list:
+            self._anchor_list[anchor] = 1
+        else:
+            n = self._anchor_list[anchor] + 1
+            self._anchor_list[anchor] = n
+            anchor = anchor + str(n)
+            self._anchor_list[anchor] = n
+        level = int(node.tag.strip("h"))
+        if level <= self._max_heading_level:
+            h = Heading(  title = title
+                        , anchor = anchor
+                        , number = ""
+                        , level = level
+                        , children = [])
+            if self._last_heading_level < level and len(self._headings) >= 1:
+                # h.number = str(self._count_h2+1) + "." +str(self._count_h3+1)
+                self._headings[-1].children.append(h)
+            else:
+                #if title.lower() not in ["overview", "related"]:
+                #    h.number = f"{self._count_h2 + 1}"
+                self._headings.append(h)
+                self._last_heading_level = level
         value  = utils.escape_html(title)
         link   = f"""<a class="link-heading" href="#{anchor}">¶</a>"""
         # h1 => 1, h2 => 2, ..., h6 => 6

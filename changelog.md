@@ -1,5 +1,11 @@
 # Changelog 
 
+
+## Release v0.9.2
+
++ Refactor navigation hyperlinks of the sidebard. Now, only hyperlinks to headings of level h2 and h3 are displayed on the sidebar. Hyperlinks to headings with repeated title go to the correct heading.
+
+
 ## Release v0.9.1
 
 + Add fonts/typefaces choices in the settings form: IBM's  iA Writer Quattro S, Roboto, Essay1743, Rokkit Semibold, Linux Libertine, Orbitron Bold.

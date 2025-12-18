@@ -5,7 +5,26 @@
 {% endblock %}
 
 {% block toc  %}
-    {{ toc|safe }}
+    <ul>
+    {% for h in headings %}
+        <ol>
+            {% if h.number %}
+                <span><a class="link-sidebar" href="#{{h.anchor}}">{{ h.number }} - {{h.title}}</a> </span>
+            {% else %}
+                <span><a class="link-sidebar" href="#{{h.anchor}}">{{h.title}}</a> </span>
+            {% endif %}
+            {% if h.children %}
+                <div> 
+                <ul>
+                {% for ch in h.children %}
+                    <li><a class="link-sidebar" href="#{{ch.anchor}}">{{ch.title}}</a></li>
+                {% endfor %}
+                </ul>
+                </div>
+            {% endif %}
+        </ol>
+    {% endfor %}
+    </ul>
 {% endblock %}
 
 {% block content %}
