@@ -489,9 +489,50 @@ MWiki comes has many default useful LaTeX macros that makes it easier and faster
  
 Note that this hyperlink does not work in the Wikis or notes exported to html, such as this one. It is only possible to edit macros by starting MWiki in server mode.
 
+### Macros for first order derivative
+
+The default macro `\dt{}` allows writing derivatives of fucntions or vector-valued functions with respect to time in [Leibniz's notation](https://en.wikipedia.org/wiki/Leibniz%27s_notation). 
+
+```latex
+f(x) = \dt{} y = \dt{y}
+```
+
+Output:
+
+$$
+f(x)= \dt{} y = \dt{y}
+$$
+
+Instead of
+
+```latex
+f(x)= \frac{d }{dt} y = \frac{d y}{dt}
+```
+ 
+### Macro for second order derivative
+
+The acceleration vector of a point-mass is the second order derivative of its position vector $\mathbf{r} = (x(t), y(t), z(t))$ with respect to time $t$.
+
+```latex
+\mathbf{a}(t) = \ddt{\mathbf{r}}
+```
+
+Output:
+
+$$
+\mathbf{a}(t) = \ddt{\mathbf{r}}
+$$
+
+Instead of
+
+```
+\mathbf{a}(t) = \frac{d^2 \mathbf{r}}{dt^2}
+```
+
+
 ### Macros for partial derivative
 
-**Partial Derivative**
+#### First Order Partial Derivative
 
 Partial derivative of a function $u(x, y)$ with respect to $x$.
 
@@ -511,7 +552,7 @@ Instead of
 \frac{\partial u}{\partial x}
 ```
 
-**Second order partial derivative**
+#### Second order partial derivative
 
 ```latex
 \pdd{u}{x}
@@ -550,7 +591,7 @@ Instead of
 \mathbf{u} = \mathbf{v} + \mathbf{w}
 ```
 
-**Macro for vectors with greek letters**
+#### Macro for vectors with greek letters
 
 Example: 
 
@@ -576,7 +617,7 @@ $$
 
 Where $\bs{\theta}$ (`\bs{\theta}`) is a vector that consists of $n$ generalized coordinates, joint angles, of a robotic system or mechanism.
 
-**Macro for writing vector derivative**
+#### First-Order Vector Derivative
 
 Deriatives of vectors with dot notation can be written using the macro `\bdot{VECTOR}`. Example:
 
@@ -598,7 +639,7 @@ Instead of
 
 The formula states that the velocity vector $\b{v}(t)$ is the derivative of the positon vector $\bdot{r}(t)$ with respect to time.
 
-**Macro for writing vector (greek letter) derivative**
+#### Vector (greek letter) derivative
 
 Example: 
 
@@ -628,7 +669,7 @@ Instead of
 where $\bsdot{\theta}(t)$ (`\bsdot{\theta}`) is the vector of the generalized velocities of each joint of a robotic manipulator or mechanism.
 
 
-**Macro for writing second order vector derivative**
+#### Second order vector derivative
 
 The macro `\bddot{VECTOR}` can be used for writing the second order derivative of a vector with respect to time. For instance, 
 
@@ -652,7 +693,7 @@ Instead of
 
 where $\bddot{r}(t)$ (`\bddot{r}(t)` is the second order derivative of the position vector $\b{r}$ with respect to time.
 
-**Macros for writing unit vectors**
+#### Unit vectors
 
 Unit vectors are vectors with unit magnitude, which are expressed using the hat notation with bold face. For instance,
 
@@ -689,6 +730,106 @@ where $\bhat{x}$ (`\bhat{x}`) is the unit vector related to X axis, $\bhat{y}$ i
 ```
 
 :::
+
+
+## Macros for expressing vectors in other reference frames
+
+The LaTeX macros in this section are useful for expressing vectors in other reference frames, which is a common need in mechanical engineering, robotics and computer graphics.
+
+### Vectors expressed in other frame
+
+The velocity vector $\b{v}(t)$ measured or expressed in the body frame $B$ is denoted by $\fb{v}{B}$ (`\fb{v}{B}`). The same vector expressed in the inertial frame $N$ is $\fb{v}{N}$. The matrix ${}^B_NR \in \text{SO}(3)$ (Special Orhtogonal Group) is a rotation matrix (orthogonal matrix), or orientation matrix, that expresses the instanteous orientation of the inertial frame $N$ with repsect to the body frame $B$. Note that the macro `\fb{}` stands for "frame bold".
+
+```latex
+\fb{v}{B} = {}^B_NR \, \fb{v}{N}
+```
+
+Output:
+
+$$
+\fb{v}{B} = {}^B_AR \, \fb{v}{A}
+$$
+
+Instead of 
+
+
+```latex
+  {}^B\mathbf{v} = {}^B_AR \, {}^N\mathbf{v}
+```
+
+### Vectors (Greek letter) expressed in other frame
+
+Consider the angular velocity vector $\bs{\omega}_1(t)$ expressed in the inertial frame $N$.
+
+```latex
+\fbs{\omega}{N}_1
+```
+
+Output:
+
+$$
+\fbs{\omega}{N}_1
+$$
+
+Instead of
+
+```latex
+{}^N\boldsymbol{\omega}_1
+```
+
+### Unit Vector expressed in other frame
+
+The direction vector $\fbhat{z}{0}_2$ (unit vector) is the axis of the joint 2 of a robotic manipulator expressed in the base frame 0.
+
+```latex
+\| \fbhat{z}{0}_2 \| = 1
+```
+
+Output:
+
+$$
+\| \fbhat{z}{0}_2 \| = 1
+$$
+
+Instead of 
+
+```latex
+\| {}^0\hat{\mathbf{z}}_2 \| = 1
+```
+
+
+### Skew-symmetric or cross-product matrix operator
+
+The skew-symmetric operator or cross-product matrix operator $\skew{}$ is commonly used for obtaining the cross product matrix of a vector $\b{r} = (x, y, z)$ such that $\skew{\b{r}} \b{f} = \b{r} \times \b{f}$, where $\times$ is the cross-product operator. This operator is needed because, unlike matrices, the cross-product operator is not associative.
+
+```latex
+\skew{\b{r}} = \begin{bmatrix}
+                     0 & -z &  y 
+                 \\  z &  0 & -x
+                 \\ -y &  x &  0
+               \end{bmatrix}
+```
+
+Output:
+
+$$
+\skew{\b{r}} = \begin{bmatrix}
+                     0 & -z &  y 
+                 \\  z &  0 & -x
+                 \\ -y &  x &  0
+               \end{bmatrix}
+$$
+
+Instead of
+
+```latex
+\skew{\b{r}} = \begin{bmatrix}
+                     0 & -z &  y 
+                 \\  z &  0 & -x
+                 \\ -y &  x &  0
+               \end{bmatrix}
+```
+
 
 ### Macros for Laplace Transform 
 
@@ -732,4 +873,4 @@ Example:
 Rendering:
 
 + The comptuational complexity of this algorithm is $\BigO{n}$.   
-+ The computational complexity of the second algorithm is $\BigO{n^3}$.  
++ The computational complexity of the second algorithm is $\BigO{n^3}$.     

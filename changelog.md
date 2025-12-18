@@ -3,7 +3,9 @@
 
 ## Release v0.9.2
 
++ Update Latex Refcard in sample wiki and add more examples about custom built-in LaTeX macros for expressing vectors in other reference frames.
 + Refactor navigation hyperlinks of the sidebard. Now, only hyperlinks to headings of level h2 and h3 are displayed on the sidebar. Hyperlinks to headings with repeated title go to the correct heading.
++ Bugfix - Fix flashcard icon buttons. Add CSS style flashcard's icons buttons for exported pages.
 
 
 ## Release v0.9.1
