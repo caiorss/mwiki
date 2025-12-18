@@ -814,13 +814,54 @@ MWiki comes has many default useful LaTeX macros that makes it easier and faster
  
 Note that this hyperlink does not work in the Wikis or notes exported to html, such as this one. It is only possible to edit macros by starting MWiki in server mode.
 
-### Macros for partial derivative
+### Macros for first order derivative
 
-**Partial Derivative**
-
-Partial derivative of a function <span class="s">$</span><span class="nb">u</span><span class="o">(</span><span class="nb">x, y</span><span class="o">)</span><span class="s">$</span> with respect to <span class="s">$</span><span class="nb">x</span><span class="s">$</span>.
+The default macro `<span class="k">\dt</span><span class="nb">{}</span>` allows writing derivatives of fucntions or vector-valued functions with respect to time in [Leibniz&#39;s notation](https://en.wikipedia.org/wiki/Leibniz<span class="c">%27s_notation). </span>
 
 ```latex
+f(x) = <span class="k">\dt</span><span class="nb">{}</span> y = <span class="k">\dt</span><span class="nb">{</span>y<span class="nb">}</span>
+<span class="sb">```</span>
+
+Output:
+
+$$
+f(x)= \dt{} y = \dt{y}
+$$
+
+Instead of
+
+<span class="sb">```latex</span>
+f(x)= <span class="k">\frac</span><span class="nb">{</span>d <span class="nb">}{</span>dt<span class="nb">}</span> y = <span class="k">\frac</span><span class="nb">{</span>d y<span class="nb">}{</span>dt<span class="nb">}</span>
+<span class="sb">```</span>
+ 
+<span class="gu">### Macro for second order derivative</span>
+
+The acceleration vector of a point-mass is the second order derivative of its position vector $\mathbf{r} = (x(t), y(t), z(t))$ with respect to time $t$.
+
+<span class="sb">```latex</span>
+<span class="k">\mathbf</span><span class="nb">{</span>a<span class="nb">}</span>(t) = <span class="k">\ddt</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}}</span>
+<span class="sb">```</span>
+
+Output:
+
+$$
+\mathbf{a}(t) = \ddt{\mathbf{r}}
+$$
+
+Instead of
+
+<span class="sb">```</span>
+<span class="sb">\mathbf{a}(t) = \frac{d^2 \mathbf{r}}{dt^2}</span>
+<span class="sb">```</span>
+
+
+<span class="gu">### Macros for partial derivative</span>
+
+<span class="gu">#### First Order Partial Derivative</span>
+
+Partial derivative of a function $u(x, y)$ with respect to $x$.
+
+<span class="sb">```latex</span>
 <span class="k">\pd</span><span class="nb">{</span>u<span class="nb">}{</span>x<span class="nb">}</span> 
 <span class="sb">```</span>
 
@@ -836,7 +877,7 @@ Instead of
 <span class="k">\frac</span><span class="nb">{</span><span class="k">\partial</span> u<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">}</span>
 <span class="sb">```</span>
 
-<span class="gs">**Second order partial derivative**</span>
+<span class="gu">#### Second order partial derivative</span>
 
 <span class="sb">```latex</span>
 <span class="k">\pdd</span><span class="nb">{</span>u<span class="nb">}{</span>x<span class="nb">}</span>
@@ -875,7 +916,7 @@ Instead of
 <span class="k">\mathbf</span><span class="nb">{</span>u<span class="nb">}</span> = <span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span> + <span class="k">\mathbf</span><span class="nb">{</span>w<span class="nb">}</span>
 <span class="sb">```</span>
 
-<span class="gs">**Macro for vectors with greek letters**</span>
+<span class="gu">#### Macro for vectors with greek letters</span>
 
 Example: 
 
@@ -901,7 +942,7 @@ $$
 
 Where $\bs{\theta}$ (<span class="sb">`\bs{\theta}`</span>) is a vector that consists of $n$ generalized coordinates, joint angles, of a robotic system or mechanism.
 
-<span class="gs">**Macro for writing vector derivative**</span>
+<span class="gu">#### First-Order Vector Derivative</span>
 
 Deriatives of vectors with dot notation can be written using the macro <span class="sb">`\bdot{VECTOR}`</span>. Example:
 
@@ -923,7 +964,7 @@ Instead of
 
 The formula states that the velocity vector $\b{v}(t)$ is the derivative of the positon vector $\bdot{r}(t)$ with respect to time.
 
-<span class="gs">**Macro for writing vector (greek letter) derivative**</span>
+<span class="gu">#### Vector (greek letter) derivative</span>
 
 Example: 
 
@@ -953,7 +994,7 @@ Instead of
 where $\bsdot{\theta}(t)$ (<span class="sb">`\bsdot{\theta}`</span>) is the vector of the generalized velocities of each joint of a robotic manipulator or mechanism.
 
 
-<span class="gs">**Macro for writing second order vector derivative**</span>
+<span class="gu">#### Second order vector derivative</span>
 
 The macro <span class="sb">`\bddot{VECTOR}`</span> can be used for writing the second order derivative of a vector with respect to time. For instance, 
 
@@ -977,7 +1018,7 @@ Instead of
 
 where $\bddot{r}(t)$ (<span class="sb">`\bddot{r}(t)`</span> is the second order derivative of the position vector $\b{r}$ with respect to time.
 
-<span class="gs">**Macros for writing unit vectors**</span>
+<span class="gu">#### Unit vectors</span>
 
 Unit vectors are vectors with unit magnitude, which are expressed using the hat notation with bold face. For instance,
 
@@ -1014,6 +1055,106 @@ where $\bhat{x}$ (<span class="sb">`\bhat{x}`</span>) is the unit vector related
 <span class="sb">```</span>
 
 :::
+
+
+<span class="gu">## Macros for expressing vectors in other reference frames</span>
+
+The LaTeX macros in this section are useful for expressing vectors in other reference frames, which is a common need in mechanical engineering, robotics and computer graphics.
+
+<span class="gu">### Vectors expressed in other frame</span>
+
+The velocity vector $\b{v}(t)$ measured or expressed in the body frame $B$ is denoted by $\fb{v}{B}$ (<span class="sb">`\fb{v}{B}`</span>). The same vector expressed in the inertial frame $N$ is $\fb{v}{N}$. The matrix ${}^B_NR \in \text{SO}(3)$ (Special Orhtogonal Group) is a rotation matrix (orthogonal matrix), or orientation matrix, that expresses the instanteous orientation of the inertial frame $N$ with repsect to the body frame $B$. Note that the macro <span class="sb">`\fb{}`</span> stands for &quot;frame bold&quot;.
+
+<span class="sb">```latex</span>
+<span class="k">\fb</span><span class="nb">{</span>v<span class="nb">}{</span>B<span class="nb">}</span> = <span class="nb">{}^</span>B<span class="nb">_</span>NR <span class="k">\,</span> <span class="k">\fb</span><span class="nb">{</span>v<span class="nb">}{</span>N<span class="nb">}</span>
+<span class="sb">```</span>
+
+Output:
+
+$$
+\fb{v}{B} = {}^B_AR \, \fb{v}{A}
+$$
+
+Instead of 
+
+
+<span class="sb">```latex</span>
+  <span class="nb">{}^</span>B<span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span> = <span class="nb">{}^</span>B<span class="nb">_</span>AR <span class="k">\,</span> <span class="nb">{}^</span>N<span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span>
+<span class="sb">```</span>
+
+<span class="gu">### Vectors (Greek letter) expressed in other frame</span>
+
+Consider the angular velocity vector $\bs{\omega}_1(t)$ expressed in the inertial frame $N$.
+
+<span class="sb">```latex</span>
+<span class="k">\fbs</span><span class="nb">{</span><span class="k">\omega</span><span class="nb">}{</span>N<span class="nb">}_</span>1
+<span class="sb">```</span>
+
+Output:
+
+$$
+\fbs{\omega}{N}_1
+$$
+
+Instead of
+
+<span class="sb">```latex</span>
+<span class="nb">{}^</span>N<span class="k">\boldsymbol</span><span class="nb">{</span><span class="k">\omega</span><span class="nb">}_</span>1
+<span class="sb">```</span>
+
+<span class="gu">### Unit Vector expressed in other frame</span>
+
+The direction vector $\fbhat{z}{0}_2$ (unit vector) is the axis of the joint 2 of a robotic manipulator expressed in the base frame 0.
+
+<span class="sb">```latex</span>
+<span class="k">\|</span> <span class="k">\fbhat</span><span class="nb">{</span>z<span class="nb">}{</span>0<span class="nb">}_</span>2 <span class="k">\|</span> = 1
+<span class="sb">```</span>
+
+Output:
+
+$$
+\| \fbhat{z}{0}_2 \| = 1
+$$
+
+Instead of 
+
+<span class="sb">```latex</span>
+<span class="k">\|</span> <span class="nb">{}^</span>0<span class="k">\hat</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>z<span class="nb">}}_</span>2 <span class="k">\|</span> = 1
+<span class="sb">```</span>
+
+
+<span class="gu">### Skew-symmetric or cross-product matrix operator</span>
+
+The skew-symmetric operator or cross-product matrix operator $\skew{}$ is commonly used for obtaining the cross product matrix of a vector $\b{r} = (x, y, z)$ such that $\skew{\b{r}} \b{f} = \b{r} \times \b{f}$, where $\times$ is the cross-product operator. This operator is needed because, unlike matrices, the cross-product operator is not associative.
+
+<span class="sb">```latex</span>
+<span class="k">\skew</span><span class="nb">{</span><span class="k">\b</span><span class="nb">{</span>r<span class="nb">}}</span> = <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+                     0 <span class="nb">&amp;</span> -z <span class="nb">&amp;</span>  y 
+                 <span class="k">\\</span>  z <span class="nb">&amp;</span>  0 <span class="nb">&amp;</span> -x
+                 <span class="k">\\</span> -y <span class="nb">&amp;</span>  x <span class="nb">&amp;</span>  0
+               <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+<span class="sb">```</span>
+
+Output:
+
+$$
+\skew{\b{r}} = \begin{bmatrix}
+                     0 &amp; -z &amp;  y 
+                 \\  z &amp;  0 &amp; -x
+                 \\ -y &amp;  x &amp;  0
+               \end{bmatrix}
+$$
+
+Instead of
+
+<span class="sb">```latex</span>
+<span class="k">\skew</span><span class="nb">{</span><span class="k">\b</span><span class="nb">{</span>r<span class="nb">}}</span> = <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+                     0 <span class="nb">&amp;</span> -z <span class="nb">&amp;</span>  y 
+                 <span class="k">\\</span>  z <span class="nb">&amp;</span>  0 <span class="nb">&amp;</span> -x
+                 <span class="k">\\</span> -y <span class="nb">&amp;</span>  x <span class="nb">&amp;</span>  0
+               <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
+<span class="sb">```</span>
+
 
 <span class="gu">### Macros for Laplace Transform </span>
 

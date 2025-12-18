@@ -567,6 +567,19 @@ img.admonition-icon {
   appearance: none;
 }
 
+
+
+.btn-icon {
+  background-color: #0172ad !important;
+  position: relative;
+  height: 2rem;
+  width: 2rem;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+
 .foldable-block {
   /* background: lightyellow; */
   padding: 10px;
