@@ -747,16 +747,16 @@ The velocity vector $\b{v}(t)$ measured or expressed in the body frame $B$ is de
 Output:
 
 $$
-\fb{v}{B} = {}^B_AR \, \fb{v}{A}
+\fb{v}{B} = {}^B_NR \, \fb{v}{N}
 $$
 
 Instead of 
 
 
 ```latex
-  {}^B\mathbf{v} = {}^B_AR \, {}^N\mathbf{v}
+  {}^B\mathbf{v} = {}^B_NR \, {}^N\mathbf{v}
 ```
-
+ 
 ### Vectors (Greek letter) expressed in other frame
 
 Consider the angular velocity vector $\bs{\omega}_1(t)$ expressed in the inertial frame $N$.
