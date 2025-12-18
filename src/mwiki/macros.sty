@@ -30,6 +30,65 @@
 $  \dot{\boldsymbol{\theta}}
 \newcommand{\bsdot}[1]{ \dot{\boldsymbol{#1}} }
 
+% Second order derivative of vector in greek letter
+% notation 
+\newcommand{\bsddot}[2]{ \ddot{\boldsymbol{#1}} }
+
+
+% Express vector in a given frame.
+% fb - stands for "frame bold"
+%
+% Example: express a vector u in the frame body
+% frame B, just %\fb{u}{B}
+% 
+\newcommand{\fb}[2]{ {}^{#2}\mathbf{#1} }
+
+% Express unit vector in a given frame
+
+% Example: express a Z axis unit vector of joint 2 
+% of a mechanism in the frame 3: \fbhat{z}{2}_3
+%
+%  Output:
+%
+%         2 ^ 
+%           z
+%            3
+%
+\newcommand{\fbhat}[2]{ {}^{#2}\hat{\mathbf{#1}} }
+
+% Express vector that referred using greek letters 
+% in a particular refrence frame. Example: express 
+% the angular velocity vector omega in the body frame B.
+%
+%   \fbs{\omega}{B}
+%
+\newcommand{\fbs}[2]{ {}^{#2}\boldsymbol{#1} }
+
+% Macro \fr that stands for frame. The purpose
+% of this macro is to write rotation matrices
+% with a more compact notation.
+%
+% Example: the rotation matrix R that maps
+% the frame 0 to frame 1 is written as 
+%
+%  1
+%   R  is written as \fr{1}{0}R 
+%  0    
+%
+\newcommand{fr}[2]{ {}^{#1}_{#2} }
+
+
+% Macro for writing the skew symmetric matrix operator
+% []_{\times}, the lie algebra so(3) of the 
+% Special Orhtogonal Group SO(3).
+%
+%         |   0  -w_z   w_y  |
+%  [w]  = | w_z     0  -w_x  |
+%     x   |-w_y   w_x     0  |
+%
+%
+\newcommand{\skew}[1]{ \left[ #1 \right]_{\times} }
+
 
 % Macros for numerical optmization problem
 %
@@ -93,4 +152,3 @@ $  \dot{\boldsymbol{\theta}}
 
 \DeclareMathOperator{\sgn}{sgn}
 
-            
