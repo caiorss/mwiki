@@ -1453,7 +1453,6 @@ function lazyLoadImages()
     {
       if(isElementInViewport(f) && f.parentElement.style.display !== "none")
       {
-         console.log(" [TRACE] render dom element ", f);
          renderDOMLatex(f);
          f.classList.remove("lazy-load-latex");
       }
