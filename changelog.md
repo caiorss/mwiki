@@ -1,6 +1,11 @@
 # Changelog 
 
 
+
+## Release v0.9.3
+
++ Feature - Implement lazy loading for math formulas rendered with KaTeX. This change reduces the time to render pages with lots of LaTeX math formulas by rendering only the formulas visible within the current viewport. It is similar to the lazy loading feature for images and videos. This feature does not work for MathJax library.
+
 ## Release v0.9.2
 
 + Update Latex Refcard in sample wiki and add more examples about custom built-in LaTeX macros for expressing vectors in other reference frames.

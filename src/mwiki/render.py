@@ -1104,7 +1104,7 @@ class HtmlRenderer(AbstractAstRenderer):
             inner = ("$$\n%s\n$$" if self.uses_mathjax else "%s") %  utils.escape_html(extra + latex) 
             html = """<div %s class="%s anchor"> \n""" % (label_, klass) \
                  + div_before \
-                 + '<div class="div-latex-code">\n%s\n</div>' %  inner \
+                 + '<div class="div-latex-code lazy-load-latex">\n%s\n</div>' %  inner \
                  + div_enum \
                  + "\n</div>"
         return html 
@@ -1142,7 +1142,7 @@ class HtmlRenderer(AbstractAstRenderer):
             self._needs_latex_renderer = True
             formula = utils.escape_html(node.content)
             inner = f"\\({formula}\\)" if self.uses_mathjax else formula 
-            html = f"""<span class="math-inline">{inner}</span>"""
+            html = f"""<span class="math-inline lazy-load-latex">{inner}</span>"""
         return html
 
     def render_math_single(self, node: SyntaxTreeNode) -> str:
@@ -1160,7 +1160,7 @@ class HtmlRenderer(AbstractAstRenderer):
             self._needs_latex_renderer = True
             formula = utils.escape_html(node.content)
             inner = f"\\({formula}\\)" if self.uses_mathjax else formula 
-            html = f"""<span class="math-inline">{inner}</span>"""
+            html = f"""<span class="math-inline lazy-load-latex">{inner}</span>"""
         ## html = f"""<span class="math-inline">\\({node.content}\\)</span>"""
         return html 
 

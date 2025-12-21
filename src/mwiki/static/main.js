@@ -255,8 +255,6 @@ function katexRenderDOMLatexFormula(domElement, latexCode, displayMode = false)
   }
   // console.log(" [TRACE] macros = ", macros);
   try {
-    console.log(" [TRACE] Rendering formula: ", latexCode);
-    console.log(" [TRACE] dom = ", domElement);
     katex.render(latexCode, domElement
                   , { displayMode: displayMode, macros: macros });
   } catch (error) {
@@ -275,8 +273,9 @@ function kateRenderDOMLatex(domElement)
         console.log(" JSON Parsing error: ", error);
     }
     if ( domElement.classList.contains("math-inline")
-         || domElement.classList.contains(".div-latex-code") )
+         || domElement.classList.contains("div-latex-code") )
     {
+      let prev = domElement.textContent;
       try{
          let isDisplayMode = domElement.classList.contains(".div-latex-code");
          katex.render(domElement.textContent, domElement, { displayMode: isDisplayMode, macros: macros});
@@ -317,7 +316,7 @@ function katexRenderDocumentLatex()
 
 
 
-document.addEventListener("DOMContentLoaded", katexRenderDocumentLatex);
+// document.addEventListener("DOMContentLoaded", katexRenderDocumentLatex);
 
 /** Render DOM (Document Object Model) node using either KaTeX or MathJax
  *
@@ -1411,8 +1410,9 @@ function lazyLoadImages()
     // console.log(" [TRACE] Enter function lazyLoadImages(). ");
     let imgs = document.querySelectorAll(".lazy-load");
     let videos = document.querySelectorAll(".lazy-load-video");
+    let formulas = document.querySelectorAll(".lazy-load-latex");
 
-    if( imgs.length === 0 && videos.length === 0)
+    if( imgs.length === 0 && videos.length === 0 && formulas.length === 0)
     {
         clearInterval(timerId);
         // console.log(' [TRACE] Shutdown image lazy loader');
@@ -1445,6 +1445,16 @@ function lazyLoadImages()
             v.appendChild(video);
             v.classList.remove("lazy-load-video");
         }
+    }
+
+    for(let f of formulas)
+    {
+      if(isElementInViewport(f) && f.parentElement.style.display !== "none")
+      {
+         console.log(" [TRACE] render dom element ", f);
+         renderDOMLatex(f);
+         f.classList.remove("lazy-load-latex");
+      }
     }
 }
 
@@ -1660,11 +1670,14 @@ document.addEventListener("DOMContentLoaded", async function()
 
     // Translate user interface I18N
     doTranslationI18N();
-	
+
+    // Force Desktop CSS layout if the page was loaded with the URL
+    // parameter ?printer=true	
     let params = new URLSearchParams(window.location.search);
     if( params.get("print") === "true" )
     {
        document.body.classList.add("force-desktop");
+       renderDOMLatex(document.body);
        window.print();
     } else {
       if( isMobileScreen() ) { setHeadingsVisibility(false); }
