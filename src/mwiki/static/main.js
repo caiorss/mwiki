@@ -263,8 +263,10 @@ function katexRenderDOMLatexFormula(domElement, latexCode, displayMode = false)
 }
 
 
-function kateRenderDOMLatex(domElement)
+function katexRenderDOMLatex(domElement)
 {
+   const CSS_CLASS_DIV_LATEX_CODE = "div-latex-code";
+   const CSS_CLASS_MATH_INLINE = "math-inline";
    if( !IS_LATEX_RENDERER_KATEX ){ return; }
    var macros = {};
    try {
@@ -272,12 +274,12 @@ function kateRenderDOMLatex(domElement)
     } catch(error){
         console.log(" JSON Parsing error: ", error);
     }
-    if ( domElement.classList.contains("math-inline")
-         || domElement.classList.contains("div-latex-code") )
+    if ( domElement.classList.contains(CSS_CLASS_MATH_INLINE)
+         || domElement.classList.contains(CSS_CLASS_DIV_LATEX_CODE) )
     {
       let prev = domElement.textContent;
       try{
-         let isDisplayMode = domElement.classList.contains(".div-latex-code");
+         let isDisplayMode = domElement.classList.contains(CSS_CLASS_DIV_LATEX_CODE);
          katex.render(domElement.textContent, domElement, { displayMode: isDisplayMode, macros: macros});
       } catch(error){
           domElement.textContent = prev + error;
@@ -311,7 +313,7 @@ function kateRenderDOMLatex(domElement)
 
 function katexRenderDocumentLatex()
 {
-   kateRenderDOMLatex(document.body);
+   katexRenderDOMLatex(document.body);
 }
 
 
@@ -328,7 +330,7 @@ function renderDOMLatex(domElementObject)
 {
    if(IS_LATEX_RENDERER_KATEX)
    {
-      kateRenderDOMLatex(domElementObject);
+      katexRenderDOMLatex(domElementObject);
    }
    if(IS_LATEX_RENDERER_MATHJAX)
    {
