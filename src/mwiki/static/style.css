@@ -112,6 +112,10 @@ h6 {
   background-color: rgb(241, 228, 151);
 }
 
+.sidebar h2 {
+  padding-left: 50px;
+}
+
 a {
   z-index: 600;
 }
@@ -122,14 +126,28 @@ a.link-external {
 }
 
 a.link-sidebar {
-  color: var(--link-external-color);
+  color: #201e1e;
   word-wrap: break-word;
+  text-decoration: none;
+  font-weight: bold;
+  padding-top: 8px !important;
+  display: block;
 }
 
-a.link-sidebar-clicked {
-  color: black !important;
-  background-color: ivory;
+a.link-sidebar:hover {
+  text-decoration: dashed !important;
+  border-bottom: dotted 1px black;
+  border-bottom-color: black;
 }
+
+ul li a.link-sidebar {
+  font-weight: 200;
+}
+
+.sidebar li {
+  list-style-type: none;
+}
+
 
 a.link-internal {
   color: green;
