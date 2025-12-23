@@ -1058,7 +1058,7 @@ class HtmlRenderer(AbstractAstRenderer):
         html = ""
         content = node.content.replace("\n>", "").strip()
         if self._rendering_jupyter_notebook:
-            content += "\\notag\n" + content
+            content = "\\notag\n" + content
         ## breakpoint()
         if self._render_math_svg:
             # html = _latex_to_html(content, inline = False)
@@ -2156,7 +2156,9 @@ class HtmlRenderer(AbstractAstRenderer):
                 code_ = utils.highlight_code(source, language = "python")
                 out = f"""\n<pre>\n<code class="language-python">{code_}</code>\n</pre>"""
                 if source_hidden:
-                    title =  utils.escape_html(source.splitlines()[0][:50])
+                    title_ = source.splitlines()[0]
+                    title_ = x if (x := title_[:40]) == title_ else x + " ..."
+                    title =  utils.escape_html(title_)
                     out = '<div class="foldable-block-div"><details>\n<summary><u class="solution-label">Code: %s</u></summary>\n%s\n</details></div>' % (title, out)
                 html += "\n" + out
             for output in outputs:
@@ -2165,7 +2167,7 @@ class HtmlRenderer(AbstractAstRenderer):
                     html += '''\n<pre>%s</pre>''' % utils.escape_html(source)
                 image_output = output.get("data", {}).get("image/png", None)
                 if image_output:
-                    html += '\n<img src="data:image/png;base64,%s">' % image_output 
+                    html += '\n<div class="div-wiki-image"><img class="wiki-image anchor" src="data:image/png;base64,%s"></div>' % image_output 
         html = '''<div class="tip admonition anchor">
                     <details>
                         <summary><span class="admonition-title">Jupyter Notebook: %s</span></summary>
