@@ -706,6 +706,8 @@ class HtmlRenderer(AbstractAstRenderer):
         This database is defined in the frontmatter of the current document. 
         """
 
+        self._rendering_jupyter_notebook = False
+
         self._last_heading_level = 100
         self._max_heading_level = 3
         self._headings: List[Heading] = []
@@ -901,6 +903,9 @@ class HtmlRenderer(AbstractAstRenderer):
         ###print(f" [TRACE] Timestamp of last file update = {timestamp}")
         title  = node.children[0].content.strip()
         anchor = "H_" + title.replace(" ", "_") 
+        if self._rendering_jupyter_notebook:
+            html = "<%s>%s</%s>" % (node.tag, utils.escape_html(title), node.tag)
+            return html
         if anchor not in self._anchor_list:
             self._anchor_list[anchor] = 1
         else:
@@ -1052,6 +1057,8 @@ class HtmlRenderer(AbstractAstRenderer):
     def render_math_block(self, node: SyntaxTreeNode) -> str:
         html = ""
         content = node.content.replace("\n>", "").strip()
+        if self._rendering_jupyter_notebook:
+            content += "\\notag\n" + content
         ## breakpoint()
         if self._render_math_svg:
             # html = _latex_to_html(content, inline = False)
@@ -1217,6 +1224,9 @@ class HtmlRenderer(AbstractAstRenderer):
                          data-src="{0}" data-type="video/webm" >
                     </div>
                    """.format(path)
+        elif src.endswith(".ipynb"):
+            match = self.find_file(src)
+            html = self.render_jupyter_notebook(match)
         else:
             path_ = path 
             if self._self_contained and match:
@@ -2119,6 +2129,51 @@ class HtmlRenderer(AbstractAstRenderer):
     def render_wiki_tag_inline(self, node: SyntaxTreeNode) -> str:
         url = f"/pages?search={node.content}".replace("#", "%23")
         html = f"""<a href="{url}" class="link-internal">{node.content}</a> """ 
+        return html
+
+    def render_jupyter_notebook(self, path: Optional[pathlib.Path]) -> str:
+        self._rendering_jupyter_notebook = True
+        if path is None: 
+            return  ""
+        data = None 
+        with path.open("r") as fd:
+            data = json.load(fd)
+        if data is None:
+            return ""
+        cells = data.get("cells", [])
+        html = ""
+        for cell in cells:
+            cell_type = cell.get("cell_type", "")
+            source = "".join(cell.get("source", [])).strip() 
+            outputs = cell.get("outputs", [])
+            source_hidden = cell.get("metadata", {}).get("jupyter", {}).get("source_hidden", False)
+            if cell_type == "markdown":
+                ast =  mparser.parse_source(source)
+                out = self.render(ast)
+                html += "\n" + out
+                ##s = '''<pre>%s</pre>''' % utils.escape_html(source)
+            elif cell_type == "code":
+                code_ = utils.highlight_code(source, language = "python")
+                out = f"""\n<pre>\n<code class="language-python">{code_}</code>\n</pre>"""
+                if source_hidden:
+                    title =  utils.escape_html(source.splitlines()[0][:50])
+                    out = '<div class="foldable-block-div"><details>\n<summary><u class="solution-label">Code: %s</u></summary>\n%s\n</details></div>' % (title, out)
+                html += "\n" + out
+            for output in outputs:
+                text_output = output.get("text/plain", None)
+                if text_output:
+                    html += '''\n<pre>%s</pre>''' % utils.escape_html(source)
+                image_output = output.get("data", {}).get("image/png", None)
+                if image_output:
+                    html += '\n<img src="data:image/png;base64,%s">' % image_output 
+        html = '''<div class="tip admonition anchor">
+                    <details>
+                        <summary><span class="admonition-title">Jupyter Notebook: %s</span></summary>
+                        %s 
+                    </details>
+                 </div>''' % (path.name, html)
+        ## print(" [TRACE] path to notebook = ", data)
+        self._rendering_jupyter_notebook = False
         return html
 
 
