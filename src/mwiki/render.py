@@ -2162,11 +2162,14 @@ class HtmlRenderer(AbstractAstRenderer):
                     out = '<div class="foldable-block-div"><details>\n<summary><u class="solution-label">Code: %s</u></summary>\n%s\n</details></div>' % (title, out)
                 html += "\n" + out
             for output in outputs:
-                text_output = output.get("text/plain", None)
-                if text_output:
-                    html += '''\n<pre>%s</pre>''' % utils.escape_html(source)
+                text_output   = output.get("text/plain", None)
                 image_output = output.get("data", {}).get("image/png", None)
-                if image_output:
+                html_output  = output.get("data", {}).get("text/html", None)
+                if html_output:
+                    html += "\n" + "".join(html_output).strip()
+                elif text_output:
+                    html += '''\n<pre>%s</pre>''' % utils.escape_html(source)
+                elif image_output:
                     html += '\n<div class="div-wiki-image"><img class="wiki-image anchor" src="data:image/png;base64,%s"></div>' % image_output 
         html = '''<div class="tip admonition anchor">
                     <details>
