@@ -2171,12 +2171,13 @@ class HtmlRenderer(AbstractAstRenderer):
                     html += '''\n<pre>%s</pre>''' % utils.escape_html(source)
                 elif image_output:
                     html += '\n<div class="div-wiki-image"><img class="wiki-image anchor" src="data:image/png;base64,%s"></div>' % image_output 
+        path_ = path.relative_to(self._base_path)
         html = '''<div class="tip admonition anchor">
                     <details>
-                        <summary><span class="admonition-title">Jupyter Notebook: %s</span></summary>
+                        <summary><span class="admonition-title"><a href="/wiki/%s"><img class="img-icon" src="%s/static/file-earmark-arrow-down.svg"></a> Jupyter Notebook: %s</span></summary>
                         %s 
                     </details>
-                 </div>''' % (path.name, html)
+                 </div>''' % (path_, self._root_url, path.name, html)
         ## print(" [TRACE] path to notebook = ", data)
         self._rendering_jupyter_notebook = False
         return html
