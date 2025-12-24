@@ -788,10 +788,12 @@ def make_app_server(  host:        str
             elif node.type == "wikilink_inline":
                 href = node.content
                 internal_links.append(href)
+        conf: Settings = Settings.get_instance()
         resp = flask.render_template("links.html"
                                        , title = f"[i18n] {path}"
                                        , page_title_i18n_tag = "links-page-title"
                                        , page = path
+                                       , conf = conf 
                                        , links = links
                                        , internal_links = internal_links
                                        )
