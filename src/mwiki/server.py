@@ -810,7 +810,8 @@ def make_app_server(  host:        str
             with open(tags_cache_file) as fd:
                 data = json.load(fd)
                 tags = data.get("tags") or []
-        resp = flask.render_template("tags.html", title = "Tags", tags = tags)
+        conf: Settings = Settings.get_instance()
+        resp = flask.render_template("tags.html", title = "Tags", tags = tags, conf = conf)
         return resp 
 
     @app.route("/api/preview", methods = [M_POST])
