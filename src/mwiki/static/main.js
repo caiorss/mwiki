@@ -278,6 +278,7 @@ function katexRenderDOMLatex(domElement)
          || domElement.classList.contains(CSS_CLASS_DIV_LATEX_CODE) )
     {
       let prev = domElement.textContent;
+      domElement.classList.remove("lazy-load-latex");
       try{
          let isDisplayMode = domElement.classList.contains(CSS_CLASS_DIV_LATEX_CODE);
          katex.render(domElement.textContent, domElement, { displayMode: isDisplayMode, macros: macros});
@@ -293,6 +294,7 @@ function katexRenderDOMLatex(domElement)
    {
      let prev = n.textContent;
      try{ 
+       n.classList.remove("lazy-load-latex");
        katex.render(n.textContent, n, { displayMode: false, macros: macros});
     } catch(error){
         n.textContent = prev + error;
@@ -303,6 +305,7 @@ function katexRenderDOMLatex(domElement)
    for(let n of nodesDisplayMode)
    {
       let prev = n.textContent;
+      n.classList.remove("lazy-load-latex");
       try{
         katex.render(n.textContent, n, { displayMode: true, macros: macros });
       } catch(error) {
