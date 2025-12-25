@@ -8,6 +8,7 @@ from typing import Optional, Tuple, List, Dict, TypedDict
 from dataclasses import dataclass
 from markdown_it.tree import SyntaxTreeNode
 import urllib.parse
+import hashlib
 import os 
 import tempfile
 import subprocess
@@ -1108,10 +1109,11 @@ class HtmlRenderer(AbstractAstRenderer):
             div_enum = '<div class="div-latex-enum"></div>'
             if self.uses_katex and "\\notag" not in content:
                 div_enum = '<div class="div-latex-enum"><span>{{{DIV_EQUATION_NUMBER(%s)}}}</span></div>' % number                 
-            inner = ("$$\n%s\n$$" if self.uses_mathjax else "%s") %  utils.escape_html(extra + latex) 
+            inner = ("$$\n%s\n$$" if self.uses_mathjax else "%s") %  utils.escape_html(extra + latex)
+            hash = hashlib.sha1(latex.encode("utf-8")).hexdigest()
             html = """<div %s class="%s anchor"> \n""" % (label_, klass) \
                  + div_before \
-                 + '<div class="div-latex-code lazy-load-latex">\n%s\n</div>' %  inner \
+                 + '<div class="div-latex-code lazy-load-latex" data-hash="%s">\n%s\n</div>' %  (hash, inner) \
                  + div_enum \
                  + "\n</div>"
         return html 
