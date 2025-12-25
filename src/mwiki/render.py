@@ -1857,7 +1857,7 @@ class HtmlRenderer(AbstractAstRenderer):
                         )
         else:
             code = utils.highlight_code(node.content, language = info)
-            html = f"""<pre>\n<code class="language-{info.strip()}">{code}</code>\n</pre>"""
+            html = f"""<div class="div-source-code"><a href="#" title="Copy the source code."><img class="img-icon copy-button" src="{self._root_url}/static/content-copy.svg"></a><pre>\n<code class="language-{info.strip()}">{code}</code>\n</pre></div>"""
         return html
 
     def render_wiki_text_highlight_inline(self, node: SyntaxTreeNode) -> str:

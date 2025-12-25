@@ -1097,6 +1097,14 @@ code {
   overflow-y: auto;
 }
 
+.copy-button {
+  float: right;
+  margin-top: -3px !important;
+  display: block;
+  padding: 0px !important;
+  margin-left: -30px !important;
+}
+
 .div-sort {
   display: block;
   margin-top: 20px;

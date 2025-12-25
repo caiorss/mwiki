@@ -328,11 +328,11 @@ document.addEventListener("DOMContentLoaded", ()=> {
       katexRenderDocumentLatex();
    } else {
      // Render only the first MAX_FORMULAS formulas
-     for(i = 0; i < MAX_FORMULAS; i++){
-       let dom = formulas[i];
-       katexRenderDOMLatex(dom);
-       dom.classList.remove("lazy-load-latex");
-     }
+      for(i = 0; i < MAX_FORMULAS; i++){
+        let dom = formulas[i];
+        katexRenderDOMLatex(dom);
+        dom.classList.remove("lazy-load-latex");
+      }
    }
 });
 
@@ -1241,6 +1241,16 @@ function popupIframe (title, url, options)
 }
 
 
+async function copyContentToClipboard(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    console.log('Success! content copied to clipboard');
+    /* Resolved - text copied to clipboard successfully */
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+    /* Rejected - text failed to copy to the clipboard */
+  }
+}
 
 
 /** Send an Http request to a Rest API */
@@ -1835,6 +1845,13 @@ _menus = new Set();
 
 document.addEventListener("click", (event) => {
     let target = event.target; 
+
+    if(target.classList.contains("copy-button"))
+    {
+      let code = target.parentElement.parentElement.childNodes[1].textContent.trim();
+      copyContentToClipboard(code);
+      return;
+    }
 
     if(target.tagName === "ABBR")
     {

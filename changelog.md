@@ -1,9 +1,8 @@
 # Changelog 
 
-
-
 ## Release v0.9.3
 
++ Implement icon button for copying source code to clipboard. 
 + Implement embedding Jupyter Notebooks. Now it is possible to embed Jupyter Notebook files using the syntax `![[notebook_name]].py`. A embedded jupyter notebook is rendered to html and added to the page embedding it in a foldable `<details>` tag.
 + Improve look and feel of the table of contents in the sidebar by making to look more professional and polished.
 + Feature - Implement lazy loading for math formulas rendered with KaTeX. This change reduces the time to render pages with lots of LaTeX math formulas by rendering only the formulas visible within the current viewport. It is similar to the lazy loading feature for images and videos. This feature does not work for MathJax library.
