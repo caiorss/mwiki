@@ -316,9 +316,22 @@ function katexRenderDocumentLatex()
    katexRenderDOMLatex(document.body);
 }
 
-
-
-// document.addEventListener("DOMContentLoaded", katexRenderDocumentLatex);
+document.addEventListener("DOMContentLoaded", ()=> {
+   let formulas = document.querySelectorAll(".lazy-load-latex");
+   const MAX_FORMULAS = 300;
+   
+   if(formulas.length <= MAX_FORMULAS){
+      // Render all LaTeX formulas in this document, otherwise do Lazy loading
+      katexRenderDocumentLatex();
+   } else {
+     // Render only the first MAX_FORMULAS formulas
+     for(i = 0; i < MAX_FORMULAS; i++){
+       let dom = formulas[i];
+       katexRenderDOMLatex(dom);
+       dom.classList.remove("lazy-load-latex");
+     }
+   }
+});
 
 /** Render DOM (Document Object Model) node using either KaTeX or MathJax
  *
