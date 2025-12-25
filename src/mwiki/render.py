@@ -1857,7 +1857,7 @@ class HtmlRenderer(AbstractAstRenderer):
                         )
         else:
             code = utils.highlight_code(node.content, language = info)
-            html = f"""<div class="div-source-code"><a href="#" title="Copy the source code."><img class="img-icon copy-button" src="{self._root_url}/static/content-copy.svg"></a><pre>\n<code class="language-{info.strip()}">{code}</code>\n</pre></div>"""
+            html = f"""<div class="div-source-code"><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon copy-button" src="{self._root_url}/static/content-copy.svg"></a><pre>\n<code class="language-{info.strip()}">{code}</code>\n</pre></div>"""
         return html
 
     def render_wiki_text_highlight_inline(self, node: SyntaxTreeNode) -> str:
@@ -2157,7 +2157,7 @@ class HtmlRenderer(AbstractAstRenderer):
             elif cell_type == "code":
                 code_ = utils.highlight_code(source, language = "python")
                 ##out = f"""\n<pre>\n<code class="language-python">{code_}</code>\n</pre>"""
-                out = f"""<div class="div-source-code"><a href="#" title="Copy the source code."><img class="img-icon copy-button" src="{self._root_url}/static/content-copy.svg"></a><pre>\n<code class="language-python">{code_}</code>\n</pre></div>"""
+                out = f"""<div class="div-source-code"><a href="#" data-i18n="btn-copy-source-code" title="Copy the source code."><img class="img-icon copy-button" src="{self._root_url}/static/content-copy.svg"></a><pre>\n<code class="language-python">{code_}</code>\n</pre></div>"""
                 if source_hidden:
                     title_ = source.splitlines()[0]
                     title_ = x if (x := title_[:40]) == title_ else x + " ..."

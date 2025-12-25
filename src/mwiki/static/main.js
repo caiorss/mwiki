@@ -791,6 +791,7 @@ translationsi18n =
                                             , "title": "Close this window."
                                           }
         , "latex-input-window-p": "Output:"
+        , "btn-copy-source-code": { "title": "Copy the source code." }
 	}
    ,"pt-BR": {
 		  "locale":                   "Brazilian Portuguese"
@@ -1014,6 +1015,7 @@ translationsi18n =
            ,"title": "Fecha esta janela."
           }
         , "latex-input-window-p": "Saída:"
+        , "btn-copy-source-code": { "title": "Copiar o código de fonte." }
 
   }
         
