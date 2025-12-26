@@ -289,7 +289,7 @@ dd {
 /** --- End of Definition List Style --- */
 
 .sidebar {
-  background-color: var(--bg-sidebar);
+  background-color: #fafafa;
   font-size: var(--font-size-sidebar);
   left: 0px;
   top: 0px;

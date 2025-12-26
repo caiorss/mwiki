@@ -5,6 +5,7 @@
 + Implement icon button for copying source code to clipboard. 
 + Implement embedding Jupyter Notebooks. Now it is possible to embed Jupyter Notebook files using the syntax `![[notebook_name]].py`. A embedded jupyter notebook is rendered to html and added to the page embedding it in a foldable `<details>` tag.
 + Improve look and feel of the table of contents in the sidebar by making to look more professional and polished.
++ Add light gray background color to the sidebar.
 + Implement lazy loading for math formulas rendered with KaTeX. This change reduces the time to render pages with lots of LaTeX math formulas by rendering only the formulas visible within the current viewport. It is similar to the lazy loading feature for images and videos. This feature does not work for MathJax library.
 + Add LaTeX syntax highlight to the page `/special:macros` for editing global LaTeX macros, which has the same syntax as a LaTeX's .sty or .tex file.
 + Bugfix - Bugfix - Fix route /links/<pagename> Undefined Error. Error message: *jinja2.exceptions.UndefinedError: 'conf' is undefined.*
