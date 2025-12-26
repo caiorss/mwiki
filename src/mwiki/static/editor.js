@@ -5,7 +5,12 @@
 
 let editor = ace.edit("editor");
 editor.setTheme("ace/theme/monokai");
-editor.session.setMode("ace/mode/markdown");
+if( document.location.pathname.endsWith("/edit/special:macros") )
+{
+    editor.session.setMode("ace/mode/latex");
+} else {
+    editor.session.setMode("ace/mode/markdown");
+}
 // Enable VIM keybindings
 
 editor.setOptions({
