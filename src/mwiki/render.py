@@ -2147,6 +2147,9 @@ class HtmlRenderer(AbstractAstRenderer):
         for cell in cells:
             cell_type = cell.get("cell_type", "")
             source = "".join(cell.get("source", [])).strip() 
+            # Skip empty cells of a Jupyter Notebook
+            if source == "":
+                continue
             outputs = cell.get("outputs", [])
             source_hidden = cell.get("metadata", {}).get("jupyter", {}).get("source_hidden", False)
             if cell_type == "markdown":
