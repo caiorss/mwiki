@@ -129,7 +129,7 @@ a.link-sidebar {
   color: #201e1e;
   word-wrap: break-word;
   text-decoration: none;
-  font-weight: bold;
+  /** font-weight: bold; */
   padding-top: 8px !important;
   display: block;
 }
