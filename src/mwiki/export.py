@@ -307,6 +307,7 @@ def export(   wikipath:              Optional[str]
                , "export_source":        export_source 
                , "src_page_html_url":    src_page_html_url 
                , "page_type":           "main"
+               , "citation_references":  utils.base64_encode(renderer.citation_references_json)
                , "katex_macros":         utils.base64_encode( renderer.katex_macros )
                , "unicode_emoji_favicon": unicode_emoji_favicon
                , "favicon":               favicon

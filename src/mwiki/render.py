@@ -139,6 +139,13 @@ class AbstractAstRenderer:
         within the current wiki.
         """
 
+        self._citation_counter = 0
+        self._citation_references = {}
+        self._citation_references_data = {}
+        self._citation_has_reference_list = False
+        self._citation_list = []
+        self._citation_order = {}
+
         self._inside_math_block = False
         self._enumeration_enabled_in_math_block = False
         self._equation_enumeration_style = "section"
@@ -241,6 +248,7 @@ class AbstractAstRenderer:
             , "wiki_footnote":              self.render_footnote_ref
             , "footnote_block":             self.render_footnote_block
             , "wiki_tag_inline":            self.render_wiki_tag_inline
+            , "wiki_citation":              self.render_citation
         }
 
     @property
@@ -268,6 +276,11 @@ class AbstractAstRenderer:
     @property
     def equation_enumeration_enabled(self) -> bool:
         return self._equation_enumeration_enabled 
+
+    @property
+    def citation_references_json(self) -> str:
+        out = json.dumps(self._citation_references_data)
+        return out
 
     def add_equation_reference(self, label: str, number: str, content: str, is_referenced: bool = False):
         if label not in self._equation_references:
@@ -641,6 +654,9 @@ class AbstractAstRenderer:
         """
         raise NotImplementedError()
 
+    def render_citation(self, node: SyntaxTreeNode) -> str:
+        raise NotImplementedError()
+
 class HtmlRenderer(AbstractAstRenderer):
     """MWiki renderer which compiles MWiki markup language to html.
     This class compiles .md wiki page files to html.
@@ -846,6 +862,8 @@ class HtmlRenderer(AbstractAstRenderer):
             macros_file.touch(exist_ok = True)
             global_macros = macros_file.read_text()
             self._mathjax_macros = global_macros + "\n" + self._mathjax_macros
+        if not self._citation_has_reference_list:
+            self._render_citations_reference_mwiki()
         ## breakpoint()
         return html
     
@@ -1577,6 +1595,8 @@ class HtmlRenderer(AbstractAstRenderer):
                 else:
                     html = f"""<div class="math-block anchor" {label} > \n$$\n""" \
                         + utils.escape_html(content) + "\n$$\n</div>"
+        elif info == "{references}":
+            html = self._render_citation_references(node)
         # Render multi-line comment blocks
         #
         # Example 1:
@@ -2088,6 +2108,8 @@ class HtmlRenderer(AbstractAstRenderer):
             data = yaml.safe_load(node.content)
         except yaml.YAMLError as ex:
             print("[ERROR] Failed to parse frontmatter data => \nDetails:", ex)
+            message = "<p><b>ERROR: </b> Failed to parse frontmatter: details = " + str(ex) + "</p>" 
+            return message
         if data is None: 
             return "" 
         if not self._is_embedded_page:
@@ -2107,12 +2129,19 @@ class HtmlRenderer(AbstractAstRenderer):
                 self._latex_renderer = latex_renderer 
         abbrs =  data.get("abbreviations", {}) 
         wordlinks = data.get("wordlinks", {})
+        references = data.get("references", [])
+        # breakpoint()
+        for r in references:
+            key = r.get("id", None)
+            if key is None:
+                continue
+            self._citation_references[key] = r
         ## Append abbreviation dictionary 
         for k, v in abbrs.items():
             self._abbreviations[k] = v
         for k, v in wordlinks.items():
             self._wordlinks[k] = v
-        ### breakpoint()
+        # breakpoint()
         ### print(" [WARNING] Frontmatter not renderend to HTML")
         return "" 
 
@@ -2132,6 +2161,289 @@ class HtmlRenderer(AbstractAstRenderer):
         url = f"/pages?search={node.content}".replace("#", "%23")
         html = f"""<a href="{url}" class="link-internal">{node.content}</a> """ 
         return html
+
+    def render_citation(self, node: SyntaxTreeNode) -> str:
+        assert node.type == "wiki_citation"
+        content = node.content
+        html = ""
+        entries = [[u.strip() for u in x.strip().split(",")] for x in content.split(";")]
+        ## citations = []
+        pairs = []
+        locator_list = []
+        for entry in entries: 
+            key_ = entry[0]
+            if len(entry) >= 2:
+                locator_list = [x.strip() for x in entry[1].split()]
+            if not key_.startswith("@"):
+                html = f"<b>Error: invalid citation: '{key_}'.</b>"
+                return html
+            key = key_.strip("@")
+            if key not in self._citation_references:
+                html = f"<b>Reference to citation key not found: '{key_}'.</b>"
+                return html
+            if key not in self._citation_list:
+                self._citation_list.append(key)
+                self._citation_counter += 1
+                self._citation_order[key] = self._citation_counter 
+            order = self._citation_order.get(key)
+            citation_ = '[<a class="citation-link link-internal" data-citekey="%s" href="#div-list-citation-refereces">%s</a>' % (key, order) 
+            locators_ = ""
+            for locator in locator_list:
+                x = locator.split(":")
+                locator_prefix, locator_data = (x[0], "") if len(x) == 1 else (x[0], x[1])
+                if locator_prefix in ["p", "pp", "page", "pages"] and "-" in locator_data:
+                    locators_ += " pp. " + locator_data
+                elif locator_prefix in ["p", "pp", "page", "pages"]:
+                    locators_ += " p. " + locator_data
+                elif locator_prefix in ["c", "ch", "chap", "chapter"]:
+                    locators_ += " Chap. " + locator_data
+                elif locator_prefix in ["apd", "appendix"]:
+                    locators_ += " Appendix " + locator_data
+                elif locator_prefix in ["sec", "section"]:
+                    locators_ += " Sec. " + locator_data
+                elif locator_prefix in ["eq", "eqn", "equation"]:
+                    locators_ += " eq.(" + locator_data + ")"
+                elif locator_prefix in ["th", "theorem"]:
+                    locators_ += " Th. " + locator_data
+                elif locator_prefix in ["tbl", "table"]:
+                    locators_ += " Table " + locator_data
+                elif locator_prefix in ["fig", "figure"]:
+                    locators_ += " Fig. " + locator_data
+                elif locator_prefix in ["alg", "algorithm", "code"]:
+                    locators_ += " Algorithm " + locator_data
+            if len(locator_list) >= 1:
+                    citation_ += ", " + locators_.strip()
+            citation_ += "]"
+            ##citations.append(citation_)
+            pair = (order, citation_)
+            pairs.append(pair)
+            ## print(f" [TRACE] key = {key} ; locator = {locator}")
+        # breakpoint()
+        if len(pairs) == 1:
+            html = pair[1] #citations[0]
+        else:
+            citations = [a[1] for a in sorted(pairs, key = lambda x: x[0])]
+            html = ", ".join(citations) 
+        return html
+
+    def _render_citation_references(self, node: SyntaxTreeNode) -> str:
+        """Render the bibliographic references to citation keys.
+
+        Render the syntax:
+
+        ```{references}
+        ```
+        """
+        DEFAULT_CITATION_STYLE = "mwiki"
+        content, directives = mparser.get_code_block_directives(node.content)
+        style = directives.get("style", DEFAULT_CITATION_STYLE)
+        html = ""
+        # breakpoint()
+        if style == "mwiki":
+            html = self._render_citations_reference_mwiki()
+        elif style == "ieee":
+            html = self._render_citation_reference_ieee()
+        self._citation_has_reference_list = True
+        return html 
+
+    def _render_citation_reference_ieee(self) -> str:
+        html = '''<div  id="div-list-citation-refereces"  class="citation-references">\n%s\n</div> '''
+        inner = ''
+        import locale
+        import calendar 
+        from datetime import date  
+        locale.setlocale(locale.LC_TIME, 'en_US.UTF-8')
+        for key in self._citation_list:
+            order = self._citation_order.get(key, -1)
+            data  = self._citation_references.get(key)
+            if not data:
+                continue
+            type  = self._get_field(data, "type", "").lower()
+            title = self._get_field(data, "title", "")
+            author_type = data.get("author_type", "")
+            many_authors = author_type == "many"
+            journal = self._get_field(data, "journal")
+            volume = self._get_named_field(data, "volume", "vol")
+            page = self._get_named_field(data, "page", "pp")
+            number = self._get_named_field(data, "number", "no")
+            year = self._get_field(data, "year")
+            edition = self._get_field(data, "edition")
+            publisher = self._get_field(data, "publisher")
+            url = self._get_field(data, "url")
+            doi = ", doi: " + x if (x := data.get("doi")) else ""
+            authors_ = ""
+            authors =  self._get_field(data, "author", None) or self._get_field(data, "editor", [])
+            if isinstance(authors, dict):
+                authors = [authors]
+            ## breakpoint()
+            if many_authors and len(authors) >= 1:
+                x = authors[0]
+                name =  self._abbreviate_name(a) if (a := x.get("given", "")) else ""
+                family = x.get("family", "")
+                authors_ = f"{name} {family} et al., "
+            elif len(authors) == 1:
+                x = authors[0]
+                name =  self._abbreviate_name(a) if (a := x.get("given", "").upper()) else ""
+                family = x.get("family", "")
+                authors_ = f"{name} {family}, "
+            elif authors != [] and len(authors) <= 3:
+                last = authors[len(authors) - 1]
+                for x in authors[:-1]:
+                    name =  self._abbreviate_name(a) if (a := x.get("given", "").upper()) else ""
+                    family = x.get("family", "")
+                    authors_ += f"{name} {family}, "
+                name =  self._abbreviate_name(a) if (a := last.get("given", "").upper()) else ""
+                family = last.get("family", "")
+                authors_ += f"and {name} {family}, "
+            elif len(authors) >= 3:
+                x = authors[0]
+                name =  self._abbreviate_name(a) if (a := x.get("given", "")) else ""
+                family = x.get("family", "")
+                authors_ = f"{name} {family} et al., "
+            journal_ = ""
+            entry = f"NOT IMPLEMENTED: {title}"
+            if journal is not None:
+                _year = ", " + str(x) if(x := year) else ""
+                journal_ = f"<i>{journal}</i>{volume}{number}{page}{_year}{doi}"
+                entry = f'''{authors_}"{title}," {journal_}.'''
+            elif type == "book":
+                _year = ", " + str(x) if(x := year) else ""
+                _publisher = publisher if publisher else ""
+                _edition = ", " + edition + " ed." if edition else ""
+                entry = f'''{authors_}"{title}," {_publisher}{_edition}{_year}.'''               
+                if url:
+                    entry = entry + f' [Online]. Avaialable: <a class="link-external" target="_blank" href="{url}">{url}</a>'
+            elif type == "manual":
+                _publisher = publisher if publisher else ""
+                entry = f'''{authors_}"{title}," {year}.'''               
+                if url:
+                    entry = entry + f' [Online]. Avaialable: <a class="link-external" target="_blank" href="{url}">{url}</a>'
+            elif type == "phdthesis":
+                _year = ", " + str(x) if(x := year) else ""
+                school = self._get_field(data, "school", "")
+                address = ", " + x if (x:= self._get_field(data, "address", "")) else ""
+                entry = f'''{authors_}"{title}," phdthesis, {school}{address}{_year}.'''
+                if url:
+                    entry = entry + f' [Online]. Avaialable: <a class="link-external" target="_blank" href="{url}">{url}</a>'
+            elif type == "proceedings":
+                _year = ", " + str(x) if(x := year) else ""
+                publisher = data.get("publisher", "")
+                address = ", " + x if (x:= self._get_field(data, "address", "")) else ""
+                entry = f'''{authors_}Eds., {title}{volume}.{address}: {publisher}{_year}.'''
+            elif type == "inproceedings":
+                booktitle = data.get("booktitle", "")
+                page_ = self._get_field(data, "pages", "").replace("--", "-")
+                page_ = ", pp." + page_ if page_ != "" else ""
+                _year = ", " + str(x) if(x := year) else ""
+                entry = f'''{authors_}"{title}," in {booktitle}{_year}{page}.'''
+            elif type == "techreport":
+                # breakpoint()
+                _year = ", " + str(x) if(x := year) else ""
+                institution = self._get_field(data, "institution", "")
+                address = ", " + x if (x:= self._get_field(data, "address", "")) else ""
+                number= data.get("number", "")
+                entry = f'''{authors_}"{title}," {institution}{address}, techreport {number}{_year}.'''
+            elif type == "online" and url:
+                access = data.get("access", "")
+                access_ = ""
+                # breakpoint()
+                if isinstance(access, date):
+                    access_year = access.year
+                    access_month = calendar.month_name[access.month] 
+                    access_day = access.day
+                    access_ = f"(accessed {access_month.capitalize()} {access_day}, {access_year})"
+                entry = f'''{authors_}"{title}, ". [Online]. Available: <a class="link-external" target="_blank" href="{url}">{url}</a> {access_}'''
+
+            inner += f"\n<p>[{order}] {entry}</p>"
+            self._citation_references_data[key] = entry
+        html = html % inner 
+        return html
+
+    def _abbreviate_name(self, name: str) -> str:
+        lst = [x[0].upper() + "." for x in name.split() if x != ""]
+        out = " ".join(lst)
+        return out
+        
+
+    def _render_citations_reference_mwiki(self) -> str:
+        html = '''<div id="div-list-citation-refereces" class="citation-references">\n<ol>\n%s\n</ol>\n</div> '''
+        inner = ""
+        for key in self._citation_list:
+            order = self._citation_order.get(key, -1)
+            data  = self._citation_references.get(key)
+            if not data:
+                continue
+            type  = self._get_field(data, "type", "").lower()
+            title = self._get_field(data, "title", "")
+            author_type = data.get("author_type", "")
+            many_authors = author_type == "many"
+            journal = self._get_field(data, "journal")
+            volume = self._get_named_field(data, "volume", "vol")
+            page = self._get_named_field(data, "page", "pp")
+            number = self._get_named_field(data, "number", "no")
+            year = self._get_field(data, "year")
+            edition = self._get_field(data, "edition")
+            publisher = self._get_field(data, "publisher")
+            url = self._get_field(data, "url")
+            doi = ", doi: " + x if (x := data.get("doi")) else ""
+            authors_ = ""
+            authors =  self._get_field(data, "author", None) or self._get_field(data, "editor", [])
+            if isinstance(authors, dict):
+                authors = [authors]
+            ## breakpoint()
+            if many_authors and len(authors) >= 1:
+                x = authors[0]
+                name =  self._abbreviate_name(a) if (a := x.get("given", "")) else ""
+                family = x.get("family", "")
+                authors_ = f", {name} {family} et al."
+            elif len(authors) == 1:
+                x = authors[0]
+                name =  self._abbreviate_name(a) if (a := x.get("given", "").upper()) else ""
+                family = x.get("family", "")
+                authors_ = f", {name} {family}, "
+            elif authors != [] and len(authors) <= 3:
+                last = authors[len(authors) - 1]
+                for x in authors[:-1]:
+                    name =  self._abbreviate_name(a) if (a := x.get("given", "").upper()) else ""
+                    family = x.get("family", "")
+                    authors_ += f", {name} {family}"
+                name =  self._abbreviate_name(a) if (a := last.get("given", "").upper()) else ""
+                family = last.get("family", "")
+                authors_ += f", and {name} {family}"
+            elif len(authors) >= 3:
+                x = authors[0]
+                name =  self._abbreviate_name(a) if (a := x.get("given", "")) else ""
+                family = x.get("family", "")
+                authors_ = f"{name} {family} et al."
+            # authors_ =  ", " + authors_ if authors else ""
+            # journal_ = ""
+            url_li = f'''<li><a class="link-external" href="{url}" target="_blank">{url}</a></li>'''  \
+                if url is not None else "" 
+            publisher = ", " + x  if (x := data.get("publisher")) else ""
+            authors_ = authors_.rstrip(", ") + (f" ({year})" if year else "")
+            abstract = f"<li>Abstract: <i>{x}</i></li>" if ( x:= data.get("abstract")) else ""
+            ul = f"<ul>{url_li}{abstract}</ul>" if url_li or abstract else ""
+            entry = f'''<i>{title}</i>{authors_}{publisher} - {type}{ul}'''
+            if entry == "article":
+                journal = "," if (x := data.get("journal", "")) else ""
+                entry = f'''<li>{title}</li>, {authors_} ({year}){journal}'''
+            self._citation_references_data[key] = entry
+            inner += "<li>" + entry + "</li>"
+        html = html % inner 
+        return html
+
+
+    def _get_named_field(self, adict, field: str, name: str, delimiter = ","):
+        x = self._get_field(adict, field)
+        out = ""
+        if x is not None:
+            out = f"{delimiter} {name}. {x}"
+        return out
+
+    def _get_field(self, adict, field: str, alternative = None):
+        out = adict.get(field) or adict.get(field.lower) \
+            or adict.get(field.upper()) or alternative
+        return out 
 
     def render_jupyter_notebook(self, path: Optional[pathlib.Path]) -> str:
         self._rendering_jupyter_notebook = True

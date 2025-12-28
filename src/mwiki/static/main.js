@@ -1822,6 +1822,17 @@ document.addEventListener("mouseover", (event) => {
             tooltip_window.close();
         }
     }
+    
+    if( target.classList.contains("citation-link") )
+    {
+      let key = target.dataset.citekey;
+      let html = REFERENCES[key];
+      tooltip_window.setTitle("");
+      tooltip_window.setMessage(html);
+      tooltip_window.show();
+      // console.log(" [TRACE] Render html = ", html);
+      return;  
+    }
 
     // Hyperlink to equation 
     // NOTE: It is only supported for KaTeX. 
@@ -1845,6 +1856,18 @@ document.addEventListener("mouseover", (event) => {
 
 _menus = new Set();
 
+const REFERENCES = (() => {
+  var data = {}; 
+  try{
+      inner = base64ToUtf8(CITATION_REFERENCES);
+      console.trace(" inner = ", inner);
+      data = JSON.parse(inner);
+      console.trace(" data = ", data);
+  } catch(error){
+  }
+  return data; 
+})();
+
 document.addEventListener("click", (event) => {
     let target = event.target; 
 
@@ -1855,6 +1878,7 @@ document.addEventListener("click", (event) => {
       return;
     }
 
+    
     if(target.tagName === "ABBR")
     {
          let tooltip = `${target.innerText}: ${target.title}`;

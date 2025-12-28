@@ -2,7 +2,9 @@
 
 ## Release v0.9.3
 
-+ Implement icon button for copying source code to clipboard. 
++ Create IEEE-style citations and references. This feature allows adding references to books, journal articles, in proceedings, conferences, and websistes to the YAML front-matter. References defined in the front-matter can be cited using the syntax `$[@<CITATION-KEY>, <LOCATOR>]`. Example: `$[@zhang2018 page:10-20; @freedman2010 equation:30]` is rendered as [10, pp 10-20], [15, eq.(30)] according to the IEEE citation style. References are enumerated in the order they appear.
++ Create syntax ````{references}```` for inserting the cited references in the YAML front-matter in the rendered document.
+ Implement icon button for copying source code to clipboard. 
 + Implement embedding Jupyter Notebooks. Now it is possible to embed Jupyter Notebook files using the syntax `![[notebook_name]].py`. A embedded jupyter notebook is rendered to html and added to the page embedding it in a foldable `<details>` tag.
 + Improve look and feel of the table of contents in the sidebar by making to look more professional and polished.
 + Add light gray background color to the sidebar.

@@ -6,6 +6,7 @@ from ._wiki_text_highlight_plugin import wiki_text_highlight_plugin
 from ._wiki_tag_plugin import wiki_tag_plugin
 from ._wiki_footnotes_plugin import wiki_footnotes_plugin
 from ._wiki_mastodon_handle import mastodon_handle_plugin
+from ._wiki_citation_plugin import wiki_citation_plugin  
 
 __all__ = (  "wiki_link_plugin"
            , "wiki_embed_plugin"
@@ -13,4 +14,5 @@ __all__ = (  "wiki_link_plugin"
            , "wiki_tag_plugin"
            , "mastodon_handle_plugin"
            , "wiki_footnotes_plugin"
+           , "wiki_citation_plugin"
           )

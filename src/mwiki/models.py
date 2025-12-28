@@ -783,6 +783,7 @@ class WikiPage():
                                       , equation_enumeration_style = renderer.equation_enumeration_style
                                       , equation_enumeration_enabled = renderer.equation_enumeration_enabled 
                                       , katex_macros         = utils.base64_encode(renderer.katex_macros)
+                                      , citation_references   = utils.base64_encode(renderer.citation_references_json)
                                       , headings = renderer.headings 
                                       # , font_face_main       = font_face_main_font
                                       # , font_face_title      = font_face_title_font

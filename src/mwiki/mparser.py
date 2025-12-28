@@ -70,6 +70,7 @@ MdParser = (
     .use(myst_role_plugin)
     .use(mwiki.plugins.wiki_tag_plugin)
     .use(mwiki.plugins.wiki_text_highlight_plugin)
+    .use(mwiki.plugins.wiki_citation_plugin)
     .use(mwiki.plugins.wiki_embed_plugin)
     .use(mwiki.plugins.wiki_link_plugin)
     .use(mwiki.plugins.wiki_footnotes_plugin)
