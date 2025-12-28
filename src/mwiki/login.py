@@ -1,11 +1,16 @@
 """Login module - contains decoreators for login."""
 
+import logging 
 import flask
 from flask import Flask, session, request
 from . import utils
 from . models import User, Settings
 from . constants import USER_ADMIN, USER_ADMIN, USER_ANONYMOUS, USER_EDITOR, USER_GUEST
 from . constants import M_GET, M_POST, M_DELETE
+
+
+logger = logging.getLogger("waitress")
+logger.setLevel(logging.INFO)
 
 def check_login_db(username: str, password: str) -> bool:
     ### print(" [TRACE] Enter check_login_db")
@@ -66,6 +71,7 @@ def add_login(app: Flask, do_login: bool, username: str, password: str):
     ```
 
     """
+    
     def is_loggedin():
         return session.get("loggedin") or False
 
@@ -105,6 +111,9 @@ def add_login(app: Flask, do_login: bool, username: str, password: str):
             session["user"] = user.to_Dict()
             return flask.redirect(path) 
         else:
+            addr = request.remote_addr 
+            real_addr = request.headers.get("X-Real-IP") or request.headers.get("x-real-ip") or ""
+            logger.warning(f" Login error for account {_username} => addr:{addr} real_addr:{real_addr} ") 
             return flask.redirect(f"/login?path={path}")
 
     @app.route("/logoff")
