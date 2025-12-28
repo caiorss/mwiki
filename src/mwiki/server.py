@@ -30,6 +30,8 @@ from . models import db, User, Settings, BookmarkedPage, WikiPage, WikiRepositor
 from . login import add_login
 from . forms import UserAddForm, UserSettingsForm, SettingsForm, UserEditForm, UserCreateForm
 from werkzeug.datastructures.file_storage import FileStorage
+import logging 
+import whoosh.index 
 from . constants import ( M_GET, M_POST, M_DELETE
                         , STATUS_CODE_400_BAD_REQUEST, STATUS_CODE_401_UNAUTHORIZED
                         , STATUS_CODE_403_FORBIDDEN,   STATUS_CODE_404_NOT_FOUND
@@ -43,6 +45,8 @@ from .app import make_app, current_user, favicon
 server_software =  os.environ.get("SERVER_SOFTWARE", "")
 is_wsgi = "gunicorn" in server_software or "waitress" in server_software
 
+logger = logging.getLogger("waitress")
+logger.setLevel(logging.INFO)
 
  
 def make_app_server(  host:        str
@@ -635,7 +639,12 @@ def make_app_server(  host:        str
                           )
                 page_path = base_path.joinpath(path + ".md")
                 page_path.write_text(content)
-                search.add_index_page(base_path, page_path)
+                try: 
+                    search.add_index_page(base_path, page_path)
+                except whoosh.index.LockError as ex:
+                    print(" [ERROR] Lock error: ", ex)
+                    logger.error(f"Lock error: {ex} ")
+                    pass 
                 out = flask.redirect(f"/wiki/{path}")
             else:
                 out = flask.redirect("/")
