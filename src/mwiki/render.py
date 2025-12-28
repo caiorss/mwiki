@@ -2276,7 +2276,14 @@ class HtmlRenderer(AbstractAstRenderer):
             if isinstance(authors, dict):
                 authors = [authors]
             ## breakpoint()
-            if many_authors and len(authors) >= 1:
+            if isinstance(authors, str) and author_type in ["organization", "institution"]:
+                authors_ = authors + ", "
+            elif isinstance(authors, str) and authors != "":
+                names = authors.split()
+                given = self._abbreviate_name(" ".join(names[:-1]))
+                family = names[-1]
+                authors_ = f"{given} {family}, "
+            elif many_authors and len(authors) >= 1:
                 x = authors[0]
                 name =  self._abbreviate_name(a) if (a := x.get("given", "")) else ""
                 family = x.get("family", "")
@@ -2391,7 +2398,14 @@ class HtmlRenderer(AbstractAstRenderer):
             if isinstance(authors, dict):
                 authors = [authors]
             ## breakpoint()
-            if many_authors and len(authors) >= 1:
+            if isinstance(authors, str) and author_type in ["organization", "institution"]:
+                authors_ = ", " + authors 
+            elif isinstance(authors, str) and authors != "":
+                names = authors.split()
+                given = self._abbreviate_name(" ".join(names[:-1]))
+                family = names[-1]
+                authors_ = f", {given} {family}"
+            elif many_authors and len(authors) >= 1:
                 x = authors[0]
                 name =  self._abbreviate_name(a) if (a := x.get("given", "")) else ""
                 family = x.get("family", "")
