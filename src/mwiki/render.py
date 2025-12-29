@@ -13,6 +13,9 @@ import os
 import tempfile
 import subprocess
 import uuid
+import locale
+import calendar 
+from datetime import date  
 import mwiki 
 from . import utils
 from . import mparser
@@ -2249,10 +2252,10 @@ class HtmlRenderer(AbstractAstRenderer):
     def _render_citation_reference_ieee(self) -> str:
         html = '''<div  id="div-list-citation-refereces"  class="citation-references">\n%s\n</div> '''
         inner = ''
-        import locale
-        import calendar 
-        from datetime import date  
-        locale.setlocale(locale.LC_TIME, 'en_US.UTF-8')
+        try:
+            locale.setlocale(locale.LC_TIME, 'en_US.UTF-8')
+        except locale.Error as ex: 
+            pass 
         for key in self._citation_list:
             order = self._citation_order.get(key, -1)
             data  = self._citation_references.get(key)
