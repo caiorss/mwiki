@@ -2322,19 +2322,19 @@ class HtmlRenderer(AbstractAstRenderer):
                 _edition = ", " + edition + " ed." if edition else ""
                 entry = f'''{authors_}"{title}," {_publisher}{_edition}{_year}.'''               
                 if url:
-                    entry = entry + f' [Online]. Avaialable: <a class="link-external" target="_blank" href="{url}">{url}</a>'
+                    entry = entry + f' [Online]. Available: <a class="link-external" target="_blank" href="{url}">{url}</a>'
             elif type == "manual":
                 _publisher = publisher if publisher else ""
                 entry = f'''{authors_}"{title}," {year}.'''               
                 if url:
-                    entry = entry + f' [Online]. Avaialable: <a class="link-external" target="_blank" href="{url}">{url}</a>'
+                    entry = entry + f' [Online]. Available: <a class="link-external" target="_blank" href="{url}">{url}</a>'
             elif type == "phdthesis":
                 _year = ", " + str(x) if(x := year) else ""
                 school = self._get_field(data, "school", "")
                 address = ", " + x if (x:= self._get_field(data, "address", "")) else ""
                 entry = f'''{authors_}"{title}," phdthesis, {school}{address}{_year}.'''
                 if url:
-                    entry = entry + f' [Online]. Avaialable: <a class="link-external" target="_blank" href="{url}">{url}</a>'
+                    entry = entry + f' [Online]. Available: <a class="link-external" target="_blank" href="{url}">{url}</a>'
             elif type == "proceedings":
                 _year = ", " + str(x) if(x := year) else ""
                 publisher = data.get("publisher", "")
