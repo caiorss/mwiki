@@ -2106,7 +2106,7 @@ class HtmlRenderer(AbstractAstRenderer):
         data = {}
         try:
             data = yaml.safe_load(node.content)
-        except yaml.YAMLError as ex:
+        except (yaml.YAMLError, ValueError) as ex:
             print("[ERROR] Failed to parse frontmatter data => \nDetails:", ex)
             message = "<p><b>ERROR: </b> Failed to parse frontmatter: details = " + str(ex) + "</p>" 
             return message
