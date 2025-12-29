@@ -48,6 +48,20 @@ is_wsgi = "gunicorn" in server_software or "waitress" in server_software
 logger = logging.getLogger("waitress")
 logger.setLevel(logging.INFO)
 
+
+def read_frontmatter(afile: pathlib.Path):
+    out = ""
+    with afile.open("r") as fd:
+        line = fd.readline()
+        if not line.startswith("---"):
+            return ""
+        out = line 
+        while ( line := fd.readline() ):
+            out += line 
+            if line.startswith("---"):
+                break
+    return out
+
  
 def make_app_server(  host:        str
                     , port:        int
@@ -822,6 +836,7 @@ def make_app_server(  host:        str
         conf: Settings = Settings.get_instance()
         resp = flask.render_template("tags.html", title = "Tags", tags = tags, conf = conf)
         return resp 
+        
 
     @app.route("/api/preview", methods = [M_POST])
     @check_login(required = True)
@@ -831,29 +846,42 @@ def make_app_server(  host:        str
         content = data.get("code", "") 
         ### content = utils.read_resource(mwiki, "refcard.md")
         conf: Settings = Settings.get_instance()
-        ast = mparser.parse_source(content)
+        page = base_path / (p + ".md") if (p :=  data.get("page")) else None
+        print(" [TRACE] page = ", page)
+        frontmatter = ""
+        if page is None or not page.exists():
+            flask.abort(STATUS_CODE_400_BAD_REQUEST)
+        else:
+            frontmatter = read_frontmatter(page)
+        print(" [TRACE] frontmatter = \n", frontmatter)                        
         builder = render.HtmlRenderer(  base_path  = BASE_PATH
                                       , preview    = True
                                       , latex_renderer  = conf.latex_renderer)
+        ast = mparser.parse_source(frontmatter)
+        builder.render(ast)
+        ast = mparser.parse_source(content)
         html_ = builder.render(ast)
+        builder._render_citations_reference_mwiki()
         html = flask.render_template(  
                   "standalone.html"
-                , title   = "Preview"
-                , page    = data.get("page")
-                , content = html_
+                , title                        = "Preview"
+                , page                         = data.get("page")
+                , content                      = html_
                 ##, latex_macros = latex_macros
-                , page_author = builder.author
-                , page_description = builder.description
-                , latex_renderer = conf.latex_renderer
-                , latex_macros = builder.mathjax_macros
-                , mathjax_enabled = builder.needs_mathjax
-                , graphviz_enabled = builder.needs_graphviz 
-                , latex_algorithm = builder.needs_latex_algorithm
-                , equation_enumeration_style = builder.equation_enumeration_style
+                , page_author                  = builder.author
+                , content_language             = builder.language
+                , page_description             = builder.description
+                , latex_renderer               = conf.latex_renderer
+                , latex_macros                 = builder.mathjax_macros
+                , mathjax_enabled              = builder.needs_mathjax
+                , graphviz_enabled             = builder.needs_graphviz 
+                , latex_algorithm              = builder.needs_latex_algorithm
+                , equation_enumeration_style   = builder.equation_enumeration_style
                 , equation_enumeration_enabled = builder.equation_enumeration_enabled
-                , katex_macros = utils.base64_encode(builder.katex_macros)
-                , document_type = "preview"
-                , conf = conf
+                , katex_macros                 = utils.base64_encode(builder.katex_macros)
+                , citation_references          = utils.base64_encode(builder.citation_references_json)
+                , document_type                = "preview"
+                , conf                         = conf
                 )
         html = utils.escape_html(html)
         # print(" [TRACE] html = ", html)
