@@ -2441,9 +2441,10 @@ class HtmlRenderer(AbstractAstRenderer):
             authors_ = authors_.rstrip(", ") + (f" ({year})" if year else "")
             abstract = f"<li>Abstract: <i>{x}</i></li>" if ( x:= data.get("abstract")) else ""
             ul = f"<ul>{url_li}{abstract}</ul>" if url_li or abstract else ""
+            access_ = " (Access " + str(x) + ")" if (x := data.get("access")) else ""
             url_archive_ = f' <a href="{url_archive}" class="link-external" target="blank_" rel="noreferrer noopener nofollow" >[archive]</a>' \
                             if url_archive else ""
-            entry = f'''<i>{title}</i>{authors_}{publisher}{url_archive_} - {type}{ul}'''
+            entry = f'''<i>{title}</i>{authors_}{publisher}{url_archive_} - {type}{access_}{ul}'''
             if entry == "article":
                 journal = "," if (x := data.get("journal", "")) else ""
                 entry = f'''<li>{title}</li>, {authors_} ({year}){journal}'''
