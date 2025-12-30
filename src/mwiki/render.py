@@ -2395,6 +2395,7 @@ class HtmlRenderer(AbstractAstRenderer):
             edition = self._get_field(data, "edition")
             publisher = self._get_field(data, "publisher")
             url = self._get_field(data, "url")
+            url_archive = self._get_field(data, "url_archive")
             doi = ", doi: " + x if (x := data.get("doi")) else ""
             authors_ = ""
             authors =  self._get_field(data, "author", None) or self._get_field(data, "editor", [])
@@ -2434,13 +2435,15 @@ class HtmlRenderer(AbstractAstRenderer):
                 authors_ = f"{name} {family} et al."
             # authors_ =  ", " + authors_ if authors else ""
             # journal_ = ""
-            url_li = f'''<li><a class="link-external" href="{url}" target="_blank">{url}</a></li>'''  \
+            url_li = f'''<li><a class="link-external" href="{url}" target="_blank" rel="noreferrer noopener nofollow">{url}</a></li>'''  \
                 if url is not None else "" 
             publisher = ", " + x  if (x := data.get("publisher")) else ""
             authors_ = authors_.rstrip(", ") + (f" ({year})" if year else "")
             abstract = f"<li>Abstract: <i>{x}</i></li>" if ( x:= data.get("abstract")) else ""
             ul = f"<ul>{url_li}{abstract}</ul>" if url_li or abstract else ""
-            entry = f'''<i>{title}</i>{authors_}{publisher} - {type}{ul}'''
+            url_archive_ = f' <a href="{url_archive}" class="link-external" target="blank_" rel="noreferrer noopener nofollow" >[archive]</a>' \
+                            if url_archive else ""
+            entry = f'''<i>{title}</i>{authors_}{publisher}{url_archive_} - {type}{ul}'''
             if entry == "article":
                 journal = "," if (x := data.get("journal", "")) else ""
                 entry = f'''<li>{title}</li>, {authors_} ({year}){journal}'''
