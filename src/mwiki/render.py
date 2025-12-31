@@ -2250,6 +2250,7 @@ class HtmlRenderer(AbstractAstRenderer):
             self._citation_has_reference_list = True
         except Exception as ex:
             html = "<p><b>ERROR </b>" + utils.escape_html(str(ex)) + "</p>"
+            ## raise ex
         return html 
 
     def _render_citation_reference_ieee(self) -> str:
@@ -2279,6 +2280,13 @@ class HtmlRenderer(AbstractAstRenderer):
             doi = ", doi: " + x if (x := data.get("doi")) else ""
             authors_ = ""
             authors =  self._get_field(data, "author", None) or self._get_field(data, "editor", [])
+            if not isinstance(authors, str) and not isinstance(authors, list) and not isinstance(authors, dict):
+                return "<p>Error rendering reference list: expected the field author to be str, dict or list.</p>"
+            if isinstance(authors, list):
+                for a in authors:
+                    if not isinstance(a, str) and not isinstance(a, dict):
+                        return ("<p>Error rendering reference lis. Expected author entry to be str or list."
+                                    f" But found {a}</p>")
             if isinstance(authors, dict):
                 authors = [authors]
             ## breakpoint()
@@ -2296,18 +2304,33 @@ class HtmlRenderer(AbstractAstRenderer):
                 authors_ = f"{name} {family} et al., "
             elif len(authors) == 1:
                 x = authors[0]
-                name =  self._abbreviate_name(a) if (a := x.get("given", "").upper()) else ""
-                family = x.get("family", "")
-                authors_ = f"{name} {family}, "
+                name_ = ""
+                if isinstance(x, str):
+                    name_ = self._abbreviate_given_name(x)
+                else:
+                    name =  self._abbreviate_name(a) if (a := x.get("given", "").upper()) else ""
+                    family = x.get("family", "")
+                    name_ = f"{name} {family}"
+                authors_ = f"{name_}, "
             elif authors != [] and len(authors) <= 3:
                 last = authors[len(authors) - 1]
                 for x in authors[:-1]:
-                    name =  self._abbreviate_name(a) if (a := x.get("given", "").upper()) else ""
-                    family = x.get("family", "")
-                    authors_ += f"{name} {family}, "
-                name =  self._abbreviate_name(a) if (a := last.get("given", "").upper()) else ""
-                family = last.get("family", "")
-                authors_ += f"and {name} {family}, "
+                    name_ = ""
+                    if isinstance(x, str):
+                        name_ = self._abbreviate_given_name(x)
+                    else:
+                        name =  self._abbreviate_name(a) if (a := x.get("given", "").upper()) else ""
+                        family = x.get("family", "")
+                        name_ = f"{name} {family}"
+                    authors_ +=  name_ + ", "
+                name_ = ""
+                if isinstance(last, str):
+                    name_ = "and " + self._abbreviate_given_name(last) + ", "
+                else:
+                    name =  self._abbreviate_name(a) if (a := last.get("given", "").upper()) else ""
+                    family = last.get("family", "")
+                    name_ = f"and {name} {family}" + ", "
+                authors_ += name_
             elif len(authors) >= 3:
                 x = authors[0]
                 name =  self._abbreviate_name(a) if (a := x.get("given", "")) else ""
@@ -2377,6 +2400,11 @@ class HtmlRenderer(AbstractAstRenderer):
         out = " ".join(lst)
         return out
         
+    def _abbreviate_given_name(self, name: str) -> str:
+        names_list = name.split()
+        out = self._abbreviate_name(" ".join(names_list[:-1]))
+        out += " " + names_list[-1]
+        return out
 
     def _render_citations_reference_mwiki(self) -> str:
         html = '''<div id="div-list-citation-refereces" class="citation-references">\n<ol>\n%s\n</ol>\n</div> '''
@@ -2402,6 +2430,14 @@ class HtmlRenderer(AbstractAstRenderer):
             doi = ", doi: " + x if (x := data.get("doi")) else ""
             authors_ = ""
             authors =  self._get_field(data, "author", None) or self._get_field(data, "editor", [])
+            # Validate field author
+            if not isinstance(authors, str) and not isinstance(authors, list) and not isinstance(authors, dict):
+                return "<p>Error rendering reference list: expected the field author to be str, dict or list.</p>"
+            if isinstance(authors, list):
+                for a in authors:
+                    if not isinstance(a, str) and not isinstance(a, dict):
+                        return ("<p>Error rendering reference lis. Expected author entry to be str or list."
+                                    f" But found {a}</p>")
             if isinstance(authors, dict):
                 authors = [authors]
             ## breakpoint()
@@ -2419,18 +2455,33 @@ class HtmlRenderer(AbstractAstRenderer):
                 authors_ = f", {name} {family} et al."
             elif len(authors) == 1:
                 x = authors[0]
-                name =  self._abbreviate_name(a) if (a := x.get("given", "").upper()) else ""
-                family = x.get("family", "")
-                authors_ = f", {name} {family}, "
+                name_ = ""
+                if isinstance(x, str):
+                    name_ = self._abbreviate_given_name(x)
+                else:
+                    name =  self._abbreviate_name(a) if (a := x.get("given", "").upper()) else ""
+                    family = x.get("family", "")
+                    name_ = f"{name} {family}"
+                authors_ = f", {name_}, "
             elif authors != [] and len(authors) <= 3:
                 last = authors[len(authors) - 1]
                 for x in authors[:-1]:
-                    name =  self._abbreviate_name(a) if (a := x.get("given", "").upper()) else ""
-                    family = x.get("family", "")
-                    authors_ += f", {name} {family}"
-                name =  self._abbreviate_name(a) if (a := last.get("given", "").upper()) else ""
-                family = last.get("family", "")
-                authors_ += f", and {name} {family}"
+                    name_ = ""
+                    if isinstance(x, str):
+                        name_ = self._abbreviate_given_name(x)
+                    else:
+                        name =  self._abbreviate_name(a) if (a := x.get("given", "").upper()) else ""
+                        family = x.get("family", "")
+                        name_ = f"{name} {family}"
+                    authors_ += ", " + name_
+                name_ = ""
+                if isinstance(last, str):
+                    name_ = ", and " + self._abbreviate_given_name(last)
+                else:
+                    name =  self._abbreviate_name(a) if (a := last.get("given", "").upper()) else ""
+                    family = last.get("family", "")
+                    name_ = f", and {name} {family}"
+                authors_ += name_
             elif len(authors) >= 3:
                 x = authors[0]
                 name =  self._abbreviate_name(a) if (a := x.get("given", "")) else ""
