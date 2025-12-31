@@ -2441,7 +2441,7 @@ class HtmlRenderer(AbstractAstRenderer):
             authors_ = authors_.rstrip(", ") + (f" ({year})" if year else "")
             abstract = f"<li>Abstract: <i>{x}</i></li>" if ( x:= data.get("abstract")) else ""
             ul = f"<ul>{url_li}{abstract}</ul>" if url_li or abstract else ""
-            access_ = " (Access " + str(x) + ")" if (x := data.get("access")) else ""
+            access_ = " (Access: " + str(x) + ")" if (x := data.get("access")) else ""
             url_archive_ = f' <a href="{url_archive}" class="link-external" target="blank_" rel="noreferrer noopener nofollow" >[archive]</a>' \
                             if url_archive else ""
             entry = f'''<i>{title}</i>{authors_}{publisher}{url_archive_} - {type}{access_}{ul}'''
@@ -2501,13 +2501,18 @@ class HtmlRenderer(AbstractAstRenderer):
                     out = '<div class="foldable-block-div"><details>\n<summary><u class="solution-label">Code: %s</u></summary>\n%s\n</details></div>' % (title, out)
                 html += "\n" + out
             for output in outputs:
-                text_output   = output.get("text/plain", None)
+                text_output   = output.get("data", {}).get("text/plain", None)
+                text_latex = output.get("data", {}).get("text/latex", None)
                 image_output = output.get("data", {}).get("image/png", None)
                 html_output  = output.get("data", {}).get("text/html", None)
-                if html_output:
+                if text_latex:
+                    code_ = "".join(text_latex) 
+                    ast_ = mparser.parse_source(code_)
+                    html += "\n" + self.render(ast_)
+                elif html_output:
                     html += "\n" + "".join(html_output).strip()
                 elif text_output:
-                    html += '''\n<pre>%s</pre>''' % utils.escape_html(source)
+                    html += '''\n<pre>%s</pre>''' % utils.escape_html("".join(text_output))
                 elif image_output:
                     html += '\n<div class="div-wiki-image"><img class="wiki-image anchor" src="data:image/png;base64,%s"></div>' % image_output 
         path_ = path.relative_to(self._base_path)
