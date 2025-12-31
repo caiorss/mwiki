@@ -2242,11 +2242,14 @@ class HtmlRenderer(AbstractAstRenderer):
         style = directives.get("style", DEFAULT_CITATION_STYLE)
         html = ""
         # breakpoint()
-        if style == "mwiki":
-            html = self._render_citations_reference_mwiki()
-        elif style == "ieee":
-            html = self._render_citation_reference_ieee()
-        self._citation_has_reference_list = True
+        try:
+            if style == "mwiki":
+                html = self._render_citations_reference_mwiki()
+            elif style == "ieee":
+                html = self._render_citation_reference_ieee()
+            self._citation_has_reference_list = True
+        except Exception as ex:
+            html = "<p><b>ERROR </b>" + utils.escape_html(str(ex)) + "</p>"
         return html 
 
     def _render_citation_reference_ieee(self) -> str:
