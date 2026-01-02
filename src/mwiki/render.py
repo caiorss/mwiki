@@ -2563,12 +2563,12 @@ class HtmlRenderer(AbstractAstRenderer):
                     code_ = "".join(text_latex) 
                     ast_ = mparser.parse_source(code_)
                     html += "\n" + self.render(ast_)
+                elif image_output:
+                    html += '\n<div class="div-wiki-image"><img class="wiki-image anchor" src="data:image/png;base64,%s"></div>' % image_output 
                 elif html_output:
                     html += "\n" + "".join(html_output).strip()
                 elif text_output:
                     html += '''\n<pre>%s</pre>''' % utils.escape_html("".join(text_output))
-                elif image_output:
-                    html += '\n<div class="div-wiki-image"><img class="wiki-image anchor" src="data:image/png;base64,%s"></div>' % image_output 
         path_ = path.relative_to(self._base_path)
         html = '''<div class="tip admonition anchor">
                     <details>
