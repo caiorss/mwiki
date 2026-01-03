@@ -792,6 +792,7 @@ translationsi18n =
                                           }
         , "latex-input-window-p": "Output:"
         , "btn-copy-source-code": { "title": "Copy the source code." }
+        , "label-copy-source-code": "copied!"
 	}
    ,"pt-BR": {
 		  "locale":                   "Brazilian Portuguese"
@@ -1016,6 +1017,7 @@ translationsi18n =
           }
         , "latex-input-window-p": "Saída:"
         , "btn-copy-source-code": { "title": "Copiar o código de fonte." }
+        , "label-copy-source-code": "copiado!"
 
   }
         
