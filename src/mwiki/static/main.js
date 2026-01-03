@@ -1871,9 +1871,17 @@ const REFERENCES = (() => {
 document.addEventListener("click", (event) => {
     let target = event.target; 
 
-    if(target.classList.contains("copy-button"))
+    if(target.classList.contains("btn-copy-button"))
     {
-      let code = target.parentElement.parentElement.childNodes[1].textContent.trim();
+      let code = target.parentElement
+                       .parentElement
+                       .parentElement
+                       .childNodes[1].textContent.trim();
+      // Display copied message
+      let copiedLabel = target.parentElement.parentElement.childNodes[0];
+      copiedLabel.classList.toggle("hidden");
+      // Hide the copied label again after 1 second
+      setTimeout(() => copiedLabel.classList.toggle("hidden"), 1000);
       copyContentToClipboard(code);
       return;
     }

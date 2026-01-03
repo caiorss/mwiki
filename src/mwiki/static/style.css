@@ -1097,12 +1097,12 @@ code {
   overflow-y: auto;
 }
 
-.copy-button {
+.span-copy-button {
   float: right;
-  margin-top: -3px !important;
+  margin-top: -30px !important;
   display: block;
   padding: 0px !important;
-  margin-left: -30px !important;
+  margin-left: -70px !important;
 }
 
 .div-sort {
