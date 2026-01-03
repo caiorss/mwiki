@@ -2547,7 +2547,7 @@ class HtmlRenderer(AbstractAstRenderer):
             elif cell_type == "code":
                 code_ = utils.highlight_code(source, language = "python")
                 ##out = f"""\n<pre>\n<code class="language-python">{code_}</code>\n</pre>"""
-                out = f"""<div class="div-source-code"><a href="#" data-i18n="btn-copy-source-code" title="Copy the source code."><img class="img-icon copy-button" src="{self._root_url}/static/content-copy.svg"></a><pre>\n<code class="language-python">{code_}</code>\n</pre></div>"""
+                out = f"""<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="{self._root_url}/static/content-copy.svg"></a></span><pre>\n<code class="language-python">{code_}</code>\n</pre></div>"""
                 if source_hidden:
                     title_ = source.splitlines()[0]
                     title_ = x if (x := title_[:40]) == title_ else x + " ..."
