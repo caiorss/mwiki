@@ -2572,7 +2572,7 @@ class HtmlRenderer(AbstractAstRenderer):
         path_ = path.relative_to(self._base_path)
         html = '''<div class="tip admonition anchor">
                     <details>
-                        <summary><span class="admonition-title"><a href="/wiki/%s"><img class="img-icon" src="%s/static/file-earmark-arrow-down.svg"></a> Jupyter Notebook: %s</span></summary>
+                        <summary><span class="admonition-title"><a href="/wiki/%s"><img class="img-icon" src="%s/static/file-earmark-arrow-down.svg"  data-i18n="download-jupyter-notebook-icon-tooltip" title="Download this Jupyter notebook."></a> Jupyter Notebook: %s</span></summary>
                         %s 
                     </details>
                  </div>''' % (path_, self._root_url, path.name, html)

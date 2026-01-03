@@ -792,6 +792,7 @@ translationsi18n =
                                           }
         , "latex-input-window-p": "Output:"
         , "btn-copy-source-code": { "title": "Copy the source code." }
+        , "download-jupyter-notebook-icon-tooltip": { "title": "Download this Jupyter Notebook." }
         , "label-copy-source-code": "copied!"
 	}
    ,"pt-BR": {
@@ -1018,7 +1019,7 @@ translationsi18n =
         , "latex-input-window-p": "Saída:"
         , "btn-copy-source-code": { "title": "Copiar o código de fonte." }
         , "label-copy-source-code": "copiado!"
-
+        , "download-jupyter-notebook-icon-tooltip": { "title": "Baixar este Jupyter Notebook." }
   }
         
 
