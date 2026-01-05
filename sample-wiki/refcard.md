@@ -2,6 +2,173 @@
 title:          MWiki Syntax Reference Card
 description:    Notes, examples and documentation about MWiki markup language syntax and constructs. This markup language borrow constructs and syntax from Mediwiki, Obsidian and MyST markdown markup languages.
 latex_renderer: mathjax
+
+references:
+
+  - id:        lamport1994
+    type:      book
+    title:     "LaTeX: a document preparation system"
+    year:      1994
+    publisher: Addison-Wesley
+    edition:   2nd
+    author:
+        - Leslie Lamport
+    url:        https://www.latex-project.org/
+    #    - family: Leslie
+    #     given:  Lamport
+
+  - id: lesk1997
+    type: inproceedings
+    title: Computer Typesetting of Technical Journals on  UNIX
+    author:
+        - Michael Lesk
+        - Brian Kernighan
+    booktitle: "Proceedings of American Federation of Information Processing Societies: 1977 National Computer Conference"
+    pages:    879--888
+    year:     1977
+    address:  Dallas, Texas
+
+  - type:   online
+    id:     brownAngVelocity2017
+    author: David Brown
+    year:   2017
+    title:  Angular Velocity Conversions
+    access: 2025-12-29
+    url:    https://davidbrown3.github.io/euler-angle-rates.html
+    url_archive: https://web.archive.org/web/20201214131302/https://davidbrown3.github.io/euler-angle-rates.html
+    abstract: "A common requirement when modelling a dynamics system is the tracking of a bodies orientation. A common way to express orientation is through the use of Euler Angles; a sequence of 3 rotations, starting from some base inertial frame to the moving body. These are also commonly intrinsic, meaning that each sequential rotation is about the previous rotated co-ordinate system, rather than the inertial co-ordinate system. These rotation angles are denoted as: (...)"
+
+  - type:          online
+    id:            enwiki:1318221113
+    author_type:   organization
+    author:        Wikipedia contributors
+    title:         Angular velocity tensor
+    access:        2025-12-28
+    url:    https://en.wikipedia.org/w/index.php?title=Angular_velocity_tensor&oldid=1318221113
+
+  - id: StepneyVerlan2018
+    type:  proceedings
+    year:   2018
+    editor:
+        - given: Susan
+          family: Stepney
+        - given: Sergey
+          family: Verlan
+    publisher: Springer
+    title: "Proceedings of the 17th International Conference on Computation and Natural Computation, Fontainebleau, France"
+    series: "Lecture Notes in Computer Science"
+    volume: 10867
+    address: Cham, Switzerland
+
+  - id: bennet2018
+    type:   techreport
+    title:  Wasatch Solar Project Final Report
+    author:
+       - given: Vicki
+         family: Bennett
+       - given: Kate
+         family: Bowman
+       - given: Sarah
+         family: Wright
+    institution:  Salt Lake City Corporation
+    address:  Salt Lake City, UT
+    number:   DOE-SLC-6903-1
+    year:     2018
+    month:    sep
+
+  - id:        rempel1956
+    type:      phdthesis
+    title:     Relaxation Effects for Coupled Nuclear Spins
+    school:    Stanford University
+    address:   Stanford, CA
+    year:      1956
+    author:
+        - given:  Robert Charles
+          family: Rempel
+
+  - id:          blonski2017
+    type:        article
+    author_type: many
+    author:
+        - family: Błoński
+          given: Piotr
+    year:      2017
+    title:     Doping with Graphitic Nitrogen Triggers Ferromagnetism in Graphene
+    url:       https://stringr.tidyverse.org
+    journal:    Journal of the American Chemical Society
+    volume:    139
+    number:    8
+    pages:     3171–3180
+    doi:       10.1021/jacs.6b12934
+    pmid:      28110530
+    url:       http://dx.doi.org/10.1021/jacs.6b12934
+    eprint:    http://dx.doi.org/10.1021/jacs.6b12934
+
+  - id:        knuth1986
+    type:      book
+    title:     The TeX Book
+    year:      1986
+    publisher: Addison-Wesley Profession
+    author: Donald E. Knuth
+    #    - family: Knuth
+    #      given:  Donald E.
+
+
+
+  - id:        lamport2025
+    type:      online
+    title:     "LaTeX Project Website"
+    year:      2025
+    access:    2025-05-29
+    author:   Leslie Lamport
+    #    - given: Leslie
+    #      family:  Lamport
+    url:        https://www.latex-project.org/
+
+  - id:        knitr2015
+    type:      book
+    title:     Dynamic Documents with R and knitr
+    publisher: Chapman and Hall/CRC
+    year:      2015
+    edition:   2nd
+    isbn:      978-1498716963
+    # address:   Boca Raton, Florida
+    url:       https://yihui.org/knitr/
+
+  - id:        rstring2025
+    type:      manual
+    year:      2025
+    note:      R package version 1.5.2
+    title:     StringR R Package
+    url:       https://stringr.tidyverse.org
+    author:
+        - given:   Hadley
+          family:  Wickham
+
+  - id: WatsonCrick1953
+    type: article
+    author:
+        - family: Watson
+          given: J. D.
+        - family: Crick
+          given: F. H. C.
+    issued:
+      date-parts:
+      - - 1953
+        - 4
+        - 25
+    title: 'Molecular structure of nucleic acids: a structure for deoxyribose nucleic acid'
+    title-short: Molecular structure of nucleic acids
+    container-title: Nature
+    volume: 171
+    issue: 4356
+    page: 737-738
+    DOI: 10.1038/171737a0
+    URL: https://www.nature.com/articles/171737a0
+    language: en-GB
+
+
+
 ---
 
 
@@ -2138,6 +2305,320 @@ Rendering:
 ```{footnotes}
 ```
 
+## Citations and List of References
+
+MWiki supports citations based on IEEE style with the following syntax
+
+```
+$[@CITATION_KEY1; CITATION_KEY2 ; CITATION_KEY3, locator3 ....]
+```
+
+**Example:**
+
+```markdown
+The molecular structure is (...) $[@blonski2017 ; @enwiki:1318221113]
+
+The systems equation $[@knuth1986; @lamport1994; @lamport2025; @lesk1997] of motion are given by $[@knitr2015, pages:20-25; @rstring2025, chap:10; @rempel1956 ; @bennet2018; @StepneyVerlan2018]
+
+  ... .... ... ... ... ...
+
+According to $[@brownAngVelocity2017], the system's governing equations are given by $[@knitr2015, p:10 eq:20].
+```
+
+:::{info} Rendering
+
+The molecular structure is (...) $[@blonski2017 ; @enwiki:1318221113]
+
+The systems equation $[@knuth1986; @lamport1994; @lamport2025; @lesk1997] of motion are given by $[@knitr2015, pages:20-25; @rstring2025, chap:10; @rempel1956 ; @bennet2018; @StepneyVerlan2018]
+
+  ... .... ... ... ... ...
+
+According to $[@brownAngVelocity2017], the system's governing equations are given by $[@knitr2015, p:10 eq:20].
+
+::: 
+
+
+### Citation Locators
+
+The following citation locators are supported:
+
+| Name       | Syntax                  |  Example          |
+| ---------- | ----------------------- | ----------------- |
+| Page       | `p:<page-number>`       | `p:10`            |
+| Page Range | `p:<page-range>`        | `p:10-20`         |
+| Chapter    | `ch:<chapter>`          | `ch:6`            |
+| Section    | `sec:<section>`         | `sec:4`           |
+| Appendix   | `appendix:<appendix>`   | `appendix:A`      |
+| Table      | `table:<table-number>`  | `table:4`         |
+| Table      | `tbl:<table-number>`    | `tbl:4`           |
+| Figure     | `fig:<figure-number>`   | `fig:10`          |
+| Algorithm  | `algorithm:<algorithm>` | `algorithm:10.2`  |
+| Algorithm  | `alg:<algorithm>`       | `alg:10.5`        |
+| Equation   | `eq:<equation>`         | `eq:1.2.25`       |
+| Equation   | `equation:<equation>`   | `equation:1.2.25` |
+
+Usage example: indicate that the citation refers to equation 2.5.10 of a reference, whose citation key is doeJohn1995
+
+```
+It can be shown that the mass moment of inertia becomes $[@doejohn1995, eq:2.5.10] ...
+```
+
+It is rendered to
+
++ It can be shown that the mass moment of inertia becomes [10, eq.(2.5.10)]
+
+
+
+
+### List of References
+
+The directive {references} can be used for generating the list cited references in the document as shown in the following example. 
+
+````markdown
+```{references}
+:style: mwiki
+```
+````
+
+:::{info} List of references rendering
+
+```{references}
+:style: mwiki
+```
+:::
+
+It is possible to generate the list of references in IEEE style using 
+
+````markdown
+```{references}
+:style: ieee
+```
+````
+
+:::{info} List of references rendering in IEEE style
+
+```{references}
+:style: ieee
+```
+
+:::
+
+### Bibliographic Database
+
+The citation key is a unique identifier of each reference entry in the YAML front matter. Example of bibliographic references database of the front matter in this docuement.
+
+```yaml
+references:
+
+  - id:        lamport1994
+    type:      book
+    title:     "LaTeX: a document preparation system"
+    year:      1994
+    publisher: Addison-Wesley
+    edition:   2nd
+    author:
+        - Leslie Lamport
+    url:        https://www.latex-project.org/
+    #    - family: Leslie
+    #     given:  Lamport
+
+  - id: lesk1997
+    type: inproceedings
+    title: Computer Typesetting of Technical Journals on  UNIX
+    author:
+        - Michael Lesk
+        - Brian Kernighan
+    booktitle: "Proceedings of American Federation of Information Processing Societies: 1977 National Computer Conference"
+    pages:    879--888
+    year:     1977
+    address:  Dallas, Texas
+
+  - type:   online
+    id:     brownAngVelocity2017
+    author: David Brown
+    year:   2017
+    title:  Angular Velocity Conversions
+    access: 2025-12-29
+    url:    https://davidbrown3.github.io/euler-angle-rates.html
+    url_archive: https://web.archive.org/web/20201214131302/https://davidbrown3.github.io/euler-angle-rates.html
+    abstract: "A common requirement when modelling ..."
+
+  - type:          online
+    id:            enwiki:1318221113
+    author_type:   organization
+    author:        Wikipedia contributors
+    title:         Angular velocity tensor
+    access:        2025-12-28
+    url:    https://en.wikipedia.org/w/index.php?title=Angular_velocity_tensor&oldid=1318221113
+
+  - id: StepneyVerlan2018
+    type:  proceedings
+    year:   2018
+    editor:
+        - given: Susan
+          family: Stepney
+        - given: Sergey
+          family: Verlan
+    publisher: Springer
+    title: "Proceedings of the 17th International Conference on Computation and Natural Computation, Fontainebleau, France"
+    series: "Lecture Notes in Computer Science"
+    volume: 10867
+    address: Cham, Switzerland
+
+  - id: bennet2018
+    type:   techreport
+    title:  Wasatch Solar Project Final Report
+    author:
+       - given: Vicki
+         family: Bennett
+       - given: Kate
+         family: Bowman
+       - given: Sarah
+         family: Wright
+    institution:  Salt Lake City Corporation
+    address:  Salt Lake City, UT
+    number:   DOE-SLC-6903-1
+    year:     2018
+    month:    sep
+
+  - id:        rempel1956
+    type:      phdthesis
+    title:     Relaxation Effects for Coupled Nuclear Spins
+    school:    Stanford University
+    address:   Stanford, CA
+    year:      1956
+    author:
+        - given:  Robert Charles
+          family: Rempel
+
+  - id:          blonski2017
+    type:        article
+    author_type: many
+    author:
+        - family: Błoński
+          given: Piotr
+    year:      2017
+    title:     Doping with Graphitic Nitrogen Triggers Ferromagnetism in Graphene
+    url:       https://stringr.tidyverse.org
+    journal:    Journal of the American Chemical Society
+    volume:    139
+    number:    8
+    pages:     3171–3180
+    doi:       10.1021/jacs.6b12934
+    pmid:      28110530
+    url:       http://dx.doi.org/10.1021/jacs.6b12934
+    eprint:    http://dx.doi.org/10.1021/jacs.6b12934
+
+  - id:        knuth1986
+    type:      book
+    title:     The TeX Book
+    year:      1986
+    publisher: Addison-Wesley Profession
+    author: Donald E. Knuth
+    #    - family: Knuth
+    #      given:  Donald E.
+
+
+
+  - id:        lamport2025
+    type:      online
+    title:     "LaTeX Project Website"
+    year:      2025
+    access:    2025-05-29
+    author:   Leslie Lamport
+    #    - given: Leslie
+    #      family:  Lamport
+    url:        https://www.latex-project.org/
+
+  - id:        knitr2015
+    type:      book
+    title:     Dynamic Documents with R and knitr
+    publisher: Chapman and Hall/CRC
+    year:      2015
+    edition:   2nd
+    isbn:      978-1498716963
+    # address:   Boca Raton, Florida
+    url:       https://yihui.org/knitr/
+
+  - id:        rstring2025
+    type:      manual
+    year:      2025
+    note:      R package version 1.5.2
+    title:     StringR R Package
+    url:       https://stringr.tidyverse.org
+    author:
+        - given:   Hadley
+          family:  Wickham
+
+  - id: WatsonCrick1953
+    type: article
+    author:
+        - family: Watson
+          given: J. D.
+        - family: Crick
+          given: F. H. C.
+    issued:
+      date-parts:
+      - - 1953
+        - 4
+        - 25
+    title: 'Molecular structure of nucleic acids: a structure for deoxyribose nucleic acid'
+    title-short: Molecular structure of nucleic acids
+    container-title: Nature
+    volume: 171
+    issue: 4356
+    page: 737-738
+    DOI: 10.1038/171737a0
+    URL: https://www.nature.com/articles/171737a0
+    language: en-GB
+```
+
+### Further Reading
+
++ *IEEE Reference Style*  
+  + https://owl.purdue.edu/owl/research_and_citation/chicago_manual_18th_edition/cmos_formatting_and_style_guide/chicago_manual_of_style_18th_edition.html
++ *How to format your references using the Proceedings of the IEEE citation style*
+  + https://paperpile.com/s/proceedings-of-the-ieee-citation-style/
++ *Citation Styles by Discipline: STEM*
+  + https://paperpile.libguides.com/c.php?g=1226166&p=8971526
++ *Computer Science Style Guide Suggestions*
+  + https://dal.ca.libguides.com/csci/writing/examples
++ *Citing Sources: Which citation style should I use?*
+  + https://guides.lib.uw.edu/research/citations/citationwhich
++ *Citation*, Brown University Library
+  + https://libguides.brown.edu/citations/styles
++ *Online Bibtex Converter*
+  + https://asouqi.github.io/bibtex-converter/
+  + NOTE: This tool allows converting bibtex to many reference formats, including, APA, Havard, IEE, Elsevier, Springer, ACM, ACS, and MLA.
++ *The 14 BibTeX entry types*, Bibtex
+  + https://www.bibtex.com/e/entry-types/
++ *Bibtex bibliography styles*, Overleaf
+  + https://www.overleaf.com/learn/latex/Bibtex_bibliography_styles
++ *Bibliography management with bibtex*, Overleaf
+  + https://www.overleaf.com/learn/latex/Bibliography_management_with_bibtex
++ *Tame the BeaST: The B to X of BibTeX by Nicolas Markey [PDF]*
+  + https://www.bibtex.com/g/bibtex-format/
++ *Using bibtex: a short guide by Martin J. Osborne*
+  + https://www.economics.utoronto.ca/osborne/latex/BIBTEX.HTM
++ *BibTeXing by Oren Patashnik [PDF]*
+  + http://mirror.kumi.systems/ctan/biblio/bibtex/base/btxdoc.pdf
++ *LaTeX Document Preparation System*, Georgia State University
+  + https://research.library.gsu.edu/latex/bibtex
++ *BibTeX for LaTeX Guide*, Texas A&M University
+  + https://libguides.tamusa.edu/c.php?g=1441028&p=10703447
++ *BibTeX for LaTeX*
+  + https://library-guides.imperial.ac.uk/c.php?g=719784&p=5221129 
++ *A BibTEX Guide via Examples*, Ki-Joo Kim (2004)
+  + http://www-hep.colorado.edu/~jcumalat/4610_fall_10/bibtex_guide.pdf 
++ *How does BibTex Works - BibTeX*, Purdue University
+  + https://guides.lib.purdue.edu/bibtex/basics  
++ *How to Cite a Website in LaTeX Using BibTeX and BibLaTeX*, bibtex\.eu
+  + https://bibtex.eu/faq/how-can-i-use-bibtex-to-cite-a-website/
++ *How to Cite a Website in LaTeX Using BibTeX*
+  + https://www.getbibtex.com/blog/posts/how-to-cite-website-in-latex-using-bibtex
+  + *Learn how to properly cite online sources in LaTeX using BibTeX, with ready-to-use examples and templates.* 
++ *BibTeX generic citation style Referencing Guide*
+  + https://citationsy.com/styles/bibtex   
 ## Admonitions (Callout Boxes) 
 ### Info Admonition 
 
@@ -2223,7 +2704,7 @@ This is initially hidden, and can be clicked to be opened when you are viewing t
 
  
 
- 
+  
 ## MyST Roles 
 
 The MyST Roles are similar to MyST directives, but they are single line. Exmaple:
@@ -2427,4 +2908,4 @@ It is possible to view all flashcards and their backside at once; go to next car
    + => Allows testing MyST online without installation.
 + https://myst-parser.readthedocs.io/en/latest/syntax/math.html
 + https://markdown-it-py.readthedocs.io/en/latest/architecture.html
-+ https://mystmd.org/guide/glossaries-and-terms
++ https://mystmd.org/guide/glossaries-and-terms 
