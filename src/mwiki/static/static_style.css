@@ -95,6 +95,7 @@ a.link-sidebar {
   text-decoration: none;
   /* font-weight: bold; */
   padding-top: 8px !important;
+  padding-right: 6px;
   display: block;
 }
 
@@ -338,6 +339,7 @@ dd {
 
 .toc {
   margin-left: -50px;
+  padding-right: 5px;
 }
 
 /**
