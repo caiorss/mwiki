@@ -978,11 +978,6 @@ or
 
 {youtube}`bNE4uBMsnP0`
 ```
-
-Rendering:
-
-{youtube}`bNE4uBMsnP0`
-
 ### Embed Uploaded Video Files
 
 MP4 or WEBM video files can be embedded in the current page by using the syntax. 
@@ -1112,7 +1107,7 @@ what we want the computer to do.
 ```
 
 
-## LaTeX Math Equations
+## Mathematics
 
 ### Inline 
 
@@ -1355,7 +1350,7 @@ code block is not rendered, it is processed by MathJax or other LaTeX rendering 
 
 
 ````markdown
-```{latex_macro}
+```{macros}
 % Logical AND 
 \DeclareMathOperator{\\and}{ \\wedge }
 % Logical OR
@@ -1374,7 +1369,517 @@ $$
 $$
 ```
 
+ 
+### Special Math Blocks
 
+#### Proof
+
+The block {proof} is used for adding a mathematical proof without cluttering the text.
+
+Example: Proof of orthogonal matrix theorem, that states that if a matrix is orthogonal, then $\det Q = 1$.
+
+````latex
+```{proof}
+According to the defintion, if a $n \times n$ real matrix is orhtogonal, $Q Q^T = \mathbf{I}$, where $\mathbf{I}$ is a identity matrix, so
+
+$$
+\notag 
+\begin{split}
+      \det (Q Q^T)      &= \det(Q) \det(Q^{T}) 
+   \\ \det (Q Q^T)      &= \det(Q) \det(Q) 
+   \\ \det (Q Q^{-1})   &= \det(Q) \det(Q) 
+   \\ \det (\mathbf{I}) &= \det(Q)^2
+   \\  1                &= \det{Q}^2
+   \\  \det(Q)          &= 1
+\end{split}
+$$
+
+Hence, if a matrix $Q$ is orthogonal, $\det Q = 1$.
+```
+````
+
+Rendering:
+
+```{proof}
+According to the defintion, if a $n \times n$ real matrix is orhtogonal, $Q Q^T = \mathbf{I}$, where $\mathbf{I}$ is a identity matrix, so
+
+$$
+\notag 
+\begin{split}
+      \det (Q Q^T)      &= \det(Q) \det(Q^{T}) 
+   \\ \det (Q Q^T)      &= \det(Q) \det(Q) 
+   \\ \det (Q Q^{-1})   &= \det(Q) \det(Q) 
+   \\ \det (\mathbf{I}) &= \det(Q)^2
+   \\  1                &= \det{Q}^2
+   \\  \det(Q)          &= 1
+\end{split}
+$$
+
+Hence, if a matrix $Q$ is orthogonal, $\det Q = 1$.
+```
+
+#### Derivation 
+
+The {derivation} is similar to the {proof} foldable block. However, {derivation} is intended for writing derivations of mathematical formulas, the steps to to find or deduce a particular mathematical formula or algorithm. The term *derivation* is more used in physics and engineering than the term *proof*.
+
+Example: 
+
+````markdown
+If a body-attached frame with origin in the mass center of a rigid body is aligned to is principal axes of inertia, then the mass moment of inertia tensor will be a diagonal matrix and the products of inertia will be zero. As a result, the Euler's equation for motion for the rigid body rotational motion become
+
+$$
+\begin{split}
+  \\ I_x \dot{\omega}_x + \omega_y \omega_z (I_z - I_y) &= \tau_x
+ \\ I_y \dot{\omega}_y + \omega_x \omega_z (I_x - I_z)
+    &= \tau_y
+ \\ I_z \dot{\omega}_z + \omega_x \omega_y (I_y - I_x)
+    &= \tau_z
+\end{split}
+$$
+
+```{derivation}
+The Euler's equation of motion that relates the torque $\bs{\tau}$, angular velocity $\bs{\omega}$ and angular accleration $\bsdot{\omega}$ is given by
+
+$$
+\notag
+\mathcal{I} \bsdot{\omega} 
+    + \bs{\omega} \times \mathcal{I} \bs{\omega}
+    = \bs{\tau}
+$$
+
+Express the cross product operator $\times$ as the cross-product matrix operator $\skew{}$.
+
+$$
+\notag
+\mathcal{I} \bsdot{\omega} + \skew{\bs{\omega}} \mathcal{I} \bs{\omega} = \bs{\tau}
+$$
+ 
+  ... ... ... ... ... 
+
+Thus, the equations of motions, for a body frame aligned to the principal axes of inertia, are
+
+$$
+\notag
+\begin{split}
+  \\ I_x \dot{\omega}_x + \omega_y \omega_z (I_z - I_y) &= \tau_x
+ \\ I_y \dot{\omega}_y + \omega_x \omega_z (I_x - I_z)
+    &= \tau_y
+ \\ I_z \dot{\omega}_z + \omega_x \omega_y (I_y - I_x)
+    &= \tau_z
+\end{split}
+$$
+```
+
+````
+
+**Rendering:**
+
+If a body-attached frame with origin in the mass center of a rigid body is aligned to is principal axes of inertia, then the mass moment of inertia tensor will be a diagonal matrix and the products of inertia will be zero. As a result, the Euler's equation for motion for the rigid body rotational motion become
+
+$$
+\begin{split}
+  \\ I_x \dot{\omega}_x + \omega_y \omega_z (I_z - I_y) &= \tau_x
+ \\ I_y \dot{\omega}_y + \omega_x \omega_z (I_x - I_z)
+    &= \tau_y
+ \\ I_z \dot{\omega}_z + \omega_x \omega_y (I_y - I_x)
+    &= \tau_z
+\end{split}
+$$
+
+```{derivation}
+The Euler's equation of motion that relates the torque $\bs{\tau}$, angular velocity $\bs{\omega}$ and angular accleration $\bsdot{\omega}$ is given by
+
+$$
+\notag
+\mathcal{I} \bsdot{\omega} 
+    + \bs{\omega} \times \mathcal{I} \bs{\omega}
+    = \bs{\tau}
+$$
+
+Express the cross product operator $\times$ as the cross-product matrix operator $\skew{}$.
+
+$$
+\notag
+\mathcal{I} \bsdot{\omega} + \skew{\bs{\omega}} \mathcal{I} \bs{\omega} = \bs{\tau}
+$$
+ 
+  ... ... ... ... ... 
+
+Thus, the equations of motions, for a body frame aligned to the principal axes of inertia, are
+
+$$
+\notag
+\begin{split}
+  \\ I_x \dot{\omega}_x + \omega_y \omega_z (I_z - I_y) &= \tau_x
+ \\ I_y \dot{\omega}_y + \omega_x \omega_z (I_x - I_z)
+    &= \tau_y
+ \\ I_z \dot{\omega}_z + \omega_x \omega_y (I_y - I_x)
+    &= \tau_z
+\end{split}
+$$
+```
+
+#### Solution 
+
+The solution block is intended for providing solutions of exercises, questions or worked examples.
+
+**Example:**
+
+````markdown
+Fit the line $p(x) = \beta_0 + \beta_1 x$ for (1, 2.2), (0.8, 2.4) and (0, 4.25) [(src)](https://people.sc.fsu.edu/~jpeterson/linear_least_squares.pdf).
+
+
+```{solution}
+Define the parameters vector $\mathbf{\beta}$ and $\mathbf{y}$ 
+
+$$
+\notag
+   \mathbf{\beta} = 
+      \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix}
+   \quad 
+   \mathbf{y} = 
+      \begin{bmatrix} 2.2 \\ 2.4 \\ 4.25 \end{bmatrix}
+$$
+
+Compute the *design matrix* $X$
+
+$$
+\notag
+
+X = \begin{bmatrix}
+           1  & x_1
+        \\ 1  & x_2
+        \\ 1  & x_2
+    \end{bmatrix}
+    
+   = \begin{bmatrix}
+           1 & 1
+        \\ 1 & 0.8
+        \\ 1 & 0
+     \end{bmatrix}
+$$
+
+Find the solution of $X \mathbf{\beta} = \mathbf{y}$ by determining the least square solution, which can be computed by solving the system of normal equations $(X^T X) \mathbf{\beta} = X^T \mathbf{y}$.
+
+$$
+\notag
+
+X' = X^T X 
+   = \begin{bmatrix}
+            3.0  & 1.8
+        \\  1.8  & 1.64
+     \end{bmatrix}
+
+\quad
+
+\mathbf{y}' = X^T \mathbf{y} = \begin{bmatrix} 8.85 \\ 4.12 \end{bmatrix}
+
+$$
+
+Solve the system of normal equations $X' \mathbf{\beta} = \mathbf{y}'$.
+
+$$
+\notag
+
+ \mathbf{\beta} 
+   = \begin{bmatrix} 4.225 \\ -2.125 \end{bmatrix}
+$$
+
+So, the line that best fit those data points is
+
+$$
+\notag 
+
+p(x) = 4.225 + (-2.125) x
+$$
+```
+
+````
+
+**Rendering**
+
+Fit the line $p(x) = \beta_0 + \beta_1 x$ for (1, 2.2), (0.8, 2.4) and (0, 4.25) [(src)](https://people.sc.fsu.edu/~jpeterson/linear_least_squares.pdf).
+
+
+```{solution}
+Define the parameters vector $\mathbf{\beta}$ and $\mathbf{y}$ 
+
+$$
+\notag
+   \mathbf{\beta} = 
+      \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix}
+   \quad 
+   \mathbf{y} = 
+      \begin{bmatrix} 2.2 \\ 2.4 \\ 4.25 \end{bmatrix}
+$$
+
+Compute the *design matrix* $X$
+
+$$
+\notag
+
+X = \begin{bmatrix}
+           1  & x_1
+        \\ 1  & x_2
+        \\ 1  & x_2
+    \end{bmatrix}
+    
+   = \begin{bmatrix}
+           1 & 1
+        \\ 1 & 0.8
+        \\ 1 & 0
+     \end{bmatrix}
+$$
+
+Find the solution of $X \mathbf{\beta} = \mathbf{y}$ by determining the least square solution, which can be computed by solving the system of normal equations $(X^T X) \mathbf{\beta} = X^T \mathbf{y}$.
+
+$$
+\notag
+
+X' = X^T X 
+   = \begin{bmatrix}
+            3.0  & 1.8
+        \\  1.8  & 1.64
+     \end{bmatrix}
+
+\quad
+
+\mathbf{y}' = X^T \mathbf{y} = \begin{bmatrix} 8.85 \\ 4.12 \end{bmatrix}
+
+$$
+
+Solve the system of normal equations $X' \mathbf{\beta} = \mathbf{y}'$.
+
+$$
+\notag
+
+ \mathbf{\beta} 
+   = \begin{bmatrix} 4.225 \\ -2.125 \end{bmatrix}
+$$
+
+So, the line that best fit those data points is
+
+$$
+\notag 
+
+p(x) = 4.225 + (-2.125) x
+$$
+```
+
+#### Example Block
+
+Example:
+
+
+````markdown
+The product of two complex numbers $z_1 = a_1 + j b_1$ and 
+$z_2 = a_2 + j b_2$ is
+
+$$
+z = (a_1 a_2 - b_1 b_2) + j(a_1 b_2 + a_2 b_1)
+$$
+
+Where $j = \sqrt{-1}$ is the imaginay root.
+
+```{example}
+The product of $z_1 = 5 + j2$ and $z_2 = 3 + j4$  is
+
+$$
+z_1 z_2 = (5 * 3 - 2 * 4) + j (5 * 4 + 2 * 3)
+$$
+
+$$
+z_1 z_2  = 7 + 26j
+$$
+
+```
+````
+
+**Rendering**
+
+The product of two complex numbers $z_1 = a_1 + j b_1$ and 
+$z_2 = a_2 + j b_2$ is
+
+$$
+z = (a_1 a_2 - b_1 b_2) + j(a_1 b_2 + a_2 b_1)
+$$
+
+Where $j = \sqrt{-1}$ is the imaginay root.
+
+```{example}
+The product of $z_1 = 5 + j2$ and $z_2 = 3 + j4$  is
+
+$$
+z_1 z_2 = (5 * 3 - 2 * 4) + j (5 * 4 + 2 * 3)
+$$
+
+$$
+z_1 z_2  = 7 + 26j
+$$
+
+```
+
+   
+### Definition Admonition 
+
+Example: 
+
+```
+:::{def} Inverse Matrix 
+:label: inverse-matrix
+
+The inverse matrix $A^{-1}$ of a matrix $A: n \times n$ is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists. 
+
+$$
+  \notag
+   A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}
+$$
+
+:::
+```
+
+Rendering:
+
+:::{def} Inverse Matrix 
+:label: inverse-matrix
+
+The inverse matrix $A^{-1}$ of a matrix $A: n \times n$ is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists. 
+
+$$
+  \notag
+   A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}
+$$
+
+:::  
+ 
+### Theorem Admonition 
+
+Example:
+
+````markdown
+:::{theorem} Determinant of Orthogonal Matrix  
+
+The determinant of a **orthogonal matrix** $Q \in \mathbb{R}^{n \times n}$ of n rows and n columns is always 1.
+
+$$
+ \notag 
+  \det(Q) = 1
+$$
+
+
+```{proof}
+
+$$
+\notag 
+\begin{split}
+      \det (Q Q^T)      &= \det(Q) \det(Q^{T}) 
+   \\ \det (Q Q^T)      &= \det(Q) \det(Q) 
+   \\ \det (Q Q^{-1})   &= \det(Q) \det(Q) 
+   \\ \det (\mathbf{I}) &= \det(Q)^2
+   \\  1                &= \det{Q}^2
+   \\  \det(Q)          &= 1
+\end{split}
+$$
+```
+% --- end determinant proof ---
+
+:::
+````
+
+Rendering:
+
+
+:::{theorem} Determinant of Orthogonal Matrix  
+
+The determinant of a **orthogonal matrix** $Q \in \mathbb{R}^{n \times n}$ of n rows and n columns is always 1.
+
+$$
+ \notag 
+  \det(Q) = 1
+$$
+
+
+```{proof}
+
+$$
+\notag 
+\begin{split}
+      \det (Q Q^T)      &= \det(Q) \det(Q^{T}) 
+   \\ \det (Q Q^T)      &= \det(Q) \det(Q) 
+   \\ \det (Q Q^{-1})   &= \det(Q) \det(Q) 
+   \\ \det (\mathbf{I}) &= \det(Q)^2
+   \\  1                &= \det{Q}^2
+   \\  \det(Q)          &= 1
+\end{split}
+$$
+```
+% --- end determinant proof ---
+
+:::
+  
+### Worked examples
+
+````{markdown}
+:::{example} Chain Rule for Derivative Multi-Variate Functions
+
+Let the function f be $f(x, y) = x^2/A^2 + y^2/B^2 - C$.  Find the derivative of f with respect to t. And x and y are functions of t, $x = x(t) = A \cos t$ and $y = y(t) = B \sin t$. 
+
+
+```{solution}   
+$$
+ \notag 
+\begin{split}
+  \frac{df}{dt} 
+    &= \frac{\partial f}{\partial x} \frac{dx}{dt}  
+    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\
+
+    &=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \cos t)
+       \\ & +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \sin t)  \\
+
+    &=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ 
+    &=  -2x \sin(t) / A + 2y \cos(t) / B \\
+    &=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\
+    &=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
+    &=  0 
+\end{split}
+$$
+```
+:::
+````
+
+Rendering:
+
+:::{example} Chain Rule for Derivative Multi-Variate Functions
+
+Let the function f be $f(x, y) = x^2/A^2 + y^2/B^2 - C$.  Find the derivative of f with respect to t. And x and y are functions of t, $x = x(t) = A \cos t$ and $y = y(t) = B \sin t$. 
+
+
+```{solution}   
+$$
+ \notag 
+\begin{split}
+  \frac{df}{dt} 
+    &= \frac{\partial f}{\partial x} \frac{dx}{dt}  
+    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\
+
+    &=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \cos t)
+       \\ & +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \sin t)  \\
+
+    &=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ 
+    &=  -2x \sin(t) / A + 2y \cos(t) / B \\
+    &=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\
+    &=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
+    &=  0 
+\end{split}
+$$
+```
+::: 
+
+ 
 ### Pseudocode of Algorithm
 
 This wiki also supports LaTeX pseudocode of algorithms compatible with LaTeX algorithmic package. The implementation of this feature relies on [pseudocode-js](https://saswat.padhi.me/pseudocode.js/) and [MathJax](https://www.mathjax.org/) JavaScript libraries.
@@ -1427,7 +1932,19 @@ Rendering:
 \end{algorithm}
 ```
 
+### Embedded Jupyter Notebook
 
+Example:
+
+```markdown
+![[SimplePendulum.ipynb]]
+```
+
+Rendering:
+
+![[SimplePendulum.ipynb]]   
+
+NOTE: that the editor has a button, which allows uploading Jupyter notebooks and inserting alink to the file name at current cursor position. 
 ## Table 
 
 Example:
@@ -1703,166 +2220,10 @@ Rendering:
 This is initially hidden, and can be clicked to be opened when you are viewing the content.
 :::
 
-### Mathematical Definition Admonition 
 
-Example: 
+ 
 
-```
-:::{def} Inverse Matrix 
-:label: inverse-matrix
-
-The inverse matrix $A^{-1}$ of a matrix $A: n \times n$ is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists. 
-
-$$
-  \notag
-   A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}
-$$
-
-:::
-```
-
-Rendering:
-
-:::{def} Inverse Matrix 
-:label: inverse-matrix
-
-The inverse matrix $A^{-1}$ of a matrix $A: n \times n$ is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists. 
-
-$$
-  \notag
-   A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}
-$$
-
-:::
-
-### Mathematical Theorem Admonition 
-
-Example:
-
-````markdown
-:::{theorem} Determinant of Orthogonal Matrix  
-
-The determinant of a **orthogonal matrix** $Q \in \mathbb{R}^{n \times n}$ of n rows and n columns is always 1.
-
-$$
- \notag 
-  \det(Q) = 1
-$$
-
-
-```{proof}
-
-$$
-\notag 
-\begin{split}
-      \det (Q Q^T)      &= \det(Q) \det(Q^{T}) 
-   \\ \det (Q Q^T)      &= \det(Q) \det(Q) 
-   \\ \det (Q Q^{-1})   &= \det(Q) \det(Q) 
-   \\ \det (\mathbf{I}) &= \det(Q)^2
-   \\  1                &= \det{Q}^2
-   \\  \det(Q)          &= 1
-\end{split}
-$$
-```
-% --- end determinant proof ---
-
-:::
-````
-
-Rendering:
-
-
-:::{theorem} Determinant of Orthogonal Matrix  
-
-The determinant of a **orthogonal matrix** $Q \in \mathbb{R}^{n \times n}$ of n rows and n columns is always 1.
-
-$$
- \notag 
-  \det(Q) = 1
-$$
-
-
-```{proof}
-
-$$
-\notag 
-\begin{split}
-      \det (Q Q^T)      &= \det(Q) \det(Q^{T}) 
-   \\ \det (Q Q^T)      &= \det(Q) \det(Q) 
-   \\ \det (Q Q^{-1})   &= \det(Q) \det(Q) 
-   \\ \det (\mathbf{I}) &= \det(Q)^2
-   \\  1                &= \det{Q}^2
-   \\  \det(Q)          &= 1
-\end{split}
-$$
-```
-% --- end determinant proof ---
-
-:::
-
-### Example of solved exercise 
-
-````{markdown}
-:::{example} Chain Rule for Derivative Multi-Variate Functions
-
-Let the function f be $f(x, y) = x^2/A^2 + y^2/B^2 - C$.  Find the derivative of f with respect to t. And x and y are functions of t, $x = x(t) = A \cos t$ and $y = y(t) = B \sin t$. 
-
-
-```{solution}   
-$$
- \notag 
-\begin{split}
-  \frac{df}{dt} 
-    &= \frac{\partial f}{\partial x} \frac{dx}{dt}  
-    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\
-
-    &=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) 
-           \frac{d}{dt} ( A \cos t)
-       \\ & +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) 
-           \frac{d}{dt} ( A \sin t)  \\
-
-    &=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ 
-    &=  -2x \sin(t) / A + 2y \cos(t) / B \\
-    &=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\
-    &=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
-    &=  0 
-\end{split}
-$$
-```
-:::
-````
-
-Rendering:
-
-:::{example} Chain Rule for Derivative Multi-Variate Functions
-
-Let the function f be $f(x, y) = x^2/A^2 + y^2/B^2 - C$.  Find the derivative of f with respect to t. And x and y are functions of t, $x = x(t) = A \cos t$ and $y = y(t) = B \sin t$. 
-
-
-```{solution}   
-$$
- \notag 
-\begin{split}
-  \frac{df}{dt} 
-    &= \frac{\partial f}{\partial x} \frac{dx}{dt}  
-    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\
-
-    &=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) 
-           \frac{d}{dt} ( A \cos t)
-       \\ & +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) 
-           \frac{d}{dt} ( A \sin t)  \\
-
-    &=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ 
-    &=  -2x \sin(t) / A + 2y \cos(t) / B \\
-    &=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\
-    &=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
-    &=  0 
-\end{split}
-$$
-```
-:::
-
-
+ 
 ## MyST Roles 
 
 The MyST Roles are similar to MyST directives, but they are single line. Exmaple:
@@ -2067,4 +2428,3 @@ It is possible to view all flashcards and their backside at once; go to next car
 + https://myst-parser.readthedocs.io/en/latest/syntax/math.html
 + https://markdown-it-py.readthedocs.io/en/latest/architecture.html
 + https://mystmd.org/guide/glossaries-and-terms
-
