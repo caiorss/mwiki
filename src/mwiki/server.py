@@ -857,7 +857,7 @@ def make_app_server(  host:        str
         ## print(" [TRACE] page = ", page)
         ## frontmatter = ""
         frontmatter = read_frontmatter(page)
-        print(" [TRACE] frontmatter = \n", frontmatter)                        
+        ## print(" [TRACE] frontmatter = \n", frontmatter)                        
         builder = render.HtmlRenderer(  base_path  = BASE_PATH
                                       , preview    = True
                                       , latex_renderer  = conf.latex_renderer)
