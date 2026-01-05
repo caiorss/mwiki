@@ -846,13 +846,17 @@ def make_app_server(  host:        str
         content = data.get("code", "") 
         ### content = utils.read_resource(mwiki, "refcard.md")
         conf: Settings = Settings.get_instance()
-        page = base_path / (p + ".md") if (p :=  data.get("page")) else None
-        print(" [TRACE] page = ", page)
-        frontmatter = ""
-        if page is None or not page.exists():
+        p = data.get("page")
+        if p is None:
             flask.abort(STATUS_CODE_400_BAD_REQUEST)
-        else:
-            frontmatter = read_frontmatter(page)
+        page = base_path / (p + ".md")
+        if not page.exists():
+            page = base_path / (p + ".md").replace("_", " ")
+        if not page.exists():
+            flask.abort(STATUS_CODE_400_BAD_REQUEST)           
+        ## print(" [TRACE] page = ", page)
+        ## frontmatter = ""
+        frontmatter = read_frontmatter(page)
         print(" [TRACE] frontmatter = \n", frontmatter)                        
         builder = render.HtmlRenderer(  base_path  = BASE_PATH
                                       , preview    = True
