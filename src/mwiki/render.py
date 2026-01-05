@@ -2172,9 +2172,10 @@ class HtmlRenderer(AbstractAstRenderer):
         entries = [[u.strip() for u in x.strip().split(",")] for x in content.split(";")]
         ## citations = []
         pairs = []
-        locator_list = []
+        ## breakpoint()
         for entry in entries: 
             key_ = entry[0]
+            locator_list = []
             if len(entry) >= 2:
                 locator_list = [x.strip() for x in entry[1].split()]
             if not key_.startswith("@"):
