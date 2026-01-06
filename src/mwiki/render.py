@@ -752,6 +752,11 @@ class HtmlRenderer(AbstractAstRenderer):
             , ("{paragraph}", "¶")
             , ("{pilcrow}", "¶")
             , ("{section}", "§")
+            # Ordinal Numerals 
+            , ("{st}", "<sup>st</sup>")    #  Example 1st item, 1{st} item
+            , ("{nd}", "<sup>nd</sup>")    #  Example 2nd item, 2{nd} itme
+            , ("{rd}", "<sup>rd</sup>")    #  Example 3rd item, 3{rd} item
+            , ("{th}", "<sup>th</sup>")    #  Example 4th item, 4{th} item
 
         ]
 
