@@ -2575,13 +2575,17 @@ class HtmlRenderer(AbstractAstRenderer):
                     html += "\n" + "".join(html_output).strip()
                 elif text_output:
                     html += '''\n<pre>%s</pre>''' % utils.escape_html("".join(text_output))
+        ## breakpoint()
         path_ = path.relative_to(self._base_path)
+        url = "wiki/%s" % path_
+        if self._static_compilation:
+            url = self._root_url + str(path_)
         html = '''<div class="tip admonition anchor">
                     <details>
-                        <summary><span class="admonition-title"><a href="/wiki/%s"><img class="img-icon" src="%s/static/file-earmark-arrow-down.svg"  data-i18n="download-jupyter-notebook-icon-tooltip" title="Download this Jupyter notebook."></a> Jupyter Notebook: %s</span></summary>
+                        <summary><span class="admonition-title"><a href="%s"><img class="img-icon" src="%s/static/file-earmark-arrow-down.svg"  data-i18n="download-jupyter-notebook-icon-tooltip" title="Download this Jupyter notebook."></a> Jupyter Notebook: %s</span></summary>
                         %s 
                     </details>
-                 </div>''' % (path_, self._root_url, path.name, html)
+                 </div>''' % (url, self._root_url, path.name, html)
         ## print(" [TRACE] path to notebook = ", data)
         self._rendering_jupyter_notebook = False
         return html
