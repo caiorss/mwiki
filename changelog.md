@@ -13,6 +13,7 @@
 + Add LaTeX syntax highlight to the page `/special:macros` for editing global LaTeX macros, which has the same syntax as a LaTeX's .sty or .tex file.
 + Bugfix - Bugfix - Fix route /links/<pagename> Undefined Error. Error message: *jinja2.exceptions.UndefinedError: 'conf' is undefined.*
 + Bugfix - Fix jinja2.exceptions.UndefinedError for route /tags.
++ Bugfix - Fix mathjax's LaTeX macros in wikis exported to static websites.
 
 ## Release v0.9.2
 

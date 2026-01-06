@@ -288,6 +288,7 @@ def export(   wikipath:              Optional[str]
                , "compile_latex":        compile_latex 
                , "mathjax_enabled":      not compile_latex & renderer.needs_mathjax
                , "graphviz_enabled":     renderer.needs_graphviz 
+               , "latex_macros":         renderer.mathjax_macros
                , "latex_algorithm":      not compile_latex & renderer.needs_latex_algorithm
                , "equation_enumeration": renderer.equation_enumeration_style
                , "config_sitename":      lambda: website_name 
