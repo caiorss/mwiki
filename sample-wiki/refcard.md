@@ -543,6 +543,11 @@ Example:
 + The price is 20 {yens}
 + Pilcrow Symbol {pilcrow} or {pagraph}
 + Section Symbol  {section}
++ First item - 1{st} item
++ Second item - 2{nd} item
++ Third item - 3{rd} item
++ Fourth item - 4{th} item 
++ Fifth item - 5{th} item
 ```
 
 Rendering:
@@ -559,8 +564,12 @@ Rendering:
 + The price is 20 {yens}
 + Pilcrow Symbol {pilcrow} or {pagraph}
 + Section Symbol  {section}
-
-
++ First item - 1{st} item
++ Second item - 2{nd} item
++ Third item - 3{rd} item
++ Fourth item - 4{th} item 
++ Fifth item - 5{th} item
+  
 ## Hyperlinks
 
 ### Internal Hyperlinks Links (WikiLinks)
@@ -1159,7 +1168,7 @@ or
 ![[video-file-to-be-embedded.webm]]
 ```
 
-Embedded video files are rendered as [video\](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video) html5 DOM element with controls for playing the video, including button for start playing the video, button for stopping the video and so on.
+Embedded video files are rendered as [{r}`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video) html5 DOM element with controls for playing the video, including button for start playing the video, button for stopping the video and so on.
 
 NOTE: It is possible to upload video files directly in the wiki editor by clicking at the button with label 'Link to Uploaded File' in the editor toolbar section 'insert'.
 
@@ -1191,6 +1200,26 @@ Video caption (also known as label)
 ```
 ````
 
+**Example**
+
+Sample code:
+
+````markdown
+```{video}  ![[pendulum-with-viscuous-fricition-simulation.mp4]]
+
+Simulation (animation) of simple pendulum with viscous friction using Runge Kutta 4{th} order method
+```
+````
+
+Rendering:
+
+```{video}  ![[pendulum-with-viscuous-fricition-simulation.mp4]]
+
+Simulation (animation) of simple pendulum with viscous friction using Runge Kutta 4{th} order method
+```
+
+
+  
 ## Code Blocks 
 ### Inline code 
 
@@ -1276,83 +1305,23 @@ what we want the computer to do.
 
 ## Mathematics
 
-### Inline 
+### LaTeX renderer (Frontmatter)
 
-```
-Let $x \in \mathbb{R}$ be a real number and $f(x) = \sqrt{x^2 - 10}$.
-```
+The frontmatter's directive *latex_renderer* allows overriding the default rendering engine, that can be changed in the settings page.
 
-Rendering:
+Use KaTeX rendering engine:
 
-Let $x \in \mathbb{R}$ be a real number and $f(x) = \sqrt{x^2 - 10}$.
-
-### Display Mode 
-
-```
-$$
-    A = \begin{bmatrix} 
-              \alpha &  \beta 
-          \\  \gamma &  \zeta 
-        \end{bmatrix}
-$$
+```yaml
+latex_renderer: katex
 ```
 
-Rendering:
+Use MathJax rendering engine:
 
-$$
-    A = \begin{bmatrix} 
-              \alpha &  \beta 
-          \\  \gamma &  \zeta 
-        \end{bmatrix}
-$$
-
-### Display Mode Without Enumeration 
-
-```
-$$
-  \notag 
-    A = \begin{bmatrix} 
-              \alpha &  \beta 
-          \\  \gamma &  \zeta 
-        \end{bmatrix}
-$$
+```yaml
+latex_renderer: mathjax 
 ```
 
-Rendering:
-
-$$
-  \notag 
-    A = \begin{bmatrix} 
-              \alpha &  \beta 
-          \\  \gamma &  \zeta 
-        \end{bmatrix}
-$$
-
-### Display Mode using Code Block Syntax 
-
-Example:
-
-````markdown
-```{math}
-  \notag 
-    A = \begin{bmatrix} 
-              \alpha &  \beta 
-          \\  \gamma &  \zeta 
-        \end{bmatrix}
-```
-````
-
-Rendering:
-
-```{math}
-  \notag 
-    A = \begin{bmatrix} 
-              \alpha &  \beta 
-          \\  \gamma &  \zeta 
-        \end{bmatrix}
-```
-
-### Equation Enumeration Style 
+### Equation Enumeration Style (Frontmatter)
 
 MWiki supports the following LaTeX equation enumeration styles
 
@@ -1450,6 +1419,84 @@ $$
 $$
 
 ````
+
+
+### Inline 
+
+```
+Let $x \in \mathbb{R}$ be a real number and $f(x) = \sqrt{x^2 - 10}$.
+```
+
+Rendering:
+
+Let $x \in \mathbb{R}$ be a real number and $f(x) = \sqrt{x^2 - 10}$.
+
+### Display Mode 
+
+```
+$$
+    A = \begin{bmatrix} 
+              \alpha &  \beta 
+          \\  \gamma &  \zeta 
+        \end{bmatrix}
+$$
+```
+
+Rendering:
+
+$$
+    A = \begin{bmatrix} 
+              \alpha &  \beta 
+          \\  \gamma &  \zeta 
+        \end{bmatrix}
+$$
+
+### Display Mode Without Enumeration 
+
+```
+$$
+  \notag 
+    A = \begin{bmatrix} 
+              \alpha &  \beta 
+          \\  \gamma &  \zeta 
+        \end{bmatrix}
+$$
+```
+
+Rendering:
+
+$$
+  \notag 
+    A = \begin{bmatrix} 
+              \alpha &  \beta 
+          \\  \gamma &  \zeta 
+        \end{bmatrix}
+$$
+
+### Display Mode using Code Block Syntax 
+
+Example:
+
+````markdown
+```{math}
+  \notag 
+    A = \begin{bmatrix} 
+              \alpha &  \beta 
+          \\  \gamma &  \zeta 
+        \end{bmatrix}
+```
+````
+
+Rendering:
+
+```{math}
+  \notag 
+    A = \begin{bmatrix} 
+              \alpha &  \beta 
+          \\  \gamma &  \zeta 
+        \end{bmatrix}
+```
+
 
 
 ### Cross Reference To LaTeX Equations
@@ -2111,7 +2158,7 @@ Rendering:
 
 ![[SimplePendulum.ipynb]]   
 
-NOTE: that the editor has a button, which allows uploading Jupyter notebooks and inserting alink to the file name at current cursor position. 
+NOTE: that the editor has a button, which allows uploading Jupyter notebooks and inserting alink to the file name at current cursor position.  
 ## Table 
 
 Example:
