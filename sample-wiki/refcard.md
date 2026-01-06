@@ -2354,7 +2354,7 @@ Rendering:
 
 ## Citations and List of References
 
-MWiki supports citations based on IEEE style with the following syntax
+MWiki supports citations based on IEEE style with the following syntax based on Pandoc's citation markup language.
 
 ```
 $[@CITATION_KEY1; CITATION_KEY2 ; CITATION_KEY3, locator3 ....]
@@ -2622,8 +2622,43 @@ references:
 
 ### Further Reading
 
+
++ *Citation*, Quarto Docs
+  + https://quarto.org/docs/authoring/citations.html
++ *Citation Metadata*, Quarto Docs
+  + https://quarto.org/docs/reference/metadata/citation.html
++ *Citations*, Pandoc Manual
+  + https://pandoc.org/MANUAL.html#citations
++ *Citation Style Language*
+  + https://citationstyles.org/authors/
++ *Citations & Footnotes*
+  + https://www.datanovia.com/guide/tools/quarto/citations-and-footnotes.html
++ *CSL 1.0.2 Specification*
+  + https://docs.citationstyles.org/en/stable/specification.html#csl-1-0-2-specification
++ *Primer — An Introduction to CSL*, Rintze M. Zelle, PhD
+  + https://docs.citationstyles.org/en/stable/primer.html   
++ *Chicago Manual of Style 18th Edition*, Purdue University
+  + https://owl.purdue.edu/owl/research_and_citation/chicago_manual_18th_edition/cmos_formatting_and_style_guide/chicago_manual_of_style_18th_edition.html
+  + *Please note that although these resources reflect the most recent updates in the The Chicago Manual of Style (18th edition) concerning documentation practices, you can review a full list of updates concerning usage, technology, professional practice, etc. at The Chicago Manual of Style Online.*
++ *Institute of Electrical and Electronics Engineers - IEEE*, Wikipedia
+  + https://en.wikipedia.org/wiki/Institute_of_Electrical_and_Electronics_Engineers
++ *Association for Computing Machinery - ACM*, Wikipedia
+  + https://en.wikipedia.org/wiki/Association_for_Computing_Machinery
++ *Research and Citation*, Purdue University
+  + https://owl.purdue.edu/owl/research_and_citation/index.html
++ *STEM Citation Styles*, University of Nebraska at Omaha
+  + https://libguides.unomaha.edu/c.php?g=1439199
++ *Computer Science Research Guide*
+  + https://dal.ca.libguides.com/csci/writing/examples
 + *IEEE Reference Style*  
   + https://owl.purdue.edu/owl/research_and_citation/chicago_manual_18th_edition/cmos_formatting_and_style_guide/chicago_manual_of_style_18th_edition.html
++ *IEEE Style - Research and Citation*, Purdue University
+  + https://owl.purdue.edu/owl/research_and_citation/ieee_style/index.html
++ *In-Text Citation - IEEE Style - Research and Citation*, Purdue University
+  + https://owl.purdue.edu/owl/research_and_citation/ieee_style/in-text_citation.html
++ *Reference List - IEEE Style - Research and Citation**, Purdue University
+  + https://owl.purdue.edu/owl/research_and_citation/ieee_style/reference_list.html
+  + *References should be provided on a separate page at the end of your paper, with the title “References” at the top of the page. They should be listed and numbered in order of citation, not alphabetically. The numbers should be flush against the left margin, and separated from the body of the reference.*
 + *How to format your references using the Proceedings of the IEEE citation style*
   + https://paperpile.com/s/proceedings-of-the-ieee-citation-style/
 + *Citation Styles by Discipline: STEM*
@@ -2665,7 +2700,7 @@ references:
   + https://www.getbibtex.com/blog/posts/how-to-cite-website-in-latex-using-bibtex
   + *Learn how to properly cite online sources in LaTeX using BibTeX, with ready-to-use examples and templates.* 
 + *BibTeX generic citation style Referencing Guide*
-  + https://citationsy.com/styles/bibtex   
+  + https://citationsy.com/styles/bibtex      
 ## Admonitions (Callout Boxes) 
 ### Info Admonition 
 
