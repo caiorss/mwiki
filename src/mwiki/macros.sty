@@ -4,6 +4,10 @@
 % used in any MWiki page (markdown file).                %
 %--------------------------------------------------------%
 
+% Colon equals := assignment operator for pseudocode code
+\newcommand{\ceq}{ \colonequals }
+
+
 % Vector notation, short for mathbf (bold face)
 % Example: \b{r} = (x, y, z)
 \newcommand{\b}[1]{ \mathbf{#1} }
@@ -23,11 +27,14 @@
 %   \bs{\theta} = (\theta_1, \theta_2, \cdots, \theta_n)
 \newcommand{\bs}[1]{ \boldsymbol{#1} }
 
+% Macro for writing unit vectors with greek letters
+\newcommand{\bshat}[1]{ \hat{\boldsymbol{#1}} }
+
 % Derivative of Vector notation in greek letters
 % Example: The generalized velocities of the generalized coordinates of a robotic system can be written as
 %   \bsdot{\theta} = (\theta_1, \theta_2, \cdots, \theta_n)
 % instead of
-$  \dot{\boldsymbol{\theta}}
+% $  \dot{\boldsymbol{\theta}}
 \newcommand{\bsdot}[1]{ \dot{\boldsymbol{#1}} }
 
 % Second order derivative of vector in greek letter
@@ -151,4 +158,3 @@ $  \dot{\boldsymbol{\theta}}
 \newcommand{\mdef}{ {\triangleq \;} }
 
 \DeclareMathOperator{\sgn}{sgn}
-
