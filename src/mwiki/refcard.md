@@ -1,7 +1,173 @@
 ---
 title:          MWiki Syntax Reference Card
 description:    Notes, examples and documentation about MWiki markup language syntax and constructs. This markup language borrow constructs and syntax from Mediwiki, Obsidian and MyST markdown markup languages.
-latex_renderer: mathjax
+
+references:
+
+  - id:        lamport1994
+    type:      book
+    title:     "LaTeX: a document preparation system"
+    year:      1994
+    publisher: Addison-Wesley
+    edition:   2nd
+    author:
+        - Leslie Lamport
+    url:        https://www.latex-project.org/
+    #    - family: Leslie
+    #     given:  Lamport
+
+  - id: lesk1997
+    type: inproceedings
+    title: Computer Typesetting of Technical Journals on  UNIX
+    author:
+        - Michael Lesk
+        - Brian Kernighan
+    booktitle: "Proceedings of American Federation of Information Processing Societies: 1977 National Computer Conference"
+    pages:    879--888
+    year:     1977
+    address:  Dallas, Texas
+
+  - type:   online
+    id:     brownAngVelocity2017
+    author: David Brown
+    year:   2017
+    title:  Angular Velocity Conversions
+    access: 2025-12-29
+    url:    https://davidbrown3.github.io/euler-angle-rates.html
+    url_archive: https://web.archive.org/web/20201214131302/https://davidbrown3.github.io/euler-angle-rates.html
+    abstract: "A common requirement when modelling a dynamics system is the tracking of a bodies orientation. A common way to express orientation is through the use of Euler Angles; a sequence of 3 rotations, starting from some base inertial frame to the moving body. These are also commonly intrinsic, meaning that each sequential rotation is about the previous rotated co-ordinate system, rather than the inertial co-ordinate system. These rotation angles are denoted as: (...)"
+
+  - type:          online
+    id:            enwiki:1318221113
+    author_type:   organization
+    author:        Wikipedia contributors
+    title:         Angular velocity tensor
+    access:        2025-12-28
+    url:    https://en.wikipedia.org/w/index.php?title=Angular_velocity_tensor&oldid=1318221113
+
+  - id: StepneyVerlan2018
+    type:  proceedings
+    year:   2018
+    editor:
+        - given: Susan
+          family: Stepney
+        - given: Sergey
+          family: Verlan
+    publisher: Springer
+    title: "Proceedings of the 17th International Conference on Computation and Natural Computation, Fontainebleau, France"
+    series: "Lecture Notes in Computer Science"
+    volume: 10867
+    address: Cham, Switzerland
+
+  - id: bennet2018
+    type:   techreport
+    title:  Wasatch Solar Project Final Report
+    author:
+       - given: Vicki
+         family: Bennett
+       - given: Kate
+         family: Bowman
+       - given: Sarah
+         family: Wright
+    institution:  Salt Lake City Corporation
+    address:  Salt Lake City, UT
+    number:   DOE-SLC-6903-1
+    year:     2018
+    month:    sep
+
+  - id:        rempel1956
+    type:      phdthesis
+    title:     Relaxation Effects for Coupled Nuclear Spins
+    school:    Stanford University
+    address:   Stanford, CA
+    year:      1956
+    author:
+        - given:  Robert Charles
+          family: Rempel
+
+  - id:          blonski2017
+    type:        article
+    author_type: many
+    author:
+        - family: Błoński
+          given: Piotr
+    year:      2017
+    title:     Doping with Graphitic Nitrogen Triggers Ferromagnetism in Graphene
+    url:       https://stringr.tidyverse.org
+    journal:    Journal of the American Chemical Society
+    volume:    139
+    number:    8
+    pages:     3171–3180
+    doi:       10.1021/jacs.6b12934
+    pmid:      28110530
+    url:       http://dx.doi.org/10.1021/jacs.6b12934
+    eprint:    http://dx.doi.org/10.1021/jacs.6b12934
+
+  - id:        knuth1986
+    type:      book
+    title:     The TeX Book
+    year:      1986
+    publisher: Addison-Wesley Profession
+    author: Donald E. Knuth
+    #    - family: Knuth
+    #      given:  Donald E.
+
+
+
+  - id:        lamport2025
+    type:      online
+    title:     "LaTeX Project Website"
+    year:      2025
+    access:    2025-05-29
+    author:   Leslie Lamport
+    #    - given: Leslie
+    #      family:  Lamport
+    url:        https://www.latex-project.org/
+
+  - id:        knitr2015
+    type:      book
+    title:     Dynamic Documents with R and knitr
+    publisher: Chapman and Hall/CRC
+    year:      2015
+    edition:   2nd
+    isbn:      978-1498716963
+    # address:   Boca Raton, Florida
+    url:       https://yihui.org/knitr/
+
+  - id:        rstring2025
+    type:      manual
+    year:      2025
+    note:      R package version 1.5.2
+    title:     StringR R Package
+    url:       https://stringr.tidyverse.org
+    author:
+        - given:   Hadley
+          family:  Wickham
+
+  - id: WatsonCrick1953
+    type: article
+    author:
+        - family: Watson
+          given: J. D.
+        - family: Crick
+          given: F. H. C.
+    issued:
+      date-parts:
+      - - 1953
+        - 4
+        - 25
+    title: 'Molecular structure of nucleic acids: a structure for deoxyribose nucleic acid'
+    title-short: Molecular structure of nucleic acids
+    container-title: Nature
+    volume: 171
+    issue: 4356
+    page: 737-738
+    DOI: 10.1038/171737a0
+    URL: https://www.nature.com/articles/171737a0
+    language: en-GB
+
+
+
 ---
 
 
@@ -35,6 +201,7 @@ Describe what is a NAS
 
 ```
 
+
 ### Content Language
 
 The html lang attribute `<html attr="en">` is used to indicate the content language to web browsers, screen readers and search engines. The lang attribute is the ISO code of the default content language, which is set by the administrator in the settings form. If the content language is not the same as the default one, it is possible to override the content laguage code of the current document using the **language** frontmatter directive.
@@ -48,7 +215,6 @@ For instance, if the current document language is Spanish, the lang attribute ca
 ```yaml
 language: es
 ```
-
 
 ### Alternative Document Title 
 
@@ -92,7 +258,7 @@ latex_renderer: katex
 
 Use MathJax rendering engine:
 
-```yaml 
+```yaml
 latex_renderer: mathjax 
 ```
 
@@ -376,6 +542,11 @@ Example:
 + The price is 20 {yens}
 + Pilcrow Symbol {pilcrow} or {pagraph}
 + Section Symbol  {section}
++ First item - 1{st} item
++ Second item - 2{nd} item
++ Third item - 3{rd} item
++ Fourth item - 4{th} item 
++ Fifth item - 5{th} item
 ```
 
 Rendering:
@@ -392,8 +563,12 @@ Rendering:
 + The price is 20 {yens}
 + Pilcrow Symbol {pilcrow} or {pagraph}
 + Section Symbol  {section}
-
-
++ First item - 1{st} item
++ Second item - 2{nd} item
++ Third item - 3{rd} item
++ Fourth item - 4{th} item 
++ Fifth item - 5{th} item
+  
 ## Hyperlinks
 
 ### Internal Hyperlinks Links (WikiLinks)
@@ -835,12 +1010,34 @@ Syntax:
 Example:
 
 ```
-![Java's Duke Mascot](/static/example_java_duke_mascot.svg)
+![Java's Duke Mascot](/mwiki/static/example_java_duke_mascot.svg)
 ```
 
 Rendering: 
 
-![Java's Duke Mascot](/static/example_java_duke_mascot.svg)
+![Java's Duke Mascot](/mwiki/static/example_java_duke_mascot.svg)
+
+### External using Relative URL
+
+The `@root` directive is replaced by MWiki root URL. This feature is useful if MWiki root URl changes, for instance, if is hosted in the URl `https://somedomain.com/p/mwiki`, the MWiki root URL is `/p/mwiki`, so the URL of the Java's Duke mascot image would no longer be
+
++ `/static/example_java_duke_mascot.svg`
+
+Instead it would be 
+
++ `/p/mwiki/static/example_java_duke_mascot.svg`
+
+By using the directive `@root`, no matter MWiki's root URL, it will not be necessary to change the image URL in the construct for external images as shown below.
+
+Example:
+
+```
+![Java's Duke Mascot](@root/static/example_java_duke_mascot.svg)
+```
+
+Rendering: 
+
+![Java's Duke Mascot](@root/static/example_java_duke_mascot.svg)
 
 
 
@@ -855,7 +1052,7 @@ A figure of an external image uses URL (Universal Resource Locator) for external
 Example:
 
 ````markdown
-```{figure} https://some-web-site.com/pictures/example_java_duke_mascot.svg
+```{figure} /mwiki/static/example_java_duke_mascot.svg
 :width: 200px
 :alt: Java duke mascot, one of the symbols of the Java programming language.
 
@@ -866,13 +1063,33 @@ Java's Duke mascot
 Rendering:
 
 
-```{figure} /static/example_java_duke_mascot.svg
+```{figure} /mwiki/static/example_java_duke_mascot.svg
 :height: 200px
 :alt: Java duke mascot, one of the symbols of the Java programming language.
 
 Java's Duke mascot
 ```
 
+Or relative to current MWiki's root URL:
+
+
+````markdown
+```{figure} @root/static/example_java_duke_mascot.svg
+:width: 200px
+:alt: Java duke mascot, one of the symbols of the Java programming language.
+
+Java's Duke mascot
+```
+````
+
+Rendering:
+
+```{figure} @root/static/example_java_duke_mascot.svg
+:width: 200px
+:alt: Java duke mascot, one of the symbols of the Java programming language.
+
+Java's Duke mascot
+```
 
 ### Figure of Internal Image
 
@@ -936,23 +1153,21 @@ or
 
 {youtube}`bNE4uBMsnP0`
 ```
-
-
 ### Embed Uploaded Video Files
 
 MP4 or WEBM video files can be embedded in the current page by using the syntax. 
 
-```markdown
+```
 ![[video-file-to-be-embedded.mp4]]
 ```
 
 or
 
-```markdown
+```
 ![[video-file-to-be-embedded.webm]]
 ```
 
-Embedded video files are rendered as [\<video\>](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video) html5 embedded element with controls for playing the video, including button for start playing the video, button for stopping the video and so on.
+Embedded video files are rendered as [{r}`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video) html5 DOM element with controls for playing the video, including button for start playing the video, button for stopping the video and so on.
 
 NOTE: It is possible to upload video files directly in the wiki editor by clicking at the button with label 'Link to Uploaded File' in the editor toolbar section 'insert'.
 
@@ -984,6 +1199,18 @@ Video caption (also known as label)
 ```
 ````
 
+**Example**
+
+Sample code:
+
+````markdown
+```{video}  ![[pendulum-with-viscuous-fricition-simulation.mp4]]
+
+Simulation (animation) of simple pendulum with viscous friction using Runge Kutta 4{th} order method
+```
+````
+
+  
 ## Code Blocks 
 ### Inline code 
 
@@ -1067,85 +1294,25 @@ what we want the computer to do.
 ```
 
 
-## LaTeX Math Equations
+## Mathematics
 
-### Inline 
+### LaTeX renderer (Frontmatter)
 
-```
-Let $x \in \mathbb{R}$ be a real number and $f(x) = \sqrt{x^2 - 10}$.
-```
+The frontmatter's directive *latex_renderer* allows overriding the default rendering engine, that can be changed in the settings page.
 
-Rendering:
+Use KaTeX rendering engine:
 
-Let $x \in \mathbb{R}$ be a real number and $f(x) = \sqrt{x^2 - 10}$.
-
-### Display Mode 
-
-```
-$$
-    A = \begin{bmatrix} 
-              \alpha &  \beta 
-          \\  \gamma &  \zeta 
-        \end{bmatrix}
-$$
+```yaml
+latex_renderer: katex
 ```
 
-Rendering:
+Use MathJax rendering engine:
 
-$$
-    A = \begin{bmatrix} 
-              \alpha &  \beta 
-          \\  \gamma &  \zeta 
-        \end{bmatrix}
-$$
-
-### Display Mode Without Enumeration 
-
-```
-$$
-  \notag 
-    A = \begin{bmatrix} 
-              \alpha &  \beta 
-          \\  \gamma &  \zeta 
-        \end{bmatrix}
-$$
+```yaml
+latex_renderer: mathjax 
 ```
 
-Rendering:
-
-$$
-  \notag 
-    A = \begin{bmatrix} 
-              \alpha &  \beta 
-          \\  \gamma &  \zeta 
-        \end{bmatrix}
-$$
-
-### Display Mode using Code Block Syntax 
-
-Example:
-
-````markdown
-```{math}
-  \notag 
-    A = \begin{bmatrix} 
-              \alpha &  \beta 
-          \\  \gamma &  \zeta 
-        \end{bmatrix}
-```
-````
-
-Rendering:
-
-```{math}
-  \notag 
-    A = \begin{bmatrix} 
-              \alpha &  \beta 
-          \\  \gamma &  \zeta 
-        \end{bmatrix}
-```
-
-### Equation Enumeration Style 
+### Equation Enumeration Style (Frontmatter)
 
 MWiki supports the following LaTeX equation enumeration styles
 
@@ -1245,6 +1412,84 @@ $$
 ````
 
 
+### Inline 
+
+```
+Let $x \in \mathbb{R}$ be a real number and $f(x) = \sqrt{x^2 - 10}$.
+```
+
+Rendering:
+
+Let $x \in \mathbb{R}$ be a real number and $f(x) = \sqrt{x^2 - 10}$.
+
+### Display Mode 
+
+```
+$$
+    A = \begin{bmatrix} 
+              \alpha &  \beta 
+          \\  \gamma &  \zeta 
+        \end{bmatrix}
+$$
+```
+
+Rendering:
+
+$$
+    A = \begin{bmatrix} 
+              \alpha &  \beta 
+          \\  \gamma &  \zeta 
+        \end{bmatrix}
+$$
+
+### Display Mode Without Enumeration 
+
+```
+$$
+  \notag 
+    A = \begin{bmatrix} 
+              \alpha &  \beta 
+          \\  \gamma &  \zeta 
+        \end{bmatrix}
+$$
+```
+
+Rendering:
+
+$$
+  \notag 
+    A = \begin{bmatrix} 
+              \alpha &  \beta 
+          \\  \gamma &  \zeta 
+        \end{bmatrix}
+$$
+
+### Display Mode using Code Block Syntax 
+
+Example:
+
+````markdown
+```{math}
+  \notag 
+    A = \begin{bmatrix} 
+              \alpha &  \beta 
+          \\  \gamma &  \zeta 
+        \end{bmatrix}
+```
+````
+
+Rendering:
+
+```{math}
+  \notag 
+    A = \begin{bmatrix} 
+              \alpha &  \beta 
+          \\  \gamma &  \zeta 
+        \end{bmatrix}
+```
+
+
+
 ### Cross Reference To LaTeX Equations
 
 Example:
@@ -1310,7 +1555,7 @@ code block is not rendered, it is processed by MathJax or other LaTeX rendering 
 
 
 ````markdown
-```{latex_macro}
+```{macros}
 % Logical AND 
 \DeclareMathOperator{\\and}{ \\wedge }
 % Logical OR
@@ -1329,7 +1574,517 @@ $$
 $$
 ```
 
+ 
+### Special Math Blocks
 
+#### Proof
+
+The block {proof} is used for adding a mathematical proof without cluttering the text.
+
+Example: Proof of orthogonal matrix theorem, that states that if a matrix is orthogonal, then $\det Q = 1$.
+
+````latex
+```{proof}
+According to the defintion, if a $n \times n$ real matrix is orhtogonal, $Q Q^T = \mathbf{I}$, where $\mathbf{I}$ is a identity matrix, so
+
+$$
+\notag 
+\begin{split}
+      \det (Q Q^T)      &= \det(Q) \det(Q^{T}) 
+   \\ \det (Q Q^T)      &= \det(Q) \det(Q) 
+   \\ \det (Q Q^{-1})   &= \det(Q) \det(Q) 
+   \\ \det (\mathbf{I}) &= \det(Q)^2
+   \\  1                &= \det{Q}^2
+   \\  \det(Q)          &= 1
+\end{split}
+$$
+
+Hence, if a matrix $Q$ is orthogonal, $\det Q = 1$.
+```
+````
+
+Rendering:
+
+```{proof}
+According to the defintion, if a $n \times n$ real matrix is orhtogonal, $Q Q^T = \mathbf{I}$, where $\mathbf{I}$ is a identity matrix, so
+
+$$
+\notag 
+\begin{split}
+      \det (Q Q^T)      &= \det(Q) \det(Q^{T}) 
+   \\ \det (Q Q^T)      &= \det(Q) \det(Q) 
+   \\ \det (Q Q^{-1})   &= \det(Q) \det(Q) 
+   \\ \det (\mathbf{I}) &= \det(Q)^2
+   \\  1                &= \det{Q}^2
+   \\  \det(Q)          &= 1
+\end{split}
+$$
+
+Hence, if a matrix $Q$ is orthogonal, $\det Q = 1$.
+```
+
+#### Derivation 
+
+The {derivation} is similar to the {proof} foldable block. However, {derivation} is intended for writing derivations of mathematical formulas, the steps to to find or deduce a particular mathematical formula or algorithm. The term *derivation* is more used in physics and engineering than the term *proof*.
+
+Example: 
+
+````markdown
+If a body-attached frame with origin in the mass center of a rigid body is aligned to is principal axes of inertia, then the mass moment of inertia tensor will be a diagonal matrix and the products of inertia will be zero. As a result, the Euler's equation for motion for the rigid body rotational motion become
+
+$$
+\begin{split}
+  \\ I_x \dot{\omega}_x + \omega_y \omega_z (I_z - I_y) &= \tau_x
+ \\ I_y \dot{\omega}_y + \omega_x \omega_z (I_x - I_z)
+    &= \tau_y
+ \\ I_z \dot{\omega}_z + \omega_x \omega_y (I_y - I_x)
+    &= \tau_z
+\end{split}
+$$
+
+```{derivation}
+The Euler's equation of motion that relates the torque $\bs{\tau}$, angular velocity $\bs{\omega}$ and angular accleration $\bsdot{\omega}$ is given by
+
+$$
+\notag
+\mathcal{I} \bsdot{\omega} 
+    + \bs{\omega} \times \mathcal{I} \bs{\omega}
+    = \bs{\tau}
+$$
+
+Express the cross product operator $\times$ as the cross-product matrix operator $\skew{}$.
+
+$$
+\notag
+\mathcal{I} \bsdot{\omega} + \skew{\bs{\omega}} \mathcal{I} \bs{\omega} = \bs{\tau}
+$$
+ 
+  ... ... ... ... ... 
+
+Thus, the equations of motions, for a body frame aligned to the principal axes of inertia, are
+
+$$
+\notag
+\begin{split}
+  \\ I_x \dot{\omega}_x + \omega_y \omega_z (I_z - I_y) &= \tau_x
+ \\ I_y \dot{\omega}_y + \omega_x \omega_z (I_x - I_z)
+    &= \tau_y
+ \\ I_z \dot{\omega}_z + \omega_x \omega_y (I_y - I_x)
+    &= \tau_z
+\end{split}
+$$
+```
+
+````
+
+**Rendering:**
+
+If a body-attached frame with origin in the mass center of a rigid body is aligned to is principal axes of inertia, then the mass moment of inertia tensor will be a diagonal matrix and the products of inertia will be zero. As a result, the Euler's equation for motion for the rigid body rotational motion become
+
+$$
+\begin{split}
+  \\ I_x \dot{\omega}_x + \omega_y \omega_z (I_z - I_y) &= \tau_x
+ \\ I_y \dot{\omega}_y + \omega_x \omega_z (I_x - I_z)
+    &= \tau_y
+ \\ I_z \dot{\omega}_z + \omega_x \omega_y (I_y - I_x)
+    &= \tau_z
+\end{split}
+$$
+
+```{derivation}
+The Euler's equation of motion that relates the torque $\bs{\tau}$, angular velocity $\bs{\omega}$ and angular accleration $\bsdot{\omega}$ is given by
+
+$$
+\notag
+\mathcal{I} \bsdot{\omega} 
+    + \bs{\omega} \times \mathcal{I} \bs{\omega}
+    = \bs{\tau}
+$$
+
+Express the cross product operator $\times$ as the cross-product matrix operator $\skew{}$.
+
+$$
+\notag
+\mathcal{I} \bsdot{\omega} + \skew{\bs{\omega}} \mathcal{I} \bs{\omega} = \bs{\tau}
+$$
+ 
+  ... ... ... ... ... 
+
+Thus, the equations of motions, for a body frame aligned to the principal axes of inertia, are
+
+$$
+\notag
+\begin{split}
+  \\ I_x \dot{\omega}_x + \omega_y \omega_z (I_z - I_y) &= \tau_x
+ \\ I_y \dot{\omega}_y + \omega_x \omega_z (I_x - I_z)
+    &= \tau_y
+ \\ I_z \dot{\omega}_z + \omega_x \omega_y (I_y - I_x)
+    &= \tau_z
+\end{split}
+$$
+```
+
+#### Solution 
+
+The solution block is intended for providing solutions of exercises, questions or worked examples.
+
+**Example:**
+
+````markdown
+Fit the line $p(x) = \beta_0 + \beta_1 x$ for (1, 2.2), (0.8, 2.4) and (0, 4.25) [(src)](https://people.sc.fsu.edu/~jpeterson/linear_least_squares.pdf).
+
+
+```{solution}
+Define the parameters vector $\mathbf{\beta}$ and $\mathbf{y}$ 
+
+$$
+\notag
+   \mathbf{\beta} = 
+      \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix}
+   \quad 
+   \mathbf{y} = 
+      \begin{bmatrix} 2.2 \\ 2.4 \\ 4.25 \end{bmatrix}
+$$
+
+Compute the *design matrix* $X$
+
+$$
+\notag
+
+X = \begin{bmatrix}
+           1  & x_1
+        \\ 1  & x_2
+        \\ 1  & x_2
+    \end{bmatrix}
+    
+   = \begin{bmatrix}
+           1 & 1
+        \\ 1 & 0.8
+        \\ 1 & 0
+     \end{bmatrix}
+$$
+
+Find the solution of $X \mathbf{\beta} = \mathbf{y}$ by determining the least square solution, which can be computed by solving the system of normal equations $(X^T X) \mathbf{\beta} = X^T \mathbf{y}$.
+
+$$
+\notag
+
+X' = X^T X 
+   = \begin{bmatrix}
+            3.0  & 1.8
+        \\  1.8  & 1.64
+     \end{bmatrix}
+
+\quad
+
+\mathbf{y}' = X^T \mathbf{y} = \begin{bmatrix} 8.85 \\ 4.12 \end{bmatrix}
+
+$$
+
+Solve the system of normal equations $X' \mathbf{\beta} = \mathbf{y}'$.
+
+$$
+\notag
+
+ \mathbf{\beta} 
+   = \begin{bmatrix} 4.225 \\ -2.125 \end{bmatrix}
+$$
+
+So, the line that best fit those data points is
+
+$$
+\notag 
+
+p(x) = 4.225 + (-2.125) x
+$$
+```
+
+````
+
+**Rendering**
+
+Fit the line $p(x) = \beta_0 + \beta_1 x$ for (1, 2.2), (0.8, 2.4) and (0, 4.25) [(src)](https://people.sc.fsu.edu/~jpeterson/linear_least_squares.pdf).
+
+
+```{solution}
+Define the parameters vector $\mathbf{\beta}$ and $\mathbf{y}$ 
+
+$$
+\notag
+   \mathbf{\beta} = 
+      \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix}
+   \quad 
+   \mathbf{y} = 
+      \begin{bmatrix} 2.2 \\ 2.4 \\ 4.25 \end{bmatrix}
+$$
+
+Compute the *design matrix* $X$
+
+$$
+\notag
+
+X = \begin{bmatrix}
+           1  & x_1
+        \\ 1  & x_2
+        \\ 1  & x_2
+    \end{bmatrix}
+    
+   = \begin{bmatrix}
+           1 & 1
+        \\ 1 & 0.8
+        \\ 1 & 0
+     \end{bmatrix}
+$$
+
+Find the solution of $X \mathbf{\beta} = \mathbf{y}$ by determining the least square solution, which can be computed by solving the system of normal equations $(X^T X) \mathbf{\beta} = X^T \mathbf{y}$.
+
+$$
+\notag
+
+X' = X^T X 
+   = \begin{bmatrix}
+            3.0  & 1.8
+        \\  1.8  & 1.64
+     \end{bmatrix}
+
+\quad
+
+\mathbf{y}' = X^T \mathbf{y} = \begin{bmatrix} 8.85 \\ 4.12 \end{bmatrix}
+
+$$
+
+Solve the system of normal equations $X' \mathbf{\beta} = \mathbf{y}'$.
+
+$$
+\notag
+
+ \mathbf{\beta} 
+   = \begin{bmatrix} 4.225 \\ -2.125 \end{bmatrix}
+$$
+
+So, the line that best fit those data points is
+
+$$
+\notag 
+
+p(x) = 4.225 + (-2.125) x
+$$
+```
+
+#### Example Block
+
+Example:
+
+
+````markdown
+The product of two complex numbers $z_1 = a_1 + j b_1$ and 
+$z_2 = a_2 + j b_2$ is
+
+$$
+z = (a_1 a_2 - b_1 b_2) + j(a_1 b_2 + a_2 b_1)
+$$
+
+Where $j = \sqrt{-1}$ is the imaginay root.
+
+```{example}
+The product of $z_1 = 5 + j2$ and $z_2 = 3 + j4$  is
+
+$$
+z_1 z_2 = (5 * 3 - 2 * 4) + j (5 * 4 + 2 * 3)
+$$
+
+$$
+z_1 z_2  = 7 + 26j
+$$
+
+```
+````
+
+**Rendering**
+
+The product of two complex numbers $z_1 = a_1 + j b_1$ and 
+$z_2 = a_2 + j b_2$ is
+
+$$
+z = (a_1 a_2 - b_1 b_2) + j(a_1 b_2 + a_2 b_1)
+$$
+
+Where $j = \sqrt{-1}$ is the imaginay root.
+
+```{example}
+The product of $z_1 = 5 + j2$ and $z_2 = 3 + j4$  is
+
+$$
+z_1 z_2 = (5 * 3 - 2 * 4) + j (5 * 4 + 2 * 3)
+$$
+
+$$
+z_1 z_2  = 7 + 26j
+$$
+
+```
+
+   
+### Definition Admonition 
+
+Example: 
+
+```
+:::{def} Inverse Matrix 
+:label: inverse-matrix
+
+The inverse matrix $A^{-1}$ of a matrix $A: n \times n$ is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists. 
+
+$$
+  \notag
+   A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}
+$$
+
+:::
+```
+
+Rendering:
+
+:::{def} Inverse Matrix 
+:label: inverse-matrix
+
+The inverse matrix $A^{-1}$ of a matrix $A: n \times n$ is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists. 
+
+$$
+  \notag
+   A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}
+$$
+
+:::  
+ 
+### Theorem Admonition 
+
+Example:
+
+````markdown
+:::{theorem} Determinant of Orthogonal Matrix  
+
+The determinant of a **orthogonal matrix** $Q \in \mathbb{R}^{n \times n}$ of n rows and n columns is always 1.
+
+$$
+ \notag 
+  \det(Q) = 1
+$$
+
+
+```{proof}
+
+$$
+\notag 
+\begin{split}
+      \det (Q Q^T)      &= \det(Q) \det(Q^{T}) 
+   \\ \det (Q Q^T)      &= \det(Q) \det(Q) 
+   \\ \det (Q Q^{-1})   &= \det(Q) \det(Q) 
+   \\ \det (\mathbf{I}) &= \det(Q)^2
+   \\  1                &= \det{Q}^2
+   \\  \det(Q)          &= 1
+\end{split}
+$$
+```
+% --- end determinant proof ---
+
+:::
+````
+
+Rendering:
+
+
+:::{theorem} Determinant of Orthogonal Matrix  
+
+The determinant of a **orthogonal matrix** $Q \in \mathbb{R}^{n \times n}$ of n rows and n columns is always 1.
+
+$$
+ \notag 
+  \det(Q) = 1
+$$
+
+
+```{proof}
+
+$$
+\notag 
+\begin{split}
+      \det (Q Q^T)      &= \det(Q) \det(Q^{T}) 
+   \\ \det (Q Q^T)      &= \det(Q) \det(Q) 
+   \\ \det (Q Q^{-1})   &= \det(Q) \det(Q) 
+   \\ \det (\mathbf{I}) &= \det(Q)^2
+   \\  1                &= \det{Q}^2
+   \\  \det(Q)          &= 1
+\end{split}
+$$
+```
+% --- end determinant proof ---
+
+:::
+  
+### Worked examples
+
+````{markdown}
+:::{example} Chain Rule for Derivative Multi-Variate Functions
+
+Let the function f be $f(x, y) = x^2/A^2 + y^2/B^2 - C$.  Find the derivative of f with respect to t. And x and y are functions of t, $x = x(t) = A \cos t$ and $y = y(t) = B \sin t$. 
+
+
+```{solution}   
+$$
+ \notag 
+\begin{split}
+  \frac{df}{dt} 
+    &= \frac{\partial f}{\partial x} \frac{dx}{dt}  
+    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\
+
+    &=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \cos t)
+       \\ & +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \sin t)  \\
+
+    &=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ 
+    &=  -2x \sin(t) / A + 2y \cos(t) / B \\
+    &=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\
+    &=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
+    &=  0 
+\end{split}
+$$
+```
+:::
+````
+
+Rendering:
+
+:::{example} Chain Rule for Derivative Multi-Variate Functions
+
+Let the function f be $f(x, y) = x^2/A^2 + y^2/B^2 - C$.  Find the derivative of f with respect to t. And x and y are functions of t, $x = x(t) = A \cos t$ and $y = y(t) = B \sin t$. 
+
+
+```{solution}   
+$$
+ \notag 
+\begin{split}
+  \frac{df}{dt} 
+    &= \frac{\partial f}{\partial x} \frac{dx}{dt}  
+    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\
+
+    &=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \cos t)
+       \\ & +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \sin t)  \\
+
+    &=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ 
+    &=  -2x \sin(t) / A + 2y \cos(t) / B \\
+    &=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\
+    &=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
+    &=  0 
+\end{split}
+$$
+```
+::: 
+
+ 
 ### Pseudocode of Algorithm
 
 This wiki also supports LaTeX pseudocode of algorithms compatible with LaTeX algorithmic package. The implementation of this feature relies on [pseudocode-js](https://saswat.padhi.me/pseudocode.js/) and [MathJax](https://www.mathjax.org/) JavaScript libraries.
@@ -1382,6 +2137,15 @@ Rendering:
 \end{algorithm}
 ```
 
+### Embed Jupyter Notebooks
+
+Example:
+
+```markdown
+![[SimplePendulum.ipynb]]
+```
+
+NOTE: that the editor has a button, which allows uploading Jupyter notebooks and inserting a hyperlink to the file name at current cursor position.  
 
 ## Table 
 
@@ -1576,6 +2340,355 @@ Rendering:
 ```{footnotes}
 ```
 
+## Citations and List of References
+
+MWiki supports citations based on IEEE style with the following syntax based on Pandoc's citation markup language.
+
+```
+$[@CITATION_KEY1; CITATION_KEY2 ; CITATION_KEY3, locator3 ....]
+```
+
+**Example:**
+
+```markdown
+The molecular structure is (...) $[@blonski2017 ; @enwiki:1318221113]
+
+The systems equation $[@knuth1986; @lamport1994; @lamport2025; @lesk1997] of motion are given by $[@knitr2015, pages:20-25; @rstring2025, chap:10; @rempel1956 ; @bennet2018; @StepneyVerlan2018]
+
+  ... .... ... ... ... ...
+
+According to $[@brownAngVelocity2017], the system's governing equations are given by $[@knitr2015, p:10 eq:20].
+```
+
+:::{info} Rendering
+
+The molecular structure is (...) $[@blonski2017 ; @enwiki:1318221113]
+
+The systems equation $[@knuth1986; @lamport1994; @lamport2025; @lesk1997] of motion are given by $[@knitr2015, pages:20-25; @rstring2025, chap:10; @rempel1956 ; @bennet2018; @StepneyVerlan2018]
+
+  ... .... ... ... ... ...
+
+According to $[@brownAngVelocity2017], the system's governing equations are given by $[@knitr2015, p:10 eq:20].
+
+::: 
+
+
+### Citation Locators
+
+The following citation locators are supported:
+
+| Name       | Syntax                  |  Example          |
+| ---------- | ----------------------- | ----------------- |
+| Page       | `p:<page-number>`       | `p:10`            |
+| Page Range | `p:<page-range>`        | `p:10-20`         |
+| Chapter    | `ch:<chapter>`          | `ch:6`            |
+| Section    | `sec:<section>`         | `sec:4`           |
+| Appendix   | `appendix:<appendix>`   | `appendix:A`      |
+| Table      | `table:<table-number>`  | `table:4`         |
+| Table      | `tbl:<table-number>`    | `tbl:4`           |
+| Figure     | `fig:<figure-number>`   | `fig:10`          |
+| Algorithm  | `algorithm:<algorithm>` | `algorithm:10.2`  |
+| Algorithm  | `alg:<algorithm>`       | `alg:10.5`        |
+| Equation   | `eq:<equation>`         | `eq:1.2.25`       |
+| Equation   | `equation:<equation>`   | `equation:1.2.25` |
+
+Usage example: indicate that the citation refers to equation 2.5.10 of a reference, whose citation key is doeJohn1995
+
+```
+It can be shown that the mass moment of inertia becomes $[@doejohn1995, eq:2.5.10] ...
+```
+
+It is rendered to
+
++ It can be shown that the mass moment of inertia becomes [10, eq.(2.5.10)]
+
+
+
+
+### List of References
+
+The directive {references} can be used for generating the list cited references in the document as shown in the following example. 
+
+````markdown
+```{references}
+:style: mwiki
+```
+````
+
+:::{info} List of references rendering
+
+```{references}
+:style: mwiki
+```
+:::
+
+It is possible to generate the list of references in IEEE style using 
+
+````markdown
+```{references}
+:style: ieee
+```
+````
+
+:::{info} List of references rendering in IEEE style
+
+```{references}
+:style: ieee
+```
+
+:::
+
+### Bibliographic Database
+
+The citation key is a unique identifier of each reference entry in the YAML front matter. Example of bibliographic references database of the front matter in this docuement.
+
+```yaml
+references:
+
+  - id:        lamport1994
+    type:      book
+    title:     "LaTeX: a document preparation system"
+    year:      1994
+    publisher: Addison-Wesley
+    edition:   2nd
+    author:
+        - Leslie Lamport
+    url:        https://www.latex-project.org/
+    #    - family: Leslie
+    #     given:  Lamport
+
+  - id: lesk1997
+    type: inproceedings
+    title: Computer Typesetting of Technical Journals on  UNIX
+    author:
+        - Michael Lesk
+        - Brian Kernighan
+    booktitle: "Proceedings of American Federation of Information Processing Societies: 1977 National Computer Conference"
+    pages:    879--888
+    year:     1977
+    address:  Dallas, Texas
+
+  - type:   online
+    id:     brownAngVelocity2017
+    author: David Brown
+    year:   2017
+    title:  Angular Velocity Conversions
+    access: 2025-12-29
+    url:    https://davidbrown3.github.io/euler-angle-rates.html
+    url_archive: https://web.archive.org/web/20201214131302/https://davidbrown3.github.io/euler-angle-rates.html
+    abstract: "A common requirement when modelling ..."
+
+  - type:          online
+    id:            enwiki:1318221113
+    author_type:   organization
+    author:        Wikipedia contributors
+    title:         Angular velocity tensor
+    access:        2025-12-28
+    url:    https://en.wikipedia.org/w/index.php?title=Angular_velocity_tensor&oldid=1318221113
+
+  - id: StepneyVerlan2018
+    type:  proceedings
+    year:   2018
+    editor:
+        - given: Susan
+          family: Stepney
+        - given: Sergey
+          family: Verlan
+    publisher: Springer
+    title: "Proceedings of the 17th International Conference on Computation and Natural Computation, Fontainebleau, France"
+    series: "Lecture Notes in Computer Science"
+    volume: 10867
+    address: Cham, Switzerland
+
+  - id: bennet2018
+    type:   techreport
+    title:  Wasatch Solar Project Final Report
+    author:
+       - given: Vicki
+         family: Bennett
+       - given: Kate
+         family: Bowman
+       - given: Sarah
+         family: Wright
+    institution:  Salt Lake City Corporation
+    address:  Salt Lake City, UT
+    number:   DOE-SLC-6903-1
+    year:     2018
+    month:    sep
+
+  - id:        rempel1956
+    type:      phdthesis
+    title:     Relaxation Effects for Coupled Nuclear Spins
+    school:    Stanford University
+    address:   Stanford, CA
+    year:      1956
+    author:
+        - given:  Robert Charles
+          family: Rempel
+
+  - id:          blonski2017
+    type:        article
+    author_type: many
+    author:
+        - family: Błoński
+          given: Piotr
+    year:      2017
+    title:     Doping with Graphitic Nitrogen Triggers Ferromagnetism in Graphene
+    url:       https://stringr.tidyverse.org
+    journal:    Journal of the American Chemical Society
+    volume:    139
+    number:    8
+    pages:     3171–3180
+    doi:       10.1021/jacs.6b12934
+    pmid:      28110530
+    url:       http://dx.doi.org/10.1021/jacs.6b12934
+    eprint:    http://dx.doi.org/10.1021/jacs.6b12934
+
+  - id:        knuth1986
+    type:      book
+    title:     The TeX Book
+    year:      1986
+    publisher: Addison-Wesley Profession
+    author: Donald E. Knuth
+    #    - family: Knuth
+    #      given:  Donald E.
+
+
+
+  - id:        lamport2025
+    type:      online
+    title:     "LaTeX Project Website"
+    year:      2025
+    access:    2025-05-29
+    author:   Leslie Lamport
+    #    - given: Leslie
+    #      family:  Lamport
+    url:        https://www.latex-project.org/
+
+  - id:        knitr2015
+    type:      book
+    title:     Dynamic Documents with R and knitr
+    publisher: Chapman and Hall/CRC
+    year:      2015
+    edition:   2nd
+    isbn:      978-1498716963
+    # address:   Boca Raton, Florida
+    url:       https://yihui.org/knitr/
+
+  - id:        rstring2025
+    type:      manual
+    year:      2025
+    note:      R package version 1.5.2
+    title:     StringR R Package
+    url:       https://stringr.tidyverse.org
+    author:
+        - given:   Hadley
+          family:  Wickham
+
+  - id: WatsonCrick1953
+    type: article
+    author:
+        - family: Watson
+          given: J. D.
+        - family: Crick
+          given: F. H. C.
+    issued:
+      date-parts:
+      - - 1953
+        - 4
+        - 25
+    title: 'Molecular structure of nucleic acids: a structure for deoxyribose nucleic acid'
+    title-short: Molecular structure of nucleic acids
+    container-title: Nature
+    volume: 171
+    issue: 4356
+    page: 737-738
+    DOI: 10.1038/171737a0
+    URL: https://www.nature.com/articles/171737a0
+    language: en-GB
+```
+
+### Further Reading
+
+
++ *Citation*, Quarto Docs
+  + https://quarto.org/docs/authoring/citations.html
++ *Citation Metadata*, Quarto Docs
+  + https://quarto.org/docs/reference/metadata/citation.html
++ *Citations*, Pandoc Manual
+  + https://pandoc.org/MANUAL.html#citations
++ *Citation Style Language*
+  + https://citationstyles.org/authors/
++ *Citations & Footnotes*
+  + https://www.datanovia.com/guide/tools/quarto/citations-and-footnotes.html
++ *CSL 1.0.2 Specification*
+  + https://docs.citationstyles.org/en/stable/specification.html#csl-1-0-2-specification
++ *Primer — An Introduction to CSL*, Rintze M. Zelle, PhD
+  + https://docs.citationstyles.org/en/stable/primer.html   
++ *Chicago Manual of Style 18th Edition*, Purdue University
+  + https://owl.purdue.edu/owl/research_and_citation/chicago_manual_18th_edition/cmos_formatting_and_style_guide/chicago_manual_of_style_18th_edition.html
+  + *Please note that although these resources reflect the most recent updates in the The Chicago Manual of Style (18th edition) concerning documentation practices, you can review a full list of updates concerning usage, technology, professional practice, etc. at The Chicago Manual of Style Online.*
++ *Institute of Electrical and Electronics Engineers - IEEE*, Wikipedia
+  + https://en.wikipedia.org/wiki/Institute_of_Electrical_and_Electronics_Engineers
++ *Association for Computing Machinery - ACM*, Wikipedia
+  + https://en.wikipedia.org/wiki/Association_for_Computing_Machinery
++ *Research and Citation*, Purdue University
+  + https://owl.purdue.edu/owl/research_and_citation/index.html
++ *STEM Citation Styles*, University of Nebraska at Omaha
+  + https://libguides.unomaha.edu/c.php?g=1439199
++ *Computer Science Research Guide*
+  + https://dal.ca.libguides.com/csci/writing/examples
++ *IEEE Reference Style*  
+  + https://owl.purdue.edu/owl/research_and_citation/chicago_manual_18th_edition/cmos_formatting_and_style_guide/chicago_manual_of_style_18th_edition.html
++ *IEEE Style - Research and Citation*, Purdue University
+  + https://owl.purdue.edu/owl/research_and_citation/ieee_style/index.html
++ *In-Text Citation - IEEE Style - Research and Citation*, Purdue University
+  + https://owl.purdue.edu/owl/research_and_citation/ieee_style/in-text_citation.html
++ *Reference List - IEEE Style - Research and Citation**, Purdue University
+  + https://owl.purdue.edu/owl/research_and_citation/ieee_style/reference_list.html
+  + *References should be provided on a separate page at the end of your paper, with the title “References” at the top of the page. They should be listed and numbered in order of citation, not alphabetically. The numbers should be flush against the left margin, and separated from the body of the reference.*
++ *How to format your references using the Proceedings of the IEEE citation style*
+  + https://paperpile.com/s/proceedings-of-the-ieee-citation-style/
++ *Citation Styles by Discipline: STEM*
+  + https://paperpile.libguides.com/c.php?g=1226166&p=8971526
++ *Computer Science Style Guide Suggestions*
+  + https://dal.ca.libguides.com/csci/writing/examples
++ *Citing Sources: Which citation style should I use?*
+  + https://guides.lib.uw.edu/research/citations/citationwhich
++ *Citation*, Brown University Library
+  + https://libguides.brown.edu/citations/styles
++ *Online Bibtex Converter*
+  + https://asouqi.github.io/bibtex-converter/
+  + NOTE: This tool allows converting bibtex to many reference formats, including, APA, Havard, IEE, Elsevier, Springer, ACM, ACS, and MLA.
++ *The 14 BibTeX entry types*, Bibtex
+  + https://www.bibtex.com/e/entry-types/
++ *Bibtex bibliography styles*, Overleaf
+  + https://www.overleaf.com/learn/latex/Bibtex_bibliography_styles
++ *Bibliography management with bibtex*, Overleaf
+  + https://www.overleaf.com/learn/latex/Bibliography_management_with_bibtex
++ *Tame the BeaST: The B to X of BibTeX by Nicolas Markey [PDF]*
+  + https://www.bibtex.com/g/bibtex-format/
++ *Using bibtex: a short guide by Martin J. Osborne*
+  + https://www.economics.utoronto.ca/osborne/latex/BIBTEX.HTM
++ *BibTeXing by Oren Patashnik [PDF]*
+  + http://mirror.kumi.systems/ctan/biblio/bibtex/base/btxdoc.pdf
++ *LaTeX Document Preparation System*, Georgia State University
+  + https://research.library.gsu.edu/latex/bibtex
++ *BibTeX for LaTeX Guide*, Texas A&M University
+  + https://libguides.tamusa.edu/c.php?g=1441028&p=10703447
++ *BibTeX for LaTeX*
+  + https://library-guides.imperial.ac.uk/c.php?g=719784&p=5221129 
++ *A BibTEX Guide via Examples*, Ki-Joo Kim (2004)
+  + http://www-hep.colorado.edu/~jcumalat/4610_fall_10/bibtex_guide.pdf 
++ *How does BibTex Works - BibTeX*, Purdue University
+  + https://guides.lib.purdue.edu/bibtex/basics  
++ *How to Cite a Website in LaTeX Using BibTeX and BibLaTeX*, bibtex\.eu
+  + https://bibtex.eu/faq/how-can-i-use-bibtex-to-cite-a-website/
++ *How to Cite a Website in LaTeX Using BibTeX*
+  + https://www.getbibtex.com/blog/posts/how-to-cite-website-in-latex-using-bibtex
+  + *Learn how to properly cite online sources in LaTeX using BibTeX, with ready-to-use examples and templates.* 
++ *BibTeX generic citation style Referencing Guide*
+  + https://citationsy.com/styles/bibtex      
 ## Admonitions (Callout Boxes) 
 ### Info Admonition 
 
@@ -1658,166 +2771,10 @@ Rendering:
 This is initially hidden, and can be clicked to be opened when you are viewing the content.
 :::
 
-### Mathematical Definition Admonition 
 
-Example: 
+ 
 
-```
-:::{def} Inverse Matrix 
-:label: inverse-matrix
-
-The inverse matrix $A^{-1}$ of a matrix $A: n \times n$ is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists. 
-
-$$
-  \notag
-   A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}
-$$
-
-:::
-```
-
-Rendering:
-
-:::{def} Inverse Matrix 
-:label: inverse-matrix
-
-The inverse matrix $A^{-1}$ of a matrix $A: n \times n$ is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists. 
-
-$$
-  \notag
-   A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}
-$$
-
-:::
-
-### Mathematical Theorem Admonition 
-
-Example:
-
-````markdown
-:::{theorem} Determinant of Orthogonal Matrix  
-
-The determinant of a **orthogonal matrix** $Q \in \mathbb{R}^{n \times n}$ of n rows and n columns is always 1.
-
-$$
- \notag 
-  \det(Q) = 1
-$$
-
-
-```{proof}
-
-$$
-\notag 
-\begin{split}
-      \det (Q Q^T)      &= \det(Q) \det(Q^{T}) 
-   \\ \det (Q Q^T)      &= \det(Q) \det(Q) 
-   \\ \det (Q Q^{-1})   &= \det(Q) \det(Q) 
-   \\ \det (\mathbf{I}) &= \det(Q)^2
-   \\  1                &= \det{Q}^2
-   \\  \det(Q)          &= 1
-\end{split}
-$$
-```
-% --- end determinant proof ---
-
-:::
-````
-
-Rendering:
-
-
-:::{theorem} Determinant of Orthogonal Matrix  
-
-The determinant of a **orthogonal matrix** $Q \in \mathbb{R}^{n \times n}$ of n rows and n columns is always 1.
-
-$$
- \notag 
-  \det(Q) = 1
-$$
-
-
-```{proof}
-
-$$
-\notag 
-\begin{split}
-      \det (Q Q^T)      &= \det(Q) \det(Q^{T}) 
-   \\ \det (Q Q^T)      &= \det(Q) \det(Q) 
-   \\ \det (Q Q^{-1})   &= \det(Q) \det(Q) 
-   \\ \det (\mathbf{I}) &= \det(Q)^2
-   \\  1                &= \det{Q}^2
-   \\  \det(Q)          &= 1
-\end{split}
-$$
-```
-% --- end determinant proof ---
-
-:::
-
-### Example of solved exercise 
-
-````{markdown}
-:::{example} Chain Rule for Derivative Multi-Variate Functions
-
-Let the function f be $f(x, y) = x^2/A^2 + y^2/B^2 - C$.  Find the derivative of f with respect to t. And x and y are functions of t, $x = x(t) = A \cos t$ and $y = y(t) = B \sin t$. 
-
-
-```{solution}   
-$$
- \notag 
-\begin{split}
-  \frac{df}{dt} 
-    &= \frac{\partial f}{\partial x} \frac{dx}{dt}  
-    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\
-
-    &=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) 
-           \frac{d}{dt} ( A \cos t)
-       \\ & +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) 
-           \frac{d}{dt} ( A \sin t)  \\
-
-    &=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ 
-    &=  -2x \sin(t) / A + 2y \cos(t) / B \\
-    &=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\
-    &=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
-    &=  0 
-\end{split}
-$$
-```
-:::
-````
-
-Rendering:
-
-:::{example} Chain Rule for Derivative Multi-Variate Functions
-
-Let the function f be $f(x, y) = x^2/A^2 + y^2/B^2 - C$.  Find the derivative of f with respect to t. And x and y are functions of t, $x = x(t) = A \cos t$ and $y = y(t) = B \sin t$. 
-
-
-```{solution}   
-$$
- \notag 
-\begin{split}
-  \frac{df}{dt} 
-    &= \frac{\partial f}{\partial x} \frac{dx}{dt}  
-    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\
-
-    &=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) 
-           \frac{d}{dt} ( A \cos t)
-       \\ & +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) 
-           \frac{d}{dt} ( A \sin t)  \\
-
-    &=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ 
-    &=  -2x \sin(t) / A + 2y \cos(t) / B \\
-    &=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\
-    &=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
-    &=  0 
-\end{split}
-$$
-```
-:::
-
-
+  
 ## MyST Roles 
 
 The MyST Roles are similar to MyST directives, but they are single line. Exmaple:
@@ -1953,13 +2910,28 @@ MWiki supports basic flashcards, for instance, the following syntax defines a Ge
      "title":  "Vocabulary German/English"
    , "entries": [
            ["der Tag",    "day"]
+        ,  ["heute", "today"]
+        ,  ["die Woche", "Week"]
+        ,  ["der Monat", "Month"]
         ,  ["der Wochentag", "weekday or day of week"]
         ,  ["der Diestang",  "Tuesday"]
         ,  ["der Mittwoch", "Wednesday"]
         ,  ["die Sicht", "View"]
-        ,  ["die Ausgabe", "Issue, example magazine or journal issue"]
+        ,  ["mehr Bilder", "More pictures"]
+        ,  ["das Unternehmen", "business, company, firm"]
+        ,  ["die Wirklichkeit", "relity"]
+        ,  ["die Hauptsache", "the main thing"]
+        ,  ["die Ausgabe", "Issue/edition"]
+        ,  ["die Verzauberte Ausgabe", "enchanted edition"]
+        ,  ["die Gemütlich Ausgabe", "cozy (confortable) edition"]
+        ,  ["die Letzte Ausgabe", "Latest Issue/Edition"]
+        ,  ["die Richtige vorige Ausgabe", "Correct previous issue/edition"]
         ,  ["die Vorherige Ausgabe", "Previous Issue"]
         ,  ["seher gut", "very good or very well"]
+        ,  ["Körper und Kleidung", "Body and clothing"]
+        ,  ["Natur und Tiere", "Nature and Animals"]
+        ,  ["Essen und Trinken", "Food and drink"]
+        ,  ["Reise und Orte", "Travel and Places"]
    ]
 }
 ```
@@ -1971,13 +2943,28 @@ Rendering:
      "title":  "Vocabulary German/English"
    , "entries": [
            ["der Tag",    "day"]
+        ,  ["heute", "today"]
+        ,  ["die Woche", "Week"]
+        ,  ["der Monat", "Month"]
         ,  ["der Wochentag", "weekday or day of week"]
         ,  ["der Diestang",  "Tuesday"]
         ,  ["der Mittwoch", "Wednesday"]
         ,  ["die Sicht", "View"]
-        ,  ["die Ausgabe", "Issue, example magazine or journal issue"]
+        ,  ["mehr Bilder", "More pictures"]
+        ,  ["das Unternehmen", "business, company, firm"]
+        ,  ["die Wirklichkeit", "relity"]
+        ,  ["die Hauptsache", "the main thing"]
+        ,  ["die Ausgabe", "Issue/edition"]
+        ,  ["die Verzauberte Ausgabe", "enchanted edition"]
+        ,  ["die Gemütlich Ausgabe", "cozy (confortable) edition"]
+        ,  ["die Letzte Ausgabe", "Latest Issue/Edition"]
+        ,  ["die Richtige vorige Ausgabe", "Correct previous issue/edition"]
         ,  ["die Vorherige Ausgabe", "Previous Issue"]
         ,  ["seher gut", "very good or very well"]
+        ,  ["Körper und Kleidung", "Body and clothing"]
+        ,  ["Natur und Tiere", "Nature and Animals"]
+        ,  ["Essen und Trinken", "Food and drink"]
+        ,  ["Reise und Orte", "Travel and Places"]
    ]
 }
 ```
@@ -1991,5 +2978,4 @@ It is possible to view all flashcards and their backside at once; go to next car
    + => Allows testing MyST online without installation.
 + https://myst-parser.readthedocs.io/en/latest/syntax/math.html
 + https://markdown-it-py.readthedocs.io/en/latest/architecture.html
-+ https://mystmd.org/guide/glossaries-and-terms
-
++ https://mystmd.org/guide/glossaries-and-terms  
