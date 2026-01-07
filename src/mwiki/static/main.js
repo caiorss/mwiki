@@ -1863,9 +1863,9 @@ const REFERENCES = (() => {
   var data = {}; 
   try{
       inner = base64ToUtf8(CITATION_REFERENCES);
-      console.trace(" inner = ", inner);
+      //console.trace(" inner = ", inner);
       data = JSON.parse(inner);
-      console.trace(" data = ", data);
+      // console.trace(" data = ", data);
   } catch(error){
   }
   return data; 
