@@ -44,6 +44,7 @@
     const KATEX_MACROS = "{{ katex_macros }}";
     const IS_USER_ADMIN = "{{ current_user().is_admin() }}" === "True";
     const CITATION_REFERENCES = "{{ citation_references }}";
+    const DOCUMENT_TYPE = "{{document_type}}"
 	
     // Possible values: 'none', 'nosection' 'section', 'subsection'
     //  none      => no enumeration 
@@ -304,14 +305,12 @@
         </div>
     </div>
     <script>
-            /** Fuction provided by main.js */
-            if( documentType !== "preview")
+              /** Fuction provided by main.js */
+            if (DOCUMENT_TYPE === "refcard")
             {
-                console.trace("Toggling headings");
                 toggleHeadings();
                 //alert("Not prevew");
-            } 
-            pseudocode.renderClass("pseudocode", { "lineNumber": 1 });
+            }
     </script>
 </body>
 

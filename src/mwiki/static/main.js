@@ -325,7 +325,12 @@ document.addEventListener("DOMContentLoaded", ()=> {
 
    for(let elem of document.querySelectorAll(".pseudocode"))
    {
-     pseudocode.renderElement(elem);
+
+    try {
+       pseudocode.renderElement(elem);
+    } catch (error) {
+        console.error(" Failed to load pseudocode.js library => error: ", error);
+    }
    }
    
    if(formulas.length <= MAX_FORMULAS){

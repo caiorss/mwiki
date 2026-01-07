@@ -511,9 +511,21 @@ def make_app_server(  host:        str
                 response = flask.render_template(  
                                                "standalone.html"
                                              , title   = "MWiki Markup Language Reference Card" # path
+                                             , document_type = "refcard"
                                              , page    = path
                                              , content = content
-                                             , latex_macros = latex_macros
+                                             , page_description  = builder.description
+                                             , page_author       = builder.author
+                                             # , latex_macros = latex_macros
+                                             , latex_renderer   = builder.latex_renderer
+                                             , latex_macros     = builder.mathjax_macros
+                                             , mathjax_enabled  = builder.needs_mathjax
+                                             , graphviz_enabled = builder.needs_graphviz
+                                             , latex_algorithm  = builder.needs_latex_algorithm
+                                             , katex_macros         = utils.base64_encode(builder.katex_macros)
+                                             , citation_references  = utils.base64_encode(builder.citation_references_json)
+                                             , equation_enumeration_style = builder.equation_enumeration_style
+                                             , equation_enumeration_enabled = builder.equation_enumeration_enabled 
                                              , conf = conf
                                              )
                 return response
