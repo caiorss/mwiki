@@ -1,7 +1,6 @@
 ---
 title:          MWiki Syntax Reference Card
 description:    Notes, examples and documentation about MWiki markup language syntax and constructs. This markup language borrow constructs and syntax from Mediwiki, Obsidian and MyST markdown markup languages.
-latex_renderer: mathjax
 
 references:
 
@@ -2990,4 +2989,4 @@ It is possible to view all flashcards and their backside at once; go to next car
    + => Allows testing MyST online without installation.
 + https://myst-parser.readthedocs.io/en/latest/syntax/math.html
 + https://markdown-it-py.readthedocs.io/en/latest/architecture.html
-+ https://mystmd.org/guide/glossaries-and-terms 
++ https://mystmd.org/guide/glossaries-and-terms  
