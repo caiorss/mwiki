@@ -255,8 +255,6 @@ function katexRenderDOMLatexFormula(domElement, latexCode, displayMode = false)
   }
   // console.log(" [TRACE] macros = ", macros);
   try {
-    console.log(" [TRACE] Rendering formula: ", latexCode);
-    console.log(" [TRACE] dom = ", domElement);
     katex.render(latexCode, domElement
                   , { displayMode: displayMode, macros: macros });
   } catch (error) {
@@ -265,8 +263,10 @@ function katexRenderDOMLatexFormula(domElement, latexCode, displayMode = false)
 }
 
 
-function kateRenderDOMLatex(domElement)
+function katexRenderDOMLatex(domElement)
 {
+   const CSS_CLASS_DIV_LATEX_CODE = "div-latex-code";
+   const CSS_CLASS_MATH_INLINE = "math-inline";
    if( !IS_LATEX_RENDERER_KATEX ){ return; }
    var macros = {};
    try {
@@ -274,11 +274,13 @@ function kateRenderDOMLatex(domElement)
     } catch(error){
         console.log(" JSON Parsing error: ", error);
     }
-    if ( domElement.classList.contains("math-inline")
-         || domElement.classList.contains(".div-latex-code") )
+    if ( domElement.classList.contains(CSS_CLASS_MATH_INLINE)
+         || domElement.classList.contains(CSS_CLASS_DIV_LATEX_CODE) )
     {
+      let prev = domElement.textContent;
+      domElement.classList.remove("lazy-load-latex");
       try{
-         let isDisplayMode = domElement.classList.contains(".div-latex-code");
+         let isDisplayMode = domElement.classList.contains(CSS_CLASS_DIV_LATEX_CODE);
          katex.render(domElement.textContent, domElement, { displayMode: isDisplayMode, macros: macros});
       } catch(error){
           domElement.textContent = prev + error;
@@ -292,6 +294,7 @@ function kateRenderDOMLatex(domElement)
    {
      let prev = n.textContent;
      try{ 
+       n.classList.remove("lazy-load-latex");
        katex.render(n.textContent, n, { displayMode: false, macros: macros});
     } catch(error){
         n.textContent = prev + error;
@@ -302,6 +305,7 @@ function kateRenderDOMLatex(domElement)
    for(let n of nodesDisplayMode)
    {
       let prev = n.textContent;
+      n.classList.remove("lazy-load-latex");
       try{
         katex.render(n.textContent, n, { displayMode: true, macros: macros });
       } catch(error) {
@@ -312,12 +316,35 @@ function kateRenderDOMLatex(domElement)
 
 function katexRenderDocumentLatex()
 {
-   kateRenderDOMLatex(document.body);
+   katexRenderDOMLatex(document.body);
 }
 
+document.addEventListener("DOMContentLoaded", ()=> {
+   let formulas = document.querySelectorAll(".lazy-load-latex");
+   const MAX_FORMULAS = 300;
 
+   for(let elem of document.querySelectorAll(".pseudocode"))
+   {
 
-document.addEventListener("DOMContentLoaded", katexRenderDocumentLatex);
+    try {
+       pseudocode.renderElement(elem);
+    } catch (error) {
+        console.error(" Failed to load pseudocode.js library => error: ", error);
+    }
+   }
+   
+   if(formulas.length <= MAX_FORMULAS){
+      // Render all LaTeX formulas in this document, otherwise do Lazy loading
+      katexRenderDocumentLatex();
+   } else {
+     // Render only the first MAX_FORMULAS formulas
+      for(i = 0; i < MAX_FORMULAS; i++){
+        let dom = formulas[i];
+        katexRenderDOMLatex(dom);
+        dom.classList.remove("lazy-load-latex");
+      }
+   }
+});
 
 /** Render DOM (Document Object Model) node using either KaTeX or MathJax
  *
@@ -329,7 +356,7 @@ function renderDOMLatex(domElementObject)
 {
    if(IS_LATEX_RENDERER_KATEX)
    {
-      kateRenderDOMLatex(domElementObject);
+      katexRenderDOMLatex(domElementObject);
    }
    if(IS_LATEX_RENDERER_MATHJAX)
    {
@@ -774,6 +801,9 @@ translationsi18n =
                                             , "title": "Close this window."
                                           }
         , "latex-input-window-p": "Output:"
+        , "btn-copy-source-code": { "title": "Copy the source code." }
+        , "download-jupyter-notebook-icon-tooltip": { "title": "Download this Jupyter Notebook." }
+        , "label-copy-source-code": "copied!"
 	}
    ,"pt-BR": {
 		  "locale":                   "Brazilian Portuguese"
@@ -997,7 +1027,9 @@ translationsi18n =
            ,"title": "Fecha esta janela."
           }
         , "latex-input-window-p": "Saída:"
-
+        , "btn-copy-source-code": { "title": "Copiar o código de fonte." }
+        , "label-copy-source-code": "copiado!"
+        , "download-jupyter-notebook-icon-tooltip": { "title": "Baixar este Jupyter Notebook." }
   }
         
 
@@ -1224,6 +1256,16 @@ function popupIframe (title, url, options)
 }
 
 
+async function copyContentToClipboard(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    console.log('Success! content copied to clipboard');
+    /* Resolved - text copied to clipboard successfully */
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+    /* Rejected - text failed to copy to the clipboard */
+  }
+}
 
 
 /** Send an Http request to a Rest API */
@@ -1411,8 +1453,9 @@ function lazyLoadImages()
     // console.log(" [TRACE] Enter function lazyLoadImages(). ");
     let imgs = document.querySelectorAll(".lazy-load");
     let videos = document.querySelectorAll(".lazy-load-video");
+    let formulas = document.querySelectorAll(".lazy-load-latex");
 
-    if( imgs.length === 0 && videos.length === 0)
+    if( imgs.length === 0 && videos.length === 0 && formulas.length === 0)
     {
         clearInterval(timerId);
         // console.log(' [TRACE] Shutdown image lazy loader');
@@ -1445,6 +1488,15 @@ function lazyLoadImages()
             v.appendChild(video);
             v.classList.remove("lazy-load-video");
         }
+    }
+
+    for(let f of formulas)
+    {
+      if(isElementInViewport(f) && f.parentElement.style.display !== "none")
+      {
+         renderDOMLatex(f);
+         f.classList.remove("lazy-load-latex");
+      }
     }
 }
 
@@ -1653,18 +1705,23 @@ document.addEventListener("DOMContentLoaded", async function()
                 , label
                 , (noteName) => {
                     let url =  `/create/${noteName}`;
-                    document.location.href = url;
+                    // 1 second delay
+                    setTimeout(() => { document.location.href = url; }, 1000);
+                    
 		            });
 	    });
     }
 
     // Translate user interface I18N
     doTranslationI18N();
-	
+
+    // Force Desktop CSS layout if the page was loaded with the URL
+    // parameter ?printer=true	
     let params = new URLSearchParams(window.location.search);
     if( params.get("print") === "true" )
     {
        document.body.classList.add("force-desktop");
+       renderDOMLatex(document.body);
        window.print();
     } else {
       if( isMobileScreen() ) { setHeadingsVisibility(false); }
@@ -1780,6 +1837,17 @@ document.addEventListener("mouseover", (event) => {
             tooltip_window.close();
         }
     }
+    
+    if( target.classList.contains("citation-link") )
+    {
+      let key = target.dataset.citekey;
+      let html = REFERENCES[key];
+      tooltip_window.setTitle("");
+      tooltip_window.setMessage(html);
+      tooltip_window.show();
+      // console.log(" [TRACE] Render html = ", html);
+      return;  
+    }
 
     // Hyperlink to equation 
     // NOTE: It is only supported for KaTeX. 
@@ -1803,9 +1871,37 @@ document.addEventListener("mouseover", (event) => {
 
 _menus = new Set();
 
+const REFERENCES = (() => {
+  var data = {}; 
+  try{
+      inner = base64ToUtf8(CITATION_REFERENCES);
+      //console.trace(" inner = ", inner);
+      data = JSON.parse(inner);
+      // console.trace(" data = ", data);
+  } catch(error){
+  }
+  return data; 
+})();
+
 document.addEventListener("click", (event) => {
     let target = event.target; 
 
+    if(target.classList.contains("btn-copy-button"))
+    {
+      let code = target.parentElement
+                       .parentElement
+                       .parentElement
+                       .childNodes[1].textContent.trim();
+      // Display copied message
+      let copiedLabel = target.parentElement.parentElement.childNodes[0];
+      copiedLabel.classList.toggle("hidden");
+      // Hide the copied label again after 1 second
+      setTimeout(() => copiedLabel.classList.toggle("hidden"), 1000);
+      copyContentToClipboard(code);
+      return;
+    }
+
+    
     if(target.tagName === "ABBR")
     {
          let tooltip = `${target.innerText}: ${target.title}`;

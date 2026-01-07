@@ -128,6 +128,7 @@
     // NOTE: It is encoded as base64 
     const PAGE_SOURCE_CODE = "";
     const PAGE_SOURCE_URL  = ""
+    const CITATION_REFERENCES = "";
 	
     // Possible values: 'none', 'nosection' 'section', 'subsection'
     //  none      => no enumeration 
@@ -326,8 +327,174 @@
             <div class="highlight"><pre><span></span>---
 title:          MWiki Syntax Reference Card
 description:    Notes, examples and documentation about MWiki markup language syntax and constructs. This markup language borrow constructs and syntax from Mediwiki, Obsidian and MyST markdown markup languages.
-<span class="gu">latex_renderer: mathjax</span>
-<span class="gu">---</span>
+
+references:
+
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>id:        lamport1994
+    type:      book
+    title:     &quot;LaTeX: a document preparation system&quot;
+    year:      1994
+    publisher: Addison-Wesley
+    edition:   2nd
+    author:
+<span class="w">        </span><span class="k">-</span><span class="w"> </span>Leslie Lamport
+    url:        https://www.latex-project.org/
+    #    - family: Leslie
+    #     given:  Lamport
+
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>id: lesk1997
+    type: inproceedings
+    title: Computer Typesetting of Technical Journals on  UNIX
+    author:
+<span class="w">        </span><span class="k">-</span><span class="w"> </span>Michael Lesk
+<span class="w">        </span><span class="k">-</span><span class="w"> </span>Brian Kernighan
+    booktitle: &quot;Proceedings of American Federation of Information Processing Societies: 1977 National Computer Conference&quot;
+    pages:    879--888
+    year:     1977
+    address:  Dallas, Texas
+
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>type:   online
+    id:     brownAngVelocity2017
+    author: David Brown
+    year:   2017
+    title:  Angular Velocity Conversions
+    access: 2025-12-29
+    url:    https://davidbrown3.github.io/euler-angle-rates.html
+    url_archive: https://web.archive.org/web/20201214131302/https://davidbrown3.github.io/euler-angle-rates.html
+    abstract: &quot;A common requirement when modelling a dynamics system is the tracking of a bodies orientation. A common way to express orientation is through the use of Euler Angles; a sequence of 3 rotations, starting from some base inertial frame to the moving body. These are also commonly intrinsic, meaning that each sequential rotation is about the previous rotated co-ordinate system, rather than the inertial co-ordinate system. These rotation angles are denoted as: (...)&quot;
+
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>type:          online
+    id:            enwiki:1318221113
+    author_type:   organization
+    author:        Wikipedia contributors
+    title:         Angular velocity tensor
+    access:        2025-12-28
+    url:    https://en.wikipedia.org/w/index.php?title=Angular_velocity_tensor&amp;oldid=1318221113
+
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>id: StepneyVerlan2018
+    type:  proceedings
+    year:   2018
+    editor:
+<span class="w">        </span><span class="k">-</span><span class="w"> </span>given: Susan
+          family: Stepney
+<span class="w">        </span><span class="k">-</span><span class="w"> </span>given: Sergey
+          family: Verlan
+    publisher: Springer
+    title: &quot;Proceedings of the 17th International Conference on Computation and Natural Computation, Fontainebleau, France&quot;
+    series: &quot;Lecture Notes in Computer Science&quot;
+    volume: 10867
+    address: Cham, Switzerland
+
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>id: bennet2018
+    type:   techreport
+    title:  Wasatch Solar Project Final Report
+    author:
+<span class="w">       </span><span class="k">-</span><span class="w"> </span>given: Vicki
+         family: Bennett
+<span class="w">       </span><span class="k">-</span><span class="w"> </span>given: Kate
+         family: Bowman
+<span class="w">       </span><span class="k">-</span><span class="w"> </span>given: Sarah
+         family: Wright
+    institution:  Salt Lake City Corporation
+    address:  Salt Lake City, UT
+    number:   DOE-SLC-6903-1
+    year:     2018
+    month:    sep
+
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>id:        rempel1956
+    type:      phdthesis
+    title:     Relaxation Effects for Coupled Nuclear Spins
+    school:    Stanford University
+    address:   Stanford, CA
+    year:      1956
+    author:
+<span class="w">        </span><span class="k">-</span><span class="w"> </span>given:  Robert Charles
+          family: Rempel
+
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>id:          blonski2017
+    type:        article
+    author_type: many
+    author:
+<span class="w">        </span><span class="k">-</span><span class="w"> </span>family: Błoński
+          given: Piotr
+    year:      2017
+    title:     Doping with Graphitic Nitrogen Triggers Ferromagnetism in Graphene
+    url:       https://stringr.tidyverse.org
+    journal:    Journal of the American Chemical Society
+    volume:    139
+    number:    8
+    pages:     3171–3180
+    doi:       10.1021/jacs.6b12934
+    pmid:      28110530
+    url:       http://dx.doi.org/10.1021/jacs.6b12934
+    eprint:    http://dx.doi.org/10.1021/jacs.6b12934
+
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>id:        knuth1986
+    type:      book
+    title:     The TeX Book
+    year:      1986
+    publisher: Addison-Wesley Profession
+    author: Donald E. Knuth
+    #    - family: Knuth
+    #      given:  Donald E.
+
+
+
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>id:        lamport2025
+    type:      online
+    title:     &quot;LaTeX Project Website&quot;
+    year:      2025
+    access:    2025-05-29
+    author:   Leslie Lamport
+    #    - given: Leslie
+    #      family:  Lamport
+    url:        https://www.latex-project.org/
+
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>id:        knitr2015
+    type:      book
+    title:     Dynamic Documents with R and knitr
+    publisher: Chapman and Hall/CRC
+    year:      2015
+    edition:   2nd
+    isbn:      978-1498716963
+    # address:   Boca Raton, Florida
+    url:       https://yihui.org/knitr/
+
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>id:        rstring2025
+    type:      manual
+    year:      2025
+    note:      R package version 1.5.2
+    title:     StringR R Package
+    url:       https://stringr.tidyverse.org
+    author:
+<span class="w">        </span><span class="k">-</span><span class="w"> </span>given:   Hadley
+          family:  Wickham
+
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>id: WatsonCrick1953
+    type: article
+    author:
+<span class="w">        </span><span class="k">-</span><span class="w"> </span>family: Watson
+          given: J. D.
+<span class="w">        </span><span class="k">-</span><span class="w"> </span>family: Crick
+          given: F. H. C.
+    issued:
+      date-parts:
+<span class="w">      </span><span class="k">-</span><span class="w"> </span>- 1953
+<span class="w">        </span><span class="k">-</span><span class="w"> </span>4
+<span class="w">        </span><span class="k">-</span><span class="w"> </span>25
+    title: &#39;Molecular structure of nucleic acids: a structure for deoxyribose nucleic acid&#39;
+    title-short: Molecular structure of nucleic acids
+    container-title: Nature
+    volume: 171
+    issue: 4356
+    page: 737-738
+    DOI: 10.1038/171737a0
+    URL: https://www.nature.com/articles/171737a0
+    language: en-GB
+
+
+
+---
 
 
 <span class="gu">## Frontmatter (Page Metadata)</span>
@@ -701,6 +868,11 @@ Example:
 <span class="sb">+ The price is 20 {yens}</span>
 <span class="sb">+ Pilcrow Symbol {pilcrow} or {pagraph}</span>
 <span class="sb">+ Section Symbol  {section}</span>
+<span class="sb">+ First item - 1{st} item</span>
+<span class="sb">+ Second item - 2{nd} item</span>
+<span class="sb">+ Third item - 3{rd} item</span>
+<span class="sb">+ Fourth item - 4{th} item </span>
+<span class="sb">+ Fifth item - 5{th} item</span>
 <span class="sb">```</span>
 
 Rendering:
@@ -717,8 +889,12 @@ Rendering:
 + The price is 20 {yens}
 + Pilcrow Symbol {pilcrow} or {pagraph}
 + Section Symbol  {section}
-
-
++ First item - 1{st} item
++ Second item - 2{nd} item
++ Third item - 3{rd} item
++ Fourth item - 4{th} item 
++ Fifth item - 5{th} item
+  
 <span class="gu">## Hyperlinks</span>
 
 <span class="gu">### Internal Hyperlinks Links (WikiLinks)</span>
@@ -1303,11 +1479,6 @@ Code example:
 
 <span class="sb">{youtube}`bNE4uBMsnP0`</span>
 <span class="sb">```</span>
-
-Rendering:
-
-{youtube}`bNE4uBMsnP0`
-
 <span class="gu">### Embed Uploaded Video Files</span>
 
 MP4 or WEBM video files can be embedded in the current page by using the syntax. 
@@ -1322,7 +1493,7 @@ or
 <span class="sb">![[video-file-to-be-embedded.webm]]</span>
 <span class="sb">```</span>
 
-Embedded video files are rendered as [<span class="nt">video\</span>](<span class="na">https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video</span>) html5 DOM element with controls for playing the video, including button for start playing the video, button for stopping the video and so on.
+Embedded video files are rendered as [<span class="nt">{r}`&lt;video&gt;`</span>](<span class="na">https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video</span>) html5 DOM element with controls for playing the video, including button for start playing the video, button for stopping the video and so on.
 
 NOTE: It is possible to upload video files directly in the wiki editor by clicking at the button with label &#39;Link to Uploaded File&#39; in the editor toolbar section &#39;insert&#39;.
 
@@ -1354,6 +1525,26 @@ Video caption (also known as label)
 <span class="sb">```</span>
 ````
 
+<span class="gs">**Example**</span>
+
+Sample code:
+
+````markdown
+```{video}  ![[pendulum-with-viscuous-fricition-simulation.mp4]]
+
+Simulation (animation) of simple pendulum with viscous friction using Runge Kutta 4{th} order method
+<span class="sb">```</span>
+<span class="sb">````</span>
+
+<span class="sb">Rendering:</span>
+
+<span class="sb">```{video}  ![[pendulum-with-viscuous-fricition-simulation.mp4]]</span>
+
+<span class="sb">Simulation (animation) of simple pendulum with viscous friction using Runge Kutta 4{th} order method</span>
+<span class="sb">```</span>
+
+
+  
 <span class="gu">## Code Blocks </span>
 <span class="gu">### Inline code </span>
 
@@ -1437,85 +1628,25 @@ what we want the computer to do.
 <span class="sb">```</span>
 
 
-<span class="gu">## LaTeX Math Equations</span>
+<span class="gu">## Mathematics</span>
 
-<span class="gu">### Inline </span>
+<span class="gu">### LaTeX renderer (Frontmatter)</span>
 
-<span class="sb">```</span>
-<span class="sb">Let $x \in \mathbb{R}$ be a real number and $f(x) = \sqrt{x^2 - 10}$.</span>
-<span class="sb">```</span>
+The frontmatter&#39;s directive <span class="ge">*latex_renderer*</span> allows overriding the default rendering engine, that can be changed in the settings page.
 
-Rendering:
+Use KaTeX rendering engine:
 
-Let $x \in \mathbb{R}$ be a real number and $f(x) = \sqrt{x^2 - 10}$.
-
-<span class="gu">### Display Mode </span>
-
-<span class="sb">```</span>
-<span class="sb">$$</span>
-<span class="sb">    A = \begin{bmatrix} </span>
-<span class="sb">              \alpha &amp;  \beta </span>
-<span class="sb">          \\  \gamma &amp;  \zeta </span>
-<span class="sb">        \end{bmatrix}</span>
-<span class="sb">$$</span>
+<span class="sb">```yaml</span>
+<span class="nt">latex_renderer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">katex</span>
 <span class="sb">```</span>
 
-Rendering:
+Use MathJax rendering engine:
 
-$$
-    A = \begin{bmatrix} 
-              \alpha &amp;  \beta 
-          \\  \gamma &amp;  \zeta 
-        \end{bmatrix}
-$$
-
-<span class="gu">### Display Mode Without Enumeration </span>
-
-<span class="sb">```</span>
-<span class="sb">$$</span>
-<span class="sb">  \notag </span>
-<span class="sb">    A = \begin{bmatrix} </span>
-<span class="sb">              \alpha &amp;  \beta </span>
-<span class="sb">          \\  \gamma &amp;  \zeta </span>
-<span class="sb">        \end{bmatrix}</span>
-<span class="sb">$$</span>
+<span class="sb">```yaml</span>
+<span class="nt">latex_renderer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mathjax</span><span class="w"> </span>
 <span class="sb">```</span>
 
-Rendering:
-
-$$
-  \notag 
-    A = \begin{bmatrix} 
-              \alpha &amp;  \beta 
-          \\  \gamma &amp;  \zeta 
-        \end{bmatrix}
-$$
-
-<span class="gu">### Display Mode using Code Block Syntax </span>
-
-Example:
-
-````markdown
-```{math}
-  \notag 
-    A = \begin{bmatrix} 
-              \alpha &amp;  \beta 
-          \\  \gamma &amp;  \zeta 
-        \end{bmatrix}
-<span class="sb">```</span>
-<span class="sb">````</span>
-
-<span class="sb">Rendering:</span>
-
-<span class="sb">```{math}</span>
-<span class="sb">  \notag </span>
-<span class="sb">    A = \begin{bmatrix} </span>
-<span class="sb">              \alpha &amp;  \beta </span>
-<span class="sb">          \\  \gamma &amp;  \zeta </span>
-<span class="sb">        \end{bmatrix}</span>
-<span class="sb">```</span>
-
-<span class="gu">### Equation Enumeration Style </span>
+<span class="gu">### Equation Enumeration Style (Frontmatter)</span>
 
 MWiki supports the following LaTeX equation enumeration styles
 
@@ -1615,6 +1746,84 @@ equation_enumeration_enabled: on
 <span class="sb">````</span>
 
 
+<span class="sb">### Inline </span>
+
+<span class="sb">```</span>
+Let $x \in \mathbb{R}$ be a real number and $f(x) = \sqrt{x^2 - 10}$.
+<span class="sb">```</span>
+
+<span class="sb">Rendering:</span>
+
+<span class="sb">Let $x \in \mathbb{R}$ be a real number and $f(x) = \sqrt{x^2 - 10}$.</span>
+
+<span class="sb">### Display Mode </span>
+
+<span class="sb">```</span>
+$$
+    A = \begin{bmatrix} 
+              \alpha &amp;  \beta 
+          \\  \gamma &amp;  \zeta 
+        \end{bmatrix}
+$$
+<span class="sb">```</span>
+
+<span class="sb">Rendering:</span>
+
+<span class="sb">$$</span>
+<span class="sb">    A = \begin{bmatrix} </span>
+<span class="sb">              \alpha &amp;  \beta </span>
+<span class="sb">          \\  \gamma &amp;  \zeta </span>
+<span class="sb">        \end{bmatrix}</span>
+<span class="sb">$$</span>
+
+<span class="sb">### Display Mode Without Enumeration </span>
+
+<span class="sb">```</span>
+$$
+  \notag 
+    A = \begin{bmatrix} 
+              \alpha &amp;  \beta 
+          \\  \gamma &amp;  \zeta 
+        \end{bmatrix}
+$$
+<span class="sb">```</span>
+
+<span class="sb">Rendering:</span>
+
+<span class="sb">$$</span>
+<span class="sb">  \notag </span>
+<span class="sb">    A = \begin{bmatrix} </span>
+<span class="sb">              \alpha &amp;  \beta </span>
+<span class="sb">          \\  \gamma &amp;  \zeta </span>
+<span class="sb">        \end{bmatrix}</span>
+<span class="sb">$$</span>
+
+<span class="sb">### Display Mode using Code Block Syntax </span>
+
+<span class="sb">Example:</span>
+
+<span class="sb">````markdown</span>
+<span class="sb">```{math}</span>
+<span class="sb">  \notag </span>
+<span class="sb">    A = \begin{bmatrix} </span>
+<span class="sb">              \alpha &amp;  \beta </span>
+<span class="sb">          \\  \gamma &amp;  \zeta </span>
+<span class="sb">        \end{bmatrix}</span>
+<span class="sb">```</span>
+````
+
+Rendering:
+
+```{math}
+  \notag 
+    A = \begin{bmatrix} 
+              \alpha &amp;  \beta 
+          \\  \gamma &amp;  \zeta 
+        \end{bmatrix}
+<span class="sb">```</span>
+
+
+
 <span class="sb">### Cross Reference To LaTeX Equations</span>
 
 <span class="sb">Example:</span>
@@ -1680,7 +1889,7 @@ equation_enumeration_enabled: on
 
 
 <span class="sb">````markdown</span>
-<span class="sb">```{latex_macro}</span>
+<span class="sb">```{macros}</span>
 <span class="sb">% Logical AND </span>
 <span class="sb">\DeclareMathOperator{\\and}{ \\wedge }</span>
 <span class="sb">% Logical OR</span>
@@ -1699,7 +1908,517 @@ After adding the previous macro to the top of the page, one can write logical ex
 <span class="sb">$$</span>
 <span class="sb">```</span>
 
+ 
+<span class="gu">### Special Math Blocks</span>
 
+<span class="gu">#### Proof</span>
+
+The block {proof} is used for adding a mathematical proof without cluttering the text.
+
+Example: Proof of orthogonal matrix theorem, that states that if a matrix is orthogonal, then $\det Q = 1$.
+
+````latex
+```{proof}
+According to the defintion, if a $n \times n$ real matrix is orhtogonal, $Q Q^T = \mathbf{I}$, where $\mathbf{I}$ is a identity matrix, so
+
+$$
+\notag 
+\begin{split}
+      \det (Q Q^T)      &amp;= \det(Q) \det(Q^{T}) 
+   \\ \det (Q Q^T)      &amp;= \det(Q) \det(Q) 
+   \\ \det (Q Q^{-1})   &amp;= \det(Q) \det(Q) 
+   \\ \det (\mathbf{I}) &amp;= \det(Q)^2
+   \\  1                &amp;= \det{Q}^2
+   \\  \det(Q)          &amp;= 1
+\end{split}
+$$
+
+Hence, if a matrix $Q$ is orthogonal, $\det Q = 1$.
+<span class="sb">```</span>
+<span class="sb">````</span>
+
+<span class="sb">Rendering:</span>
+
+<span class="sb">```{proof}</span>
+<span class="sb">According to the defintion, if a $n \times n$ real matrix is orhtogonal, $Q Q^T = \mathbf{I}$, where $\mathbf{I}$ is a identity matrix, so</span>
+
+<span class="sb">$$</span>
+<span class="sb">\notag </span>
+<span class="sb">\begin{split}</span>
+<span class="sb">      \det (Q Q^T)      &amp;= \det(Q) \det(Q^{T}) </span>
+<span class="sb">   \\ \det (Q Q^T)      &amp;= \det(Q) \det(Q) </span>
+<span class="sb">   \\ \det (Q Q^{-1})   &amp;= \det(Q) \det(Q) </span>
+<span class="sb">   \\ \det (\mathbf{I}) &amp;= \det(Q)^2</span>
+<span class="sb">   \\  1                &amp;= \det{Q}^2</span>
+<span class="sb">   \\  \det(Q)          &amp;= 1</span>
+<span class="sb">\end{split}</span>
+<span class="sb">$$</span>
+
+<span class="sb">Hence, if a matrix $Q$ is orthogonal, $\det Q = 1$.</span>
+<span class="sb">```</span>
+
+<span class="gu">#### Derivation </span>
+
+The {derivation} is similar to the {proof} foldable block. However, {derivation} is intended for writing derivations of mathematical formulas, the steps to to find or deduce a particular mathematical formula or algorithm. The term <span class="ge">*derivation*</span> is more used in physics and engineering than the term <span class="ge">*proof*</span>.
+
+Example: 
+
+````markdown
+If a body-attached frame with origin in the mass center of a rigid body is aligned to is principal axes of inertia, then the mass moment of inertia tensor will be a diagonal matrix and the products of inertia will be zero. As a result, the Euler&#39;s equation for motion for the rigid body rotational motion become
+
+$$
+\begin{split}
+  \\ I<span class="ge">_x \dot{\omega}_</span>x + \omega_y \omega_z (I_z - I<span class="ge">_y) &amp;= \tau_</span>x
+ \\ I<span class="ge">_y \dot{\omega}_</span>y + \omega_x \omega_z (I_x - I_z)
+    &amp;= \tau_y
+ \\ I<span class="ge">_z \dot{\omega}_</span>z + \omega_x \omega_y (I_y - I_x)
+    &amp;= \tau_z
+\end{split}
+$$
+
+```{derivation}
+The Euler&#39;s equation of motion that relates the torque $\bs{\tau}$, angular velocity $\bs{\omega}$ and angular accleration $\bsdot{\omega}$ is given by
+
+$$
+\notag
+\mathcal{I} \bsdot{\omega} 
+    + \bs{\omega} \times \mathcal{I} \bs{\omega}
+    = \bs{\tau}
+$$
+
+Express the cross product operator $\times$ as the cross-product matrix operator $\skew{}$.
+
+$$
+\notag
+\mathcal{I} \bsdot{\omega} + \skew{\bs{\omega}} \mathcal{I} \bs{\omega} = \bs{\tau}
+$$
+ 
+  ... ... ... ... ... 
+
+Thus, the equations of motions, for a body frame aligned to the principal axes of inertia, are
+
+$$
+\notag
+\begin{split}
+  \\ I<span class="ge">_x \dot{\omega}_</span>x + \omega_y \omega_z (I_z - I<span class="ge">_y) &amp;= \tau_</span>x
+ \\ I<span class="ge">_y \dot{\omega}_</span>y + \omega_x \omega_z (I_x - I_z)
+    &amp;= \tau_y
+ \\ I<span class="ge">_z \dot{\omega}_</span>z + \omega_x \omega_y (I_y - I_x)
+    &amp;= \tau_z
+\end{split}
+$$
+<span class="sb">```</span>
+
+<span class="sb">````</span>
+
+<span class="sb">**Rendering:**</span>
+
+<span class="sb">If a body-attached frame with origin in the mass center of a rigid body is aligned to is principal axes of inertia, then the mass moment of inertia tensor will be a diagonal matrix and the products of inertia will be zero. As a result, the Euler&#39;s equation for motion for the rigid body rotational motion become</span>
+
+<span class="sb">$$</span>
+<span class="sb">\begin{split}</span>
+<span class="sb">  \\ I_x \dot{\omega}_x + \omega_y \omega_z (I_z - I_y) &amp;= \tau_x</span>
+<span class="sb"> \\ I_y \dot{\omega}_y + \omega_x \omega_z (I_x - I_z)</span>
+<span class="sb">    &amp;= \tau_y</span>
+<span class="sb"> \\ I_z \dot{\omega}_z + \omega_x \omega_y (I_y - I_x)</span>
+<span class="sb">    &amp;= \tau_z</span>
+<span class="sb">\end{split}</span>
+<span class="sb">$$</span>
+
+<span class="sb">```{derivation}</span>
+<span class="sb">The Euler&#39;s equation of motion that relates the torque $\bs{\tau}$, angular velocity $\bs{\omega}$ and angular accleration $\bsdot{\omega}$ is given by</span>
+
+<span class="sb">$$</span>
+<span class="sb">\notag</span>
+<span class="sb">\mathcal{I} \bsdot{\omega} </span>
+<span class="sb">    + \bs{\omega} \times \mathcal{I} \bs{\omega}</span>
+<span class="sb">    = \bs{\tau}</span>
+<span class="sb">$$</span>
+
+<span class="sb">Express the cross product operator $\times$ as the cross-product matrix operator $\skew{}$.</span>
+
+<span class="sb">$$</span>
+<span class="sb">\notag</span>
+<span class="sb">\mathcal{I} \bsdot{\omega} + \skew{\bs{\omega}} \mathcal{I} \bs{\omega} = \bs{\tau}</span>
+<span class="sb">$$</span>
+<span class="sb"> </span>
+<span class="sb">  ... ... ... ... ... </span>
+
+<span class="sb">Thus, the equations of motions, for a body frame aligned to the principal axes of inertia, are</span>
+
+<span class="sb">$$</span>
+<span class="sb">\notag</span>
+<span class="sb">\begin{split}</span>
+<span class="sb">  \\ I_x \dot{\omega}_x + \omega_y \omega_z (I_z - I_y) &amp;= \tau_x</span>
+<span class="sb"> \\ I_y \dot{\omega}_y + \omega_x \omega_z (I_x - I_z)</span>
+<span class="sb">    &amp;= \tau_y</span>
+<span class="sb"> \\ I_z \dot{\omega}_z + \omega_x \omega_y (I_y - I_x)</span>
+<span class="sb">    &amp;= \tau_z</span>
+<span class="sb">\end{split}</span>
+<span class="sb">$$</span>
+<span class="sb">```</span>
+
+<span class="gu">#### Solution </span>
+
+The solution block is intended for providing solutions of exercises, questions or worked examples.
+
+<span class="gs">**Example:**</span>
+
+````markdown
+Fit the line $p(x) = \beta_0 + \beta_1 x$ for (1, 2.2), (0.8, 2.4) and (0, 4.25) [<span class="nt">(src)</span>](<span class="na">https://people.sc.fsu.edu/~jpeterson/linear_least_squares.pdf</span>).
+
+
+```{solution}
+Define the parameters vector $\mathbf{\beta}$ and $\mathbf{y}$ 
+
+$$
+\notag
+   \mathbf{\beta} = 
+      \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix}
+   \quad 
+   \mathbf{y} = 
+      \begin{bmatrix} 2.2 \\ 2.4 \\ 4.25 \end{bmatrix}
+$$
+
+Compute the <span class="ge">*design matrix*</span> $X$
+
+$$
+\notag
+
+X = \begin{bmatrix}
+           1  &amp; x_1
+        \\ 1  &amp; x_2
+        \\ 1  &amp; x_2
+    \end{bmatrix}
+    
+   = \begin{bmatrix}
+           1 &amp; 1
+        \\ 1 &amp; 0.8
+        \\ 1 &amp; 0
+     \end{bmatrix}
+$$
+
+Find the solution of $X \mathbf{\beta} = \mathbf{y}$ by determining the least square solution, which can be computed by solving the system of normal equations $(X^T X) \mathbf{\beta} = X^T \mathbf{y}$.
+
+$$
+\notag
+
+X&#39; = X^T X 
+   = \begin{bmatrix}
+            3.0  &amp; 1.8
+        \\  1.8  &amp; 1.64
+     \end{bmatrix}
+
+\quad
+
+\mathbf{y}&#39; = X^T \mathbf{y} = \begin{bmatrix} 8.85 \\ 4.12 \end{bmatrix}
+
+$$
+
+Solve the system of normal equations $X&#39; \mathbf{\beta} = \mathbf{y}&#39;$.
+
+$$
+\notag
+
+ \mathbf{\beta} 
+   = \begin{bmatrix} 4.225 \\ -2.125 \end{bmatrix}
+$$
+
+So, the line that best fit those data points is
+
+$$
+\notag 
+
+p(x) = 4.225 + (-2.125) x
+$$
+<span class="sb">```</span>
+
+<span class="sb">````</span>
+
+<span class="sb">**Rendering**</span>
+
+<span class="sb">Fit the line $p(x) = \beta_0 + \beta_1 x$ for (1, 2.2), (0.8, 2.4) and (0, 4.25) [(src)](https://people.sc.fsu.edu/~jpeterson/linear_least_squares.pdf).</span>
+
+
+<span class="sb">```{solution}</span>
+<span class="sb">Define the parameters vector $\mathbf{\beta}$ and $\mathbf{y}$ </span>
+
+<span class="sb">$$</span>
+<span class="sb">\notag</span>
+<span class="sb">   \mathbf{\beta} = </span>
+<span class="sb">      \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix}</span>
+<span class="sb">   \quad </span>
+<span class="sb">   \mathbf{y} = </span>
+<span class="sb">      \begin{bmatrix} 2.2 \\ 2.4 \\ 4.25 \end{bmatrix}</span>
+<span class="sb">$$</span>
+
+<span class="sb">Compute the *design matrix* $X$</span>
+
+<span class="sb">$$</span>
+<span class="sb">\notag</span>
+
+<span class="sb">X = \begin{bmatrix}</span>
+<span class="sb">           1  &amp; x_1</span>
+<span class="sb">        \\ 1  &amp; x_2</span>
+<span class="sb">        \\ 1  &amp; x_2</span>
+<span class="sb">    \end{bmatrix}</span>
+<span class="sb">    </span>
+<span class="sb">   = \begin{bmatrix}</span>
+<span class="sb">           1 &amp; 1</span>
+<span class="sb">        \\ 1 &amp; 0.8</span>
+<span class="sb">        \\ 1 &amp; 0</span>
+<span class="sb">     \end{bmatrix}</span>
+<span class="sb">$$</span>
+
+<span class="sb">Find the solution of $X \mathbf{\beta} = \mathbf{y}$ by determining the least square solution, which can be computed by solving the system of normal equations $(X^T X) \mathbf{\beta} = X^T \mathbf{y}$.</span>
+
+<span class="sb">$$</span>
+<span class="sb">\notag</span>
+
+<span class="sb">X&#39; = X^T X </span>
+<span class="sb">   = \begin{bmatrix}</span>
+<span class="sb">            3.0  &amp; 1.8</span>
+<span class="sb">        \\  1.8  &amp; 1.64</span>
+<span class="sb">     \end{bmatrix}</span>
+
+<span class="sb">\quad</span>
+
+<span class="sb">\mathbf{y}&#39; = X^T \mathbf{y} = \begin{bmatrix} 8.85 \\ 4.12 \end{bmatrix}</span>
+
+<span class="sb">$$</span>
+
+<span class="sb">Solve the system of normal equations $X&#39; \mathbf{\beta} = \mathbf{y}&#39;$.</span>
+
+<span class="sb">$$</span>
+<span class="sb">\notag</span>
+
+<span class="sb"> \mathbf{\beta} </span>
+<span class="sb">   = \begin{bmatrix} 4.225 \\ -2.125 \end{bmatrix}</span>
+<span class="sb">$$</span>
+
+<span class="sb">So, the line that best fit those data points is</span>
+
+<span class="sb">$$</span>
+<span class="sb">\notag </span>
+
+<span class="sb">p(x) = 4.225 + (-2.125) x</span>
+<span class="sb">$$</span>
+<span class="sb">```</span>
+
+<span class="gu">#### Example Block</span>
+
+Example:
+
+
+````markdown
+The product of two complex numbers $z_1 = a<span class="ge">_1 + j b_</span>1$ and 
+$z_2 = a<span class="ge">_2 + j b_</span>2$ is
+
+$$
+z = (a_1 a<span class="ge">_2 - b_</span>1 b<span class="ge">_2) + j(a_</span>1 b<span class="ge">_2 + a_</span>2 b_1)
+$$
+
+Where $j = \sqrt{-1}$ is the imaginay root.
+
+```{example}
+The product of $z_1 = 5 + j2$ and $z_2 = 3 + j4$  is
+
+$$
+z<span class="ge">_1 z_</span>2 = (5 * 3 - 2 * 4) + j (5 * 4 + 2 * 3)
+$$
+
+$$
+z<span class="ge">_1 z_</span>2  = 7 + 26j
+$$
+
+<span class="sb">```</span>
+<span class="sb">````</span>
+
+<span class="sb">**Rendering**</span>
+
+<span class="sb">The product of two complex numbers $z_1 = a_1 + j b_1$ and </span>
+<span class="sb">$z_2 = a_2 + j b_2$ is</span>
+
+<span class="sb">$$</span>
+<span class="sb">z = (a_1 a_2 - b_1 b_2) + j(a_1 b_2 + a_2 b_1)</span>
+<span class="sb">$$</span>
+
+<span class="sb">Where $j = \sqrt{-1}$ is the imaginay root.</span>
+
+<span class="sb">```{example}</span>
+<span class="sb">The product of $z_1 = 5 + j2$ and $z_2 = 3 + j4$  is</span>
+
+<span class="sb">$$</span>
+<span class="sb">z_1 z_2 = (5 * 3 - 2 * 4) + j (5 * 4 + 2 * 3)</span>
+<span class="sb">$$</span>
+
+<span class="sb">$$</span>
+<span class="sb">z_1 z_2  = 7 + 26j</span>
+<span class="sb">$$</span>
+
+<span class="sb">```</span>
+
+   
+<span class="gu">### Definition Admonition </span>
+
+Example: 
+
+<span class="sb">```</span>
+<span class="sb">:::{def} Inverse Matrix </span>
+<span class="sb">:label: inverse-matrix</span>
+
+<span class="sb">The inverse matrix $A^{-1}$ of a matrix $A: n \times n$ is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists. </span>
+
+<span class="sb">$$</span>
+<span class="sb">  \notag</span>
+<span class="sb">   A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}</span>
+<span class="sb">$$</span>
+
+<span class="sb">:::</span>
+<span class="sb">```</span>
+
+Rendering:
+
+:::{def} Inverse Matrix 
+:label: inverse-matrix
+
+The inverse matrix $A^{-1}$ of a matrix $A: n \times n$ is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists. 
+
+$$
+  \notag
+   A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}
+$$
+
+:::  
+ 
+<span class="gu">### Theorem Admonition </span>
+
+Example:
+
+````markdown
+:::{theorem} Determinant of Orthogonal Matrix  
+
+The determinant of a <span class="gs">**orthogonal matrix**</span> $Q \in \mathbb{R}^{n \times n}$ of n rows and n columns is always 1.
+
+$$
+ \notag 
+  \det(Q) = 1
+$$
+
+
+```{proof}
+
+$$
+\notag 
+\begin{split}
+      \det (Q Q^T)      &amp;= \det(Q) \det(Q^{T}) 
+   \\ \det (Q Q^T)      &amp;= \det(Q) \det(Q) 
+   \\ \det (Q Q^{-1})   &amp;= \det(Q) \det(Q) 
+   \\ \det (\mathbf{I}) &amp;= \det(Q)^2
+   \\  1                &amp;= \det{Q}^2
+   \\  \det(Q)          &amp;= 1
+\end{split}
+$$
+<span class="sb">```</span>
+<span class="sb">% --- end determinant proof ---</span>
+
+<span class="sb">:::</span>
+<span class="sb">````</span>
+
+<span class="sb">Rendering:</span>
+
+
+<span class="sb">:::{theorem} Determinant of Orthogonal Matrix  </span>
+
+<span class="sb">The determinant of a **orthogonal matrix** $Q \in \mathbb{R}^{n \times n}$ of n rows and n columns is always 1.</span>
+
+<span class="sb">$$</span>
+<span class="sb"> \notag </span>
+<span class="sb">  \det(Q) = 1</span>
+<span class="sb">$$</span>
+
+
+<span class="sb">```{proof}</span>
+
+<span class="sb">$$</span>
+<span class="sb">\notag </span>
+<span class="sb">\begin{split}</span>
+<span class="sb">      \det (Q Q^T)      &amp;= \det(Q) \det(Q^{T}) </span>
+<span class="sb">   \\ \det (Q Q^T)      &amp;= \det(Q) \det(Q) </span>
+<span class="sb">   \\ \det (Q Q^{-1})   &amp;= \det(Q) \det(Q) </span>
+<span class="sb">   \\ \det (\mathbf{I}) &amp;= \det(Q)^2</span>
+<span class="sb">   \\  1                &amp;= \det{Q}^2</span>
+<span class="sb">   \\  \det(Q)          &amp;= 1</span>
+<span class="sb">\end{split}</span>
+<span class="sb">$$</span>
+<span class="sb">```</span>
+% --- end determinant proof ---
+
+:::
+  
+<span class="gu">### Worked examples</span>
+
+````{markdown}
+:::{example} Chain Rule for Derivative Multi-Variate Functions
+
+Let the function f be $f(x, y) = x^2/A^2 + y^2/B^2 - C$.  Find the derivative of f with respect to t. And x and y are functions of t, $x = x(t) = A \cos t$ and $y = y(t) = B \sin t$. 
+
+
+```{solution}   
+$$
+ \notag 
+\begin{split}
+  \frac{df}{dt} 
+    &amp;= \frac{\partial f}{\partial x} \frac{dx}{dt}  
+    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\
+
+    &amp;=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \cos t)
+       \\ &amp; +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) 
+           \frac{d}{dt} ( A \sin t)  \\
+
+    &amp;=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ 
+    &amp;=  -2x \sin(t) / A + 2y \cos(t) / B \\
+    &amp;=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\
+    &amp;=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
+    &amp;=  0 
+\end{split}
+$$
+<span class="sb">```</span>
+<span class="sb">:::</span>
+<span class="sb">````</span>
+
+<span class="sb">Rendering:</span>
+
+<span class="sb">:::{example} Chain Rule for Derivative Multi-Variate Functions</span>
+
+<span class="sb">Let the function f be $f(x, y) = x^2/A^2 + y^2/B^2 - C$.  Find the derivative of f with respect to t. And x and y are functions of t, $x = x(t) = A \cos t$ and $y = y(t) = B \sin t$. </span>
+
+
+<span class="sb">```{solution}   </span>
+<span class="sb">$$</span>
+<span class="sb"> \notag </span>
+<span class="sb">\begin{split}</span>
+<span class="sb">  \frac{df}{dt} </span>
+<span class="sb">    &amp;= \frac{\partial f}{\partial x} \frac{dx}{dt}  </span>
+<span class="sb">    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\</span>
+
+<span class="sb">    &amp;=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) </span>
+<span class="sb">           \frac{d}{dt} ( A \cos t)</span>
+<span class="sb">       \\ &amp; +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) </span>
+<span class="sb">           \frac{d}{dt} ( A \sin t)  \\</span>
+
+<span class="sb">    &amp;=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ </span>
+<span class="sb">    &amp;=  -2x \sin(t) / A + 2y \cos(t) / B \\</span>
+<span class="sb">    &amp;=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\</span>
+<span class="sb">    &amp;=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ </span>
+<span class="sb">    &amp;=  0 </span>
+<span class="sb">\end{split}</span>
+<span class="sb">$$</span>
+<span class="sb">```</span>
+::: 
+
+ 
 <span class="gu">### Pseudocode of Algorithm</span>
 
 This wiki also supports LaTeX pseudocode of algorithms compatible with LaTeX algorithmic package. The implementation of this feature relies on [<span class="nt">pseudocode-js</span>](<span class="na">https://saswat.padhi.me/pseudocode.js/</span>) and [<span class="nt">MathJax</span>](<span class="na">https://www.mathjax.org/</span>) JavaScript libraries.
@@ -1752,6 +2471,19 @@ Example:
 <span class="sb">\end{algorithm}</span>
 <span class="sb">```</span>
 
+<span class="gu">### Embed Jupyter Notebooks</span>
+
+Example:
+
+<span class="sb">```markdown</span>
+![[SimplePendulum.ipynb]]
+<span class="sb">```</span>
+
+Rendering:
+
+![[SimplePendulum.ipynb]]   
+
+NOTE: that the editor has a button, which allows uploading Jupyter notebooks and inserting a hyperlink to the file name at current cursor position.  
 
 <span class="gu">## Table </span>
 
@@ -1946,6 +2678,355 @@ The following code lists all footnotes of current wiki page.
 <span class="sb">```{footnotes}</span>
 <span class="sb">```</span>
 
+<span class="gu">## Citations and List of References</span>
+
+MWiki supports citations based on IEEE style with the following syntax based on Pandoc&#39;s citation markup language.
+
+<span class="sb">```</span>
+<span class="sb">$[@CITATION_KEY1; CITATION_KEY2 ; CITATION_KEY3, locator3 ....]</span>
+<span class="sb">```</span>
+
+<span class="gs">**Example:**</span>
+
+<span class="sb">```markdown</span>
+The molecular structure is (...) $[@blonski2017 ; <span class="ni">@enwiki:1318221113</span>]
+
+The systems equation $[@knuth1986; <span class="ni">@lamport1994</span>; <span class="ni">@lamport2025</span>; <span class="ni">@lesk1997</span>] of motion are given by $[@knitr2015, pages:20-25; <span class="ni">@rstring2025</span>, chap:10; <span class="ni">@rempel1956</span> ; <span class="ni">@bennet2018</span>; <span class="ni">@StepneyVerlan2018</span>]
+
+  ... .... ... ... ... ...
+
+According to $[@brownAngVelocity2017], the system&#39;s governing equations are given by $[@knitr2015, p:10 eq:20].
+<span class="sb">```</span>
+
+:::{info} Rendering
+
+The molecular structure is (...) $[@blonski2017 ; <span class="ni">@enwiki:1318221113</span>]
+
+The systems equation $[@knuth1986; <span class="ni">@lamport1994</span>; <span class="ni">@lamport2025</span>; <span class="ni">@lesk1997</span>] of motion are given by $[@knitr2015, pages:20-25; <span class="ni">@rstring2025</span>, chap:10; <span class="ni">@rempel1956</span> ; <span class="ni">@bennet2018</span>; <span class="ni">@StepneyVerlan2018</span>]
+
+  ... .... ... ... ... ...
+
+According to $[@brownAngVelocity2017], the system&#39;s governing equations are given by $[@knitr2015, p:10 eq:20].
+
+::: 
+
+
+<span class="gu">### Citation Locators</span>
+
+The following citation locators are supported:
+
+| Name       | Syntax                  |  Example          |
+| ---------- | ----------------------- | ----------------- |
+| Page       | <span class="sb">`p:&lt;page-number&gt;`</span>       | <span class="sb">`p:10`</span>            |
+| Page Range | <span class="sb">`p:&lt;page-range&gt;`</span>        | <span class="sb">`p:10-20`</span>         |
+| Chapter    | <span class="sb">`ch:&lt;chapter&gt;`</span>          | <span class="sb">`ch:6`</span>            |
+| Section    | <span class="sb">`sec:&lt;section&gt;`</span>         | <span class="sb">`sec:4`</span>           |
+| Appendix   | <span class="sb">`appendix:&lt;appendix&gt;`</span>   | <span class="sb">`appendix:A`</span>      |
+| Table      | <span class="sb">`table:&lt;table-number&gt;`</span>  | <span class="sb">`table:4`</span>         |
+| Table      | <span class="sb">`tbl:&lt;table-number&gt;`</span>    | <span class="sb">`tbl:4`</span>           |
+| Figure     | <span class="sb">`fig:&lt;figure-number&gt;`</span>   | <span class="sb">`fig:10`</span>          |
+| Algorithm  | <span class="sb">`algorithm:&lt;algorithm&gt;`</span> | <span class="sb">`algorithm:10.2`</span>  |
+| Algorithm  | <span class="sb">`alg:&lt;algorithm&gt;`</span>       | <span class="sb">`alg:10.5`</span>        |
+| Equation   | <span class="sb">`eq:&lt;equation&gt;`</span>         | <span class="sb">`eq:1.2.25`</span>       |
+| Equation   | <span class="sb">`equation:&lt;equation&gt;`</span>   | <span class="sb">`equation:1.2.25`</span> |
+
+Usage example: indicate that the citation refers to equation 2.5.10 of a reference, whose citation key is doeJohn1995
+
+<span class="sb">```</span>
+<span class="sb">It can be shown that the mass moment of inertia becomes $[@doejohn1995, eq:2.5.10] ...</span>
+<span class="sb">```</span>
+
+It is rendered to
+
++ It can be shown that the mass moment of inertia becomes [10, eq.(2.5.10)]
+
+
+
+
+<span class="gu">### List of References</span>
+
+The directive {references} can be used for generating the list cited references in the document as shown in the following example. 
+
+````markdown
+```{references}
+:style: mwiki
+<span class="sb">```</span>
+<span class="sb">````</span>
+
+<span class="sb">:::{info} List of references rendering</span>
+
+<span class="sb">```{references}</span>
+<span class="sb">:style: mwiki</span>
+<span class="sb">```</span>
+:::
+
+It is possible to generate the list of references in IEEE style using 
+
+````markdown
+```{references}
+:style: ieee
+<span class="sb">```</span>
+<span class="sb">````</span>
+
+<span class="sb">:::{info} List of references rendering in IEEE style</span>
+
+<span class="sb">```{references}</span>
+<span class="sb">:style: ieee</span>
+<span class="sb">```</span>
+
+:::
+
+<span class="gu">### Bibliographic Database</span>
+
+The citation key is a unique identifier of each reference entry in the YAML front matter. Example of bibliographic references database of the front matter in this docuement.
+
+<span class="sb">```yaml</span>
+<span class="nt">references</span><span class="p">:</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">lamport1994</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">book</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w">     </span><span class="s">&quot;LaTeX:</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">document</span><span class="nv"> </span><span class="s">preparation</span><span class="nv"> </span><span class="s">system&quot;</span>
+<span class="w">    </span><span class="nt">year</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">1994</span>
+<span class="w">    </span><span class="nt">publisher</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Addison-Wesley</span>
+<span class="w">    </span><span class="nt">edition</span><span class="p">:</span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">2nd</span>
+<span class="w">    </span><span class="nt">author</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Leslie Lamport</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">https://www.latex-project.org/</span>
+<span class="w">    </span><span class="c1">#    - family: Leslie</span>
+<span class="w">    </span><span class="c1">#     given:  Lamport</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lesk1997</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inproceedings</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Computer Typesetting of Technical Journals on  UNIX</span>
+<span class="w">    </span><span class="nt">author</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Michael Lesk</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Brian Kernighan</span>
+<span class="w">    </span><span class="nt">booktitle</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Proceedings</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">American</span><span class="nv"> </span><span class="s">Federation</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">Information</span><span class="nv"> </span><span class="s">Processing</span><span class="nv"> </span><span class="s">Societies:</span><span class="nv"> </span><span class="s">1977</span><span class="nv"> </span><span class="s">National</span><span class="nv"> </span><span class="s">Computer</span><span class="nv"> </span><span class="s">Conference&quot;</span>
+<span class="w">    </span><span class="nt">pages</span><span class="p">:</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">879--888</span>
+<span class="w">    </span><span class="nt">year</span><span class="p">:</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">1977</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Dallas, Texas</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">online</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">brownAngVelocity2017</span>
+<span class="w">    </span><span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">David Brown</span>
+<span class="w">    </span><span class="nt">year</span><span class="p">:</span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">2017</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Angular Velocity Conversions</span>
+<span class="w">    </span><span class="nt">access</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2025-12-29</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">https://davidbrown3.github.io/euler-angle-rates.html</span>
+<span class="w">    </span><span class="nt">url_archive</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://web.archive.org/web/20201214131302/https://davidbrown3.github.io/euler-angle-rates.html</span>
+<span class="w">    </span><span class="nt">abstract</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;A</span><span class="nv"> </span><span class="s">common</span><span class="nv"> </span><span class="s">requirement</span><span class="nv"> </span><span class="s">when</span><span class="nv"> </span><span class="s">modelling</span><span class="nv"> </span><span class="s">...&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w">          </span><span class="l l-Scalar l-Scalar-Plain">online</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">enwiki:1318221113</span>
+<span class="w">    </span><span class="nt">author_type</span><span class="p">:</span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">organization</span>
+<span class="w">    </span><span class="nt">author</span><span class="p">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">Wikipedia contributors</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w">         </span><span class="l l-Scalar l-Scalar-Plain">Angular velocity tensor</span>
+<span class="w">    </span><span class="nt">access</span><span class="p">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">2025-12-28</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">https://en.wikipedia.org/w/index.php?title=Angular_velocity_tensor&amp;oldid=1318221113</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">StepneyVerlan2018</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">proceedings</span>
+<span class="w">    </span><span class="nt">year</span><span class="p">:</span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">2018</span>
+<span class="w">    </span><span class="nt">editor</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">given</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Susan</span>
+<span class="w">          </span><span class="nt">family</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Stepney</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">given</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Sergey</span>
+<span class="w">          </span><span class="nt">family</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Verlan</span>
+<span class="w">    </span><span class="nt">publisher</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Springer</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Proceedings</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">17th</span><span class="nv"> </span><span class="s">International</span><span class="nv"> </span><span class="s">Conference</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">Computation</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">Natural</span><span class="nv"> </span><span class="s">Computation,</span><span class="nv"> </span><span class="s">Fontainebleau,</span><span class="nv"> </span><span class="s">France&quot;</span>
+<span class="w">    </span><span class="nt">series</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Lecture</span><span class="nv"> </span><span class="s">Notes</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">Computer</span><span class="nv"> </span><span class="s">Science&quot;</span>
+<span class="w">    </span><span class="nt">volume</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10867</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Cham, Switzerland</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bennet2018</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">techreport</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Wasatch Solar Project Final Report</span>
+<span class="w">    </span><span class="nt">author</span><span class="p">:</span>
+<span class="w">       </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">given</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Vicki</span>
+<span class="w">         </span><span class="nt">family</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bennett</span>
+<span class="w">       </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">given</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Kate</span>
+<span class="w">         </span><span class="nt">family</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bowman</span>
+<span class="w">       </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">given</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Sarah</span>
+<span class="w">         </span><span class="nt">family</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Wright</span>
+<span class="w">    </span><span class="nt">institution</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Salt Lake City Corporation</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Salt Lake City, UT</span>
+<span class="w">    </span><span class="nt">number</span><span class="p">:</span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">DOE-SLC-6903-1</span>
+<span class="w">    </span><span class="nt">year</span><span class="p">:</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">2018</span>
+<span class="w">    </span><span class="nt">month</span><span class="p">:</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">sep</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">rempel1956</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">phdthesis</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">Relaxation Effects for Coupled Nuclear Spins</span>
+<span class="w">    </span><span class="nt">school</span><span class="p">:</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">Stanford University</span>
+<span class="w">    </span><span class="nt">address</span><span class="p">:</span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">Stanford, CA</span>
+<span class="w">    </span><span class="nt">year</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">1956</span>
+<span class="w">    </span><span class="nt">author</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">given</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Robert Charles</span>
+<span class="w">          </span><span class="nt">family</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Rempel</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w">          </span><span class="l l-Scalar l-Scalar-Plain">blonski2017</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">article</span>
+<span class="w">    </span><span class="nt">author_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">many</span>
+<span class="w">    </span><span class="nt">author</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">family</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Błoński</span>
+<span class="w">          </span><span class="nt">given</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Piotr</span>
+<span class="w">    </span><span class="nt">year</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">2017</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">Doping with Graphitic Nitrogen Triggers Ferromagnetism in Graphene</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w">       </span><span class="l l-Scalar l-Scalar-Plain">https://stringr.tidyverse.org</span>
+<span class="w">    </span><span class="nt">journal</span><span class="p">:</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">Journal of the American Chemical Society</span>
+<span class="w">    </span><span class="nt">volume</span><span class="p">:</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">139</span>
+<span class="w">    </span><span class="nt">number</span><span class="p">:</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">    </span><span class="nt">pages</span><span class="p">:</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">3171–3180</span>
+<span class="w">    </span><span class="nt">doi</span><span class="p">:</span><span class="w">       </span><span class="l l-Scalar l-Scalar-Plain">10.1021/jacs.6b12934</span>
+<span class="w">    </span><span class="nt">pmid</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">28110530</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w">       </span><span class="l l-Scalar l-Scalar-Plain">http://dx.doi.org/10.1021/jacs.6b12934</span>
+<span class="w">    </span><span class="nt">eprint</span><span class="p">:</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">http://dx.doi.org/10.1021/jacs.6b12934</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">knuth1986</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">book</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">The TeX Book</span>
+<span class="w">    </span><span class="nt">year</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">1986</span>
+<span class="w">    </span><span class="nt">publisher</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Addison-Wesley Profession</span>
+<span class="w">    </span><span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Donald E. Knuth</span>
+<span class="w">    </span><span class="c1">#    - family: Knuth</span>
+<span class="w">    </span><span class="c1">#      given:  Donald E.</span>
+
+
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">lamport2025</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">online</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w">     </span><span class="s">&quot;LaTeX</span><span class="nv"> </span><span class="s">Project</span><span class="nv"> </span><span class="s">Website&quot;</span>
+<span class="w">    </span><span class="nt">year</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">2025</span>
+<span class="w">    </span><span class="nt">access</span><span class="p">:</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">2025-05-29</span>
+<span class="w">    </span><span class="nt">author</span><span class="p">:</span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">Leslie Lamport</span>
+<span class="w">    </span><span class="c1">#    - given: Leslie</span>
+<span class="w">    </span><span class="c1">#      family:  Lamport</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">https://www.latex-project.org/</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">knitr2015</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">book</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">Dynamic Documents with R and knitr</span>
+<span class="w">    </span><span class="nt">publisher</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Chapman and Hall/CRC</span>
+<span class="w">    </span><span class="nt">year</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">2015</span>
+<span class="w">    </span><span class="nt">edition</span><span class="p">:</span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">2nd</span>
+<span class="w">    </span><span class="nt">isbn</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">978-1498716963</span>
+<span class="w">    </span><span class="c1"># address:   Boca Raton, Florida</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w">       </span><span class="l l-Scalar l-Scalar-Plain">https://yihui.org/knitr/</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">rstring2025</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">manual</span>
+<span class="w">    </span><span class="nt">year</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">2025</span>
+<span class="w">    </span><span class="nt">note</span><span class="p">:</span><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">R package version 1.5.2</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">StringR R Package</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w">       </span><span class="l l-Scalar l-Scalar-Plain">https://stringr.tidyverse.org</span>
+<span class="w">    </span><span class="nt">author</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">given</span><span class="p">:</span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">Hadley</span>
+<span class="w">          </span><span class="nt">family</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Wickham</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WatsonCrick1953</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">article</span>
+<span class="w">    </span><span class="nt">author</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">family</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Watson</span>
+<span class="w">          </span><span class="nt">given</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">J. D.</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">family</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Crick</span>
+<span class="w">          </span><span class="nt">given</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">F. H. C.</span>
+<span class="w">    </span><span class="nt">issued</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">date-parts</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1953</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25</span>
+<span class="w">    </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Molecular</span><span class="nv"> </span><span class="s">structure</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">nucleic</span><span class="nv"> </span><span class="s">acids:</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">structure</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">deoxyribose</span><span class="nv"> </span><span class="s">nucleic</span><span class="nv"> </span><span class="s">acid&#39;</span>
+<span class="w">    </span><span class="nt">title-short</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Molecular structure of nucleic acids</span>
+<span class="w">    </span><span class="nt">container-title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Nature</span>
+<span class="w">    </span><span class="nt">volume</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">171</span>
+<span class="w">    </span><span class="nt">issue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4356</span>
+<span class="w">    </span><span class="nt">page</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">737-738</span>
+<span class="w">    </span><span class="nt">DOI</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.1038/171737a0</span>
+<span class="w">    </span><span class="nt">URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://www.nature.com/articles/171737a0</span>
+<span class="w">    </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en-GB</span>
+<span class="sb">```</span>
+
+<span class="gu">### Further Reading</span>
+
+
++ <span class="ge">*Citation*</span>, Quarto Docs
+  + https://quarto.org/docs/authoring/citations.html
++ <span class="ge">*Citation Metadata*</span>, Quarto Docs
+  + https://quarto.org/docs/reference/metadata/citation.html
++ <span class="ge">*Citations*</span>, Pandoc Manual
+  + https://pandoc.org/MANUAL.html#citations
++ <span class="ge">*Citation Style Language*</span>
+  + https://citationstyles.org/authors/
++ <span class="ge">*Citations &amp; Footnotes*</span>
+  + https://www.datanovia.com/guide/tools/quarto/citations-and-footnotes.html
++ <span class="ge">*CSL 1.0.2 Specification*</span>
+  + https://docs.citationstyles.org/en/stable/specification.html#csl-1-0-2-specification
++ <span class="ge">*Primer — An Introduction to CSL*</span>, Rintze M. Zelle, PhD
+  + https://docs.citationstyles.org/en/stable/primer.html   
++ <span class="ge">*Chicago Manual of Style 18th Edition*</span>, Purdue University
+  + https://owl.purdue.edu/owl/research_and_citation/chicago_manual_18th_edition/cmos_formatting_and_style_guide/chicago_manual_of_style_18th_edition.html
+  + <span class="ge">*Please note that although these resources reflect the most recent updates in the The Chicago Manual of Style (18th edition) concerning documentation practices, you can review a full list of updates concerning usage, technology, professional practice, etc. at The Chicago Manual of Style Online.*</span>
++ <span class="ge">*Institute of Electrical and Electronics Engineers - IEEE*</span>, Wikipedia
+  + https://en.wikipedia.org/wiki/Institute_of_Electrical_and_Electronics_Engineers
++ <span class="ge">*Association for Computing Machinery - ACM*</span>, Wikipedia
+  + https://en.wikipedia.org/wiki/Association_for_Computing_Machinery
++ <span class="ge">*Research and Citation*</span>, Purdue University
+  + https://owl.purdue.edu/owl/research_and_citation/index.html
++ <span class="ge">*STEM Citation Styles*</span>, University of Nebraska at Omaha
+  + https://libguides.unomaha.edu/c.php?g=1439199
++ <span class="ge">*Computer Science Research Guide*</span>
+  + https://dal.ca.libguides.com/csci/writing/examples
++ <span class="ge">*IEEE Reference Style*</span>  
+  + https://owl.purdue.edu/owl/research_and_citation/chicago_manual_18th_edition/cmos_formatting_and_style_guide/chicago_manual_of_style_18th_edition.html
++ <span class="ge">*IEEE Style - Research and Citation*</span>, Purdue University
+  + https://owl.purdue.edu/owl/research_and_citation/ieee_style/index.html
++ <span class="ge">*In-Text Citation - IEEE Style - Research and Citation*</span>, Purdue University
+  + https://owl.purdue.edu/owl/research_and_citation/ieee_style/in-text_citation.html
++ <span class="ge">*Reference List - IEEE Style - Research and Citation*</span>*, Purdue University
+  + https://owl.purdue.edu/owl/research_and_citation/ieee_style/reference_list.html
+  + <span class="ge">*References should be provided on a separate page at the end of your paper, with the title “References” at the top of the page. They should be listed and numbered in order of citation, not alphabetically. The numbers should be flush against the left margin, and separated from the body of the reference.*</span>
++ <span class="ge">*How to format your references using the Proceedings of the IEEE citation style*</span>
+  + https://paperpile.com/s/proceedings-of-the-ieee-citation-style/
++ <span class="ge">*Citation Styles by Discipline: STEM*</span>
+  + https://paperpile.libguides.com/c.php?g=1226166&amp;p=8971526
++ <span class="ge">*Computer Science Style Guide Suggestions*</span>
+  + https://dal.ca.libguides.com/csci/writing/examples
++ <span class="ge">*Citing Sources: Which citation style should I use?*</span>
+  + https://guides.lib.uw.edu/research/citations/citationwhich
++ <span class="ge">*Citation*</span>, Brown University Library
+  + https://libguides.brown.edu/citations/styles
++ <span class="ge">*Online Bibtex Converter*</span>
+  + https://asouqi.github.io/bibtex-converter/
+  + NOTE: This tool allows converting bibtex to many reference formats, including, APA, Havard, IEE, Elsevier, Springer, ACM, ACS, and MLA.
++ <span class="ge">*The 14 BibTeX entry types*</span>, Bibtex
+  + https://www.bibtex.com/e/entry-types/
++ <span class="ge">*Bibtex bibliography styles*</span>, Overleaf
+  + https://www.overleaf.com/learn/latex/Bibtex_bibliography_styles
++ <span class="ge">*Bibliography management with bibtex*</span>, Overleaf
+  + https://www.overleaf.com/learn/latex/Bibliography_management_with_bibtex
++ <span class="ge">*Tame the BeaST: The B to X of BibTeX by Nicolas Markey [PDF]*</span>
+  + https://www.bibtex.com/g/bibtex-format/
++ <span class="ge">*Using bibtex: a short guide by Martin J. Osborne*</span>
+  + https://www.economics.utoronto.ca/osborne/latex/BIBTEX.HTM
++ <span class="ge">*BibTeXing by Oren Patashnik [PDF]*</span>
+  + http://mirror.kumi.systems/ctan/biblio/bibtex/base/btxdoc.pdf
++ <span class="ge">*LaTeX Document Preparation System*</span>, Georgia State University
+  + https://research.library.gsu.edu/latex/bibtex
++ <span class="ge">*BibTeX for LaTeX Guide*</span>, Texas A&amp;M University
+  + https://libguides.tamusa.edu/c.php?g=1441028&amp;p=10703447
++ <span class="ge">*BibTeX for LaTeX*</span>
+  + https://library-guides.imperial.ac.uk/c.php?g=719784&amp;p=5221129 
++ <span class="ge">*A BibTEX Guide via Examples*</span>, Ki-Joo Kim (2004)
+  + http://www-hep.colorado.edu/~jcumalat/4610_fall_10/bibtex_guide.pdf 
++ <span class="ge">*How does BibTex Works - BibTeX*</span>, Purdue University
+  + https://guides.lib.purdue.edu/bibtex/basics  
++ <span class="ge">*How to Cite a Website in LaTeX Using BibTeX and BibLaTeX*</span>, bibtex\.eu
+  + https://bibtex.eu/faq/how-can-i-use-bibtex-to-cite-a-website/
++ <span class="ge">*How to Cite a Website in LaTeX Using BibTeX*</span>
+  + https://www.getbibtex.com/blog/posts/how-to-cite-website-in-latex-using-bibtex
+  + <span class="ge">*Learn how to properly cite online sources in LaTeX using BibTeX, with ready-to-use examples and templates.*</span> 
++ <span class="ge">*BibTeX generic citation style Referencing Guide*</span>
+  + https://citationsy.com/styles/bibtex      
 <span class="gu">## Admonitions (Callout Boxes) </span>
 <span class="gu">### Info Admonition </span>
 
@@ -2028,166 +3109,10 @@ Rendering:
 This is initially hidden, and can be clicked to be opened when you are viewing the content.
 :::
 
-<span class="gu">### Mathematical Definition Admonition </span>
 
-Example: 
+ 
 
-<span class="sb">```</span>
-<span class="sb">:::{def} Inverse Matrix </span>
-<span class="sb">:label: inverse-matrix</span>
-
-<span class="sb">The inverse matrix $A^{-1}$ of a matrix $A: n \times n$ is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists. </span>
-
-<span class="sb">$$</span>
-<span class="sb">  \notag</span>
-<span class="sb">   A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}</span>
-<span class="sb">$$</span>
-
-<span class="sb">:::</span>
-<span class="sb">```</span>
-
-Rendering:
-
-:::{def} Inverse Matrix 
-:label: inverse-matrix
-
-The inverse matrix $A^{-1}$ of a matrix $A: n \times n$ is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists. 
-
-$$
-  \notag
-   A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}
-$$
-
-:::
-
-<span class="gu">### Mathematical Theorem Admonition </span>
-
-Example:
-
-````markdown
-:::{theorem} Determinant of Orthogonal Matrix  
-
-The determinant of a <span class="gs">**orthogonal matrix**</span> $Q \in \mathbb{R}^{n \times n}$ of n rows and n columns is always 1.
-
-$$
- \notag 
-  \det(Q) = 1
-$$
-
-
-```{proof}
-
-$$
-\notag 
-\begin{split}
-      \det (Q Q^T)      &amp;= \det(Q) \det(Q^{T}) 
-   \\ \det (Q Q^T)      &amp;= \det(Q) \det(Q) 
-   \\ \det (Q Q^{-1})   &amp;= \det(Q) \det(Q) 
-   \\ \det (\mathbf{I}) &amp;= \det(Q)^2
-   \\  1                &amp;= \det{Q}^2
-   \\  \det(Q)          &amp;= 1
-\end{split}
-$$
-<span class="sb">```</span>
-<span class="sb">% --- end determinant proof ---</span>
-
-<span class="sb">:::</span>
-<span class="sb">````</span>
-
-<span class="sb">Rendering:</span>
-
-
-<span class="sb">:::{theorem} Determinant of Orthogonal Matrix  </span>
-
-<span class="sb">The determinant of a **orthogonal matrix** $Q \in \mathbb{R}^{n \times n}$ of n rows and n columns is always 1.</span>
-
-<span class="sb">$$</span>
-<span class="sb"> \notag </span>
-<span class="sb">  \det(Q) = 1</span>
-<span class="sb">$$</span>
-
-
-<span class="sb">```{proof}</span>
-
-<span class="sb">$$</span>
-<span class="sb">\notag </span>
-<span class="sb">\begin{split}</span>
-<span class="sb">      \det (Q Q^T)      &amp;= \det(Q) \det(Q^{T}) </span>
-<span class="sb">   \\ \det (Q Q^T)      &amp;= \det(Q) \det(Q) </span>
-<span class="sb">   \\ \det (Q Q^{-1})   &amp;= \det(Q) \det(Q) </span>
-<span class="sb">   \\ \det (\mathbf{I}) &amp;= \det(Q)^2</span>
-<span class="sb">   \\  1                &amp;= \det{Q}^2</span>
-<span class="sb">   \\  \det(Q)          &amp;= 1</span>
-<span class="sb">\end{split}</span>
-<span class="sb">$$</span>
-<span class="sb">```</span>
-% --- end determinant proof ---
-
-:::
-
-<span class="gu">### Example of solved exercise </span>
-
-````{markdown}
-:::{example} Chain Rule for Derivative Multi-Variate Functions
-
-Let the function f be $f(x, y) = x^2/A^2 + y^2/B^2 - C$.  Find the derivative of f with respect to t. And x and y are functions of t, $x = x(t) = A \cos t$ and $y = y(t) = B \sin t$. 
-
-
-```{solution}   
-$$
- \notag 
-\begin{split}
-  \frac{df}{dt} 
-    &amp;= \frac{\partial f}{\partial x} \frac{dx}{dt}  
-    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\
-
-    &amp;=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) 
-           \frac{d}{dt} ( A \cos t)
-       \\ &amp; +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) 
-           \frac{d}{dt} ( A \sin t)  \\
-
-    &amp;=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ 
-    &amp;=  -2x \sin(t) / A + 2y \cos(t) / B \\
-    &amp;=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\
-    &amp;=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
-    &amp;=  0 
-\end{split}
-$$
-<span class="sb">```</span>
-<span class="sb">:::</span>
-<span class="sb">````</span>
-
-<span class="sb">Rendering:</span>
-
-<span class="sb">:::{example} Chain Rule for Derivative Multi-Variate Functions</span>
-
-<span class="sb">Let the function f be $f(x, y) = x^2/A^2 + y^2/B^2 - C$.  Find the derivative of f with respect to t. And x and y are functions of t, $x = x(t) = A \cos t$ and $y = y(t) = B \sin t$. </span>
-
-
-<span class="sb">```{solution}   </span>
-<span class="sb">$$</span>
-<span class="sb"> \notag </span>
-<span class="sb">\begin{split}</span>
-<span class="sb">  \frac{df}{dt} </span>
-<span class="sb">    &amp;= \frac{\partial f}{\partial x} \frac{dx}{dt}  </span>
-<span class="sb">    + \frac{\partial f}{\partial y} \frac{dy}{dt}  \\</span>
-
-<span class="sb">    &amp;=  \frac{\partial}{\partial x} (x^2/A^2 + y^2/B^2 - C) </span>
-<span class="sb">           \frac{d}{dt} ( A \cos t)</span>
-<span class="sb">       \\ &amp; +  \frac{\partial}{\partial y} (x^2/A^2 + y^2/B^2 - C) </span>
-<span class="sb">           \frac{d}{dt} ( A \sin t)  \\</span>
-
-<span class="sb">    &amp;=  (2x/A^2) (-A \sin t) + (2y/B^2) (A \cos t) \\ </span>
-<span class="sb">    &amp;=  -2x \sin(t) / A + 2y \cos(t) / B \\</span>
-<span class="sb">    &amp;=  -2(A  \cos(t)) \sin(t) / A + 2(B  \sin(t)) \cos(t) / B \\</span>
-<span class="sb">    &amp;=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ </span>
-<span class="sb">    &amp;=  0 </span>
-<span class="sb">\end{split}</span>
-<span class="sb">$$</span>
-<span class="sb">```</span>
-:::
-
-
+  
 <span class="gu">## MyST Roles </span>
 
 The MyST Roles are similar to MyST directives, but they are single line. Exmaple:

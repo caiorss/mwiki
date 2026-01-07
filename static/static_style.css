@@ -73,6 +73,11 @@ h6 {
   background-color: rgb(241, 228, 151);
 }
 
+.sidebar h2 {
+  padding-left: 50px;
+}
+
+
 a {
   z-index: 600;
 }
@@ -82,15 +87,32 @@ a.link-external {
   word-wrap: break-word;
 }
 
+
+
 a.link-sidebar {
-  color: var(--link-external-color);
+  color: #201e1e;
   word-wrap: break-word;
+  text-decoration: none;
+  /* font-weight: bold; */
+  padding-top: 8px !important;
+  padding-right: 6px;
+  display: block;
 }
 
-a.link-sidebar-clicked {
-  color: black !important;
-  background-color: ivory;
+a.link-sidebar:hover {
+  text-decoration: dashed !important;
+  border-bottom: dotted 1px black;
+  border-bottom-color: black;
 }
+
+ul li a.link-sidebar {
+  font-weight: 200;
+}
+
+.sidebar li {
+  list-style-type: none;
+}
+
 
 a.link-internal {
   color: green;
@@ -233,7 +255,7 @@ dd {
 /** --- End of Definition List Style --- */
 
 .sidebar {
-  background-color: var(--bg-sidebar);
+  background-color: #fafafa;
   font-size: var(--font-size-sidebar);
   left: 0px;
   top: 0px;
@@ -317,6 +339,7 @@ dd {
 
 .toc {
   margin-left: -50px;
+  padding-right: 5px;
 }
 
 /**
@@ -1009,6 +1032,14 @@ code {
   font-family: var(--font-family-code);
   overflow-x: auto;
   overflow-y: auto;
+}
+
+.span-copy-button {
+  float: right;
+  margin-top: -30px !important;
+  display: block;
+  padding: 0px !important;
+  margin-left: -70px !important;
 }
 
 .div-sort {

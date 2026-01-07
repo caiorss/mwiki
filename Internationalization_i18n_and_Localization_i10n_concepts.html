@@ -121,13 +121,14 @@
     const LATEX_RENDERER = "katex";
     const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
     const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
-    const KATEX_MACROS = "eyJcXGIiOiAiXFxtYXRoYmZ7IzF9IiwgIlxcYmhhdCI6ICJcXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRvdCI6ICJcXGRvdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRkb3QiOiAiXFxkZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxicyI6ICJcXGJvbGRzeW1ib2x7IzF9IiwgIlxcYnNkb3QiOiAiXFxkb3R7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxic2Rkb3QiOiAiXFxkZG90e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcZmIiOiAie31eeyMyfVxcbWF0aGJmeyMxfSIsICJcXGZiaGF0IjogInt9XnsjMn1cXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcZmJzIjogInt9XnsjMn1cXGJvbGRzeW1ib2x7IzF9IiwgImZyIjogInt9XnsjMX1feyMyfSIsICJcXHNrZXciOiAiXFxsZWZ0WyAjMSBcXHJpZ2h0XV97XFx0aW1lc30iLCAiXFxhcmdtYXgiOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWF4fSIsICJcXGFyZ21pbiI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtaW59IiwgIlxcUiI6ICJ7IFxcbWF0aGJie1J9IH0iLCAiXFxaIjogIlxcbWF0aGJie1p9IiwgIlxcbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxpbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1eey0xfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxkIjogIlxcbWF0aHJte2R9IiwgIlxccCI6ICJcXHBhcnRpYWwiLCAiXFxlIjogIlxcbWF0aHJte2V9IiwgIlxcZHQiOiAiXFxmcmFje2QgIzF9e2R0fSIsICJcXGRkdCI6ICJcXGZyYWN7ZF4yICMxfXtkdF4yfSIsICJcXHBkIjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCAjMn0iLCAiXFxwZGQiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgIzJeMn0iLCAiXFxDIjogInsgXFxtYXRoYmJ7Q30gfSIsICJcXEJpZ08iOiAiXFxtYXRoY2Fse099XFwhXFxsZWZ0KCMxXFxyaWdodCkiLCAiXFxtZGVmIjogIntcXHRyaWFuZ2xlcSBcXDt9IiwgIlxcc2duIjogIlxcb3BlcmF0b3JuYW1le3Nnbn0ifQ==";
+    const KATEX_MACROS = "eyJcXGNlcSI6ICJcXGNvbG9uZXF1YWxzIiwgIlxcYiI6ICJcXG1hdGhiZnsjMX0iLCAiXFxiaGF0IjogIlxcaGF0e1xcbWF0aGJmeyMxfX0iLCAiXFxiZG90IjogIlxcZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxiZGRvdCI6ICJcXGRkb3R7XFxtYXRoYmZ7IzF9fSIsICJcXGJzIjogIlxcYm9sZHN5bWJvbHsjMX0iLCAiXFxic2hhdCI6ICJcXGhhdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGJzZG90IjogIlxcZG90e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcYnNkZG90IjogIlxcZGRvdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGZiIjogInt9XnsjMn1cXG1hdGhiZnsjMX0iLCAiXFxmYmhhdCI6ICJ7fV57IzJ9XFxoYXR7XFxtYXRoYmZ7IzF9fSIsICJcXGZicyI6ICJ7fV57IzJ9XFxib2xkc3ltYm9seyMxfSIsICJmciI6ICJ7fV57IzF9X3sjMn0iLCAiXFxza2V3IjogIlxcbGVmdFsgIzEgXFxyaWdodF1fe1xcdGltZXN9IiwgIlxcYXJnbWF4IjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1heH0iLCAiXFxhcmdtaW4iOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWlufSIsICJcXFIiOiAieyBcXG1hdGhiYntSfSB9IiwgIlxcWiI6ICJcXG1hdGhiYntafSIsICJcXGxhcGxhY2UiOiAiXFxtYXRoY2Fse0x9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWxhcGxhY2UiOiAiXFxtYXRoY2Fse0x9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxmb3VyaWVyIjogIlxcbWF0aGNhbHtGfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGlmb3VyaWVyIjogIlxcbWF0aGNhbHtGfV57LTF9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcZCI6ICJcXG1hdGhybXtkfSIsICJcXHAiOiAiXFxwYXJ0aWFsIiwgIlxcZSI6ICJcXG1hdGhybXtlfSIsICJcXGR0IjogIlxcZnJhY3tkICMxfXtkdH0iLCAiXFxkZHQiOiAiXFxmcmFje2ReMiAjMX17ZHReMn0iLCAiXFxwZCI6ICJcXGZyYWN7XFxwYXJ0aWFsICMxfXtcXHBhcnRpYWwgIzJ9IiwgIlxccGRkIjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsICMyXjJ9IiwgIlxcQyI6ICJ7IFxcbWF0aGJie0N9IH0iLCAiXFxCaWdPIjogIlxcbWF0aGNhbHtPfVxcIVxcbGVmdCgjMVxccmlnaHQpIiwgIlxcbWRlZiI6ICJ7XFx0cmlhbmdsZXEgXFw7fSIsICJcXHNnbiI6ICJcXG9wZXJhdG9ybmFtZXtzZ259In0=";
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
     // NOTE: It is encoded as base64 
     const PAGE_SOURCE_CODE = "";
     const PAGE_SOURCE_URL  = "/mwiki/src_pages/Internationalization_i18n_and_Localization_i10n_concepts.html"
+    const CITATION_REFERENCES = "e30=";
 	
     // Possible values: 'none', 'nosection' 'section', 'subsection'
     //  none      => no enumeration 
@@ -397,6 +398,8 @@
                         
                             <li><a class="link-sidebar" href="#H_Internationalization_and_Localization__Reading">Internationalization and Localization  Reading</a></li>
                         
+                            <li><a class="link-sidebar" href="#H_GUI_(Graphics_User_Interface),_UX_(User_Experience)_and_Culture">GUI (Graphics User Interface), UX (User Experience) and Culture</a></li>
+                        
                             <li><a class="link-sidebar" href="#H_Numbers_and_Mesurement">Numbers and Mesurement</a></li>
                         
                         </ul>
@@ -489,7 +492,7 @@
 
 <div class="div-heading"> 
 <h2 id="H_Terminology_of_Internationalization" class="document-heading anchor">Terminology of Internationalization <a class="link-heading" href="#H_Terminology_of_Internationalization">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=8&end=75&anchor=H_Terminology_of_Internationalization&page=Internationalization i18n and Localization i10n concepts&timestamp=176558963058853" title="[i18n]: Terminology of Internationalization" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=8&end=100&anchor=H_Terminology_of_Internationalization&page=Internationalization i18n and Localization i10n concepts&timestamp=176780904738760" title="[i18n]: Terminology of Internationalization" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -498,6 +501,8 @@
 <dd class="anchor">International Organization for Standardization</dd>
 <dt class="anchor">W3C</dt>
 <dd class="anchor">World Wide Web Consortium</dd>
+<dt class="anchor"><a href="https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >IANA</a></dt>
+<dd class="anchor">Intenet Assigned Numbers Authority</dd>
 <dt class="anchor">IETF</dt>
 <dd class="anchor">Internet Engineering Task Force</dd>
 <dt class="anchor">AE</dt>
@@ -520,6 +525,13 @@
 <dd class="anchor">Right-To-Left Languages. Languages written from right to left. Examples: most languages using Latin Script, including, English, Greek and so on.</dd>
 <dt class="anchor">LTR Languages</dt>
 <dd class="anchor">Left-To-Right Languages. Languages written from left to right. Example: Hebrew, Arabic, Persian, Urdu, Phoenician and so on.</dd>
+<dt class="anchor"><a href="https://en.wikipedia.org/wiki/Subject%E2%80%93object%E2%80%93verb_word_order"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >SOV</a> word order</dt>
+<dd class="anchor">Subject-Object-Verb</dd>
+<dt class="anchor">SVO word order</dt>
+<dd class="anchor">Subject-Verb-Object word order</dd>
+<dt class="anchor"><a href="https://en.wikipedia.org/wiki/Agglutinative_language"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Agglutinative language</a></dt>
+<dd class="anchor">Example: Turkish, Mongolian, Japanese and Korean.</dd>
+<dd class="anchor"><em>"An agglutinative language is a type of language that primarily forms words by stringing together morphemes (word parts)—each typically representing a single grammatical meaning—without significant modification to their forms (agglutinations). In such languages, affixes (prefixes, suffixes, infixes, or circumfixes) are added to a root word in a linear and systematic way, creating complex words that encode detailed grammatical information."</em> (Wikipedia)</dd>
 <dt class="anchor">NVL</dt>
 <dd class="anchor">National Language Version</dd>
 <dt class="anchor"><a href="https://icu.unicode.org/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >ICU</a></dt>
@@ -530,6 +542,14 @@
 <dd class="anchor">Common Locale Data Repository (from ICU project)</dd>
 <dt class="anchor">LMDL</dt>
 <dd class="anchor">Locale Data Markup Language (XML-based language - ICU project).</dd>
+<dt class="anchor"><a href="https://en.wikipedia.org/wiki/Internationalized_domain_names"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >IDN</a></dt>
+<dd class="anchor">Internationalization of Domain Names</dd>
+<dt class="anchor"><a href="https://en.wikipedia.org/wiki/GTLD"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >gTLD</a></dt>
+<dd class="anchor">Generic top-level domains</dd>
+<dt class="anchor"><a href="https://en.wikipedia.org/wiki/Country_code_top-level_domain"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >ccTLD</a></dt>
+<dd class="anchor">Country code top-level domain</dd>
+<dt class="anchor">ASCII</dt>
+<dd class="anchor">American Standard Code for Information Interchange</dd>
 <dt class="anchor">UTF-8</dt>
 <dd class="anchor">Unicode 8 bits. One "character" or symbol may use more than one byte. Unicode 8 bits is the most used text enconding format possibly due to the backward compatibility with the old ASCII text encoding. However, it makes programming harder since one cannot assume that i-th position of a unicode string corresponds to the i-th character because a single UTF-8 "character" may be represented by multiple bytes.</dd>
 <dt class="anchor">UTF-16</dt>
@@ -541,11 +561,11 @@
 
 <div class="div-heading"> 
 <h2 id="H_Internationalization_Issues" class="document-heading anchor">Internationalization Issues <a class="link-heading" href="#H_Internationalization_Issues">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=75&end=109&anchor=H_Internationalization_Issues&page=Internationalization i18n and Localization i10n concepts&timestamp=176558963058853" title="[i18n]: Internationalization Issues" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=100&end=134&anchor=H_Internationalization_Issues&page=Internationalization i18n and Localization i10n concepts&timestamp=176780904738760" title="[i18n]: Internationalization Issues" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
-<div class="div-wiki-image" div-figure><div class="inner-figure"><img id="figure-" class="wiki-image lazy-load anchor" data-src="/mwiki/pasted/pasted-image-1760618396013.jpg" alt="World map depicting major regional languages around the world. The languages are listed in the order: (1) Spanish, (2) Arabic, (3) French, (4) Russian, (5) Chinese, Hindustani (6), Portuguese (7), German (8), Swahilli (9), Persian (10) and Malay/Indonesian (11). The map assigns colors for each major language, including Spanish (mostly in Spain and Hispanic-America or Hispanic Latin America), Arabic (MENA - Middle East and North Africa), French (France, Quebec and Africa), Russian (Eastern Europe and Central Asia), Chinese, Hindustani (Hindi and Urdu), Portuguese (South America / Portuguese-America / Luso-America / Portuguese Latin-Amerrica, Luso Latin-America, Lusitanic Latin America - Brazil, Angola, Mozambique and Portugal), German (mostly in Central and West Erope, including Germany, Austria, Switzerland and Luxenbourg), Swahilli (East Africa in Kenya and Tanzania), Persian (West Asia and Central Asia), and Malay/Indonesia (South East Asia - SEA, including Indonesia and Malaysia)."  ><button class="btn-show-alt-text">ALT</button> </div><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 1: World Regional Languages</p></div>
+<div class="div-wiki-image" div-figure><div class="inner-figure"><img id="figure-" class="wiki-image lazy-load anchor" data-src="/mwiki/pasted/pasted-image-1760618396013.jpg" alt="World map depicting major regional languages around the world. The languages are listed in the order: (1) Spanish, (2) Arabic, (3) French, (4) Russian, (5) Chinese, Hindustani (6), Portuguese (7), German (8), Swahilli (9), Persian (10) and Malay/Indonesian (11). The map assigns colors for each major language, including Spanish (mostly in Spain and Hispanic-America or Hispanic Latin America), Arabic (MENA - Middle East and North Africa), French (France, Quebec and Africa), Russian (Eastern Europe and Central Asia), Chinese, Hindustani (Hindi and Urdu), Portuguese (South America / Portuguese-America / Luso-America / Portuguese Latin-America, Luso Latin-America, Lusitanic Latin America - Brazil, Angola, Mozambique and Portugal), German (mostly in Central and West Erope, including Germany, Austria, Switzerland and Luxenbourg), Swahilli (East Africa in Kenya and Tanzania), Persian (West Asia and Central Asia), and Malay/Indonesia (South East Asia - SEA, including Indonesia and Malaysia)."  ><button class="btn-show-alt-text">ALT</button> </div><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 1: World Regional Languages</p></div>
 
 <p>
 Brainstorm of Major Internationalization Issues
@@ -623,7 +643,7 @@ Cultural Assumptions
 
 <div class="div-heading"> 
 <h2 id="H_Common_Mistakes" class="document-heading anchor">Common Mistakes <a class="link-heading" href="#H_Common_Mistakes">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=109&end=119&anchor=H_Common_Mistakes&page=Internationalization i18n and Localization i10n concepts&timestamp=176558963058853" title="[i18n]: Common Mistakes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=134&end=144&anchor=H_Common_Mistakes&page=Internationalization i18n and Localization i10n concepts&timestamp=176780904738760" title="[i18n]: Common Mistakes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -647,7 +667,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <div class="div-heading"> 
 <h2 id="H_Common_Locales" class="document-heading anchor">Common Locales <a class="link-heading" href="#H_Common_Locales">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=119&end=290&anchor=H_Common_Locales&page=Internationalization i18n and Localization i10n concepts&timestamp=176558963058853" title="[i18n]: Common Locales" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=144&end=317&anchor=H_Common_Locales&page=Internationalization i18n and Localization i10n concepts&timestamp=176780904738760" title="[i18n]: Common Locales" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -1063,6 +1083,24 @@ Locale codes follow the convention &lt;language-code&gt;-&lt;countery-code&gt; w
  
 <tr>
 
+<td>India</td>
+ 
+<td>kok-IN</td>
+ 
+<td>Konkani (India)<a href="#" id="footnote-reference-link-9" class="footnote-link"><sup class="footnote-reference" data-counter="9" data-footnote="Goa state, former Portuguese colony.">[9]</sup></a></td>
+</tr>
+ 
+<tr>
+
+<td>INdia</td>
+ 
+<td>tel-IN</td>
+ 
+<td>Telugu (India)</td>
+</tr>
+ 
+<tr>
+
 <td>Germany</td>
  
 <td>de-DE</td>
@@ -1139,7 +1177,7 @@ Locale codes follow the convention &lt;language-code&gt;-&lt;countery-code&gt; w
  
 <td>tr-TR</td>
  
-<td>Turkish<a href="#" id="footnote-reference-link-9" class="footnote-link"><sup class="footnote-reference" data-counter="9" data-footnote="The country is formely known as Turkey.">[9]</sup></a></td>
+<td>Turkish<a href="#" id="footnote-reference-link-10" class="footnote-link"><sup class="footnote-reference" data-counter="10" data-footnote="The country is formely known as Turkey. The country&apos;s government have asked the world to use the name Türkiye instead of the old name, Turkey.">[10]</sup></a></td>
 </tr>
  
 <tr>
@@ -1184,7 +1222,7 @@ Locale codes follow the convention &lt;language-code&gt;-&lt;countery-code&gt; w
  
 <td>eu-ES</td>
  
-<td>Basque (Euskera)<a href="#" id="footnote-reference-link-10" class="footnote-link"><sup class="footnote-reference" data-counter="10" data-footnote="Non indo-european language">[10]</sup></a></td>
+<td>Basque (Euskera)<a href="#" id="footnote-reference-link-11" class="footnote-link"><sup class="footnote-reference" data-counter="11" data-footnote="Non indo-european language">[11]</sup></a></td>
 </tr>
  
 <tr>
@@ -1193,7 +1231,7 @@ Locale codes follow the convention &lt;language-code&gt;-&lt;countery-code&gt; w
  
 <td>gl-ES</td>
  
-<td>Galician<a href="#" id="footnote-reference-link-11" class="footnote-link"><sup class="footnote-reference" data-counter="11" data-footnote="Sister language of Portuguese">[11]</sup></a></td>
+<td>Galician<a href="#" id="footnote-reference-link-12" class="footnote-link"><sup class="footnote-reference" data-counter="12" data-footnote="Sister language of Portuguese">[12]</sup></a></td>
 </tr>
  
 <tr>
@@ -1202,7 +1240,7 @@ Locale codes follow the convention &lt;language-code&gt;-&lt;countery-code&gt; w
  
 <td>es-MX</td>
  
-<td>Mexican Spanish (Español mexicano)<a href="#" id="footnote-reference-link-12" class="footnote-link"><sup class="footnote-reference" data-counter="12" data-footnote="Pronouce: Espanhol merricano">[12]</sup></a></td>
+<td>Mexican Spanish (Español mexicano)<a href="#" id="footnote-reference-link-13" class="footnote-link"><sup class="footnote-reference" data-counter="13" data-footnote="Pronouce: Espanhol merricano">[13]</sup></a></td>
 </tr>
  
 <tr>
@@ -1387,7 +1425,7 @@ NOTE:
 Most English variants around the world are based on the British English and uses the British spelling. The American English spelling is only used by USA and Phillipines. 
 </li>
 <li>
-India does not have any official language and Hindi is not the official language of India. Moreover, the majority of Indian population does not speak Hindi. 
+India does not have any national language. Hindi is neither the national language of India nor the single official language of the country. Moreover, the majority of Indian population does not speak Hindi. 
 </li>
 <li>
 Hong Kong is not country. It is a SAR - Special Administrative Region of mainland China. Hong Kong has its own currency and onlympic team. In addition, in sports matches Hong Kong uses its own flag. 
@@ -1396,7 +1434,7 @@ Hong Kong is not country. It is a SAR - Special Administrative Region of mainlan
 Puerto Rico is not a country. The island is USA non incorporated territory, even though the island has its own olympic team. 
 </li>
 <li>
-Spanish locales don't have much difference other than country code, currency and paper size since most Spanish countries follows the <a href="https://en.wikipedia.org/wiki/Royal_Spanish_Academy"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Royal Spanish Academy</a><a href="#" id="footnote-reference-link-13" class="footnote-link"><sup class="footnote-reference" data-counter="13" data-footnote="Spanish: Real Academia Española">[13]</sup></a> 
+Spanish locales don't have much difference other than country code, currency and paper size since most Spanish countries follows the <a href="https://en.wikipedia.org/wiki/Royal_Spanish_Academy"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Royal Spanish Academy</a><a href="#" id="footnote-reference-link-14" class="footnote-link"><sup class="footnote-reference" data-counter="14" data-footnote="Spanish: Real Academia Española">[14]</sup></a> 
 </li>
 </ol>
 
@@ -1412,45 +1450,45 @@ It is possible to change the UI interface language of some application on Linux 
 In bash shell or any other POSIX shell.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-sh"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$LANG</span>
 en_US.UTF-8
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 In Python,
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-sh"><div class="highlight"><pre><span></span>&gt;&gt;&gt;<span class="w"> </span>import<span class="w"> </span>os<span class="w"> </span>
 
 &gt;&gt;&gt;<span class="w"> </span>os.getenv<span class="o">(</span><span class="s2">&quot;LANG&quot;</span>,<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="o">)</span>
 <span class="s1">&#39;en_US.UTF-8&#39;</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 The following command temporarily changes the Kwrite KDE text editor language to Swiss German even if the default language used during the Linux distribution installation was not German. This feature is useful for learning new vocabulary of other languages.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-sh"><div class="highlight"><pre><span></span>env<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>de_CH<span class="w"> </span>kwrite
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Lanch kwite with language set to Swiss German detached from terminal (without blocking the terminal emulator).
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-sh"><div class="highlight"><pre><span></span>$<span class="w"> </span>env<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>de_CH.UTF-8<span class="w"> </span>kwrite<span class="w"> </span><span class="m">1</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="nb">disown</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Explanation:
@@ -1515,7 +1553,7 @@ Explanation:
 
 <div class="div-heading"> 
 <h2 id="H_Falsehoods_Many_Programmers_Believe_About_Names" class="document-heading anchor">Falsehoods Many Programmers Believe About Names <a class="link-heading" href="#H_Falsehoods_Many_Programmers_Believe_About_Names">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=290&end=372&anchor=H_Falsehoods_Many_Programmers_Believe_About_Names&page=Internationalization i18n and Localization i10n concepts&timestamp=176558963058853" title="[i18n]: Falsehoods Many Programmers Believe About Names" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=317&end=409&anchor=H_Falsehoods_Many_Programmers_Believe_About_Names&page=Internationalization i18n and Localization i10n concepts&timestamp=176780904738760" title="[i18n]: Falsehoods Many Programmers Believe About Names" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -1524,7 +1562,7 @@ Explanation:
 Names are only written using ascii characters. Counterexample: "João" (portuguese version of John) or " Björk" (Icelandic given name). 
 </li>
 <li>
-Names does not contain hyphen (-) or apostrophe (') characters. Counterexample: O'neil - common irish surname. 
+Names does not contain hyphen (-) or apostrophe (') characters. Counterexample: O'Neill - common irish surname. 
 </li>
 <li>
 A person may have only two names, a given name and surname (family name). Counterexample: the full name of Brazil's emperor <a href="https://en.wikipedia.org/wiki/Pedro_II_of_Brazil"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Pedro II of Brazil</a> was "Pedro de Alcântara João Carlos Leopoldo Salvador Bibiano Francisco Xavier de Paula Leocádio Miguel Gabriel Rafael". 
@@ -1648,6 +1686,20 @@ People only a have a single given name and there is no whitespace within a given
 </ul>
 </li>
 <li>
+<em>Naming Conventions - Russian Culture</em>, Cultural Atlas <ul class="">
+<li>
+<a href="https://culturalatlas.sbs.com.au/russian-culture/russian-culture-naming"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://culturalatlas.sbs.com.au/russian-culture/russian-culture-naming</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Russian names</em>, Just Russian <ul class="">
+<li>
+<a href="https://www.justrussian.com/russian-names/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.justrussian.com/russian-names/</a> 
+</li>
+</ul>
+</li>
+<li>
 <em>Roman naming conventions</em>, Wikipedia <ul class="">
 <li>
 <a href="https://en.wikipedia.org/wiki/Roman_naming_conventions"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Roman_naming_conventions</a> 
@@ -1679,6 +1731,16 @@ People only a have a single given name and there is no whitespace within a given
 <em>Italian name</em>, Wikipedia <ul class="">
 <li>
 <a href="https://en.wikipedia.org/wiki/Italian_name"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Italian_name</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Portuguese name</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Portuguese_name"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Portuguese_name</a> 
+</li>
+<li>
+<em>A Portuguese name, or Lusophone name – a personal name in the Portuguese language – is typically composed of one or two personal names, the mother's family surname and the father's family surname (rarely only one surname, sometimes more than two). For practicality, usually only the last surname (excluding prepositions) is used in formal greetings.</em> 
 </li>
 </ul>
 </li>
@@ -1718,16 +1780,6 @@ People only a have a single given name and there is no whitespace within a given
 </ul>
 </li>
 <li>
-<em>Portuguese name</em>, Wikipedia <ul class="">
-<li>
-<a href="https://en.wikipedia.org/wiki/Portuguese_name"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Portuguese_name</a> 
-</li>
-<li>
-<em>A Portuguese name, or Lusophone name – a personal name in the Portuguese language – is typically composed of one or two personal names, the mother's family surname and the father's family surname (rarely only one surname, sometimes more than two). For practicality, usually only the last surname (excluding prepositions) is used in formal greetings.</em> 
-</li>
-</ul>
-</li>
-<li>
 <em>Arabic name</em>, Wikipedia <ul class="">
 <li>
 <a href="https://en.wikipedia.org/wiki/Arabic_name"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Arabic_name</a> 
@@ -1738,6 +1790,27 @@ People only a have a single given name and there is no whitespace within a given
 <em>How Arabic Names Work: A Guide to Ism, Nasab, Laqab, Nisba, and Kunya</em> <ul class="">
 <li>
 <a href="https://arabic-for-nerds.com/translation/how-are-family-names-constructed-in-arabic/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://arabic-for-nerds.com/translation/how-are-family-names-constructed-in-arabic/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Türkiye Naming Customs</em>, Family Search <ul class="">
+<li>
+<a href="https://www.familysearch.org/en/wiki/T%C3%BCrkiye_Naming_Customs"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.familysearch.org/en/wiki/Türkiye_Naming_Customs</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Turkish name</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Turkish_name"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Turkish_name</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Naming - Turkish Culture</em>, Cultural Atlas <ul class="">
+<li>
+<a href="https://culturalatlas.sbs.com.au/turkish-culture/turkish-culture-naming"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://culturalatlas.sbs.com.au/turkish-culture/turkish-culture-naming</a> 
 </li>
 </ul>
 </li>
@@ -1787,7 +1860,7 @@ People only a have a single given name and there is no whitespace within a given
 
 <div class="div-heading"> 
 <h2 id="H_American_English_Vs_British_English" class="document-heading anchor">American English Vs British English <a class="link-heading" href="#H_American_English_Vs_British_English">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=372&end=421&anchor=H_American_English_Vs_British_English&page=Internationalization i18n and Localization i10n concepts&timestamp=176558963058853" title="[i18n]: American English Vs British English" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=409&end=466&anchor=H_American_English_Vs_British_English&page=Internationalization i18n and Localization i10n concepts&timestamp=176780904738760" title="[i18n]: American English Vs British English" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -1822,9 +1895,9 @@ People only a have a single given name and there is no whitespace within a given
  
 <tr>
 
-<td>meter<a href="#" id="footnote-reference-link-14" class="footnote-link"><sup class="footnote-reference" data-counter="14" data-footnote="Preferred spelling in American English">[14]</sup></a></td>
+<td>meter<a href="#" id="footnote-reference-link-15" class="footnote-link"><sup class="footnote-reference" data-counter="15" data-footnote="Preferred spelling in American English">[15]</sup></a></td>
  
-<td>metre<a href="#" id="footnote-reference-link-15" class="footnote-link"><sup class="footnote-reference" data-counter="15" data-footnote="Preferred spelling in British English">[15]</sup></a></td>
+<td>metre<a href="#" id="footnote-reference-link-16" class="footnote-link"><sup class="footnote-reference" data-counter="16" data-footnote="Preferred spelling in British English">[16]</sup></a></td>
 </tr>
  
 <tr>
@@ -1857,9 +1930,44 @@ People only a have a single given name and there is no whitespace within a given
  
 <tr>
 
+<td>license</td>
+ 
+<td>licence</td>
+</tr>
+ 
+<tr>
+
+<td>software license</td>
+ 
+<td>software licence</td>
+</tr>
+ 
+<tr>
+
+<td>free software license</td>
+ 
+<td>free software licence</td>
+</tr>
+ 
+<tr>
+
 <td>center</td>
  
 <td>centre</td>
+</tr>
+ 
+<tr>
+
+<td>center of mass</td>
+ 
+<td>centre of mass</td>
+</tr>
+ 
+<tr>
+
+<td>aerodynamic center</td>
+ 
+<td>aerodynamic centre</td>
 </tr>
  
 <tr>
@@ -1888,6 +1996,13 @@ People only a have a single given name and there is no whitespace within a given
 <td>labor</td>
  
 <td>labour</td>
+</tr>
+ 
+<tr>
+
+<td>lawyer, attorney</td>
+ 
+<td>lawyer, barrister</td>
 </tr>
  
 <tr>
@@ -2018,6 +2133,20 @@ People only a have a single given name and there is no whitespace within a given
  
 <tr>
 
+<td>bonkers</td>
+ 
+<td>crazy</td>
+</tr>
+ 
+<tr>
+
+<td>It is bonkers.</td>
+ 
+<td>It is crazy.</td>
+</tr>
+ 
+<tr>
+
 <td>friends</td>
  
 <td>friends or mates</td>
@@ -2118,7 +2247,7 @@ People only a have a single given name and there is no whitespace within a given
 
 <div class="div-heading"> 
 <h2 id="H_Software_Libraries" class="document-heading anchor">Software Libraries <a class="link-heading" href="#H_Software_Libraries">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=421&end=430&anchor=H_Software_Libraries&page=Internationalization i18n and Localization i10n concepts&timestamp=176558963058853" title="[i18n]: Software Libraries" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=466&end=475&anchor=H_Software_Libraries&page=Internationalization i18n and Localization i10n concepts&timestamp=176780904738760" title="[i18n]: Software Libraries" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -2144,7 +2273,7 @@ Gettext
 
 <div class="div-heading"> 
 <h2 id="H_Footnotes" class="document-heading anchor">Footnotes <a class="link-heading" href="#H_Footnotes">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=430&end=435&anchor=H_Footnotes&page=Internationalization i18n and Localization i10n concepts&timestamp=176558963058853" title="[i18n]: Footnotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=475&end=480&anchor=H_Footnotes&page=Internationalization i18n and Localization i10n concepts&timestamp=176780904738760" title="[i18n]: Footnotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -2157,23 +2286,24 @@ Gettext
  <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-6">[6]</a> Based on American English</p>
  <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-7">[7]</a> India is among the fastest growing economies in the world. On the long run, it means higher return on investment.</p>
  <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-8">[8]</a> Hindustani</p>
- <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-9">[9]</a> The country is formely known as Turkey.</p>
- <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-10">[10]</a> Non indo-european language</p>
- <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-11">[11]</a> Sister language of Portuguese</p>
- <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-12">[12]</a> Pronouce: Espanhol merricano</p>
- <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-13">[13]</a> Spanish: Real Academia Española</p>
- <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-14">[14]</a> Preferred spelling in American English</p>
- <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-15">[15]</a> Preferred spelling in British English</p></div>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-9">[9]</a> Goa state, former Portuguese colony.</p>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-10">[10]</a> The country is formely known as Turkey. The country's government have asked the world to use the name Türkiye instead of the old name, Turkey.</p>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-11">[11]</a> Non indo-european language</p>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-12">[12]</a> Sister language of Portuguese</p>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-13">[13]</a> Pronouce: Espanhol merricano</p>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-14">[14]</a> Spanish: Real Academia Española</p>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-15">[15]</a> Preferred spelling in American English</p>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-16">[16]</a> Preferred spelling in British English</p></div>
 
 <div class="div-heading"> 
 <h2 id="H_See_also" class="document-heading anchor">See also <a class="link-heading" href="#H_See_also">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=435&end=end&anchor=H_See_also&page=Internationalization i18n and Localization i10n concepts&timestamp=176558963058853" title="[i18n]: See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=480&end=end&anchor=H_See_also&page=Internationalization i18n and Localization i10n concepts&timestamp=176780904738760" title="[i18n]: See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Unicode" class="document-heading anchor">Unicode <a class="link-heading" href="#H_Unicode">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=437&end=484&anchor=H_Unicode&page=Internationalization i18n and Localization i10n concepts&timestamp=176558963058853" title="[i18n]: Unicode" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=482&end=529&anchor=H_Unicode&page=Internationalization i18n and Localization i10n concepts&timestamp=176780904738760" title="[i18n]: Unicode" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">
@@ -2331,7 +2461,7 @@ Gettext
 
 <div class="div-heading"> 
 <h3 id="H_Internationalization_and_Localization__Reading" class="document-heading anchor">Internationalization and Localization  Reading <a class="link-heading" href="#H_Internationalization_and_Localization__Reading">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=484&end=624&anchor=H_Internationalization_and_Localization__Reading&page=Internationalization i18n and Localization i10n concepts&timestamp=176558963058853" title="[i18n]: Internationalization and Localization  Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=529&end=669&anchor=H_Internationalization_and_Localization__Reading&page=Internationalization i18n and Localization i10n concepts&timestamp=176780904738760" title="[i18n]: Internationalization and Localization  Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">
@@ -2803,8 +2933,30 @@ Brief: * Usually, programs are written and documented in English, and use Englis
 </ul>
 
 <div class="div-heading"> 
+<h3 id="H_GUI_(Graphics_User_Interface),_UX_(User_Experience)_and_Culture" class="document-heading anchor">GUI (Graphics User Interface), UX (User Experience) and Culture <a class="link-heading" href="#H_GUI_(Graphics_User_Interface),_UX_(User_Experience)_and_Culture">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=669&end=677&anchor=H_GUI_(Graphics_User_Interface),_UX_(User_Experience)_and_Culture&page=Internationalization i18n and Localization i10n concepts&timestamp=176780904738760" title="[i18n]: GUI (Graphics User Interface), UX (User Experience) and Culture" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<ul class="">
+<li>
+<em>How QR code payment blew up in India</em>, Phoebe Yu - Video (Youtube) <ul class="">
+<li>
+<a href="https://m.youtube.com/watch?v=OLY2coSRf7g"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://m.youtube.com/watch?v=OLY2coSRf7g</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>How Google Maps fixed India's street name problem</em>, Phoebe Yu - Video (Youtube) <ul class="">
+<li>
+<a href="https://m.youtube.com/watch?v=_HSYTIEXa5w"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://m.youtube.com/watch?v=_HSYTIEXa5w</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
 <h3 id="H_Numbers_and_Mesurement" class="document-heading anchor">Numbers and Mesurement <a class="link-heading" href="#H_Numbers_and_Mesurement">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=624&end=end&anchor=H_Numbers_and_Mesurement&page=Internationalization i18n and Localization i10n concepts&timestamp=176558963058853" title="[i18n]: Numbers and Mesurement" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=677&end=end&anchor=H_Numbers_and_Mesurement&page=Internationalization i18n and Localization i10n concepts&timestamp=176780904738760" title="[i18n]: Numbers and Mesurement" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">

@@ -128,6 +128,7 @@
     // NOTE: It is encoded as base64 
     const PAGE_SOURCE_CODE = "";
     const PAGE_SOURCE_URL  = ""
+    const CITATION_REFERENCES = "";
 	
     // Possible values: 'none', 'nosection' 'section', 'subsection'
     //  none      => no enumeration 
@@ -340,6 +341,9 @@ ISO
 W3C 
  : World Wide Web Consortium
 
+[<span class="nt">IANA</span>](<span class="na">https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority</span>)
+ : Intenet Assigned Numbers Authority
+
 IETF
   : Internet Engineering Task Force
 
@@ -373,6 +377,16 @@ RTL Languages
 LTR Languages
   : Left-To-Right Languages. Languages written from left to right. Example: Hebrew, Arabic, Persian, Urdu, Phoenician and so on.
 
+[<span class="nt">SOV</span>](<span class="na">https://en.wikipedia.org/wiki/Subject%E2%80%93object%E2%80%93verb_word_order</span>) word order
+ : Subject-Object-Verb 
+ 
+SVO word order 
+  : Subject-Verb-Object word order 
+  
+[<span class="nt">Agglutinative language</span>](<span class="na">https://en.wikipedia.org/wiki/Agglutinative_language</span>)
+ : Example: Turkish, Mongolian, Japanese and Korean.
+ : <span class="ge">*&quot;An agglutinative language is a type of language that primarily forms words by stringing together morphemes (word parts)—each typically representing a single grammatical meaning—without significant modification to their forms (agglutinations). In such languages, affixes (prefixes, suffixes, infixes, or circumfixes) are added to a root word in a linear and systematic way, creating complex words that encode detailed grammatical information.&quot;*</span> (Wikipedia)
+
 NVL 
   : National Language Version
   
@@ -387,6 +401,18 @@ NVL
 
 LMDL
   : Locale Data Markup Language (XML-based language - ICU project).
+
+[<span class="nt">IDN</span>](<span class="na">https://en.wikipedia.org/wiki/Internationalized_domain_names</span>)
+  : Internationalization of Domain Names
+
+[<span class="nt">gTLD</span>](<span class="na">https://en.wikipedia.org/wiki/GTLD</span>)
+  : Generic top-level domains
+
+[<span class="nt">ccTLD</span>](<span class="na">https://en.wikipedia.org/wiki/Country_code_top-level_domain</span>)
+  : Country code top-level domain
+  
+ASCII
+  : American Standard Code for Information Interchange
   
 UTF-8
   : Unicode 8 bits. One &quot;character&quot; or symbol may use more than one byte. Unicode 8 bits is the most used text enconding format possibly due to the backward compatibility with the old ASCII text encoding. However, it makes programming harder since one cannot assume that i-th position of a unicode string corresponds to the i-th character because a single UTF-8 &quot;character&quot; may be represented by multiple bytes.
@@ -397,11 +423,11 @@ UTF-16
 QA Testing
   : EN - Quality Assurance Testing 
   : PT - Teste de Garantia de Qualidade
-    
+      
 <span class="gu">## Internationalization Issues</span>
 
 ```{figure} ![[pasted-image-1760618396013.jpg]]
-:alt: World map depicting major regional languages around the world. The languages are listed in the order: (1) Spanish, (2) Arabic, (3) French, (4) Russian, (5) Chinese, Hindustani (6), Portuguese (7), German (8), Swahilli (9), Persian (10) and Malay/Indonesian (11). The map assigns colors for each major language, including Spanish (mostly in Spain and Hispanic-America or Hispanic Latin America), Arabic (MENA - Middle East and North Africa), French (France, Quebec and Africa), Russian (Eastern Europe and Central Asia), Chinese, Hindustani (Hindi and Urdu), Portuguese (South America / Portuguese-America / Luso-America / Portuguese Latin-Amerrica, Luso Latin-America, Lusitanic Latin America - Brazil, Angola, Mozambique and Portugal), German (mostly in Central and West Erope, including Germany, Austria, Switzerland and Luxenbourg), Swahilli (East Africa in Kenya and Tanzania), Persian (West Asia and Central Asia), and Malay/Indonesia (South East Asia - SEA, including Indonesia and Malaysia).
+:alt: World map depicting major regional languages around the world. The languages are listed in the order: (1) Spanish, (2) Arabic, (3) French, (4) Russian, (5) Chinese, Hindustani (6), Portuguese (7), German (8), Swahilli (9), Persian (10) and Malay/Indonesian (11). The map assigns colors for each major language, including Spanish (mostly in Spain and Hispanic-America or Hispanic Latin America), Arabic (MENA - Middle East and North Africa), French (France, Quebec and Africa), Russian (Eastern Europe and Central Asia), Chinese, Hindustani (Hindi and Urdu), Portuguese (South America / Portuguese-America / Luso-America / Portuguese Latin-America, Luso Latin-America, Lusitanic Latin America - Brazil, Angola, Mozambique and Portugal), German (mostly in Central and West Erope, including Germany, Austria, Switzerland and Luxenbourg), Swahilli (East Africa in Kenya and Tanzania), Persian (West Asia and Central Asia), and Malay/Indonesia (South East Asia - SEA, including Indonesia and Malaysia).
 
 World Regional Languages
 <span class="sb">```</span>
@@ -502,6 +528,8 @@ World Regional Languages
 <span class="sb">| India^{India is among the fastest growing economies in the world. On the long run, it means higher return on investment.}        | en-IN                | English (India)                                 |</span>
 <span class="sb">| India        | hi-IN                | Hindi^{Hindustani} (India)                      |</span>
 <span class="sb">| India        | ta-IN                | Tamil (India)                                   |</span>
+<span class="sb">| India        | kok-IN     |  Konkani (India)^[Goa state, former Portuguese colony.]  |</span>
+<span class="sb">| INdia        | tel-IN   | Telugu (India)  |</span>
 <span class="sb">| Germany      | de-DE                | German (Deutsch)                                |</span>
 <span class="sb">| Austria      | de-AT                | Austrian German (Österreichisches Deutsch)      |</span>
 <span class="sb">| Switzerland  | de-CH                | Switzerland German (Schweizerdeutsch)           |</span>
@@ -510,7 +538,7 @@ World Regional Languages
 <span class="sb">| France       | fr-FR                | French (Français)                               |</span>
 <span class="sb">| Italy        | it-IT                | Italian (Italiano)                              |</span>
 <span class="sb">| Greece       | el-GR                | Modern Greek                                    | </span>
-<span class="sb">| Türkiye      | tr-TR                | Turkish^{The country is formely known as Turkey.} |</span>
+<span class="sb">| Türkiye      | tr-TR                | Turkish^{The country is formely known as Turkey. The country&#39;s government have asked the world to use the name Türkiye instead of the old name, Turkey.} |</span>
 <span class="sb">| Cyprus       | el-CY                | Modern Greek of Cyprus                          |</span>
 <span class="sb">| Cyprus       | tr-CY                | Turkish language (Cyprus)                       |</span>
 <span class="sb">| Spain        | es-ES                | Spanish (Español)                               |</span>
@@ -540,7 +568,7 @@ World Regional Languages
 <span class="sb">  </span>
 <span class="sb">NOTE:</span>
 <span class="sb">1. Most English variants around the world are based on the British English and uses the British spelling. The American English spelling is only used by USA and Phillipines.</span>
-<span class="sb">2. India does not have any official language and Hindi is not the official language of India. Moreover, the majority of Indian population does not speak Hindi.</span>
+<span class="sb">2. India does not have any national language. Hindi is neither the national language of India nor the single official language of the country. Moreover, the majority of Indian population does not speak Hindi.</span>
 <span class="sb">3. Hong Kong is not country. It is a SAR - Special Administrative Region of mainland China. Hong Kong has its own currency and onlympic team. In addition, in sports matches Hong Kong uses its own flag. </span>
 <span class="sb">4. Puerto Rico is not a country. The island is USA non incorporated territory, even though the island has its own olympic team.</span>
 <span class="sb">5. Spanish locales don&#39;t have much difference other than country code, currency and paper size since most Spanish countries follows the [Royal Spanish Academy](https://en.wikipedia.org/wiki/Royal_Spanish_Academy)^{Spanish: Real Academia Española}</span>
@@ -612,11 +640,11 @@ KWrite started with es_ES Spanish locale for Spain
 <span class="sb">  + https://learn.microsoft.com/en-us/globalization/locale/standard-locale-names</span>
 <span class="sb">+ *ISO Country and Language Codes: The Definitive Guide*</span>
 <span class="sb">  + https://centus.com/blog/iso-language-codes</span>
-<span class="sb">                  </span>
+<span class="sb">                    </span>
 <span class="sb">## Falsehoods Many Programmers Believe About Names</span>
 
 <span class="sb">1. Names are only written using ascii characters. Counterexample: &quot;João&quot; (portuguese version of John) or &quot; Björk&quot; (Icelandic given name).</span>
-<span class="sb">2. Names does not contain hyphen (-) or apostrophe (&#39;) characters. Counterexample: O&#39;neil - common irish surname.</span>
+<span class="sb">2. Names does not contain hyphen (-) or apostrophe (&#39;) characters. Counterexample: O&#39;Neill - common irish surname.</span>
 <span class="sb">3. A person may have only two names, a given name and surname (family name). Counterexample: the full name of Brazil&#39;s emperor [Pedro II of Brazil](https://en.wikipedia.org/wiki/Pedro_II_of_Brazil) was &quot;Pedro de Alcântara João Carlos Leopoldo Salvador Bibiano Francisco Xavier de Paula Leocádio Miguel Gabriel Rafael&quot;.</span>
 <span class="sb">4. People do not change their names, surnames or email. </span>
 <span class="sb">5. People will never have identical names.</span>
@@ -655,6 +683,10 @@ KWrite started with es_ES Spanish locale for Spain
 <span class="sb">  + https://en.wikipedia.org/wiki/Wikipedia:Naming_conventions_(Chinese)</span>
 <span class="sb">+ *East Slavic name*, Wikipedia</span>
 <span class="sb">  + https://en.wikipedia.org/wiki/East_Slavic_name</span>
+<span class="sb">+ *Naming Conventions - Russian Culture*, Cultural Atlas</span>
+<span class="sb">  + https://culturalatlas.sbs.com.au/russian-culture/russian-culture-naming</span>
+<span class="sb">+ *Russian names*, Just Russian</span>
+<span class="sb">  + https://www.justrussian.com/russian-names/</span>
 <span class="sb">+ *Roman naming conventions*, Wikipedia</span>
 <span class="sb">  + https://en.wikipedia.org/wiki/Roman_naming_conventions</span>
 <span class="sb">+ *Nomen gentilicium*, Wikipedia</span>
@@ -665,6 +697,9 @@ KWrite started with es_ES Spanish locale for Spain
 <span class="sb">  + https://en.wikipedia.org/wiki/Praenomen</span>
 <span class="sb">+ *Italian name*, Wikipedia</span>
 <span class="sb">  + https://en.wikipedia.org/wiki/Italian_name</span>
+<span class="sb">+ *Portuguese name*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Portuguese_name</span>
+<span class="sb">  + *A Portuguese name, or Lusophone name – a personal name in the Portuguese language – is typically composed of one or two personal names, the mother&#39;s family surname and the father&#39;s family surname (rarely only one surname, sometimes more than two). For practicality, usually only the last surname (excluding prepositions) is used in formal greetings.*</span>
 <span class="sb">+ *Spanish naming customs*, Wikipedia</span>
 <span class="sb">  + https://en.wikipedia.org/wiki/Spanish_naming_customs</span>
 <span class="sb">+ *Spanish Names: A Beginner’s Guide to Naming Customs and Traditions*, ESLZubzz</span>
@@ -675,13 +710,16 @@ KWrite started with es_ES Spanish locale for Spain
 <span class="sb">  + https://culturalatlas.sbs.com.au/spanish-culture/spanish-culture-naming</span>
 <span class="sb">+ *Naming customs of Hispanic America*, Wikipedia</span>
 <span class="sb">  + https://en.wikipedia.org/wiki/Naming_customs_of_Hispanic_America</span>
-<span class="sb">+ *Portuguese name*, Wikipedia</span>
-<span class="sb">  + https://en.wikipedia.org/wiki/Portuguese_name</span>
-<span class="sb">  + *A Portuguese name, or Lusophone name – a personal name in the Portuguese language – is typically composed of one or two personal names, the mother&#39;s family surname and the father&#39;s family surname (rarely only one surname, sometimes more than two). For practicality, usually only the last surname (excluding prepositions) is used in formal greetings.*</span>
 <span class="sb">+ *Arabic name*, Wikipedia</span>
 <span class="sb">  + https://en.wikipedia.org/wiki/Arabic_name</span>
 <span class="sb">+ *How Arabic Names Work: A Guide to Ism, Nasab, Laqab, Nisba, and Kunya*</span>
 <span class="sb">  + https://arabic-for-nerds.com/translation/how-are-family-names-constructed-in-arabic/</span>
+<span class="sb">+ *Türkiye Naming Customs*, Family Search</span>
+<span class="sb">  + https://www.familysearch.org/en/wiki/T%C3%BCrkiye_Naming_Customs</span>
+<span class="sb">+ *Turkish name*, Wikipedia</span>
+<span class="sb">  + https://en.wikipedia.org/wiki/Turkish_name</span>
+<span class="sb">+ *Naming - Turkish Culture*, Cultural Atlas</span>
+<span class="sb">  + https://culturalatlas.sbs.com.au/turkish-culture/turkish-culture-naming</span>
 <span class="sb">+ *Mononym*, Wikipedia (People with no surname, just a single name)</span>
 <span class="sb">  + https://en.wikipedia.org/wiki/Mononym</span>
 <span class="sb">+ *List of legally mononymous people*, Wikipedia (List of people whose full legal name does not have surname or family name such as members of Japanese royal family)</span>
@@ -694,7 +732,7 @@ KWrite started with es_ES Spanish locale for Spain
 <span class="sb">  + https://en.wikipedia.org/wiki/Category:Compound_given_names</span>
 <span class="sb">+ *How do I correctly abbreviate compounded first name for academic publications?*, Academia</span>
 <span class="sb">  + https://academia.stackexchange.com/questions/154619/how-do-i-correctly-abbreviate-compounded-first-name-for-academic-publications</span>
-<span class="sb"> </span>
+<span class="sb">     </span>
 <span class="sb">## American English Vs British English </span>
 
 <span class="sb">| American English    | British English      |</span>
@@ -706,11 +744,17 @@ KWrite started with es_ES Spanish locale for Spain
 <span class="sb">| program             | programme            |</span>
 <span class="sb">| computer program    | computer programme   |</span>
 <span class="sb">| study program       | study programme      |</span>
+<span class="sb">| license             | licence              |</span>
+<span class="sb">| software license    | software licence     |</span>
+<span class="sb">| free software license | free software licence |</span>
 <span class="sb">| center              | centre               |</span>
+<span class="sb">| center of mass      | centre of mass       | </span>
+<span class="sb">| aerodynamic center  | aerodynamic centre   |</span>
 <span class="sb">| color               | colour               |</span>
 <span class="sb">| favor               | favour               |</span>
 <span class="sb">| favorite            | favourite            |</span>
 <span class="sb">| labor               | labour               |</span>
+<span class="sb">| lawyer, attorney    | lawyer, barrister    | </span>
 <span class="sb">| defense             | defence              |</span>
 <span class="sb">| ofense              | ofence               |</span>
 <span class="sb">| shop                | shoppe               |</span>
@@ -729,6 +773,8 @@ KWrite started with es_ES Spanish locale for Spain
 <span class="sb">| fall                | autumn               |</span>
 <span class="sb">| man, guy, dude      | bloke  |</span>
 <span class="sb">| men, guys, dudes    | blokes |</span>
+<span class="sb">| bonkers             | crazy  | </span>
+<span class="sb">| It is bonkers.       | It is crazy. |</span>
 <span class="sb">| friends             | friends or mates   |</span>
 <span class="sb">| buddies (male friends of a guy)  | lads           |</span>
 <span class="sb">| girlfriends        | female friends of a  woman |</span>
@@ -743,7 +789,7 @@ KWrite started with es_ES Spanish locale for Spain
 <span class="sb">| truck               | shorthand for pickup truck |</span>
 <span class="sb">| highway, freeway   | motorway              |</span>
 <span class="sb">| gas station        | petrol station        | </span>
-<span class="sb">  </span>
+<span class="sb">    </span>
 <span class="sb">## Software Libraries</span>
 
 <span class="sb">JavaScript</span>
@@ -946,7 +992,15 @@ KWrite started with es_ES Spanish locale for Spain
 + <span class="ge">*k-yak / stati18n Public*</span> (2014)
   + https://github.com/k-yak/stati18n   
  
+
+<span class="gu">### GUI (Graphics User Interface), UX (User Experience) and Culture</span>
+
++ <span class="ge">*How QR code payment blew up in India*</span>, Phoebe Yu - Video (Youtube)
+  + https://m.youtube.com/watch?v=OLY2coSRf7g
++ <span class="ge">*How Google Maps fixed India&#39;s street name problem*</span>, Phoebe Yu - Video (Youtube) 
+  + https://m.youtube.com/watch?v=_HSYTIEXa5w
      
+
 <span class="gu">### Numbers and Mesurement</span>
 
 + <span class="ge">*International System of Units*</span>, Wikipedia

@@ -121,13 +121,14 @@
     const LATEX_RENDERER = "katex";
     const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
     const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
-    const KATEX_MACROS = "eyJcXGIiOiAiXFxtYXRoYmZ7IzF9IiwgIlxcYmhhdCI6ICJcXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRvdCI6ICJcXGRvdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRkb3QiOiAiXFxkZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxicyI6ICJcXGJvbGRzeW1ib2x7IzF9IiwgIlxcYnNkb3QiOiAiXFxkb3R7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxic2Rkb3QiOiAiXFxkZG90e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcZmIiOiAie31eeyMyfVxcbWF0aGJmeyMxfSIsICJcXGZiaGF0IjogInt9XnsjMn1cXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcZmJzIjogInt9XnsjMn1cXGJvbGRzeW1ib2x7IzF9IiwgImZyIjogInt9XnsjMX1feyMyfSIsICJcXHNrZXciOiAiXFxsZWZ0WyAjMSBcXHJpZ2h0XV97XFx0aW1lc30iLCAiXFxhcmdtYXgiOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWF4fSIsICJcXGFyZ21pbiI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtaW59IiwgIlxcUiI6ICJ7IFxcbWF0aGJie1J9IH0iLCAiXFxaIjogIlxcbWF0aGJie1p9IiwgIlxcbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxpbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1eey0xfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxkIjogIlxcbWF0aHJte2R9IiwgIlxccCI6ICJcXHBhcnRpYWwiLCAiXFxlIjogIlxcbWF0aHJte2V9IiwgIlxcZHQiOiAiXFxmcmFje2QgIzF9e2R0fSIsICJcXGRkdCI6ICJcXGZyYWN7ZF4yICMxfXtkdF4yfSIsICJcXHBkIjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCAjMn0iLCAiXFxwZGQiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgIzJeMn0iLCAiXFxDIjogInsgXFxtYXRoYmJ7Q30gfSIsICJcXEJpZ08iOiAiXFxtYXRoY2Fse099XFwhXFxsZWZ0KCMxXFxyaWdodCkiLCAiXFxtZGVmIjogIntcXHRyaWFuZ2xlcSBcXDt9IiwgIlxcc2duIjogIlxcb3BlcmF0b3JuYW1le3Nnbn0ifQ==";
+    const KATEX_MACROS = "eyJcXGNlcSI6ICJcXGNvbG9uZXF1YWxzIiwgIlxcYiI6ICJcXG1hdGhiZnsjMX0iLCAiXFxiaGF0IjogIlxcaGF0e1xcbWF0aGJmeyMxfX0iLCAiXFxiZG90IjogIlxcZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxiZGRvdCI6ICJcXGRkb3R7XFxtYXRoYmZ7IzF9fSIsICJcXGJzIjogIlxcYm9sZHN5bWJvbHsjMX0iLCAiXFxic2hhdCI6ICJcXGhhdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGJzZG90IjogIlxcZG90e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcYnNkZG90IjogIlxcZGRvdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGZiIjogInt9XnsjMn1cXG1hdGhiZnsjMX0iLCAiXFxmYmhhdCI6ICJ7fV57IzJ9XFxoYXR7XFxtYXRoYmZ7IzF9fSIsICJcXGZicyI6ICJ7fV57IzJ9XFxib2xkc3ltYm9seyMxfSIsICJmciI6ICJ7fV57IzF9X3sjMn0iLCAiXFxza2V3IjogIlxcbGVmdFsgIzEgXFxyaWdodF1fe1xcdGltZXN9IiwgIlxcYXJnbWF4IjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1heH0iLCAiXFxhcmdtaW4iOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWlufSIsICJcXFIiOiAieyBcXG1hdGhiYntSfSB9IiwgIlxcWiI6ICJcXG1hdGhiYntafSIsICJcXGxhcGxhY2UiOiAiXFxtYXRoY2Fse0x9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWxhcGxhY2UiOiAiXFxtYXRoY2Fse0x9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxmb3VyaWVyIjogIlxcbWF0aGNhbHtGfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGlmb3VyaWVyIjogIlxcbWF0aGNhbHtGfV57LTF9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcZCI6ICJcXG1hdGhybXtkfSIsICJcXHAiOiAiXFxwYXJ0aWFsIiwgIlxcZSI6ICJcXG1hdGhybXtlfSIsICJcXGR0IjogIlxcZnJhY3tkICMxfXtkdH0iLCAiXFxkZHQiOiAiXFxmcmFje2ReMiAjMX17ZHReMn0iLCAiXFxwZCI6ICJcXGZyYWN7XFxwYXJ0aWFsICMxfXtcXHBhcnRpYWwgIzJ9IiwgIlxccGRkIjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsICMyXjJ9IiwgIlxcQyI6ICJ7IFxcbWF0aGJie0N9IH0iLCAiXFxCaWdPIjogIlxcbWF0aGNhbHtPfVxcIVxcbGVmdCgjMVxccmlnaHQpIiwgIlxcbWRlZiI6ICJ7XFx0cmlhbmdsZXEgXFw7fSIsICJcXHNnbiI6ICJcXG9wZXJhdG9ybmFtZXtzZ259In0=";
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
     // NOTE: It is encoded as base64 
     const PAGE_SOURCE_CODE = "";
     const PAGE_SOURCE_URL  = "/mwiki/src_pages/Math_-_Calculus_Reference_Card.html"
+    const CITATION_REFERENCES = "e30=";
 	
     // Possible values: 'none', 'nosection' 'section', 'subsection'
     //  none      => no enumeration 
@@ -775,7 +776,7 @@ Theorems
  
 <td>metre</td>
  
-<td><span class="math-inline">m</span></td>
+<td><span class="math-inline lazy-load-latex">m</span></td>
 </tr>
  
 <tr>
@@ -784,7 +785,7 @@ Theorems
  
 <td>Kilogram</td>
  
-<td><span class="math-inline">Kg</span></td>
+<td><span class="math-inline lazy-load-latex">Kg</span></td>
 </tr>
  
 <tr>
@@ -793,7 +794,7 @@ Theorems
  
 <td>Seconds</td>
  
-<td><span class="math-inline">s</span></td>
+<td><span class="math-inline lazy-load-latex">s</span></td>
 </tr>
  
 <tr>
@@ -802,7 +803,7 @@ Theorems
  
 <td>Kelvin</td>
  
-<td><span class="math-inline">K</span></td>
+<td><span class="math-inline lazy-load-latex">K</span></td>
 </tr>
  
 <tr>
@@ -811,7 +812,7 @@ Theorems
  
 <td>Radian</td>
  
-<td><span class="math-inline">\text{rad}</span></td>
+<td><span class="math-inline lazy-load-latex">\text{rad}</span></td>
 </tr>
 </tbody>
 </table>
@@ -843,7 +844,7 @@ Theorems
  
 <td>metre</td>
  
-<td><span class="math-inline">m</span></td>
+<td><span class="math-inline lazy-load-latex">m</span></td>
 </tr>
  
 <tr>
@@ -852,7 +853,7 @@ Theorems
  
 <td>Joule</td>
  
-<td><span class="math-inline">J</span>, <span class="math-inline">N.m</span></td>
+<td><span class="math-inline lazy-load-latex">J</span>, <span class="math-inline lazy-load-latex">N.m</span></td>
 </tr>
  
 <tr>
@@ -861,7 +862,7 @@ Theorems
  
 <td>Joule</td>
  
-<td><span class="math-inline">J</span>, <span class="math-inline">N.m</span></td>
+<td><span class="math-inline lazy-load-latex">J</span>, <span class="math-inline lazy-load-latex">N.m</span></td>
 </tr>
  
 <tr>
@@ -870,7 +871,7 @@ Theorems
  
 <td>Watt</td>
  
-<td><span class="math-inline">W</span></td>
+<td><span class="math-inline lazy-load-latex">W</span></td>
 </tr>
  
 <tr>
@@ -879,7 +880,7 @@ Theorems
  
 <td>square metre</td>
  
-<td><span class="math-inline">m^2</span></td>
+<td><span class="math-inline lazy-load-latex">m^2</span></td>
 </tr>
  
 <tr>
@@ -888,7 +889,7 @@ Theorems
  
 <td>cubic metre</td>
  
-<td><span class="math-inline">m^3</span></td>
+<td><span class="math-inline lazy-load-latex">m^3</span></td>
 </tr>
  
 <tr>
@@ -897,7 +898,7 @@ Theorems
  
 <td>Pascal</td>
  
-<td><span class="math-inline">Pa</span></td>
+<td><span class="math-inline lazy-load-latex">Pa</span></td>
 </tr>
  
 <tr>
@@ -906,7 +907,7 @@ Theorems
  
 <td>Pascal</td>
  
-<td><span class="math-inline">Pa</span></td>
+<td><span class="math-inline lazy-load-latex">Pa</span></td>
 </tr>
  
 <tr>
@@ -915,7 +916,7 @@ Theorems
  
 <td>meters per seconds</td>
  
-<td><span class="math-inline">m/s</span></td>
+<td><span class="math-inline lazy-load-latex">m/s</span></td>
 </tr>
  
 <tr>
@@ -924,7 +925,7 @@ Theorems
  
 <td>meters per square seconds</td>
  
-<td><span class="math-inline">m/s^2</span></td>
+<td><span class="math-inline lazy-load-latex">m/s^2</span></td>
 </tr>
  
 <tr>
@@ -933,7 +934,7 @@ Theorems
  
 <td>radians per seconds</td>
  
-<td><span class="math-inline">rad/s</span></td>
+<td><span class="math-inline lazy-load-latex">rad/s</span></td>
 </tr>
  
 <tr>
@@ -942,7 +943,7 @@ Theorems
  
 <td>radians per square seconds</td>
  
-<td><span class="math-inline">rad/s^2</span></td>
+<td><span class="math-inline lazy-load-latex">rad/s^2</span></td>
 </tr>
  
 <tr>
@@ -951,7 +952,7 @@ Theorems
  
 <td>Kilogram metre per second</td>
  
-<td><span class="math-inline">Kg m / s</span></td>
+<td><span class="math-inline lazy-load-latex">Kg m / s</span></td>
 </tr>
  
 <tr>
@@ -960,7 +961,7 @@ Theorems
  
 <td>Newton mere</td>
  
-<td><span class="math-inline">N.m</span></td>
+<td><span class="math-inline lazy-load-latex">N.m</span></td>
 </tr>
  
 <tr>
@@ -969,7 +970,7 @@ Theorems
  
 <td>Kilogram/metre<sup>3</sup></td>
  
-<td><span class="math-inline">Kg/m^3</span></td>
+<td><span class="math-inline lazy-load-latex">Kg/m^3</span></td>
 </tr>
 </tbody>
 </table>
@@ -997,110 +998,110 @@ Theorems
 
 <tr>
 
-<td><span class="math-inline">10^{12}</span></td>
+<td><span class="math-inline lazy-load-latex">10^{12}</span></td>
  
 <td>Tera</td>
  
-<td><span class="math-inline">T</span></td>
+<td><span class="math-inline lazy-load-latex">T</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">10^{9}</span></td>
+<td><span class="math-inline lazy-load-latex">10^{9}</span></td>
  
 <td>Giga</td>
  
-<td><span class="math-inline">G</span></td>
+<td><span class="math-inline lazy-load-latex">G</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">10^{6}</span></td>
+<td><span class="math-inline lazy-load-latex">10^{6}</span></td>
  
 <td>Mega</td>
  
-<td><span class="math-inline">M</span></td>
+<td><span class="math-inline lazy-load-latex">M</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">10^{3}</span></td>
+<td><span class="math-inline lazy-load-latex">10^{3}</span></td>
  
 <td>kilo</td>
  
-<td><span class="math-inline">k</span></td>
+<td><span class="math-inline lazy-load-latex">k</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">10^{2}</span></td>
+<td><span class="math-inline lazy-load-latex">10^{2}</span></td>
  
 <td>hecto</td>
  
-<td><span class="math-inline">h</span></td>
+<td><span class="math-inline lazy-load-latex">h</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">10^{1}</span></td>
+<td><span class="math-inline lazy-load-latex">10^{1}</span></td>
  
 <td>deca</td>
  
-<td><span class="math-inline">da</span></td>
+<td><span class="math-inline lazy-load-latex">da</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">10^{-1}</span></td>
+<td><span class="math-inline lazy-load-latex">10^{-1}</span></td>
  
 <td>deci</td>
  
-<td><span class="math-inline">d</span></td>
+<td><span class="math-inline lazy-load-latex">d</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">10^{-2}</span></td>
+<td><span class="math-inline lazy-load-latex">10^{-2}</span></td>
  
 <td>centi</td>
  
-<td><span class="math-inline">c</span></td>
+<td><span class="math-inline lazy-load-latex">c</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">10^{-3}</span></td>
+<td><span class="math-inline lazy-load-latex">10^{-3}</span></td>
  
 <td>milli</td>
  
-<td><span class="math-inline">m</span></td>
+<td><span class="math-inline lazy-load-latex">m</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">10^{-6}</span></td>
+<td><span class="math-inline lazy-load-latex">10^{-6}</span></td>
  
 <td>micro</td>
  
-<td><span class="math-inline">\mu</span></td>
+<td><span class="math-inline lazy-load-latex">\mu</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">10^{-9}</span></td>
+<td><span class="math-inline lazy-load-latex">10^{-9}</span></td>
  
 <td>nano</td>
  
-<td><span class="math-inline">n</span></td>
+<td><span class="math-inline lazy-load-latex">n</span></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">10^{-12}</span></td>
+<td><span class="math-inline lazy-load-latex">10^{-12}</span></td>
  
 <td>pico</td>
  
-<td><span class="math-inline">p</span></td>
+<td><span class="math-inline lazy-load-latex">p</span></td>
 </tr>
 </tbody>
 </table>
@@ -1117,51 +1118,51 @@ Theorems
 </div>
 
 <p>
-A general line equation has the following format, where <span class="math-inline">\alpha</span> is the line slope or anglular coefficient and <span class="math-inline">\beta</span> is the intercept of the line and the Y axis when x = 0.
+A general line equation has the following format, where <span class="math-inline lazy-load-latex">\alpha</span> is the line slope or anglular coefficient and <span class="math-inline lazy-load-latex">\beta</span> is the intercept of the line and the Y axis when x = 0.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="7b0d06e69bf8c74b84fdd158593965f02eac6284">
 y = f(x) = \alpha x + \beta
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-Given two points of this line equations <span class="math-inline">(x_1, \, y_1)</span> and <span class="math-inline">(x_2, \, y_2)</span>, the line equation can be found by using,
+Given two points of this line equations <span class="math-inline lazy-load-latex">(x_1, \, y_1)</span> and <span class="math-inline lazy-load-latex">(x_2, \, y_2)</span>, the line equation can be found by using,
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="bce9b29b0d03d67857b49307372a9644621ac747">
 y - y_1 = \frac{y_2 - y_1}{x_2 - x_1}(x - x_1)
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-so, the line slope coefficient <span class="math-inline">\alpha</span> is given by,
+so, the line slope coefficient <span class="math-inline lazy-load-latex">\alpha</span> is given by,
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="2e69fa8e625920cb20d81ef3d0327658f5ce7506">
 \alpha = \frac{y_2 - y_1}{x_2 - x_1}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-and the coefficient <span class="math-inline">\beta</span> can be determined as:
+and the coefficient <span class="math-inline lazy-load-latex">\beta</span> can be determined as:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="e96e4352ced59d2cf512633bf957ea56aab4fdd5">
 \beta = - \alpha x_1 + y_1
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-The solution of the line equation <span class="math-inline">f(x) = 0</span>, is the point x where this curve intercepts the <span class="math-inline">X</span> axis or <span class="math-inline">y = 0</span>. It is observable that this point is:
+The solution of the line equation <span class="math-inline lazy-load-latex">f(x) = 0</span>, is the point x where this curve intercepts the <span class="math-inline lazy-load-latex">X</span> axis or <span class="math-inline lazy-load-latex">y = 0</span>. It is observable that this point is:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="5387242cbe0a68061b96a644da71c7d15663a0f1">
 x = - \beta / \alpha
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -1173,11 +1174,11 @@ x = - \beta / \alpha
 
 <p>
 A quadratic cuve has the format <a class="eqref link-internal" href="#equation-EqQuadratic" data-equation="
-  f(x) = a x^2 + b x + c">(2.2.1)</a>, where <span class="math-inline">a \in \mathbb{R}</span>, <span class="math-inline">b \in \mathbb{R}</span> and <span class="math-inline">c \in \mathbb{R}</span>.
+  f(x) = a x^2 + b x + c">(2.2.1)</a>, where <span class="math-inline lazy-load-latex">a \in \mathbb{R}</span>, <span class="math-inline lazy-load-latex">b \in \mathbb{R}</span> and <span class="math-inline lazy-load-latex">c \in \mathbb{R}</span>.
 </p>
 
 <div id="equation-EqQuadratic" class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="d6a0bd3bf29fbed6c07be281b3dbfe4792d3bbda">
 
   f(x) = a x^2 + b x + c
 </div><div class="div-latex-enum"><span>(2.2.1)</span></div>
@@ -1188,11 +1189,11 @@ A quadratic cuve has the format <a class="eqref link-internal" href="#equation-E
 </p>
 
 <p>
-The solution of the quadtratic equation <span class="math-inline">f(x) = 0</span> can be found as:
+The solution of the quadtratic equation <span class="math-inline lazy-load-latex">f(x) = 0</span> can be found as:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="0199447f7111b54fe614f4fc0d2aeb31d4c3884a">
 \begin{cases}
    x &amp;= \underbrace{ \dfrac{-b \pm \sqrt{\Delta}}{2a} }_{\text{real roots}} \in \mathbb{R} 
      \quad &amp;\text{if } \Delta \geq 0
@@ -1206,11 +1207,11 @@ The solution of the quadtratic equation <span class="math-inline">f(x) = 0</span
 </div>
 
 <p>
-Where <span class="math-inline">\Delta</span> is given by:
+Where <span class="math-inline lazy-load-latex">\Delta</span> is given by:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="533e862aeb48730f518dcc0491a31e3e2394dcee">
 \Delta = b^2 - 4ac
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -1220,11 +1221,11 @@ Where <span class="math-inline">\Delta</span> is given by:
 </p>
 
 <p>
-Given three distinct points <span class="math-inline">(x_1, \, y_1)</span>, <span class="math-inline">(x_2, \, y_2)</span> and <span class="math-inline">(x_3, \, y_3)</span> of a quadratic cuve <span class="math-inline">f(x) = ax^2 + bx + c</span>, the coefficients of the quatratic curve that intercepts those points can be determined by solving the following linear system for the column vector <span class="math-inline">[a \, b \, c]^T</span>.
+Given three distinct points <span class="math-inline lazy-load-latex">(x_1, \, y_1)</span>, <span class="math-inline lazy-load-latex">(x_2, \, y_2)</span> and <span class="math-inline lazy-load-latex">(x_3, \, y_3)</span> of a quadratic cuve <span class="math-inline lazy-load-latex">f(x) = ax^2 + bx + c</span>, the coefficients of the quatratic curve that intercepts those points can be determined by solving the following linear system for the column vector <span class="math-inline lazy-load-latex">[a \, b \, c]^T</span>.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="0541a5093d9fcc433207dbaa9ad9a4b5c6fba342">
 \begin{bmatrix}
       x_1^2 &amp; x_1 &amp; 1 
    \\ x_2^2 &amp; x_2 &amp; 1
@@ -1258,18 +1259,18 @@ Since this linear system is small, it is worth solving it in symbolic form in or
 Import Sympy and enable pretty printing.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sympy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
 <span class="n">sp</span><span class="o">.</span><span class="n">init_printing</span><span class="p">()</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Create symbols and matrices.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;x1 x2 x3 y1 y2 y3 a b c&quot;</span><span class="p">)</span>
 
 <span class="n">A</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([[</span><span class="n">x1</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">x2</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">x3</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
@@ -1278,13 +1279,13 @@ Create symbols and matrices.
 <span class="n">y</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">])</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Create the equation object. Solve <code>A * x = y</code> indirectly by converting this equation to sympy standard format <code>eqrhs: A * x - y</code>, that solves <code>eqrhs == 0</code> or <code>A * x - y == 0</code> for x, vector of variables a, b and c.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="n">eq</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span>
  
 <span class="o">&gt;&gt;&gt;</span> <span class="n">eq</span>
@@ -1298,13 +1299,13 @@ Create the equation object. Solve <code>A * x = y</code> indirectly by convertin
 <span class="err">⎣</span><span class="n">a</span><span class="err">⋅</span><span class="n">x</span><span class="err">₃</span>  <span class="o">+</span> <span class="n">b</span><span class="err">⋅</span><span class="n">x</span><span class="err">₃</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">y</span><span class="err">₃⎦</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Solve the equation system for a, b and c.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="n">sols</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">solve</span><span class="p">([</span><span class="n">eq</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">eq</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eq</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">sols</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
@@ -1328,13 +1329,13 @@ Solve the equation system for a, b and c.
          <span class="n">x</span><span class="err">₁</span> <span class="err">⋅</span><span class="n">x</span><span class="err">₂</span> <span class="o">-</span> <span class="n">x</span><span class="err">₁</span> <span class="err">⋅</span><span class="n">x</span><span class="err">₃</span> <span class="o">-</span> <span class="n">x</span><span class="err">₁⋅</span><span class="n">x</span><span class="err">₂</span>  <span class="o">+</span> <span class="n">x</span><span class="err">₁⋅</span><span class="n">x</span><span class="err">₃</span>  <span class="o">+</span> <span class="n">x</span><span class="err">₂</span> <span class="err">⋅</span><span class="n">x</span><span class="err">₃</span> <span class="o">-</span> <span class="n">x</span><span class="err">₂⋅</span><span class="n">x</span><span class="err">₃</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Generate the LaTeX expression for the values of a, b and c.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">latex</span><span class="p">(</span><span class="n">sols</span><span class="p">[</span><span class="n">a</span><span class="p">]))</span>
 \<span class="n">frac</span><span class="p">{</span><span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">2</span><span class="p">}}{</span><span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}}</span>
 
@@ -1346,7 +1347,7 @@ Generate the LaTeX expression for the values of a, b and c.
 \<span class="n">frac</span><span class="p">{</span><span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">y_</span><span class="p">{</span><span class="mi">1</span><span class="p">}}{</span><span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="o">+</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span> <span class="o">-</span> <span class="n">x_</span><span class="p">{</span><span class="mi">2</span><span class="p">}</span> <span class="n">x_</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span><span class="o">^</span><span class="p">{</span><span class="mi">2</span><span class="p">}}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 
 <br>
@@ -1356,7 +1357,7 @@ Solution:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="90344e22bfcc92adb9ee32e320aab349cc1c9334">
 \begin{split}
    a &amp;=  \frac{- x_{1} y_{2} + x_{1} y_{3} + x_{2} y_{1} - x_{2} y_{3} - x_{3} y_{1} + x_{3} y_{2}}{x_{1}^{2} x_{2} - x_{1}^{2} x_{3} - x_{1} x_{2}^{2} + x_{1} x_{3}^{2} + x_{2}^{2} x_{3} - x_{2} x_{3}^{2}}
  
@@ -1371,7 +1372,7 @@ Solution:
 Code Generation using CSE - Common Subexpression Elimination:
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([</span><span class="n">sols</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">sols</span><span class="p">[</span><span class="n">b</span><span class="p">],</span> <span class="n">sols</span><span class="p">[</span><span class="n">c</span><span class="p">]])</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">u</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">numbered_symbols</span><span class="p">(</span><span class="s2">&quot;u&quot;</span><span class="p">)</span>
@@ -1404,7 +1405,7 @@ Code Generation using CSE - Common Subexpression Elimination:
  <span class="n">c</span> <span class="o">:=</span> <span class="n">u9</span><span class="o">*</span><span class="p">(</span><span class="n">u1</span><span class="o">*</span><span class="n">y2</span> <span class="o">+</span> <span class="n">u3</span><span class="o">*</span><span class="n">y3</span> <span class="o">+</span> <span class="n">u5</span><span class="o">*</span><span class="n">y1</span> <span class="o">-</span> <span class="n">u6</span><span class="o">*</span><span class="n">y3</span> <span class="o">-</span> <span class="n">u7</span><span class="o">*</span><span class="n">y2</span> <span class="o">-</span> <span class="n">u8</span><span class="o">*</span><span class="n">y1</span><span class="p">)</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-heading"> 
 <h3 id="H_Circle_Equation" class="document-heading anchor">2.3 Circle Equation <a class="link-heading" href="#H_Circle_Equation">¶</a></h3> 
@@ -1412,11 +1413,11 @@ Code Generation using CSE - Common Subexpression Elimination:
 </div>
 
 <p>
-The equation of circle with center at point <span class="math-inline">\mathbf{r}_o = (x_o, y_o)</span> and radius <span class="math-inline">\rho</span> can be stated in vector form as as
+The equation of circle with center at point <span class="math-inline lazy-load-latex">\mathbf{r}_o = (x_o, y_o)</span> and radius <span class="math-inline lazy-load-latex">\rho</span> can be stated in vector form as as
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="ede7eb854decc163ad432c8d12a42939eb46692e">
 \| \mathbf{r} - \mathbf{r}_o \| = \rho
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -1426,7 +1427,7 @@ in algebraic form this equation is
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="8e81272af8d56cd36b0caca3c8067530eb8d2b6a">
 (x - x_o)^2 + (y - y_o)^2 = \rho^2
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -1435,7 +1436,7 @@ in algebraic form this equation is
 <summary><u class="solution-label"><label data-i18n="foldable-math-proof-block-label">Proof</label> </u></summary>
 
 <div class="foldable-block" style=""><div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="aa5a24b1d40ea5f29d837668ba1bfb110172cbf2">
 
 \notag
 
@@ -1444,7 +1445,7 @@ in algebraic form this equation is
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="5c200155baf018b66f30d3ce78dd63ff665ebc3d">
 
 \notag
 
@@ -1453,7 +1454,7 @@ in algebraic form this equation is
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="0a003e7b4e34c534162f4b06303cdb6fe61c0802">
 
 \notag
 
@@ -1466,7 +1467,7 @@ Hence,
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="ce095e2e4c759c7a43d4c3ca3b975128dd73c4fe">
 
 \notag
 
@@ -1482,7 +1483,7 @@ or in less concise form
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="c0c8a1c7e946366584df70aaf22ea8971c487c84">
 x^2 + y^2 + Dx + Ey + F = 0
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -1493,13 +1494,13 @@ Where,
 
 <ul class="">
 <li>
-<span class="math-inline">E = -2 x_o</span> 
+<span class="math-inline lazy-load-latex">E = -2 x_o</span> 
 </li>
 <li>
-<span class="math-inline">F = -2 y_o</span> 
+<span class="math-inline lazy-load-latex">F = -2 y_o</span> 
 </li>
 <li>
-<span class="math-inline">F = x_o^2 + y_o^2 - \rho^2</span> 
+<span class="math-inline lazy-load-latex">F = x_o^2 + y_o^2 - \rho^2</span> 
 </li>
 </ul>
 
@@ -1508,11 +1509,11 @@ Where,
 </p>
 
 <p>
-Given the points <span class="math-inline">\mathbf{r}_1 = (x_1, y_1)</span>, <span class="math-inline">\mathbf{r}_2 = (x_2, y_2)</span>, and <span class="math-inline">\mathbf{r}_3 = (x_3, y_3)</span>, it is possible to find the equation of the circle that passes through those points in the form <span class="math-inline">x^2 + y^2 + Dx + Ey + F = 0</span> by solving the following system of equations for the parameters <span class="math-inline">D</span>, <span class="math-inline">E</span> and <span class="math-inline">F</span>.
+Given the points <span class="math-inline lazy-load-latex">\mathbf{r}_1 = (x_1, y_1)</span>, <span class="math-inline lazy-load-latex">\mathbf{r}_2 = (x_2, y_2)</span>, and <span class="math-inline lazy-load-latex">\mathbf{r}_3 = (x_3, y_3)</span>, it is possible to find the equation of the circle that passes through those points in the form <span class="math-inline lazy-load-latex">x^2 + y^2 + Dx + Ey + F = 0</span> by solving the following system of equations for the parameters <span class="math-inline lazy-load-latex">D</span>, <span class="math-inline lazy-load-latex">E</span> and <span class="math-inline lazy-load-latex">F</span>.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="906a985db9b723c2c42e2d1f460a95c42dbc746b">
 \begin{bmatrix}
         x_1 &amp; y_1 &amp; 1
     \\  x_2 &amp; y_2 &amp; 1
@@ -1535,7 +1536,7 @@ or in terse form
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="7605c49905dbe3a037ec24113583b2aa4786d3b1">
 \begin{bmatrix}
          |      &amp;    |       &amp;    |
   \\ \mathbf{x} &amp; \mathbf{y} &amp; \mathbf{1}_3 
@@ -1554,22 +1555,22 @@ where
 
 <ul class="">
 <li>
-<span class="math-inline">\mathbf{x} = (x_1, x_2, x_3)</span> (column vector) 
+<span class="math-inline lazy-load-latex">\mathbf{x} = (x_1, x_2, x_3)</span> (column vector) 
 </li>
 <li>
-<span class="math-inline">\mathbf{y} = (y_1, y_2, y_3)</span> (column vector) 
+<span class="math-inline lazy-load-latex">\mathbf{y} = (y_1, y_2, y_3)</span> (column vector) 
 </li>
 <li>
-<span class="math-inline">\mathbf{x}.^2 = (x_1^2, x_2^2, x_3^2)</span> - element-wise square of vector elements instead of square of matrix. NOTE: That many technical and scientific programming languages, including, APL, R (Rlang), Matlab and Fortran and Python/numpy uses functions that are applied to all elements of a matrix or vector. For instance, in Matlab or Python's Numpy, if v is vector v = [v1, v2, ..., v3], the function sin(v) will return [ sin(v1), ..., sin(v3)]. Although this type vectorized operations are common, there is no standard mathematical notation for denoting them. 
+<span class="math-inline lazy-load-latex">\mathbf{x}.^2 = (x_1^2, x_2^2, x_3^2)</span> - element-wise square of vector elements instead of square of matrix. NOTE: That many technical and scientific programming languages, including, APL, R (Rlang), Matlab and Fortran and Python/numpy uses functions that are applied to all elements of a matrix or vector. For instance, in Matlab or Python's Numpy, if v is vector v = [v1, v2, ..., v3], the function sin(v) will return [ sin(v1), ..., sin(v3)]. Although this type vectorized operations are common, there is no standard mathematical notation for denoting them. 
 </li>
 </ul>
 
 <p>
-The position of circle center <span class="math-inline">\mathbf{r}_o = (x_o, y_o)</span> and the radius <span class="math-inline">\rho</span> can be found as
+The position of circle center <span class="math-inline lazy-load-latex">\mathbf{r}_o = (x_o, y_o)</span> and the radius <span class="math-inline lazy-load-latex">\rho</span> can be found as
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="630ac6141be66c0c26a89f1a746c854121e43cdf">
 x_o = - \frac{1}{2} D 
   \quad y_o = -\frac{1}{2} E
   \quad \rho^2 = x_o^2 + y_o^2 - F
@@ -1591,29 +1592,29 @@ Find the equation of the circle passing through the pointsP(2,1), Q(0,5), R(-1,2
 Import numpy
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">linalg</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nl</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Define the input data.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span>  <span class="mi">2</span><span class="p">])</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Create coefficients array of the linear system.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
 
 <span class="o">&gt;&gt;</span> <span class="n">A</span>
@@ -1622,13 +1623,13 @@ Create coefficients array of the linear system.
        <span class="p">[</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span>  <span class="mf">2.</span><span class="p">,</span>  <span class="mf">1.</span><span class="p">]])</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
-Define vector of constants. NOTE: the method call .reshape(-1, 1) is used for ensure that <span class="math-inline">\mathbf{b}</span> is a column vector with shape (2, 1).
+Define vector of constants. NOTE: the method call .reshape(-1, 1) is used for ensure that <span class="math-inline lazy-load-latex">\mathbf{b}</span> is a column vector with shape (2, 1).
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 <span class="o">&gt;&gt;</span> <span class="n">b</span>
@@ -1637,13 +1638,13 @@ Define vector of constants. NOTE: the method call .reshape(-1, 1) is used for en
        <span class="p">[</span> <span class="o">-</span><span class="mi">5</span><span class="p">]])</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
-Solve the system of equations <span class="math-inline">A \mathbf{x} = \mathbf{b}</span>.
+Solve the system of equations <span class="math-inline lazy-load-latex">A \mathbf{x} = \mathbf{b}</span>.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="n">coeffs</span> <span class="o">=</span> <span class="n">nl</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 
 <span class="o">&gt;&gt;</span> <span class="n">coeffs</span>
@@ -1652,26 +1653,26 @@ Solve the system of equations <span class="math-inline">A \mathbf{x} = \mathbf{b
        <span class="p">[</span> <span class="mf">5.</span><span class="p">]])</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
-Find the parameters, <span class="math-inline">D</span>, <span class="math-inline">E</span> and <span class="math-inline">F</span>.
+Find the parameters, <span class="math-inline lazy-load-latex">D</span>, <span class="math-inline lazy-load-latex">E</span> and <span class="math-inline lazy-load-latex">F</span>.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="n">D</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">coeffs</span>
 
 <span class="o">&gt;&gt;</span> <span class="n">D</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">F</span>
 <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="o">-</span><span class="mf">6.0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="mf">5.0</span><span class="p">))</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
-Determine <span class="math-inline">x_o</span>, <span class="math-inline">y_o</span>, the position of the circle center and its radius <span class="math-inline">\rho</span>.
+Determine <span class="math-inline lazy-load-latex">x_o</span>, <span class="math-inline lazy-load-latex">y_o</span>, the position of the circle center and its radius <span class="math-inline lazy-load-latex">\rho</span>.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="n">xo</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">D</span>
 <span class="n">yo</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">E</span>
 <span class="n">rho_square</span> <span class="o">=</span> <span class="n">xo</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">yo</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">F</span>
@@ -1680,20 +1681,20 @@ Determine <span class="math-inline">x_o</span>, <span class="math-inline">y_o</s
 <span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">])</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
-Circle radius <span class="math-inline">\rho</span>.
+Circle radius <span class="math-inline lazy-load-latex">\rho</span>.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rho_square</span><span class="p">)</span>
 
 <span class="o">&gt;&gt;</span> <span class="n">rho</span>
 <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="mf">2.23606797749979</span><span class="p">)</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 So, for this set of points
@@ -1701,25 +1702,25 @@ So, for this set of points
 
 <ul class="">
 <li>
-<span class="math-inline">D = -2</span> 
+<span class="math-inline lazy-load-latex">D = -2</span> 
 </li>
 <li>
-<span class="math-inline">E = -6</span> 
+<span class="math-inline lazy-load-latex">E = -6</span> 
 </li>
 <li>
-<span class="math-inline">F =  5</span> 
+<span class="math-inline lazy-load-latex">F =  5</span> 
 </li>
 <li>
-<span class="math-inline">x_o = 1</span> 
+<span class="math-inline lazy-load-latex">x_o = 1</span> 
 </li>
 <li>
-<span class="math-inline">y_o = 3</span> 
+<span class="math-inline lazy-load-latex">y_o = 3</span> 
 </li>
 <li>
-<span class="math-inline">\rho^2 = 5</span> 
+<span class="math-inline lazy-load-latex">\rho^2 = 5</span> 
 </li>
 <li>
-<span class="math-inline">\rho = \sqrt{5}</span> 
+<span class="math-inline lazy-load-latex">\rho = \sqrt{5}</span> 
 </li>
 </ul>
 
@@ -1727,29 +1728,29 @@ So, for this set of points
 This result can be confirmed by defining the function
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">xo</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">yo</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">rho_square</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
-and applying it to <span class="math-inline">\mathbf{x}</span> and <span class="math-inline">\mathbf{y}</span>.
+and applying it to <span class="math-inline lazy-load-latex">\mathbf{x}</span> and <span class="math-inline lazy-load-latex">\mathbf{y}</span>.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Hence, the equation of the circle passing through the given three points is
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="f603b3aeaa56a0710e3139580c8ae5058320c004">
 
 \notag
 
@@ -1762,7 +1763,7 @@ or
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="c0c476705ca06cc2d56de2773ee15494b121b857">
 
 \notag
 
@@ -1780,18 +1781,18 @@ or
 Import numpy
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy.linalg</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nl</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Define helper function.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">find_circle_params</span><span class="p">(</span><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">):</span>
     <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">r1</span>
     <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">r2</span>
@@ -1811,31 +1812,31 @@ Define helper function.
     <span class="k">return</span> <span class="n">xo</span><span class="p">,</span> <span class="n">yo</span><span class="p">,</span> <span class="n">radius</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Input parameters
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="n">r1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">r2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">r3</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Find the circle that fits the points.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-python"><div class="highlight"><pre><span></span><span class="n">xo</span><span class="p">,</span> <span class="n">yo</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="n">find_circle_params</span><span class="p">(</span><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">)</span>
 <span class="n">xo</span><span class="p">,</span> <span class="n">yo</span><span class="p">,</span> <span class="n">radius</span><span class="o">**</span><span class="mi">2</span>
 <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">5.000000000000001</span><span class="p">)</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 </div>
 </details></div>
@@ -1856,7 +1857,7 @@ Find the circle that fits the points.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="b18535c593d1b858abf5e610960a6e5c0880a67c">
 \cos^2 \alpha + \sin^2 \alpha = 1
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -1866,13 +1867,13 @@ Find the circle that fits the points.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="82725c339b8df49682bfe6fcdd0e0a608af89e0f">
 e^{j \theta} = \cos\theta + j \sin \theta
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-Note: <span class="math-inline">j = \sqrt{-1}</span> imaginary unit and <span class="math-inline">\theta</span> is the angle in radians.
+Note: <span class="math-inline lazy-load-latex">j = \sqrt{-1}</span> imaginary unit and <span class="math-inline lazy-load-latex">\theta</span> is the angle in radians.
 </p>
 
 <p>
@@ -1880,7 +1881,7 @@ Note: <span class="math-inline">j = \sqrt{-1}</span> imaginary unit and <span cl
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="e325f00645bd3366385d3ae0451ece38a36508d8">
 \begin{split}
       \sin \frac{\alpha}{2} &amp;= \pm \sqrt{ \frac{1 - \cos \alpha}{2}  }
    \\ \cos \frac{\alpha}{2} &amp;= \pm \sqrt{ \frac{1 + \cos \alpha}{2}}
@@ -1895,7 +1896,7 @@ Note: <span class="math-inline">j = \sqrt{-1}</span> imaginary unit and <span cl
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="6fa8cb9bae1abb9f8101cf57f562ff5a87b2feab">
 \begin{split}
      \sin 2 \alpha &amp;= 2 \sin \alpha \cos \alpha
   \\ \cos 2 \alpha &amp;= \cos^2 \alpha - \sin^2 \alpha
@@ -1942,35 +1943,35 @@ Note: <span class="math-inline">j = \sqrt{-1}</span> imaginary unit and <span cl
 
 <td>Cosine is an even function<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup class="footnote-reference" data-counter="1" data-footnote="pt: função par">[1]</sup></a></td>
  
-<td><span class="math-inline">\cos (-x) = \cos (x)</span></td>
+<td><span class="math-inline lazy-load-latex">\cos (-x) = \cos (x)</span></td>
 </tr>
  
 <tr>
 
 <td>Sine is a odd function<a href="#" id="footnote-reference-link-2" class="footnote-link"><sup class="footnote-reference" data-counter="2" data-footnote="pt: função impar">[2]</sup></a></td>
  
-<td><span class="math-inline">\sin (-x) = - \sin(x)</span></td>
+<td><span class="math-inline lazy-load-latex">\sin (-x) = - \sin(x)</span></td>
 </tr>
  
 <tr>
 
 <td></td>
  
-<td><span class="math-inline">\sin (\pi/2 - x) = \sin(90 - x) = \cos x</span></td>
+<td><span class="math-inline lazy-load-latex">\sin (\pi/2 - x) = \sin(90 - x) = \cos x</span></td>
 </tr>
  
 <tr>
 
 <td></td>
  
-<td><span class="math-inline">\cos (\pi/2 - x) = \cos(90 - x) = \sin x</span></td>
+<td><span class="math-inline lazy-load-latex">\cos (\pi/2 - x) = \cos(90 - x) = \sin x</span></td>
 </tr>
  
 <tr>
 
 <td></td>
  
-<td><span class="math-inline">\cos (\pi/2 - x) = \cos(90 - x) = \sin x</span></td>
+<td><span class="math-inline lazy-load-latex">\cos (\pi/2 - x) = \cos(90 - x) = \sin x</span></td>
 </tr>
  
 <tr>
@@ -1984,14 +1985,14 @@ Note: <span class="math-inline">j = \sqrt{-1}</span> imaginary unit and <span cl
 
 <td>Sin of the sum of angles</td>
  
-<td><span class="math-inline">\sin(x + y) = \sin x . \cos y + \cos x . \sin y</span></td>
+<td><span class="math-inline lazy-load-latex">\sin(x + y) = \sin x . \cos y + \cos x . \sin y</span></td>
 </tr>
  
 <tr>
 
 <td>Cos of the sum of angles</td>
  
-<td><span class="math-inline">\cos(x + y) = \cos x . \cos y - \sin x . \sin y</span></td>
+<td><span class="math-inline lazy-load-latex">\cos(x + y) = \cos x . \cos y - \sin x . \sin y</span></td>
 </tr>
  
 <tr>
@@ -2012,7 +2013,7 @@ Note: <span class="math-inline">j = \sqrt{-1}</span> imaginary unit and <span cl
 
 <td>Pythagorean identity</td>
  
-<td><span class="math-inline">(\sin x)^2 + (\cos x)^2 = 1</span></td>
+<td><span class="math-inline lazy-load-latex">(\sin x)^2 + (\cos x)^2 = 1</span></td>
 </tr>
 </tbody>
 </table>
@@ -2059,24 +2060,24 @@ Note: <span class="math-inline">j = \sqrt{-1}</span> imaginary unit and <span cl
 
 <td>30</td>
  
-<td><span class="math-inline">\pi/6</span></td>
+<td><span class="math-inline lazy-load-latex">\pi/6</span></td>
  
 <td>1/2</td>
  
-<td><span class="math-inline">\sqrt{3}/2</span></td>
+<td><span class="math-inline lazy-load-latex">\sqrt{3}/2</span></td>
  
-<td><span class="math-inline">\sqrt{3}/3</span></td>
+<td><span class="math-inline lazy-load-latex">\sqrt{3}/3</span></td>
 </tr>
  
 <tr>
 
 <td>45</td>
  
-<td><span class="math-inline">\pi/4</span></td>
+<td><span class="math-inline lazy-load-latex">\pi/4</span></td>
  
-<td><span class="math-inline">\sqrt{2}/2</span></td>
+<td><span class="math-inline lazy-load-latex">\sqrt{2}/2</span></td>
  
-<td><span class="math-inline">\sqrt{2}/2</span></td>
+<td><span class="math-inline lazy-load-latex">\sqrt{2}/2</span></td>
  
 <td>1</td>
 </tr>
@@ -2085,33 +2086,33 @@ Note: <span class="math-inline">j = \sqrt{-1}</span> imaginary unit and <span cl
 
 <td>60</td>
  
-<td><span class="math-inline">\pi/3</span></td>
+<td><span class="math-inline lazy-load-latex">\pi/3</span></td>
  
-<td><span class="math-inline">\sqrt{3}/2</span></td>
+<td><span class="math-inline lazy-load-latex">\sqrt{3}/2</span></td>
  
 <td>1/2</td>
  
-<td><span class="math-inline">\sqrt{3}</span></td>
+<td><span class="math-inline lazy-load-latex">\sqrt{3}</span></td>
 </tr>
  
 <tr>
 
 <td>90</td>
  
-<td><span class="math-inline">\pi/2</span></td>
+<td><span class="math-inline lazy-load-latex">\pi/2</span></td>
  
 <td>1</td>
  
 <td>0</td>
  
-<td><span class="math-inline">\infty</span></td>
+<td><span class="math-inline lazy-load-latex">\infty</span></td>
 </tr>
  
 <tr>
 
 <td>180</td>
  
-<td><span class="math-inline">\pi</span></td>
+<td><span class="math-inline lazy-load-latex">\pi</span></td>
  
 <td>0</td>
  
@@ -2124,20 +2125,20 @@ Note: <span class="math-inline">j = \sqrt{-1}</span> imaginary unit and <span cl
 
 <td>270</td>
  
-<td><span class="math-inline">(3/2) \pi</span></td>
+<td><span class="math-inline lazy-load-latex">(3/2) \pi</span></td>
  
 <td>-1</td>
  
 <td>0</td>
  
-<td><span class="math-inline">-\infty</span></td>
+<td><span class="math-inline lazy-load-latex">-\infty</span></td>
 </tr>
  
 <tr>
 
 <td>360</td>
  
-<td><span class="math-inline">2\pi</span></td>
+<td><span class="math-inline lazy-load-latex">2\pi</span></td>
  
 <td>0</td>
  
@@ -2158,7 +2159,7 @@ Note: <span class="math-inline">j = \sqrt{-1}</span> imaginary unit and <span cl
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="137281301de1ec48ca57c70e212193106d2ac412">
 (\sin \theta)^2 + (\cos \theta)^2 = 1
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2168,7 +2169,7 @@ Note: <span class="math-inline">j = \sqrt{-1}</span> imaginary unit and <span cl
 </p>
 
 <p>
-Let <span class="math-inline">\mathrm{j} = \sqrt{-1}</span> be the imaginary unit.
+Let <span class="math-inline lazy-load-latex">\mathrm{j} = \sqrt{-1}</span> be the imaginary unit.
 </p>
 
 <p>
@@ -2176,7 +2177,7 @@ Complex Exponential
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="506668ea7ac8f42efa726057aa4ff5285a0ea3ab">
 e^{\mathrm{j} \theta} = \cos \theta + \mathrm{j} \sin \theta
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2186,7 +2187,7 @@ and,
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="5ca2d49abb4764a18d808ed7b297f7c34ab50ea8">
 e^{-\mathrm{j \theta}} = \cos \theta - \mathrm{j} \sin \theta
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2196,7 +2197,7 @@ Cosine of angle in radians expressed as linear combination of complex exponentia
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="387b5bf015e4a0cb3aba5eb8a696e6f36cbb3779">
 \cos \theta 
     = \frac{1}{2} (e^{\mathrm{j} \theta} + e^{ - \mathrm{j} \theta}  )
 </div><div class="div-latex-enum"><span></span></div>
@@ -2207,7 +2208,7 @@ Sine of angle in radians expressed as linear combination of complex exponential
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="8cec2ea3a524135162ca5b38fc65de202f700fa8">
 \cos \theta = 
      \frac{1}{2 \mathrm{j}} 
        (e^{\mathrm{j}  \theta} + e^{ - \mathrm{j}  \theta}  )
@@ -2219,7 +2220,7 @@ Derivative of complex exponential with respect to angle in radians.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="920874e42091cc6bc38015eb14363f1eb4d8a705">
 \frac{d}{d \theta} e^{j \theta} = j \cdot e^{j \theta}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2229,13 +2230,13 @@ Derivative of complex exponential with respect to angle in radians.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="b07733749e1c2a10ffc71a6f39d2846a03c19019">
 \cos(-x) = \cos(x)
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="1a89c9d32c1d102695566cb96c3feb8aca01235f">
 \sin(-x) = -\sin(x)
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2245,19 +2246,19 @@ Derivative of complex exponential with respect to angle in radians.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="4b83fa42af0691cb85ae78f1ab5df0be4a4d04f2">
 \cos (a + b) = \cos a \cdot \cos b - \sin a  \sin b
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="ade9b9f6dd15a7daf20d090ff47d0828f6350bc2">
 \sin (a + b) = \sin a \cdot \cos b - \sin a  \cos b
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="f5d4b20a5011de677fda30e353316b4bd35b6bc6">
 \tan(b - a) = \dfrac{ \tan y - \tan x }{\tan x  \tan y + 1 }
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2294,14 +2295,14 @@ Derivative of complex exponential with respect to angle in radians.
 
 <td>f(x)</td>
  
-<td><span class="math-inline">\dot{f}(x) = \dfrac{df}{dx}</span></td>
+<td><span class="math-inline lazy-load-latex">\dot{f}(x) = \dfrac{df}{dx}</span></td>
  
 <td>Derivative of generic function</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">r(x) = c</span></td>
+<td><span class="math-inline lazy-load-latex">r(x) = c</span></td>
  
 <td>0</td>
  
@@ -2310,81 +2311,81 @@ Derivative of complex exponential with respect to angle in radians.
  
 <tr>
 
-<td><span class="math-inline">c f(x)</span></td>
+<td><span class="math-inline lazy-load-latex">c f(x)</span></td>
  
-<td><span class="math-inline">c \dfrac{df}{dx}</span></td>
+<td><span class="math-inline lazy-load-latex">c \dfrac{df}{dx}</span></td>
  
 <td>Function multiplied by constant</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">c + f(x)</span></td>
+<td><span class="math-inline lazy-load-latex">c + f(x)</span></td>
  
-<td><span class="math-inline">\dfrac{df}{dx}</span></td>
+<td><span class="math-inline lazy-load-latex">\dfrac{df}{dx}</span></td>
  
 <td>Function added to constant</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">f(x) + g(x)</span></td>
+<td><span class="math-inline lazy-load-latex">f(x) + g(x)</span></td>
  
-<td><span class="math-inline">\dfrac{df}{dx} + \dfrac{dg}{dx}</span></td>
+<td><span class="math-inline lazy-load-latex">\dfrac{df}{dx} + \dfrac{dg}{dx}</span></td>
  
 <td>Sum of functions</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">f(x) g(x)</span></td>
+<td><span class="math-inline lazy-load-latex">f(x) g(x)</span></td>
  
-<td><span class="math-inline">f \dfrac{f}{dx} + g \dfrac{df}{dx}</span></td>
+<td><span class="math-inline lazy-load-latex">f \dfrac{f}{dx} + g \dfrac{df}{dx}</span></td>
  
 <td>Product of functions</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">f(u(x))</span></td>
+<td><span class="math-inline lazy-load-latex">f(u(x))</span></td>
  
-<td><span class="math-inline">\left[\dfrac{d}{du} f(u) \right] \dfrac{du}{dx} = \dfrac{df}{du} \dfrac{du}{dx}</span></td>
+<td><span class="math-inline lazy-load-latex">\left[\dfrac{d}{du} f(u) \right] \dfrac{du}{dx} = \dfrac{df}{du} \dfrac{du}{dx}</span></td>
  
 <td>Chain Rule</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\dfrac{1}{f(x)}</span></td>
+<td><span class="math-inline lazy-load-latex">\dfrac{1}{f(x)}</span></td>
  
-<td><span class="math-inline">-\dfrac{1}{f^2} \dfrac{df}{dx}</span></td>
+<td><span class="math-inline lazy-load-latex">-\dfrac{1}{f^2} \dfrac{df}{dx}</span></td>
  
 <td>Dertivative of function</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\dfrac{g}{f}</span></td>
+<td><span class="math-inline lazy-load-latex">\dfrac{g}{f}</span></td>
  
-<td><span class="math-inline">\dfrac{f \dot{g} - g \dot{f}}{f^2}</span></td>
+<td><span class="math-inline lazy-load-latex">\dfrac{f \dot{g} - g \dot{f}}{f^2}</span></td>
  
 <td>Derivative of ratio</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">f^{-1}(x)</span></td>
+<td><span class="math-inline lazy-load-latex">f^{-1}(x)</span></td>
  
-<td><span class="math-inline">\left. \left[ \dfrac{d}{dy} f(y) \right]^{-1}    \right\vert_{y = f^{-1}(x)}</span></td>
+<td><span class="math-inline lazy-load-latex">\left. \left[ \dfrac{d}{dy} f(y) \right]^{-1}    \right\vert_{y = f^{-1}(x)}</span></td>
  
 <td>Derivative of inverse function</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\left. \dfrac{d}{dx} f^{-1}(x) \right\vert_{x = a}</span></td>
+<td><span class="math-inline lazy-load-latex">\left. \dfrac{d}{dx} f^{-1}(x) \right\vert_{x = a}</span></td>
  
-<td><span class="math-inline">\left. \left[ \dfrac{d}{dy} f(y) \right]^{-1}    \right\vert_{y = f^{-1}(a)}</span></td>
+<td><span class="math-inline lazy-load-latex">\left. \left[ \dfrac{d}{dy} f(y) \right]^{-1}    \right\vert_{y = f^{-1}(a)}</span></td>
  
 <td>Derivative of inverse function evaluated at x = a</td>
 </tr>
@@ -2415,7 +2416,7 @@ Derivative of complex exponential with respect to angle in radians.
 
 <tr>
 
-<td><span class="math-inline">x</span></td>
+<td><span class="math-inline lazy-load-latex">x</span></td>
  
 <td>1</td>
  
@@ -2424,162 +2425,162 @@ Derivative of complex exponential with respect to angle in radians.
  
 <tr>
 
-<td><span class="math-inline">x^2</span></td>
+<td><span class="math-inline lazy-load-latex">x^2</span></td>
  
-<td><span class="math-inline">2x</span></td>
- 
-<td></td>
-</tr>
- 
-<tr>
-
-<td><span class="math-inline">x^3</span></td>
- 
-<td><span class="math-inline">3 x^2</span></td>
+<td><span class="math-inline lazy-load-latex">2x</span></td>
  
 <td></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">x^p</span></td>
+<td><span class="math-inline lazy-load-latex">x^3</span></td>
  
-<td><span class="math-inline">p x^{p - 1}</span></td>
- 
-<td><span class="math-inline">p \in \mathbb{R}</span></td>
-</tr>
- 
-<tr>
-
-<td><span class="math-inline">1/x</span></td>
- 
-<td><span class="math-inline">-1/x^2</span></td>
+<td><span class="math-inline lazy-load-latex">3 x^2</span></td>
  
 <td></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\sqrt{x}</span></td>
+<td><span class="math-inline lazy-load-latex">x^p</span></td>
  
-<td><span class="math-inline">\dfrac{1}{2 \sqrt{x}}</span></td>
+<td><span class="math-inline lazy-load-latex">p x^{p - 1}</span></td>
+ 
+<td><span class="math-inline lazy-load-latex">p \in \mathbb{R}</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline lazy-load-latex">1/x</span></td>
+ 
+<td><span class="math-inline lazy-load-latex">-1/x^2</span></td>
  
 <td></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">e^x</span></td>
+<td><span class="math-inline lazy-load-latex">\sqrt{x}</span></td>
  
-<td><span class="math-inline">e^x</span></td>
- 
-<td></td>
-</tr>
- 
-<tr>
-
-<td><span class="math-inline">e^{a x}</span></td>
- 
-<td><span class="math-inline">a e^{a x}</span></td>
+<td><span class="math-inline lazy-load-latex">\dfrac{1}{2 \sqrt{x}}</span></td>
  
 <td></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">a^x</span></td>
+<td><span class="math-inline lazy-load-latex">e^x</span></td>
  
-<td><span class="math-inline">a^x \ln a</span></td>
- 
-<td></td>
-</tr>
- 
-<tr>
-
-<td><span class="math-inline">e^{f(x)}</span></td>
- 
-<td><span class="math-inline">e^{f(x)} f(x) \dot{f}(x)</span></td>
+<td><span class="math-inline lazy-load-latex">e^x</span></td>
  
 <td></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\ln x</span></td>
+<td><span class="math-inline lazy-load-latex">e^{a x}</span></td>
  
-<td><span class="math-inline">1/x</span></td>
+<td><span class="math-inline lazy-load-latex">a e^{a x}</span></td>
  
-<td>Derivative of natural logarithm base <span class="math-inline">\mathrm{e}</span></td>
+<td></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\log_a x</span></td>
+<td><span class="math-inline lazy-load-latex">a^x</span></td>
  
-<td><span class="math-inline">\dfrac{1}{x \ln a}</span></td>
+<td><span class="math-inline lazy-load-latex">a^x \ln a</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline lazy-load-latex">e^{f(x)}</span></td>
+ 
+<td><span class="math-inline lazy-load-latex">e^{f(x)} f(x) \dot{f}(x)</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline lazy-load-latex">\ln x</span></td>
+ 
+<td><span class="math-inline lazy-load-latex">1/x</span></td>
+ 
+<td>Derivative of natural logarithm base <span class="math-inline lazy-load-latex">\mathrm{e}</span></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline lazy-load-latex">\log_a x</span></td>
+ 
+<td><span class="math-inline lazy-load-latex">\dfrac{1}{x \ln a}</span></td>
  
 <td>Derivative of logarithm of base a</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\sin x</span></td>
+<td><span class="math-inline lazy-load-latex">\sin x</span></td>
  
-<td><span class="math-inline">\cos x</span></td>
- 
-<td></td>
-</tr>
- 
-<tr>
-
-<td><span class="math-inline">\cos x</span></td>
- 
-<td><span class="math-inline">- \sin x</span></td>
+<td><span class="math-inline lazy-load-latex">\cos x</span></td>
  
 <td></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\tan x</span></td>
+<td><span class="math-inline lazy-load-latex">\cos x</span></td>
  
-<td><span class="math-inline">\sec^2 x</span></td>
- 
-<td></td>
-</tr>
- 
-<tr>
-
-<td><span class="math-inline">\sec x</span></td>
- 
-<td><span class="math-inline">\sec x \tan x</span></td>
+<td><span class="math-inline lazy-load-latex">- \sin x</span></td>
  
 <td></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\sin^{-1}(x)</span></td>
+<td><span class="math-inline lazy-load-latex">\tan x</span></td>
  
-<td><span class="math-inline">\dfrac{1}{\sqrt{1 - x^2}}</span></td>
+<td><span class="math-inline lazy-load-latex">\sec^2 x</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline lazy-load-latex">\sec x</span></td>
+ 
+<td><span class="math-inline lazy-load-latex">\sec x \tan x</span></td>
+ 
+<td></td>
+</tr>
+ 
+<tr>
+
+<td><span class="math-inline lazy-load-latex">\sin^{-1}(x)</span></td>
+ 
+<td><span class="math-inline lazy-load-latex">\dfrac{1}{\sqrt{1 - x^2}}</span></td>
  
 <td>arc sine</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\cos^{-1}(x)</span></td>
+<td><span class="math-inline lazy-load-latex">\cos^{-1}(x)</span></td>
  
-<td><span class="math-inline">-\dfrac{1}{\sqrt{1 - x^2}}</span></td>
+<td><span class="math-inline lazy-load-latex">-\dfrac{1}{\sqrt{1 - x^2}}</span></td>
  
 <td>arc cosine</td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\tan^{-1}(x)</span></td>
+<td><span class="math-inline lazy-load-latex">\tan^{-1}(x)</span></td>
  
-<td><span class="math-inline">\dfrac{1}{1 + x^2}</span></td>
+<td><span class="math-inline lazy-load-latex">\dfrac{1}{1 + x^2}</span></td>
  
 <td>arc tangent or arctan</td>
 </tr>
@@ -2592,11 +2593,11 @@ Derivative of complex exponential with respect to angle in radians.
 </div>
 
 <p>
-Derivative of inverse function <span class="math-inline">f^{-1}(x)</span> of <span class="math-inline">f(x)</span> at <span class="math-inline">x = a</span>.
+Derivative of inverse function <span class="math-inline lazy-load-latex">f^{-1}(x)</span> of <span class="math-inline lazy-load-latex">f(x)</span> at <span class="math-inline lazy-load-latex">x = a</span>.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="33ac4738e95cba435aab78c3e31bbf41bb3e7d4c">
 
  
   \left. \dfrac{d}{dx} f^{-1}(x) 
@@ -2613,22 +2614,22 @@ Derivative of inverse function <span class="math-inline">f^{-1}(x)</span> of <sp
 </p>
 
 <p>
-STEP 1: Given a, solve the following equation for y, in order to find <span class="math-inline">y_a</span>, the solution of this equation.
+STEP 1: Given a, solve the following equation for y, in order to find <span class="math-inline lazy-load-latex">y_a</span>, the solution of this equation.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="4f738d549a5ed0afa3466a2abd2dc08236a2856b">
 
    a = f(y)
 </div><div class="div-latex-enum"></div>
 </div>
 
 <p>
-STEP 2: Compute the derivative of <span class="math-inline">f(y)</span> with respect to y at <span class="math-inline">y = y_a</span>.
+STEP 2: Compute the derivative of <span class="math-inline lazy-load-latex">f(y)</span> with respect to y at <span class="math-inline lazy-load-latex">y = y_a</span>.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="6c10ed3d4897192527dd4e93ad3a1013124c68f6">
  
   w = \left. \dfrac{d}{dy} f(y) \right\vert_{\displaystyle y = y_a}
 </div><div class="div-latex-enum"></div>
@@ -2639,7 +2640,7 @@ STEP 3: Compute the value of the derivative of the inverse function of f(x) by t
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="54159a37a53f3219b8a0089e9bf5a7a4801e2f4d">
 \left. \dfrac{d}{dx} f^{-1}(x) 
            \right\vert_{\displaystyle x = a} 
    = \frac{1}{w}
@@ -2656,16 +2657,16 @@ STEP 3: Compute the value of the derivative of the inverse function of f(x) by t
 </strong></span>
 
 <p>
-Suppose <span class="math-inline">f(x)=x^5+2x^3+7x+1</span>, find <span class="math-inline">[{f}]^{-1}(1)</span>, the derivative of the inverse function of f(x) at x = 1.  <a href="https://www.sfu.ca/math-coursenotes/Math%20157%20Course%20Notes/sec_DerivativesofInverse.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >(sfu.ca)</a>
+Suppose <span class="math-inline lazy-load-latex">f(x)=x^5+2x^3+7x+1</span>, find <span class="math-inline lazy-load-latex">[{f}]^{-1}(1)</span>, the derivative of the inverse function of f(x) at x = 1.  <a href="https://www.sfu.ca/math-coursenotes/Math%20157%20Course%20Notes/sec_DerivativesofInverse.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >(sfu.ca)</a>
 </p><div class="foldabel-block-div"><details >
 <summary><u class="solution-label"><label data-i18n="foldable-math-solution-block-label">Solution</label> </u></summary>
 
 <div class="foldable-block" style=""><p>
-Recall tha the derivative of <span class="math-inline">f^{-1}(x)</span> can be determined as,
+Recall tha the derivative of <span class="math-inline lazy-load-latex">f^{-1}(x)</span> can be determined as,
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="338ca0ab4eea36c34813dddc03fcef43d2df98f2">
 
 \notag
 
@@ -2679,11 +2680,11 @@ Recall tha the derivative of <span class="math-inline">f^{-1}(x)</span> can be d
 </div>
 
 <p>
-The first step is to determine <span class="math-inline">y = f^{-1}(1)</span>. Isolate y in this equation in order to find y corresponding to <span class="math-inline">a = 1</span>. that yields,
+The first step is to determine <span class="math-inline lazy-load-latex">y = f^{-1}(1)</span>. Isolate y in this equation in order to find y corresponding to <span class="math-inline lazy-load-latex">a = 1</span>. that yields,
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="ba8ade69a92ae7a41db11d6be977c5e54f21c311">
 
 \notag
 
@@ -2692,11 +2693,11 @@ The first step is to determine <span class="math-inline">y = f^{-1}(1)</span>. I
 </div>
 
 <p>
-Solve the equation <span class="math-inline">f(y) = 1</span>.
+Solve the equation <span class="math-inline lazy-load-latex">f(y) = 1</span>.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="5946bca8b56720ab8e9dad4117f78b564c1a9f7c">
 
 \notag
  
@@ -2705,7 +2706,7 @@ Solve the equation <span class="math-inline">f(y) = 1</span>.
 </div>
 
 <p>
-It is observable that the solution of the previous equation is <span class="math-inline">y = 0</span>.
+It is observable that the solution of the previous equation is <span class="math-inline lazy-load-latex">y = 0</span>.
 </p>
 
 <p>
@@ -2713,7 +2714,7 @@ Compute the derivative of f(y) at y = 0.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="e3702ca97eea9c6ab25e0ad8588c087a6986cc3a">
 
 \notag
 
@@ -2732,11 +2733,11 @@ Compute the derivative of f(y) at y = 0.
 </div>
 
 <p>
-Finally, the derivative of <span class="math-inline">\dfrac{d}{dx} f^{-1}(x)</span> can be evaluted at x = 1 by replacing the result of the previous computation in the formula for determining the derivative of the inverse function.
+Finally, the derivative of <span class="math-inline lazy-load-latex">\dfrac{d}{dx} f^{-1}(x)</span> can be evaluted at x = 1 by replacing the result of the previous computation in the formula for determining the derivative of the inverse function.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="11aea6f224ece30a19c5429b442f3fcd9b0fdb69">
 
 \notag
 
@@ -2753,7 +2754,7 @@ Finally, the derivative of <span class="math-inline">\dfrac{d}{dx} f^{-1}(x)</sp
 </div>
 
 <p>
-Solution: <span class="math-inline">[f^{-1}]&apos;(1) = \dfrac{1}{7}</span>
+Solution: <span class="math-inline lazy-load-latex">[f^{-1}]&apos;(1) = \dfrac{1}{7}</span>
 </p>
 
 </div>
@@ -2776,7 +2777,7 @@ This notation explicitly states that the in the right-hand side of the equation 
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="3863375953aa79ff7bb853f62ee5a956f8b04fe1">
 \dfrac{d}{dx} f(u(x)) 
    = \left[ \dfrac{d}{du} f(u) \right] \dfrac{du}{dx}
 </div><div class="div-latex-enum"><span></span></div>
@@ -2787,7 +2788,7 @@ Concise notation for chain rule for functions of a single variable
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="93895ea3f4964b996b82f02f5bddbf3545ef9479">
 \dfrac{d}{dx} f(u(x)) = \dfrac{df}{du} \dfrac{du}{dx}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2797,7 +2798,7 @@ Concise notation for chain rule for functions of a single variable
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="7a9b39fe0bc133825c1ce06a7487e83662ec759e">
 \dfrac{d}{dt} f(x(t), y(t)) = \dfrac{\partial f}{\partial x} \dfrac{dx}{dt} + \dfrac{\partial f}{\partial y} \dfrac{dy}{dt}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2807,11 +2808,11 @@ Concise notation for chain rule for functions of a single variable
 </p>
 
 <p>
-Let f be function of <span class="math-inline">x</span> and <span class="math-inline">y</span>. A new coordinate is introduced withcoordinates <span class="math-inline">v</span> and <span class="math-inline">w</span> in a way that <span class="math-inline">x = x(v, w)</span> and <span class="math-inline">y = y(v, w)</span>. The partial derivative of f with respect to the new coordinate <span class="math-inline">v</span>, <span class="math-inline">w</span> can be determined as:
+Let f be function of <span class="math-inline lazy-load-latex">x</span> and <span class="math-inline lazy-load-latex">y</span>. A new coordinate is introduced withcoordinates <span class="math-inline lazy-load-latex">v</span> and <span class="math-inline lazy-load-latex">w</span> in a way that <span class="math-inline lazy-load-latex">x = x(v, w)</span> and <span class="math-inline lazy-load-latex">y = y(v, w)</span>. The partial derivative of f with respect to the new coordinate <span class="math-inline lazy-load-latex">v</span>, <span class="math-inline lazy-load-latex">w</span> can be determined as:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="eb80672f11fefb745decf880a7c17c6a88a252a2">
 \begin{split}
   x &amp;= x(v, w) \quad y = y(v, w) \\
 
@@ -2836,7 +2837,7 @@ Let f be function of <span class="math-inline">x</span> and <span class="math-in
 </strong></span>
 
 <p>
-Let the function f be <span class="math-inline">f(x, y) = x^2/A^2 + y^2/B^2 - C</span>.  Find the derivative of f with respect to t. And x and y are functions of t, <span class="math-inline">x = x(t) = A \cos t</span> and <span class="math-inline">y = y(t) = B \sin t</span>.
+Let the function f be <span class="math-inline lazy-load-latex">f(x, y) = x^2/A^2 + y^2/B^2 - C</span>.  Find the derivative of f with respect to t. And x and y are functions of t, <span class="math-inline lazy-load-latex">x = x(t) = A \cos t</span> and <span class="math-inline lazy-load-latex">y = y(t) = B \sin t</span>.
 </p><div class="foldabel-block-div"><details >
 <summary><u class="solution-label"><label data-i18n="foldable-math-solution-block-label">Solution</label> </u></summary>
 
@@ -2845,7 +2846,7 @@ Method 1:  Find the derivative directly, by expressing x and y as function of t 
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="590871e4b37c1ce3bf60af4057df926d27e68f88">
 
 \notag
  
@@ -2861,7 +2862,7 @@ Method 2: Find the derivative using the chain rule
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="779dc33afd0768a75e8992c7e3299bab3860e259">
 
 \notag
  
@@ -2897,34 +2898,34 @@ Method 2: Find the derivative using the chain rule
 
 <p>
 The derivative can be used for obtaining the tangent line equation <a class="eqref link-internal" href="#equation-eqtanget_diff" data-equation="y = \alpha x + \beta 
-  ">(4.5.1)</a> to a curve represented by a function f(x) at a particular point, where <span class="math-inline">\alpha \in \mathbb{R}</span> and <span class="math-inline">\beta \in \mathbb{R}</span> are the coefficients of the line equation.
+  ">(4.5.1)</a> to a curve represented by a function f(x) at a particular point, where <span class="math-inline lazy-load-latex">\alpha \in \mathbb{R}</span> and <span class="math-inline lazy-load-latex">\beta \in \mathbb{R}</span> are the coefficients of the line equation.
 </p>
 
 <div id="equation-eqtanget_diff" class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="d6eb4389f969cf31b4eadc3934c7d884d8e8c038">
 y = \alpha x + \beta 
   
 </div><div class="div-latex-enum"><span>(4.5.1)</span></div>
 </div>
 
 <p>
-The coefficient <span class="math-inline">\alpha</span>, the line slope, can be computed as:
+The coefficient <span class="math-inline lazy-load-latex">\alpha</span>, the line slope, can be computed as:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="a1085567d92115cb411fb9285ac880a607abdd6d">
 \alpha = f&apos;(x_a) = 
     \left. \frac{df}{dx} \right\vert_{\displaystyle x = x_a}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-Then, the coefficient <span class="math-inline">\beta</span> can be found by replacing the pair $x_a, : <span class="math-inline">y_a = f(x_a)</span> in <a class="eqref link-internal" href="#equation-eqtanget_diff" data-equation="y = \alpha x + \beta 
-  ">(4.5.1)</a> and solving it for <span class="math-inline">\beta</span>.
+Then, the coefficient <span class="math-inline lazy-load-latex">\beta</span> can be found by replacing the pair $x_a, : <span class="math-inline lazy-load-latex">y_a = f(x_a)</span> in <a class="eqref link-internal" href="#equation-eqtanget_diff" data-equation="y = \alpha x + \beta 
+  ">(4.5.1)</a> and solving it for <span class="math-inline lazy-load-latex">\beta</span>.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="4339559f6a7cbb183f4d3680139fc4f88bcf1809">
 \beta = y_a - \alpha x_a
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2934,17 +2935,17 @@ so,
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="6984afbe4240d33ff6e3a8bd3ca34c1ad167be08">
 \beta = f(x_a) - f&apos;(x_a) x_a
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-The, the coefficients of the line equation tangent to the point <span class="math-inline">(x_a, y_a)</span> are given by:
+The, the coefficients of the line equation tangent to the point <span class="math-inline lazy-load-latex">(x_a, y_a)</span> are given by:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="c59688db2a8b63441eb70d368f8bb2a28fb9cd1e">
 \begin{cases}
         \alpha = f&apos;(x_a)
     \\  \beta  = f(x_a) - f&apos;(x_a) x_a
@@ -2977,7 +2978,7 @@ Linear combination of integrals:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="384286d9aba847bec48e675b3563ff07296401a1">
 \int [a \cdot f(x) + b \cdot g(x)] dx  =  a \int f(x) dx + b \int g(x) dx
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2987,7 +2988,7 @@ Power of a function:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="02c1f59c074bdcd9bd2c36820c7761bc7d1da19f">
 \int  [g(x)]^n g&apos;(x) dx = \frac{1}{n + 1} [g(x)]^{n + 1} \quad n \neq -1
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2997,7 +2998,7 @@ Ratio between function's derivate and itself:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="6b1972dd02e977e2f04bd55416ae2c7e7563ad62">
 \int \frac{g&apos;(x)}{g(x)} dx = \ln || g(x) ||
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3011,7 +3012,7 @@ Constant:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="036817813243c873e842247c2762b6cc70dcc7eb">
 \int C \cdot dx  = C \cdot x
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3021,7 +3022,7 @@ Power:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="f34ed90330783a54a9025c3a201cf006dabb2b8e">
 \int x^n \cdot dx  = \frac{x^{n + 1}}{n + 1} \quad \neq -1
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3031,7 +3032,7 @@ Power:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="22cb91a8e0c9373be6343f7f7b6573cf48c66839">
 \int a^x \cdot dx  = \frac{a^x}{\ln a} \quad a &gt; 0
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3041,7 +3042,7 @@ Exponential:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="894e23b90b82675d7eca0bcb13661ef79644610c">
 \int e^x \cdot dx  = e^x
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3051,7 +3052,7 @@ Logarithm:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="5e6804ae58cae2ee33bf18c14b56e69315b63ef2">
 \int \frac{1}{x} \cdot dx  = \ln || x ||
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3061,7 +3062,7 @@ Sine:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="ae94dad9c0a7554fcb560766540fa7f09000e6d3">
 \int \sin x = - \cos x
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3071,7 +3072,7 @@ Cosine:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="edd7d2bb87b550b697febfeaf0112cf4c76fe227">
 \int \cos x \cdot dx = \sin x
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3081,7 +3082,7 @@ Square sine:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="467935c2917269a44e80fcd541ef678e45031283">
 \int \sin^2 x \cdot dx = \frac{x}{2} - \frac{1}{4} \sin 2x
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3091,7 +3092,7 @@ Square cosine:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="b55fdc92970142f0edaf8d7085460035e6126883">
 \int \cos^2 x \cdot dx = \frac{x}{2} + \frac{1}{4} \sin 2x
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3101,7 +3102,7 @@ Sinh - hyperbolic sine:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="add890c8fb3a8d62bb279f6779c3846a9eda7035">
 \int \text{sinh} x \cdot dx = \text{cosh} x
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3111,7 +3112,7 @@ Cosh - hyperbolic consine:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="ed8e085f934dc2e9c84e41b2912a926612d2376c">
 \int \text{cosh} x \cdot dx = \text{sinh} x
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3129,19 +3130,19 @@ Reference: Dan Stefanica, <em>A Primer for Mathematics of FinancialEngineering</
 </ul>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="424fd83df09bf2490f4fe511e2053a9d55bf2419">
 \sum_{k = 1}^{n} k = \frac{n(n+1)}{2}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="2bf04b2540cff50f9aa5a0d6bb740d6df591964c">
 \sum_{k = 1}^{n} k^2 =  \frac{n(n+1)(2n + 1)}{6}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="8cd8cafa1c7e4e49b946b63cbc02a0f58bd951eb">
 \sum_{k = 1}^{n} k^3 = \left(\frac{n(n+1)}{2} \right)^2
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3162,7 +3163,7 @@ The Taylor series is a expansion of a real function f(x) about a point x  a. Whe
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="04b5598691de0644ba36ccd114fa7363cbdfa7d6">
 \begin{split}
   f(x) &amp;= \sum_{n = 0}^{\infty} \frac{f^{(n)}(a)}{n!}(x - a)^n 
     \\  &amp;= f(a) + f^{(1)}(a)(x - a) 
@@ -3179,7 +3180,7 @@ The Taylor series expansion is sometimes written as:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="e7b77b84f2920d9049397201a7d6e521146390b7">
 \begin{split}
   f(x + a)  &amp;= \sum_{n = 0}^{\infty} \frac{f^{(n)}(a)}{n!}x^n 
          \\  &amp;= f(a) + f^{(1)}(a)x 
@@ -3196,16 +3197,16 @@ where:
 
 <ul class="">
 <li>
-<span class="math-inline">f^{(n)}(x) = \dfrac{d^nf}{dx^n}</span> is the derivative of order n of a function f(x) 
+<span class="math-inline lazy-load-latex">f^{(n)}(x) = \dfrac{d^nf}{dx^n}</span> is the derivative of order n of a function f(x) 
 </li>
 <li>
-<span class="math-inline">f^{(0)}(x) = f(x)</span> - "derivative" of order zero, it is the same as f(x). 
+<span class="math-inline lazy-load-latex">f^{(0)}(x) = f(x)</span> - "derivative" of order zero, it is the same as f(x). 
 </li>
 <li>
-<span class="math-inline">f^{(1)}(x) = \dfrac{df}{dx}</span>  - first order derivative 
+<span class="math-inline lazy-load-latex">f^{(1)}(x) = \dfrac{df}{dx}</span>  - first order derivative 
 </li>
 <li>
-<span class="math-inline">f^{(2)}(x) = \dfrac{d^2f}{dx^2}</span> - second order derivative 
+<span class="math-inline lazy-load-latex">f^{(2)}(x) = \dfrac{d^2f}{dx^2}</span> - second order derivative 
 </li>
 </ul>
 
@@ -3219,7 +3220,7 @@ Exponential
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="b007504ea00ece8ba48b3fb165529dd853add0b2">
 e^{x} = \sum_{n = 0}^{\infty} \frac{x^n}{n!} 
         = 1 + x + \frac{1}{2!} x^2 + \frac{1}{3!} 3^2 + \frac{1}{4!} 4^2 + \cdots
 </div><div class="div-latex-enum"><span></span></div>
@@ -3230,7 +3231,7 @@ Consine
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="22aa2ff85208f792f87ecc313539a341c70f4f84">
 \cos x = \sum_{n = 0}^{\infty} \frac{(-1)^n}{(2n)!} x^{2n}
          = 1 - \frac{1}{2!}x^2 + \frac{1}{4!} x^4 - \frac{1}{6!} x^6 + \cdots
 </div><div class="div-latex-enum"><span></span></div>
@@ -3241,7 +3242,7 @@ Sine
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="5cb96d6ad3ffe02c9aa5c8a41c1fd2991f645c7a">
 \sin x = \sum_{n = 0}^{\infty} \frac{(-1)^n}{(2n + 1)!} x^{2n + 1} 
          = x -  \frac{1}{3!}x^3 + \frac{1}{5!}x^5 - \frac{1}{7!}x^7 + \cdots
 </div><div class="div-latex-enum"><span></span></div>
@@ -3252,7 +3253,7 @@ Inverse tan or arctan
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="58dc0451ac6356b6aa6df3e23e0ddb7802b0e698">
 \arctan x =  \sum_{n = 0}^{\infty} \frac{(-1)^n}{2n + 1} x^{2n + 1}
             = x - \frac{1}{3} x^3 + \frac{1}{5} x^5 - \frac{1}{7!} x^7 + \cdots
 </div><div class="div-latex-enum"><span></span></div>
@@ -3263,7 +3264,7 @@ Natural Logarithm
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="479d15f55fd8f15e0fd916b8aa2e4bc72959a39e">
 \ln(1 + x)  = \sum_{n = 1}^{\infty} \frac{x^n}{n}  (-1)^{n+1}
             =  x - \frac{1}{2} x^2 + \frac{1}{3}x^3 - \frac{1}{4} x^4 + \cdots
 </div><div class="div-latex-enum"><span></span></div>
@@ -3274,7 +3275,7 @@ Geometric Power Series
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="b473c91179ec0c40628892fd448da95a717204bc">
 \frac{1}{1 + x} = 1 + x + x^2 + x^3 + \cdots
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3289,7 +3290,7 @@ Misc Approximation
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="976a0b9672fe1de120a36d136f7f9629e2418277">
 \begin{split}
 
   e^x             &amp; \approx  1 + x  \\
@@ -3307,7 +3308,7 @@ Approximations for small angles
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="639144cec4f8b38107e5dffced9d3d5c18a64f51">
 \begin{split}
   \theta^2 &amp;\approx 0
   \\ \sin \theta  &amp; \approx   \theta                    
@@ -3321,17 +3322,17 @@ Approximations for small angles
 </div>
 
 <p>
-Where <span class="math-inline">\theta</span> is the angle in radians. Recall that
+Where <span class="math-inline lazy-load-latex">\theta</span> is the angle in radians. Recall that
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="7b0992e971a608ef2c8ad165f0cd52ab4238face">
 \theta = \frac{\pi}{180} \theta_{deg}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-where <span class="math-inline">\theta_{deg}</span> is the angle in degrees.
+where <span class="math-inline lazy-load-latex">\theta_{deg}</span> is the angle in degrees.
 </p>
 
 <div class="div-heading"> 
@@ -3382,11 +3383,11 @@ Wikipedia - <em>Small Angle Approximations</em> <ul class="">
 </div>
 
 <p>
-Consider a scalar-valued function <span class="math-inline">f</span> of two variables <span class="math-inline">f = f(x, y) \in \mathbb{R}</span>, the gradient of this function is the vector
+Consider a scalar-valued function <span class="math-inline lazy-load-latex">f</span> of two variables <span class="math-inline lazy-load-latex">f = f(x, y) \in \mathbb{R}</span>, the gradient of this function is the vector
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="0f434f97d252b1b7383f9d748ea56470d1ca93c1">
 \nabla f =  \frac{\partial f}{\partial \mathbf{r}}
     =
      \dfrac{\partial f}{\partial x} \hat{\mathbf{x}} 
@@ -3400,11 +3401,11 @@ Consider a scalar-valued function <span class="math-inline">f</span> of two vari
 </div>
 
 <p>
-Where <span class="math-inline">\hat{\mathbf{x}}</span> is the unit vector of <span class="math-inline">x</span> axis, <span class="math-inline">\hat{\mathbf{y}}</span> is the unit vector of the <span class="math-inline">y</span> axis and <span class="math-inline">\nabla</span> is the operator
+Where <span class="math-inline lazy-load-latex">\hat{\mathbf{x}}</span> is the unit vector of <span class="math-inline lazy-load-latex">x</span> axis, <span class="math-inline lazy-load-latex">\hat{\mathbf{y}}</span> is the unit vector of the <span class="math-inline lazy-load-latex">y</span> axis and <span class="math-inline lazy-load-latex">\nabla</span> is the operator
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="7548effe5cc5a6ea8e4b5558cc0336ace11a6fd2">
 \nabla = 
      \dfrac{\partial}{\partial x} \hat{\mathbf{x}} 
    + \dfrac{\partial}{\partial y} \hat{\mathbf{y}}
@@ -3416,7 +3417,7 @@ or in matrix form,
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="5bfa4d9538e0e3225f50e887a3ca2ced6af7e75b">
 \nabla =
     \begin{bmatrix}
           \dfrac{\partial f}{\partial x}
@@ -3426,7 +3427,7 @@ or in matrix form,
 </div>
 
 <p>
-In some text books, the <span class="math-inline">x</span> axis unit vector is referred as <span class="math-inline">i</span> or <span class="math-inline">\mathbf{i}</span> and the <span class="math-inline">y</span> axis unit vector is referred as <span class="math-inline">j</span> or <span class="math-inline">\mathbf{j}</span>. Those notations are avoided due to the possible confusion since <span class="math-inline">i</span> is sometimes used to referrer to either electrical current or the imaginary unit <span class="math-inline">i = \sqrt{-1}</span> and the letter <span class="math-inline">j</span> is also used in electrical engineering for denoting the imaginary unit <span class="math-inline">j = \sqrt{-1}</span>.
+In some text books, the <span class="math-inline lazy-load-latex">x</span> axis unit vector is referred as <span class="math-inline lazy-load-latex">i</span> or <span class="math-inline lazy-load-latex">\mathbf{i}</span> and the <span class="math-inline lazy-load-latex">y</span> axis unit vector is referred as <span class="math-inline lazy-load-latex">j</span> or <span class="math-inline lazy-load-latex">\mathbf{j}</span>. Those notations are avoided due to the possible confusion since <span class="math-inline lazy-load-latex">i</span> is sometimes used to referrer to either electrical current or the imaginary unit <span class="math-inline lazy-load-latex">i = \sqrt{-1}</span> and the letter <span class="math-inline lazy-load-latex">j</span> is also used in electrical engineering for denoting the imaginary unit <span class="math-inline lazy-load-latex">j = \sqrt{-1}</span>.
 </p>
 
 <div class="div-heading"> 
@@ -3435,11 +3436,11 @@ In some text books, the <span class="math-inline">x</span> axis unit vector is r
 </div>
 
 <p>
-The directional derivative $ D_{\mathbf{u}} f$ in the direction <span class="math-inline">\mathbf{u}</span> of a function <span class="math-inline">z = f(x, y)</span> of two variables, which represents a surface in space, is given by
+The directional derivative $ D_{\mathbf{u}} f$ in the direction <span class="math-inline lazy-load-latex">\mathbf{u}</span> of a function <span class="math-inline lazy-load-latex">z = f(x, y)</span> of two variables, which represents a surface in space, is given by
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="8a7ba361e57cb762aec0fd6a9dbccbd175d40522">
 D_{\mathbf{u}} f = \nabla f \cdot \hat{\mathbf{u}}
         = \frac{\partial f}{\partial x} u_x
         + \frac{\partial f}{\partial y} u_y
@@ -3451,13 +3452,13 @@ or
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="59710e2e0df55d2dfe33637fca36fa29a25ae58f">
 D_{\mathbf{u}} f =  \| \nabla f \| \| \mathbf{u} \| \cos \theta
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-Where <span class="math-inline">\mathbf{u} = (u_x, u_y)</span> and <span class="math-inline">\theta</span> is the angle betwen <span class="math-inline">\mathbf{u}</span> and the gradient vector <span class="math-inline">\nabla f</span>. The directional derivative has the highest positive value when <span class="math-inline">\theta = 0</span> in the direction of the gradient vector. The direction of the highest decrease of the directional derivative is in the opposite direction of the gradient vector when <span class="math-inline">\theta = \pi</span> (180 degrees).
+Where <span class="math-inline lazy-load-latex">\mathbf{u} = (u_x, u_y)</span> and <span class="math-inline lazy-load-latex">\theta</span> is the angle betwen <span class="math-inline lazy-load-latex">\mathbf{u}</span> and the gradient vector <span class="math-inline lazy-load-latex">\nabla f</span>. The directional derivative has the highest positive value when <span class="math-inline lazy-load-latex">\theta = 0</span> in the direction of the gradient vector. The direction of the highest decrease of the directional derivative is in the opposite direction of the gradient vector when <span class="math-inline lazy-load-latex">\theta = \pi</span> (180 degrees).
 </p>
 
 <div class="div-heading"> 
@@ -3466,7 +3467,7 @@ Where <span class="math-inline">\mathbf{u} = (u_x, u_y)</span> and <span class="
 </div>
 
 <p>
-Let <span class="math-inline">(x, y)</span> be the cartesian coordinates of a plance, a 2-dimensional space, where <span class="math-inline">x = x(u, v)</span> and <span class="math-inline">y = y(u, v)</span>.
+Let <span class="math-inline lazy-load-latex">(x, y)</span> be the cartesian coordinates of a plance, a 2-dimensional space, where <span class="math-inline lazy-load-latex">x = x(u, v)</span> and <span class="math-inline lazy-load-latex">y = y(u, v)</span>.
 </p>
 
 <p>
@@ -3474,7 +3475,7 @@ The <em><strong>jacobian matrix</strong></em> of this variable transformation is
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="2cc9045bb04173953425f89b78e9637473a603ab">
 J = \begin{bmatrix}
               \dfrac{ \partial \mathbf{r} }{\partial u}
             &amp; \dfrac{ \partial \mathbf{r} }{\partial v}
@@ -3500,13 +3501,13 @@ Where
 
 <ul class="">
 <li>
-<span class="math-inline">\mathbf{r} = (x, y)</span> is the position vector, which is a 2 by 1 column matrix (column vector); 
+<span class="math-inline lazy-load-latex">\mathbf{r} = (x, y)</span> is the position vector, which is a 2 by 1 column matrix (column vector); 
 </li>
 <li>
-<span class="math-inline">\nabla_{(u, v)}^T x</span> is the transpose of the gradient of the scalar <span class="math-inline">x</span> with respect to the vector <span class="math-inline">(u, v)</span>. 
+<span class="math-inline lazy-load-latex">\nabla_{(u, v)}^T x</span> is the transpose of the gradient of the scalar <span class="math-inline lazy-load-latex">x</span> with respect to the vector <span class="math-inline lazy-load-latex">(u, v)</span>. 
 </li>
 <li>
-<span class="math-inline">\nabla_{(u, v)}^T y</span> is the trnaspose of the graident of the scalar <span class="math-inline">y</span> with respec to the vector <span class="math-inline">(u, v)</span>. 
+<span class="math-inline lazy-load-latex">\nabla_{(u, v)}^T y</span> is the trnaspose of the graident of the scalar <span class="math-inline lazy-load-latex">y</span> with respec to the vector <span class="math-inline lazy-load-latex">(u, v)</span>. 
 </li>
 </ul>
 
@@ -3519,7 +3520,7 @@ The area in double integral is given by
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="618b127433fd8b6e4a3f284ae8de94d1cbdbbd22">
 A = \iint dA = \iint dx \, dy 
     = \iint | \det J | \, du \, dv
 </div><div class="div-latex-enum"><span></span></div>
@@ -3534,13 +3535,13 @@ The area differential is given by
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="109b14e80821f966678c4cbc1a984cfdb5ea9355">
 dA = dx \, dy = | \det J | \, du \, dv
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-where <span class="math-inline">| \det J |</span> is absolute value of the determinant of the jacobian matrix.
+where <span class="math-inline lazy-load-latex">| \det J |</span> is absolute value of the determinant of the jacobian matrix.
 </p>
 
 <p>
@@ -3548,24 +3549,24 @@ where <span class="math-inline">| \det J |</span> is absolute value of the deter
 </p>
 
 <p>
-Planar cartesian coordinates <span class="math-inline">(x, y)</span> can be turned into polar coordinates as <span class="math-inline">(\theta, r)</span>, where
+Planar cartesian coordinates <span class="math-inline lazy-load-latex">(x, y)</span> can be turned into polar coordinates as <span class="math-inline lazy-load-latex">(\theta, r)</span>, where
 </p>
 
 <ul class="">
 <li>
-<span class="math-inline">x = x(\theta, r) = r \cos \theta</span> 
+<span class="math-inline lazy-load-latex">x = x(\theta, r) = r \cos \theta</span> 
 </li>
 <li>
-<span class="math-inline">y = y(\theta, r) = r \sin \theta</span> 
+<span class="math-inline lazy-load-latex">y = y(\theta, r) = r \sin \theta</span> 
 </li>
 </ul>
 
 <p>
-Compute the partial derivative of <span class="math-inline">\mathbf{r} = (x, y)</span> vector with respec to <span class="math-inline">\theta</span>.
+Compute the partial derivative of <span class="math-inline lazy-load-latex">\mathbf{r} = (x, y)</span> vector with respec to <span class="math-inline lazy-load-latex">\theta</span>.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="e293ea6e8b29835ea1b51fdf2509bdca7e5d8bce">
 \frac{\partial \mathbf{r} }{\partial \theta} 
         = \frac{\partial}{\partial \theta}
           \begin{bmatrix}
@@ -3579,11 +3580,11 @@ Compute the partial derivative of <span class="math-inline">\mathbf{r} = (x, y)<
 </div>
 
 <p>
-Compute the partial derivative of <span class="math-inline">\mathbf{r} = (x, y)</span> vector with respec to <span class="math-inline">\theta</span>.
+Compute the partial derivative of <span class="math-inline lazy-load-latex">\mathbf{r} = (x, y)</span> vector with respec to <span class="math-inline lazy-load-latex">\theta</span>.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="7508e16aae60733b8e14793d7789063dc8a71fea">
 \frac{\partial \mathbf{r} }{\partial r} 
         = \frac{\partial}{\partial r}
           \begin{bmatrix}
@@ -3601,7 +3602,7 @@ Determine the jacobian matrix
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="bf984c3091e3f7024c210af4ef90b252b4fe14ba">
 J = \begin{bmatrix}
             \dfrac{\partial \mathbf{r} }{\partial \theta}
          &amp;  \dfrac{\partial \mathbf{r} }{\partial r} 
@@ -3610,7 +3611,7 @@ J = \begin{bmatrix}
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="6d9d3cd05b328310ec46873dd1f3aa106af1b4ba">
 J =  
      \begin{bmatrix}
            - r \sin \theta  &amp; \cos \theta
@@ -3624,25 +3625,25 @@ Compute the determinant of the jacobian matrix.
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="593ef0592bdcef330acfaef8850a99e435ee4e36">
 \det J = (- r \sin \theta) (\sin \theta) - (r \cos \theta) (\cos \theta)
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="57161a4b9e2c11817a1587112443edef35b710dd">
 \det J = - r \sin^2 \theta - r \cos^2 \theta
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="2780c5a5c036ed92be1a1c69ded1b7d023347457">
 \det J = -r (\sin^2 \theta + \cos^2 \theta)
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="8a33b63bf3161d9442cefb490fade04ff849a4ab">
 \det J = -r
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3652,19 +3653,19 @@ The area differential in polar coordinates is given by
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="bf031a4a60108917ea4c252e6462f6165cda8d85">
 dA = | \det J | \, d\theta \, dr
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="7706eb0680154bfe3aab5b6a4b4186526a3e6fa1">
 dA = | - r | \, d\theta \, dr
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="483477cde40bb337c901b053a9fc2e97d053fba3">
 dA = r \, \d\theta \, dr
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3674,7 +3675,7 @@ Therefore, the area of a region in polar coordinates is
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="180d759ebbd412fa4053ef067d93455a79ee5895">
 \boxed{
   A = \iint dA = \iint  r \, \d\theta \, dr
 }
@@ -3745,7 +3746,7 @@ Notation:
 
 <ul class="">
 <li>
-<span class="math-inline">\pmb{X}</span> bold capital letters mean probability distribution. 
+<span class="math-inline lazy-load-latex">\pmb{X}</span> bold capital letters mean probability distribution. 
 </li>
 <li>
 Var(X) => Variance of the distribution X 
@@ -3754,10 +3755,10 @@ Var(X) => Variance of the distribution X
 Cov(X, Y) => Covariance of the proabilities distributions X and Y 
 </li>
 <li>
-<span class="math-inline">\sigma_x</span> => Standard deviation of variable X 
+<span class="math-inline lazy-load-latex">\sigma_x</span> => Standard deviation of variable X 
 </li>
 <li>
-<span class="math-inline">\mu</span> => Average or menan of random variable X 
+<span class="math-inline lazy-load-latex">\mu</span> => Average or menan of random variable X 
 </li>
 </ul>
 
@@ -3770,7 +3771,7 @@ Expected value of constant 'a':
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="1cd9d1e8931e3da7d42d73c292706ba5c971b4d7">
 E(a) = a
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3780,7 +3781,7 @@ Expected value of a linear combination of random variables, 'a' and 'b' are cons
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="47d32df67582b5b629d69fbba0d30501abc8ad19">
 E( a \cdot \pmb{X} + b \cdot \pmb{Y} ) = a \cdot \pmb{X} + b \cdot \pmb{Y}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3790,25 +3791,25 @@ E( a \cdot \pmb{X} + b \cdot \pmb{Y} ) = a \cdot \pmb{X} + b \cdot \pmb{Y}
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="288bb93fbe4ffb70fe7b5aa5d12403934f5edcc2">
 \text{Var}( \pmb{X} )  E[(X - \mu)^2]  E(X^2) - \mu^2 = \sigma_x^2
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="824c7ef7bf19c0eec6ca487c3de3b5a37d1bbc82">
 \text{Var}(c \cdot \pmb{X} + d) = c^2 \cdot \text{Var}( \pmb{X} )
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="440a3fed0c6e1f772c315f9f4a5a63bdb737e5a6">
 \text{Cov}( \pmb{X}, \pmb{Y} ) = \text{Cov}( \pmb{Y}, \pmb{X} )
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="0381b5cdb65c7f2a9f51bf8185b82bb5fed26cb2">
 \text{Cov}(c \cdot \pmb{X}, \pmb{Y} ) 
          = \text{Cov}( \pmb{X}, c \cdot \pmb{Y} ) 
          = c \cdot \text{Cov}( \pmb{X}, \pmb{Y} )
@@ -3816,14 +3817,14 @@ E( a \cdot \pmb{X} + b \cdot \pmb{Y} ) = a \cdot \pmb{X} + b \cdot \pmb{Y}
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="51ab9e823a008ba81e13f8ffe560676a019c9d7e">
 \text{Cov}( \pmb{X} + \pmb{Y}, \pmb{Z} ) 
         =  \text{Cov}( \pmb{X}, \pmb{Y} ) +  \text{Cov}( \pmb{X}, \pmb{Z} )
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="350f7bfe7e8649a6ebd9f690fbef242f784156d3">
 \text{Var}( \pmb{X} + \pmb{Y}) =  \text{Var}( \pmb{X} ) + \text{Var}( \pmb{Y} ) + 2 \text{Cov}( \pmb{X},\pmb{Y})
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -3845,33 +3846,33 @@ General:
 
 <ul class="">
 <li>
-<span class="math-inline">I = I_n</span> (n x n) <ul class="">
+<span class="math-inline lazy-load-latex">I = I_n</span> (n x n) <ul class="">
 <li>
 identity matrix with all diagonal elements set to 1. 
 </li>
 </ul>
 </li>
 <li>
-<span class="math-inline">1_{n, m}</span> (n x m) <ul class="">
+<span class="math-inline lazy-load-latex">1_{n, m}</span> (n x m) <ul class="">
 <li>
 Matrix with n rows and m columsn with all elements set to 1. 
 </li>
 </ul>
 </li>
 <li>
-<span class="math-inline">A_{(n x m )}</span> or A (n x m) <ul class="">
+<span class="math-inline lazy-load-latex">A_{(n x m )}</span> or A (n x m) <ul class="">
 <li>
 A is a matirx with n rows and m columns 
 </li>
 </ul>
 </li>
 <li>
-<span class="math-inline">A^T</span> (m x n) - Transpose matrix of A 
+<span class="math-inline lazy-load-latex">A^T</span> (m x n) - Transpose matrix of A 
 </li>
 <li>
-<span class="math-inline">A^{-1}</span> inverse matrix of A for which: <ul class="">
+<span class="math-inline lazy-load-latex">A^{-1}</span> inverse matrix of A for which: <ul class="">
 <li>
-<span class="math-inline">A  A^{-1} =  A^{-1} = A  I</span> 
+<span class="math-inline lazy-load-latex">A  A^{-1} =  A^{-1} = A  I</span> 
 </li>
 </ul>
 </li>
@@ -3888,7 +3889,7 @@ Vcol (n x 1) matrix of a single column containing n elements.
 </ul>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="f4b94142ab15a3548fc3066135a9b6b339abfb07">
 \text{Vcol}_{(n x 1)} = 
     \begin{bmatrix} v_1 \\ v_2 \\ \cdots \\ v_n \end{bmatrix}
 </div><div class="div-latex-enum"><span></span></div>
@@ -3905,7 +3906,7 @@ Row vector:
 </ul>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="b37e30a8361a52c2e4e065e413265128c290ab2b">
 \text{Vrow}_{(1 x n)} = 
     \begin{bmatrix} v_1 &amp; v_2 &amp; \cdots &amp; v_n \end{bmatrix}
 </div><div class="div-latex-enum"><span></span></div>
@@ -3921,7 +3922,7 @@ Zero matrix:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="8e6cbc47911c0ed4e112f9fcd189f95459097e73">
 0_{3 x 4} =  \begin{bmatrix}
                   0 &amp; 0 &amp; 0 &amp; 0 \\
                   0 &amp; 0 &amp; 0 &amp; 0 \\
@@ -3931,7 +3932,7 @@ Zero matrix:
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-julia"><div class="highlight"><pre><span></span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
 <span class="w">  </span><span class="mi">3</span><span class="o">×</span><span class="mi">3</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
 <span class="w">   </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span>
@@ -3946,7 +3947,7 @@ Zero matrix:
 <span class="w">   </span><span class="mf">0.000</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Identity Matrix:
@@ -3959,7 +3960,7 @@ All diagonal elements are 1.
 </ul>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="1bced9de64b3d675a9fb6c0344ab7dd46970db8e">
 I_{2} =  \begin{bmatrix}
                   1 &amp; 0 \\
                   0 &amp; 1 \\
@@ -3968,7 +3969,7 @@ I_{2} =  \begin{bmatrix}
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="8fe85da76a21404eeab9a955ced1fd15eb7f2b7f">
 I_{3} =  \begin{bmatrix}
                   1 &amp; 0 &amp; 0 \\
                   0 &amp; 1 &amp; 0 \\
@@ -3977,7 +3978,7 @@ I_{3} =  \begin{bmatrix}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-julia"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">LinearAlgebra</span><span class="w"> </span>
 
 
@@ -3999,17 +4000,17 @@ I_{3} =  \begin{bmatrix}
 <span class="w">   </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">0.000</span><span class="w">  </span><span class="mf">1.000</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Ones-based matrices:
 </p>
 
 <p>
-<span class="math-inline">1_{n, n} = 1 \quad \text{for every i, j}</span>
+<span class="math-inline lazy-load-latex">1_{n, n} = 1 \quad \text{for every i, j}</span>
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-julia"><div class="highlight"><pre><span></span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
 <span class="w">  </span><span class="mi">2</span><span class="o">×</span><span class="mi">2</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Float64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
 <span class="w">   </span><span class="mf">1.00000E+00</span><span class="w">  </span><span class="mf">1.00000E+00</span>
@@ -4030,7 +4031,7 @@ Ones-based matrices:
 <span class="w">   </span><span class="mf">1.00000E+00</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-heading"> 
 <h2 id="H_Types_of_matrices" class="document-heading anchor">11 Types of matrices <a class="link-heading" href="#H_Types_of_matrices">¶</a></h2> 
@@ -4050,7 +4051,7 @@ Any matrix which equals to its transpose:
 Aij = Aji
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-julia"><div class="highlight"><pre><span></span><span class="c"># -------- Symmetric matrix  ---------</span>
 
 
@@ -4072,13 +4073,13 @@ Aij = Aji
 <span class="w">  </span><span class="nb">true</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Non Symmetric Matrix:
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-julia"><div class="highlight"><pre><span></span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">3</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span>
 <span class="w">  </span><span class="mi">3</span><span class="o">×</span><span class="mi">3</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Int64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
 <span class="w">   </span><span class="mi">3</span><span class="w">  </span><span class="mi">8</span><span class="w">  </span><span class="mi">7</span>
@@ -4097,7 +4098,7 @@ Non Symmetric Matrix:
 <span class="w">  </span><span class="nb">false</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-heading"> 
 <h3 id="H_Matrix_Operations_Rules" class="document-heading anchor">11.1 Matrix Operations Rules <a class="link-heading" href="#H_Matrix_Operations_Rules">¶</a></h3> 
@@ -4109,12 +4110,12 @@ Non Symmetric Matrix:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="431247cf9a85f0712efc8dc3928957762b9a5d4d">
 A  B \neq B  A
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-julia"><div class="highlight"><pre><span></span><span class="n">julia</span><span class="o">&gt;</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="p">]</span>
 <span class="w">  </span><span class="mi">2</span><span class="o">×</span><span class="mi">2</span><span class="w"> </span><span class="kt">Array</span><span class="p">{</span><span class="kt">Int64</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span><span class="o">:</span>
 <span class="w">   </span><span class="mi">4</span><span class="w">  </span><span class="mi">5</span>
@@ -4143,14 +4144,14 @@ A  B \neq B  A
 <span class="w">  </span><span class="nb">false</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 <strong>Associativity</strong>
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="7b754f868aa9be3b7be0348aef44b28f1d8da109">
 A B C  = (A  B) C = A (B  C)
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -4164,13 +4165,13 @@ Tranpose of product:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="f1b50292229dd305f6500a18c3a50d37d01dc10b">
 (A  B)^T = B^T  A^T
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="408ceb3f758b5b7d5526e74804489ab4fe73662c">
 (A  B  C)^T  
    = C^T (A  B)^T  
    = (B  C)^T  A 
@@ -4183,7 +4184,7 @@ Transpose of sum:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="9efd261a215287c0757b349fcfeadd45040a0fee">
 (A + B)^T = A^T + B^T
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -4198,14 +4199,14 @@ Let <em><em>a</em> and <em>b</em></em> be two (n x 1) column vectors:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="d6a965e07af8ef75ef5d0a1d8495385539cbc93a">
 a_{(n x 1)} = 
     \begin{bmatrix} a_1 \\ a_2 \\ \cdots \\ a_n \end{bmatrix}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="fdfc0ef9440c1f70d501edecddef4bee71c53e27">
 b_{(n x 1)} = 
     \begin{bmatrix} b_1 \\ b_2 \\ \cdots \\ b_n \end{bmatrix}
 </div><div class="div-latex-enum"><span></span></div>
@@ -4216,7 +4217,7 @@ The scalar product (dot product) between <em><em>a</em> and <em>b</em></em> is:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="0a613f19feacafd5b46cbff7314b0168a5cabfdf">
 \mathbf{a} \cdot \mathbf{b} =  \sum_{i = 1}^n a_i  b_i 
             =  \mathbf{a}^T \mathbf{b}
             =  \mathbf{b}^T \mathbf{a}
@@ -4228,7 +4229,7 @@ The L-2 norm or euclidian norm of a vector is given by:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="86ef5177abdc8b082c5f209879f605ad8c34ec10">
 \text{norm}(\mathbf{a}) 
     = \| \mathbf{a} \| 
     = \sqrt{ \sum_{i = 1}^n a_i^2 } 
@@ -4252,14 +4253,14 @@ Let <strong>x</strong> be a (n x 1) column vector and y be a (m x 1) column vect
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="8ec169bb5bfb55cfb83ccc5b8fa43e4989d859da">
 x_{(n x 1)} = 
     \begin{bmatrix} x_1 \\ x_2 \\ \cdots \\ x_n \end{bmatrix}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="0ec116fda513e678b8b037b8298dad13d89d79ae">
 y_{(m x 1)} = 
     \begin{bmatrix} y_1 \\ y_2 \\ \cdots \\ y_n \end{bmatrix}
 </div><div class="div-latex-enum"><span></span></div>
@@ -4271,17 +4272,17 @@ y_{(m x 1)} =
 </div>
 
 <p>
-If <span class="math-inline">F(X): R^N \rightarrow R</span> - F(X) = F(x1, x2, ... xn) is a multivariate function, the derivate of the scalar function F(X) with respect to the vector X is:
+If <span class="math-inline lazy-load-latex">F(X): R^N \rightarrow R</span> - F(X) = F(x1, x2, ... xn) is a multivariate function, the derivate of the scalar function F(X) with respect to the vector X is:
 </p>
 
 <ul class="">
 <li>
-Note: <span class="math-inline">\nabla F</span> means gradient vector of F(X) 
+Note: <span class="math-inline lazy-load-latex">\nabla F</span> means gradient vector of F(X) 
 </li>
 </ul>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="2a5783e2fc1004413c0f36ab7c2d4420caaceebb">
 \frac{\partial F}{\partial x}  
      = \nabla F
      =   \begin{bmatrix} 
@@ -4317,7 +4318,7 @@ If the vector Y is a function (Y = Y(t)) of the scalar t, the derivate of Y with
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="7d76099b8f634125b6465ef6d39032141323074e">
 \frac{\partial Y(t)}{\partial t} = 
      \begin{bmatrix} 
          \frac{\partial y_1(t)}{\partial t}  \\
@@ -4345,7 +4346,7 @@ where J[Y(X)] is the <u>Jacobian</u> matrix of Y(X)
 </ul>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="54f0b649d1e15294f58e02e9dea6f73d0319885b">
 \frac{\partial Y(X)}{\partial X} 
        =  J[Y(X)] 
        =
@@ -4401,22 +4402,22 @@ References:
 </ul>
 
 <p>
-Let X be n x 1 vector where <span class="math-inline">x \in R^n</span>
+Let X be n x 1 vector where <span class="math-inline lazy-load-latex">x \in R^n</span>
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="8ec169bb5bfb55cfb83ccc5b8fa43e4989d859da">
 x_{(n x 1)} = 
     \begin{bmatrix} x_1 \\ x_2 \\ \cdots \\ x_n \end{bmatrix}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-Let C be matrix of (n x n) constant elements where <span class="math-inline">C \in R^{n x n}</span>
+Let C be matrix of (n x n) constant elements where <span class="math-inline lazy-load-latex">C \in R^{n x n}</span>
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="f9772f3008a345a16b32705d1b06db6109f49afa">
 C = \begin{bmatrix}
         c_{11} &amp; c_{12} &amp; c_{13} \cdots c_{1n} \\ 
         c_{21} &amp; c_{22} &amp; c_{23} \cdots c_{2n} \\ 
@@ -4438,7 +4439,7 @@ Derivate of product between constant matrix and column vector.
 </ul>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="0f07f6eff432ea009a69db0c901984e5441693a9">
 \frac{\partial }{\partial X} (C . X)  
         = \frac{\partial (C . x)}{\partial X} 
         = C^T
@@ -4452,7 +4453,7 @@ Derivate of product between column vector and constant matrix.
 </ul>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="145b967f471db702dde422b6b16e51711f587edf">
 \frac{\partial }{\partial X} (X^T . C)  
         = \frac{\partial (X^T C)}{\partial X} 
         = C
@@ -4470,7 +4471,7 @@ Note: this result is a vector.
 </ul>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="1ef14931e1780af35af35f32cb150cb2e2ebee9a">
 \frac{\partial }{\partial X} (X^T . X)  
         = \frac{\partial (X^T . X)}{\partial X} 
         = 2 X
@@ -4488,7 +4489,7 @@ Let Y be a (n x 1) vector.
 </ul>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="618e67c7fd28a374e6ce037c96aa596ef304abea">
 \frac{\partial }{\partial X} (y^T x)  
     = \frac{\partial }{\partial X} (x^T y)  
     = y^T
@@ -4502,7 +4503,7 @@ Derivative of quadratic form.
 </ul>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="93f4566226a8e58977e14d5222dd12d9fecfaed2">
 \frac{\partial }{\partial X} (X^T . C . X)  
         = \frac{\partial (X^T . C. X)}{\partial X} 
         = (C + C^T) . x 
@@ -4512,7 +4513,7 @@ Derivative of quadratic form.
 
 <ul class="">
 <li>
-Derivative of scalar defined by <span class="math-inline">\alpha = y^T . A . x</span> <ul class="">
+Derivative of scalar defined by <span class="math-inline lazy-load-latex">\alpha = y^T . A . x</span> <ul class="">
 <li>
 A is a (m x n) matrix independent of both X and Y. 
 </li>
@@ -4527,7 +4528,7 @@ X is a (n x 1) vector.
 </ul>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="d81c2e19be211a5ec92f1344912ec9d8416fb813">
 \frac{\partial \alpha}{\partial X}
      = \frac{\partial}{\partial X} \left( y^T . A . x \right)
      = y^T . A
@@ -4538,7 +4539,7 @@ X is a (n x 1) vector.
 <li>
 Chain rule of the derivate of scalar product. <ul class="">
 <li>
-Note: <span class="math-inline">\alpha</span> is a scalar. 
+Note: <span class="math-inline lazy-load-latex">\alpha</span> is a scalar. 
 </li>
 <li>
 Note: v is a vector and dependent on vector x. 
@@ -4548,7 +4549,7 @@ Note: v is a vector and dependent on vector x.
 </ul>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="2030a4e663de0acb299f04a216eb51472d557771">
 \frac{\partial \alpha(x)}{\partial x} 
        = \frac{\partial}{\partial x} (v^t . v)
        = 2 v^T \frac{\partial v}{\partial x}
@@ -4569,7 +4570,7 @@ List of useful and pervasive identities for computing gradient in machine learni
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="1ffe8e0d5fe65dd073060ddc6f8c50c4f7ee55fa">
 \displaystyle 
 
 \begin{cases}
@@ -4606,10 +4607,10 @@ Where,
 
 <ul class="">
 <li>
-<span class="math-inline">\det A</span> is the determinant (scalar) of a square matrix A. 
+<span class="math-inline lazy-load-latex">\det A</span> is the determinant (scalar) of a square matrix A. 
 </li>
 <li>
-<span class="math-inline">\mathrm{tr}(A)</span> is the trace of matrix A, sum of diagonal elements. 
+<span class="math-inline lazy-load-latex">\mathrm{tr}(A)</span> is the trace of matrix A, sum of diagonal elements. 
 </li>
 </ul>
 

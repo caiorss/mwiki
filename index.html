@@ -118,16 +118,17 @@
     const FONT_FAMILY_CODE = "Libertinus Mono"
     const DEFAULT_LOCALE = "en-US";
 	  const USE_DEFAULT_LOCALE = "True" === "True";
-    const LATEX_RENDERER = "mathjax";
+    const LATEX_RENDERER = "katex";
     const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
     const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
-    const KATEX_MACROS = "e30=";
+    const KATEX_MACROS = "eyJcXGNlcSI6ICJcXGNvbG9uZXF1YWxzIiwgIlxcYiI6ICJcXG1hdGhiZnsjMX0iLCAiXFxiaGF0IjogIlxcaGF0e1xcbWF0aGJmeyMxfX0iLCAiXFxiZG90IjogIlxcZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxiZGRvdCI6ICJcXGRkb3R7XFxtYXRoYmZ7IzF9fSIsICJcXGJzIjogIlxcYm9sZHN5bWJvbHsjMX0iLCAiXFxic2hhdCI6ICJcXGhhdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGJzZG90IjogIlxcZG90e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcYnNkZG90IjogIlxcZGRvdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGZiIjogInt9XnsjMn1cXG1hdGhiZnsjMX0iLCAiXFxmYmhhdCI6ICJ7fV57IzJ9XFxoYXR7XFxtYXRoYmZ7IzF9fSIsICJcXGZicyI6ICJ7fV57IzJ9XFxib2xkc3ltYm9seyMxfSIsICJmciI6ICJ7fV57IzF9X3sjMn0iLCAiXFxza2V3IjogIlxcbGVmdFsgIzEgXFxyaWdodF1fe1xcdGltZXN9IiwgIlxcYXJnbWF4IjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1heH0iLCAiXFxhcmdtaW4iOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWlufSIsICJcXFIiOiAieyBcXG1hdGhiYntSfSB9IiwgIlxcWiI6ICJcXG1hdGhiYntafSIsICJcXGxhcGxhY2UiOiAiXFxtYXRoY2Fse0x9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWxhcGxhY2UiOiAiXFxtYXRoY2Fse0x9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxmb3VyaWVyIjogIlxcbWF0aGNhbHtGfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGlmb3VyaWVyIjogIlxcbWF0aGNhbHtGfV57LTF9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcZCI6ICJcXG1hdGhybXtkfSIsICJcXHAiOiAiXFxwYXJ0aWFsIiwgIlxcZSI6ICJcXG1hdGhybXtlfSIsICJcXGR0IjogIlxcZnJhY3tkICMxfXtkdH0iLCAiXFxkZHQiOiAiXFxmcmFje2ReMiAjMX17ZHReMn0iLCAiXFxwZCI6ICJcXGZyYWN7XFxwYXJ0aWFsICMxfXtcXHBhcnRpYWwgIzJ9IiwgIlxccGRkIjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsICMyXjJ9IiwgIlxcQyI6ICJ7IFxcbWF0aGJie0N9IH0iLCAiXFxCaWdPIjogIlxcbWF0aGNhbHtPfVxcIVxcbGVmdCgjMVxccmlnaHQpIiwgIlxcbWRlZiI6ICJ7XFx0cmlhbmdsZXEgXFw7fSIsICJcXHNnbiI6ICJcXG9wZXJhdG9ybmFtZXtzZ259In0=";
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
     // NOTE: It is encoded as base64 
     const PAGE_SOURCE_CODE = "";
     const PAGE_SOURCE_URL  = "/mwiki/src_pages/index.html"
+    const CITATION_REFERENCES = "e30=";
 	
     // Possible values: 'none', 'nosection' 'section', 'subsection'
     //  none      => no enumeration 
@@ -265,14 +266,14 @@
     </script>
 
     
-        
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml-full.js"
-            integrity="sha256-kbAFUDxdHwlYv01zraGjvjNZayxKtdoiJ38bDTFJtaQ="
-            crossorigin="anonymous" async>
-        </script>
-        
-    
 
+    
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js" integrity="sha384-J+9dG2KMoiR9hqcFao0IBLwxt6zpcyN68IgwzsCSkbreXUjmNVRhPFTssqdSGjwQ" crossorigin="anonymous"></script>
+        <!-- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" -->
+            <!-- onload="renderMathInElement(document.body);"></script> -->
+        
     
   
 
@@ -493,8 +494,7 @@ This is the index page. The first page shown by MWiki.
 
 <div class="div-heading"> 
 <h2 id="H_Links_to_Internal_Pages" class="document-heading anchor">Links to Internal Pages <a class="link-heading" href="#H_Links_to_Internal_Pages">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=8&end=19&anchor=H_Links_to_Internal_Pages&page=Index&timestamp=176558963058453" title="[i18n]: Links to Internal Pages" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{1}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=9&end=20&anchor=H_Links_to_Internal_Pages&page=Index&timestamp=176780904738520" title="[i18n]: Links to Internal Pages" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -524,7 +524,7 @@ This is the index page. The first page shown by MWiki.
 
 <div class="div-heading"> 
 <h2 id="H_Overview" class="document-heading anchor">Overview <a class="link-heading" href="#H_Overview">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=19&end=40&anchor=H_Overview&page=Index&timestamp=176558963058453" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=20&end=41&anchor=H_Overview&page=Index&timestamp=176780904738520" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -542,7 +542,7 @@ All sources of this sample wiki are available at
 This website was generated using the command
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-sh"><div class="highlight"><pre><span></span>$<span class="w"> </span>mwiki<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--wikipath<span class="o">=</span>./sample-wiki<span class="w"> </span><span class="se">\</span>
 <span class="w">          </span>--website-name<span class="o">=</span>MBook<span class="w"> </span><span class="se">\</span>
 <span class="w">          </span>--main-font<span class="o">=</span>cmu-concrete<span class="w"> </span><span class="se">\</span>
@@ -555,12 +555,11 @@ This website was generated using the command
 <span class="w">          </span>--output<span class="o">=</span>./dist
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-heading"> 
 <h2 id="H_Bookmarks" class="document-heading anchor">Bookmarks <a class="link-heading" href="#H_Bookmarks">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=40&end=48&anchor=H_Bookmarks&page=Index&timestamp=176558963058453" title="[i18n]: Bookmarks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{2}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=41&end=49&anchor=H_Bookmarks&page=Index&timestamp=176780904738520" title="[i18n]: Bookmarks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -575,8 +574,7 @@ This website was generated using the command
 
 <div class="div-heading"> 
 <h2 id="H_Special_Hyperlinks_Examples" class="document-heading anchor">Special Hyperlinks Examples <a class="link-heading" href="#H_Special_Hyperlinks_Examples">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=48&end=99&anchor=H_Special_Hyperlinks_Examples&page=Index&timestamp=176558963058453" title="[i18n]: Special Hyperlinks Examples" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{3}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=49&end=100&anchor=H_Special_Hyperlinks_Examples&page=Index&timestamp=176780904738520" title="[i18n]: Special Hyperlinks Examples" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -592,7 +590,7 @@ Links to Mastodon Open Source communities:
 <a href="https://floss.social/@GTK"  target="_blank" title="Mastdon account from server floss.social" class="link-external" rel="noreferrer noopener nofollow" >@GTK@floss.social</a> 
 </li>
 <li>
-<a href="https://fosstodon.org/@postmarketOS"  target="_blank" title="Mastdon account from server fosstodon.org" class="link-external" rel="noreferrer noopener nofollow" >@postmarketOS@fosstodon.org</a> 
+<a href="https://postmarketOS/@social.treehouse.systems"  target="_blank" title="Mastdon account from server postmarketOS" class="link-external" rel="noreferrer noopener nofollow" >@social.treehouse.systems@postmarketOS</a> 
 </li>
 </ul>
 
@@ -727,8 +725,7 @@ Brief: <em>media: uvcvideo: Skip parsing frames of type UVC_VS_UNDEFINED in uvc_
 
 <div class="div-heading"> 
 <h2 id="H_Internal_Pages" class="document-heading anchor">Internal Pages <a class="link-heading" href="#H_Internal_Pages">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=99&end=107&anchor=H_Internal_Pages&page=Index&timestamp=176558963058453" title="[i18n]: Internal Pages" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{4}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=100&end=108&anchor=H_Internal_Pages&page=Index&timestamp=176780904738520" title="[i18n]: Internal Pages" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -750,8 +747,7 @@ Hyperlinks to internal pages that still does not exist will be shown in red, whi
 
 <div class="div-heading"> 
 <h2 id="H_Images" class="document-heading anchor">Images <a class="link-heading" href="#H_Images">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=107&end=168&anchor=H_Images&page=Index&timestamp=176558963058453" title="[i18n]: Images" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{5}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=108&end=169&anchor=H_Images&page=Index&timestamp=176780904738520" title="[i18n]: Images" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -759,11 +755,11 @@ Hyperlinks to internal pages that still does not exist will be shown in red, whi
 <strong>Image of Java Duke Mascot (External Image):</strong>
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-markdown"><div class="highlight"><pre><span></span>![<span class="nt">Java&#39;s Duke Mascot</span>](<span class="na">/mwiki/static/example_java_duke_mascot.svg</span>)
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-wiki-image"><img class="external-image anchor" src="/mwiki/static/example_java_duke_mascot.svg" alt="Java's Duke Mascot"></div>
 
@@ -771,11 +767,11 @@ Hyperlinks to internal pages that still does not exist will be shown in red, whi
 <strong>Image of Java Duke Mascot (External Image):</strong> (Relative to root MWiki URL)
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-markdown"><div class="highlight"><pre><span></span>![<span class="nt">Java&#39;s Duke Mascot</span>](<span class="na">@root/static/example_java_duke_mascot.svg</span>)
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-wiki-image"><img class="external-image anchor" src="/mwiki//static/example_java_duke_mascot.svg" alt="Java's Duke Mascot"></div>
 
@@ -789,11 +785,11 @@ Hyperlinks to internal pages that still does not exist will be shown in red, whi
 </li>
 </ul>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-text"><div class="highlight"><pre><span></span>![[logo-java-coffee-cup.png]]
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-wiki-image"><img class="wiki-image lazy-load anchor" data-src="/mwiki/images/logo-java-coffee-cup.png" alt=""></div>
 
@@ -813,11 +809,11 @@ If the website is served using https (http + <abbr title="Transport Layer Securi
 For instance, this Python logo image whose MWiki markdown is
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-text"><div class="highlight"><pre><span></span>![[pasted-image-1743470376610.png]]
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 corresponds to the file
@@ -873,8 +869,7 @@ corresponds to the file
 
 <div class="div-heading"> 
 <h2 id="H_Figure" class="document-heading anchor">Figure <a class="link-heading" href="#H_Figure">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=168&end=230&anchor=H_Figure&page=Index&timestamp=176558963058453" title="[i18n]: Figure" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{6}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=169&end=231&anchor=H_Figure&page=Index&timestamp=176780904738520" title="[i18n]: Figure" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -882,7 +877,7 @@ corresponds to the file
 <strong>Figure of Java Duke Mascot (External Image)</strong>
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-markdown"><div class="highlight"><pre><span></span>```{figure} /mwiki/static/example_java_duke_mascot.svg
 :width: 200px
 :alt: Java duke mascot, one of the symbols of the Java programming language.
@@ -891,7 +886,7 @@ Java&#39;s Duke mascot
 ```
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-wiki-image" div-figure><div class="inner-figure"><img id="figure-" class="wiki-image lazy-load anchor" data-src="/mwiki/static/example_java_duke_mascot.svg" alt="Java duke mascot, one of the symbols of the Java programming language." height=200px ><button class="btn-show-alt-text">ALT</button> </div><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 1: Java's Duke mascot</p></div>
 
@@ -899,7 +894,7 @@ Java&#39;s Duke mascot
 <strong>Figure of Java Duke Mascot (External Image)</strong> (Relative to MWiki Root URL)
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-markdown"><div class="highlight"><pre><span></span>```{figure} <span class="ni">@root/static/example_java_duke_mascot</span>.svg
 :width: 200px
 :alt: Java duke mascot, one of the symbols of the Java programming language.
@@ -908,7 +903,7 @@ Java&#39;s Duke mascot
 ```
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-wiki-image" div-figure><div class="inner-figure"><img id="figure-" class="wiki-image lazy-load anchor" data-src="/mwiki//static/example_java_duke_mascot.svg" alt="Java duke mascot, one of the symbols of the Java programming language." height=200px ><button class="btn-show-alt-text">ALT</button> </div><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 2: Java's Duke mascot</p></div>
 
@@ -916,7 +911,7 @@ Java&#39;s Duke mascot
 <strong>Internal Figure</strong>
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-markdown"><div class="highlight"><pre><span></span>```{figure} ![[logo-java-coffee-cup.png]]
 :name: unique-identifier-of-the-image-optional
 :height: 200px
@@ -926,63 +921,55 @@ Java coffee cup symbol.
 ```
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-wiki-image" div-figure><div class="inner-figure"><img id="figure-unique-identifier-of-the-image-optional" class="wiki-image lazy-load anchor" data-src="/mwiki/images/logo-java-coffee-cup.png" alt="An iconic symbol of the Java programming language. Note the alt text should provide a detailed description of the image for better accessibility." height=200px ><button class="btn-show-alt-text">ALT</button> </div><p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> 3: Java coffee cup symbol.</p></div>
 
 <div class="div-heading"> 
 <h2 id="H_Math" class="document-heading anchor">Math <a class="link-heading" href="#H_Math">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=230&end=305&anchor=H_Math&page=Index&timestamp=176558963058453" title="[i18n]: Math" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{7}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=231&end=306&anchor=H_Math&page=Index&timestamp=176780904738520" title="[i18n]: Math" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Definition" class="document-heading anchor">Definition <a class="link-heading" href="#H_Definition">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=231&end=230&anchor=H_Definition&page=Index&timestamp=176558963058453" title="[i18n]: Definition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{1}">\(\setSubSection{1}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=232&end=231&anchor=H_Definition&page=Index&timestamp=176780904738520" title="[i18n]: Definition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <div id="inverse-matrix" class="def admonition anchor" style="background:;">
-<span class="admonition-title"><label class="admonition-tag" data-i18n="admonition-math-defintion-label">DEFINITION</label>: <strong>(Inverse Matrix)</strong><a class="link-edit link-edit-admonition" style="display:none" href="/edit/Index?start=233&end=244&page=Index&timestamp=176558963058453" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><label class="admonition-tag" data-i18n="admonition-math-defintion-label">DEFINITION</label>: <strong>(Inverse Matrix)</strong><a class="link-edit link-edit-admonition" style="display:none" href="/edit/Index?start=234&end=245&page=Index&timestamp=176780904738520" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 <p>
-The inverse matrix <span class="math-inline">\(A^{-1}\)</span> of a matrix <span class="math-inline">\(A: n \times n\)</span> is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists.
-</p><div  class="math-block anchor"> 
-<div class="div-latex-code">
-$$
-\notag
+The inverse matrix <span class="math-inline lazy-load-latex">A^{-1}</span> of a matrix <span class="math-inline lazy-load-latex">A: n \times n</span> is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists.
+</p><div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="54e1d043db81af195054d746525633694ea596c4">
+
    A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}
-$$
 </div><div class="div-latex-enum"></div>
 </div>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_Theorem" class="document-heading anchor">Theorem <a class="link-heading" href="#H_Theorem">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=245&end=275&anchor=H_Theorem&page=Index&timestamp=176558963058453" title="[i18n]: Theorem" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{2}">\(\setSubSection{2}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=246&end=276&anchor=H_Theorem&page=Index&timestamp=176780904738520" title="[i18n]: Theorem" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <div class="theorem admonition anchor" style="background:;">
-<span class="admonition-title"><label class="admonition-tag" data-i18n="admonition-math-theorem-label">THEOREM</label> 1: <strong>(Determinant of Orthogonal Matrix)</strong><a class="link-edit link-edit-admonition" style="display:none" href="/edit/Index?start=247&end=274&page=Index&timestamp=176558963058453" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><label class="admonition-tag" data-i18n="admonition-math-theorem-label">THEOREM</label> 1: <strong>(Determinant of Orthogonal Matrix)</strong><a class="link-edit link-edit-admonition" style="display:none" href="/edit/Index?start=248&end=275&page=Index&timestamp=176780904738520" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 <p>
-For any <strong>orthogonal matrix</strong><a href="#" id="footnote-reference-link-1" class="footnote-link"><sup class="footnote-reference" data-counter="1" data-footnote="A square matrix &lt;span class=&quot;math-inline&quot;&gt;\(Q\)&lt;/span&gt; is said to be orthogonal if &lt;span class=&quot;math-inline&quot;&gt;\(Q Q^T = \mathbf{I}\)&lt;/span&gt;">[1]</sup></a> <span class="math-inline">\(Q \in \mathbb{R}^{n \times n}\)</span> of n rows and n columns
-</p><div  class="math-block anchor"> 
-<div class="div-latex-code">
-$$
-\notag 
+For any <strong>orthogonal matrix</strong><a href="#" id="footnote-reference-link-1" class="footnote-link"><sup class="footnote-reference" data-counter="1" data-footnote="A square matrix &lt;span class=&quot;math-inline lazy-load-latex&quot;&gt;Q&lt;/span&gt; is said to be orthogonal if &lt;span class=&quot;math-inline lazy-load-latex&quot;&gt;Q Q^T = \mathbf{I}&lt;/span&gt;">[1]</sup></a> <span class="math-inline lazy-load-latex">Q \in \mathbb{R}^{n \times n}</span> of n rows and n columns
+</p><div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="72db954d393c2427f35ee8f9fc557ddeadaa7fde">
+ 
   \det(Q) = 1
-$$
 </div><div class="div-latex-enum"></div>
 </div><div class="foldabel-block-div"><details >
 <summary><u class="solution-label"><label data-i18n="foldable-math-proof-block-label">Proof</label> </u></summary>
 
-<div class="foldable-block" style=""><div  class="math-block anchor"> 
-<div class="div-latex-code">
-$$
+<div class="foldable-block" style=""><div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="2cea9f64dc994fb2e4e8583db61fd536e5a786bb">
 
 \notag
-\notag 
+ 
 \begin{split}
       \det (Q Q^T)      &amp;= \det(Q) \det(Q^{T}) 
    \\ \det (Q Q^T)      &amp;= \det(Q) \det(Q) 
@@ -991,7 +978,6 @@ $$
    \\  1                &amp;= \det{Q}^2
    \\  \det(Q)          &amp;= 1
 \end{split}
-$$
 </div><div class="div-latex-enum"></div>
 </div>
 
@@ -1001,26 +987,24 @@ $$
 
 <div class="div-heading"> 
 <h3 id="H_Solved_Exercise" class="document-heading anchor">Solved Exercise <a class="link-heading" href="#H_Solved_Exercise">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=275&end=305&anchor=H_Solved_Exercise&page=Index&timestamp=176558963058453" title="[i18n]: Solved Exercise" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-<span class="tex-section-command" style="display:none" data-code="\setSubSection{3}">\(\setSubSection{3}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=276&end=306&anchor=H_Solved_Exercise&page=Index&timestamp=176780904738520" title="[i18n]: Solved Exercise" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <aside class="example admonition anchor" style="background:;"  class="admonition example">
 <span class="admonition-title"><strong>
-<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Chain Rule for Derivative Multi-Variate Functions<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Index?start=277&end=304&page=Index&timestamp=176558963058453" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Chain Rule for Derivative Multi-Variate Functions<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Index?start=278&end=305&page=Index&timestamp=176780904738520" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 </strong></span>
 
 <p>
-Let the function f be <span class="math-inline">\(f(x, y) = x^2/A^2 + y^2/B^2 - C\)</span>.  Find the derivative of f with respect to t. And x and y are functions of t, <span class="math-inline">\(x = x(t) = A \cos t\)</span> and <span class="math-inline">\(y = y(t) = B \sin t\)</span>.
+Let the function f be <span class="math-inline lazy-load-latex">f(x, y) = x^2/A^2 + y^2/B^2 - C</span>.  Find the derivative of f with respect to t. And x and y are functions of t, <span class="math-inline lazy-load-latex">x = x(t) = A \cos t</span> and <span class="math-inline lazy-load-latex">y = y(t) = B \sin t</span>.
 </p><div class="foldabel-block-div"><details >
 <summary><u class="solution-label"><label data-i18n="foldable-math-solution-block-label">Solution</label> </u></summary>
 
-<div class="foldable-block" style=""><div  class="math-block anchor"> 
-<div class="div-latex-code">
-$$
+<div class="foldable-block" style=""><div  class="katex-math-block anchor"> 
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="779dc33afd0768a75e8992c7e3299bab3860e259">
 
 \notag
-\notag 
+ 
 \begin{split}
   \frac{df}{dt} 
     &amp;= \frac{\partial f}{\partial x} \frac{dx}{dt}  
@@ -1037,7 +1021,6 @@ $$
     &amp;=  -2 \cos t  \sin t  + 2 \sin t  \cos t \\ 
     &amp;=  0 
 \end{split}
-$$
 </div><div class="div-latex-enum"></div>
 </div>
 
@@ -1047,8 +1030,7 @@ $$
 
 <div class="div-heading"> 
 <h2 id="H_Pseudocode_of_Algorithms_in_LaTeX" class="document-heading anchor">Pseudocode of Algorithms in LaTeX <a class="link-heading" href="#H_Pseudocode_of_Algorithms_in_LaTeX">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=305&end=end&anchor=H_Pseudocode_of_Algorithms_in_LaTeX&page=Index&timestamp=176558963058453" title="[i18n]: Pseudocode of Algorithms in LaTeX" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a><span class="tex-section-command" style="display:none">\(\setSection{8}\)</span>
-<span class="tex-section-command" style="display:none">\(\setSubSection{0}\)</span>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=306&end=end&anchor=H_Pseudocode_of_Algorithms_in_LaTeX&page=Index&timestamp=176780904738520" title="[i18n]: Pseudocode of Algorithms in LaTeX" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -1056,7 +1038,7 @@ $$
 Code in LaTeX:
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span>```<span class="nb">{</span>pseudo<span class="nb">}</span>
 <span class="k">\begin</span><span class="nb">{</span>algorithm<span class="nb">}</span>
 <span class="k">\caption</span><span class="nb">{</span>Buble Sort Algorithm<span class="nb">}</span>
@@ -1079,7 +1061,7 @@ Code in LaTeX:
 ```
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Rendering:

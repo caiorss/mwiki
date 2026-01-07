@@ -121,13 +121,14 @@
     const LATEX_RENDERER = "katex";
     const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
     const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
-    const KATEX_MACROS = "eyJcXGIiOiAiXFxtYXRoYmZ7IzF9IiwgIlxcYmhhdCI6ICJcXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRvdCI6ICJcXGRvdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRkb3QiOiAiXFxkZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxicyI6ICJcXGJvbGRzeW1ib2x7IzF9IiwgIlxcYnNkb3QiOiAiXFxkb3R7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxic2Rkb3QiOiAiXFxkZG90e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcZmIiOiAie31eeyMyfVxcbWF0aGJmeyMxfSIsICJcXGZiaGF0IjogInt9XnsjMn1cXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcZmJzIjogInt9XnsjMn1cXGJvbGRzeW1ib2x7IzF9IiwgImZyIjogInt9XnsjMX1feyMyfSIsICJcXHNrZXciOiAiXFxsZWZ0WyAjMSBcXHJpZ2h0XV97XFx0aW1lc30iLCAiXFxhcmdtYXgiOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWF4fSIsICJcXGFyZ21pbiI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtaW59IiwgIlxcUiI6ICJ7IFxcbWF0aGJie1J9IH0iLCAiXFxaIjogIlxcbWF0aGJie1p9IiwgIlxcbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxpbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1eey0xfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxkIjogIlxcbWF0aHJte2R9IiwgIlxccCI6ICJcXHBhcnRpYWwiLCAiXFxlIjogIlxcbWF0aHJte2V9IiwgIlxcZHQiOiAiXFxmcmFje2QgIzF9e2R0fSIsICJcXGRkdCI6ICJcXGZyYWN7ZF4yICMxfXtkdF4yfSIsICJcXHBkIjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCAjMn0iLCAiXFxwZGQiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgIzJeMn0iLCAiXFxDIjogInsgXFxtYXRoYmJ7Q30gfSIsICJcXEJpZ08iOiAiXFxtYXRoY2Fse099XFwhXFxsZWZ0KCMxXFxyaWdodCkiLCAiXFxtZGVmIjogIntcXHRyaWFuZ2xlcSBcXDt9IiwgIlxcc2duIjogIlxcb3BlcmF0b3JuYW1le3Nnbn0ifQ==";
+    const KATEX_MACROS = "eyJcXGNlcSI6ICJcXGNvbG9uZXF1YWxzIiwgIlxcYiI6ICJcXG1hdGhiZnsjMX0iLCAiXFxiaGF0IjogIlxcaGF0e1xcbWF0aGJmeyMxfX0iLCAiXFxiZG90IjogIlxcZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxiZGRvdCI6ICJcXGRkb3R7XFxtYXRoYmZ7IzF9fSIsICJcXGJzIjogIlxcYm9sZHN5bWJvbHsjMX0iLCAiXFxic2hhdCI6ICJcXGhhdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGJzZG90IjogIlxcZG90e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcYnNkZG90IjogIlxcZGRvdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGZiIjogInt9XnsjMn1cXG1hdGhiZnsjMX0iLCAiXFxmYmhhdCI6ICJ7fV57IzJ9XFxoYXR7XFxtYXRoYmZ7IzF9fSIsICJcXGZicyI6ICJ7fV57IzJ9XFxib2xkc3ltYm9seyMxfSIsICJmciI6ICJ7fV57IzF9X3sjMn0iLCAiXFxza2V3IjogIlxcbGVmdFsgIzEgXFxyaWdodF1fe1xcdGltZXN9IiwgIlxcYXJnbWF4IjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1heH0iLCAiXFxhcmdtaW4iOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWlufSIsICJcXFIiOiAieyBcXG1hdGhiYntSfSB9IiwgIlxcWiI6ICJcXG1hdGhiYntafSIsICJcXGxhcGxhY2UiOiAiXFxtYXRoY2Fse0x9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWxhcGxhY2UiOiAiXFxtYXRoY2Fse0x9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxmb3VyaWVyIjogIlxcbWF0aGNhbHtGfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGlmb3VyaWVyIjogIlxcbWF0aGNhbHtGfV57LTF9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcZCI6ICJcXG1hdGhybXtkfSIsICJcXHAiOiAiXFxwYXJ0aWFsIiwgIlxcZSI6ICJcXG1hdGhybXtlfSIsICJcXGR0IjogIlxcZnJhY3tkICMxfXtkdH0iLCAiXFxkZHQiOiAiXFxmcmFje2ReMiAjMX17ZHReMn0iLCAiXFxwZCI6ICJcXGZyYWN7XFxwYXJ0aWFsICMxfXtcXHBhcnRpYWwgIzJ9IiwgIlxccGRkIjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsICMyXjJ9IiwgIlxcQyI6ICJ7IFxcbWF0aGJie0N9IH0iLCAiXFxCaWdPIjogIlxcbWF0aGNhbHtPfVxcIVxcbGVmdCgjMVxccmlnaHQpIiwgIlxcbWRlZiI6ICJ7XFx0cmlhbmdsZXEgXFw7fSIsICJcXHNnbiI6ICJcXG9wZXJhdG9ybmFtZXtzZ259In0=";
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
     // NOTE: It is encoded as base64 
     const PAGE_SOURCE_CODE = "";
     const PAGE_SOURCE_URL  = "/mwiki/src_pages/LaTeX_Reference_Card.html"
+    const CITATION_REFERENCES = "e30=";
 	
     // Possible values: 'none', 'nosection' 'section', 'subsection'
     //  none      => no enumeration 
@@ -570,7 +571,7 @@
  
 <tr>
 
-<td><span class="math-inline">\mathbb{R}</span></td>
+<td><span class="math-inline lazy-load-latex">\mathbb{R}</span></td>
  
 <td><code>\mathbb{R}</code></td>
  
@@ -579,7 +580,7 @@
  
 <tr>
 
-<td><span class="math-inline">\mathbb{F}</span></td>
+<td><span class="math-inline lazy-load-latex">\mathbb{F}</span></td>
  
 <td><code>\mathbb{F}</code></td>
  
@@ -588,7 +589,7 @@
  
 <tr>
 
-<td><span class="math-inline">\mathfrak{J}</span></td>
+<td><span class="math-inline lazy-load-latex">\mathfrak{J}</span></td>
  
 <td><code>\mathfrak{J}</code></td>
  
@@ -597,7 +598,7 @@
  
 <tr>
 
-<td><span class="math-inline">\mathscr{I}</span></td>
+<td><span class="math-inline lazy-load-latex">\mathscr{I}</span></td>
  
 <td><code>\mathscr{I}</code></td>
  
@@ -606,7 +607,7 @@
  
 <tr>
 
-<td><span class="math-inline">\mathcal{S}</span></td>
+<td><span class="math-inline lazy-load-latex">\mathcal{S}</span></td>
  
 <td><code>\mathcal{S}</code></td>
  
@@ -615,7 +616,7 @@
  
 <tr>
 
-<td><span class="math-inline">\mathcal{G}</span></td>
+<td><span class="math-inline lazy-load-latex">\mathcal{G}</span></td>
  
 <td><code>\mathcal{G}</code></td>
  
@@ -624,7 +625,7 @@
  
 <tr>
 
-<td><span class="math-inline">\bar{Q}</span></td>
+<td><span class="math-inline lazy-load-latex">\bar{Q}</span></td>
  
 <td><code>\bar{Q}</code></td>
  
@@ -633,7 +634,7 @@
  
 <tr>
 
-<td><span class="math-inline">\hat{v}</span></td>
+<td><span class="math-inline lazy-load-latex">\hat{v}</span></td>
  
 <td><code>\hat{v}</code></td>
  
@@ -642,7 +643,7 @@
  
 <tr>
 
-<td><span class="math-inline">\vec{u}</span></td>
+<td><span class="math-inline lazy-load-latex">\vec{u}</span></td>
  
 <td><code>\vec{u}</code></td>
  
@@ -651,7 +652,7 @@
  
 <tr>
 
-<td><span class="math-inline">\mathbf{r}</span></td>
+<td><span class="math-inline lazy-load-latex">\mathbf{r}</span></td>
  
 <td><code>\mathbf{r}</code></td>
  
@@ -660,7 +661,7 @@
  
 <tr>
 
-<td><span class="math-inline">\hat{\mathbf{n}}</span></td>
+<td><span class="math-inline lazy-load-latex">\hat{\mathbf{n}}</span></td>
  
 <td><code>\hat\mathbf{n}</code></td>
  
@@ -669,7 +670,7 @@
  
 <tr>
 
-<td><span class="math-inline">\tilde{n}</span></td>
+<td><span class="math-inline lazy-load-latex">\tilde{n}</span></td>
  
 <td><code>\tilde{n}</code></td>
  
@@ -692,7 +693,7 @@
 <a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=32&end=57&anchor=H_Font_Sizes&page=LaTeX Reference Card&timestamp=176608948452820" title="[i18n]: Font Sizes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-markdown"><div class="highlight"><pre><span></span>+ $\Huge Hello!$
 + $\huge Hello!$
 + $\LARGE Hello!$
@@ -704,7 +705,7 @@
 + $\tiny Hello!$
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Rendering
@@ -712,31 +713,31 @@ Rendering
 
 <ul class="">
 <li>
-<span class="math-inline">\Huge Hello!</span> 
+<span class="math-inline lazy-load-latex">\Huge Hello!</span> 
 </li>
 <li>
-<span class="math-inline">\huge Hello!</span> 
+<span class="math-inline lazy-load-latex">\huge Hello!</span> 
 </li>
 <li>
-<span class="math-inline">\LARGE Hello!</span> 
+<span class="math-inline lazy-load-latex">\LARGE Hello!</span> 
 </li>
 <li>
-<span class="math-inline">\Large Hello!</span> 
+<span class="math-inline lazy-load-latex">\Large Hello!</span> 
 </li>
 <li>
-<span class="math-inline">\large Hello!</span> 
+<span class="math-inline lazy-load-latex">\large Hello!</span> 
 </li>
 <li>
-<span class="math-inline">\normalsize Hello!</span> 
+<span class="math-inline lazy-load-latex">\normalsize Hello!</span> 
 </li>
 <li>
-<span class="math-inline">\small Hello!</span> 
+<span class="math-inline lazy-load-latex">\small Hello!</span> 
 </li>
 <li>
-<span class="math-inline">\scriptsize Hello!</span> 
+<span class="math-inline lazy-load-latex">\scriptsize Hello!</span> 
 </li>
 <li>
-<span class="math-inline">\tiny Hello!</span> 
+<span class="math-inline lazy-load-latex">\tiny Hello!</span> 
 </li>
 </ul>
 
@@ -745,7 +746,7 @@ Rendering
 <a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=57&end=90&anchor=H_Table&page=LaTeX Reference Card&timestamp=176608948452820" title="[i18n]: Table" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\notag</span> 
 
 <span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}</span> <span class="nb">{</span>|l|l|<span class="nb">}</span>
@@ -759,14 +760,14 @@ Rendering
 <span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup class="footnote-reference" data-counter="1" data-footnote="Note that MWiki markdown and MyST markdown already support tables.">[1]</sup></a>
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="259264c2474907aea66c68cb72bf8f7d05734199">
  
 
 \begin{array} {|l|l|}
@@ -809,224 +810,224 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <tr>
 
-<td><span class="math-inline">\alpha</span></td>
+<td><span class="math-inline lazy-load-latex">\alpha</span></td>
  
 <td><code>\alpha</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\beta</span></td>
+<td><span class="math-inline lazy-load-latex">\beta</span></td>
  
 <td><code>\beta</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\gamma</span></td>
+<td><span class="math-inline lazy-load-latex">\gamma</span></td>
  
 <td><code>\gamma</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\Gamma</span></td>
+<td><span class="math-inline lazy-load-latex">\Gamma</span></td>
  
 <td><code>\Gamma</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\delta</span></td>
+<td><span class="math-inline lazy-load-latex">\delta</span></td>
  
 <td><code>\delta</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\Delta</span></td>
+<td><span class="math-inline lazy-load-latex">\Delta</span></td>
  
 <td><code>\Delta</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\theta</span></td>
+<td><span class="math-inline lazy-load-latex">\theta</span></td>
  
 <td><code>\theta</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\Theta</span></td>
+<td><span class="math-inline lazy-load-latex">\Theta</span></td>
  
 <td><code>\Theta</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\vartheta</span></td>
+<td><span class="math-inline lazy-load-latex">\vartheta</span></td>
  
 <td><code>\vartheta</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\varTheta</span></td>
+<td><span class="math-inline lazy-load-latex">\varTheta</span></td>
  
 <td><code>\varTheta</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\phi</span></td>
+<td><span class="math-inline lazy-load-latex">\phi</span></td>
  
 <td><code>\phi</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\Phi</span></td>
+<td><span class="math-inline lazy-load-latex">\Phi</span></td>
  
 <td><code>\Phi</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\psi</span></td>
+<td><span class="math-inline lazy-load-latex">\psi</span></td>
  
 <td><code>\psi</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\Psi</span></td>
+<td><span class="math-inline lazy-load-latex">\Psi</span></td>
  
 <td><code>\Psi</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\zeta</span></td>
+<td><span class="math-inline lazy-load-latex">\zeta</span></td>
  
 <td><code>\zeta</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\eta</span></td>
+<td><span class="math-inline lazy-load-latex">\eta</span></td>
  
 <td><code>\eta</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\iota</span></td>
+<td><span class="math-inline lazy-load-latex">\iota</span></td>
  
 <td><code>\iota</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\kappa</span></td>
+<td><span class="math-inline lazy-load-latex">\kappa</span></td>
  
 <td><code>\kappa</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\nu</span></td>
+<td><span class="math-inline lazy-load-latex">\nu</span></td>
  
 <td><code>\nu</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\mu</span></td>
+<td><span class="math-inline lazy-load-latex">\mu</span></td>
  
 <td><code>\mu</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\xi</span></td>
+<td><span class="math-inline lazy-load-latex">\xi</span></td>
  
 <td><code>\xi</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\Xi</span></td>
+<td><span class="math-inline lazy-load-latex">\Xi</span></td>
  
 <td><code>\Xi</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\tau</span></td>
+<td><span class="math-inline lazy-load-latex">\tau</span></td>
  
 <td><code>\tau</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\rho</span></td>
+<td><span class="math-inline lazy-load-latex">\rho</span></td>
  
 <td><code>\rho</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\pi</span></td>
+<td><span class="math-inline lazy-load-latex">\pi</span></td>
  
 <td><code>\pi</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\Pi</span></td>
+<td><span class="math-inline lazy-load-latex">\Pi</span></td>
  
 <td><code>\Pi</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\sigma</span></td>
+<td><span class="math-inline lazy-load-latex">\sigma</span></td>
  
 <td><code>\sigma</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\Sigma</span></td>
+<td><span class="math-inline lazy-load-latex">\Sigma</span></td>
  
 <td><code>\Sigma</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\epsilon</span></td>
+<td><span class="math-inline lazy-load-latex">\epsilon</span></td>
  
 <td><code>\epsilon</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\varepsilon</span></td>
+<td><span class="math-inline lazy-load-latex">\varepsilon</span></td>
  
 <td><code>\varepsilon</code></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\nabla</span></td>
+<td><span class="math-inline lazy-load-latex">\nabla</span></td>
  
 <td><code>\nabla</code><a href="#" id="footnote-reference-link-2" class="footnote-link"><sup class="footnote-reference" data-counter="2" data-footnote="Not a greek letter, but it is a widely used symbol in calculus and fluid mechanics.">[2]</sup></a></td>
 </tr>
  
 <tr>
 
-<td><span class="math-inline">\partial</span></td>
+<td><span class="math-inline lazy-load-latex">\partial</span></td>
  
 <td><code>\partial</code><a href="#" id="footnote-reference-link-3" class="footnote-link"><sup class="footnote-reference" data-counter="3" data-footnote="Not a greek letter. This symbol is used for partial derivatives.">[3]</sup></a></td>
 </tr>
@@ -1063,7 +1064,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\leq</code></td>
  
-<td><span class="math-inline">\leq</span></td>
+<td><span class="math-inline lazy-load-latex">\leq</span></td>
  
 <td></td>
 </tr>
@@ -1074,7 +1075,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\geq</code></td>
  
-<td><span class="math-inline">\geq</span></td>
+<td><span class="math-inline lazy-load-latex">\geq</span></td>
  
 <td></td>
 </tr>
@@ -1085,7 +1086,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\gg</code></td>
  
-<td><span class="math-inline">\gg</span></td>
+<td><span class="math-inline lazy-load-latex">\gg</span></td>
  
 <td></td>
 </tr>
@@ -1096,7 +1097,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\ll</code></td>
  
-<td><span class="math-inline">\ll</span></td>
+<td><span class="math-inline lazy-load-latex">\ll</span></td>
  
 <td></td>
 </tr>
@@ -1107,7 +1108,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\neq</code></td>
  
-<td><span class="math-inline">\neq</span></td>
+<td><span class="math-inline lazy-load-latex">\neq</span></td>
  
 <td></td>
 </tr>
@@ -1118,7 +1119,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\equiv</code></td>
  
-<td><span class="math-inline">\equiv</span></td>
+<td><span class="math-inline lazy-load-latex">\equiv</span></td>
  
 <td></td>
 </tr>
@@ -1129,7 +1130,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\approx</code></td>
  
-<td><span class="math-inline">\approx</span></td>
+<td><span class="math-inline lazy-load-latex">\approx</span></td>
  
 <td></td>
 </tr>
@@ -1140,7 +1141,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\propto</code></td>
  
-<td><span class="math-inline">\propto</span></td>
+<td><span class="math-inline lazy-load-latex">\propto</span></td>
  
 <td></td>
 </tr>
@@ -1199,7 +1200,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\mathbb{N}</code></td>
  
-<td><span class="math-inline">\mathbb{N}</span></td>
+<td><span class="math-inline lazy-load-latex">\mathbb{N}</span></td>
  
 <td></td>
 </tr>
@@ -1210,7 +1211,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\mathbb{R}</code></td>
  
-<td><span class="math-inline">\mathbb{R}</span></td>
+<td><span class="math-inline lazy-load-latex">\mathbb{R}</span></td>
  
 <td></td>
 </tr>
@@ -1221,7 +1222,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\mathbb{Q}</code></td>
  
-<td><span class="math-inline">\mathbb{Q}</span></td>
+<td><span class="math-inline lazy-load-latex">\mathbb{Q}</span></td>
  
 <td></td>
 </tr>
@@ -1232,7 +1233,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\mathbb{H}</code></td>
  
-<td><span class="math-inline">\mathbb{H}</span></td>
+<td><span class="math-inline lazy-load-latex">\mathbb{H}</span></td>
  
 <td></td>
 </tr>
@@ -1254,7 +1255,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\in</code></td>
  
-<td><span class="math-inline">\in</span></td>
+<td><span class="math-inline lazy-load-latex">\in</span></td>
  
 <td></td>
 </tr>
@@ -1265,7 +1266,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\notin</code></td>
  
-<td><span class="math-inline">\notin</span></td>
+<td><span class="math-inline lazy-load-latex">\notin</span></td>
  
 <td></td>
 </tr>
@@ -1276,7 +1277,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\exists</code></td>
  
-<td><span class="math-inline">\exists</span></td>
+<td><span class="math-inline lazy-load-latex">\exists</span></td>
  
 <td></td>
 </tr>
@@ -1287,7 +1288,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\forall</code></td>
  
-<td><span class="math-inline">\forall</span></td>
+<td><span class="math-inline lazy-load-latex">\forall</span></td>
  
 <td></td>
 </tr>
@@ -1298,7 +1299,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\cup</code></td>
  
-<td><span class="math-inline">\cup</span></td>
+<td><span class="math-inline lazy-load-latex">\cup</span></td>
  
 <td></td>
 </tr>
@@ -1309,7 +1310,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\cap</code></td>
  
-<td><span class="math-inline">\cap</span></td>
+<td><span class="math-inline lazy-load-latex">\cap</span></td>
  
 <td></td>
 </tr>
@@ -1320,7 +1321,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
  
 <td><code>\Rightarrow</code></td>
  
-<td><span class="math-inline">\Rightarrow</span></td>
+<td><span class="math-inline lazy-load-latex">\Rightarrow</span></td>
  
 <td></td>
 </tr>
@@ -1370,7 +1371,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td><code>\frac{num}{den}</code></td>
  
-<td><span class="math-inline">\frac{a}{b}</span></td>
+<td><span class="math-inline lazy-load-latex">\frac{a}{b}</span></td>
  
 <td></td>
 </tr>
@@ -1379,7 +1380,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td><code>\displaystyle \frac{num}{den}</code></td>
  
-<td><span class="math-inline">\displaystyle \frac{b}{a}</span></td>
+<td><span class="math-inline lazy-load-latex">\displaystyle \frac{b}{a}</span></td>
  
 <td></td>
 </tr>
@@ -1388,7 +1389,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td><code>\dfrac{num}{den}</code></td>
  
-<td><span class="math-inline">\dfrac{a}{b}</span></td>
+<td><span class="math-inline lazy-load-latex">\dfrac{a}{b}</span></td>
  
 <td>typesets the numerator and denominator in display style, it is equivalent to add <code>\displaystyle</code> to a latex commadn.</td>
 </tr>
@@ -1397,7 +1398,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td><code>\left(\dfrac{a}{b}\right)</code></td>
  
-<td><span class="math-inline">\left(\dfrac{a}{b}\right)</span></td>
+<td><span class="math-inline lazy-load-latex">\left(\dfrac{a}{b}\right)</span></td>
  
 <td></td>
 </tr>
@@ -1424,7 +1425,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td><code>a \over b</code></td>
  
-<td><span class="math-inline">a \over b</span></td>
+<td><span class="math-inline lazy-load-latex">a \over b</span></td>
  
 <td></td>
 </tr>
@@ -1433,7 +1434,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td><code>a \atop b</code></td>
  
-<td><span class="math-inline">a \atop b</span></td>
+<td><span class="math-inline lazy-load-latex">a \atop b</span></td>
  
 <td></td>
 </tr>
@@ -1442,7 +1443,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td><code>n \choose k</code></td>
  
-<td><span class="math-inline">n \choose k</span></td>
+<td><span class="math-inline lazy-load-latex">n \choose k</span></td>
  
 <td></td>
 </tr>
@@ -1475,7 +1476,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Real Numbers</td>
  
-<td><span class="math-inline">\mathbb{R}</span></td>
+<td><span class="math-inline lazy-load-latex">\mathbb{R}</span></td>
  
 <td><code>\mathbb{R}</code></td>
 </tr>
@@ -1484,7 +1485,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Complex Numbers</td>
  
-<td><span class="math-inline">\mathbb{Q}</span></td>
+<td><span class="math-inline lazy-load-latex">\mathbb{Q}</span></td>
  
 <td><code>\mathbb{Q}</code></td>
 </tr>
@@ -1493,7 +1494,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Imaginary Unit 'i' (Europe)</td>
  
-<td><span class="math-inline">\mathrm{i}</span></td>
+<td><span class="math-inline lazy-load-latex">\mathrm{i}</span></td>
  
 <td><code>\mathrm{i}</code></td>
 </tr>
@@ -1502,7 +1503,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Imaginary Unit 'j' (Europe)</td>
  
-<td><span class="math-inline">\mathrm{j}</span></td>
+<td><span class="math-inline lazy-load-latex">\mathrm{j}</span></td>
  
 <td><code>\mathrm{j}</code></td>
 </tr>
@@ -1511,7 +1512,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Imaginary Unit 'i' (Italic)</td>
  
-<td><span class="math-inline">\textit{i}</span></td>
+<td><span class="math-inline lazy-load-latex">\textit{i}</span></td>
  
 <td><code>\textit{i}</code></td>
 </tr>
@@ -1520,7 +1521,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Imaginary Unit 'j' (Italic)</td>
  
-<td><span class="math-inline">\textit{j}</span></td>
+<td><span class="math-inline lazy-load-latex">\textit{j}</span></td>
  
 <td><code>\textit{j}</code></td>
 </tr>
@@ -1529,7 +1530,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Imaginary Unit (i - imath)</td>
  
-<td><span class="math-inline">\imath</span></td>
+<td><span class="math-inline lazy-load-latex">\imath</span></td>
  
 <td><code>\imath{i}</code></td>
 </tr>
@@ -1538,7 +1539,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Imaginary Unit (j - jmath)</td>
  
-<td><span class="math-inline">\jmath</span></td>
+<td><span class="math-inline lazy-load-latex">\jmath</span></td>
  
 <td><code>\jmath{j}</code></td>
 </tr>
@@ -1547,7 +1548,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Real part of z</td>
  
-<td><span class="math-inline">\Re\{z\}</span></td>
+<td><span class="math-inline lazy-load-latex">\Re\{z\}</span></td>
  
 <td><code>\Re\{z\}</code></td>
 </tr>
@@ -1556,7 +1557,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Imaginary part of z</td>
  
-<td><span class="math-inline">\Im\{z\}</span></td>
+<td><span class="math-inline lazy-load-latex">\Im\{z\}</span></td>
  
 <td><code>\Im\{z\}</code></td>
 </tr>
@@ -1565,7 +1566,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Argument or phase angle of z</td>
  
-<td><span class="math-inline">\arg z</span></td>
+<td><span class="math-inline lazy-load-latex">\arg z</span></td>
  
 <td><code>\arg z</code></td>
 </tr>
@@ -1574,7 +1575,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Argument or phase angle of z</td>
  
-<td><span class="math-inline">\angle z</span></td>
+<td><span class="math-inline lazy-load-latex">\angle z</span></td>
  
 <td><code>\angle z</code></td>
 </tr>
@@ -1583,7 +1584,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Argument or phase angle of z</td>
  
-<td><span class="math-inline">\angle\{z\}</span></td>
+<td><span class="math-inline lazy-load-latex">\angle\{z\}</span></td>
  
 <td><code>\angle\{z\}</code></td>
 </tr>
@@ -1592,7 +1593,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Magnitude of complex number of z</td>
  
-<td><span class="math-inline">\rho = | z|</span></td>
+<td><span class="math-inline lazy-load-latex">\rho = | z|</span></td>
  
 <td><code>\rho = | z |</code></td>
 </tr>
@@ -1601,7 +1602,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Complex number     (Europe)</td>
  
-<td><span class="math-inline">z = x +  \mathrm{i} y</span></td>
+<td><span class="math-inline lazy-load-latex">z = x +  \mathrm{i} y</span></td>
  
 <td><code>z = x + \mathrm{i} y</code></td>
 </tr>
@@ -1610,7 +1611,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Complex number     (Europe)</td>
  
-<td><span class="math-inline">z = x + \mathrm{j} y</span></td>
+<td><span class="math-inline lazy-load-latex">z = x + \mathrm{j} y</span></td>
  
 <td><code>z = x + \mathrm{j} y</code></td>
 </tr>
@@ -1619,7 +1620,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Complex number     (Italic)</td>
  
-<td><span class="math-inline">z = x  + \textit{i} y</span></td>
+<td><span class="math-inline lazy-load-latex">z = x  + \textit{i} y</span></td>
  
 <td><code>z = x + \textit{i} y</code></td>
 </tr>
@@ -1628,7 +1629,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Complex number     (Italic)</td>
  
-<td><span class="math-inline">z = x + \textit{j} y</span></td>
+<td><span class="math-inline lazy-load-latex">z = x + \textit{j} y</span></td>
  
 <td><code>z = x + \textit{j} y</code></td>
 </tr>
@@ -1637,7 +1638,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Complex number in polar form</td>
  
-<td><span class="math-inline">z = \rho e^{j \phi}</span></td>
+<td><span class="math-inline lazy-load-latex">z = \rho e^{j \phi}</span></td>
  
 <td><code>z = \rho e^{j \phi}</code></td>
 </tr>
@@ -1646,7 +1647,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Complex number in polar form</td>
  
-<td><span class="math-inline">z = \rho \angle \phi</span></td>
+<td><span class="math-inline lazy-load-latex">z = \rho \angle \phi</span></td>
  
 <td><code>z = \rho \angle \phi</code></td>
 </tr>
@@ -1655,7 +1656,7 @@ Rendering:<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup 
 
 <td>Complex number in polar form</td>
  
-<td><span class="math-inline">z = \rho\ \angle\{\phi\}</span></td>
+<td><span class="math-inline lazy-load-latex">z = \rho\ \angle\{\phi\}</span></td>
  
 <td><code>z = \rho \angle \{ \phi \}</code></td>
 </tr>
@@ -1671,7 +1672,7 @@ Note:
 The imaginary unit 'j' is preferred in electrical engineering-related fields, instead of 'i' because the symbol 'i' is used in those fields for denoting electrical current. 
 </li>
 <li>
-In Europe, it considered as good typography the imaginary unit as an upright 'i' or 'j' written in LaTeX as  <span class="math-inline">\mathrm{i}</span> (\mathrm{i}) or j <span class="math-inline">\mathrm{j}</span> (\mathrm{j}). The letter 'i' in written in italic  <span class="math-inline">\textit{i}</span> (\textit{i}) style when used as an index or summation index. 
+In Europe, it considered as good typography the imaginary unit as an upright 'i' or 'j' written in LaTeX as  <span class="math-inline lazy-load-latex">\mathrm{i}</span> (\mathrm{i}) or j <span class="math-inline lazy-load-latex">\mathrm{j}</span> (\mathrm{j}). The letter 'i' in written in italic  <span class="math-inline lazy-load-latex">\textit{i}</span> (\textit{i}) style when used as an index or summation index. 
 </li>
 <li>
 Shortcut for writing imaginary unit \renewcommand{\i}{{\mathrm{i}}, then the imaginary unit can be written in LaTeX as just 'z + \i y'. 
@@ -1691,17 +1692,17 @@ Shortcut for writing imaginary unit \renewcommand{\i}{{\mathrm{i}}, then the ima
 <strong>Basic Matrix (bmatrix)</strong>
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
      a<span class="nb">_{</span>11<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>12<span class="nb">}</span>
   <span class="k">\\</span> a<span class="nb">_{</span>21<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>22<span class="nb">}</span>
 <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="9cca02e9d04a144b409724e80ac540a582bc517b">
 \begin{bmatrix}
      a_{11} &amp; a_{12}
   \\ a_{21} &amp; a_{22}
@@ -1713,7 +1714,7 @@ Shortcut for writing imaginary unit \renewcommand{\i}{{\mathrm{i}}, then the ima
 <strong>Basic matrix (PMatrix)</strong>
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>pmatrix<span class="nb">}</span>
 A <span class="nb">&amp;</span> B <span class="nb">&amp;</span> C <span class="k">\cr</span>
 d <span class="nb">&amp;</span> e <span class="nb">&amp;</span> f <span class="k">\cr</span>
@@ -1721,10 +1722,10 @@ d <span class="nb">&amp;</span> e <span class="nb">&amp;</span> f <span class="k
 <span class="k">\end</span><span class="nb">{</span>pmatrix<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="8ca9028914e9237a8e3dabab85f049f0ae186891">
 \begin{pmatrix}
 A &amp; B &amp; C \cr
 d &amp; e &amp; f \cr
@@ -1737,17 +1738,17 @@ d &amp; e &amp; f \cr
 <strong>Basic matrix (BMatrix)</strong>
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>Bmatrix<span class="nb">}</span> 
  x <span class="nb">&amp;</span> y <span class="k">\\</span> 
  z <span class="nb">&amp;</span> v 
 <span class="k">\end</span><span class="nb">{</span>Bmatrix<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="edd9945c684f4d139146ce10e8dcba771711cc80">
 \begin{Bmatrix} 
  x &amp; y \\ 
  z &amp; v 
@@ -1759,7 +1760,7 @@ d &amp; e &amp; f \cr
 <strong>Matrix with N elements and dots</strong>
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
       d<span class="nb">_</span>1     <span class="nb">&amp;</span> c<span class="nb">_</span>1      <span class="nb">&amp;</span> 0         <span class="nb">&amp;</span> <span class="k">\cdots</span>   <span class="nb">&amp;</span> 0        <span class="k">\\</span> 
       a<span class="nb">_</span>1     <span class="nb">&amp;</span> d<span class="nb">_</span>2      <span class="nb">&amp;</span> c<span class="nb">_</span>2       <span class="nb">&amp;</span> <span class="k">\cdots</span>   <span class="nb">&amp;</span> 0        <span class="k">\\</span>
@@ -1769,10 +1770,10 @@ d &amp; e &amp; f \cr
     <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="d828b9b3d44713ecc296166e79489cda039a05f2">
 \begin{bmatrix} 
       d_1     &amp; c_1      &amp; 0         &amp; \cdots   &amp; 0        \\ 
       a_1     &amp; d_2      &amp; c_2       &amp; \cdots   &amp; 0        \\
@@ -1787,7 +1788,7 @@ d &amp; e &amp; f \cr
 <strong>Matrix written in indices notation</strong>
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span>R =  <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
             R<span class="nb">_{</span>11<span class="nb">}</span> <span class="nb">&amp;</span> R<span class="nb">_{</span>12<span class="nb">}</span> <span class="nb">&amp;</span> R<span class="nb">_{</span>13<span class="nb">}</span>
         <span class="k">\\</span>  R<span class="nb">_{</span>21<span class="nb">}</span> <span class="nb">&amp;</span> R<span class="nb">_{</span>22<span class="nb">}</span> <span class="nb">&amp;</span> R<span class="nb">_{</span>23<span class="nb">}</span>
@@ -1795,10 +1796,10 @@ d &amp; e &amp; f \cr
       <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="0e857518a6366d2d4354155b541785b7355c171b">
 R =  \begin{bmatrix}
             R_{11} &amp; R_{12} &amp; R_{13}
         \\  R_{21} &amp; R_{22} &amp; R_{23}
@@ -1812,10 +1813,10 @@ R =  \begin{bmatrix}
 </p>
 
 <p>
-A rotation 3 by matrix <span class="math-inline">R</span> consists of 3 column vectors <span class="math-inline">\mathbf{u}</span>, <span class="math-inline">\mathbf{v}</span> and <span class="math-inline">\mathbf{w}</span>, which are basis vectors of the rotated reference frame expressed in the fixed frame. The unit vector<span class="math-inline">\mathbf{u}</span> is the x axis of the rotated frame, <span class="math-inline">\mathbf{v}</span> is the y axis of the rotated frame and <span class="math-inline">\mathbf{w}</span> is its z axis.
+A rotation 3 by matrix <span class="math-inline lazy-load-latex">R</span> consists of 3 column vectors <span class="math-inline lazy-load-latex">\mathbf{u}</span>, <span class="math-inline lazy-load-latex">\mathbf{v}</span> and <span class="math-inline lazy-load-latex">\mathbf{w}</span>, which are basis vectors of the rotated reference frame expressed in the fixed frame. The unit vector<span class="math-inline lazy-load-latex">\mathbf{u}</span> is the x axis of the rotated frame, <span class="math-inline lazy-load-latex">\mathbf{v}</span> is the y axis of the rotated frame and <span class="math-inline lazy-load-latex">\mathbf{w}</span> is its z axis.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span>R = <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
              |      <span class="nb">&amp;</span>     |      <span class="nb">&amp;</span>    |       
       <span class="k">\\</span> <span class="k">\mathbf</span><span class="nb">{</span>u<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\mathbf</span><span class="nb">{</span>w<span class="nb">}</span>
@@ -1825,10 +1826,10 @@ A rotation 3 by matrix <span class="math-inline">R</span> consists of 3 column v
     <span class="k">\in</span> <span class="k">\mathbb</span><span class="nb">{</span>R<span class="nb">}^{</span>3 <span class="k">\times</span> 3<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="c627d8b393fc3061918cee631b331886c0dd8a2b">
 R = \begin{bmatrix}
              |      &amp;     |      &amp;    |       
       \\ \mathbf{u} &amp; \mathbf{v} &amp; \mathbf{w}
@@ -1843,7 +1844,7 @@ R = \begin{bmatrix}
 <strong>Jacobian Matrix</strong>
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>align<span class="nb">}</span>
  J(<span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span>) <span class="nb">&amp;</span>= 
 	 <span class="k">\frac</span><span class="nb">{</span><span class="k">\partial</span> <span class="k">\mathbf</span><span class="nb">{</span>f<span class="nb">}}{</span><span class="k">\partial</span> <span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}}</span> =
@@ -1877,10 +1878,10 @@ R = \begin{bmatrix}
 <span class="k">\end</span><span class="nb">{</span>align<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="07a8dfed7eb28b2311f3ec2150c42324571feb40">
 \begin{align}
  J(\mathbf{x}) &amp;= 
 	 \frac{\partial \mathbf{f}}{\partial \mathbf{x}} =
@@ -1919,7 +1920,7 @@ R = \begin{bmatrix}
 <strong>Matrix with Row Labels (Labeled Matrix)</strong>
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>cc<span class="nb">}</span> 
 <span class="nb">&amp;</span>
 <span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>ccccc<span class="nb">}</span> 1 <span class="nb">&amp;</span> 2 <span class="nb">&amp;</span> 3 <span class="nb">&amp;</span> 4 <span class="nb">&amp;</span> 5<span class="k">\\</span>
@@ -1937,10 +1938,10 @@ m <span class="nb">&amp;</span> e <span class="nb">&amp;</span> t <span class="n
 <span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="34c814711dafdc5195892cb61a1620680ac0f3be">
 \begin{array}{cc} 
 &amp;
 \begin{array}{ccccc} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5\\
@@ -1963,7 +1964,7 @@ m &amp; e &amp; t &amp; a &amp; *
 <strong>Matrix with Rows and Columns Labels</strong>
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>c c<span class="nb">}</span> 
 <span class="nb">&amp;</span> <span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>c c c<span class="nb">}</span> a <span class="nb">&amp;</span> b <span class="nb">&amp;</span>c <span class="k">\\</span> <span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span> <span class="k">\\</span>
 <span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>c c c<span class="nb">}</span>p<span class="k">\\</span>q<span class="k">\\</span>r <span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span> <span class="nb">&amp;</span>
@@ -1977,10 +1978,10 @@ m &amp; e &amp; t &amp; a &amp; *
 <span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="599e96d113306cd073380d119c04eb8259c819bc">
 \begin{array}{c c} 
 &amp; \begin{array}{c c c} a &amp; b &amp;c \\ \end{array} \\
 \begin{array}{c c c}p\\q\\r \end{array} &amp;
@@ -2024,18 +2025,18 @@ Note that this hyperlink does not work in the Wikis or notes exported to html, s
 The default macro <code>\dt{}</code> allows writing derivatives of fucntions or vector-valued functions with respect to time in <a href="https://en.wikipedia.org/wiki/Leibniz%27s_notation"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Leibniz's notation</a>.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span>f(x) = <span class="k">\dt</span><span class="nb">{}</span> y = <span class="k">\dt</span><span class="nb">{</span>y<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Output:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="67181b27b72598faaddd772e717da73193894b50">
 f(x)= \dt{} y = \dt{y}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2044,11 +2045,11 @@ f(x)= \dt{} y = \dt{y}
 Instead of
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span>f(x)= <span class="k">\frac</span><span class="nb">{</span>d <span class="nb">}{</span>dt<span class="nb">}</span> y = <span class="k">\frac</span><span class="nb">{</span>d y<span class="nb">}{</span>dt<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-heading"> 
 <h3 id="H_Macro_for_second_order_derivative" class="document-heading anchor">Macro for second order derivative <a class="link-heading" href="#H_Macro_for_second_order_derivative">¶</a></h3> 
@@ -2056,21 +2057,21 @@ Instead of
 </div>
 
 <p>
-The acceleration vector of a point-mass is the second order derivative of its position vector <span class="math-inline">\mathbf{r} = (x(t), y(t), z(t))</span> with respect to time <span class="math-inline">t</span>.
+The acceleration vector of a point-mass is the second order derivative of its position vector <span class="math-inline lazy-load-latex">\mathbf{r} = (x(t), y(t), z(t))</span> with respect to time <span class="math-inline lazy-load-latex">t</span>.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\mathbf</span><span class="nb">{</span>a<span class="nb">}</span>(t) = <span class="k">\ddt</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Output:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="1552398f8e166f7e5a56e478f3a22be9d297a661">
 \mathbf{a}(t) = \ddt{\mathbf{r}}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2079,11 +2080,11 @@ Output:
 Instead of
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-text"><div class="highlight"><pre><span></span>\mathbf{a}(t) = \frac{d^2 \mathbf{r}}{dt^2}
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-heading"> 
 <h3 id="H_Macros_for_partial_derivative" class="document-heading anchor">Macros for partial derivative <a class="link-heading" href="#H_Macros_for_partial_derivative">¶</a></h3> 
@@ -2093,21 +2094,21 @@ Instead of
 <h4 class="document-heading">First Order Partial Derivative</h4>
 
 <p>
-Partial derivative of a function <span class="math-inline">u(x, y)</span> with respect to <span class="math-inline">x</span>.
+Partial derivative of a function <span class="math-inline lazy-load-latex">u(x, y)</span> with respect to <span class="math-inline lazy-load-latex">x</span>.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\pd</span><span class="nb">{</span>u<span class="nb">}{</span>x<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Output:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="5d27a33a976d7bb7f8722eb648b0eb74427db017">
 \pd{u}{x}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2116,26 +2117,26 @@ Output:
 Instead of
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\frac</span><span class="nb">{</span><span class="k">\partial</span> u<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <h4 class="document-heading">Second order partial derivative</h4>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\pdd</span><span class="nb">{</span>u<span class="nb">}{</span>x<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Output:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="f823a2f79c20255f7cad624611d3331dac999b13">
 \pdd{u}{x}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2144,11 +2145,11 @@ Output:
 Instead of
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\frac</span><span class="nb">{</span><span class="k">\partial</span><span class="nb">^</span>2 u<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">^</span>2<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-heading"> 
 <h3 id="H_Macros_for_writing_vectors" class="document-heading anchor">Macros for writing vectors <a class="link-heading" href="#H_Macros_for_writing_vectors">¶</a></h3> 
@@ -2159,18 +2160,18 @@ Instead of
 The macro <code>\b{VECTOR}</code> allows writing vectors in bold face font in a more concise form than <code>\mathbf{VECTOR}</code>. For instance,
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\b</span><span class="nb">{</span>u<span class="nb">}</span> = <span class="k">\b</span><span class="nb">{</span>v<span class="nb">}</span> + <span class="k">\b</span><span class="nb">{</span>w<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Output:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="c445eb9ac6811b130009399c464b254d055e7387">
 \b{u} = \b{v} + \b{w}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2179,11 +2180,11 @@ Output:
 Instead of
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\mathbf</span><span class="nb">{</span>u<span class="nb">}</span> = <span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span> + <span class="k">\mathbf</span><span class="nb">{</span>w<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <h4 class="document-heading">Macro for vectors with greek letters</h4>
 
@@ -2191,16 +2192,16 @@ Instead of
 Example:
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\bs</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}</span> = <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
                 <span class="k">\theta_</span>1 <span class="k">\\</span> <span class="k">\vdots</span> <span class="k">\\</span> <span class="k">\theta_n</span> 
               <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="6f0ad5a1b7c678e2d6a0434903d4b4494e43ca41">
 \bs{\theta} = \begin{bmatrix} 
                 \theta_1 \\ \vdots \\ \theta_n 
               \end{bmatrix}
@@ -2212,7 +2213,7 @@ Instead of
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="c0f2ab10a15281fd5c45a04c669ffdc4b5e12e4f">
 \boldsymbol{\theta} = \begin{bmatrix} 
                         \theta_1 \\ \vdots \\ \theta_n 
                       \end{bmatrix}
@@ -2220,7 +2221,7 @@ Instead of
 </div>
 
 <p>
-Where <span class="math-inline">\bs{\theta}</span> (<code>\bs{\theta}</code>) is a vector that consists of <span class="math-inline">n</span> generalized coordinates, joint angles, of a robotic system or mechanism.
+Where <span class="math-inline lazy-load-latex">\bs{\theta}</span> (<code>\bs{\theta}</code>) is a vector that consists of <span class="math-inline lazy-load-latex">n</span> generalized coordinates, joint angles, of a robotic system or mechanism.
 </p>
 
 <h4 class="document-heading">First-Order Vector Derivative</h4>
@@ -2229,18 +2230,18 @@ Where <span class="math-inline">\bs{\theta}</span> (<code>\bs{\theta}</code>) is
 Deriatives of vectors with dot notation can be written using the macro <code>\bdot{VECTOR}</code>. Example:
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\b</span><span class="nb">{</span>v<span class="nb">}</span> = <span class="k">\frac</span><span class="nb">{</span>d<span class="nb">}{</span>dt<span class="nb">}</span> <span class="k">\b</span><span class="nb">{</span>r<span class="nb">}</span> = <span class="k">\bdot</span><span class="nb">{</span>r<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Output:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="05a3ec41771856030dc7988b56761e3e7fca0f8e">
 \b{v} = \frac{d}{dt} \b{r} = \bdot{r}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2249,14 +2250,14 @@ Output:
 Instead of
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span> = <span class="k">\frac</span><span class="nb">{</span>d<span class="nb">}{</span>dt<span class="nb">}</span> <span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}</span> = <span class="k">\dot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
-The formula states that the velocity vector <span class="math-inline">\b{v}(t)</span> is the derivative of the positon vector <span class="math-inline">\bdot{r}(t)</span> with respect to time.
+The formula states that the velocity vector <span class="math-inline lazy-load-latex">\b{v}(t)</span> is the derivative of the positon vector <span class="math-inline lazy-load-latex">\bdot{r}(t)</span> with respect to time.
 </p>
 
 <h4 class="document-heading">Vector (greek letter) derivative</h4>
@@ -2265,17 +2266,17 @@ The formula states that the velocity vector <span class="math-inline">\b{v}(t)</
 Example:
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\bsdot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}</span> = 
             <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
                 <span class="k">\dot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}_</span>1 <span class="k">\\</span> <span class="k">\vdots</span> <span class="k">\\</span> <span class="k">\dot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}_</span>n 
              <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="b487469eafdfd9fa22dfceb1d60c369dff96b318">
 \bsdot{\theta} = 
             \begin{bmatrix} 
                 \dot{\theta}_1 \\ \vdots \\ \dot{\theta}_n 
@@ -2287,17 +2288,17 @@ Example:
 Instead of
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\dot</span><span class="nb">{</span><span class="k">\boldsymbol</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}}</span> = 
             <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
                 <span class="k">\dot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}_</span>1 <span class="k">\\</span> <span class="k">\vdots</span> <span class="k">\\</span> <span class="k">\dot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}_</span>n 
             <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
-where <span class="math-inline">\bsdot{\theta}(t)</span> (<code>\bsdot{\theta}</code>) is the vector of the generalized velocities of each joint of a robotic manipulator or mechanism.
+where <span class="math-inline lazy-load-latex">\bsdot{\theta}(t)</span> (<code>\bsdot{\theta}</code>) is the vector of the generalized velocities of each joint of a robotic manipulator or mechanism.
 </p>
 
 <h4 class="document-heading">Second order vector derivative</h4>
@@ -2306,18 +2307,18 @@ where <span class="math-inline">\bsdot{\theta}(t)</span> (<code>\bsdot{\theta}</
 The macro <code>\bddot{VECTOR}</code> can be used for writing the second order derivative of a vector with respect to time. For instance,
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\b</span><span class="nb">{</span>a<span class="nb">}</span> = <span class="k">\bdot</span><span class="nb">{</span>v<span class="nb">}</span> = <span class="k">\bddot</span><span class="nb">{</span>r<span class="nb">}</span> = <span class="k">\frac</span><span class="nb">{</span>d<span class="nb">^</span>2 <span class="k">\b</span><span class="nb">{</span>r<span class="nb">}}{</span>dt<span class="nb">^</span>2<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Output:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="13b27340c6f4ca112d696b48b8068bbac153f055">
 \b{a} = \bdot{v} = \bddot{r} = \frac{d^2 \b{r}}{dt^2}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2326,16 +2327,16 @@ Output:
 Instead of
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\mathbf</span><span class="nb">{</span>a<span class="nb">}</span> = <span class="k">\dot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}}</span> 
     = <span class="k">\ddot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}}</span> 
     = <span class="k">\frac</span><span class="nb">{</span>d<span class="nb">^</span>2 <span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}}{</span>dt<span class="nb">^</span>2<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
-where <span class="math-inline">\bddot{r}(t)</span> (<code>\bddot{r}(t)</code> is the second order derivative of the position vector <span class="math-inline">\b{r}</span> with respect to time.
+where <span class="math-inline lazy-load-latex">\bddot{r}(t)</span> (<code>\bddot{r}(t)</code> is the second order derivative of the position vector <span class="math-inline lazy-load-latex">\b{r}</span> with respect to time.
 </p>
 
 <h4 class="document-heading">Unit vectors</h4>
@@ -2344,24 +2345,24 @@ where <span class="math-inline">\bddot{r}(t)</span> (<code>\bddot{r}(t)</code> i
 Unit vectors are vectors with unit magnitude, which are expressed using the hat notation with bold face. For instance,
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\b</span><span class="nb">{</span>r<span class="nb">}</span> = x(t) <span class="k">\bhat</span><span class="nb">{</span>x<span class="nb">}</span> + y(t) <span class="k">\bhat</span><span class="nb">{</span>y<span class="nb">}</span> + z(t) <span class="k">\bhat</span><span class="nb">{</span>z<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Output
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="6bb34e193e833d27d750acc2dd7e14beb55d0e33">
 \b{r} = x(t) \bhat{x} + y(t) \bhat{y} + z(t) \bhat{z}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-where <span class="math-inline">\bhat{x}</span> (<code>\bhat{x}</code>) is the unit vector related to X axis, <span class="math-inline">\bhat{y}</span> is the unit vector of the Y axis and <span class="math-inline">\bhat{z}</span> is the unit vector of the Z axis.
+where <span class="math-inline lazy-load-latex">\bhat{x}</span> (<code>\bhat{x}</code>) is the unit vector related to X axis, <span class="math-inline lazy-load-latex">\bhat{y}</span> is the unit vector of the Y axis and <span class="math-inline lazy-load-latex">\bhat{z}</span> is the unit vector of the Z axis.
 </p>
 
 <div class="note admonition anchor" style="background:;"><details>
@@ -2369,7 +2370,7 @@ where <span class="math-inline">\bhat{x}</span> (<code>\bhat{x}</code>) is the u
 <span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-info.svg"/> Note: Source Code of LateX Macros for vectors<a class="link-edit link-edit-admonition" style="display:none" href="/edit/LaTeX Reference Card?start=712&end=732&page=LaTeX Reference Card&timestamp=176608948452820" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 </summary>
 <div class="details-content">
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="c">% Vector notation, short for mathbf (bold face)</span>
 <span class="c">% Exmaple: \b{r} = (x, y, z)</span>
 <span class="k">\newcommand</span><span class="nb">{</span><span class="k">\b</span><span class="nb">}</span>[1]<span class="nb">{</span> <span class="k">\mathbf</span><span class="nb">{</span>#1<span class="nb">}</span> <span class="nb">}</span>
@@ -2385,7 +2386,7 @@ where <span class="math-inline">\bhat{x}</span> (<code>\bhat{x}</code>) is the u
 <span class="k">\newcommand</span><span class="nb">{</span><span class="k">\bddot</span><span class="nb">}</span>[1]<span class="nb">{</span> <span class="k">\ddot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>#1<span class="nb">}}</span>  <span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 </div> <!-- EoF div.details-content -->
 </details>
 </div>
@@ -2406,21 +2407,21 @@ The LaTeX macros in this section are useful for expressing vectors in other refe
 </div>
 
 <p>
-The velocity vector <span class="math-inline">\b{v}(t)</span> measured or expressed in the body frame <span class="math-inline">B</span> is denoted by <span class="math-inline">\fb{v}{B}</span> (<code>\fb{v}{B}</code>). The same vector expressed in the inertial frame <span class="math-inline">N</span> is <span class="math-inline">\fb{v}{N}</span>. The matrix <span class="math-inline">{}^B_NR \in \text{SO}(3)</span> (Special Orhtogonal Group) is a rotation matrix (orthogonal matrix), or orientation matrix, that expresses the instanteous orientation of the inertial frame <span class="math-inline">N</span> with repsect to the body frame <span class="math-inline">B</span>. Note that the macro <code>\fb{}</code> stands for "frame bold".
+The velocity vector <span class="math-inline lazy-load-latex">\b{v}(t)</span> measured or expressed in the body frame <span class="math-inline lazy-load-latex">B</span> is denoted by <span class="math-inline lazy-load-latex">\fb{v}{B}</span> (<code>\fb{v}{B}</code>). The same vector expressed in the inertial frame <span class="math-inline lazy-load-latex">N</span> is <span class="math-inline lazy-load-latex">\fb{v}{N}</span>. The matrix <span class="math-inline lazy-load-latex">{}^B_NR \in \text{SO}(3)</span> (Special Orhtogonal Group) is a rotation matrix (orthogonal matrix), or orientation matrix, that expresses the instanteous orientation of the inertial frame <span class="math-inline lazy-load-latex">N</span> with repsect to the body frame <span class="math-inline lazy-load-latex">B</span>. Note that the macro <code>\fb{}</code> stands for "frame bold".
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\fb</span><span class="nb">{</span>v<span class="nb">}{</span>B<span class="nb">}</span> = <span class="nb">{}^</span>B<span class="nb">_</span>NR <span class="k">\,</span> <span class="k">\fb</span><span class="nb">{</span>v<span class="nb">}{</span>N<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Output:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="607883d60422273dba682937ebdbc8571bfc1d54">
 \fb{v}{B} = {}^B_NR \, \fb{v}{N}
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2429,11 +2430,11 @@ Output:
 Instead of
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="nb">{}^</span>B<span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span> = <span class="nb">{}^</span>B<span class="nb">_</span>NR <span class="k">\,</span> <span class="nb">{}^</span>N<span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-heading"> 
 <h3 id="H_Vectors_(Greek_letter)_expressed_in_other_frame" class="document-heading anchor">Vectors (Greek letter) expressed in other frame <a class="link-heading" href="#H_Vectors_(Greek_letter)_expressed_in_other_frame">¶</a></h3> 
@@ -2441,21 +2442,21 @@ Instead of
 </div>
 
 <p>
-Consider the angular velocity vector <span class="math-inline">\bs{\omega}_1(t)</span> expressed in the inertial frame <span class="math-inline">N</span>.
+Consider the angular velocity vector <span class="math-inline lazy-load-latex">\bs{\omega}_1(t)</span> expressed in the inertial frame <span class="math-inline lazy-load-latex">N</span>.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\fbs</span><span class="nb">{</span><span class="k">\omega</span><span class="nb">}{</span>N<span class="nb">}_</span>1
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Output:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="99be146112614dfe59baf80e3133a2873269681c">
 \fbs{\omega}{N}_1
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2464,11 +2465,11 @@ Output:
 Instead of
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="nb">{}^</span>N<span class="k">\boldsymbol</span><span class="nb">{</span><span class="k">\omega</span><span class="nb">}_</span>1
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-heading"> 
 <h3 id="H_Unit_Vector_expressed_in_other_frame" class="document-heading anchor">Unit Vector expressed in other frame <a class="link-heading" href="#H_Unit_Vector_expressed_in_other_frame">¶</a></h3> 
@@ -2476,21 +2477,21 @@ Instead of
 </div>
 
 <p>
-The direction vector <span class="math-inline">\fbhat{z}{0}_2</span> (unit vector) is the axis of the joint 2 of a robotic manipulator expressed in the base frame 0.
+The direction vector <span class="math-inline lazy-load-latex">\fbhat{z}{0}_2</span> (unit vector) is the axis of the joint 2 of a robotic manipulator expressed in the base frame 0.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\|</span> <span class="k">\fbhat</span><span class="nb">{</span>z<span class="nb">}{</span>0<span class="nb">}_</span>2 <span class="k">\|</span> = 1
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Output:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="f1a7065bd97e8c3d0a6e0b59c14d45b68041a9f3">
 \| \fbhat{z}{0}_2 \| = 1
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2499,11 +2500,11 @@ Output:
 Instead of
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\|</span> <span class="nb">{}^</span>0<span class="k">\hat</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>z<span class="nb">}}_</span>2 <span class="k">\|</span> = 1
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-heading"> 
 <h3 id="H_Skew-symmetric_or_cross-product_matrix_operator" class="document-heading anchor">Skew-symmetric or cross-product matrix operator <a class="link-heading" href="#H_Skew-symmetric_or_cross-product_matrix_operator">¶</a></h3> 
@@ -2511,10 +2512,10 @@ Instead of
 </div>
 
 <p>
-The skew-symmetric operator or cross-product matrix operator <span class="math-inline">\skew{}</span> is commonly used for obtaining the cross product matrix of a vector <span class="math-inline">\b{r} = (x, y, z)</span> such that <span class="math-inline">\skew{\b{r}} \b{f} = \b{r} \times \b{f}</span>, where <span class="math-inline">\times</span> is the cross-product operator. This operator is needed because, unlike matrices, the cross-product operator is not associative.
+The skew-symmetric operator or cross-product matrix operator <span class="math-inline lazy-load-latex">\skew{}</span> is commonly used for obtaining the cross product matrix of a vector <span class="math-inline lazy-load-latex">\b{r} = (x, y, z)</span> such that <span class="math-inline lazy-load-latex">\skew{\b{r}} \b{f} = \b{r} \times \b{f}</span>, where <span class="math-inline lazy-load-latex">\times</span> is the cross-product operator. This operator is needed because, unlike matrices, the cross-product operator is not associative.
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\skew</span><span class="nb">{</span><span class="k">\b</span><span class="nb">{</span>r<span class="nb">}}</span> = <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
                      0 <span class="nb">&amp;</span> -z <span class="nb">&amp;</span>  y 
                  <span class="k">\\</span>  z <span class="nb">&amp;</span>  0 <span class="nb">&amp;</span> -x
@@ -2522,14 +2523,14 @@ The skew-symmetric operator or cross-product matrix operator <span class="math-i
                <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Output:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="794c9b926a0fbe5935c399653d93dbfb40652c5d">
 \skew{\b{r}} = \begin{bmatrix}
                      0 &amp; -z &amp;  y 
                  \\  z &amp;  0 &amp; -x
@@ -2542,7 +2543,7 @@ Output:
 Instead of
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\skew</span><span class="nb">{</span><span class="k">\b</span><span class="nb">{</span>r<span class="nb">}}</span> = <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
                      0 <span class="nb">&amp;</span> -z <span class="nb">&amp;</span>  y 
                  <span class="k">\\</span>  z <span class="nb">&amp;</span>  0 <span class="nb">&amp;</span> -x
@@ -2550,7 +2551,7 @@ Instead of
                <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div class="div-heading"> 
 <h3 id="H_Macros_for_Laplace_Transform" class="document-heading anchor">Macros for Laplace Transform <a class="link-heading" href="#H_Macros_for_Laplace_Transform">¶</a></h3> 
@@ -2561,26 +2562,26 @@ Instead of
 Example:
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="sb">$$</span>
 <span class="nb">  </span><span class="nv">\laplace</span><span class="nb">{ </span><span class="nv">\ddot</span><span class="nb">{f}</span><span class="o">(</span><span class="nb">t</span><span class="o">)</span><span class="nb"> } </span><span class="o">=</span><span class="nb"> </span><span class="o">-</span><span class="nv">\dot</span><span class="nb">{f}</span><span class="o">(</span><span class="m">0</span><span class="o">)</span><span class="nb"> </span><span class="o">-</span><span class="nb"> s f</span><span class="o">(</span><span class="m">0</span><span class="o">)</span><span class="nb"> </span><span class="o">+</span><span class="nb"> s ^ </span><span class="m">2</span><span class="nb"> </span><span class="nv">\laplace</span><span class="nb">{ f</span><span class="o">(</span><span class="nb">t</span><span class="o">)</span><span class="nb"> }  </span>
 <span class="s">$$</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Output:
 </p>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="46ee530729e2bf20233505a7145e60d8c11268b0">
 \laplace{ \ddot{f}(t) } = -\dot{f}(0) - s f(0) + s ^ 2 \laplace{ f(t) }
 </div><div class="div-latex-enum"><span></span></div>
 </div>
 
 <p>
-where <span class="math-inline">\laplace{ g(t) }</span> is the laplace transform of the the function <span class="math-inline">g(t)</span>.
+where <span class="math-inline lazy-load-latex">\laplace{ g(t) }</span> is the laplace transform of the the function <span class="math-inline lazy-load-latex">g(t)</span>.
 </p>
 
 <div class="div-heading"> 
@@ -2592,14 +2593,14 @@ where <span class="math-inline">\laplace{ g(t) }</span> is the laplace transform
 Example:
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\ilaplace</span><span class="nb">{</span> <span class="k">\frac</span><span class="nb">{</span>1<span class="nb">}{</span>s<span class="nb">}</span> F(s) <span class="nb">}</span> = <span class="k">\int_</span><span class="nb">{</span>0<span class="nb">}^{</span><span class="k">\tau</span><span class="nb">}</span> f(<span class="k">\tau</span>) <span class="k">\,</span> d<span class="k">\tau</span>
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <div  class="katex-math-block anchor"> 
-<div class="div-latex-before"></div><div class="div-latex-code">
+<div class="div-latex-before"></div><div class="div-latex-code lazy-load-latex" data-hash="074f2816706554885b3047badfa6abfbecb8d151">
 \ilaplace{ \frac{1}{s} F(s) } = \int_{0}^{\tau} f(\tau) \, d\tau
 </div><div class="div-latex-enum"><span></span></div>
 </div>
@@ -2613,12 +2614,12 @@ Example:
 Example:
 </p>
 
-<pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
 <code class="language-markdown"><div class="highlight"><pre><span></span>+ The computational complexity of this algorithm is $\BigO{n}$.
 + The computational complexity of the second algorithm is $\BigO{n^3}$.
 </pre></div>
 </code>
-</pre>
+</pre></div>
 
 <p>
 Rendering:
@@ -2626,10 +2627,10 @@ Rendering:
 
 <ul class="">
 <li>
-The comptuational complexity of this algorithm is <span class="math-inline">\BigO{n}</span>. 
+The comptuational complexity of this algorithm is <span class="math-inline lazy-load-latex">\BigO{n}</span>. 
 </li>
 <li>
-The computational complexity of the second algorithm is <span class="math-inline">\BigO{n^3}</span>. 
+The computational complexity of the second algorithm is <span class="math-inline lazy-load-latex">\BigO{n^3}</span>. 
 </li>
 </ul>
 
