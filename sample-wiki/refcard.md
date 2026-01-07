@@ -2145,7 +2145,7 @@ Rendering:
 \end{algorithm}
 ```
 
-### Embedded Jupyter Notebook
+### Embed Jupyter Notebooks
 
 Example:
 
@@ -2157,7 +2157,8 @@ Rendering:
 
 ![[SimplePendulum.ipynb]]   
 
-NOTE: that the editor has a button, which allows uploading Jupyter notebooks and inserting alink to the file name at current cursor position.  
+NOTE: that the editor has a button, which allows uploading Jupyter notebooks and inserting a hyperlink to the file name at current cursor position.  
+
 ## Table 
 
 Example:
