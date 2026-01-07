@@ -322,6 +322,11 @@ function katexRenderDocumentLatex()
 document.addEventListener("DOMContentLoaded", ()=> {
    let formulas = document.querySelectorAll(".lazy-load-latex");
    const MAX_FORMULAS = 300;
+
+   for(let elem of document.querySelectorAll(".pseudocode"))
+   {
+     pseudocode.renderElement(elem);
+   }
    
    if(formulas.length <= MAX_FORMULAS){
       // Render all LaTeX formulas in this document, otherwise do Lazy loading

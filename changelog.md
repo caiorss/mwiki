@@ -2,6 +2,7 @@
 
 ## Release v0.9.3
 
++ LaTeX pseudocode blocks algorithms by pseudocodeJS now can be rendered with KaTeX.
 + Implement typographic notation for ordinal numberals `{st}` for first, `{nd}` for second, `{rd}` for third and `{th}` for th as in fifth. For instance `1{st}` is rendered to 1st, where st is a superscript text. 
 + Create IEEE-style citations and references. This feature allows adding references to books, journal articles, in proceedings, conferences, and websistes to the YAML front-matter. References defined in the front-matter can be cited using the syntax `$[@<CITATION-KEY>, <LOCATOR>]`. Example: `$[@zhang2018 page:10-20; @freedman2010 equation:30]` is rendered as [10, pp 10-20], [15, eq.(30)] according to the IEEE citation style. References are enumerated in the order they appear.
 + Create syntax ````{references}```` for inserting the cited references in the YAML front-matter in the rendered document.
