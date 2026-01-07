@@ -15,6 +15,9 @@ ISO
 W3C 
  : World Wide Web Consortium
 
+[IANA](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority)
+ : Intenet Assigned Numbers Authority
+
 IETF
   : Internet Engineering Task Force
 
@@ -48,6 +51,16 @@ RTL Languages
 LTR Languages
   : Left-To-Right Languages. Languages written from left to right. Example: Hebrew, Arabic, Persian, Urdu, Phoenician and so on.
 
+[SOV](https://en.wikipedia.org/wiki/Subject%E2%80%93object%E2%80%93verb_word_order) word order
+ : Subject-Object-Verb 
+ 
+SVO word order 
+  : Subject-Verb-Object word order 
+  
+[Agglutinative language](https://en.wikipedia.org/wiki/Agglutinative_language)
+ : Example: Turkish, Mongolian, Japanese and Korean.
+ : *"An agglutinative language is a type of language that primarily forms words by stringing together morphemes (word parts)—each typically representing a single grammatical meaning—without significant modification to their forms (agglutinations). In such languages, affixes (prefixes, suffixes, infixes, or circumfixes) are added to a root word in a linear and systematic way, creating complex words that encode detailed grammatical information."* (Wikipedia)
+
 NVL 
   : National Language Version
   
@@ -62,6 +75,18 @@ NVL
 
 LMDL
   : Locale Data Markup Language (XML-based language - ICU project).
+
+[IDN](https://en.wikipedia.org/wiki/Internationalized_domain_names)
+  : Internationalization of Domain Names
+
+[gTLD](https://en.wikipedia.org/wiki/GTLD)
+  : Generic top-level domains
+
+[ccTLD](https://en.wikipedia.org/wiki/Country_code_top-level_domain)
+  : Country code top-level domain
+  
+ASCII
+  : American Standard Code for Information Interchange
   
 UTF-8
   : Unicode 8 bits. One "character" or symbol may use more than one byte. Unicode 8 bits is the most used text enconding format possibly due to the backward compatibility with the old ASCII text encoding. However, it makes programming harder since one cannot assume that i-th position of a unicode string corresponds to the i-th character because a single UTF-8 "character" may be represented by multiple bytes.
@@ -72,11 +97,11 @@ UTF-16
 QA Testing
   : EN - Quality Assurance Testing 
   : PT - Teste de Garantia de Qualidade
-    
+      
 ## Internationalization Issues
 
 ```{figure} ![[pasted-image-1760618396013.jpg]]
-:alt: World map depicting major regional languages around the world. The languages are listed in the order: (1) Spanish, (2) Arabic, (3) French, (4) Russian, (5) Chinese, Hindustani (6), Portuguese (7), German (8), Swahilli (9), Persian (10) and Malay/Indonesian (11). The map assigns colors for each major language, including Spanish (mostly in Spain and Hispanic-America or Hispanic Latin America), Arabic (MENA - Middle East and North Africa), French (France, Quebec and Africa), Russian (Eastern Europe and Central Asia), Chinese, Hindustani (Hindi and Urdu), Portuguese (South America / Portuguese-America / Luso-America / Portuguese Latin-Amerrica, Luso Latin-America, Lusitanic Latin America - Brazil, Angola, Mozambique and Portugal), German (mostly in Central and West Erope, including Germany, Austria, Switzerland and Luxenbourg), Swahilli (East Africa in Kenya and Tanzania), Persian (West Asia and Central Asia), and Malay/Indonesia (South East Asia - SEA, including Indonesia and Malaysia).
+:alt: World map depicting major regional languages around the world. The languages are listed in the order: (1) Spanish, (2) Arabic, (3) French, (4) Russian, (5) Chinese, Hindustani (6), Portuguese (7), German (8), Swahilli (9), Persian (10) and Malay/Indonesian (11). The map assigns colors for each major language, including Spanish (mostly in Spain and Hispanic-America or Hispanic Latin America), Arabic (MENA - Middle East and North Africa), French (France, Quebec and Africa), Russian (Eastern Europe and Central Asia), Chinese, Hindustani (Hindi and Urdu), Portuguese (South America / Portuguese-America / Luso-America / Portuguese Latin-America, Luso Latin-America, Lusitanic Latin America - Brazil, Angola, Mozambique and Portugal), German (mostly in Central and West Erope, including Germany, Austria, Switzerland and Luxenbourg), Swahilli (East Africa in Kenya and Tanzania), Persian (West Asia and Central Asia), and Malay/Indonesia (South East Asia - SEA, including Indonesia and Malaysia).
 
 World Regional Languages
 ```
@@ -177,6 +202,8 @@ Locale codes follow the convention {raw}`<language-code>-<countery-code>` with (
 | India^{India is among the fastest growing economies in the world. On the long run, it means higher return on investment.}        | en-IN                | English (India)                                 |
 | India        | hi-IN                | Hindi^{Hindustani} (India)                      |
 | India        | ta-IN                | Tamil (India)                                   |
+| India        | kok-IN     |  Konkani (India)^[Goa state, former Portuguese colony.]  |
+| INdia        | tel-IN   | Telugu (India)  |
 | Germany      | de-DE                | German (Deutsch)                                |
 | Austria      | de-AT                | Austrian German (Österreichisches Deutsch)      |
 | Switzerland  | de-CH                | Switzerland German (Schweizerdeutsch)           |
@@ -185,7 +212,7 @@ Locale codes follow the convention {raw}`<language-code>-<countery-code>` with (
 | France       | fr-FR                | French (Français)                               |
 | Italy        | it-IT                | Italian (Italiano)                              |
 | Greece       | el-GR                | Modern Greek                                    | 
-| Türkiye      | tr-TR                | Turkish^{The country is formely known as Turkey.} |
+| Türkiye      | tr-TR                | Turkish^{The country is formely known as Turkey. The country's government have asked the world to use the name Türkiye instead of the old name, Turkey.} |
 | Cyprus       | el-CY                | Modern Greek of Cyprus                          |
 | Cyprus       | tr-CY                | Turkish language (Cyprus)                       |
 | Spain        | es-ES                | Spanish (Español)                               |
@@ -215,7 +242,7 @@ Locale codes follow the convention {raw}`<language-code>-<countery-code>` with (
   
 NOTE:
 1. Most English variants around the world are based on the British English and uses the British spelling. The American English spelling is only used by USA and Phillipines.
-2. India does not have any official language and Hindi is not the official language of India. Moreover, the majority of Indian population does not speak Hindi.
+2. India does not have any national language. Hindi is neither the national language of India nor the single official language of the country. Moreover, the majority of Indian population does not speak Hindi.
 3. Hong Kong is not country. It is a SAR - Special Administrative Region of mainland China. Hong Kong has its own currency and onlympic team. In addition, in sports matches Hong Kong uses its own flag. 
 4. Puerto Rico is not a country. The island is USA non incorporated territory, even though the island has its own olympic team.
 5. Spanish locales don't have much difference other than country code, currency and paper size since most Spanish countries follows the [Royal Spanish Academy](https://en.wikipedia.org/wiki/Royal_Spanish_Academy)^{Spanish: Real Academia Española}
@@ -287,11 +314,11 @@ KWrite started with es_ES Spanish locale for Spain
   + https://learn.microsoft.com/en-us/globalization/locale/standard-locale-names
 + *ISO Country and Language Codes: The Definitive Guide*
   + https://centus.com/blog/iso-language-codes
-                  
+                    
 ## Falsehoods Many Programmers Believe About Names
 
 1. Names are only written using ascii characters. Counterexample: "João" (portuguese version of John) or " Björk" (Icelandic given name).
-2. Names does not contain hyphen (-) or apostrophe (') characters. Counterexample: O'neil - common irish surname.
+2. Names does not contain hyphen (-) or apostrophe (') characters. Counterexample: O'Neill - common irish surname.
 3. A person may have only two names, a given name and surname (family name). Counterexample: the full name of Brazil's emperor [Pedro II of Brazil](https://en.wikipedia.org/wiki/Pedro_II_of_Brazil) was "Pedro de Alcântara João Carlos Leopoldo Salvador Bibiano Francisco Xavier de Paula Leocádio Miguel Gabriel Rafael".
 4. People do not change their names, surnames or email. 
 5. People will never have identical names.
@@ -330,6 +357,10 @@ KWrite started with es_ES Spanish locale for Spain
   + https://en.wikipedia.org/wiki/Wikipedia:Naming_conventions_(Chinese)
 + *East Slavic name*, Wikipedia
   + https://en.wikipedia.org/wiki/East_Slavic_name
++ *Naming Conventions - Russian Culture*, Cultural Atlas
+  + https://culturalatlas.sbs.com.au/russian-culture/russian-culture-naming
++ *Russian names*, Just Russian
+  + https://www.justrussian.com/russian-names/
 + *Roman naming conventions*, Wikipedia
   + https://en.wikipedia.org/wiki/Roman_naming_conventions
 + *Nomen gentilicium*, Wikipedia
@@ -340,6 +371,9 @@ KWrite started with es_ES Spanish locale for Spain
   + https://en.wikipedia.org/wiki/Praenomen
 + *Italian name*, Wikipedia
   + https://en.wikipedia.org/wiki/Italian_name
++ *Portuguese name*, Wikipedia
+  + https://en.wikipedia.org/wiki/Portuguese_name
+  + *A Portuguese name, or Lusophone name – a personal name in the Portuguese language – is typically composed of one or two personal names, the mother's family surname and the father's family surname (rarely only one surname, sometimes more than two). For practicality, usually only the last surname (excluding prepositions) is used in formal greetings.*
 + *Spanish naming customs*, Wikipedia
   + https://en.wikipedia.org/wiki/Spanish_naming_customs
 + *Spanish Names: A Beginner’s Guide to Naming Customs and Traditions*, ESLZubzz
@@ -350,13 +384,16 @@ KWrite started with es_ES Spanish locale for Spain
   + https://culturalatlas.sbs.com.au/spanish-culture/spanish-culture-naming
 + *Naming customs of Hispanic America*, Wikipedia
   + https://en.wikipedia.org/wiki/Naming_customs_of_Hispanic_America
-+ *Portuguese name*, Wikipedia
-  + https://en.wikipedia.org/wiki/Portuguese_name
-  + *A Portuguese name, or Lusophone name – a personal name in the Portuguese language – is typically composed of one or two personal names, the mother's family surname and the father's family surname (rarely only one surname, sometimes more than two). For practicality, usually only the last surname (excluding prepositions) is used in formal greetings.*
 + *Arabic name*, Wikipedia
   + https://en.wikipedia.org/wiki/Arabic_name
 + *How Arabic Names Work: A Guide to Ism, Nasab, Laqab, Nisba, and Kunya*
   + https://arabic-for-nerds.com/translation/how-are-family-names-constructed-in-arabic/
++ *Türkiye Naming Customs*, Family Search
+  + https://www.familysearch.org/en/wiki/T%C3%BCrkiye_Naming_Customs
++ *Turkish name*, Wikipedia
+  + https://en.wikipedia.org/wiki/Turkish_name
++ *Naming - Turkish Culture*, Cultural Atlas
+  + https://culturalatlas.sbs.com.au/turkish-culture/turkish-culture-naming
 + *Mononym*, Wikipedia (People with no surname, just a single name)
   + https://en.wikipedia.org/wiki/Mononym
 + *List of legally mononymous people*, Wikipedia (List of people whose full legal name does not have surname or family name such as members of Japanese royal family)
@@ -369,7 +406,7 @@ KWrite started with es_ES Spanish locale for Spain
   + https://en.wikipedia.org/wiki/Category:Compound_given_names
 + *How do I correctly abbreviate compounded first name for academic publications?*, Academia
   + https://academia.stackexchange.com/questions/154619/how-do-i-correctly-abbreviate-compounded-first-name-for-academic-publications
- 
+     
 ## American English Vs British English 
 
 | American English    | British English      |
@@ -381,11 +418,17 @@ KWrite started with es_ES Spanish locale for Spain
 | program             | programme            |
 | computer program    | computer programme   |
 | study program       | study programme      |
+| license             | licence              |
+| software license    | software licence     |
+| free software license | free software licence |
 | center              | centre               |
+| center of mass      | centre of mass       | 
+| aerodynamic center  | aerodynamic centre   |
 | color               | colour               |
 | favor               | favour               |
 | favorite            | favourite            |
 | labor               | labour               |
+| lawyer, attorney    | lawyer, barrister    | 
 | defense             | defence              |
 | ofense              | ofence               |
 | shop                | shoppe               |
@@ -404,6 +447,8 @@ KWrite started with es_ES Spanish locale for Spain
 | fall                | autumn               |
 | man, guy, dude      | bloke  |
 | men, guys, dudes    | blokes |
+| bonkers             | crazy  | 
+| It is bonkers.       | It is crazy. |
 | friends             | friends or mates   |
 | buddies (male friends of a guy)  | lads           |
 | girlfriends        | female friends of a  woman |
@@ -418,7 +463,7 @@ KWrite started with es_ES Spanish locale for Spain
 | truck               | shorthand for pickup truck |
 | highway, freeway   | motorway              |
 | gas station        | petrol station        | 
-  
+    
 ## Software Libraries
 
 JavaScript
@@ -621,7 +666,15 @@ Python
 + *k-yak / stati18n Public* (2014)
   + https://github.com/k-yak/stati18n   
  
+
+### GUI (Graphics User Interface), UX (User Experience) and Culture
+
++ *How QR code payment blew up in India*, Phoebe Yu - Video (Youtube)
+  + https://m.youtube.com/watch?v=OLY2coSRf7g
++ *How Google Maps fixed India's street name problem*, Phoebe Yu - Video (Youtube) 
+  + https://m.youtube.com/watch?v=_HSYTIEXa5w
      
+
 ### Numbers and Mesurement
 
 + *International System of Units*, Wikipedia
@@ -645,4 +698,4 @@ Python
 + *Chinese numerals*, Wikipedia
   + https://en.wikipedia.org/wiki/Chinese_numerals
 + *Japanese numerals*, Wikipedia
-  + https://en.wikipedia.org/wiki/Japanese_numerals
+  + https://en.wikipedia.org/wiki/Japanese_numerals 
