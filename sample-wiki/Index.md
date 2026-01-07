@@ -53,7 +53,7 @@ Links to Mastodon Open Source communities:
 
 + @kde@floss.social 
 + @GTK@floss.social 
-+ @postmarketOS@fosstodon.org
++ @social.treehouse.systems@postmarketOS
 
 
 Paper with DOI Hyperlink:
@@ -97,7 +97,7 @@ Hyperlink to CVE (Common Vulnerability Exposures):
 + See: `<r-cve:CVE-2024-53104>`: <r-cve:CVE-2024-53104> 
 + Brief: *media: uvcvideo: Skip parsing frames of type UVC_VS_UNDEFINED in uvc_parse_format*
 
-     
+      
 ## Internal Pages 
 
 Hyperlinks to internal pages that still does not exist will be shown in red, while hyperlinks to existing internal pages will be shown as green. 
@@ -353,10 +353,3 @@ Rendering:
 \end{algorithmic}
 \end{algorithm}
 ```   
-
-## Embed Jupyter Notebook
-
-File:
-+ [[SimplePendulum2.ipynb]]
-
-![[SimplePendulum2.ipynb]]     
