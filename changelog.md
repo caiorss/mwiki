@@ -15,6 +15,7 @@
 + Bugfix - Bugfix - Fix route /links/<pagename> Undefined Error. Error message: *jinja2.exceptions.UndefinedError: 'conf' is undefined.*
 + Bugfix - Fix jinja2.exceptions.UndefinedError for route /tags.
 + Bugfix - Fix mathjax's LaTeX macros in wikis exported to static websites.
++ Bugfix - Fix menu item for showing modal dialog for quickly creating a new page.
 
 ## Release v0.9.2
 

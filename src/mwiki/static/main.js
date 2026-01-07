@@ -1700,7 +1700,9 @@ document.addEventListener("DOMContentLoaded", async function()
                 , label
                 , (noteName) => {
                     let url =  `/create/${noteName}`;
-                    document.location.href = url;
+                    // 1 second delay
+                    setTimeout(() => { document.location.href = url; }, 1000);
+                    
 		            });
 	    });
     }
