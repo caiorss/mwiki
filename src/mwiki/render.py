@@ -1591,24 +1591,6 @@ class HtmlRenderer(AbstractAstRenderer):
         info = (node.info if node.info != "" else "text").strip()
         if info == "{math}":
             html = self._render_display_math(node.content)
-            # content, directives = mparser.get_code_block_directives(node.content)
-            # label = f'id="{u}"' if (u := directives.get("label")) else ""
-            # html = ""
-            # if self._render_math_svg:
-            #     html = _latex_to_html(content, inline = False)
-            # else:
-            #     self._needs_latex_renderer = True
-            #     # Algorithm code block 
-            #     if content.strip().startswith(r"\begin{algorithm}"):
-            #         self._needs_latex_algorithm = True
-            #         content, directives = mparser.get_code_block_directives(node.content)
-            #         label = f'id="{u}"' if (u := directives.get("label")) else ""
-            #         #content_ = utils.escape_html(content)
-            #         html = f"""<pre {label} class="pseudocode" >\n{content}\n</pre>\n"""
-            #     # MathJS/Latex Code Block 
-            #     else:
-            #         html = f"""<div class="math-block anchor" {label} > \n$$\n""" \
-            #             + utils.escape_html(content) + "\n$$\n</div>"
         elif info == "{references}":
             html = self._render_citation_references(node)
         # Render multi-line comment blocks
