@@ -1082,8 +1082,13 @@ class HtmlRenderer(AbstractAstRenderer):
         return html 
 
     def render_math_block(self, node: SyntaxTreeNode) -> str:
-        html = ""
         content = node.content.replace("\n>", "").strip()
+        html = self._render_display_math(content)
+        return html
+        
+    def _render_display_math(self, content: str) -> str:
+        html = ""
+        #content = node.content.replace("\n>", "").strip()
         if self._rendering_jupyter_notebook:
             content = "\\notag\n" + content
         ## breakpoint()
@@ -1585,24 +1590,25 @@ class HtmlRenderer(AbstractAstRenderer):
         ## breakpoint()
         info = (node.info if node.info != "" else "text").strip()
         if info == "{math}":
-            content, directives = mparser.get_code_block_directives(node.content)
-            label = f'id="{u}"' if (u := directives.get("label")) else ""
-            html = ""
-            if self._render_math_svg:
-                html = _latex_to_html(content, inline = False)
-            else:
-                self._needs_latex_renderer = True
-                # Algorithm code block 
-                if content.strip().startswith(r"\begin{algorithm}"):
-                    self._needs_latex_algorithm = True
-                    content, directives = mparser.get_code_block_directives(node.content)
-                    label = f'id="{u}"' if (u := directives.get("label")) else ""
-                    #content_ = utils.escape_html(content)
-                    html = f"""<pre {label} class="pseudocode" >\n{content}\n</pre>\n"""
-                # MathJS/Latex Code Block 
-                else:
-                    html = f"""<div class="math-block anchor" {label} > \n$$\n""" \
-                        + utils.escape_html(content) + "\n$$\n</div>"
+            html = self._render_display_math(node.content)
+            # content, directives = mparser.get_code_block_directives(node.content)
+            # label = f'id="{u}"' if (u := directives.get("label")) else ""
+            # html = ""
+            # if self._render_math_svg:
+            #     html = _latex_to_html(content, inline = False)
+            # else:
+            #     self._needs_latex_renderer = True
+            #     # Algorithm code block 
+            #     if content.strip().startswith(r"\begin{algorithm}"):
+            #         self._needs_latex_algorithm = True
+            #         content, directives = mparser.get_code_block_directives(node.content)
+            #         label = f'id="{u}"' if (u := directives.get("label")) else ""
+            #         #content_ = utils.escape_html(content)
+            #         html = f"""<pre {label} class="pseudocode" >\n{content}\n</pre>\n"""
+            #     # MathJS/Latex Code Block 
+            #     else:
+            #         html = f"""<div class="math-block anchor" {label} > \n$$\n""" \
+            #             + utils.escape_html(content) + "\n$$\n</div>"
         elif info == "{references}":
             html = self._render_citation_references(node)
         # Render multi-line comment blocks
