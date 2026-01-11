@@ -192,7 +192,7 @@ def index_wiki_repository():
     cache_dir = root / ".data/search_index_tags"
     cache_dir.mkdir(exist_ok = True)
     pages = root.rglob("*.md")
-    print(" [INFO] Updating Search Index")
+    ## print(" [INFO] Updating Search Index")
     while (p := next(pages, None)) is not None:
         # Remove .md suffix
         mtime = p.stat().st_mtime
@@ -207,7 +207,7 @@ def index_wiki_repository():
         search.update_index_page(root, p)
         search_index_tag_file.write_text(f"{mtime}")
         print(f" [INFO] Finished indexing wiki page {p} Ok.")
-    print(" [INFO] Search index updated OK.")
+    ## print(" [INFO] Search index updated OK.")
 
 def watch():
     print(" [TRACE] Starting scanning ", MwikiConfig.path)
