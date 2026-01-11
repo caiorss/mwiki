@@ -1,5 +1,9 @@
 # Changelog 
 
+## Release v0.9.4
+
++ Implement all-in-one.Dockerfile, a Docker or Podman cofiguration file, for streamlining self hosting MWiki. The all-in-one image provides a multi-process Linux container with MWiki and a pre-configured Caddy reverse proxy and static web server. This approach simplifies self-hosting as all Caddy configuration can be tuned via environment variables and the user does not need to take care of multiple containers. While this approach is not scalable, it is good enough for a deployment on a single machine.
+
 ## Release v0.9.3
 
 + LaTeX pseudocode blocks algorithms by pseudocodeJS now can be rendered with KaTeX.

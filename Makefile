@@ -99,6 +99,10 @@ build:
 	poetry build 
 
 
+.PHONY: all-in-one
+all-in-one:
+	podman build -t mwiki  --file docker/all-in-one.Dockerfile .
+
 # Build a deployable .pex archive (Similar to Java's JAR files)
 # Requires installing PEX 
 # $ pip install pex
