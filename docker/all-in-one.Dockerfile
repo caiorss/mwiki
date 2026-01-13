@@ -1,4 +1,4 @@
-FROM docker.io/python:3.9.19-slim
+FROM docker.io/python:3.13-slim
 
 ENV DEBIAN_FRONTEND noninteractive
 
