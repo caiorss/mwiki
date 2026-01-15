@@ -10,7 +10,7 @@
     }
     admin  0.0.0.0:2019
  
-    {% if MWIKI_INTERNAL_CA %}
+    {% if MWIKI_PRIVATE_WEBSITE %}
     # Turns this caddy instance into a certificate authority 
     # which can issue certificate for each server block URL.
     # 
@@ -74,11 +74,11 @@
         }
     }
 
-    import ca_url
+    # import ca_url
     {% endif %}
 
 
-    handle_path /-test-server {
+    handle_path /test {
        respond "Running reverse-proxy OK."
     }  
     
@@ -107,5 +107,46 @@
 }
 
 
-#------------ Snippets ----------------#
+#------- Configuration  with SSL/TLS -------$
+
+{% if MWIKI_PRIVATE_WEBSITE %}
+{{MWIKI_PRIVATE_WEBSITE}} {
+
+    # Enable file compression
+    encode zstd gzip
+
+    tls {
+        issuer internal {
+            ca lab
+        }
+    }
+
+    handle_path /test {
+       respond "Running reverse-proxy OK."
+    }  
+    
+    handle_path /static {
+       root * /app/static/
+       file_server
+    }
+
+
+    intercept {
+       @accel header X-Accel-Redirect *
+        handle_response @accel {
+           root * /wiki
+           method * GET 
+           rewrite {resp.header.X-Accel-Redirect}
+           file_server
+        }
+    }
+    
+    #reverse_proxy 172.17.0.1:8000 
+    reverse_proxy http://localhost:9090 {
+        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-For {remote}
+        header_up X-Real-IP {remote}
+    }
+}
+{% endif %}
 
