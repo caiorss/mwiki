@@ -58,7 +58,7 @@ SVO word order
   : Subject-Verb-Object word order 
   
 [Agglutinative language](https://en.wikipedia.org/wiki/Agglutinative_language)
- : Example: Turkish, Mongolian, Japanese and Korean.
+ : Example: Hungarian, Turkish, Mongolian, Japanese and Korean.
  : *"An agglutinative language is a type of language that primarily forms words by stringing together morphemes (word parts)—each typically representing a single grammatical meaning—without significant modification to their forms (agglutinations). In such languages, affixes (prefixes, suffixes, infixes, or circumfixes) are added to a root word in a linear and systematic way, creating complex words that encode detailed grammatical information."* (Wikipedia)
 
 NVL 
@@ -97,7 +97,7 @@ UTF-16
 QA Testing
   : EN - Quality Assurance Testing 
   : PT - Teste de Garantia de Qualidade
-      
+       
 ## Internationalization Issues
 
 ```{figure} ![[pasted-image-1760618396013.jpg]]
@@ -144,12 +144,12 @@ Brainstorm of Major Internationalization Issues
   
 ## Common Locales
 
-ISO Language Code
+### ISO Language Code
 
 | Language Code  | Language Name                |
 | -------------- | ---------------------------- |
 | la             | Latin                        |
-| scn            | Sicilian^{Closest languge to Latin.}
+| scn            | Sicilian^[Closest languge to Latin.]
 | it             | Italian                      |
 | es             | Spanish                      |
 | pt             | Portuguese                   |
@@ -170,17 +170,18 @@ ISO Language Code
 | tm             | Tamil                        |
 | pa             | Punjabi                      |
 | sa             | Sanskrit                     |
-| tg             | Tajik^{Dialect of Persian}   |
+| tg             | Tajik^[Dialect of Persian]   |
 | id             | Indonesian                   | 
 | ms             | Malay                        |
 | tl             | Tagalog (Phillipines)        |
 | fil            | Filipino (Phillipines)       |
 | ga             | Irisih Gaelic                |
 | gd             | Scottish Gaelic              | 
-| gl             | Galician^{Closest language to Portuguese. Note that Galicia is now an autonomous region of Spain.} |
-| ca             | Catalan^{Language of Catalonia region of Spain.} |
+| gl             | Galician^[Closest language to Portuguese. Note that Galicia is now an autonomous region of Spain.] |
+| ca             | Catalan^[Language of Catalonia region of Spain.] |
 | eu             | Basque (Euskera)             |
 
+### Locale Code
 
 Locale codes follow the convention {raw}`<language-code>-<countery-code>` with (-) dash character or {raw}`<language-code>_<country-code>` with the underline character (_).
 
@@ -197,13 +198,13 @@ Locale codes follow the convention {raw}`<language-code>-<countery-code>` with (
 | Singapore    | en-SG                | Singaporean English                             |
 | Hong Kong    | en-HK                | Hong Kong English                               |
 | South Africa | en-ZA                | South African English                           |  
-| South Africa | af-ZA                | Afrikaans^{based on Dutch language with some words borrowed from other African languages.}             |
-| Phillipines  | en-PH                | Phillipines English^{Based on American English} |
-| India^{India is among the fastest growing economies in the world. On the long run, it means higher return on investment.}        | en-IN                | English (India)                                 |
-| India        | hi-IN                | Hindi^{Hindustani} (India)                      |
+| South Africa | af-ZA                | Afrikaans^[It is based on te Dutch language with some words borrowed from other African languages.]             |
+| Phillipines  | en-PH                | Phillipines English^{@ Based on American English @} |
+| India^{@ India is among the fastest growing economies in the world. On the long run, it means higher return on investment. @}        | en-IN                | English (India)                                 |
+| India        | hi-IN                | Hindi^{@ Hindustani @} (India)                      |
 | India        | ta-IN                | Tamil (India)                                   |
 | India        | kok-IN     |  Konkani (India)^[Goa state, former Portuguese colony.]  |
-| INdia        | tel-IN   | Telugu (India)  |
+| India        | tel-IN   | Telugu (India)  |
 | Germany      | de-DE                | German (Deutsch)                                |
 | Austria      | de-AT                | Austrian German (Österreichisches Deutsch)      |
 | Switzerland  | de-CH                | Switzerland German (Schweizerdeutsch)           |
@@ -212,13 +213,13 @@ Locale codes follow the convention {raw}`<language-code>-<countery-code>` with (
 | France       | fr-FR                | French (Français)                               |
 | Italy        | it-IT                | Italian (Italiano)                              |
 | Greece       | el-GR                | Modern Greek                                    | 
-| Türkiye      | tr-TR                | Turkish^{The country is formely known as Turkey. The country's government have asked the world to use the name Türkiye instead of the old name, Turkey.} |
+| Türkiye      | tr-TR                | Turkish^{@ The country is formely known as Turkey. The country's government and TRT World media have asked the world to use the name Türkiye instead of the old name, Turkey. @} |
 | Cyprus       | el-CY                | Modern Greek of Cyprus                          |
 | Cyprus       | tr-CY                | Turkish language (Cyprus)                       |
 | Spain        | es-ES                | Spanish (Español)                               |
 | Spain        | ca-ES                | Catalan (Catalán in Spanish)                    |   
 | Spain        | eu-ES                | Basque (Euskera)^{Non indo-european language}             |
-| Spain        | gl-ES                | Galician^{Sister language of Portuguese}        |
+| Spain        | gl-ES                | Galician^{@ Sister language of Portuguese @}        |
 | Mexico       | es-MX                | Mexican Spanish (Español mexicano)^[Pronouce: Espanhol merricano]              |
 | USA          | es-US                | American/USA Spanish                            |
 | Puerto Rico  | es-PR                | Puerto Rico Spanish (USA)                       |
@@ -245,7 +246,7 @@ NOTE:
 2. India does not have any national language. Hindi is neither the national language of India nor the single official language of the country. Moreover, the majority of Indian population does not speak Hindi.
 3. Hong Kong is not country. It is a SAR - Special Administrative Region of mainland China. Hong Kong has its own currency and onlympic team. In addition, in sports matches Hong Kong uses its own flag. 
 4. Puerto Rico is not a country. The island is USA non incorporated territory, even though the island has its own olympic team.
-5. Spanish locales don't have much difference other than country code, currency and paper size since most Spanish countries follows the [Royal Spanish Academy](https://en.wikipedia.org/wiki/Royal_Spanish_Academy)^{Spanish: Real Academia Española}
+5. Spanish locales don't have much difference other than country code, currency and paper size since most Spanish countries follows the [Royal Spanish Academy](https://en.wikipedia.org/wiki/Royal_Spanish_Academy)^{@ Spanish: Real Academia Española @}
 
 **Change User Interface Language on Linux**
 
@@ -303,8 +304,7 @@ KWrite started with de_DE German locale for Switzerland
 KWrite started with es_ES Spanish locale for Spain
 ```
 
-
-**See**
+### See Also
 
 + *Country Code Language List*
   + https://www.fincher.org/Utilities/CountryLanguageList.shtml
@@ -314,7 +314,7 @@ KWrite started with es_ES Spanish locale for Spain
   + https://learn.microsoft.com/en-us/globalization/locale/standard-locale-names
 + *ISO Country and Language Codes: The Definitive Guide*
   + https://centus.com/blog/iso-language-codes
-                    
+                       
 ## Falsehoods Many Programmers Believe About Names
 
 1. Names are only written using ascii characters. Counterexample: "João" (portuguese version of John) or " Björk" (Icelandic given name).
@@ -413,7 +413,7 @@ KWrite started with es_ES Spanish locale for Spain
 | ------------------- | -------------------- |
 | internalization     | internationalisation |
 | localization        | localisation         |
-| meter^{Preferred spelling in American English}  |  metre^{Preferred spelling in British English}            |
+| meter^[Preferred spelling in American English]  |  metre^[Preferred spelling in British English]  |
 | meters              | metres               |
 | program             | programme            |
 | computer program    | computer programme   |
@@ -463,7 +463,7 @@ KWrite started with es_ES Spanish locale for Spain
 | truck               | shorthand for pickup truck |
 | highway, freeway   | motorway              |
 | gas station        | petrol station        | 
-    
+     
 ## Software Libraries
 
 JavaScript
