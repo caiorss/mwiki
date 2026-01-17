@@ -156,7 +156,7 @@ rules: dict[str, dict[str, list[RuleDictType]]] = {
         "inline": [
            {
                  "name": "wiki_footnote"
-               , "rex": re.compile(r"\^{\s*(.*?)\s*}")
+               , "rex": re.compile(r"\^{@\s*(.*?)\s*@}")
                , "tmpl": """<empty>"""
                , "tag": "^{"
            }

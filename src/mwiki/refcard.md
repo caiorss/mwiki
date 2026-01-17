@@ -2320,11 +2320,11 @@ Rendering:
 Syntax 2: Only used by MWiki, but it does not conflict with any markdown syntax such as `[label](http://some-site.com)`.
 
 ```markdown
-+ Ship speed is about 30 knots^{Nautical miles per hour}.
++ Ship speed is about 30 knots^{@ Nautical miles per hour @}.
 ```
 
 Rendering:
-+ Ship speed is about 30 knots^{Nautical miles per hour}.
++ Ship speed is about 30 knots^{@ Nautical miles per hour @}.
 
 ### Footnotes listing
 
@@ -2339,6 +2339,7 @@ Rendering:
 
 ```{footnotes}
 ```
+
 
 ## Citations and List of References
 

@@ -120,7 +120,7 @@ def test_wiki_highlighted_ast_multiple():
 
 def test_wiki_footnote_ast():
     """Test AST of MWiki footnote syntax."""
-    wikicode = "word^{footnote about this term}"
+    wikicode = "word^{@ footnote about this term @}"
     ast = mparser.parse_source(wikicode)
     root         = ast
     paragraph    = root[0]
@@ -144,7 +144,7 @@ def test_wiki_footnote_ast_obsidian():
 
 def test_wiki_footnote_ast_value():
     """Test AST value of MWiki footnote syntax."""
-    wikicode     = "word^{footnote about this word}"
+    wikicode     = "word^{@ footnote about this word @}"
     ast          = mparser.parse_source(wikicode)
     root         = ast
     paragraph    = root[0]
