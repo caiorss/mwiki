@@ -30,6 +30,7 @@ from . models import db, User, Settings, BookmarkedPage, WikiPage, WikiRepositor
 from . login import add_login
 from . forms import UserAddForm, UserSettingsForm, SettingsForm, UserEditForm, UserCreateForm
 from werkzeug.datastructures.file_storage import FileStorage
+import werkzeug.exceptions
 import logging 
 import whoosh.index 
 from . constants import ( M_GET, M_POST, M_DELETE
@@ -625,6 +626,72 @@ def make_app_server(  host:        str
                   }
         out = flask.jsonify(data)
         return out
+
+    @app.route("/bookmark", methods = [M_GET])
+    @check_login(required = True)
+    def route_bookmark():
+        """Reute for listing pages bookmarked by the current user."""
+        user = current_user()
+        conf = Settings.get_instance()
+        ## breakpoint()
+        bookmarks_ = BookmarkedPage.query.filter_by(user_id=user.id)
+        bookmarks = [{"url": f"/wiki/{b.page.strip('.md')}", "page": b.page.strip('.md') }
+                        for b in bookmarks_]
+        response = flask.render_template("bookmark.html"
+                                         , conf = conf
+                                         , title = "Bookmarked Pages"
+                                         , bookmarks = bookmarks)
+        return response
+        # for b in user.bookmarks:
+    
+
+    @app.route("/api/bookmark", methods = [ M_GET, M_POST])
+    @check_login(required = True)
+    def api_bookmark():
+        ## breakpoint()
+        user = current_user()
+        inp: dict[str, Any] = {}
+        try:
+            inp: dict[str, Any] = request.get_json()
+        except werkzeug.exceptions.BadRequest as ex:
+            pass
+        ## page = inp.get("page")
+        page = request.args.get("page")
+        bookmark = inp.get("bookmark", False)
+        if not page:
+            flask.abort(STATUS_CODE_400_BAD_REQUEST)
+        p = base_path / page
+        if not p.exists():
+            flask.abort(STATUS_CODE_400_BAD_REQUEST)
+        if request.method == M_GET:
+            ## breakpoint()
+            b = BookmarkedPage.query.filter_by(user_id = user.id, page = page).first()
+            is_bookmarked = b is not None
+            out = flask.jsonify({"status": "ok", "bookmark": is_bookmarked})
+            return out
+        elif request.method == M_POST:
+            for b in user.bookmarks:
+                if b.page == page and bookmark:
+                    out = flask.jsonify({"status": "ok"})
+                    return out
+            if bookmark:
+                # Create new bookmark
+                b = BookmarkedPage(user_id = user.id, page = page)
+                db.session.add(b)
+                db.session.commit()
+            else:
+                # Remove bookmark 
+                ## breakpoint()
+                b = BookmarkedPage.query.filter_by(user_id = user.id, page = page).first()
+                if b:
+                    # b.delete()
+                    db.session.delete(b)
+                    db.session.commit()
+                    ## print(" [TRACE] Removed: ", page)
+            out = flask.jsonify({"status": "ok"})
+            return out
+        else:
+            flask.abort(STATUS_CODE_405_METHOD_NOT_ALLOWED)
 
     @app.route("/create/<path>", methods = [M_GET, M_POST])
     @check_login(required = True)

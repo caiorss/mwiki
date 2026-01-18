@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block topbar_buttons %}
+    {% include 'page_menu.html' %}
+{% endblock %}
+
+{% block toc  %}
+{% endblock %}
+
+
+{% block content %}
+
+    {% for b in bookmarks %}
+        <li><a class="link-internal" target="_blank" href="{{b.url}}" >{{b.page}}</a></li>
+    {% endfor %}
+{% endblock %}
+
+{% block topbar_buttons_last %}
+{% endblock %}

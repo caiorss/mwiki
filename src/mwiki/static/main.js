@@ -272,8 +272,7 @@ function katexRenderDOMLatex(domElement)
    try {
      macros = JSON.parse(base64ToUtf8(KATEX_MACROS));
     } catch(error){
-        console.log(" JSON Parsing error: ", error);
-    }
+        console.log(" JSON Parsing error: ", error);    }
     if ( domElement.classList.contains(CSS_CLASS_MATH_INLINE)
          || domElement.classList.contains(CSS_CLASS_DIV_LATEX_CODE) )
     {
@@ -1327,6 +1326,29 @@ async function http_post(url, body)
     return result;
 }
 
+async function pageBookmark(flag)
+{
+  // let url = "/api/bookmark";
+  let url = "/api/bookmark?page=" + encodeURI(PAGE_PATH);
+  let body = {
+        // "page": PAGE_PATH
+       "bookmark": flag
+  };
+  let result = await httpRequest("POST", url, body);
+  // console.log(" [TRACE] Result = ", result);
+  return result;
+}
+
+
+async function pageIsBookmarked()
+{
+  let url = "/api/bookmark?page=" + encodeURI(PAGE_PATH);
+  let result = await httpRequest("GET", url);
+  // console.log(" [TRACE] Result = ", result);
+  let out = result.bookmark || false;
+  return out;
+}
+
 
 function linkify(inputText) 
 {
@@ -1515,7 +1537,7 @@ var equationPopupWindow = null;
 
 document.addEventListener("DOMContentLoaded", async function()
 {
-     
+  
     lazyLoadImages();
     // Call function every 500 ms
     timerId = setInterval(lazyLoadImages, 500);
@@ -1529,6 +1551,12 @@ document.addEventListener("DOMContentLoaded", async function()
 
     displayEditButtons();
 
+    let checkbox = document.querySelector(".bookmark-checkbox");
+    if(checkbox){
+      let isBookmarked = await pageIsBookmarked();
+      checkbox.checked = isBookmarked;
+      console.trace(" checked = ", isBookmarked);
+    }
 
     let cardsets = document.querySelectorAll(".div-flashcard");
     var id = 0;
@@ -1885,6 +1913,12 @@ const REFERENCES = (() => {
 
 document.addEventListener("click", (event) => {
     let target = event.target; 
+
+    if(target.classList.contains("bookmark-checkbox"))
+    {
+      pageBookmark(target.checked);
+      return;
+    }
 
     if(target.classList.contains("btn-copy-button"))
     {

@@ -9,6 +9,11 @@
       <a class="sidebar-toggle-button" href="/pages" 
 		 data-i18n="search-menu-item-label"
          title="Search and list all pages.">Search</a>
+      {% if current_user().is_authenticated() %}
+      <a class="sidebar-toggle-button" href="/bookmark" 
+		 data-i18n="menu-item-bookmarked-pages"
+         title="List all bookmarked pages.">Bookmarks</a>
+      {% endif %}
       <a data-i18n="menu-item-print-label" class="sidebar-toggle-button"
          href="#" onclick="printPage();"
          title="Print current page or export it to PDF." >Print</a>

@@ -45,6 +45,7 @@
     const CITATION_REFERENCES = "{{ citation_references }}";
     const enumeration_enabled = "{{equation_enumeration_enabled}}" === "True";
     const equation_enumeration = "{{equation_enumeration_style}}";
+    const PAGE_PATH = "{{page_path}}"
     </script>
     
     {%if latex_renderer == "mathjax" %}
@@ -375,6 +376,9 @@
 
         <main class="content">
             {% if pagename %}
+            {% if current_user().is_authenticated() %}
+            <input type="checkbox" class="bookmark-checkbox" title="Enable this checkbox to bookmark this page." checked="False">
+            {% endif %}
             <a class="link-edit link-internal" style="display:none" title="Edit page {{title}}" href="/edit/{{page_link}}?timestamp={{timestamp}}"><img class="img-icon" src="/static/pencil.svg"></a>
             {% endif %}
 

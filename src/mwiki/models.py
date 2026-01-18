@@ -99,6 +99,7 @@ class User(db.Model):
     date_created:    so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
     date_modified:   so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
     date_lastaccess: so.Mapped[datetime.datetime]  = so.mapped_column(default=datetime.datetime.utcnow)
+    bookmarks = db.relationship('BookmarkedPage', backref='user', lazy = True)
     # date_modified  = so.mapped_column(DateTime, defalt=datetime.datetime.utcnow)
 
     def is_admin(self):
@@ -608,9 +609,10 @@ class Page(db.Model):
 
 class BookmarkedPage(db.Model):
     __tablename__ = "bookmarkedpage"
-    id: so.Mapped[int] = so.mapped_column(primary_key = True)
+    id:      so.Mapped[int] = so.mapped_column(primary_key = True)
     user_id: so.Mapped[int] = so.mapped_column(ForeignKey("user.id"))
-    page_id: so.Mapped[int] = so.mapped_column(ForeignKey("page.id"))
+    page:    so.Mapped[str] = so.mapped_column( default = "" )
+    ## page_id: so.Mapped[int] = so.mapped_column(ForeignKey("page.id"))
 
 
 def is_database_created() -> bool:
@@ -766,6 +768,7 @@ class WikiPage():
         html = flask.render_template(  "content.html"
                                       , title                = title
                                       , page                 = self._title
+                                      , page_path            = self._path.relative_to(self._base_path)
                                       , page_link            = self._title.replace(" ", "_")
                                       , pagename             = self._title
                                       , content_language     = renderer.language
