@@ -31,7 +31,7 @@ import mwiki.models
 import mwiki.utils as utils
 from mwiki.latex import LatexFormula
 from . import render
-from .models import User, Settings
+from .models import User, Settings, MwikiConfig
 from .app import db, make_app 
 import mwiki.export 
 
@@ -325,14 +325,18 @@ def export(   wikipath:              Optional[str]
 @click.option("--wikipath",  help = "Path to MWiki repository."  )
 @click.option("--settings-dump-stdout", is_flag = True, help = "Dump all settings as JSON to stdout (standard output).")
 @click.option("--settings-load-stdin", is_flag = True, help = "Load all JSON settings from stdin (standard input).")
+@click.option("--shell", is_flag=True, help = "Start flask's interactive database shell (REPL).")
 def manage(   admin_password: Optional[str]
             , sitename: Optional[str]
             , wikipath: Optional[str]
             , settings_dump_stdout: bool
             , settings_load_stdin:  bool
+            , shell: bool 
         ) -> None:
     """Manage MWiki settings, including accounts, passwords and etc."""
     wikipath = wikipath or os.getenv("MWIKI_PATH", "") 
+    MwikiConfig.set_path(wikipath)
+    os.environ["MWIKI_PATH"] = wikipath 
     if wikipath == "":
         print("Error expected --wikipath=$PATH or $MWIKI_PATH environment set to this value.")
         exit(1)
@@ -374,7 +378,14 @@ def manage(   admin_password: Optional[str]
                 User.from_dict(users)
             except json.JSONDecodeError as err:
                 print(" [ERROR] ", err)
-            
+    if shell:
+        pyexecutable = sys.executable
+        proc = subprocess.Popen([  pyexecutable
+                                 , "-m", "flask"
+                                 , "--app=mwiki.wsgi"
+                                 , "shell"
+                                 ]) 
+        proc.wait()
 
 
 @cli1.command()
