@@ -11,13 +11,14 @@ This is the index page. The first page shown by MWiki.
 
 
 + [[refcard|MWiki Syntax Reference Card]]
++ [[Self-hosting deployment with podman(docker) all-in-one]]
 + [[Math - Calculus Reference Card]]
 + [[LaTeX Reference Card]]
 + [[Linux SysRq Key and OOM System Recovery]]
 + [[Open Source Licenses]]
 + [[Internationalization i18n and Localization i10n concepts]]
 + [[about|About Special Page]]
-
+  
 ## Overview
 
 All sources of this sample wiki are available at
