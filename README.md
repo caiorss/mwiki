@@ -113,7 +113,7 @@ See also:
 
 View detailed documentation and examples at: 
 
-+ [Markup Language](./docs/README-Markup-Language.md)
++ [Markup Language](https://caiorss.github.io/mwiki/refcard.html)
 
 ## Keyboard Shortcuts (Keybindings)
 
@@ -280,15 +280,26 @@ $ uv tool install git+https://github.com/caiorss/mwiki
   Installed 2 executables: mwiki, mwiki-convert
 ```
 
-Install latest stable release: version v0.9.3.
+Install latest stable release: version v0.9.4.
+
+
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.9.4.zip
+```
+
+Or install v0.9.4 using the commit hash.
+
+```sh
+$ uv tool install https://github.com/caiorss/mwiki/archive/0064cd2c2d730d4acadb74fc59a3f47100774fe2.zip
+```
+
+Install release version v0.9.3.
 
 ```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.9.3.zip
-```
 
-Or instal using the commit hash.
+# Or 
 
-```sh
 $ uv tool install https://github.com/caiorss/mwiki/archive/7af8d4c77fa0a1c6a48cbcec548d88537b63c039.zip
 ```
 
