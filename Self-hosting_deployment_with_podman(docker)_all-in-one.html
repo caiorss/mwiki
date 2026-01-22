@@ -7,8 +7,8 @@
     
         <link rel="icon" type="imag/x-icon" href="/mwiki/favicon.ico" >
     
-    <title data-i18n="">MBook - About</title>
-    <meta name="description" content="" />
+    <title data-i18n="">MBook - Self-hosting deployment with podman(docker) all-in-one</title>
+    <meta name="description" content="None" />
     <meta name=generator content="MWiki">
     
    
@@ -127,7 +127,7 @@
     const IS_USER_ADMIN = false;
     // NOTE: It is encoded as base64 
     const PAGE_SOURCE_CODE = "";
-    const PAGE_SOURCE_URL  = "/mwiki/src_pages/about.html"
+    const PAGE_SOURCE_URL  = "/mwiki/src_pages/Self-hosting_deployment_with_podman(docker)_all-in-one.html"
     const CITATION_REFERENCES = "e30=";
 	
     // Possible values: 'none', 'nosection' 'section', 'subsection'
@@ -330,6 +330,39 @@
             <!-- Table of contents template placeholder -->
             <ul>
             
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Overview">Overview</a> </span>
+                    
+                    
+                </ol>
+            
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Build_the_podman_or_docker_image">Build the podman or docker image</a> </span>
+                    
+                    
+                </ol>
+            
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Create_and_run_the_container">Create and run the container</a> </span>
+                    
+                    
+                        <div> 
+                        <ul>
+                        
+                            <li><a class="link-sidebar" href="#H_Set_the_environment_variables.">Set the environment variables.</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Create_the_container">Create the container</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Logging_in">Logging in</a></li>
+                        
+                        </ul>
+                        </div>
+                    
+                </ol>
+            
             </ul>
         </div>
     </aside>
@@ -403,7 +436,7 @@
         <main class="content">
             
             <div class="div-heading-h1">
-                <h1 data-i18n="" class="document-heading">About</h1>
+                <h1 data-i18n="" class="document-heading">Self-hosting deployment with podman(docker) all-in-one</h1>
             </div>
             
             <p class="hidden-mathjax-macros" style="display: none;">
@@ -411,8 +444,130 @@
                 
                 $$
             </p>
-            <p>
-Demonstration of  MWiki static website generato.r that compiles wiki pages or notes written in MWIki markup language^{similar to markdown, MyST markdown, Obsidian and Github-flavoured markdown - GFM} language to html.
+            
+
+<div class="div-heading"> 
+<h2 id="H_Overview" class="document-heading anchor">Overview <a class="link-heading" href="#H_Overview">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=7&end=11&anchor=H_Overview&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=176908182066579" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<p>
+The all-in-one container provides a easy way to deploy MWiki with everything pre configured, including Mwiki server and Caddy web server in  a single docker or podman container. Caddy web server is used for serving static files and providing TLS (Transport Layer Security), also known as SSL - Socket Layer Security, by encrypting the network traffic between the server and a client web browser.
+</p>
+
+<div class="div-heading"> 
+<h2 id="H_Build_the_podman_or_docker_image" class="document-heading anchor">Build the podman or docker image <a class="link-heading" href="#H_Build_the_podman_or_docker_image">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=11&end=31&anchor=H_Build_the_podman_or_docker_image&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=176908182066579" title="[i18n]: Build the podman or docker image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<p>
+Clone the repository and enter its root folder.
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>repository_root_folder
+</pre></div>
+</code>
+</pre></div>
+
+<p>
+Build the container image with podman (recommended).
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>mwiki<span class="w">  </span>--file<span class="w"> </span>docker/all-in-one.Dockerfile<span class="w"> </span>.
+</pre></div>
+</code>
+</pre></div>
+
+<p>
+Build the container image with docker.
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>mwiki<span class="w">  </span>--file<span class="w"> </span>docker/all-in-one.Dockerfile<span class="w"> </span>.
+</pre></div>
+</code>
+</pre></div>
+
+<div class="div-heading"> 
+<h2 id="H_Create_and_run_the_container" class="document-heading anchor">Create and run the container <a class="link-heading" href="#H_Create_and_run_the_container">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=31&end=end&anchor=H_Create_and_run_the_container&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=176908182066579" title="[i18n]: Create and run the container" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Set_the_environment_variables." class="document-heading anchor">Set the environment variables. <a class="link-heading" href="#H_Set_the_environment_variables.">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=33&end=41&anchor=H_Set_the_environment_variables.&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=176908182066579" title="[i18n]: Set the environment variables." class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<code class="language-sh"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_WEBSISTE</span><span class="o">=</span><span class="s2">&quot;https://mydomain.com&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_URL</span><span class="o">=</span><span class="s2">&quot;https://mydomain.com&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_FOLDER</span><span class="o">=</span>/home/username/wiki
+</pre></div>
+</code>
+</pre></div>
+
+<div class="div-heading"> 
+<h3 id="H_Create_the_container" class="document-heading anchor">Create the container <a class="link-heading" href="#H_Create_the_container">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=41&end=58&anchor=H_Create_the_container&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=176908182066579" title="[i18n]: Create the container" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<p>
+Make sure that the firewall allows network traffic through the TCP ports 80 (HTTP) and 443 (HTTPS) before running this command.
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>podman<span class="w"> </span>run<span class="w"> </span>--name<span class="o">=</span>mwiki<span class="w"> </span>-it<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--publish<span class="o">=</span><span class="m">80</span>:80<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--publish<span class="o">=</span><span class="m">443</span>:443<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--env<span class="o">=</span><span class="nv">MWIKI_URL</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$MWIKI_URL</span><span class="s2">&quot;</span><span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>--env<span class="o">=</span><span class="nv">MWIKI_WEBSITE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$MWIKI_WEBSITE</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--volume<span class="o">=</span><span class="nv">$MWIKI_FOLDER</span>:/wiki<span class="w"> </span>mwiki
+</pre></div>
+</code>
+</pre></div>
+
+<p>
+Now, the websiste will be available at
+</p>
+
+<ul class="">
+<li>
+<code>https://mydomain.com</code> 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Logging_in" class="document-heading anchor">Logging in <a class="link-heading" href="#H_Logging_in">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=58&end=end&anchor=H_Logging_in&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=176908182066579" title="[i18n]: Logging in" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<p>
+It is possible to log in without password by using a temporary magic hyperlink using the command
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>$<span class="w"> </span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>mwiki<span class="w"> </span>mwiki-auth
+Copy<span class="w"> </span>and<span class="w"> </span>paste<span class="w"> </span>the<span class="w"> </span>following<span class="w"> </span>URL<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>web<span class="w"> </span>browser<span class="w"> </span>to<span class="w"> </span>authenticate.
+
+<span class="w">  </span>https://mydomain.com/auth?token<span class="o">=</span>eyJ1c2VyIjogImFkbWluIiwgInNhbHQiOiAxNzQsICJleHBpcmF0aW9uIjogMTc2OTA4MDU0NiwgInNpZ25hdHVyZSI6ICIxNTVlZDYxOTRhYTE5MTNmMzhkYWMzODI3ZTJiZTdiNzdiNGQ0NzVhYzVjMmJlNDU2ZTY5ZmViNTRiOTg0OGU4In0%3D
+
+Or<span class="w"> </span>paste<span class="w"> </span>the<span class="w"> </span>following<span class="w"> </span>token<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>log<span class="w"> </span><span class="k">in</span><span class="w"> </span>form<span class="w"> </span>https://mydomain.com
+
+<span class="w"> </span><span class="nv">eyJ1c2VyIjogImFkbWluIiwgInNhbHQiOiAxNzQsICJleHBpcmF0aW9uIjogMTc2OTA4MDU0NiwgInNpZ25hdHVyZSI6ICIxNTVlZDYxOTRhYTE5MTNmMzhkYWMzODI3ZTJiZTdiNzdiNGQ0NzVhYzVjMmJlNDU2ZTY5ZmViNTRiOTg0OGU4In0</span><span class="o">=</span>
+
+NOTE:<span class="w"> </span>This<span class="w"> </span>URL<span class="w"> </span>is<span class="w"> </span>only<span class="w"> </span>valid<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="m">20</span><span class="w"> </span>seconds.
+NOTE:<span class="w"> </span>If<span class="w"> </span>MWiki<span class="w"> </span>URL<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>correct,<span class="w"> </span><span class="nb">set</span><span class="w"> </span>the<span class="w"> </span>environment<span class="w"> </span>variable<span class="w"> </span><span class="nv">$MWIKI_URL</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>app<span class="w"> </span>URL.For<span class="w"> </span>instance,<span class="w"> </span><span class="k">in</span><span class="w"> </span>bash<span class="w"> </span>Unix<span class="w"> </span>shell<span class="w"> </span>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_URL</span><span class="o">=</span>https://mydomain.com<span class="w"> </span>before<span class="w"> </span>running<span class="w"> </span>this<span class="w"> </span>comamnd<span class="w"> </span>again.
+</pre></div>
+</code>
+</pre></div>
+
+<p>
+Then, copy this url to the web browser to log in. Note that the magic login link is valid only for 20 seconds.
 </p>
 
 
