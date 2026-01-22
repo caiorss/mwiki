@@ -82,6 +82,14 @@ def make_app_server(  host:        str
     ### WEBSOCKET: sock = Sock(app)
     BASE_PATH = wikipath ## utils.get_wiki_path()
     IMAGE_PATH = os.path.join(BASE_PATH, "images")
+    base_path = pathlib.Path(BASE_PATH)
+    tags_cache_file = base_path.joinpath(".data/tags_cache.json")
+    default_index_page = utils.read_resource(mwiki, "Index.md")
+    index_page = base_path / "Index.md"
+    # Create index page file if it does not exist yet.
+    if not index_page.exists():
+        print(" [TRACE] Creating index page = \n", default_index_page)
+        index_page.write_text(default_index_page)
     #  For setting a username and password, just 
     # set the environment variable LOGIN, 
     # export LOGIN="<USERNAME>;<PASSWORD>"
@@ -486,8 +494,6 @@ def make_app_server(  host:        str
     ## Latex Macros to be Injected in Page Template
     latex_macros = utils.read_resource(mwiki, "macros.sty")
 
-    base_path = pathlib.Path(BASE_PATH)
-    tags_cache_file = base_path.joinpath(".data/tags_cache.json")
 
 
     @app.route("/wiki/<path>")
