@@ -14,21 +14,21 @@ The all-in-one container provides a easy way to deploy MWiki with everything pre
 Clone the repository and enter its root folder.
 
 ```sh
-$ cd repository_root_folder
+git clone https://github.com/caiorss/mwiki && cd mwiki
 ```
 
-Build the container image with podman (recommended).
+Build the container image using podman (recommended).
 
 ```sh
 podman build -t mwiki  --file docker/all-in-one.Dockerfile .
 ```
 
-Build the container image with docker.
+Build the container image using docker.
 
 ```sh
 docker build -t mwiki  --file docker/all-in-one.Dockerfile .
 ```
-
+ 
 ## Create and run the container
 
 ### Set the environment variables.
@@ -39,23 +39,60 @@ export MWIKI_URL="https://mydomain.com"
 export MWIKI_FOLDER=/home/username/wiki
 ```
 
+If the websiste is not public use
+
+```sh
+export MWIKI_PUBLIC=false
+```
+
+If the website is public (anyone can view), set the environment variable MWIKI_PUBLIC to true. The default value of this setting is false.
+
+```sh
+export MWIKI_PUBLIC=true
+```
+
+Set the Wiki name (website name).
+
+```sh
+export MWIKI_SITENAME=MBook
+```
 ### Create the container 
 
 Make sure that the firewall allows network traffic through the TCP ports 80 (HTTP) and 443 (HTTPS) before running this command.
 
 ```sh
-podman run --name=mwiki -it \
-    --publish=80:80 \
-    --publish=443:443 \
-    --env=MWIKI_URL="$MWIKI_URL"  \
-    --env=MWIKI_WEBSITE="$MWIKI_WEBSITE" \
-    --volume=$MWIKI_FOLDER:/wiki mwiki
+podman run --name= -it --rm \
+    --publish=80:80 --publish=443:443  \
+    --env MWIKI_URL=$MWIKI_URL \
+    --env=MWIKI_SITENAME=$MWIKI_SITENAME \
+    --env=MWIKI_PUBLIC=$MWIKI_PUBLIC \
+    --env MWIKI_WEBSITE="$MWIKI_WEBSITE" \
+    --volume $MWIKI_FOLDER:/wiki mwiki
 ```
 
-Now, the websiste will be available at 
+
+Now, the website will be available at 
 
 + `https://mydomain.com`
+ 
 
+To deploy on local host set the website environment variable to 
+
+```sh
+export MWIKI_WEBSITE="localhost http://[MACHINE-HOSTNAME].local"
+```
+
+The machine hostname can be obtained using the commmand $ hostname on Windows, Linux and other Unix-like operating systems.
+
+```sh
+$ hostname
+dummy
+```
+
+So, the url of this dummy machine on the local network would be 
+
++ `http://dummy.local`
+   
 ### Logging in 
 
 It is possible to log in without password by using a temporary magic hyperlink using the command
@@ -74,4 +111,4 @@ NOTE: This URL is only valid for 20 seconds.
 NOTE: If MWiki URL is not correct, set the environment variable $MWIKI_URL to the app URL.For instance, in bash Unix shell $ export MWIKI_URL=https://mydomain.com before running this comamnd again.
 ```
 
-Then, copy this url to the web browser to log in. Note that the magic login link is valid only for 20 seconds.
+Then, copy this url to the web browser to log in. Note that the magic login link is valid only for 20 seconds. After this step, the user can set the administrator password. MWiki does not use a hardcoded default password, instead it generates a random default password for every wiki.
