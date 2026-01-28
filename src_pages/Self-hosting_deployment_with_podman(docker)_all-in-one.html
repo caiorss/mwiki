@@ -340,21 +340,21 @@ The all-in-one container provides a easy way to deploy MWiki with everything pre
 Clone the repository and enter its root folder.
 
 <span class="sb">```sh</span>
-$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>repository_root_folder
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/caiorss/mwiki<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>mwiki
 <span class="sb">```</span>
 
-Build the container image with podman (recommended).
+Build the container image using podman (recommended).
 
 <span class="sb">```sh</span>
 podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>mwiki<span class="w">  </span>--file<span class="w"> </span>docker/all-in-one.Dockerfile<span class="w"> </span>.
 <span class="sb">```</span>
 
-Build the container image with docker.
+Build the container image using docker.
 
 <span class="sb">```sh</span>
 docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>mwiki<span class="w">  </span>--file<span class="w"> </span>docker/all-in-one.Dockerfile<span class="w"> </span>.
 <span class="sb">```</span>
-
+ 
 <span class="gu">## Create and run the container</span>
 
 <span class="gu">### Set the environment variables.</span>
@@ -365,23 +365,60 @@ docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </
 <span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_FOLDER</span><span class="o">=</span>/home/username/wiki
 <span class="sb">```</span>
 
+If the websiste is not public use
+
+<span class="sb">```sh</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_PUBLIC</span><span class="o">=</span><span class="nb">false</span>
+<span class="sb">```</span>
+
+If the website is public (anyone can view), set the environment variable MWIKI_PUBLIC to true. The default value of this setting is false.
+
+<span class="sb">```sh</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_PUBLIC</span><span class="o">=</span><span class="nb">true</span>
+<span class="sb">```</span>
+
+Set the Wiki name (website name).
+
+<span class="sb">```sh</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_SITENAME</span><span class="o">=</span>MBook
+<span class="sb">```</span>
 <span class="gu">### Create the container </span>
 
 Make sure that the firewall allows network traffic through the TCP ports 80 (HTTP) and 443 (HTTPS) before running this command.
 
 <span class="sb">```sh</span>
-podman<span class="w"> </span>run<span class="w"> </span>--name<span class="o">=</span>mwiki<span class="w"> </span>-it<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--publish<span class="o">=</span><span class="m">80</span>:80<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--publish<span class="o">=</span><span class="m">443</span>:443<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--env<span class="o">=</span><span class="nv">MWIKI_URL</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$MWIKI_URL</span><span class="s2">&quot;</span><span class="w">  </span><span class="se">\</span>
-<span class="w">    </span>--env<span class="o">=</span><span class="nv">MWIKI_WEBSITE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$MWIKI_WEBSITE</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--volume<span class="o">=</span><span class="nv">$MWIKI_FOLDER</span>:/wiki<span class="w"> </span>mwiki
+podman<span class="w"> </span>run<span class="w"> </span>--name<span class="o">=</span><span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--publish<span class="o">=</span><span class="m">80</span>:80<span class="w"> </span>--publish<span class="o">=</span><span class="m">443</span>:443<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>--env<span class="w"> </span><span class="nv">MWIKI_URL</span><span class="o">=</span><span class="nv">$MWIKI_URL</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--env<span class="o">=</span><span class="nv">MWIKI_SITENAME</span><span class="o">=</span><span class="nv">$MWIKI_SITENAME</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--env<span class="o">=</span><span class="nv">MWIKI_PUBLIC</span><span class="o">=</span><span class="nv">$MWIKI_PUBLIC</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--env<span class="w"> </span><span class="nv">MWIKI_WEBSITE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$MWIKI_WEBSITE</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--volume<span class="w"> </span><span class="nv">$MWIKI_FOLDER</span>:/wiki<span class="w"> </span>mwiki
 <span class="sb">```</span>
 
-Now, the websiste will be available at 
+
+Now, the website will be available at 
 
 + <span class="sb">`https://mydomain.com`</span>
+ 
 
+To deploy on local host set the website environment variable to 
+
+<span class="sb">```sh</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_WEBSITE</span><span class="o">=</span><span class="s2">&quot;localhost http://[MACHINE-HOSTNAME].local&quot;</span>
+<span class="sb">```</span>
+
+The machine hostname can be obtained using the commmand $ hostname on Windows, Linux and other Unix-like operating systems.
+
+<span class="sb">```sh</span>
+$<span class="w"> </span>hostname
+dummy
+<span class="sb">```</span>
+
+So, the url of this dummy machine on the local network would be 
+
++ <span class="sb">`http://dummy.local`</span>
+   
 <span class="gu">### Logging in </span>
 
 It is possible to log in without password by using a temporary magic hyperlink using the command
@@ -400,7 +437,7 @@ NOTE:<span class="w"> </span>This<span class="w"> </span>URL<span class="w"> </s
 NOTE:<span class="w"> </span>If<span class="w"> </span>MWiki<span class="w"> </span>URL<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>correct,<span class="w"> </span><span class="nb">set</span><span class="w"> </span>the<span class="w"> </span>environment<span class="w"> </span>variable<span class="w"> </span><span class="nv">$MWIKI_URL</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>app<span class="w"> </span>URL.For<span class="w"> </span>instance,<span class="w"> </span><span class="k">in</span><span class="w"> </span>bash<span class="w"> </span>Unix<span class="w"> </span>shell<span class="w"> </span>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_URL</span><span class="o">=</span>https://mydomain.com<span class="w"> </span>before<span class="w"> </span>running<span class="w"> </span>this<span class="w"> </span>comamnd<span class="w"> </span>again.
 <span class="sb">```</span>
 
-Then, copy this url to the web browser to log in. Note that the magic login link is valid only for 20 seconds.
+Then, copy this url to the web browser to log in. Note that the magic login link is valid only for 20 seconds. After this step, the user can set the administrator password. MWiki does not use a hardcoded default password, instead it generates a random default password for every wiki.
 </pre></div>
 
         </main>
