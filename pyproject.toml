@@ -1,6 +1,6 @@
 [project]
 name = "mwiki"
-version = "0.9.4"
+version = "0.9.5"
 authors = [
           {name = "Caio Rodrigues", email = "caiorss.rodrigues@proton.me"}
 ]
@@ -48,7 +48,7 @@ python_files = ["test_*.py"]
 
 [tool.poetry]
 name = "mwiki"
-version = "0.1.0"
+version = "0.9.5"
 # package-mode = false
 description = "mwiki - Markdown Wiki Server for publishing and accessing Github Markdown-Flavor Documents, MyST (from Jupyter Books) documents and  Obsidian Markdown vaults."
 packages = [{include = "mwiki", from = "src"} ]
