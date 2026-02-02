@@ -3,6 +3,7 @@
 
 ## Release v0.9.5
 
++ Force downloading Jupyter Notebook if the user clicks at the download button.
 + Improve rendering speed of LaTeX (KaTeX engine) formulas by caching the generated html on local storage if there is space available.
 
 ## Release v0.9.4
