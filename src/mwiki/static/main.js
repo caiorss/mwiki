@@ -1991,6 +1991,7 @@ document.addEventListener("click", (event) => {
         tooltip_window.setTitle(title)
         tooltip_window.setMessage(note);
         tooltip_window.show();
+        return;
     }
 
     if(target.classList[0] === "footnote-reference")
