@@ -1462,7 +1462,10 @@ class HtmlRenderer(AbstractAstRenderer):
             html = content
         ## MyST math role. Exmaple: {math}`f(x) = \sqrt{x^2 - 10x}`
         elif role == "math":
-            html = f"""<span class="math-inline">\\({content}\\)</span>"""
+            self._needs_latex_renderer = True
+            formula = utils.escape_html(node.content)
+            inner = f"\\({formula}\\)" if self.uses_mathjax else formula 
+            html = f"""<span class="math-inline lazy-load-latex">{inner}</span>"""
         # MyST sub role for superscript H{sub}`2`O compiles to H<sub>2</sub>O
         elif role == "sub":
             html = f"""<sub>{content}</sub>"""
