@@ -3,6 +3,7 @@
 
 ## Release v0.9.5
 
++ Implement popup window for using the web browser's spell checker. This window in the editor page allows user to check the spelling of any pasted text using the native web browser's spell checker. 
 + Force downloading Jupyter Notebook if the user clicks at the download button.
 + Improve rendering speed of LaTeX (KaTeX engine) formulas by caching the generated html on local storage if there is space available.
 + Bugfix - Fix rendering of math myst role for KaTeX engine.

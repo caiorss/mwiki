@@ -793,7 +793,49 @@ function openLatexInputWindow()
     latexRenderingUpdateFunc();
 }
 
-    //// window.onpaste = onPasteEventHandler;
+
+let spellCheckWindow = new PopupWindow({
+       title: "Spell Checker"
+    ,  titleI18nTag: "spell-checker-window-title"
+    ,  width: "600px"
+    ,  height: "500px"
+    ,  html: `
+      <div class="">
+        <textarea class="spell-check-input" name="spell-check-input" rows="10" cols="20"
+                  autocomplete="on"
+                  autocorrect="on"
+                  autocapitalize="off"
+                  spellcheck="true"
+                  wrap="hard"
+                  style="word-wrap: break-word; width: 100%; height: 80%;"
+                  ></textarea>
+        <div class="latex-input-window-buttons">
+            <button class="btn-insert primary-button" data-i18n=""
+                title="Insert text at current cursor position and close this window.">Insert</button>
+            <button class="btn-copy primary-button" data-i18n=""
+                title="Copy text to clipboard.">Copy</button>
+            <button class="btn-clear  primary-button" data-i18n=""
+                title="Clear text.">Clear</button>
+        </div>
+    </div>
+`});
+
+
+spellCheckWindow.onClick(".btn-insert", () => {
+     let input = spellCheckWindow.querySelector(".spell-check-input");
+     editorInsertTextArCursor(input.value);
+     input.value = "";
+     spellCheckWindow.close();
+});
+spellCheckWindow.onClick(".btn-copy", () => {
+     let input = spellCheckWindow.querySelector(".spell-check-input");
+     navigator.clipboard.writeText(input.value);
+});
+spellCheckWindow.onClick(".btn-clear", () => spellCheckWindow
+                                                .querySelector(".spell-check-input")
+                                                .value = "" );
+
+//// window.onpaste = onPasteEventHandler;
     // window.addEventListener("paste", onPasteEventHandler, false);
 
     // document.onpaste = onPasteEventHandler;

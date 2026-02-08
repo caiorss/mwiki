@@ -756,6 +756,7 @@ translationsi18n =
 										  "label": "Reference Card"
 										, "title": "Displays reference card containing examples about the markdown syntax."
 									  }
+		, "edit-page-spellchecker-button": "Spell Checker"
 		, "edit-page-insert-link-button": {
 											  "label": "Link to Wiki page" 
 											 ,"title": "Insert hyperlink to existing wiki page at current cursor position."
@@ -978,6 +979,7 @@ translationsi18n =
 										  "label": "Cartão de Referência"
 										, "title": "Exibe um cartão de referência contendo exemplos sobre a sintaxe do markdown."
 									  }
+		, "edit-page-spellchecker-button": "Corretor Ortográfico"
 		, "edit-page-insert-link-button": {
 											  "label": "Link para página da Wiki" 
 											 ,"title": "Inserir hiperlink para uma página wiki existente na posição atual do cursor."
