@@ -649,6 +649,15 @@ fonts_database  = [
           "key":      "range-mono"
         , "family":   "Range Mono"
         , "regular":  "range-mono-medium-webfont.woff"
+    },
+    {
+          "key":          "maplemono"
+        , "family":       "MapleMono"
+        , "regular":      "MapleMono-Regular.woff2"
+        , "italic":       "MapleMono-Italic.woff2"
+        , "bold":         "MapleMono-Bold.woff2"
+        , "bold-italic":  "MapleMono-BoldItalic.woff2"
+        , "url":          "https://font.subf.dev/en/"
     }
     ,{
           "key":         "ia-writer-quattro-s"

@@ -291,6 +291,7 @@ class CodeFontFamily(enum.Enum):
     # printing code in computer magazines.
     dotmatrix = "Epson DotMatrix"
     dotmatrix_duo = "Epson DotMatrixDuo"
+    mapple_mono = "MapleMono"
     
 
 
