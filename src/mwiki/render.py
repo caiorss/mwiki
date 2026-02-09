@@ -1596,6 +1596,8 @@ class HtmlRenderer(AbstractAstRenderer):
             html = self._render_display_math(node.content)
         elif info == "{references}":
             html = self._render_citation_references(node)
+        elif info == "{html}":
+            html = self._render_iframe(node)
         # Render multi-line comment blocks
         #
         # Example 1:
@@ -2249,6 +2251,24 @@ class HtmlRenderer(AbstractAstRenderer):
             html = "<p><b>ERROR </b>" + utils.escape_html(str(ex)) + "</p>"
             ## raise ex
         return html 
+
+
+    def _render_foldable_block(self) -> str:
+        return ""
+
+    def _render_iframe(self, node: SyntaxTreeNode) -> str:
+        code, directives  = mparser.get_code_block_directives(node.content)
+        width  = directives.get("width", "100%").strip('"')
+        height = directives.get("height", "500px").strip('"')
+        src = "data:text/html;base64,%s" % utils.base64_encode(code)
+        html =  """
+          <div class="div-wiki-image">
+            <iframe sandbox="allow-scripts allow-forms"
+                    style="border: 1px solid back; width: %s; height: %s"
+                    src="%s">
+            </iframe>
+          </div>""" % (width, height, src)
+        return html
 
     def _render_citation_reference_ieee(self) -> str:
         html = '''<div  id="div-list-citation-refereces"  class="citation-references">\n%s\n</div> '''

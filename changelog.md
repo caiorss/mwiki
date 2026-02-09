@@ -3,6 +3,7 @@
 
 ## Release v0.9.5
 
++  implement {html} block for embeding html, css and JavaScript code in a sandboxed iframe.
 + Add code font/typeface Maple Mono provided <https://font.subf.dev/en>.
 + Implement popup window for using the web browser's spell checker. This window in the editor page allows user to check the spelling of any pasted text using the native web browser's spell checker. 
 + Force downloading Jupyter Notebook if the user clicks at the download button.
