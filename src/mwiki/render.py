@@ -1707,60 +1707,7 @@ class HtmlRenderer(AbstractAstRenderer):
         elif info.startswith("{figure}"):
             html = self.render_figure(info, node)
         elif info.startswith("{video}"):
-            video = utils.strip_prefix("{video}", info).strip()
-            x = video.split(".")
-            video_extension = "" if len(x) == 0 else x[-1]
-            if video.startswith("![[") and video.endswith("]]"):
-                # video =  "/wiki/" + video.strip("![]")
-                if not self._static_compilation:
-                    video =  "/wiki/" + video.strip("![]")
-                else:
-                    file = video.strip("![]")
-                    match = self.find_file(file)
-                    self.add_file(match)
-                    video = self._root_url + str(match.relative_to(self._base_path)) \
-                            if match else "#"
-                
-            content, directives = mparser.get_code_block_directives(node.content)
-            # Image caption
-            caption = content.strip()
-            caption_ast =  mparser.parse_source(caption)
-            captiona_ast_inline = None
-            if len(caption_ast.children) >= 1:
-                if caption_ast.children[0].type == "paragraph":
-                    captiona_ast_inline = caption_ast.children[0].children[0]
-                else:
-                    captiona_ast_inline = caption_ast.children[0]
-            caption_html = caption if captiona_ast_inline is None else self.render(captiona_ast_inline)
-            # Name is a label - unique identifier for cross referencing with hyperlinks.
-            name = directives.get("name", "")
-            # Alternative text for acessibility (Optional)
-            alt = directives.get("alt", caption)
-            # Image height (Optional)
-            height = f"height={u}" if (u := directives.get("height")) else ""
-            # Image width (Optional)
-            width = f"height={u}" if (u := directives.get("width")) else ""
-            ## Rendering of this node
-            if not self._preview:
-                html =  """
-                        <div class="div-wiki-image">
-                            <div class="lazy-load-video" data-src="%s"  data-type="video/%s" data-alt="%s">
-                            </div>
-                            <p class="video-caption"><label data-i18n="video-prefix-label">Video</label> %d: %s</p>
-                        </div>
-                        """ % (video, video_extension, alt, self._video_counter, caption_html)
-            else:
-                html =  """
-                <div class="divi-wiki-image">
-                    <video controls width="80%">
-                        <source src="%s" type="video/%s">
-                        Download the <a href="%s">%s Video</a>
-                    </video>
-                    <p class="video-caption"><label data-i18n="video-prefix-label">Video</label> %d: %s</p>
-                </div>
-                        """ % (video, video_extension, video, video_extension
-                               , self._video_counter, caption)
-            self._video_counter += 1
+            html = self.render_video(info, node)
         ## Render list of footnotes hyperlinks
         elif info == "{footnotes}":
                     ## Render footnotes foward references
@@ -2256,6 +2203,61 @@ class HtmlRenderer(AbstractAstRenderer):
         self._figure_counter += 1
         return html
 
+    def render_video(self, info: str, node: SyntaxTreeNode) -> str:
+        video = utils.strip_prefix("{video}", info).strip()
+        x = video.split(".")
+        video_extension = "" if len(x) == 0 else x[-1]
+        if video.startswith("![[") and video.endswith("]]"):
+            # video =  "/wiki/" + video.strip("![]")
+            if not self._static_compilation:
+                video =  "/wiki/" + video.strip("![]")
+            else:
+                file = video.strip("![]")
+                match = self.find_file(file)
+                self.add_file(match)
+                video = self._root_url + str(match.relative_to(self._base_path)) \
+                        if match else "#"
+        content, directives = mparser.get_code_block_directives(node.content)
+        # Image caption
+        caption = content.strip()
+        caption_ast =  mparser.parse_source(caption)
+        captiona_ast_inline = None
+        if len(caption_ast.children) >= 1:
+            if caption_ast.children[0].type == "paragraph":
+                captiona_ast_inline = caption_ast.children[0].children[0]
+            else:
+                captiona_ast_inline = caption_ast.children[0]
+        caption_html = caption if captiona_ast_inline is None else self.render(captiona_ast_inline)
+        # Name is a label - unique identifier for cross referencing with hyperlinks.
+        name = directives.get("name", "")
+        # Alternative text for acessibility (Optional)
+        alt = directives.get("alt", caption)
+        # Image height (Optional)
+        height = f"height={u}" if (u := directives.get("height")) else ""
+        # Image width (Optional)
+        width = f"height={u}" if (u := directives.get("width")) else ""
+        ## Rendering of this node
+        if not self._preview:
+            html =  """
+                    <div class="div-wiki-image">
+                        <div class="lazy-load-video" data-src="%s"  data-type="video/%s" data-alt="%s">
+                        </div>
+                        <p class="video-caption"><label data-i18n="video-prefix-label">Video</label> %d: %s</p>
+                    </div>
+                    """ % (video, video_extension, alt, self._video_counter, caption_html)
+        else:
+            html =  """
+            <div class="divi-wiki-image">
+                <video controls width="80%%">
+                    <source src="%s" type="video/%s">
+                    Download the <a href="%s">%s Video</a>
+                </video>
+                <p class="video-caption"><label data-i18n="video-prefix-label">Video</label> %d: %s</p>
+            </div>
+                    """ % (video, video_extension, video, video_extension
+                           , self._video_counter, caption)
+        self._video_counter += 1
+        return html
 
     def _render_foldable_block(self) -> str:
         return ""
