@@ -1705,57 +1705,7 @@ class HtmlRenderer(AbstractAstRenderer):
         # Render figure (pictures/images) with metadata including
         # height, width, alt text,
         elif info.startswith("{figure}"):
-            image = utils.strip_prefix("{figure}", info).strip()
-            if image.startswith("![[") and image.endswith("]]"):
-                #breakpoint()
-                if not self._static_compilation:
-                    image =  "/wiki/" + image.strip("![]")
-                else:
-                    file = image.strip("![]")
-                    match = self.find_file(file)
-                    self.add_file(match)
-                    image = self._root_url + str(match.relative_to(self._base_path)) \
-                            if match else "#"
-                    if self._self_contained and match:
-                        image = utils.file_to_base64_data_uri(match)
-            else:
-                image = image.replace("@root", self._root_url)
-            content, directives = mparser.get_code_block_directives(node.content)
-            # Image caption 
-            caption = content.strip()
-            caption_ast =  mparser.parse_source(caption)
-            captiona_ast_inline = None
-            if len(caption_ast.children) >= 1:
-                if caption_ast.children[0].type == "paragraph":
-                    captiona_ast_inline = caption_ast.children[0].children[0]
-                else:
-                    captiona_ast_inline = caption_ast.children[0]
-            caption_html = caption if captiona_ast_inline is None else self.render(captiona_ast_inline)
-            # Name is a label - unique identifier for cross referencing with hyperlinks.
-            name = directives.get("name", "")
-            # Alternative text for acessibility (Optional)
-            alt = utils.escape_html( directives.get("alt", caption).strip() )
-            # Image height (Optional)
-            height = f"height={u}" if (u := directives.get("height")) else ""
-            # Image width (Optional)
-            width = f"height={u}" if (u := directives.get("width")) else ""
-            button = "" if not self._display_alt_button or alt == "" \
-                            else  """<button class="btn-show-alt-text">ALT</button> """
-            ## Rendering of this node
-            if not self._preview:
-                html = ("""<div class="div-wiki-image" div-figure>""" 
-                      + """<div class="inner-figure">"""
-                      + """<img id="figure-%s" class="wiki-image lazy-load anchor" data-src="%s" alt="%s" %s %s>""" 
-                      + button 
-                      + """</div>"""
-                      + """<p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> %d: %s</p>"""
-                      + """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption_html)
-            else:
-                html = ("""<div class="div-wiki-image" div-figure>""" 
-                        """<img id="figure-%s" class="wiki-image  anchor" src="%s" alt="%s" %s %s>""" 
-                        """<p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> %d: %s</p>"""
-                        """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption_html)
-            self._figure_counter += 1
+            html = self.render_figure(info, node)
         elif info.startswith("{video}"):
             video = utils.strip_prefix("{video}", info).strip()
             x = video.split(".")
@@ -2251,6 +2201,60 @@ class HtmlRenderer(AbstractAstRenderer):
             html = "<p><b>ERROR </b>" + utils.escape_html(str(ex)) + "</p>"
             ## raise ex
         return html 
+
+    def render_figure(self, info: str, node: SyntaxTreeNode) -> str:
+        image = utils.strip_prefix("{figure}", info).strip()
+        if image.startswith("![[") and image.endswith("]]"):
+            #breakpoint()
+            if not self._static_compilation:
+                image =  "/wiki/" + image.strip("![]")
+            else:
+                file = image.strip("![]")
+                match = self.find_file(file)
+                self.add_file(match)
+                image = self._root_url + str(match.relative_to(self._base_path)) \
+                        if match else "#"
+                if self._self_contained and match:
+                    image = utils.file_to_base64_data_uri(match)
+        else:
+            image = image.replace("@root", self._root_url)
+        content, directives = mparser.get_code_block_directives(node.content)
+        # Image caption 
+        caption = content.strip()
+        caption_ast =  mparser.parse_source(caption)
+        captiona_ast_inline = None
+        if len(caption_ast.children) >= 1:
+            if caption_ast.children[0].type == "paragraph":
+                captiona_ast_inline = caption_ast.children[0].children[0]
+            else:
+                captiona_ast_inline = caption_ast.children[0]
+        caption_html = caption if captiona_ast_inline is None else self.render(captiona_ast_inline)
+        # Name is a label - unique identifier for cross referencing with hyperlinks.
+        name = directives.get("name", "")
+        # Alternative text for acessibility (Optional)
+        alt = utils.escape_html( directives.get("alt", caption).strip() )
+        # Image height (Optional)
+        height = f"height={u}" if (u := directives.get("height")) else ""
+        # Image width (Optional)
+        width = f"height={u}" if (u := directives.get("width")) else ""
+        button = "" if not self._display_alt_button or alt == "" \
+                        else  """<button class="btn-show-alt-text">ALT</button> """
+        ## Rendering of this node
+        if not self._preview:
+            html = ("""<div class="div-wiki-image" div-figure>""" 
+                  + """<div class="inner-figure">"""
+                  + """<img id="figure-%s" class="wiki-image lazy-load anchor" data-src="%s" alt="%s" %s %s>""" 
+                  + button 
+                  + """</div>"""
+                  + """<p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> %d: %s</p>"""
+                  + """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption_html)
+        else:
+            html = ("""<div class="div-wiki-image" div-figure>""" 
+                    """<img id="figure-%s" class="wiki-image  anchor" src="%s" alt="%s" %s %s>""" 
+                    """<p class="figure-caption"><label data-i18n="figure-prefix-label">Figure</label> %d: %s</p>"""
+                    """</div>""") %  (name, image, alt, height, width, self._figure_counter, caption_html)
+        self._figure_counter += 1
+        return html
 
 
     def _render_foldable_block(self) -> str:
