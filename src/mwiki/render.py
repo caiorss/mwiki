@@ -1721,58 +1721,7 @@ class HtmlRenderer(AbstractAstRenderer):
         # Disable flashcard if-else branch while the flashcard
         # feature is not ready yet.
         elif info == "{flashcard}":
-            code = node.content 
-            data = None 
-            try:
-                data = json.loads(node.content) 
-                title = data.get("title", "")
-                entries = data.get("entries", [])
-                html = ""
-                k = 0
-                n = len(entries)
-                for card in entries:
-                    if len(card) < 1:
-                        return "<b>Flashcard error: each entry must be an array of size 2</b>" 
-                    front = card[0] # Contains the question 
-                    back  = card[1] # Contains the response 
-                    style = "hidden" if k != 0 else ""
-                    html += ("""<div class="card-entry %s" data-index="%s">\n""" % (style , k)
-                                + """<button class="btn-show-card primary-button">open</button>""" 
-                                + """<label class="label-card-front">(%d/%d) %s</label>""" % (k+1, n, front) 
-                                + """<p class="card-answer hidden">ANSWER: %s</p>""" % back 
-                                + """</div>""")
-                    k = k + 1
-                show_deck = f'<img class="btn-flashcard-view btn-icon" title="Display all flashcards and their backsides." src="{self._root_url}/static/folder2-open.svg">' 
-                reset_button = f'<img class="btn-flashcard-reset btn-icon" title="Reset flashcard deck." src="{self._root_url}/static/arrow-90deg-down.svg">'
-                arrow_left_bold = f'<img class="btn-flashcard-prev btn-icon" title="Go to previous flashcard." src="{self._root_url}/static/arrow-left-bold.svg">'
-                arrow_right_bold = f'<img class="btn-flashcard-next btn-icon" title="Go to next flashcard." src="{self._root_url}/static/arrow-right-bold.svg">'
-                html = (  """<div class="div-flashcard"  data-size="%s">""" % len(entries)
-                        + """<div><h2 class="flashcard-title">%s</h2></div>""" % title
-                        + """<div class="div-flashcard-button-panel">""" 
-                            + show_deck
-                            # + """<button class="btn-flashcard-view primary-button" title="Show all flashcards and their backsides (answers).">View</button>""" 
-                            + arrow_left_bold 
-                            ##+ f"""<a class="btn-flashcard-prev" title="Show previous flashcard." href="#">{arrow_left_bold}</a>""" 
-                            #+ f"""<a class="btn-flashcard-next" href="#" title="Show next flashcard in this deck.">{arrow_right_bold}</a>""" 
-                            + arrow_right_bold
-                            + reset_button
-                            + """<div>"""
-                                # + """<button class="btn-flashcard-reset primary-button" title="Reset flashcard deck.">Reset</button>""" 
-                               + """<input class="random-mode-checkbox" type="checkbox" name="random" title="Pick flashcards in random order."><label for="random">Random</label>"""
-                               + """<input class="display-backside-checkbox" type="checkbox" name="display-backside" title="Always display backside of current flashcard."><label for="display-backside-checkbox">Show backside</label>"""
-                            + """</div>"""
-                            + """</div>""" 
-                            
-                        + """<div class="flashcard-entries">\n""" +  html  + """\n</div>"""
-                        + """</div>"""
-                        )
-            except (json.JSONDecodeError, IndexError) as ex:
-                msg = str(ex) if isinstance(ex, json.JSONDecodeError) else ""
-                html = (  """<div class="div-flashcard-error">"""
-                        + """\n<b>Flash card error: bad json syntax</b>"""
-                        + """\n<p>""" + msg + """"</p>"""
-                        + """\n<pre>""" + utils.escape_html(node.content) + """</pre>"""
-                        )
+            html = self.render_flashcard(info, node)
         else:
             code = utils.highlight_code(node.content, language = info)
             html = f"""<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="{self._root_url}/static/content-copy.svg"></a></span><pre>\n<code class="language-{info.strip()}">{code}</code>\n</pre></div>"""
@@ -2257,6 +2206,60 @@ class HtmlRenderer(AbstractAstRenderer):
                     """ % (video, video_extension, video, video_extension
                            , self._video_counter, caption)
         self._video_counter += 1
+        return html
+
+    def render_flashcard(self, info: str, node: SyntaxTreeNode) -> str:
+        data = None 
+        try:
+            data = json.loads(node.content) 
+            title = data.get("title", "")
+            entries = data.get("entries", [])
+            html = ""
+            k = 0
+            n = len(entries)
+            for card in entries:
+                if len(card) < 1:
+                    return "<b>Flashcard error: each entry must be an array of size 2</b>" 
+                front = card[0] # Contains the question 
+                back  = card[1] # Contains the response 
+                style = "hidden" if k != 0 else ""
+                html += ("""<div class="card-entry %s" data-index="%s">\n""" % (style , k)
+                            + """<button class="btn-show-card primary-button">open</button>""" 
+                            + """<label class="label-card-front">(%d/%d) %s</label>""" % (k+1, n, front) 
+                            + """<p class="card-answer hidden">ANSWER: %s</p>""" % back 
+                            + """</div>""")
+                k = k + 1
+            show_deck = f'<img class="btn-flashcard-view btn-icon" title="Display all flashcards and their backsides." src="{self._root_url}/static/folder2-open.svg">' 
+            reset_button = f'<img class="btn-flashcard-reset btn-icon" title="Reset flashcard deck." src="{self._root_url}/static/arrow-90deg-down.svg">'
+            arrow_left_bold = f'<img class="btn-flashcard-prev btn-icon" title="Go to previous flashcard." src="{self._root_url}/static/arrow-left-bold.svg">'
+            arrow_right_bold = f'<img class="btn-flashcard-next btn-icon" title="Go to next flashcard." src="{self._root_url}/static/arrow-right-bold.svg">'
+            html = (  """<div class="div-flashcard"  data-size="%s">""" % len(entries)
+                    + """<div><h2 class="flashcard-title">%s</h2></div>""" % title
+                    + """<div class="div-flashcard-button-panel">""" 
+                        + show_deck
+                        # + """<button class="btn-flashcard-view primary-button" title="Show all flashcards and their backsides (answers).">View</button>""" 
+                        + arrow_left_bold 
+                        ##+ f"""<a class="btn-flashcard-prev" title="Show previous flashcard." href="#">{arrow_left_bold}</a>""" 
+                        #+ f"""<a class="btn-flashcard-next" href="#" title="Show next flashcard in this deck.">{arrow_right_bold}</a>""" 
+                        + arrow_right_bold
+                        + reset_button
+                        + """<div>"""
+                            # + """<button class="btn-flashcard-reset primary-button" title="Reset flashcard deck.">Reset</button>""" 
+                           + """<input class="random-mode-checkbox" type="checkbox" name="random" title="Pick flashcards in random order."><label for="random">Random</label>"""
+                           + """<input class="display-backside-checkbox" type="checkbox" name="display-backside" title="Always display backside of current flashcard."><label for="display-backside-checkbox">Show Answer</label>"""
+                        + """</div>"""
+                        + """</div>""" 
+                        
+                    + """<div class="flashcard-entries">\n""" +  html  + """\n</div>"""
+                    + """</div>"""
+                    )
+        except (json.JSONDecodeError, IndexError) as ex:
+            msg = str(ex) if isinstance(ex, json.JSONDecodeError) else ""
+            html = (  """<div class="div-flashcard-error">"""
+                    + """\n<b>Flash card error: bad json syntax</b>"""
+                    + """\n<p>""" + msg + """"</p>"""
+                    + """\n<pre>""" + utils.escape_html(node.content) + """</pre>"""
+                    )
         return html
 
     def _render_foldable_block(self) -> str:
