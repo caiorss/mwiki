@@ -242,6 +242,13 @@ function insertCodeBlock()
   editorInsertTextArCursor(text);
 }
 
+function insertPythonCodeBlock()
+{
+  let text = "```python\n\n```";
+  editorInsertTextArCursor(text);
+}
+
+
 function noSubmitForm(event)
 {
     console.log(" [TRACE] noSubmitForm called ok.")
