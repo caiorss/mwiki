@@ -1,0 +1,14 @@
+{
+  "language_overrides": {
+    "python": { "format_on_save": "off" },
+    "javascript": { "format_on_save": "off" },
+  },
+  "languages": {
+    "Python": {
+      "format_on_save": "off",
+    },
+    "JavaScript": {
+      "format_on_save": "off",
+    },
+  },
+}
