@@ -3,7 +3,7 @@
 # Run MWiki in development mode (without WSGI). NOTE that it should not
 # be used for production purposes or deployment.
 run:
-	uv run mwiki server --wikipath=./sample-wiki  --auth
+	uv run mwiki server --debug --wikipath=./sample-wiki  --auth
 
 # Run pytest
 test:
