@@ -254,6 +254,12 @@ function insertMatlabCodeBlock()
   editorInsertTextArCursor(text);
 }
 
+function insertJuliaCodeBlock()
+{
+  let text = "```julia\n\n```";
+  editorInsertTextArCursor(text);
+}
+
 function noSubmitForm(event)
 {
     console.log(" [TRACE] noSubmitForm called ok.")
