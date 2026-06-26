@@ -1204,7 +1204,7 @@ Video caption (also known as label)
 Sample code:
 
 ````markdown
-```{video}  ![[pendulum-with-viscuous-fricition-simulation.mp4]]
+```{video}  ![[pendulum-with-viscuous-fricition-simulation.webm]]
 
 Simulation (animation) of simple pendulum with viscous friction using Runge Kutta 4{th} order method
 ```
@@ -1212,7 +1212,7 @@ Simulation (animation) of simple pendulum with viscous friction using Runge Kutt
 
 Rendering:
 
-```{video}  ![[pendulum-with-viscuous-fricition-simulation.mp4]]
+```{video}  ![[pendulum-with-viscuous-fricition-simulation.webm]]
 
 Simulation (animation) of simple pendulum with viscous friction using Runge Kutta 4{th} order method
 ```
@@ -2990,4 +2990,4 @@ It is possible to view all flashcards and their backside at once; go to next car
    + => Allows testing MyST online without installation.
 + https://myst-parser.readthedocs.io/en/latest/syntax/math.html
 + https://markdown-it-py.readthedocs.io/en/latest/architecture.html
-+ https://mystmd.org/guide/glossaries-and-terms  
++ https://mystmd.org/guide/glossaries-and-terms
