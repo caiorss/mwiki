@@ -248,6 +248,11 @@ function insertPythonCodeBlock()
   editorInsertTextArCursor(text);
 }
 
+function insertMatlabCodeBlock()
+{
+  let text = "```matlab\n\n```";
+  editorInsertTextArCursor(text);
+}
 
 function noSubmitForm(event)
 {
