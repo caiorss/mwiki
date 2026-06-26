@@ -1,15 +1,18 @@
-.PHONY: run 
+.PHONY: run
+
+# Run MWiki in development mode (without WSGI). NOTE that it should not
+# be used for production purposes or deployment.
 run:
-	poetry run python -m mdwiki
+	uv run mwiki server --wikipath=./sample-wiki  --auth
 
-# Run pytest 
+# Run pytest
 test:
-	uv run pytest -vv --tb=short 
+	uv run pytest -vv --tb=short
 
-# Display test coverage report 
+# Display test coverage report
 cov:
 	uv run pytest --cov
-	
+
 # Generate sample static websiste by compiling the repository ./sample-wiki
 gh-pages:
 	uv run mwiki export --wikipath=./sample-wiki \
@@ -35,29 +38,29 @@ static:
 		--allow-language-switch \
 		--output=./out
 
-# Build Docker container image 
-docker: docker-build.log 
+# Build Docker container image
+docker: docker-build.log
 
 # Build Podman container image
 podman: podman-build.log
 
 # Build virtual-env with same dependencies specified
 # in the Pipfile and the lockfile.
-.PHONY: poetry 
+.PHONY: poetry
 poetry:
-	poetry install 
+	poetry install
 
 
-.PHONY: vscode 
+.PHONY: vscode
 vscode:
 	cp -v .vscode/settings.json .vscode/settings.json.back
 	cp -v .vscode/launch.json .vscode/launch.json.back
 	python3 vscode.py
 
 
-# Install package using pipx tool 
+# Install package using pipx tool
 # Install pipx first $ pip install pipx
-.PHONY: install 
+.PHONY: install
 install:
 	pipx install . --force
 
@@ -73,7 +76,7 @@ DOCKER_FILES := $(shell find ./docker -type f -print)
 SOURCES := $(PYFILES) $(TPLFILES) $(JSFILES) $(DOCKER_FILES)
 
 
-# Create the file requirements.txt, which is useful 
+# Create the file requirements.txt, which is useful
 # for building docker images.
 requirements.txt:  pyproject.toml
 	uv export --format requirements-txt | sed -s 's/-e .//' > requirements.txt
@@ -84,19 +87,19 @@ docker-build.log: requirements.txt  $(SOURCES)
 podman-build.log: requirements.txt $(SOURCES)
 	podman build -f docker/mwiki.Dockerfile --tag mwiki-server . 2>&1 | tee ./docker-build.log 2>&1 | tee ./podman-build.log
 
-requirements: requirements.txt 
+requirements: requirements.txt
 
-.PHONY: clean 
+.PHONY: clean
 clean:
-	rm -rf -v ./mdwiki.egg-info 
-	rm -rf -v build 
-	rm -rf -v dist 
-	rm -rf -v flask_session 
+	rm -rf -v ./mdwiki.egg-info
+	rm -rf -v build
+	rm -rf -v dist
+	rm -rf -v flask_session
 
 
-.PHONY: build 
-build: 
-	poetry build 
+.PHONY: build
+build:
+	poetry build
 
 
 .PHONY: all-in-one
@@ -104,10 +107,10 @@ all-in-one:
 	podman build -t mwiki  --file docker/all-in-one.Dockerfile .
 
 # Build a deployable .pex archive (Similar to Java's JAR files)
-# Requires installing PEX 
+# Requires installing PEX
 # $ pip install pex
-.PHONY: pex 
+.PHONY: pex
 pex:
 	pex . -e mwiki.cli:main -o mwiki.pex
 
-.PHONY: install clean run vscode 
+.PHONY: install clean run vscode
