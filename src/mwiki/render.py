@@ -2124,6 +2124,7 @@ class HtmlRenderer(AbstractAstRenderer):
         video = utils.strip_prefix("{video}", info).strip()
         x = video.split(".")
         video_extension = "" if len(x) == 0 else x[-1]
+        video_extension = video_extension.replace("]]", "")
         if video.startswith("![[") and video.endswith("]]"):
             # video =  "/wiki/" + video.strip("![]")
             if not self._static_compilation:
@@ -2174,7 +2175,6 @@ class HtmlRenderer(AbstractAstRenderer):
                     """ % (video, video_extension, video, video_extension
                            , self._video_counter, caption)
         self._video_counter += 1
-        breakpoint()
         return html
 
     def render_flashcard(self, info: str, node: SyntaxTreeNode) -> str:
