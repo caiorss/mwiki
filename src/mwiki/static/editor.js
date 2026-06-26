@@ -15,15 +15,15 @@ if( document.location.pathname.endsWith("/edit/special:macros") )
 
 editor.setOptions({
       selectionStyle:     "line"  // "line" | "text"
-    , highlightActiveLine: true   // boolean 
-    , readOnly:            false  // 
+    , highlightActiveLine: true   // boolean
+    , readOnly:            false  //
     , cursorStyle:        "ace"
     , showFoldWidgets:     true
-    , showLineNumbers:     false  
+    , showLineNumbers:     false
     , theme:               'ace/theme/textmate'
-    , useSoftTabs:         true 
-    , wrap:                true 
-    , indentSoftWrap:      true 
+    , useSoftTabs:         true
+    , wrap:                true
+    , indentSoftWrap:      true
     , foldStyle:          'markbegin'
 
 });
@@ -89,7 +89,7 @@ function disableControl(cssSelector)
 
 if( document.location.pathname === "/edit/special:macros" )
 {
-    
+
     disableControl("[data-i18n='edit-page-back-button']");
     disableControl("[data-i18n='edit-page-preview-button']");
 }
@@ -146,7 +146,7 @@ async function editorSaveDocument()
     const is_macro  = window.location.pathname.split("/")[2] === "special:macros";
     let payload = {  "content": code
                    , "start":   lineStart
-                   , "end":     lineEnd 
+                   , "end":     lineEnd
                 };
     setStatusbarText(`Saving document at ${datetime}. Wait ...`);
     // Disable save buttons whiling saving the document and waiting a server response.
@@ -162,7 +162,7 @@ async function editorSaveDocument()
         // Note:  currentWikipage is global variable defined in edit.html template.
         let url = `/wiki/${currentWikiPage}#${anchor}`
         // Redirect to corresponding wiki page
-        // and heading 
+        // and heading
         if(!is_macro){
             document.location.href = url;
         }
@@ -236,6 +236,12 @@ async function insertLinkToPage()
     selectPageWindow.show();
 }
 
+function insertCodeBlock()
+{
+  let text = "```\n\n```";
+  editorInsertTextArCursor(text);
+}
+
 function noSubmitForm(event)
 {
     console.log(" [TRACE] noSubmitForm called ok.")
@@ -276,7 +282,7 @@ function insertLinkToPageCallback()
     let text = `[[${selectedPage}]]`;
     editorInsertTextArCursor(text);
     selectPageWindow.close();
-}   
+}
 
 function notImplemented()
 {
@@ -337,8 +343,8 @@ async function pasteImage(event) {
 
 
 
-/** Compiles AST of html5 nodes (DOM) to MWiki markdown. 
- * 
+/** Compiles AST of html5 nodes (DOM) to MWiki markdown.
+ *
  * + AST => Abstract Syntax Tree
  * + DOM => Domain Object Model
  ********************************************/
@@ -354,11 +360,11 @@ function domToMarkdownCompiler(dom)
         let nextDom = dom.childNodes[1];
         console.assert(nextDom.nodeName === "BODY");
         out = domToMarkdownCompiler(nextDom);
-    } 
+    }
     // else if (ntype === "BODY" || ntype == "P" || ntype === "LI" || ntype == "UL" || ntype == "EM" || ntype == "H3")
     else if ( arrayNodeTypes.includes(ntype) )
     {
-       for(let ch of dom.childNodes) 
+       for(let ch of dom.childNodes)
        {
             let nodeMarkdown = domToMarkdownCompiler(ch);
             if(ch.nodeName == "LI"){
@@ -401,9 +407,9 @@ function domToMarkdownCompiler(dom)
         let text = dom.data.trim().replace("’", "'")
                                   .replace("“", "\"")
                                   .replace("”", "\"");
-        out = text.split("\n").map(x => x.trim()).join(); 
+        out = text.split("\n").map(x => x.trim()).join();
         //text.split("\n").map(x => " " + x.trim()).join().trim();
-        console.log(" [TRACE] ntype - #text => out = \n", out); 
+        console.log(" [TRACE] ntype - #text => out = \n", out);
     } else if (ntype === "A")
     {
         if(dom.innerText === ""){
@@ -447,7 +453,7 @@ function onPasteEventHandler (text, event)
     // event.preventDefault();
     // event.stopPropagation();
 
-    let choice = document.querySelector('input[name="clipboardChoice"]:checked').value;    
+    let choice = document.querySelector('input[name="clipboardChoice"]:checked').value;
     console.log(" Clipboard Choice = ", choice);
 
     console.log("event = ", event);
@@ -460,12 +466,12 @@ function onPasteEventHandler (text, event)
     {
         console.error("Not implemented pasting for images/png");
 
-    } else if( types.includes("text/html") && choice == "html" ) 
+    } else if( types.includes("text/html") && choice == "html" )
     {
-        out = clipboard.getData("text/html"); 
+        out = clipboard.getData("text/html");
 
-    } 
-    else if( types.includes("text/html") && choice == "markdown" ) 
+    }
+    else if( types.includes("text/html") && choice == "markdown" )
     {
         let html = clipboard.getData("text/html");
         out  = htmlToMarkdown(html);
@@ -475,7 +481,7 @@ function onPasteEventHandler (text, event)
         console.log("Pasting text =", clipboard.getData("text/plain"));
         out = clipboard.getData("text/plain");
 
-    } else 
+    } else
     {
         console.error("Not implemented pasting this type");
     }
@@ -558,11 +564,11 @@ async function handleUploadFormSubmit(event)
         , 405: "405 - Http Method POST Not Allowed"
         , 500: "500 - Internal Server Error"
     };
-    let dom = document.querySelector("#upload-status");        
+    let dom = document.querySelector("#upload-status");
     dom.innerText = 'Uploading file wait ...';
     const res = await fetch(url, fetchOptions)
                             .catch(networkErrorHandler);
-        
+
     // console.log(" dom = ", dom);
     var result = null;
     // alert("Not implemented");
@@ -666,20 +672,20 @@ async function editorPreviewDocument()
     let payload = { "code": code, "page": currentWikiPage };
     let out = await http_post("/api/preview", payload);
     if( out.status != "ok" ){ return;}
-    // Default value: "Preview of" 
+    // Default value: "Preview of"
     let localizedTitlePrefix = geti18nTranslation("edit-page-preview-popup-window") || "Preview of";
     let previewWindow = new PopupWindow({
           title: `${localizedTitlePrefix} ${currentWikiPageTitle}`
-        , html:   `<iframe id="iframe-preview" 
+        , html:   `<iframe id="iframe-preview"
                            sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation-by-user-activation"
-                           srcdoc="${out.html}"  
-                           width="100%" 
-                           height="100%" 
+                           srcdoc="${out.html}"
+                           width="100%"
+                           height="100%"
                            ></iframe> `
         , width:  "95%"
         , height: "98%"
         , top: "0px"
-        , left: "0px" 
+        , left: "0px"
     });
     previewWindow.setHeight("98%");
     previewWindow.show();
@@ -689,7 +695,7 @@ latexEntryWindow = null;
 latexRenderingUpdateFunc = null;
 
 document.addEventListener("DOMContentLoaded", function(){
-    
+
     latexEntryWindow = new PopupWindow({
            title: "LaTeX Input Window"
         ,  titleI18nTag: "latex-input-window-title"
@@ -730,14 +736,14 @@ document.addEventListener("DOMContentLoaded", function(){
     {
         let latexCode = latexEntry.value;
         latexOutput.textContent =
-                IS_LATEX_RENDERER_KATEX ? latexCode : "$$\n" + latexCode + "\n$$"; 
+                IS_LATEX_RENDERER_KATEX ? latexCode : "$$\n" + latexCode + "\n$$";
         renderDOMLatex(latexEntryWindow.dom());
     }
 
     latexRenderingUpdateFunc = updateLatexRendering;
-    
+
     function insertLatexCode()
-    {        
+    {
         let latexCode = latexEntry.value;
         latexEntryWindow.close();
         editorInsertTextArCursor("\n$$\n" + latexCode + "\n$$\n");
@@ -748,7 +754,7 @@ document.addEventListener("DOMContentLoaded", function(){
         latexEntry.value = "";
         updateLatexRendering();
     }
-    
+
 
     function handleKeyDown(e) {
         console.log(" [TRACE] e = ", e);
@@ -777,7 +783,7 @@ document.addEventListener("DOMContentLoaded", function(){
         this.value = this.value.substring(0, start) + "\t" + this.value.substring(end);
         this.selectionStart = this.selectionEnd = start + 1;
     }
-    
+
     // updateLatexRendering();
     //btnCancelLatex.addEventListener("click", latexEntryWindow.close);
     latexEntry.addEventListener("input", updateLatexRendering);
@@ -895,16 +901,16 @@ unicodeWindow = new PopupWindow({
                 <button>✓</button>
                 <button>√</button>
                 <button>∞</button>
-                <button title="Per mile sign">‰</button> 
+                <button title="Per mile sign">‰</button>
                 <button title="Per thousands sign (basis points)">‱</button>
-                <button title="Prime">′</button> 	
-                <button title="Double prime">″</button> 
+                <button title="Prime">′</button>
+                <button title="Double prime">″</button>
                 <button title="Triple prime">‴</button>
-                <button title="Set of complex numbers">ℂ</button> 	
+                <button title="Set of complex numbers">ℂ</button>
                 <button title="Hilbert Space">ℋ </button>
                 <button title="Set of quaternions">ℍ</button>
                 <button title="Laplace transform operator \mathcal{L}">ℒ</button>
-                <button title="Ell \ell">ℓ</button> 	
+                <button title="Ell \ell">ℓ</button>
                 <button title="Set of Natural Numbers">ℕ</button>
                 <button title="Integers set">ℤ</button>
                 <button title="Fourier Transform Operator">ℱ </button>
@@ -976,21 +982,21 @@ unicodeWindow = new PopupWindow({
             <div>
                 <h3>Stuffs</h3>
                 <button>☀</button>
-                <button title="Mailbox">📬</button> 
-                <button>⏰</button> 
-                <button>🕙️</button> 
-                <button title="Dice">🎲</button> 
+                <button title="Mailbox">📬</button>
+                <button>⏰</button>
+                <button>🕙️</button>
+                <button title="Dice">🎲</button>
                 <button>📍</button>
                 <button>🎟️</button>
-                <button>💡</button> 	
-                <button>🔌</button> 	
-                <button>✂️</button> 	
-                <button>⚛️</button> 	
-                <button>♾️</button> 
-                <button>🔍</button> 	
-                <button>💾</button> 	
+                <button>💡</button>
+                <button>🔌</button>
+                <button>✂️</button>
+                <button>⚛️</button>
+                <button>♾️</button>
+                <button>🔍</button>
+                <button>💾</button>
                 <button>🖋</button>
-                <button>📝</button> 	
+                <button>📝</button>
                 <button title="A stack of books">📚️</button>
                 <button title="Scroll">📜</button>
                 <button title="Opened book">📖</button>
@@ -1022,24 +1028,24 @@ unicodeWindow = new PopupWindow({
                 <button>🚧</button>
                 <button>💼</button>
                 <button>🧱</button>
-                <button>🚀</button> 	
-                <button>🔧</button> 	
-                <button>🗜</button> 	
-                <button>🔩</button> 
-                <button>⚙</button> 	
-                <button>🔨</button> 
-                <button>📡</button> 
-                <button>✍🏼</button> 
-                <button>✈️</button> 
-                </button><button>⚒</button> 	
-                <button>🛠</button> 	
-                <button>☢️</button> 	
-                <button>⧖</button> 	
-                <button>Ⓥ</button> 	
-                <button>💰</button> 
+                <button>🚀</button>
+                <button>🔧</button>
+                <button>🗜</button>
+                <button>🔩</button>
+                <button>⚙</button>
+                <button>🔨</button>
+                <button>📡</button>
+                <button>✍🏼</button>
+                <button>✈️</button>
+                </button><button>⚒</button>
+                <button>🛠</button>
+                <button>☢️</button>
+                <button>⧖</button>
+                <button>Ⓥ</button>
+                <button>💰</button>
                 <button>🔒</button>
-                <button>📁</button> 	
-                <button title="Battery level indicator">🔋</button> 	
+                <button>📁</button>
+                <button title="Battery level indicator">🔋</button>
                 <button title="Bookmark">🔖</button>
             </div>
             <div>
@@ -1050,13 +1056,13 @@ unicodeWindow = new PopupWindow({
                 <button>🚶🏻‍♂️</button>
                 <button>👀</button>
                 <button>👁️</button>
-                <button>😎</button> 
+                <button>😎</button>
                 <button>🤓</button>
                 <button>😃</button>
-                <button>🥳</button> 
+                <button>🥳</button>
                 <button>😊</button>
                 <button>👻</button>
-                <button>🤡</button> 	
+                <button>🤡</button>
                 <button>🫣</button>
                 <button>🙀</button>
                 <button>😹</button>
@@ -1072,7 +1078,7 @@ unicodeWindow = new PopupWindow({
                 <button>😔</button>
                 <button>🤔</button>
                 <button>🤞</button>
-                <button>😬</button> 
+                <button>😬</button>
                 <button>😭</button>
                 <button>🤗</button>
                 <button>🫶</button>
@@ -1087,7 +1093,7 @@ unicodeWindow = new PopupWindow({
                 <button>😷</button>
                 <button>😱</button>
                 <button>☃️</button>
-                <button>🙏🏼</button> 
+                <button>🙏🏼</button>
                 <button>🕯️</button>
                 <button>👉</button>
                 <button>✌️</button>
@@ -1121,13 +1127,13 @@ unicodeWindow = new PopupWindow({
                 <button>🤬</button>
                 <button>😡</button>
                 <button>👿</button>
-                <button title="Soldier's helmet, serviceman helmet">🪖</button> 
+                <button title="Soldier's helmet, serviceman helmet">🪖</button>
                 <button>⚔️</button>
-                <button>🛡️</button> 
+                <button>🛡️</button>
                 <button>☠️ </button>
                 <button>🏴‍☠️</button>
                 <button>🔥</button>
-                <button>💥</button> 
+                <button>💥</button>
             </div>
             <div>
                 <h3>Nature</h3>
@@ -1136,7 +1142,7 @@ unicodeWindow = new PopupWindow({
                 <button>🌿</button>
                 <button>🍂</button>
                 <button>🎄</button>
-                <button>🌴</button>            
+                <button>🌴</button>
                 <button>🌳</button>
                 <button>🌱</button>
                 <button>🌾</button>
@@ -1151,12 +1157,12 @@ unicodeWindow = new PopupWindow({
                 <button>🌎️</button>
                 <button>🌍️</button>
                 <button>🌏️</button>
-                <button title="Volcano">🌋</button> 
+                <button title="Volcano">🌋</button>
             </div>
             <div>
                 <h3>Animals</h3>
                 <button title="Dragon">🐉</button>
-                <button title="blue bird">🐦</button> 
+                <button title="blue bird">🐦</button>
                 <button>🦊</button>
                 <button>🐇</button>
                 <button>🦉</button>
@@ -1174,7 +1180,7 @@ unicodeWindow = new PopupWindow({
                 <button>🦦</button>
                 <button>🐧</button>
                 <button>🐈️</button>
-                <button>🐄</button> 	
+                <button>🐄</button>
                 <button>🐾</button>
                 <button>🦮</button>
                 <button>🐕️</button>
@@ -1201,7 +1207,7 @@ unicodeWindow = new PopupWindow({
                 <button>🐿️</button>
                 <button>🦛</button>
                 <button>🦦</button>
-                <button>🦀</button> 	
+                <button>🦀</button>
                 <button>🦄</button>
                 <button>🐊</button>
                 <button>🕷</button>️
@@ -1217,11 +1223,11 @@ unicodeWindow = new PopupWindow({
                 <button>📊</button>
                 <button>🪐</button>
                 <button>🛰️</button>
-                <button>📡</button> 
-                <button>🔭</button> 
+                <button>📡</button>
+                <button>🔭</button>
                 <button>🧪</button>
                 <button>🧬</button>
-                <button title="Brain">🧠</button> 
+                <button title="Brain">🧠</button>
                 <button>🌎️</button>
                 <button>🌍️</button>
                 <button>🌏️</button>
@@ -1234,9 +1240,9 @@ unicodeWindow = new PopupWindow({
                 <button>🌒</button>
                 <button>🌔</button>
                 <button>🚀</button>
-                <button>🔭</button> 
+                <button>🔭</button>
                 <button>🛰️</button>
-                <button>📡</button> 
+                <button>📡</button>
                 <button>⚡️</button>
                 <button>✨</button>
                 <button>✧</button>
@@ -1249,12 +1255,12 @@ unicodeWindow = new PopupWindow({
             <div>
                 <h3>Food and Beverage</h3>
                 <button title="A cup of coffee">☕️️</button>
-                <button title="A glass of beer - beverage">🍺</button> 
+                <button title="A glass of beer - beverage">🍺</button>
                 <button>🍮</button>
                 <button>🍞</button>
                 <button>🍜</button>
                 <button>🥗</button>
-                <button>🍸</button> 
+                <button>🍸</button>
                 <button>🍓</button>
                 <button>🍎</button>
                 <button title="carrot">🥕</button>
@@ -1262,7 +1268,7 @@ unicodeWindow = new PopupWindow({
                 <button>🍍</button>
                 <button>🍉</button>
                 <button>🥦</button>
-                <button>🍆</button>  
+                <button>🍆</button>
                 <button title="Onion">🧅</button>
                 <button>🌙</button>
                 <button>🍋</button>
@@ -1362,20 +1368,20 @@ unicodeWindow = new PopupWindow({
             </div>
             <div>
                 <h3>Non Categorized</h3>
-                <button>🛻</button> 
-                <button>🏆</button>️ 
+                <button>🛻</button>
+                <button>🏆</button>️
                 <button>🥇</button>
-                <button>🥈</button> 
-                <button>🥉</button> 
-                <button title="Letter">✉️</button> 
+                <button>🥈</button>
+                <button>🥉</button>
+                <button title="Letter">✉️</button>
                 <button title="Newspaper>📰</button>
                 <button>️💲</button>
-                <button>🕟</button> 
+                <button>🕟</button>
                 <button>📬</button>
-                <button>⛏️</button> 
-                <button>🚲</button> 
+                <button>⛏️</button>
+                <button>🚲</button>
                 <button title="Canoe - boat">🛶</button>
-                <button>🪑</button> 	
+                <button>🪑</button>
                 <button>▶</button>
                 <button>🔗</button>
                 <button>❌️</button>
@@ -1384,7 +1390,7 @@ unicodeWindow = new PopupWindow({
                 <button>✊🏽</button>
                 <button>🏘️</button>
                 <button>🖋</button>
-                <button>✍</button>️ 
+                <button>✍</button>️
                 <button>✉️</button>
                 <button>🖼️</button>
                 <button>🃏</button>
@@ -1410,15 +1416,15 @@ unicodeWindow = new PopupWindow({
                 <button>🎉</button>
                 <button>🔒</button>
                 <button>🗽</button>
-                <button title="Bank">🏦</button> 	
-            </div>            
+                <button title="Bank">🏦</button>
+            </div>
             <div>
                 <h3>Funny Ascii/Unicode Art</h3>
                 <button>(^_^)</button>
                 <button>ᕕ( ᐛ )ᕗ</button>
                 <button>ᕕ(ツ)ᕗ</button>
                 <button>( = ⩊ = )</button>
-                <button>乁_ツ_ㄏ</button> 
+                <button>乁_ツ_ㄏ</button>
                 <button>乁_益_ㄏ</button>
             </div>
       </div>
@@ -1426,7 +1432,7 @@ unicodeWindow = new PopupWindow({
 <button>
 
 
- 
+
 
 
     `
@@ -1453,7 +1459,7 @@ async function updateCSRFToken()
     if(resp.status === "ok")
     {
         CSRF_TOKEN = resp.token;
-    }   
+    }
 }
 
 // Update CSRF token every 30 minutes
