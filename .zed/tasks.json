@@ -1,0 +1,38 @@
+[
+  {
+    "label": "Run sample wiki in dev. mode (debug)",
+    "command": "uv",
+    "args": [
+      "run",
+      "mwiki",
+      "server",
+      "--debug",
+      "--wikipath",
+      "./sample-wiki",
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+  },
+  {
+    "label": "Run unit tests",
+    "command": "uv",
+    "args": ["run", "pytest", "-vv", "--tb=short"],
+  },
+  {
+    "label": "Test coverage report",
+    "command": "uv",
+    "args": ["run", "pytest", "--cov"],
+  },
+  {
+    "label": "Build all-in-one container image",
+    "command": "podman",
+    "args": [
+      "build",
+      "-t",
+      "mwiki",
+      "--file",
+      "docker/all-in-one.Dockerfile",
+      ".",
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+  },
+]
