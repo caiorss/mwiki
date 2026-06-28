@@ -84,10 +84,51 @@ Set the Wiki name (website name).
 export MWIKI_SITENAME=MBook
 ```
 
-### Open TCP Ports - Firewall
+### Open Firewall Ports
 
-Make sure that the firewall allows network traffic through the TCP ports 80 (HTTP) and 443 (HTTPS) before running this command.
+In some Linux distributions or other operating systems, TCP and UDP ports are blocked by default for security reasons. As a result, it may be necessary to open TCP ports by changing the firewall settings in order to be able to access MWiki or any other web server from other computers or devices.
 
+**Microsoft Windows**: Open port 80 (http) and 443 (https) in Microsoft Windows (requires opening a terminal with administrator privilegees).
+
+```sh
+netsh firewall add portopening TCP 80 "MWIki server port"
+netsh firewall add portopening TCP 443 "MWIki server port"
+```
+
+**Linux / IPtables**: Open TCP ports 80 and 443 in Linux with Iptables (Default Linux firewall, all other Linux firewalls are wrappers around Iptables).
+
+```sh
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+```
+
+**Linux / UFW**: Open port 80 and 443 in Linux with UFW (Uncomplicated Firewall), mostly used by Debian and Ubuntu derived Linux distributions.
+
+```sh
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+```
+
+**Linux / Firewalld**: Open port 80 and 443 in Linux with firewalld.
+
+```sh
+sudo firewall-cmd --add-port=80/tcp --permanent
+sudo firewall-cmd --add-port=443/tcp --permanent
+sudo firewall-cmd --reload
+```
+
+**See also**
+
++ *Open TCP Port 80 in Windows Firewall Using Netsh* 
+  + https://www.wiki.mcneel.com/zoo/homenetsh
++ *Linux Open Port 80 (HTTP Web Server Port)*, Vivek Gite (2022), Cyberciti
+  + https://www.cyberciti.biz/faq/linux-iptables-firewall-open-port-80/
++ *5 ways to open a port in Linux explained with examples*, Arun Kumar (2023), FOSS Linux
+  + https://www.fosslinux.com/111811/5-ways-to-open-a-port-in-linux-explained-with-examples.htm
++ *Linux .local domain*
+  + https://en.wikipedia.org/wiki/.local
++ *Linux Open Port: Step-by-Step Guide to Managing Firewall Ports*, Vijaykrishna Ram and Anish Singh Walia, Digital Ocean
+  + https://www.digitalocean.com/community/tutorials/opening-a-port-on-linux
 ### Create the container 
 
 This step creates podman container, which is equivalent to a lightweight virtual machine, detached from the terminal.
