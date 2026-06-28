@@ -2597,9 +2597,8 @@ class HtmlRenderer(AbstractAstRenderer):
                     html += "\n" + "".join(html_output).strip()
                 elif text_output:
                     html += '''\n<pre>%s</pre>''' % utils.escape_html("".join(text_output))
-        ## breakpoint()
         path_ = path.relative_to(self._base_path)
-        url = "wiki/%s" % path_
+        url = "/wiki/%s" % path_.name
         if self._static_compilation:
             url = self._root_url + str(path_)
         html = '''<div class="tip admonition anchor">
