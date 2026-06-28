@@ -4,6 +4,12 @@
 % used in any MWiki page (markdown file).                %
 %--------------------------------------------------------%
 
+\newcommand{\dy}{ \displaystyle }
+
+\newcommand{\def}{ \stackrel{\text{def}}{=} }
+
+\newcommand{\op}{ \operatorname }
+
 % Colon equals := assignment operator for pseudocode code
 \newcommand{\ceq}{ \colonequals }
 
@@ -34,7 +40,7 @@
 % Example: The generalized velocities of the generalized coordinates of a robotic system can be written as
 %   \bsdot{\theta} = (\theta_1, \theta_2, \cdots, \theta_n)
 % instead of
-% $  \dot{\boldsymbol{\theta}}
+%  \dot{\boldsymbol{\theta}}
 \newcommand{\bsdot}[1]{ \dot{\boldsymbol{#1}} }
 
 % Second order derivative of vector in greek letter
@@ -158,3 +164,24 @@
 \newcommand{\mdef}{ {\triangleq \;} }
 
 \DeclareMathOperator{\sgn}{sgn}
+
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\re}{ \operatorname{Re}}
+
+\newcommand{\im}{\operatorname{Im}}
+\newcommand{\img}{\operatorname{im}}
+\newcommand{\trace}{\operatorname{tr}}
+
+% --- Macros for partial derivative
+\newcommand{\pt}[1]{\frac{\partial #1}{\partial t}}
+\newcommand{\px}[1]{\frac{\partial #1}{\partial x}}
+\newcommand{\py}[1]{\frac{\partial #1}{\partial y}}
+\newcommand{\pz}[1]{\frac{\partial #1}{\partial z}}
+\newcommand{\pxx}[1]{\frac{\partial^2 #1}{\partial x^2}}
+\newcommand{\pyy}[1]{\frac{\partial^2 #1}{\partial y^2}}
+\newcommand{\pzz}[1]{\frac{\partial^2 #1}{\partial z^2}}
+
+
+\newcommand{\E}[1] { \operatorname{E}\left[ #1 \right] }
+\newcommand{\Var}{ \operatorname{Var} }
+\newcommand{\cov}{ \operatorname{cov} }
