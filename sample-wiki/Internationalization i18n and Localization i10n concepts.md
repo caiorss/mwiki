@@ -218,7 +218,7 @@ Locale codes follow the convention {raw}`<language-code>-<countery-code>` with (
 | Cyprus       | tr-CY                | Turkish language (Cyprus)                       |
 | Spain        | es-ES                | Spanish (Español)                               |
 | Spain        | ca-ES                | Catalan (Catalán in Spanish)                    |   
-| Spain        | eu-ES                | Basque (Euskera)^{Non indo-european language}             |
+| Spain        | eu-ES                | Basque (Euskera)^[Non indo-european language]             |
 | Spain        | gl-ES                | Galician^{@ Sister language of Portuguese @}        |
 | Mexico       | es-MX                | Mexican Spanish (Español mexicano)^[Pronouce: Espanhol merricano]              |
 | USA          | es-US                | American/USA Spanish                            |
