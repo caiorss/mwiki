@@ -1,27 +1,28 @@
 """Rendering of MWiki to html and other formats."""
-import glob
-import json
-import re
-import yaml                     # Python3 stdlib Yaml Parser
-import pathlib
-from typing import Optional, Tuple, List, Dict, TypedDict
-from dataclasses import dataclass
-from markdown_it.tree import SyntaxTreeNode
-import urllib.parse
-import hashlib
-import os
-import tempfile
-import subprocess
-import uuid
-import locale
 import calendar
+import glob
+import hashlib
+import json
+import locale
+import os
+import pathlib
+import re
+import subprocess
+import tempfile
+import urllib.parse
+import uuid
+from dataclasses import dataclass
 from datetime import date
-import mwiki
-from . import utils
-from . import mparser
-from mwiki.latex import LatexFormula
-import mwiki.latex
+from typing import Dict, List, Optional, Tuple, TypedDict
 
+import yaml  # Python3 stdlib Yaml Parser
+from markdown_it.tree import SyntaxTreeNode
+
+import mwiki
+import mwiki.latex
+from mwiki.latex import LatexFormula
+
+from . import mparser, utils
 
 _STOP_SENTINEL = "{{STOP}}"
 
