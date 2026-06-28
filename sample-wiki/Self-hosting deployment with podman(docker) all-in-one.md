@@ -28,8 +28,31 @@ Build the container image using docker.
 ```sh
 docker build -t mwiki  --file docker/all-in-one.Dockerfile .
 ```
- 
-## Create and run the container
+
+### Disable SELinux
+
+Since SELinux may cause podman to fail with the error `[Errno 13] Permission denied: ...`, it may be worth to disable SELinux by using
+
+```sh
+sudo setenforce 0 
+```
+
+for temporarily disabling SELinux.
+
+**See**
+
++ *Security-Enhanced Linux*, Wikipedia
+  + https://en.wikipedia.org/wiki/Security-Enhanced_Linux
++ *How to Disable SELinux on Fedora 40 or 39*
+  + https://linuxcapable.com/how-to-disable-selinux-on-fedora-linux/
++ *How to Disable SELinux Temporarily or Permanently*
+  + https://www.tecmint.com/disable-selinux-in-centos-rhel-fedora/
++ *How to disable SELinux (with and without reboot)*
+  + https://www.golinuxcloud.com/disable-selinux/
++ *Changing SELinux States and Modes*
+  + https://docs.fedoraproject.org/en-US/quick-docs/selinux-changing-states-and-modes/
+
+   
 
 ### Set the environment variables.
 
@@ -56,12 +79,14 @@ Set the Wiki name (website name).
 ```sh
 export MWIKI_SITENAME=MBook
 ```
+
+
 ### Create the container 
 
 Make sure that the firewall allows network traffic through the TCP ports 80 (HTTP) and 443 (HTTPS) before running this command.
 
 ```sh
-podman run --name= -it --rm \
+podman run --name=mwiki --detach  \
     --publish=80:80 --publish=443:443  \
     --env MWIKI_URL=$MWIKI_URL \
     --env=MWIKI_SITENAME=$MWIKI_SITENAME \
@@ -93,12 +118,18 @@ So, the url of this dummy machine on the local network would be
 
 + `http://dummy.local`
    
+
 ### Logging in 
 
 It is possible to log in without password by using a temporary magic hyperlink using the command
 
 ```sh
-$ podman exec -it mwiki mwiki-auth
+podman exec -it mwiki mwiki-auth
+```
+
+Output:
+
+```
 Copy and paste the following URL in the web browser to authenticate.
 
   https://mydomain.com/auth?token=eyJ1c2VyIjogImFkbWluIiwgInNhbHQiOiAxNzQsICJleHBpcmF0aW9uIjogMTc2OTA4MDU0NiwgInNpZ25hdHVyZSI6ICIxNTVlZDYxOTRhYTE5MTNmMzhkYWMzODI3ZTJiZTdiNzdiNGQ0NzVhYzVjMmJlNDU2ZTY5ZmViNTRiOTg0OGU4In0%3D
