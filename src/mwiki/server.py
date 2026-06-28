@@ -8,7 +8,7 @@ import secrets
 import time
 ## from bottle import route, run
 ## from bottle import static_file, route, auth_basic, request
-import flask 
+import flask
 import base64
 from flask import request, session
 from werkzeug.security import generate_password_hash
@@ -19,28 +19,28 @@ from typing import Any, Tuple, List, Optional
 import datetime
 import mimetypes
 from dateutil.parser import parse as parsedate
-import sqlalchemy.exc 
-import mwiki 
+import sqlalchemy.exc
+import mwiki
 from . import utils
 from . import mparser
 from . import render
-from . import search 
+from . import search
 import mwiki.models as models
 from . models import db, User, Settings, BookmarkedPage, WikiPage, WikiRepository, MwikiConfig
 from . login import add_login
 from . forms import UserAddForm, UserSettingsForm, SettingsForm, UserEditForm, UserCreateForm
 from werkzeug.datastructures.file_storage import FileStorage
 import werkzeug.exceptions
-import logging 
-import whoosh.index 
+import logging
+import whoosh.index
 from . constants import ( M_GET, M_POST, M_DELETE
                         , STATUS_CODE_400_BAD_REQUEST, STATUS_CODE_401_UNAUTHORIZED
                         , STATUS_CODE_403_FORBIDDEN,   STATUS_CODE_404_NOT_FOUND
                         , STATUS_CODE_405_METHOD_NOT_ALLOWED
                         )
 import mwiki.constants as mconst
-import mwiki.latex 
-from .app import make_app, current_user, favicon 
+import mwiki.latex
+from .app import make_app, current_user, favicon
 
 # This variable is set to true if gunicorn WSGI server is being used.
 server_software =  os.environ.get("SERVER_SOFTWARE", "")
@@ -56,21 +56,21 @@ def read_frontmatter(afile: pathlib.Path):
         line = fd.readline()
         if not line.startswith("---"):
             return ""
-        out = line 
+        out = line
         while ( line := fd.readline() ):
-            out += line 
+            out += line
             if line.startswith("---"):
                 break
     return out
 
- 
+
 def make_app_server(  host:        str
                     , port:        int
                     , debug:       bool
                     , login:       Optional[Tuple[str, str]]
                     , wikipath:    str
                     , random_ssl:  bool = False
-                    , secret_key:  Optional[str] = None 
+                    , secret_key:  Optional[str] = None
                    ):
     app = make_app(wikipath)
     secret_key = models.get_secret_key()
@@ -90,15 +90,15 @@ def make_app_server(  host:        str
     if not index_page.exists():
         print(" [TRACE] Creating index page = \n", default_index_page)
         index_page.write_text(default_index_page)
-    #  For setting a username and password, just 
-    # set the environment variable LOGIN, 
+    #  For setting a username and password, just
+    # set the environment variable LOGIN,
     # export LOGIN="<USERNAME>;<PASSWORD>"
     #
     DO_LOGIN = False
     USERNAME = ""
     PASSWORD = ""
     if login is not None:
-        DO_LOGIN = True 
+        DO_LOGIN = True
         (USERNAME, PASSWORD) = login
 
     check_login = add_login(app, DO_LOGIN, USERNAME, PASSWORD)
@@ -108,15 +108,15 @@ def make_app_server(  host:        str
     @app.route("/user", methods = [M_GET, M_POST])
     @check_login( required = True )
     def route_user_settings():
-        """Panel for updating user account settings.""" 
+        """Panel for updating user account settings."""
         user = current_user()
         form = UserSettingsForm()
         if request.method == M_GET:
-            pass 
+            pass
         if request.method == M_POST:
             form.validate()
             password = form.password.data
-            user.password = password 
+            user.password = password
             db.session.commit()
             user_ = User.get_user_by_username(user.username)
             if user_:
@@ -143,15 +143,15 @@ def make_app_server(  host:        str
         ## if request.method == M_GET:
         ##     form.public.data = conf.public
         ##     form.sitename.data = conf.sitename
-        ##     form.description.data = conf.description   
+        ##     form.description.data = conf.description
         if request.method == M_POST:
             form.validate()
             username = form.username.data
-            email = form.email.data 
+            email = form.email.data
             type = form.get_user_type()
             _password =  form.password.data
             ### print(" [TRACE] password (new) = ", _password)
-            password =  generate_password_hash(_password) 
+            password =  generate_password_hash(_password)
             if User.get_user_by_username(username) is not None:
                 flask.flash(f"Username {username} already exist.", "error")
                 return flask.redirect("/account/new")
@@ -178,7 +178,7 @@ def make_app_server(  host:        str
                            , email = u.email
                            , created = u.date_created
                            , modified = u.date_modified
-                           , last_access = u.date_lastaccess   
+                           , last_access = u.date_lastaccess
                            , username = u.username
                        )
                         for u in userlist ]
@@ -187,7 +187,7 @@ def make_app_server(  host:        str
                                      , conf = conf
                                      , userlist = userlist_
                                      , title = "Users and Account Management")
-        return resp 
+        return resp
 
 
     @app.route("/users/edit", methods = [ M_GET, M_POST])
@@ -203,7 +203,7 @@ def make_app_server(  host:        str
             form.username.data = user.username
             form.email.data = user.email
             form.type.data =  user.type
-            form.active.data = user.active 
+            form.active.data = user.active
         resp  = flask.render_template( "user_edit.html"
 									  , form = form
 									  , user = user
@@ -218,10 +218,10 @@ def make_app_server(  host:        str
             user.username = form.username.data
             user.email = form.email.data
             user.type = form.type.data
-            user.active = form.active.data 
+            user.active = form.active.data
             if form.password.data != "":
                 user.set_password(form.password.data)
-            try: 
+            try:
                 user.save()
                 resp = flask.redirect(f"/users/edit?user={form.username.data}")
             except sqlalchemy.exc.IntegrityError:
@@ -236,7 +236,7 @@ def make_app_server(  host:        str
             flask.abort(STATUS_CODE_401_UNAUTHORIZED)
         form = UserCreateForm()
         conf = Settings.get_instance()
-        form.type.data = mconst.USER_GUEST 
+        form.type.data = mconst.USER_GUEST
         form.active.data = True
         resp  = flask.render_template( "user_edit.html"
 									  , form = form
@@ -251,9 +251,9 @@ def make_app_server(  host:        str
             user.username = form.username.data
             user.email = form.email.data
             user.type = form.type.data
-            user.active = form.active.data 
+            user.active = form.active.data
             user.set_password(form.password.data)
-            try: 
+            try:
                 user.save()
                 resp = flask.redirect("/users")
             except sqlalchemy.exc.IntegrityError:
@@ -277,7 +277,7 @@ def make_app_server(  host:        str
                            , email = u.email
                            , created = u.date_created
                            , modified = u.date_modified
-                           , last_access = u.date_lastaccess   
+                           , last_access = u.date_lastaccess
                            , username = u.username
                        )
         conf = Settings.get_instance()
@@ -292,7 +292,7 @@ def make_app_server(  host:        str
                 db.session.commit()
             resp = flask.redirect("/users")
         return resp
-        
+
 
     @app.route("/settings", methods = [M_GET, M_POST])
     @check_login(required = True)
@@ -308,9 +308,9 @@ def make_app_server(  host:        str
             form.sitename.data = conf.sitename
             form.public.data = conf.public
             form.show_source.data = conf.show_source
-            form.display_edit_button.data  = conf.display_edit_button   
+            form.display_edit_button.data  = conf.display_edit_button
             form.vim_emulation.data  = conf.vim_emulation
-            form.description.data = conf.description   
+            form.description.data = conf.description
             form.main_font.data = conf.main_font
             form.title_font.data = conf.title_font
             form.code_font.data = conf.code_font
@@ -320,27 +320,27 @@ def make_app_server(  host:        str
             form.use_default_locale.data = conf.use_default_locale
             form.use_cdn.data = conf.use_cdn
             form.latex_renderer.data = conf.latex_renderer
-            form.language_switch.data = conf.language_switch 
+            form.language_switch.data = conf.language_switch
             form.display_alt_button.data = conf.display_alt_button
         if request.method == M_POST:
             form.validate()
-            app.logger.info(f"Form data = {form.data}")    
+            app.logger.info(f"Form data = {form.data}")
             conf.sitename = form.sitename.data
             conf.description = form.description.data
-            conf.public = form.public.data 
+            conf.public = form.public.data
             conf.show_source = form.show_source.data
             conf.main_font = form.main_font.data
             conf.title_font = form.title_font.data
-            conf.code_font = form.code_font.data 
+            conf.code_font = form.code_font.data
             conf.display_edit_button = form.display_edit_button.data
             conf.vim_emulation = form.vim_emulation.data
-            conf.show_licenses = form.show_licenses.data 
+            conf.show_licenses = form.show_licenses.data
             conf.language = form.language.data
             conf.default_locale = form.default_locale.data
             conf.use_default_locale = form.use_default_locale.data
             conf.use_cdn = form.use_cdn.data
-            conf.latex_renderer = form.latex_renderer.data 
-            conf.language_switch = form.language_switch.data 
+            conf.latex_renderer = form.latex_renderer.data
+            conf.language_switch = form.language_switch.data
             conf.display_alt_button = form.display_alt_button.data
             conf.save()
             flask.flash('<span data-i18n="settings-page-successful-update-message">Wiki settings updated successfully.</span>')
@@ -362,7 +362,7 @@ def make_app_server(  host:        str
     def route_pages():
         """Allows searching or browsing all wiki pages.
 
-        This page provides a form search where users can look 
+        This page provides a form search where users can look
         for keywords in all wiki page files (markdown files).
         """
         query = (request.args.get("search") or "").strip()
@@ -392,16 +392,16 @@ def make_app_server(  host:        str
         pages = [  {    "name": f.name.split(".")[0]
                       , "link": f.name.split(".")[0].replace(" ", "_")
 
-                      , "matches": [ lin[:MAX_LEN] + " ..." 
-                                    if len(lin) > MAX_LEN else lin  
+                      , "matches": [ lin[:MAX_LEN] + " ..."
+                                    if len(lin) > MAX_LEN else lin
                                         for (n, lin) in  search.grep_file(page_to_file(f), query)  ] \
                                     if query != "" else [ ]
 
                       , "metadata": mparser.get_pagefile_metadata( page_to_file(f))
-                   } 
+                   }
                  for f in sorted_files ]
         ##title = f"Search results for \"{query}\"" if query != "" else "All pages"
-        
+
         # [i18n] in English: 'Search results for"
         title = f"[i18n] \"{query}\"" if query != "" else "All pages"
         page_title_i18n_tag = "title-search-results-page" \
@@ -454,7 +454,7 @@ def make_app_server(  host:        str
     @app.route("/wiki/math/<file>")
     def route_wiki_math(file):
         """Server cached SVG image of compiled LaTeX equation."""
-        resp = flask.send_from_directory(render.svg_cache_folder, file)    
+        resp = flask.send_from_directory(render.svg_cache_folder, file)
         return resp
 
     rpat = re.compile(r"!\[(.*?)\]\(data:image/(.+?);base64,(.*?)\)")
@@ -479,11 +479,11 @@ def make_app_server(  host:        str
         src = re.sub(rpat, replacement_, src)
         ## src = utils.escape_html(src)
         content = utils.highlight_code(src, "markdown")
-        ## content = f"<pre>\n{src}\n</pre>" 
+        ## content = f"<pre>\n{src}\n</pre>"
         ## html = mparser.fill_template(f"Source of '{page}.md'", content, toc = "", query = "")
         conf = Settings.get_instance()
         html = flask.render_template("source.html"
-                                     , page = path 
+                                     , page = path
                                      , title = f"[i18n]: {path}"
                                      , page_title_i18n_tag = "source-page-title"
                                      , content = content
@@ -507,7 +507,7 @@ def make_app_server(  host:        str
             path_ = path
             path = path.replace("_", " ")
             ##print(f" [TRACE] mdfile_ = {mdfile_} ; base_path = {base_path}")
-            ## 
+            ##
             ### breakpoint()
             ## is_special = path.startswith("special:")
             if path == "special:refcard":
@@ -515,7 +515,7 @@ def make_app_server(  host:        str
                 ast = mparser.parse_source(content)
                 builder = render.HtmlRenderer(base_path=BASE_PATH)
                 content = builder.render(ast)
-                response = flask.render_template(  
+                response = flask.render_template(
                                                "standalone.html"
                                              , title   = "MWiki Markup Language Reference Card" # path
                                              , document_type = "refcard"
@@ -532,7 +532,7 @@ def make_app_server(  host:        str
                                              , katex_macros         = utils.base64_encode(builder.katex_macros)
                                              , citation_references  = utils.base64_encode(builder.citation_references_json)
                                              , equation_enumeration_style = builder.equation_enumeration_style
-                                             , equation_enumeration_enabled = builder.equation_enumeration_enabled 
+                                             , equation_enumeration_enabled = builder.equation_enumeration_enabled
                                              , conf = conf
                                              )
                 return response
@@ -546,28 +546,28 @@ def make_app_server(  host:        str
             ## print(" [TRACE] matches = ", matches)
             # ## print(" [TRACE] mdfile = ", mdfile, "\n\n")
             if not page:
-                ## flask.abort(404) 
+                ## flask.abort(404)
                 out = flask.redirect(f"/create/{path}")
                 return out
             html = page.render_html()
             return html
             # print(" [TRACE] path_ = ", path_)
             ##out = serve_static_file(base_path, path_)
-            return out 
+            return out
         # Dont' show source code of markdown file
         if path.endswith(".md"):
             flask.abort(STATUS_CODE_404_NOT_FOUND)
         out = serve_static_file(base_path, path)
-        return out 
+        return out
 
-            
-    @app.get("/api/wiki") 
+
+    @app.get("/api/wiki")
     @check_login()
     def api_wiki_pages():
         """API endpoint that shows list of all wiki pages."""
         pages  = sorted([x.name.split(".md")[0] for  x in base_path.rglob("*.md")])
         resp  = flask.jsonify(pages)
-        return resp 
+        return resp
 
     @app.get("/api/token")
     @check_login(required = True)
@@ -576,7 +576,7 @@ def make_app_server(  host:        str
         token = generate_csrf(secret_key)
         resp = flask.jsonify({"token": token, "status": "ok"})
         return resp
-        
+
 
     @app.route("/api/wiki/<path>", methods = [M_GET, M_POST, M_DELETE])
     @check_login()
@@ -588,35 +588,35 @@ def make_app_server(  host:        str
         if request.method == M_GET:
             if not p:
                 flask.abort(STATUS_CODE_404_NOT_FOUND)
-                return 
-            content = p.read_text() 
+                return
+            content = p.read_text()
             out = flask.jsonify({ "status": "ok", "error": "", "content": content })
             return out
         elif request.method == M_POST:
             if not user.user_can_edit(): flask.abort(STATUS_CODE_403_FORBIDDEN)
             out = ""
             ## breakpoint()
-            if p: 
+            if p:
                 out = flask.jsonify({ "status": "error", "error": "File already exists"})
-            else: 
+            else:
                 p_ = base_path.joinpath(mdfile_)
-                p_.touch()    
+                p_.touch()
                 out = flask.jsonify({ "status": "ok", "error": ""})
             return out
         elif request.method == M_DELETE:
             if not p:
                 flask.abort(STATUS_CODE_404_NOT_FOUND)
-                return out 
+                return out
             if not user.user_can_edit():
                 flask.abort(STATUS_CODE_403_FORBIDDEN)
-                return out 
-            ## Remove file 
+                return out
+            ## Remove file
             p.unlink()
             search.index_delete_page(base_path, p)
             out = flask.jsonify({ "status": "ok", "error": ""})
             return out
         else:
-            flask.abort(STATUS_CODE_405_METHOD_NOT_ALLOWED) 
+            flask.abort(STATUS_CODE_405_METHOD_NOT_ALLOWED)
 
     @app.route("/api/auth", methods = [M_GET])
     def api_auth():
@@ -649,7 +649,7 @@ def make_app_server(  host:        str
                                          , bookmarks = bookmarks)
         return response
         # for b in user.bookmarks:
-    
+
 
     @app.route("/api/bookmark", methods = [ M_GET, M_POST])
     @check_login(required = True)
@@ -686,7 +686,7 @@ def make_app_server(  host:        str
                 db.session.add(b)
                 db.session.commit()
             else:
-                # Remove bookmark 
+                # Remove bookmark
                 ## breakpoint()
                 b = BookmarkedPage.query.filter_by(user_id = user.id, page = page).first()
                 if b:
@@ -705,12 +705,12 @@ def make_app_server(  host:        str
         """Http endpoint for creating new wiki pages/notes."""
         user = current_user()
         conf: Settings = Settings.get_instance()
-        # Enforce authorization  
+        # Enforce authorization
         if not user.user_can_edit():
             flask.abort(STATUS_CODE_403_FORBIDDEN)
         mdfile_ = path + ".md"
         p: Optional[pathlib.Path] = next(base_path.rglob(mdfile_), None)
-        out = None 
+        out = None
         if p:
             out = flask.redirect(f"/wiki/{path}")
             return out
@@ -721,12 +721,12 @@ def make_app_server(  host:        str
                                         , pagename = path
                                         , conf = conf)
         elif request.method == M_POST:
-            ## _page        = flask.request.form.get("page", "") 
-            label       = flask.request.form.get("label", "") 
-            description = flask.request.form.get("description", "") 
-            keywords    = flask.request.form.get("keywords", "") 
+            ## _page        = flask.request.form.get("page", "")
+            label       = flask.request.form.get("label", "")
+            description = flask.request.form.get("description", "")
+            keywords    = flask.request.form.get("keywords", "")
             submit_yes  = flask.request.form.get("submit-yes")
-            ##submit_no   = flask.request.form.get("submit-no", "") 
+            ##submit_no   = flask.request.form.get("submit-no", "")
             ## breakpoint()
             if submit_yes is not None:
                 content = (   "---"
@@ -738,12 +738,12 @@ def make_app_server(  host:        str
                           )
                 page_path = base_path.joinpath(path + ".md")
                 page_path.write_text(content)
-                try: 
+                try:
                     search.add_index_page(base_path, page_path)
                 except whoosh.index.LockError as ex:
                     print(" [ERROR] Lock error: ", ex)
                     logger.error(f"Lock error: {ex} ")
-                    pass 
+                    pass
                 out = flask.redirect(f"/wiki/{path}")
             else:
                 out = flask.redirect("/")
@@ -782,10 +782,10 @@ def make_app_server(  host:        str
                                              , content = content
                                              , conf = conf
                                              )
-                return resp 
+                return resp
             elif request.method == M_POST:
                 data: dict[str, Any] = request.get_json()
-                content = data.get("content", "") 
+                content = data.get("content", "")
                 macro_file.write_text(content)
                 resp = flask.jsonify({ "status": "ok", "error": "" })
                 return resp
@@ -801,12 +801,12 @@ def make_app_server(  host:        str
         if request.method == M_GET:
             if timestamp is None or timestamp < page.timestamp:
                 return flask.redirect("/wiki/" + path.replace(" ", "_"))
-            ## content = match.read_text() 
+            ## content = match.read_text()
             content = page.read()
             ## breakpoint()
             if line_start is not None:
                 lines = content.splitlines()
-                content = "\n".join(lines[line_start:line_end]) 
+                content = "\n".join(lines[line_start:line_end])
             ## print(" [TRACE] content = ", content)
             macros_file = base_path / "macros.sty"
             macros_file.touch(exist_ok = True)
@@ -820,8 +820,8 @@ def make_app_server(  host:        str
                                          , page_link = path.replace(" ", "_")
                                          , content = content
                                          , conf = conf
-                                         , latex_renderer = conf.latex_renderer 
-                                         , mathjax_enabled = True 
+                                         , latex_renderer = conf.latex_renderer
+                                         , mathjax_enabled = True
                                          , equation_enumeration = "none"
                                          , equation_enumeration_style = "none"
                                          , katex_macros = utils.base64_encode(macros)
@@ -831,7 +831,7 @@ def make_app_server(  host:        str
         assert request.method == M_POST
         # Simulate a delay of 5 seconds
         data: dict[str, Any] = request.get_json()
-        content = data.get("content", "") 
+        content = data.get("content", "")
         out = {}
         if not page:
             out = { "status": "error", "error": "Page not found." }
@@ -845,7 +845,7 @@ def make_app_server(  host:        str
             else:
                 ## breakpoint()
                 text = ""
-                ## content_ = match.read_text() 
+                ## content_ = match.read_text()
                 content_ = page.read()
                 lines_   = content_.splitlines()
                 if line_end is not None:
@@ -857,7 +857,7 @@ def make_app_server(  host:        str
                     lines    = lines_[0:line_start]
                     lines   = lines + content.splitlines()
                     text = "\n".join(lines)
-                ## match.write_text(text)                    
+                ## match.write_text(text)
                 page.write(text)
             # Update search index
             # NOTE: The search index is updated by the module mwiki.watcher outside the
@@ -867,7 +867,7 @@ def make_app_server(  host:        str
         resp = flask.jsonify(out)
         return resp
 
-    @app.get("/links/<path>") 
+    @app.get("/links/<path>")
     @check_login()
     def route_link_page(path: str):
         """This endpoint displays all external hyperlinks of wiki page"""
@@ -876,7 +876,7 @@ def make_app_server(  host:        str
         ## line_end   = utils.parse_int(request.args.get("end"))
         match = next(base_path.rglob(mdfile_), None)
         if not match:
-            flask.abort(STATUS_CODE_404_NOT_FOUND) 
+            flask.abort(STATUS_CODE_404_NOT_FOUND)
         # Absolute path to file
         abspath =  str(match.absolute())
         links = []
@@ -886,10 +886,10 @@ def make_app_server(  host:        str
         r = render.HtmlRenderer()
         while True:
             node = next(gen, None)
-            ## breakpoint() 
-            if node is None: break  
-            elif node.type == "link": 
-                label = node.children[0].content 
+            ## breakpoint()
+            if node is None: break
+            elif node.type == "link":
+                label = node.children[0].content
                 url   = node.attrs.get("href")
                 entry = {"label": label, "href": url}
                 links.append(entry)
@@ -901,7 +901,7 @@ def make_app_server(  host:        str
                                        , title = f"[i18n] {path}"
                                        , page_title_i18n_tag = "links-page-title"
                                        , page = path
-                                       , conf = conf 
+                                       , conf = conf
                                        , links = links
                                        , internal_links = internal_links
                                        )
@@ -920,15 +920,15 @@ def make_app_server(  host:        str
                 tags = data.get("tags") or []
         conf: Settings = Settings.get_instance()
         resp = flask.render_template("tags.html", title = "Tags", tags = tags, conf = conf)
-        return resp 
-        
+        return resp
+
 
     @app.route("/api/preview", methods = [M_POST])
     @check_login(required = True)
-    def route_preview():   
+    def route_preview():
         """Provide document preview"""
         data: dict[str, Any] = request.get_json()
-        content = data.get("code", "") 
+        content = data.get("code", "")
         ### content = utils.read_resource(mwiki, "refcard.md")
         conf: Settings = Settings.get_instance()
         p = data.get("page")
@@ -938,11 +938,11 @@ def make_app_server(  host:        str
         if not page.exists():
             page = base_path / (p + ".md").replace("_", " ")
         if not page.exists():
-            flask.abort(STATUS_CODE_400_BAD_REQUEST)           
+            flask.abort(STATUS_CODE_400_BAD_REQUEST)
         ## print(" [TRACE] page = ", page)
         ## frontmatter = ""
         frontmatter = read_frontmatter(page)
-        ## print(" [TRACE] frontmatter = \n", frontmatter)                        
+        ## print(" [TRACE] frontmatter = \n", frontmatter)
         builder = render.HtmlRenderer(  base_path  = BASE_PATH
                                       , preview    = True
                                       , latex_renderer  = conf.latex_renderer)
@@ -951,7 +951,7 @@ def make_app_server(  host:        str
         ast = mparser.parse_source(content)
         html_ = builder.render(ast)
         builder._render_citations_reference_mwiki()
-        html = flask.render_template(  
+        html = flask.render_template(
                   "standalone.html"
                 , title                        = "Preview"
                 , page                         = data.get("page")
@@ -963,7 +963,7 @@ def make_app_server(  host:        str
                 , latex_renderer               = conf.latex_renderer
                 , latex_macros                 = builder.mathjax_macros
                 , mathjax_enabled              = builder.needs_mathjax
-                , graphviz_enabled             = builder.needs_graphviz 
+                , graphviz_enabled             = builder.needs_graphviz
                 , latex_algorithm              = builder.needs_latex_algorithm
                 , equation_enumeration_style   = builder.equation_enumeration_style
                 , equation_enumeration_enabled = builder.equation_enumeration_enabled
@@ -975,12 +975,12 @@ def make_app_server(  host:        str
         html = utils.escape_html(html)
         # print(" [TRACE] html = ", html)
         resp = flask.jsonify({ "status": "ok", "error": "", "html": html })
-        return resp 
+        return resp
 
     @app.route("/paste", methods = [M_GET, M_POST])
     @check_login(required = True)
     def route_paste():
-        """URL endpoint API /paste 
+        """URL endpoint API /paste
         for uploading images to the wiki by pasting images from the clipboard.
         """
         user = current_user()
@@ -990,16 +990,16 @@ def make_app_server(  host:        str
             flask.abort(STATUS_CODE_401_UNAUTHORIZED)
         if not user.user_can_edit():
             flask.abort(STATUS_CODE_403_FORBIDDEN)
-            return 
+            return
         payload: dict[str, Any] = request.get_json()
         if not "fileName" in payload.keys() or "data" not in payload.keys():
             flask.abort(STATUS_CODE_400_BAD_REQUEST)
-            return 
+            return
         fileName = payload["fileName"]
         data = payload["data"]
         if fileName is None or data is None:
             flask.abort(STATUS_CODE_400_BAD_REQUEST)
-            return 
+            return
         b64data_ = data.split(",")
         if len(b64data_) != 2 or fileName == "":
             flask.abort(STATUS_CODE_400_BAD_REQUEST)
@@ -1017,13 +1017,13 @@ def make_app_server(  host:        str
         ### print(" [TRACE] path_ = ", path_)
         jpeg_image.save(path_, "JPEG")
         response = flask.jsonify({"error": False, "status": "ok"})
-        return response 
+        return response
 
-    
+
     @app.route("/api/upload", methods = [M_POST, M_GET, "OPTIONS"])
     @check_login( required = True)
     def route_upload():
-        # Enforce authorization  - Guest (Read-Only Users) 
+        # Enforce authorization  - Guest (Read-Only Users)
         # and anonymous users cannot edit the Wiki.
         user = current_user()
         if user.is_anonymous():
@@ -1031,11 +1031,11 @@ def make_app_server(  host:        str
         if not user.user_can_edit():
             flask.abort(STATUS_CODE_403_FORBIDDEN)
         afile: Optional[FileStorage] = request.files.get('file')
-        assert afile is not None 
+        assert afile is not None
         # Checkbox for converting images to JPEG
         convert_jpeg = flask.request.form.get("convert-jpeg", "") == "on"
         if afile is None:
-            flask.abort(STATUS_CODE_400_BAD_REQUEST)        
+            flask.abort(STATUS_CODE_400_BAD_REQUEST)
         upload_dir = pathlib.Path(wikipath).joinpath("upload")
         utils.mkdir(str(upload_dir))
         ## file_ = request.form.get("fileLabel") or afile.filename
@@ -1097,7 +1097,7 @@ def make_app_server(  host:        str
         ico = favicon()
         print(" [TRACE] ico = ", "/" + ico)
         ## breakpoint()
-        out = serve_static_file(base_path, ico)        
+        out = serve_static_file(base_path, ico)
         return out
 
     @app.get("/")
@@ -1120,7 +1120,7 @@ def make_app_server(  host:        str
 ##                    , login:       Optional[Tuple[str, str]]
 ##                    , wikipath:    str
 ##                    , random_ssl:  bool = False
-##                    , secret_key:  Optional[str] = None 
+##                    , secret_key:  Optional[str] = None
 ##                   ):
 ##    ##if random_ssl:
 ##    ##    with utils.TempSSLCert() as c:
@@ -1134,29 +1134,29 @@ def make_app_server(  host:        str
 ##        app.run(host = host, port = port, debug = debug)
 
 def serve_static_file(base_path: pathlib.Path, path):
-    # Seach file in any directory in basepath recursively 
-    # In the future this code can be optimized using some sort 
-    # of caching or search index for speeding up 
+    # Seach file in any directory in basepath recursively
+    # In the future this code can be optimized using some sort
+    # of caching or search index for speeding up
     # the response.
     ## print(" [TRACE] filePath (528) = ", path)
     # breakpoint()
-    match: Optional[pathlib.Path] = None 
+    match: Optional[pathlib.Path] = None
     BASE_PATH = str(base_path)
     if isinstance(path, pathlib.Path):
         match = path
     else:
-        g = base_path.rglob(path) 
+        g = base_path.rglob(path)
         match: Optional[pathlib.Path] = next(g, None)
         if not match:
             flask.abort(404)
     relpath = match.relative_to(base_path)
-    name = relpath.name 
+    name = relpath.name
     # DO NOT server the sqlite database or the .data and other hidden directories
     if name == "database.sqlite" or name.startswith(".data") or name.startswith("."):
         flask.abort(STATUS_CODE_404_NOT_FOUND)
     ## print(f" [TRACE] relpath = {path} ; match = {match}")
     resp = None
-    ###  Render org-mode file 
+    ###  Render org-mode file
     if name.endswith(".org"):
         content = match.read_text()
         builder = render.HtmlRenderer(base_path=BASE_PATH)
@@ -1187,7 +1187,7 @@ def serve_static_file(base_path: pathlib.Path, path):
             resp = flask.Response(response = None, status = 200)
             resp.headers.add("X-Accel-Redirect", relpath)
             resp.headers.add("Content-Type", mtype)
-            return resp 
+            return resp
         ## Get last modified time (formatted as string)
         pattern  = "%a, %d %b %Y %H:%M:%S %Z"
         #last_modfied_timestamp = match.stat().st_mtime
@@ -1202,16 +1202,16 @@ def serve_static_file(base_path: pathlib.Path, path):
                                       , mimetype=mtype
                                       , content_type=mtype
                                       , status = 304
-                                      ) 
+                                      )
         else:
             ## print(" [TRACE] mtype = ", mtype)
             ## print(" [TRACE] sending file response = ", match)
             fd = match.open("rb")
             resp = flask.Response(response = fd, mimetype = mtype, content_type = mtype)
         # Enable cache and Cache never expires
-        ## resp.headers.add("Cache-Control", "max-age")  
-        # Disable cache 
-        ## resp.headers.add("Cache-Control", "no-cache")  
+        ## resp.headers.add("Cache-Control", "max-age")
+        # Disable cache
+        ## resp.headers.add("Cache-Control", "no-cache")
         resp.headers.add("Content-Type", mtype)
         resp.headers.add("Content-Length",       match.stat().st_size)
         resp.headers.add("Last-Modified",        last_modified_str )
@@ -1224,7 +1224,7 @@ def get_secret_key_(appname: str) -> str:
     fkey =  utils.project_data_path(appname, KEYFILE)
     secret_key = ""
     # Generate secret key and store it in file within
-    # the application data directory if the file 
+    # the application data directory if the file
     # does not exist yet.
     if not os.path.isfile(fkey):
         secret_key = secrets.token_hex(16)
