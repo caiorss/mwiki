@@ -27,7 +27,7 @@ RUN curl -L  -o caddy.tar.gz https://github.com/caddyserver/caddy/releases/downl
   &&  tar -xvzf caddy.tar.gz \
   &&  rm -rf caddy.tar.gz    \
   &&  chmod +x caddy \
-  &&  mv caddy /bin/
+  &&  mv caddy /usr/bin/
 
 
 WORKDIR /wiki 
