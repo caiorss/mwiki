@@ -38,7 +38,7 @@
 \newcommand{\bsdot}[1]{ \dot{\boldsymbol{#1}} }
 
 % Second order derivative of vector in greek letter
-% notation 
+% notation
 \newcommand{\bsddot}[2]{ \ddot{\boldsymbol{#1}} }
 
 
@@ -47,24 +47,24 @@
 %
 % Example: express a vector u in the frame body
 % frame B, just %\fb{u}{B}
-% 
+%
 \newcommand{\fb}[2]{ {}^{#2}\mathbf{#1} }
 
 % Express unit vector in a given frame
 
-% Example: express a Z axis unit vector of joint 2 
+% Example: express a Z axis unit vector of joint 2
 % of a mechanism in the frame 3: \fbhat{z}{2}_3
 %
 %  Output:
 %
-%         2 ^ 
+%         2 ^
 %           z
 %            3
 %
 \newcommand{\fbhat}[2]{ {}^{#2}\hat{\mathbf{#1}} }
 
-% Express vector that referred using greek letters 
-% in a particular refrence frame. Example: express 
+% Express vector that referred using greek letters
+% in a particular refrence frame. Example: express
 % the angular velocity vector omega in the body frame B.
 %
 %   \fbs{\omega}{B}
@@ -76,17 +76,17 @@
 % with a more compact notation.
 %
 % Example: the rotation matrix R that maps
-% the frame 0 to frame 1 is written as 
+% the frame 0 to frame 1 is written as
 %
 %  1
-%   R  is written as \fr{1}{0}R 
-%  0    
+%   R  is written as \fr{1}{0}R
+%  0
 %
 \newcommand{fr}[2]{ {}^{#1}_{#2} }
 
 
 % Macro for writing the skew symmetric matrix operator
-% []_{\times}, the lie algebra so(3) of the 
+% []_{\times}, the lie algebra so(3) of the
 % Special Orhtogonal Group SO(3).
 %
 %         |   0  -w_z   w_y  |
@@ -99,8 +99,8 @@
 
 % Macros for numerical optmization problem
 %
-% Usage example: a = \argmin_x f(x, y) 
-% 
+% Usage example: a = \argmin_x f(x, y)
+%
 \DeclareMathOperator*{\argmax}{\mathrm{\arg\,max}\,}
 \DeclareMathOperator*{\argmin}{\mathrm{\arg\,min}\,}
 
@@ -125,7 +125,7 @@
 
 % Derivative symbol \d instead of \mathrm{d}
 \newcommand{\d}{ \mathrm{d} }
-% Partial Derivative Symbol \p instead of \partial 
+% Partial Derivative Symbol \p instead of \partial
 \newcommand{\p}{\partial}
 % Euler's Number (constant)
 \newcommand{\e}{ \mathrm{e} }
@@ -152,7 +152,7 @@
 
 
 % Mathematical Definition
-%    
+%
 % => Usage:
 %    Definition of Laplace Transform:  \mathcal{L}\{f(t)\} \mdef ()...)
 \newcommand{\mdef}{ {\triangleq \;} }
