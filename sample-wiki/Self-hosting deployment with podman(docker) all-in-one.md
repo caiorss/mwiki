@@ -1,7 +1,7 @@
 ---
 title:       Self-hosting deployment with podman(docker) all-in-one
 label:       
-description: 
+description: Describes how to self-host MWiki via a self-contained Podman or Docker container image with minimal effort. 
 keywords:    
 ---
 
