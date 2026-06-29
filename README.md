@@ -280,16 +280,19 @@ $ uv tool install git+https://github.com/caiorss/mwiki
   Installed 2 executables: mwiki, mwiki-convert
 ```
 
-Install latest stable release: version v0.9.4.
-
+Install latest stable release: version v0.9.5.
 
 ```sh
-$ uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.9.4.zip
+uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.9.5.zip
 ```
 
-Or install v0.9.4 using the commit hash.
+Install release version v0.9.4.
 
 ```sh
+uv tool install https://github.com/caiorss/mwiki/archive/refs/tags/v0.9.4.zip
+
+# Or
+
 $ uv tool install https://github.com/caiorss/mwiki/archive/0064cd2c2d730d4acadb74fc59a3f47100774fe2.zip
 ```
 
@@ -967,7 +970,6 @@ Note that the SSH hostname myuser@dummy.local could also be:
 3. Tailscale (Site-To-Site) VPN magic DNS domain name. 
 4. External Ipv4 address, for instance 172.168.115.125 if the MWiki is running in any machine with public (fixed/static) IPv4 adress, often cloud VPS - Virtual Private Server virtual machine. All VPS (Virtual Private Server), cloud virtual machines, provided by Google Cloud, AWS, Digital Ocean and other cloud providers have public IPv4 address reacheable from anywhere around the world.
 5. Internal Ipv4 for accessing in the local network, for instance 192.168.0.115
-
 
 ### Further Reading about SSH, mDNS and Firewall Settings
 
