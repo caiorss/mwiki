@@ -8,8 +8,12 @@
 + Implement popup window for using the web browser's spell checker. This window in the editor page allows user to check the spelling of any pasted text using the native web browser's spell checker. 
 + Force downloading Jupyter Notebook if the user clicks at the download button.
 + Improve rendering speed of LaTeX (KaTeX engine) formulas by caching the generated html on local storage if there is space available.
++ Add new useful default LaTeX macros.
 + Bugfix - Fix rendering of math myst role for KaTeX engine.
 + Bugfix - Fix display of MyST note role.
++ Bugfix - Fix the button for downloading Jupyter notebook files.
++ Bugfix - Fix extension of video files in the html generated code.
++ Bugfix - Fix font size of `<code>` html tag.
 
 ## Release v0.9.4
 
@@ -396,4 +400,3 @@
 + Add flask-wtf Python dependency for handling forms.
 + Implement settings form page.
 + Improve security - enforce authorization on server-side.
-
