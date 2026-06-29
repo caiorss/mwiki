@@ -257,6 +257,10 @@ body {
 
 }
 
+main code {
+  font-size: 0.9rem;
+}
+
 span.search-highlight {
   background-color: lightsalmon;
 }
@@ -479,7 +483,7 @@ img.admonition-icon {
     font-weight: bold;
     font-size: larger;
     background-color: #22863a;
-    
+
     */
 }
 
@@ -946,7 +950,7 @@ main thead th {
     }
 
 
-    /*    
+    /*
     .content {
         font-size: 14px !important;
     }
@@ -1160,7 +1164,7 @@ code {
   display: none;
 }
 
-/** Syntax Highlight Style for Pyhton's Pygment 
+/** Syntax Highlight Style for Pyhton's Pygment
  *
  */
 .highlight .hll {
