@@ -12,6 +12,10 @@ body {
   font-family: var(--font-family-main);
 }
 
+main code {
+  font-size: 0.9rem;
+}
+
 h1 {
   font-size: var(--font-size-h1);
 }
@@ -444,7 +448,7 @@ img.admonition-icon {
     font-weight: bold;
     font-size: larger;
     background-color: #22863a;
-    
+
     */
 }
 
@@ -893,7 +897,7 @@ main thead th {
       font-size: 1.5rem !important;
     }
 
-    /*    
+    /*
       .content {
           font-size: 14px !important;
       }
@@ -1095,7 +1099,7 @@ code {
   display: none;
 }
 
-/** Syntax Highlight Style for Pyhton's Pygment 
+/** Syntax Highlight Style for Pyhton's Pygment
  *
  */
 .highlight .hll {

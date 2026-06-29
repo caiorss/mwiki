@@ -121,7 +121,7 @@
     const LATEX_RENDERER = "katex";
     const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
     const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
-    const KATEX_MACROS = "eyJcXGNlcSI6ICJcXGNvbG9uZXF1YWxzIiwgIlxcYiI6ICJcXG1hdGhiZnsjMX0iLCAiXFxiaGF0IjogIlxcaGF0e1xcbWF0aGJmeyMxfX0iLCAiXFxiZG90IjogIlxcZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxiZGRvdCI6ICJcXGRkb3R7XFxtYXRoYmZ7IzF9fSIsICJcXGJzIjogIlxcYm9sZHN5bWJvbHsjMX0iLCAiXFxic2hhdCI6ICJcXGhhdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGJzZG90IjogIlxcZG90e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcYnNkZG90IjogIlxcZGRvdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGZiIjogInt9XnsjMn1cXG1hdGhiZnsjMX0iLCAiXFxmYmhhdCI6ICJ7fV57IzJ9XFxoYXR7XFxtYXRoYmZ7IzF9fSIsICJcXGZicyI6ICJ7fV57IzJ9XFxib2xkc3ltYm9seyMxfSIsICJmciI6ICJ7fV57IzF9X3sjMn0iLCAiXFxza2V3IjogIlxcbGVmdFsgIzEgXFxyaWdodF1fe1xcdGltZXN9IiwgIlxcYXJnbWF4IjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1heH0iLCAiXFxhcmdtaW4iOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWlufSIsICJcXFIiOiAieyBcXG1hdGhiYntSfSB9IiwgIlxcWiI6ICJcXG1hdGhiYntafSIsICJcXGxhcGxhY2UiOiAiXFxtYXRoY2Fse0x9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWxhcGxhY2UiOiAiXFxtYXRoY2Fse0x9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxmb3VyaWVyIjogIlxcbWF0aGNhbHtGfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGlmb3VyaWVyIjogIlxcbWF0aGNhbHtGfV57LTF9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcZCI6ICJcXG1hdGhybXtkfSIsICJcXHAiOiAiXFxwYXJ0aWFsIiwgIlxcZSI6ICJcXG1hdGhybXtlfSIsICJcXGR0IjogIlxcZnJhY3tkICMxfXtkdH0iLCAiXFxkZHQiOiAiXFxmcmFje2ReMiAjMX17ZHReMn0iLCAiXFxwZCI6ICJcXGZyYWN7XFxwYXJ0aWFsICMxfXtcXHBhcnRpYWwgIzJ9IiwgIlxccGRkIjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsICMyXjJ9IiwgIlxcQyI6ICJ7IFxcbWF0aGJie0N9IH0iLCAiXFxCaWdPIjogIlxcbWF0aGNhbHtPfVxcIVxcbGVmdCgjMVxccmlnaHQpIiwgIlxcbWRlZiI6ICJ7XFx0cmlhbmdsZXEgXFw7fSIsICJcXHNnbiI6ICJcXG9wZXJhdG9ybmFtZXtzZ259In0=";
+    const KATEX_MACROS = "eyJcXGR5IjogIlxcZGlzcGxheXN0eWxlIiwgIlxcZGVmIjogIlxcc3RhY2tyZWx7XFx0ZXh0e2RlZn19ez19IiwgIlxcb3AiOiAiXFxvcGVyYXRvcm5hbWUiLCAiXFxjZXEiOiAiXFxjb2xvbmVxdWFscyIsICJcXGIiOiAiXFxtYXRoYmZ7IzF9IiwgIlxcYmhhdCI6ICJcXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRvdCI6ICJcXGRvdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRkb3QiOiAiXFxkZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxicyI6ICJcXGJvbGRzeW1ib2x7IzF9IiwgIlxcYnNoYXQiOiAiXFxoYXR7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxic2RvdCI6ICJcXGRvdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGJzZGRvdCI6ICJcXGRkb3R7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxmYiI6ICJ7fV57IzJ9XFxtYXRoYmZ7IzF9IiwgIlxcZmJoYXQiOiAie31eeyMyfVxcaGF0e1xcbWF0aGJmeyMxfX0iLCAiXFxmYnMiOiAie31eeyMyfVxcYm9sZHN5bWJvbHsjMX0iLCAiZnIiOiAie31eeyMxfV97IzJ9IiwgIlxcc2tldyI6ICJcXGxlZnRbICMxIFxccmlnaHRdX3tcXHRpbWVzfSIsICJcXGFyZ21heCI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtYXh9IiwgIlxcYXJnbWluIjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1pbn0iLCAiXFxSIjogInsgXFxtYXRoYmJ7Un0gfSIsICJcXFoiOiAiXFxtYXRoYmJ7Wn0iLCAiXFxsYXBsYWNlIjogIlxcbWF0aGNhbHtMfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGlsYXBsYWNlIjogIlxcbWF0aGNhbHtMfV57LTF9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcZm91cmllciI6ICJcXG1hdGhjYWx7Rn1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxpZm91cmllciI6ICJcXG1hdGhjYWx7Rn1eey0xfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGQiOiAiXFxtYXRocm17ZH0iLCAiXFxwIjogIlxccGFydGlhbCIsICJcXGUiOiAiXFxtYXRocm17ZX0iLCAiXFxkdCI6ICJcXGZyYWN7ZCAjMX17ZHR9IiwgIlxcZGR0IjogIlxcZnJhY3tkXjIgIzF9e2R0XjJ9IiwgIlxccGQiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsICMyfSIsICJcXHBkZCI6ICJcXGZyYWN7XFxwYXJ0aWFsXjIgIzF9e1xccGFydGlhbCAjMl4yfSIsICJcXEMiOiAieyBcXG1hdGhiYntDfSB9IiwgIlxcQmlnTyI6ICJcXG1hdGhjYWx7T31cXCFcXGxlZnQoIzFcXHJpZ2h0KSIsICJcXG1kZWYiOiAie1xcdHJpYW5nbGVxIFxcO30iLCAiXFxzZ24iOiAiXFxvcGVyYXRvcm5hbWV7c2dufSIsICJcXHJhbmsiOiAiXFxvcGVyYXRvcm5hbWV7cmFua30iLCAiXFxyZSI6ICJcXG9wZXJhdG9ybmFtZXtSZX0iLCAiXFxpbSI6ICJcXG9wZXJhdG9ybmFtZXtJbX0iLCAiXFxpbWciOiAiXFxvcGVyYXRvcm5hbWV7aW19IiwgIlxcdHJhY2UiOiAiXFxvcGVyYXRvcm5hbWV7dHJ9IiwgIlxccHQiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHR9IiwgIlxccHgiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHh9IiwgIlxccHkiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHl9IiwgIlxccHoiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHp9IiwgIlxccHh4IjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsIHheMn0iLCAiXFxweXkiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgeV4yfSIsICJcXHB6eiI6ICJcXGZyYWN7XFxwYXJ0aWFsXjIgIzF9e1xccGFydGlhbCB6XjJ9IiwgIlxcRSI6ICJcXG9wZXJhdG9ybmFtZXtFfVxcbGVmdFsgIzEgXFxyaWdodF0iLCAiXFxWYXIiOiAiXFxvcGVyYXRvcm5hbWV7VmFyfSIsICJcXGNvdiI6ICJcXG9wZXJhdG9ybmFtZXtjb3Z9In0=";
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
@@ -465,7 +465,7 @@
 
 <div class="div-heading"> 
 <h2 id="H_Overview" class="document-heading anchor">Overview <a class="link-heading" href="#H_Overview">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=7&end=13&anchor=H_Overview&page=Linux SysRq Key and OOM System Recovery&timestamp=176064157279865" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=7&end=13&anchor=H_Overview&page=Linux SysRq Key and OOM System Recovery&timestamp=178240923897432" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -479,13 +479,13 @@ For many users, the solution is a forced system reboot. However, it may lead to 
 
 <div class="div-heading"> 
 <h2 id="H_SysRq_Settings" class="document-heading anchor">SysRq Settings <a class="link-heading" href="#H_SysRq_Settings">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=13&end=55&anchor=H_SysRq_Settings&page=Linux SysRq Key and OOM System Recovery&timestamp=176064157279865" title="[i18n]: SysRq Settings" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=13&end=55&anchor=H_SysRq_Settings&page=Linux SysRq Key and OOM System Recovery&timestamp=178240923897432" title="[i18n]: SysRq Settings" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Check_whether_SysRq_status" class="document-heading anchor">Check whether SysRq status <a class="link-heading" href="#H_Check_whether_SysRq_status">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=15&end=26&anchor=H_Check_whether_SysRq_status&page=Linux SysRq Key and OOM System Recovery&timestamp=176064157279865" title="[i18n]: Check whether SysRq status" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=15&end=26&anchor=H_Check_whether_SysRq_status&page=Linux SysRq Key and OOM System Recovery&timestamp=178240923897432" title="[i18n]: Check whether SysRq status" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -505,7 +505,7 @@ if the output is 0, then sysrq is disabled, otherwise sysrq is enabled. All sysr
 
 <div class="div-heading"> 
 <h3 id="H_Set_SySrq_Value_without_reboot" class="document-heading anchor">Set SySrq Value without reboot <a class="link-heading" href="#H_Set_SySrq_Value_without_reboot">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=26&end=40&anchor=H_Set_SySrq_Value_without_reboot&page=Linux SysRq Key and OOM System Recovery&timestamp=176064157279865" title="[i18n]: Set SySrq Value without reboot" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=26&end=40&anchor=H_Set_SySrq_Value_without_reboot&page=Linux SysRq Key and OOM System Recovery&timestamp=178240923897432" title="[i18n]: Set SySrq Value without reboot" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -530,7 +530,7 @@ All SysRq options can be enabled by setting the pseudo-file (a kernel interface)
 
 <div class="div-heading"> 
 <h3 id="H_Persist_SysRq_Value_on_Reboot" class="document-heading anchor">Persist SysRq Value on Reboot <a class="link-heading" href="#H_Persist_SysRq_Value_on_Reboot">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=40&end=55&anchor=H_Persist_SysRq_Value_on_Reboot&page=Linux SysRq Key and OOM System Recovery&timestamp=176064157279865" title="[i18n]: Persist SysRq Value on Reboot" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=40&end=55&anchor=H_Persist_SysRq_Value_on_Reboot&page=Linux SysRq Key and OOM System Recovery&timestamp=178240923897432" title="[i18n]: Persist SysRq Value on Reboot" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -555,7 +555,7 @@ Override the file 99-sysctl.conf with the line <code>kernel.sysrq = 1</code>.
 
 <div class="div-heading"> 
 <h2 id="H_Commands" class="document-heading anchor">Commands <a class="link-heading" href="#H_Commands">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=55&end=97&anchor=H_Commands&page=Linux SysRq Key and OOM System Recovery&timestamp=176064157279865" title="[i18n]: Commands" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=55&end=97&anchor=H_Commands&page=Linux SysRq Key and OOM System Recovery&timestamp=178240923897432" title="[i18n]: Commands" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -601,7 +601,7 @@ u – to remount all file system in read-only mode
 
 <div class="div-heading"> 
 <h3 id="H_Unfreeze_Computer_in_OOM" class="document-heading anchor">Unfreeze Computer in OOM <a class="link-heading" href="#H_Unfreeze_Computer_in_OOM">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=72&end=78&anchor=H_Unfreeze_Computer_in_OOM&page=Linux SysRq Key and OOM System Recovery&timestamp=176064157279865" title="[i18n]: Unfreeze Computer in OOM" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=72&end=78&anchor=H_Unfreeze_Computer_in_OOM&page=Linux SysRq Key and OOM System Recovery&timestamp=178240923897432" title="[i18n]: Unfreeze Computer in OOM" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -616,7 +616,7 @@ Unfreeze computer in OOM (Out-Of-Memory) by terminating memory hogging processes
 
 <div class="div-heading"> 
 <h3 id="H_Safe_System_Reboot" class="document-heading anchor">Safe System Reboot <a class="link-heading" href="#H_Safe_System_Reboot">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=78&end=97&anchor=H_Safe_System_Reboot&page=Linux SysRq Key and OOM System Recovery&timestamp=176064157279865" title="[i18n]: Safe System Reboot" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=78&end=97&anchor=H_Safe_System_Reboot&page=Linux SysRq Key and OOM System Recovery&timestamp=178240923897432" title="[i18n]: Safe System Reboot" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -669,7 +669,7 @@ opposite of "busier"
 
 <div class="div-heading"> 
 <h2 id="H_See" class="document-heading anchor">See <a class="link-heading" href="#H_See">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=97&end=end&anchor=H_See&page=Linux SysRq Key and OOM System Recovery&timestamp=176064157279865" title="[i18n]: See" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Linux_SysRq_Key_and_OOM_System_Recovery?start=97&end=end&anchor=H_See&page=Linux SysRq Key and OOM System Recovery&timestamp=178240923897432" title="[i18n]: See" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 

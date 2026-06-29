@@ -8,7 +8,7 @@
         <link rel="icon" type="imag/x-icon" href="/mwiki/favicon.ico" >
     
     <title data-i18n="">MBook - Self-hosting deployment with podman(docker) all-in-one</title>
-    <meta name="description" content="None" />
+    <meta name="description" content="Describes how to self-host MWiki via a self-contained Podman or Docker container image with minimal effort." />
     <meta name=generator content="MWiki">
     
    
@@ -121,7 +121,7 @@
     const LATEX_RENDERER = "katex";
     const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
     const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
-    const KATEX_MACROS = "eyJcXGNlcSI6ICJcXGNvbG9uZXF1YWxzIiwgIlxcYiI6ICJcXG1hdGhiZnsjMX0iLCAiXFxiaGF0IjogIlxcaGF0e1xcbWF0aGJmeyMxfX0iLCAiXFxiZG90IjogIlxcZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxiZGRvdCI6ICJcXGRkb3R7XFxtYXRoYmZ7IzF9fSIsICJcXGJzIjogIlxcYm9sZHN5bWJvbHsjMX0iLCAiXFxic2hhdCI6ICJcXGhhdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGJzZG90IjogIlxcZG90e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcYnNkZG90IjogIlxcZGRvdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGZiIjogInt9XnsjMn1cXG1hdGhiZnsjMX0iLCAiXFxmYmhhdCI6ICJ7fV57IzJ9XFxoYXR7XFxtYXRoYmZ7IzF9fSIsICJcXGZicyI6ICJ7fV57IzJ9XFxib2xkc3ltYm9seyMxfSIsICJmciI6ICJ7fV57IzF9X3sjMn0iLCAiXFxza2V3IjogIlxcbGVmdFsgIzEgXFxyaWdodF1fe1xcdGltZXN9IiwgIlxcYXJnbWF4IjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1heH0iLCAiXFxhcmdtaW4iOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWlufSIsICJcXFIiOiAieyBcXG1hdGhiYntSfSB9IiwgIlxcWiI6ICJcXG1hdGhiYntafSIsICJcXGxhcGxhY2UiOiAiXFxtYXRoY2Fse0x9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWxhcGxhY2UiOiAiXFxtYXRoY2Fse0x9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxmb3VyaWVyIjogIlxcbWF0aGNhbHtGfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGlmb3VyaWVyIjogIlxcbWF0aGNhbHtGfV57LTF9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcZCI6ICJcXG1hdGhybXtkfSIsICJcXHAiOiAiXFxwYXJ0aWFsIiwgIlxcZSI6ICJcXG1hdGhybXtlfSIsICJcXGR0IjogIlxcZnJhY3tkICMxfXtkdH0iLCAiXFxkZHQiOiAiXFxmcmFje2ReMiAjMX17ZHReMn0iLCAiXFxwZCI6ICJcXGZyYWN7XFxwYXJ0aWFsICMxfXtcXHBhcnRpYWwgIzJ9IiwgIlxccGRkIjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsICMyXjJ9IiwgIlxcQyI6ICJ7IFxcbWF0aGJie0N9IH0iLCAiXFxCaWdPIjogIlxcbWF0aGNhbHtPfVxcIVxcbGVmdCgjMVxccmlnaHQpIiwgIlxcbWRlZiI6ICJ7XFx0cmlhbmdsZXEgXFw7fSIsICJcXHNnbiI6ICJcXG9wZXJhdG9ybmFtZXtzZ259In0=";
+    const KATEX_MACROS = "eyJcXGR5IjogIlxcZGlzcGxheXN0eWxlIiwgIlxcZGVmIjogIlxcc3RhY2tyZWx7XFx0ZXh0e2RlZn19ez19IiwgIlxcb3AiOiAiXFxvcGVyYXRvcm5hbWUiLCAiXFxjZXEiOiAiXFxjb2xvbmVxdWFscyIsICJcXGIiOiAiXFxtYXRoYmZ7IzF9IiwgIlxcYmhhdCI6ICJcXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRvdCI6ICJcXGRvdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRkb3QiOiAiXFxkZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxicyI6ICJcXGJvbGRzeW1ib2x7IzF9IiwgIlxcYnNoYXQiOiAiXFxoYXR7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxic2RvdCI6ICJcXGRvdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGJzZGRvdCI6ICJcXGRkb3R7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxmYiI6ICJ7fV57IzJ9XFxtYXRoYmZ7IzF9IiwgIlxcZmJoYXQiOiAie31eeyMyfVxcaGF0e1xcbWF0aGJmeyMxfX0iLCAiXFxmYnMiOiAie31eeyMyfVxcYm9sZHN5bWJvbHsjMX0iLCAiZnIiOiAie31eeyMxfV97IzJ9IiwgIlxcc2tldyI6ICJcXGxlZnRbICMxIFxccmlnaHRdX3tcXHRpbWVzfSIsICJcXGFyZ21heCI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtYXh9IiwgIlxcYXJnbWluIjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1pbn0iLCAiXFxSIjogInsgXFxtYXRoYmJ7Un0gfSIsICJcXFoiOiAiXFxtYXRoYmJ7Wn0iLCAiXFxsYXBsYWNlIjogIlxcbWF0aGNhbHtMfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGlsYXBsYWNlIjogIlxcbWF0aGNhbHtMfV57LTF9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcZm91cmllciI6ICJcXG1hdGhjYWx7Rn1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxpZm91cmllciI6ICJcXG1hdGhjYWx7Rn1eey0xfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGQiOiAiXFxtYXRocm17ZH0iLCAiXFxwIjogIlxccGFydGlhbCIsICJcXGUiOiAiXFxtYXRocm17ZX0iLCAiXFxkdCI6ICJcXGZyYWN7ZCAjMX17ZHR9IiwgIlxcZGR0IjogIlxcZnJhY3tkXjIgIzF9e2R0XjJ9IiwgIlxccGQiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsICMyfSIsICJcXHBkZCI6ICJcXGZyYWN7XFxwYXJ0aWFsXjIgIzF9e1xccGFydGlhbCAjMl4yfSIsICJcXEMiOiAieyBcXG1hdGhiYntDfSB9IiwgIlxcQmlnTyI6ICJcXG1hdGhjYWx7T31cXCFcXGxlZnQoIzFcXHJpZ2h0KSIsICJcXG1kZWYiOiAie1xcdHJpYW5nbGVxIFxcO30iLCAiXFxzZ24iOiAiXFxvcGVyYXRvcm5hbWV7c2dufSIsICJcXHJhbmsiOiAiXFxvcGVyYXRvcm5hbWV7cmFua30iLCAiXFxyZSI6ICJcXG9wZXJhdG9ybmFtZXtSZX0iLCAiXFxpbSI6ICJcXG9wZXJhdG9ybmFtZXtJbX0iLCAiXFxpbWciOiAiXFxvcGVyYXRvcm5hbWV7aW19IiwgIlxcdHJhY2UiOiAiXFxvcGVyYXRvcm5hbWV7dHJ9IiwgIlxccHQiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHR9IiwgIlxccHgiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHh9IiwgIlxccHkiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHl9IiwgIlxccHoiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHp9IiwgIlxccHh4IjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsIHheMn0iLCAiXFxweXkiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgeV4yfSIsICJcXHB6eiI6ICJcXGZyYWN7XFxwYXJ0aWFsXjIgIzF9e1xccGFydGlhbCB6XjJ9IiwgIlxcRSI6ICJcXG9wZXJhdG9ybmFtZXtFfVxcbGVmdFsgIzEgXFxyaWdodF0iLCAiXFxWYXIiOiAiXFxvcGVyYXRvcm5hbWV7VmFyfSIsICJcXGNvdiI6ICJcXG9wZXJhdG9ybmFtZXtjb3Z9In0=";
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
@@ -339,27 +339,35 @@
             
                 <ol>
                     
-                        <span><a class="link-sidebar" href="#H_Build_the_podman_or_docker_image">Build the podman or docker image</a> </span>
-                    
-                    
-                </ol>
-            
-                <ol>
-                    
-                        <span><a class="link-sidebar" href="#H_Create_and_run_the_container">Create and run the container</a> </span>
+                        <span><a class="link-sidebar" href="#H_Installation">Installation</a> </span>
                     
                     
                         <div> 
                         <ul>
                         
+                            <li><a class="link-sidebar" href="#H_Disable_SELinux">Disable SELinux</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Build_the_Podman_Container_Image">Build the Podman Container Image</a></li>
+                        
                             <li><a class="link-sidebar" href="#H_Set_the_environment_variables.">Set the environment variables.</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Open_Firewall_Ports">Open Firewall Ports</a></li>
                         
                             <li><a class="link-sidebar" href="#H_Create_the_container">Create the container</a></li>
                         
-                            <li><a class="link-sidebar" href="#H_Logging_in">Logging in</a></li>
+                            <li><a class="link-sidebar" href="#H_Logging_in_/_Authentication">Logging in / Authentication</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Common_Operations">Common Operations</a></li>
                         
                         </ul>
                         </div>
+                    
+                </ol>
+            
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Further_Reading">Further Reading</a> </span>
+                    
                     
                 </ol>
             
@@ -448,19 +456,89 @@
 
 <div class="div-heading"> 
 <h2 id="H_Overview" class="document-heading anchor">Overview <a class="link-heading" href="#H_Overview">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=7&end=11&anchor=H_Overview&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=176960291308375" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=7&end=12&anchor=H_Overview&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <p>
-The all-in-one container provides a easy way to deploy MWiki with everything pre configured, including Mwiki server and Caddy web server in  a single docker or podman container. Caddy web server is used for serving static files and providing TLS (Transport Layer Security), also known as SSL - Socket Layer Security, by encrypting the network traffic between the server and a client web browser.
+Linux containers can be thought as lightweight disposable virtual machine since they provide a way to virtualize software with less resource usage than full-featured virtual machines as containers share the same kernel and are based on process isolation rather than hardware emulation. By using containers, server software, including MWiki can be deployed isolated from the host machine in a secure fashion without causing disruptions or breaking changes. Moreover, as containers are sandboxed by default, they are able to mitigate and limit the reach of security vulnerabilities in the host machine if any container is ever compromised.
+</p>
+
+<p>
+The all-in-one container provides an easy and lightweight approach to deploy MWiki with everything pre configured, including Mwiki server and Caddy web server in  a single docker or podman container. Caddy web server is used for serving static files and providing TLS (Transport Layer Security), also known as SSL - Socket Layer Security, by encrypting the network traffic between the server and a client web browser.
 </p>
 
 <div class="div-heading"> 
-<h2 id="H_Build_the_podman_or_docker_image" class="document-heading anchor">Build the podman or docker image <a class="link-heading" href="#H_Build_the_podman_or_docker_image">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=11&end=31&anchor=H_Build_the_podman_or_docker_image&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=176960291308375" title="[i18n]: Build the podman or docker image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<h2 id="H_Installation" class="document-heading anchor">Installation <a class="link-heading" href="#H_Installation">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=12&end=220&anchor=H_Installation&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Installation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Disable_SELinux" class="document-heading anchor">Disable SELinux <a class="link-heading" href="#H_Disable_SELinux">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=14&end=38&anchor=H_Disable_SELinux&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Disable SELinux" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<p>
+Since SELinux may cause podman to fail with the error <code>[Errno 13] Permission denied: ...</code>, it may be worth to disable SELinux by using
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>setenforce<span class="w"> </span><span class="m">0</span>
+</pre></div>
+</code>
+</pre></div>
+
+<p>
+for temporarily disabling SELinux.
+</p>
+
+<p>
+<strong>See</strong>
+</p>
+
+<ul class="">
+<li>
+<em>Security-Enhanced Linux</em>, Wikipedia <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/Security-Enhanced_Linux"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/Security-Enhanced_Linux</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>How to Disable SELinux on Fedora 40 or 39</em> <ul class="">
+<li>
+<a href="https://linuxcapable.com/how-to-disable-selinux-on-fedora-linux/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://linuxcapable.com/how-to-disable-selinux-on-fedora-linux/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>How to Disable SELinux Temporarily or Permanently</em> <ul class="">
+<li>
+<a href="https://www.tecmint.com/disable-selinux-in-centos-rhel-fedora/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.tecmint.com/disable-selinux-in-centos-rhel-fedora/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>How to disable SELinux (with and without reboot)</em> <ul class="">
+<li>
+<a href="https://www.golinuxcloud.com/disable-selinux/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.golinuxcloud.com/disable-selinux/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Changing SELinux States and Modes</em> <ul class="">
+<li>
+<a href="https://docs.fedoraproject.org/en-US/quick-docs/selinux-changing-states-and-modes/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://docs.fedoraproject.org/en-US/quick-docs/selinux-changing-states-and-modes/</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Build_the_Podman_Container_Image" class="document-heading anchor">Build the Podman Container Image <a class="link-heading" href="#H_Build_the_Podman_Container_Image">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=38&end=60&anchor=H_Build_the_Podman_Container_Image&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Build the Podman Container Image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
 
 <p>
 Clone the repository and enter its root folder.
@@ -493,14 +571,8 @@ Build the container image using docker.
 </pre></div>
 
 <div class="div-heading"> 
-<h2 id="H_Create_and_run_the_container" class="document-heading anchor">Create and run the container <a class="link-heading" href="#H_Create_and_run_the_container">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=31&end=end&anchor=H_Create_and_run_the_container&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=176960291308375" title="[i18n]: Create and run the container" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-</div>
-<hr class="line-under-heading">
-
-<div class="div-heading"> 
 <h3 id="H_Set_the_environment_variables." class="document-heading anchor">Set the environment variables. <a class="link-heading" href="#H_Set_the_environment_variables.">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=33&end=58&anchor=H_Set_the_environment_variables.&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=176960291308375" title="[i18n]: Set the environment variables." class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=60&end=86&anchor=H_Set_the_environment_variables.&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Set the environment variables." class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
@@ -542,16 +614,112 @@ Set the Wiki name (website name).
 </pre></div>
 
 <div class="div-heading"> 
-<h3 id="H_Create_the_container" class="document-heading anchor">Create the container <a class="link-heading" href="#H_Create_the_container">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=58&end=95&anchor=H_Create_the_container&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=176960291308375" title="[i18n]: Create the container" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<h3 id="H_Open_Firewall_Ports" class="document-heading anchor">Open Firewall Ports <a class="link-heading" href="#H_Open_Firewall_Ports">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=86&end=131&anchor=H_Open_Firewall_Ports&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Open Firewall Ports" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
-Make sure that the firewall allows network traffic through the TCP ports 80 (HTTP) and 443 (HTTPS) before running this command.
+In some Linux distributions or other operating systems, TCP and UDP ports are blocked by default for security reasons. As a result, it may be necessary to open TCP ports by changing the firewall settings in order to be able to access MWiki or any other web server from other computers or devices.
+</p>
+
+<p>
+<strong>Microsoft Windows</strong>: Open port 80 (http) and 443 (https) in Microsoft Windows (requires opening a terminal with administrator privilegees).
 </p>
 
 <div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
-<code class="language-sh"><div class="highlight"><pre><span></span>podman<span class="w"> </span>run<span class="w"> </span>--name<span class="o">=</span><span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<code class="language-sh"><div class="highlight"><pre><span></span>netsh<span class="w"> </span>firewall<span class="w"> </span>add<span class="w"> </span>portopening<span class="w"> </span>TCP<span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="s2">&quot;MWIki server port&quot;</span>
+netsh<span class="w"> </span>firewall<span class="w"> </span>add<span class="w"> </span>portopening<span class="w"> </span>TCP<span class="w"> </span><span class="m">443</span><span class="w"> </span><span class="s2">&quot;MWIki server port&quot;</span>
+</pre></div>
+</code>
+</pre></div>
+
+<p>
+<strong>Linux / IPtables</strong>: Open TCP ports 80 and 443 in Linux with Iptables (Default Linux firewall, all other Linux firewalls are wrappers around Iptables).
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>iptables<span class="w"> </span>-A<span class="w"> </span>INPUT<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">80</span><span class="w"> </span>-j<span class="w"> </span>ACCEPT
+sudo<span class="w"> </span>iptables<span class="w"> </span>-A<span class="w"> </span>INPUT<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">443</span><span class="w"> </span>-j<span class="w"> </span>ACCEPT
+</pre></div>
+</code>
+</pre></div>
+
+<p>
+<strong>Linux / UFW</strong>: Open port 80 and 443 in Linux with UFW (Uncomplicated Firewall), mostly used by Debian and Ubuntu derived Linux distributions.
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">80</span>/tcp
+sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">443</span>/tcp
+</pre></div>
+</code>
+</pre></div>
+
+<p>
+<strong>Linux / Firewalld</strong>: Open port 80 and 443 in Linux with firewalld.
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--add-port<span class="o">=</span><span class="m">80</span>/tcp<span class="w"> </span>--permanent
+sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--add-port<span class="o">=</span><span class="m">443</span>/tcp<span class="w"> </span>--permanent
+sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
+</pre></div>
+</code>
+</pre></div>
+
+<p>
+<strong>See also</strong>
+</p>
+
+<ul class="">
+<li>
+<em>Open TCP Port 80 in Windows Firewall Using Netsh</em> <ul class="">
+<li>
+<a href="https://www.wiki.mcneel.com/zoo/homenetsh"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.wiki.mcneel.com/zoo/homenetsh</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Linux Open Port 80 (HTTP Web Server Port)</em>, Vivek Gite (2022), Cyberciti <ul class="">
+<li>
+<a href="https://www.cyberciti.biz/faq/linux-iptables-firewall-open-port-80/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.cyberciti.biz/faq/linux-iptables-firewall-open-port-80/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>5 ways to open a port in Linux explained with examples</em>, Arun Kumar (2023), FOSS Linux <ul class="">
+<li>
+<a href="https://www.fosslinux.com/111811/5-ways-to-open-a-port-in-linux-explained-with-examples.htm"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.fosslinux.com/111811/5-ways-to-open-a-port-in-linux-explained-with-examples.htm</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Linux .local domain</em> <ul class="">
+<li>
+<a href="https://en.wikipedia.org/wiki/.local"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/.local</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Linux Open Port: Step-by-Step Guide to Managing Firewall Ports</em>, Vijaykrishna Ram and Anish Singh Walia, Digital Ocean <ul class="">
+<li>
+<a href="https://www.digitalocean.com/community/tutorials/opening-a-port-on-linux"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.digitalocean.com/community/tutorials/opening-a-port-on-linux</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_Create_the_container" class="document-heading anchor">Create the container <a class="link-heading" href="#H_Create_the_container">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=131&end=168&anchor=H_Create_the_container&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Create the container" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<p>
+This step creates podman container, which is equivalent to a lightweight virtual machine, detached from the terminal.
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>podman<span class="w"> </span>run<span class="w"> </span>--name<span class="o">=</span>mwiki<span class="w"> </span>--detach<span class="w">  </span><span class="se">\</span>
 <span class="w">    </span>--publish<span class="o">=</span><span class="m">80</span>:80<span class="w"> </span>--publish<span class="o">=</span><span class="m">443</span>:443<span class="w">  </span><span class="se">\</span>
 <span class="w">    </span>--env<span class="w"> </span><span class="nv">MWIKI_URL</span><span class="o">=</span><span class="nv">$MWIKI_URL</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--env<span class="o">=</span><span class="nv">MWIKI_SITENAME</span><span class="o">=</span><span class="nv">$MWIKI_SITENAME</span><span class="w"> </span><span class="se">\</span>
@@ -604,8 +772,8 @@ So, the url of this dummy machine on the local network would be
 </ul>
 
 <div class="div-heading"> 
-<h3 id="H_Logging_in" class="document-heading anchor">Logging in <a class="link-heading" href="#H_Logging_in">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=95&end=end&anchor=H_Logging_in&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=176960291308375" title="[i18n]: Logging in" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<h3 id="H_Logging_in_/_Authentication" class="document-heading anchor">Logging in / Authentication <a class="link-heading" href="#H_Logging_in_/_Authentication">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=168&end=192&anchor=H_Logging_in_/_Authentication&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Logging in / Authentication" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -613,17 +781,26 @@ It is possible to log in without password by using a temporary magic hyperlink u
 </p>
 
 <div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
-<code class="language-sh"><div class="highlight"><pre><span></span>$<span class="w"> </span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>mwiki<span class="w"> </span>mwiki-auth
-Copy<span class="w"> </span>and<span class="w"> </span>paste<span class="w"> </span>the<span class="w"> </span>following<span class="w"> </span>URL<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>web<span class="w"> </span>browser<span class="w"> </span>to<span class="w"> </span>authenticate.
+<code class="language-sh"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>mwiki<span class="w"> </span>mwiki-auth
+</pre></div>
+</code>
+</pre></div>
 
-<span class="w">  </span>https://mydomain.com/auth?token<span class="o">=</span>eyJ1c2VyIjogImFkbWluIiwgInNhbHQiOiAxNzQsICJleHBpcmF0aW9uIjogMTc2OTA4MDU0NiwgInNpZ25hdHVyZSI6ICIxNTVlZDYxOTRhYTE5MTNmMzhkYWMzODI3ZTJiZTdiNzdiNGQ0NzVhYzVjMmJlNDU2ZTY5ZmViNTRiOTg0OGU4In0%3D
+<p>
+Output:
+</p>
 
-Or<span class="w"> </span>paste<span class="w"> </span>the<span class="w"> </span>following<span class="w"> </span>token<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>log<span class="w"> </span><span class="k">in</span><span class="w"> </span>form<span class="w"> </span>https://mydomain.com
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<code class="language-text"><div class="highlight"><pre><span></span>Copy and paste the following URL in the web browser to authenticate.
 
-<span class="w"> </span><span class="nv">eyJ1c2VyIjogImFkbWluIiwgInNhbHQiOiAxNzQsICJleHBpcmF0aW9uIjogMTc2OTA4MDU0NiwgInNpZ25hdHVyZSI6ICIxNTVlZDYxOTRhYTE5MTNmMzhkYWMzODI3ZTJiZTdiNzdiNGQ0NzVhYzVjMmJlNDU2ZTY5ZmViNTRiOTg0OGU4In0</span><span class="o">=</span>
+  https://mydomain.com/auth?token=eyJ1c2VyIjogImFkbWluIiwgInNhbHQiOiAxNzQsICJleHBpcmF0aW9uIjogMTc2OTA4MDU0NiwgInNpZ25hdHVyZSI6ICIxNTVlZDYxOTRhYTE5MTNmMzhkYWMzODI3ZTJiZTdiNzdiNGQ0NzVhYzVjMmJlNDU2ZTY5ZmViNTRiOTg0OGU4In0%3D
 
-NOTE:<span class="w"> </span>This<span class="w"> </span>URL<span class="w"> </span>is<span class="w"> </span>only<span class="w"> </span>valid<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="m">20</span><span class="w"> </span>seconds.
-NOTE:<span class="w"> </span>If<span class="w"> </span>MWiki<span class="w"> </span>URL<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>correct,<span class="w"> </span><span class="nb">set</span><span class="w"> </span>the<span class="w"> </span>environment<span class="w"> </span>variable<span class="w"> </span><span class="nv">$MWIKI_URL</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>app<span class="w"> </span>URL.For<span class="w"> </span>instance,<span class="w"> </span><span class="k">in</span><span class="w"> </span>bash<span class="w"> </span>Unix<span class="w"> </span>shell<span class="w"> </span>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_URL</span><span class="o">=</span>https://mydomain.com<span class="w"> </span>before<span class="w"> </span>running<span class="w"> </span>this<span class="w"> </span>comamnd<span class="w"> </span>again.
+Or paste the following token in the log in form https://mydomain.com
+
+ eyJ1c2VyIjogImFkbWluIiwgInNhbHQiOiAxNzQsICJleHBpcmF0aW9uIjogMTc2OTA4MDU0NiwgInNpZ25hdHVyZSI6ICIxNTVlZDYxOTRhYTE5MTNmMzhkYWMzODI3ZTJiZTdiNzdiNGQ0NzVhYzVjMmJlNDU2ZTY5ZmViNTRiOTg0OGU4In0=
+
+NOTE: This URL is only valid for 20 seconds.
+NOTE: If MWiki URL is not correct, set the environment variable $MWIKI_URL to the app URL.For instance, in bash Unix shell $ export MWIKI_URL=https://mydomain.com before running this comamnd again.
 </pre></div>
 </code>
 </pre></div>
@@ -631,6 +808,113 @@ NOTE:<span class="w"> </span>If<span class="w"> </span>MWiki<span class="w"> </s
 <p>
 Then, copy this url to the web browser to log in. Note that the magic login link is valid only for 20 seconds. After this step, the user can set the administrator password. MWiki does not use a hardcoded default password, instead it generates a random default password for every wiki.
 </p>
+
+<div class="div-heading"> 
+<h3 id="H_Common_Operations" class="document-heading anchor">Common Operations <a class="link-heading" href="#H_Common_Operations">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=192&end=220&anchor=H_Common_Operations&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Common Operations" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<p>
+The previous command for creating the container needs to be run only once. After the last step, the following commands can be used for managing the container.
+</p>
+
+<p>
+View the MWiki container's logs:
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>podman<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span><span class="w"> </span>-f<span class="w"> </span>mwiki
+</pre></div>
+</code>
+</pre></div>
+
+<p>
+Stop the MWiki container:
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>podman<span class="w"> </span>stop<span class="w"> </span>mwiki
+</pre></div>
+</code>
+</pre></div>
+
+<p>
+Start the MWiki container:
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>podman<span class="w"> </span>start<span class="w"> </span>mwiki
+</pre></div>
+</code>
+</pre></div>
+
+<p>
+Delete MWiki container<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup class="footnote-reference" data-counter="1" data-footnote="Note that this command is not prone to data loss if the wiki repository is mounted to the container folder /wiki">[1]</sup></a>:
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<code class="language-sh"><div class="highlight"><pre><span></span>podman<span class="w"> </span>rm<span class="w"> </span>mwiki
+</pre></div>
+</code>
+</pre></div>
+
+<div class="div-heading"> 
+<h2 id="H_Further_Reading" class="document-heading anchor">Further Reading <a class="link-heading" href="#H_Further_Reading">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=220&end=end&anchor=H_Further_Reading&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Further Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+<em>Podman Documentation</em>, podman docs <ul class="">
+<li>
+<a href="https://docs.podman.io/en/latest/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://docs.podman.io/en/latest/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Podman Desktop - Containers and Kubernetes | Podman Desktop</em>, Podman Desktop <ul class="">
+<li>
+<a href="https://podman-desktop.io/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://podman-desktop.io/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>How to Debug Permission Denied Errors in Podman Containers</em>, oneuptime (2026) <ul class="">
+<li>
+<a href="https://oneuptime.com/blog/post/2026-03-16-debug-permission-denied-errors-podman/view"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://oneuptime.com/blog/post/2026-03-16-debug-permission-denied-errors-podman/view</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Container permission denied: How to diagnose this error</em>, Dan Walsh (2022) - Redhat <ul class="">
+<li>
+<a href="https://www.redhat.com/en/blog/container-permission-denied-errors"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.redhat.com/en/blog/container-permission-denied-errors</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>I built a silent home server using an Intel N100 mini PC—here’s how it went</em>, Jeff Butts (2025) - XDA Developers <ul class="">
+<li>
+<a href="https://www.xda-developers.com/built-silent-home-server-using-intel-n100-mini-pc/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.xda-developers.com/built-silent-home-server-using-intel-n100-mini-pc/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Begin Your Homelab Journey: Self-Hosting Apps on a Mini PC with Proxmox</em>, SikuSiku <ul class="">
+<li>
+<a href="https://sikusiku.com/2025/09/begin-your-homelab-journey-self-hosting-apps-on-a-mini-pc-with-proxmox/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://sikusiku.com/2025/09/begin-your-homelab-journey-self-hosting-apps-on-a-mini-pc-with-proxmox/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>I installed these 6 lightweight Linux tools on a cheap mini PC and turned it into a silent home server</em>, Afam Onymadu (2026) - makeuseof <ul class="">
+<li>
+<a href="https://www.makeuseof.com/installed-lightweight-linux-tools-mini-pc-turned-into-silent-home-server/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.makeuseof.com/installed-lightweight-linux-tools-mini-pc-turned-into-silent-home-server/</a> 
+</li>
+</ul>
+</li>
+</ul>
 
 
         </main>

@@ -121,7 +121,7 @@
     const LATEX_RENDERER = "katex";
     const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
     const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
-    const KATEX_MACROS = "eyJcXGNlcSI6ICJcXGNvbG9uZXF1YWxzIiwgIlxcYiI6ICJcXG1hdGhiZnsjMX0iLCAiXFxiaGF0IjogIlxcaGF0e1xcbWF0aGJmeyMxfX0iLCAiXFxiZG90IjogIlxcZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxiZGRvdCI6ICJcXGRkb3R7XFxtYXRoYmZ7IzF9fSIsICJcXGJzIjogIlxcYm9sZHN5bWJvbHsjMX0iLCAiXFxic2hhdCI6ICJcXGhhdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGJzZG90IjogIlxcZG90e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcYnNkZG90IjogIlxcZGRvdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGZiIjogInt9XnsjMn1cXG1hdGhiZnsjMX0iLCAiXFxmYmhhdCI6ICJ7fV57IzJ9XFxoYXR7XFxtYXRoYmZ7IzF9fSIsICJcXGZicyI6ICJ7fV57IzJ9XFxib2xkc3ltYm9seyMxfSIsICJmciI6ICJ7fV57IzF9X3sjMn0iLCAiXFxza2V3IjogIlxcbGVmdFsgIzEgXFxyaWdodF1fe1xcdGltZXN9IiwgIlxcYXJnbWF4IjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1heH0iLCAiXFxhcmdtaW4iOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWlufSIsICJcXFIiOiAieyBcXG1hdGhiYntSfSB9IiwgIlxcWiI6ICJcXG1hdGhiYntafSIsICJcXGxhcGxhY2UiOiAiXFxtYXRoY2Fse0x9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWxhcGxhY2UiOiAiXFxtYXRoY2Fse0x9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxmb3VyaWVyIjogIlxcbWF0aGNhbHtGfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGlmb3VyaWVyIjogIlxcbWF0aGNhbHtGfV57LTF9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcZCI6ICJcXG1hdGhybXtkfSIsICJcXHAiOiAiXFxwYXJ0aWFsIiwgIlxcZSI6ICJcXG1hdGhybXtlfSIsICJcXGR0IjogIlxcZnJhY3tkICMxfXtkdH0iLCAiXFxkZHQiOiAiXFxmcmFje2ReMiAjMX17ZHReMn0iLCAiXFxwZCI6ICJcXGZyYWN7XFxwYXJ0aWFsICMxfXtcXHBhcnRpYWwgIzJ9IiwgIlxccGRkIjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsICMyXjJ9IiwgIlxcQyI6ICJ7IFxcbWF0aGJie0N9IH0iLCAiXFxCaWdPIjogIlxcbWF0aGNhbHtPfVxcIVxcbGVmdCgjMVxccmlnaHQpIiwgIlxcbWRlZiI6ICJ7XFx0cmlhbmdsZXEgXFw7fSIsICJcXHNnbiI6ICJcXG9wZXJhdG9ybmFtZXtzZ259In0=";
+    const KATEX_MACROS = "eyJcXGR5IjogIlxcZGlzcGxheXN0eWxlIiwgIlxcZGVmIjogIlxcc3RhY2tyZWx7XFx0ZXh0e2RlZn19ez19IiwgIlxcb3AiOiAiXFxvcGVyYXRvcm5hbWUiLCAiXFxjZXEiOiAiXFxjb2xvbmVxdWFscyIsICJcXGIiOiAiXFxtYXRoYmZ7IzF9IiwgIlxcYmhhdCI6ICJcXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRvdCI6ICJcXGRvdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRkb3QiOiAiXFxkZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxicyI6ICJcXGJvbGRzeW1ib2x7IzF9IiwgIlxcYnNoYXQiOiAiXFxoYXR7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxic2RvdCI6ICJcXGRvdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGJzZGRvdCI6ICJcXGRkb3R7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxmYiI6ICJ7fV57IzJ9XFxtYXRoYmZ7IzF9IiwgIlxcZmJoYXQiOiAie31eeyMyfVxcaGF0e1xcbWF0aGJmeyMxfX0iLCAiXFxmYnMiOiAie31eeyMyfVxcYm9sZHN5bWJvbHsjMX0iLCAiZnIiOiAie31eeyMxfV97IzJ9IiwgIlxcc2tldyI6ICJcXGxlZnRbICMxIFxccmlnaHRdX3tcXHRpbWVzfSIsICJcXGFyZ21heCI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtYXh9IiwgIlxcYXJnbWluIjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1pbn0iLCAiXFxSIjogInsgXFxtYXRoYmJ7Un0gfSIsICJcXFoiOiAiXFxtYXRoYmJ7Wn0iLCAiXFxsYXBsYWNlIjogIlxcbWF0aGNhbHtMfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGlsYXBsYWNlIjogIlxcbWF0aGNhbHtMfV57LTF9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcZm91cmllciI6ICJcXG1hdGhjYWx7Rn1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxpZm91cmllciI6ICJcXG1hdGhjYWx7Rn1eey0xfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGQiOiAiXFxtYXRocm17ZH0iLCAiXFxwIjogIlxccGFydGlhbCIsICJcXGUiOiAiXFxtYXRocm17ZX0iLCAiXFxkdCI6ICJcXGZyYWN7ZCAjMX17ZHR9IiwgIlxcZGR0IjogIlxcZnJhY3tkXjIgIzF9e2R0XjJ9IiwgIlxccGQiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsICMyfSIsICJcXHBkZCI6ICJcXGZyYWN7XFxwYXJ0aWFsXjIgIzF9e1xccGFydGlhbCAjMl4yfSIsICJcXEMiOiAieyBcXG1hdGhiYntDfSB9IiwgIlxcQmlnTyI6ICJcXG1hdGhjYWx7T31cXCFcXGxlZnQoIzFcXHJpZ2h0KSIsICJcXG1kZWYiOiAie1xcdHJpYW5nbGVxIFxcO30iLCAiXFxzZ24iOiAiXFxvcGVyYXRvcm5hbWV7c2dufSIsICJcXHJhbmsiOiAiXFxvcGVyYXRvcm5hbWV7cmFua30iLCAiXFxyZSI6ICJcXG9wZXJhdG9ybmFtZXtSZX0iLCAiXFxpbSI6ICJcXG9wZXJhdG9ybmFtZXtJbX0iLCAiXFxpbWciOiAiXFxvcGVyYXRvcm5hbWV7aW19IiwgIlxcdHJhY2UiOiAiXFxvcGVyYXRvcm5hbWV7dHJ9IiwgIlxccHQiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHR9IiwgIlxccHgiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHh9IiwgIlxccHkiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHl9IiwgIlxccHoiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHp9IiwgIlxccHh4IjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsIHheMn0iLCAiXFxweXkiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgeV4yfSIsICJcXHB6eiI6ICJcXGZyYWN7XFxwYXJ0aWFsXjIgIzF9e1xccGFydGlhbCB6XjJ9IiwgIlxcRSI6ICJcXG9wZXJhdG9ybmFtZXtFfVxcbGVmdFsgIzEgXFxyaWdodF0iLCAiXFxWYXIiOiAiXFxvcGVyYXRvcm5hbWV7VmFyfSIsICJcXGNvdiI6ICJcXG9wZXJhdG9ybmFtZXtjb3Z9In0=";
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
@@ -629,7 +629,7 @@ Math and Calculus Cheat Sheet
 
 <div class="div-heading"> 
 <h2 id="H_Related" class="document-heading anchor">Related <a class="link-heading" href="#H_Related">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=22&end=31&anchor=H_Related&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: Related" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=22&end=31&anchor=H_Related&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: Related" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -656,7 +656,7 @@ Math and Calculus Cheat Sheet
 
 <div class="div-heading"> 
 <h2 id="H_Overview" class="document-heading anchor">Overview <a class="link-heading" href="#H_Overview">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=31&end=64&anchor=H_Overview&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=31&end=64&anchor=H_Overview&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -745,7 +745,7 @@ Theorems
 
 <div class="div-heading"> 
 <h2 id="H_Physical_Units_and_SI_Prefixes" class="document-heading anchor">1 Physical Units and SI Prefixes <a class="link-heading" href="#H_Physical_Units_and_SI_Prefixes">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=64&end=114&anchor=H_Physical_Units_and_SI_Prefixes&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 1 Physical Units and SI Prefixes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=64&end=114&anchor=H_Physical_Units_and_SI_Prefixes&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 1 Physical Units and SI Prefixes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -1108,13 +1108,13 @@ Theorems
 
 <div class="div-heading"> 
 <h2 id="H_Fundamental_Curves" class="document-heading anchor">2 Fundamental Curves <a class="link-heading" href="#H_Fundamental_Curves">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=114&end=615&anchor=H_Fundamental_Curves&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 2 Fundamental Curves" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=114&end=615&anchor=H_Fundamental_Curves&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 2 Fundamental Curves" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Line_Function" class="document-heading anchor">2.1 Line Function <a class="link-heading" href="#H_Line_Function">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=116&end=149&anchor=H_Line_Function&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 2.1 Line Function" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=116&end=149&anchor=H_Line_Function&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 2.1 Line Function" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -1169,7 +1169,7 @@ x = - \beta / \alpha
 
 <div class="div-heading"> 
 <h3 id="H_Quadratic_Equation_and_Quadratic_Curve" class="document-heading anchor">2.2 Quadratic Equation and Quadratic Curve <a class="link-heading" href="#H_Quadratic_Equation_and_Quadratic_Curve">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=149&end=338&anchor=H_Quadratic_Equation_and_Quadratic_Curve&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 2.2 Quadratic Equation and Quadratic Curve" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=149&end=338&anchor=H_Quadratic_Equation_and_Quadratic_Curve&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 2.2 Quadratic Equation and Quadratic Curve" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -1409,7 +1409,7 @@ Code Generation using CSE - Common Subexpression Elimination:
 
 <div class="div-heading"> 
 <h3 id="H_Circle_Equation" class="document-heading anchor">2.3 Circle Equation <a class="link-heading" href="#H_Circle_Equation">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=338&end=615&anchor=H_Circle_Equation&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 2.3 Circle Equation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=338&end=615&anchor=H_Circle_Equation&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 2.3 Circle Equation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -1843,13 +1843,13 @@ Find the circle that fits the points.
 
 <div class="div-heading"> 
 <h2 id="H_Trigonometric_Functions_and_Identities" class="document-heading anchor">3 Trigonometric Functions and Identities <a class="link-heading" href="#H_Trigonometric_Functions_and_Identities">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=615&end=771&anchor=H_Trigonometric_Functions_and_Identities&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 3 Trigonometric Functions and Identities" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=615&end=771&anchor=H_Trigonometric_Functions_and_Identities&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 3 Trigonometric Functions and Identities" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Trigonometric_Functions" class="document-heading anchor">3.1 Trigonometric Functions <a class="link-heading" href="#H_Trigonometric_Functions">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=617&end=687&anchor=H_Trigonometric_Functions&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 3.1 Trigonometric Functions" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=617&end=687&anchor=H_Trigonometric_Functions&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 3.1 Trigonometric Functions" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -2151,7 +2151,7 @@ Note: <span class="math-inline lazy-load-latex">j = \sqrt{-1}</span> imaginary u
 
 <div class="div-heading"> 
 <h3 id="H_Trigonometric_Identities" class="document-heading anchor">3.2 Trigonometric Identities <a class="link-heading" href="#H_Trigonometric_Identities">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=687&end=771&anchor=H_Trigonometric_Identities&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 3.2 Trigonometric Identities" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=687&end=771&anchor=H_Trigonometric_Identities&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 3.2 Trigonometric Identities" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -2265,13 +2265,13 @@ Derivative of complex exponential with respect to angle in radians.
 
 <div class="div-heading"> 
 <h2 id="H_Derivatives" class="document-heading anchor">4 Derivatives <a class="link-heading" href="#H_Derivatives">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=771&end=1059&anchor=H_Derivatives&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 4 Derivatives" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=771&end=1059&anchor=H_Derivatives&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 4 Derivatives" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Derivative_Rules" class="document-heading anchor">4.1 Derivative Rules <a class="link-heading" href="#H_Derivative_Rules">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=773&end=789&anchor=H_Derivative_Rules&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 4.1 Derivative Rules" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=773&end=789&anchor=H_Derivative_Rules&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 4.1 Derivative Rules" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -2394,7 +2394,7 @@ Derivative of complex exponential with respect to angle in radians.
 
 <div class="div-heading"> 
 <h3 id="H_Basic_Derivatives" class="document-heading anchor">4.2 Basic Derivatives <a class="link-heading" href="#H_Basic_Derivatives">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=789&end=815&anchor=H_Basic_Derivatives&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 4.2 Basic Derivatives" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=789&end=815&anchor=H_Basic_Derivatives&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 4.2 Basic Derivatives" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -2589,7 +2589,7 @@ Derivative of complex exponential with respect to angle in radians.
 
 <div class="div-heading"> 
 <h3 id="H_Derivative_of_Inverse_Function" class="document-heading anchor">4.3 Derivative of Inverse Function <a class="link-heading" href="#H_Derivative_of_Inverse_Function">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=815&end=932&anchor=H_Derivative_of_Inverse_Function&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 4.3 Derivative of Inverse Function" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=815&end=932&anchor=H_Derivative_of_Inverse_Function&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 4.3 Derivative of Inverse Function" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -2653,7 +2653,7 @@ STEP 3: Compute the value of the derivative of the inverse function of f(x) by t
 
 <aside class="example admonition anchor" style="background:;"  class="admonition example">
 <span class="admonition-title"><strong>
-<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Derivative of Inverse Function<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Math - Calculus Reference Card?start=857&end=929&page=Math - Calculus Reference Card&timestamp=176558963059353" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Derivative of Inverse Function<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Math - Calculus Reference Card?start=857&end=929&page=Math - Calculus Reference Card&timestamp=178240923897537" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 </strong></span>
 
 <p>
@@ -2765,7 +2765,7 @@ Solution: <span class="math-inline lazy-load-latex">[f^{-1}]&apos;(1) = \dfrac{1
 
 <div class="div-heading"> 
 <h3 id="H_Chain_Rule" class="document-heading anchor">4.4 Chain Rule <a class="link-heading" href="#H_Chain_Rule">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=932&end=1022&anchor=H_Chain_Rule&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 4.4 Chain Rule" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=932&end=1022&anchor=H_Chain_Rule&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 4.4 Chain Rule" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -2833,7 +2833,7 @@ Let f be function of <span class="math-inline lazy-load-latex">x</span> and <spa
 
 <aside class="example admonition anchor" style="background:;"  class="admonition example">
 <span class="admonition-title"><strong>
-<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Chain Rule for Derivative Multi-Variate Functions<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Math - Calculus Reference Card?start=979&end=1020&page=Math - Calculus Reference Card&timestamp=176558963059353" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Chain Rule for Derivative Multi-Variate Functions<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Math - Calculus Reference Card?start=979&end=1020&page=Math - Calculus Reference Card&timestamp=178240923897537" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 </strong></span>
 
 <p>
@@ -2893,7 +2893,7 @@ Method 2: Find the derivative using the chain rule
 
 <div class="div-heading"> 
 <h3 id="H_Tangent_Line_Equation" class="document-heading anchor">4.5 Tangent Line Equation <a class="link-heading" href="#H_Tangent_Line_Equation">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1022&end=1059&anchor=H_Tangent_Line_Equation&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 4.5 Tangent Line Equation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1022&end=1059&anchor=H_Tangent_Line_Equation&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 4.5 Tangent Line Equation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -2955,7 +2955,7 @@ The, the coefficients of the line equation tangent to the point <span class="mat
 
 <div class="div-heading"> 
 <h2 id="H_Integrals" class="document-heading anchor">5 Integrals <a class="link-heading" href="#H_Integrals">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1059&end=1173&anchor=H_Integrals&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 5 Integrals" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1059&end=1173&anchor=H_Integrals&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 5 Integrals" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -3119,7 +3119,7 @@ Cosh - hyperbolic consine:
 
 <div class="div-heading"> 
 <h2 id="H_Sums_of_Series" class="document-heading anchor">6 Sums of Series <a class="link-heading" href="#H_Sums_of_Series">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1173&end=1195&anchor=H_Sums_of_Series&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 6 Sums of Series" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1173&end=1195&anchor=H_Sums_of_Series&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 6 Sums of Series" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -3149,13 +3149,13 @@ Reference: Dan Stefanica, <em>A Primer for Mathematics of FinancialEngineering</
 
 <div class="div-heading"> 
 <h2 id="H_Taylor_Series" class="document-heading anchor">7 Taylor Series <a class="link-heading" href="#H_Taylor_Series">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1195&end=1337&anchor=H_Taylor_Series&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 7 Taylor Series" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1195&end=1337&anchor=H_Taylor_Series&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 7 Taylor Series" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Taylor_series_expansion" class="document-heading anchor">7.1 Taylor series expansion <a class="link-heading" href="#H_Taylor_series_expansion">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1196&end=1195&anchor=H_Taylor_series_expansion&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 7.1 Taylor series expansion" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1196&end=1195&anchor=H_Taylor_series_expansion&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 7.1 Taylor series expansion" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -3212,7 +3212,7 @@ where:
 
 <div class="div-heading"> 
 <h3 id="H_Some_Taylor_series_expansion" class="document-heading anchor">7.2 Some Taylor series expansion <a class="link-heading" href="#H_Some_Taylor_series_expansion">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1232&end=1282&anchor=H_Some_Taylor_series_expansion&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 7.2 Some Taylor series expansion" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1232&end=1282&anchor=H_Some_Taylor_series_expansion&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 7.2 Some Taylor series expansion" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -3282,7 +3282,7 @@ Geometric Power Series
 
 <div class="div-heading"> 
 <h3 id="H_Approximations_for_small_values_of_x" class="document-heading anchor">7.3 Approximations for small values of x <a class="link-heading" href="#H_Approximations_for_small_values_of_x">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1282&end=1323&anchor=H_Approximations_for_small_values_of_x&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 7.3 Approximations for small values of x" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1282&end=1323&anchor=H_Approximations_for_small_values_of_x&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 7.3 Approximations for small values of x" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -3337,7 +3337,7 @@ where <span class="math-inline lazy-load-latex">\theta_{deg}</span> is the angle
 
 <div class="div-heading"> 
 <h3 id="H_References" class="document-heading anchor">7.4 References <a class="link-heading" href="#H_References">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1323&end=1337&anchor=H_References&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 7.4 References" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1323&end=1337&anchor=H_References&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 7.4 References" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">
@@ -3373,13 +3373,13 @@ Wikipedia - <em>Small Angle Approximations</em> <ul class="">
 
 <div class="div-heading"> 
 <h2 id="H_Multivariate_Calculus" class="document-heading anchor">8 Multivariate Calculus <a class="link-heading" href="#H_Multivariate_Calculus">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1337&end=1556&anchor=H_Multivariate_Calculus&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 8 Multivariate Calculus" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1337&end=1556&anchor=H_Multivariate_Calculus&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 8 Multivariate Calculus" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Gradient_Vector" class="document-heading anchor">8.1 Gradient Vector <a class="link-heading" href="#H_Gradient_Vector">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1339&end=1375&anchor=H_Gradient_Vector&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 8.1 Gradient Vector" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1339&end=1375&anchor=H_Gradient_Vector&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 8.1 Gradient Vector" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -3432,7 +3432,7 @@ In some text books, the <span class="math-inline lazy-load-latex">x</span> axis 
 
 <div class="div-heading"> 
 <h3 id="H_Directional_Derivative" class="document-heading anchor">8.2 Directional Derivative <a class="link-heading" href="#H_Directional_Derivative">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1375&end=1396&anchor=H_Directional_Derivative&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 8.2 Directional Derivative" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1375&end=1396&anchor=H_Directional_Derivative&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 8.2 Directional Derivative" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -3463,7 +3463,7 @@ Where <span class="math-inline lazy-load-latex">\mathbf{u} = (u_x, u_y)</span> a
 
 <div class="div-heading"> 
 <h3 id="H_Change_of_Variables_and_Jacobian_Matrix_in_a_Plane" class="document-heading anchor">8.3 Change of Variables and Jacobian Matrix in a Plane <a class="link-heading" href="#H_Change_of_Variables_and_Jacobian_Matrix_in_a_Plane">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1396&end=1540&anchor=H_Change_of_Variables_and_Jacobian_Matrix_in_a_Plane&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 8.3 Change of Variables and Jacobian Matrix in a Plane" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1396&end=1540&anchor=H_Change_of_Variables_and_Jacobian_Matrix_in_a_Plane&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 8.3 Change of Variables and Jacobian Matrix in a Plane" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -3684,17 +3684,17 @@ Therefore, the area of a region in polar coordinates is
 
 <div class="div-heading"> 
 <h3 id="H_Change_of_Variables_and_Jacobian_Matrix_in_a_Space" class="document-heading anchor">8.4 Change of Variables and Jacobian Matrix in a Space <a class="link-heading" href="#H_Change_of_Variables_and_Jacobian_Matrix_in_a_Space">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1540&end=1542&anchor=H_Change_of_Variables_and_Jacobian_Matrix_in_a_Space&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 8.4 Change of Variables and Jacobian Matrix in a Space" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1540&end=1542&anchor=H_Change_of_Variables_and_Jacobian_Matrix_in_a_Space&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 8.4 Change of Variables and Jacobian Matrix in a Space" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_Derivative_Chain_Rule" class="document-heading anchor">8.5 Derivative Chain Rule <a class="link-heading" href="#H_Derivative_Chain_Rule">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1542&end=1546&anchor=H_Derivative_Chain_Rule&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 8.5 Derivative Chain Rule" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1542&end=1546&anchor=H_Derivative_Chain_Rule&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 8.5 Derivative Chain Rule" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <div class="div-heading"> 
 <h3 id="H_See_also" class="document-heading anchor">8.6 See also <a class="link-heading" href="#H_See_also">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1546&end=1556&anchor=H_See_also&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 8.6 See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1546&end=1556&anchor=H_See_also&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 8.6 See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">
@@ -3723,7 +3723,7 @@ Therefore, the area of a region in polar coordinates is
 
 <div class="div-heading"> 
 <h2 id="H_Statistical_Formulas" class="document-heading anchor">9 Statistical Formulas <a class="link-heading" href="#H_Statistical_Formulas">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1556&end=1620&anchor=H_Statistical_Formulas&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 9 Statistical Formulas" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1556&end=1620&anchor=H_Statistical_Formulas&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 9 Statistical Formulas" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -3831,13 +3831,13 @@ E( a \cdot \pmb{X} + b \cdot \pmb{Y} ) = a \cdot \pmb{X} + b \cdot \pmb{Y}
 
 <div class="div-heading"> 
 <h2 id="H_Linear_algebra" class="document-heading anchor">10 Linear algebra <a class="link-heading" href="#H_Linear_algebra">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1620&end=1769&anchor=H_Linear_algebra&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 10 Linear algebra" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1620&end=1769&anchor=H_Linear_algebra&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 10 Linear algebra" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Notation" class="document-heading anchor">10.1 Notation <a class="link-heading" href="#H_Notation">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1621&end=1620&anchor=H_Notation&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 10.1 Notation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1621&end=1620&anchor=H_Notation&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 10.1 Notation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -3914,7 +3914,7 @@ Row vector:
 
 <div class="div-heading"> 
 <h3 id="H_Special_matrices" class="document-heading anchor">10.2 Special matrices <a class="link-heading" href="#H_Special_matrices">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1655&end=1769&anchor=H_Special_matrices&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 10.2 Special matrices" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1655&end=1769&anchor=H_Special_matrices&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 10.2 Special matrices" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -4035,7 +4035,7 @@ Ones-based matrices:
 
 <div class="div-heading"> 
 <h2 id="H_Types_of_matrices" class="document-heading anchor">11 Types of matrices <a class="link-heading" href="#H_Types_of_matrices">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1769&end=1937&anchor=H_Types_of_matrices&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 11 Types of matrices" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1769&end=1937&anchor=H_Types_of_matrices&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 11 Types of matrices" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -4102,7 +4102,7 @@ Non Symmetric Matrix:
 
 <div class="div-heading"> 
 <h3 id="H_Matrix_Operations_Rules" class="document-heading anchor">11.1 Matrix Operations Rules <a class="link-heading" href="#H_Matrix_Operations_Rules">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1826&end=1902&anchor=H_Matrix_Operations_Rules&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 11.1 Matrix Operations Rules" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1826&end=1902&anchor=H_Matrix_Operations_Rules&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 11.1 Matrix Operations Rules" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -4191,7 +4191,7 @@ Transpose of sum:
 
 <div class="div-heading"> 
 <h3 id="H_Column_vector_properties" class="document-heading anchor">11.2 Column vector properties <a class="link-heading" href="#H_Column_vector_properties">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1902&end=1937&anchor=H_Column_vector_properties&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 11.2 Column vector properties" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1902&end=1937&anchor=H_Column_vector_properties&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 11.2 Column vector properties" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -4239,13 +4239,13 @@ The L-2 norm or euclidian norm of a vector is given by:
 
 <div class="div-heading"> 
 <h2 id="H_Matrix_Calculus" class="document-heading anchor">12 Matrix Calculus <a class="link-heading" href="#H_Matrix_Calculus">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1937&end=end&anchor=H_Matrix_Calculus&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 12 Matrix Calculus" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1937&end=end&anchor=H_Matrix_Calculus&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 12 Matrix Calculus" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Definitions" class="document-heading anchor">12.1 Definitions <a class="link-heading" href="#H_Definitions">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1939&end=1956&anchor=H_Definitions&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 12.1 Definitions" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1939&end=1956&anchor=H_Definitions&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 12.1 Definitions" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -4268,7 +4268,7 @@ y_{(m x 1)} =
 
 <div class="div-heading"> 
 <h3 id="H_Derivate_of_a_scalar_with_respect_to_a_vector" class="document-heading anchor">12.2 Derivate of a scalar with respect to a vector <a class="link-heading" href="#H_Derivate_of_a_scalar_with_respect_to_a_vector">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1956&end=1983&anchor=H_Derivate_of_a_scalar_with_respect_to_a_vector&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 12.2 Derivate of a scalar with respect to a vector" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1956&end=1983&anchor=H_Derivate_of_a_scalar_with_respect_to_a_vector&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 12.2 Derivate of a scalar with respect to a vector" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -4310,7 +4310,7 @@ Page 38, page 39
 
 <div class="div-heading"> 
 <h3 id="H_Derivate_of_a_vector_with_respect_to_a_scalar" class="document-heading anchor">12.3 Derivate of a vector with respect to a scalar <a class="link-heading" href="#H_Derivate_of_a_vector_with_respect_to_a_scalar">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1983&end=1998&anchor=H_Derivate_of_a_vector_with_respect_to_a_scalar&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 12.3 Derivate of a vector with respect to a scalar" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1983&end=1998&anchor=H_Derivate_of_a_vector_with_respect_to_a_scalar&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 12.3 Derivate of a vector with respect to a scalar" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -4332,7 +4332,7 @@ If the vector Y is a function (Y = Y(t)) of the scalar t, the derivate of Y with
 
 <div class="div-heading"> 
 <h3 id="H_Derivate_of_a_vector_with_respect_to_a_vector" class="document-heading anchor">12.4 Derivate of a vector with respect to a vector <a class="link-heading" href="#H_Derivate_of_a_vector_with_respect_to_a_vector">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1998&end=2030&anchor=H_Derivate_of_a_vector_with_respect_to_a_vector&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 12.4 Derivate of a vector with respect to a vector" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=1998&end=2030&anchor=H_Derivate_of_a_vector_with_respect_to_a_vector&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 12.4 Derivate of a vector with respect to a vector" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -4376,7 +4376,7 @@ where J[Y(X)] is the <u>Jacobian</u> matrix of Y(X)
 
 <div class="div-heading"> 
 <h3 id="H_Derivate_rules_for_matrices_and_vectors" class="document-heading anchor">12.5 Derivate rules for matrices and vectors <a class="link-heading" href="#H_Derivate_rules_for_matrices_and_vectors">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=2030&end=2145&anchor=H_Derivate_rules_for_matrices_and_vectors&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 12.5 Derivate rules for matrices and vectors" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=2030&end=2145&anchor=H_Derivate_rules_for_matrices_and_vectors&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 12.5 Derivate rules for matrices and vectors" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -4558,7 +4558,7 @@ Note: v is a vector and dependent on vector x.
 
 <div class="div-heading"> 
 <h3 id="H_Useful__gradients" class="document-heading anchor">12.6 Useful  gradients <a class="link-heading" href="#H_Useful__gradients">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=2145&end=end&anchor=H_Useful__gradients&page=Math - Calculus Reference Card&timestamp=176558963059353" title="[i18n]: 12.6 Useful  gradients" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Math_-_Calculus_Reference_Card?start=2145&end=end&anchor=H_Useful__gradients&page=Math - Calculus Reference Card&timestamp=178240923897537" title="[i18n]: 12.6 Useful  gradients" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>

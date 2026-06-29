@@ -121,7 +121,7 @@
     const LATEX_RENDERER = "katex";
     const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
     const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
-    const KATEX_MACROS = "eyJcXGNlcSI6ICJcXGNvbG9uZXF1YWxzIiwgIlxcYiI6ICJcXG1hdGhiZnsjMX0iLCAiXFxiaGF0IjogIlxcaGF0e1xcbWF0aGJmeyMxfX0iLCAiXFxiZG90IjogIlxcZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxiZGRvdCI6ICJcXGRkb3R7XFxtYXRoYmZ7IzF9fSIsICJcXGJzIjogIlxcYm9sZHN5bWJvbHsjMX0iLCAiXFxic2hhdCI6ICJcXGhhdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGJzZG90IjogIlxcZG90e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcYnNkZG90IjogIlxcZGRvdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGZiIjogInt9XnsjMn1cXG1hdGhiZnsjMX0iLCAiXFxmYmhhdCI6ICJ7fV57IzJ9XFxoYXR7XFxtYXRoYmZ7IzF9fSIsICJcXGZicyI6ICJ7fV57IzJ9XFxib2xkc3ltYm9seyMxfSIsICJmciI6ICJ7fV57IzF9X3sjMn0iLCAiXFxza2V3IjogIlxcbGVmdFsgIzEgXFxyaWdodF1fe1xcdGltZXN9IiwgIlxcYXJnbWF4IjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1heH0iLCAiXFxhcmdtaW4iOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWlufSIsICJcXFIiOiAieyBcXG1hdGhiYntSfSB9IiwgIlxcWiI6ICJcXG1hdGhiYntafSIsICJcXGxhcGxhY2UiOiAiXFxtYXRoY2Fse0x9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWxhcGxhY2UiOiAiXFxtYXRoY2Fse0x9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxmb3VyaWVyIjogIlxcbWF0aGNhbHtGfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGlmb3VyaWVyIjogIlxcbWF0aGNhbHtGfV57LTF9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcZCI6ICJcXG1hdGhybXtkfSIsICJcXHAiOiAiXFxwYXJ0aWFsIiwgIlxcZSI6ICJcXG1hdGhybXtlfSIsICJcXGR0IjogIlxcZnJhY3tkICMxfXtkdH0iLCAiXFxkZHQiOiAiXFxmcmFje2ReMiAjMX17ZHReMn0iLCAiXFxwZCI6ICJcXGZyYWN7XFxwYXJ0aWFsICMxfXtcXHBhcnRpYWwgIzJ9IiwgIlxccGRkIjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsICMyXjJ9IiwgIlxcQyI6ICJ7IFxcbWF0aGJie0N9IH0iLCAiXFxCaWdPIjogIlxcbWF0aGNhbHtPfVxcIVxcbGVmdCgjMVxccmlnaHQpIiwgIlxcbWRlZiI6ICJ7XFx0cmlhbmdsZXEgXFw7fSIsICJcXHNnbiI6ICJcXG9wZXJhdG9ybmFtZXtzZ259In0=";
+    const KATEX_MACROS = "eyJcXGR5IjogIlxcZGlzcGxheXN0eWxlIiwgIlxcZGVmIjogIlxcc3RhY2tyZWx7XFx0ZXh0e2RlZn19ez19IiwgIlxcb3AiOiAiXFxvcGVyYXRvcm5hbWUiLCAiXFxjZXEiOiAiXFxjb2xvbmVxdWFscyIsICJcXGIiOiAiXFxtYXRoYmZ7IzF9IiwgIlxcYmhhdCI6ICJcXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRvdCI6ICJcXGRvdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRkb3QiOiAiXFxkZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxicyI6ICJcXGJvbGRzeW1ib2x7IzF9IiwgIlxcYnNoYXQiOiAiXFxoYXR7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxic2RvdCI6ICJcXGRvdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGJzZGRvdCI6ICJcXGRkb3R7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxmYiI6ICJ7fV57IzJ9XFxtYXRoYmZ7IzF9IiwgIlxcZmJoYXQiOiAie31eeyMyfVxcaGF0e1xcbWF0aGJmeyMxfX0iLCAiXFxmYnMiOiAie31eeyMyfVxcYm9sZHN5bWJvbHsjMX0iLCAiZnIiOiAie31eeyMxfV97IzJ9IiwgIlxcc2tldyI6ICJcXGxlZnRbICMxIFxccmlnaHRdX3tcXHRpbWVzfSIsICJcXGFyZ21heCI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtYXh9IiwgIlxcYXJnbWluIjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1pbn0iLCAiXFxSIjogInsgXFxtYXRoYmJ7Un0gfSIsICJcXFoiOiAiXFxtYXRoYmJ7Wn0iLCAiXFxsYXBsYWNlIjogIlxcbWF0aGNhbHtMfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGlsYXBsYWNlIjogIlxcbWF0aGNhbHtMfV57LTF9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcZm91cmllciI6ICJcXG1hdGhjYWx7Rn1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxpZm91cmllciI6ICJcXG1hdGhjYWx7Rn1eey0xfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGQiOiAiXFxtYXRocm17ZH0iLCAiXFxwIjogIlxccGFydGlhbCIsICJcXGUiOiAiXFxtYXRocm17ZX0iLCAiXFxkdCI6ICJcXGZyYWN7ZCAjMX17ZHR9IiwgIlxcZGR0IjogIlxcZnJhY3tkXjIgIzF9e2R0XjJ9IiwgIlxccGQiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsICMyfSIsICJcXHBkZCI6ICJcXGZyYWN7XFxwYXJ0aWFsXjIgIzF9e1xccGFydGlhbCAjMl4yfSIsICJcXEMiOiAieyBcXG1hdGhiYntDfSB9IiwgIlxcQmlnTyI6ICJcXG1hdGhjYWx7T31cXCFcXGxlZnQoIzFcXHJpZ2h0KSIsICJcXG1kZWYiOiAie1xcdHJpYW5nbGVxIFxcO30iLCAiXFxzZ24iOiAiXFxvcGVyYXRvcm5hbWV7c2dufSIsICJcXHJhbmsiOiAiXFxvcGVyYXRvcm5hbWV7cmFua30iLCAiXFxyZSI6ICJcXG9wZXJhdG9ybmFtZXtSZX0iLCAiXFxpbSI6ICJcXG9wZXJhdG9ybmFtZXtJbX0iLCAiXFxpbWciOiAiXFxvcGVyYXRvcm5hbWV7aW19IiwgIlxcdHJhY2UiOiAiXFxvcGVyYXRvcm5hbWV7dHJ9IiwgIlxccHQiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHR9IiwgIlxccHgiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHh9IiwgIlxccHkiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHl9IiwgIlxccHoiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHp9IiwgIlxccHh4IjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsIHheMn0iLCAiXFxweXkiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgeV4yfSIsICJcXHB6eiI6ICJcXGZyYWN7XFxwYXJ0aWFsXjIgIzF9e1xccGFydGlhbCB6XjJ9IiwgIlxcRSI6ICJcXG9wZXJhdG9ybmFtZXtFfVxcbGVmdFsgIzEgXFxyaWdodF0iLCAiXFxWYXIiOiAiXFxvcGVyYXRvcm5hbWV7VmFyfSIsICJcXGNvdiI6ICJcXG9wZXJhdG9ybmFtZXtjb3Z9In0=";
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
@@ -504,7 +504,7 @@
 
 <div class="div-heading"> 
 <h2 id="H_Terminology_of_Internationalization" class="document-heading anchor">Terminology of Internationalization <a class="link-heading" href="#H_Terminology_of_Internationalization">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=8&end=100&anchor=H_Terminology_of_Internationalization&page=Internationalization i18n and Localization i10n concepts&timestamp=176908182066479" title="[i18n]: Terminology of Internationalization" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=8&end=100&anchor=H_Terminology_of_Internationalization&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Terminology of Internationalization" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -573,7 +573,7 @@
 
 <div class="div-heading"> 
 <h2 id="H_Internationalization_Issues" class="document-heading anchor">Internationalization Issues <a class="link-heading" href="#H_Internationalization_Issues">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=100&end=134&anchor=H_Internationalization_Issues&page=Internationalization i18n and Localization i10n concepts&timestamp=176908182066479" title="[i18n]: Internationalization Issues" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=100&end=134&anchor=H_Internationalization_Issues&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Internationalization Issues" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -655,7 +655,7 @@ Cultural Assumptions
 
 <div class="div-heading"> 
 <h2 id="H_Common_Mistakes" class="document-heading anchor">Common Mistakes <a class="link-heading" href="#H_Common_Mistakes">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=134&end=144&anchor=H_Common_Mistakes&page=Internationalization i18n and Localization i10n concepts&timestamp=176908182066479" title="[i18n]: Common Mistakes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=134&end=144&anchor=H_Common_Mistakes&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Common Mistakes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -679,13 +679,13 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <div class="div-heading"> 
 <h2 id="H_Common_Locales" class="document-heading anchor">Common Locales <a class="link-heading" href="#H_Common_Locales">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=144&end=317&anchor=H_Common_Locales&page=Internationalization i18n and Localization i10n concepts&timestamp=176908182066479" title="[i18n]: Common Locales" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=144&end=317&anchor=H_Common_Locales&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Common Locales" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_ISO_Language_Code" class="document-heading anchor">ISO Language Code <a class="link-heading" href="#H_ISO_Language_Code">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=146&end=183&anchor=H_ISO_Language_Code&page=Internationalization i18n and Localization i10n concepts&timestamp=176908182066479" title="[i18n]: ISO Language Code" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=146&end=183&anchor=H_ISO_Language_Code&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: ISO Language Code" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -931,7 +931,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <div class="div-heading"> 
 <h3 id="H_Locale_Code" class="document-heading anchor">Locale Code <a class="link-heading" href="#H_Locale_Code">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=183&end=306&anchor=H_Locale_Code&page=Internationalization i18n and Localization i10n concepts&timestamp=176908182066479" title="[i18n]: Locale Code" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=183&end=306&anchor=H_Locale_Code&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Locale Code" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -1240,7 +1240,7 @@ Locale codes follow the convention &lt;language-code&gt;-&lt;countery-code&gt; w
  
 <td>eu-ES</td>
  
-<td>Basque (Euskera)^{Non indo-european language}</td>
+<td>Basque (Euskera)<a href="#" id="footnote-reference-link-11" class="footnote-link"><sup class="footnote-reference" data-counter="11" data-footnote="Non indo-european language">[11]</sup></a></td>
 </tr>
  
 <tr>
@@ -1249,7 +1249,7 @@ Locale codes follow the convention &lt;language-code&gt;-&lt;countery-code&gt; w
  
 <td>gl-ES</td>
  
-<td>Galician<a href="#" id="footnote-reference-link-11" class="footnote-link"><sup class="footnote-reference" data-counter="11" data-footnote="Sister language of Portuguese">[11]</sup></a></td>
+<td>Galician<a href="#" id="footnote-reference-link-12" class="footnote-link"><sup class="footnote-reference" data-counter="12" data-footnote="Sister language of Portuguese">[12]</sup></a></td>
 </tr>
  
 <tr>
@@ -1258,7 +1258,7 @@ Locale codes follow the convention &lt;language-code&gt;-&lt;countery-code&gt; w
  
 <td>es-MX</td>
  
-<td>Mexican Spanish (Español mexicano)<a href="#" id="footnote-reference-link-12" class="footnote-link"><sup class="footnote-reference" data-counter="12" data-footnote="Pronouce: Espanhol merricano">[12]</sup></a></td>
+<td>Mexican Spanish (Español mexicano)<a href="#" id="footnote-reference-link-13" class="footnote-link"><sup class="footnote-reference" data-counter="13" data-footnote="Pronouce: Espanhol merricano">[13]</sup></a></td>
 </tr>
  
 <tr>
@@ -1452,7 +1452,7 @@ Hong Kong is not country. It is a SAR - Special Administrative Region of mainlan
 Puerto Rico is not a country. The island is USA non incorporated territory, even though the island has its own olympic team. 
 </li>
 <li>
-Spanish locales don't have much difference other than country code, currency and paper size since most Spanish countries follows the <a href="https://en.wikipedia.org/wiki/Royal_Spanish_Academy"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Royal Spanish Academy</a><a href="#" id="footnote-reference-link-13" class="footnote-link"><sup class="footnote-reference" data-counter="13" data-footnote="Spanish: Real Academia Española">[13]</sup></a> 
+Spanish locales don't have much difference other than country code, currency and paper size since most Spanish countries follows the <a href="https://en.wikipedia.org/wiki/Royal_Spanish_Academy"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Royal Spanish Academy</a><a href="#" id="footnote-reference-link-14" class="footnote-link"><sup class="footnote-reference" data-counter="14" data-footnote="Spanish: Real Academia Española">[14]</sup></a> 
 </li>
 </ol>
 
@@ -1536,7 +1536,7 @@ Explanation:
 
 <div class="div-heading"> 
 <h3 id="H_See_Also" class="document-heading anchor">See Also <a class="link-heading" href="#H_See_Also">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=306&end=317&anchor=H_See_Also&page=Internationalization i18n and Localization i10n concepts&timestamp=176908182066479" title="[i18n]: See Also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=306&end=317&anchor=H_See_Also&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: See Also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">
@@ -1572,7 +1572,7 @@ Explanation:
 
 <div class="div-heading"> 
 <h2 id="H_Falsehoods_Many_Programmers_Believe_About_Names" class="document-heading anchor">Falsehoods Many Programmers Believe About Names <a class="link-heading" href="#H_Falsehoods_Many_Programmers_Believe_About_Names">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=317&end=409&anchor=H_Falsehoods_Many_Programmers_Believe_About_Names&page=Internationalization i18n and Localization i10n concepts&timestamp=176908182066479" title="[i18n]: Falsehoods Many Programmers Believe About Names" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=317&end=409&anchor=H_Falsehoods_Many_Programmers_Believe_About_Names&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Falsehoods Many Programmers Believe About Names" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -1879,7 +1879,7 @@ People only a have a single given name and there is no whitespace within a given
 
 <div class="div-heading"> 
 <h2 id="H_American_English_Vs_British_English" class="document-heading anchor">American English Vs British English <a class="link-heading" href="#H_American_English_Vs_British_English">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=409&end=466&anchor=H_American_English_Vs_British_English&page=Internationalization i18n and Localization i10n concepts&timestamp=176908182066479" title="[i18n]: American English Vs British English" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=409&end=466&anchor=H_American_English_Vs_British_English&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: American English Vs British English" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -1914,9 +1914,9 @@ People only a have a single given name and there is no whitespace within a given
  
 <tr>
 
-<td>meter<a href="#" id="footnote-reference-link-14" class="footnote-link"><sup class="footnote-reference" data-counter="14" data-footnote="Preferred spelling in American English">[14]</sup></a></td>
+<td>meter<a href="#" id="footnote-reference-link-15" class="footnote-link"><sup class="footnote-reference" data-counter="15" data-footnote="Preferred spelling in American English">[15]</sup></a></td>
  
-<td>metre<a href="#" id="footnote-reference-link-15" class="footnote-link"><sup class="footnote-reference" data-counter="15" data-footnote="Preferred spelling in British English">[15]</sup></a></td>
+<td>metre<a href="#" id="footnote-reference-link-16" class="footnote-link"><sup class="footnote-reference" data-counter="16" data-footnote="Preferred spelling in British English">[16]</sup></a></td>
 </tr>
  
 <tr>
@@ -2266,7 +2266,7 @@ People only a have a single given name and there is no whitespace within a given
 
 <div class="div-heading"> 
 <h2 id="H_Software_Libraries" class="document-heading anchor">Software Libraries <a class="link-heading" href="#H_Software_Libraries">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=466&end=475&anchor=H_Software_Libraries&page=Internationalization i18n and Localization i10n concepts&timestamp=176908182066479" title="[i18n]: Software Libraries" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=466&end=475&anchor=H_Software_Libraries&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Software Libraries" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -2292,7 +2292,7 @@ Gettext
 
 <div class="div-heading"> 
 <h2 id="H_Footnotes" class="document-heading anchor">Footnotes <a class="link-heading" href="#H_Footnotes">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=475&end=480&anchor=H_Footnotes&page=Internationalization i18n and Localization i10n concepts&timestamp=176908182066479" title="[i18n]: Footnotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=475&end=480&anchor=H_Footnotes&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Footnotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -2307,21 +2307,22 @@ Gettext
  <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-8">[8]</a> Hindustani</p>
  <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-9">[9]</a> Goa state, former Portuguese colony.</p>
  <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-10">[10]</a> The country is formely known as Turkey. The country's government and TRT World media have asked the world to use the name Türkiye instead of the old name, Turkey.</p>
- <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-11">[11]</a> Sister language of Portuguese</p>
- <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-12">[12]</a> Pronouce: Espanhol merricano</p>
- <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-13">[13]</a> Spanish: Real Academia Española</p>
- <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-14">[14]</a> Preferred spelling in American English</p>
- <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-15">[15]</a> Preferred spelling in British English</p></div>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-11">[11]</a> Non indo-european language</p>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-12">[12]</a> Sister language of Portuguese</p>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-13">[13]</a> Pronouce: Espanhol merricano</p>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-14">[14]</a> Spanish: Real Academia Española</p>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-15">[15]</a> Preferred spelling in American English</p>
+ <p class="footnote-item"><a class="link-internal" href="#footnote-reference-link-16">[16]</a> Preferred spelling in British English</p></div>
 
 <div class="div-heading"> 
 <h2 id="H_See_also" class="document-heading anchor">See also <a class="link-heading" href="#H_See_also">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=480&end=end&anchor=H_See_also&page=Internationalization i18n and Localization i10n concepts&timestamp=176908182066479" title="[i18n]: See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=480&end=end&anchor=H_See_also&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Unicode" class="document-heading anchor">Unicode <a class="link-heading" href="#H_Unicode">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=482&end=529&anchor=H_Unicode&page=Internationalization i18n and Localization i10n concepts&timestamp=176908182066479" title="[i18n]: Unicode" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=482&end=529&anchor=H_Unicode&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Unicode" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">
@@ -2479,7 +2480,7 @@ Gettext
 
 <div class="div-heading"> 
 <h3 id="H_Internationalization_and_Localization__Reading" class="document-heading anchor">Internationalization and Localization  Reading <a class="link-heading" href="#H_Internationalization_and_Localization__Reading">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=529&end=669&anchor=H_Internationalization_and_Localization__Reading&page=Internationalization i18n and Localization i10n concepts&timestamp=176908182066479" title="[i18n]: Internationalization and Localization  Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=529&end=669&anchor=H_Internationalization_and_Localization__Reading&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Internationalization and Localization  Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">
@@ -2952,7 +2953,7 @@ Brief: * Usually, programs are written and documented in English, and use Englis
 
 <div class="div-heading"> 
 <h3 id="H_GUI_(Graphics_User_Interface),_UX_(User_Experience)_and_Culture" class="document-heading anchor">GUI (Graphics User Interface), UX (User Experience) and Culture <a class="link-heading" href="#H_GUI_(Graphics_User_Interface),_UX_(User_Experience)_and_Culture">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=669&end=677&anchor=H_GUI_(Graphics_User_Interface),_UX_(User_Experience)_and_Culture&page=Internationalization i18n and Localization i10n concepts&timestamp=176908182066479" title="[i18n]: GUI (Graphics User Interface), UX (User Experience) and Culture" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=669&end=677&anchor=H_GUI_(Graphics_User_Interface),_UX_(User_Experience)_and_Culture&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: GUI (Graphics User Interface), UX (User Experience) and Culture" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">
@@ -2974,7 +2975,7 @@ Brief: * Usually, programs are written and documented in English, and use Englis
 
 <div class="div-heading"> 
 <h3 id="H_Numbers_and_Mesurement" class="document-heading anchor">Numbers and Mesurement <a class="link-heading" href="#H_Numbers_and_Mesurement">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=677&end=end&anchor=H_Numbers_and_Mesurement&page=Internationalization i18n and Localization i10n concepts&timestamp=176908182066479" title="[i18n]: Numbers and Mesurement" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=677&end=end&anchor=H_Numbers_and_Mesurement&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Numbers and Mesurement" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">

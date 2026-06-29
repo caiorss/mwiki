@@ -181,11 +181,22 @@ class PopupWindow
 
 function localStorageSet(key, value)
 {
-    localStorage.setItem(key, JSON.stringify(value));
+    try { 
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch(err){
+        // Remove cached LaTeX formulas if the storage quota is exceeded.
+        for (let index = 0; index < localStorage.length; index++) {
+          const key = localStorage.key(index);
+          if(key.startsWith("latex-")){ localStorage.removeItem(key) }
+        }
+        // Retry operation 
+        localStorage.setItem(key, JSON.stringify(value));
+    }
 }
 
 function localStorageGet(key)
 {
+    if(key == null){ return null;}
     let valueStr = localStorage.getItem(key);
     if(!valueStr){ return null; }
     let data = JSON.parse(valueStr);
@@ -272,7 +283,8 @@ function katexRenderDOMLatex(domElement)
    try {
      macros = JSON.parse(base64ToUtf8(KATEX_MACROS));
     } catch(error){
-        console.log(" JSON Parsing error: ", error);    }
+        console.log(" JSON Parsing error: ", error);
+    }
     if ( domElement.classList.contains(CSS_CLASS_MATH_INLINE)
          || domElement.classList.contains(CSS_CLASS_DIV_LATEX_CODE) )
     {
@@ -280,7 +292,19 @@ function katexRenderDOMLatex(domElement)
       domElement.classList.remove("lazy-load-latex");
       try{
          let isDisplayMode = domElement.classList.contains(CSS_CLASS_DIV_LATEX_CODE);
-         katex.render(domElement.textContent, domElement, { displayMode: isDisplayMode, macros: macros});
+         // The key of each LaTeX formula is the hash of its LaTeX code.
+         let key  = "latex-" + (domElement.dataset.hash || "");
+         // Obtain html code of stored latex formula
+         let html = localStorageGet(key);
+         if(html)
+         {
+           // Render LaTeX formula from cache (Local Storage).
+           domElement.innerHTML = html;
+         }
+         else {
+           katex.render(domElement.textContent, domElement, { displayMode: isDisplayMode, macros: macros});
+           if(key !== "latex-"){ localStorageSet(key, domElement.innerHTML); }
+         }
       } catch(error){
           domElement.textContent = prev + error;
       }
@@ -318,7 +342,7 @@ function katexRenderDocumentLatex()
    katexRenderDOMLatex(document.body);
 }
 
-document.addEventListener("DOMContentLoaded", ()=> {
+document.addEventListener("DOMContentLoaded", () => {
    let formulas = document.querySelectorAll(".lazy-load-latex");
    const MAX_FORMULAS = 300;
 
@@ -342,6 +366,18 @@ document.addEventListener("DOMContentLoaded", ()=> {
         katexRenderDOMLatex(dom);
         dom.classList.remove("lazy-load-latex");
       }
+   }
+
+   // Render all formulas already cached
+   for(let dom of formulas){
+     let hash = dom.dataset.hash;
+     if(!hash){ continue; }
+     let key = "latex-" + (hash || "");
+     let data = localStorageGet(key);
+     if(data){
+       dom.innerHTML = data;
+      dom.classList.remove("lazy-load-latex");
+     }
    }
 });
 
@@ -720,6 +756,7 @@ translationsi18n =
 										  "label": "Reference Card"
 										, "title": "Displays reference card containing examples about the markdown syntax."
 									  }
+		, "edit-page-spellchecker-button": "Spell Checker"
 		, "edit-page-insert-link-button": {
 											  "label": "Link to Wiki page" 
 											 ,"title": "Insert hyperlink to existing wiki page at current cursor position."
@@ -942,6 +979,7 @@ translationsi18n =
 										  "label": "Cartão de Referência"
 										, "title": "Exibe um cartão de referência contendo exemplos sobre a sintaxe do markdown."
 									  }
+		, "edit-page-spellchecker-button": "Corretor Ortográfico"
 		, "edit-page-insert-link-button": {
 											  "label": "Link para página da Wiki" 
 											 ,"title": "Inserir hiperlink para uma página wiki existente na posição atual do cursor."
@@ -1955,6 +1993,7 @@ document.addEventListener("click", (event) => {
         tooltip_window.setTitle(title)
         tooltip_window.setMessage(note);
         tooltip_window.show();
+        return;
     }
 
     if(target.classList[0] === "footnote-reference")

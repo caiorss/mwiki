@@ -8,7 +8,7 @@
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22></text></svg>">
     
     <title data-i18n="source-page-title">MBook - Self-hosting deployment with podman(docker) all-in-one</title>
-    <meta name="description" content="None" />
+    <meta name="description" content="Describes how to self-host MWiki via a self-contained Podman or Docker container image with minimal effort." />
     <meta name=generator content="MWiki">
     
    
@@ -327,15 +327,42 @@
             <div class="highlight"><pre><span></span>---
 title:       Self-hosting deployment with podman(docker) all-in-one
 label:       
-description: 
+description: Describes how to self-host MWiki via a self-contained Podman or Docker container image with minimal effort. 
 <span class="gu">keywords:    </span>
 <span class="gu">---</span>
 
 <span class="gu">## Overview</span>
 
-The all-in-one container provides a easy way to deploy MWiki with everything pre configured, including Mwiki server and Caddy web server in  a single docker or podman container. Caddy web server is used for serving static files and providing TLS (Transport Layer Security), also known as SSL - Socket Layer Security, by encrypting the network traffic between the server and a client web browser.
+Linux containers can be thought as lightweight disposable virtual machine since they provide a way to virtualize software with less resource usage than full-featured virtual machines as containers share the same kernel and are based on process isolation rather than hardware emulation. By using containers, server software, including MWiki can be deployed isolated from the host machine in a secure fashion without causing disruptions or breaking changes. Moreover, as containers are sandboxed by default, they are able to mitigate and limit the reach of security vulnerabilities in the host machine if any container is ever compromised.
 
-<span class="gu">## Build the podman or docker image</span>
+The all-in-one container provides an easy and lightweight approach to deploy MWiki with everything pre configured, including Mwiki server and Caddy web server in  a single docker or podman container. Caddy web server is used for serving static files and providing TLS (Transport Layer Security), also known as SSL - Socket Layer Security, by encrypting the network traffic between the server and a client web browser.
+<span class="gu">##  Installation</span>
+
+<span class="gu">### Disable SELinux</span>
+
+Since SELinux may cause podman to fail with the error <span class="sb">`[Errno 13] Permission denied: ...`</span>, it may be worth to disable SELinux by using
+
+<span class="sb">```sh</span>
+sudo<span class="w"> </span>setenforce<span class="w"> </span><span class="m">0</span><span class="w"> </span>
+<span class="sb">```</span>
+
+for temporarily disabling SELinux.
+
+<span class="gs">**See**</span>
+
++ <span class="ge">*Security-Enhanced Linux*</span>, Wikipedia
+  + https://en.wikipedia.org/wiki/Security-Enhanced_Linux
++ <span class="ge">*How to Disable SELinux on Fedora 40 or 39*</span>
+  + https://linuxcapable.com/how-to-disable-selinux-on-fedora-linux/
++ <span class="ge">*How to Disable SELinux Temporarily or Permanently*</span>
+  + https://www.tecmint.com/disable-selinux-in-centos-rhel-fedora/
++ <span class="ge">*How to disable SELinux (with and without reboot)*</span>
+  + https://www.golinuxcloud.com/disable-selinux/
++ <span class="ge">*Changing SELinux States and Modes*</span>
+  + https://docs.fedoraproject.org/en-US/quick-docs/selinux-changing-states-and-modes/
+
+
+<span class="gu">### Build the Podman Container Image</span>
 
 Clone the repository and enter its root folder.
 
@@ -354,8 +381,8 @@ Build the container image using docker.
 <span class="sb">```sh</span>
 docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>mwiki<span class="w">  </span>--file<span class="w"> </span>docker/all-in-one.Dockerfile<span class="w"> </span>.
 <span class="sb">```</span>
- 
-<span class="gu">## Create and run the container</span>
+
+   
 
 <span class="gu">### Set the environment variables.</span>
 
@@ -382,12 +409,58 @@ Set the Wiki name (website name).
 <span class="sb">```sh</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_SITENAME</span><span class="o">=</span>MBook
 <span class="sb">```</span>
-<span class="gu">### Create the container </span>
 
-Make sure that the firewall allows network traffic through the TCP ports 80 (HTTP) and 443 (HTTPS) before running this command.
+<span class="gu">### Open Firewall Ports</span>
+
+In some Linux distributions or other operating systems, TCP and UDP ports are blocked by default for security reasons. As a result, it may be necessary to open TCP ports by changing the firewall settings in order to be able to access MWiki or any other web server from other computers or devices.
+
+<span class="gs">**Microsoft Windows**</span>: Open port 80 (http) and 443 (https) in Microsoft Windows (requires opening a terminal with administrator privilegees).
 
 <span class="sb">```sh</span>
-podman<span class="w"> </span>run<span class="w"> </span>--name<span class="o">=</span><span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+netsh<span class="w"> </span>firewall<span class="w"> </span>add<span class="w"> </span>portopening<span class="w"> </span>TCP<span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="s2">&quot;MWIki server port&quot;</span>
+netsh<span class="w"> </span>firewall<span class="w"> </span>add<span class="w"> </span>portopening<span class="w"> </span>TCP<span class="w"> </span><span class="m">443</span><span class="w"> </span><span class="s2">&quot;MWIki server port&quot;</span>
+<span class="sb">```</span>
+
+<span class="gs">**Linux / IPtables**</span>: Open TCP ports 80 and 443 in Linux with Iptables (Default Linux firewall, all other Linux firewalls are wrappers around Iptables).
+
+<span class="sb">```sh</span>
+sudo<span class="w"> </span>iptables<span class="w"> </span>-A<span class="w"> </span>INPUT<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">80</span><span class="w"> </span>-j<span class="w"> </span>ACCEPT
+sudo<span class="w"> </span>iptables<span class="w"> </span>-A<span class="w"> </span>INPUT<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">443</span><span class="w"> </span>-j<span class="w"> </span>ACCEPT
+<span class="sb">```</span>
+
+<span class="gs">**Linux / UFW**</span>: Open port 80 and 443 in Linux with UFW (Uncomplicated Firewall), mostly used by Debian and Ubuntu derived Linux distributions.
+
+<span class="sb">```sh</span>
+sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">80</span>/tcp
+sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">443</span>/tcp
+<span class="sb">```</span>
+
+<span class="gs">**Linux / Firewalld**</span>: Open port 80 and 443 in Linux with firewalld.
+
+<span class="sb">```sh</span>
+sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--add-port<span class="o">=</span><span class="m">80</span>/tcp<span class="w"> </span>--permanent
+sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--add-port<span class="o">=</span><span class="m">443</span>/tcp<span class="w"> </span>--permanent
+sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
+<span class="sb">```</span>
+
+<span class="gs">**See also**</span>
+
++ <span class="ge">*Open TCP Port 80 in Windows Firewall Using Netsh*</span> 
+  + https://www.wiki.mcneel.com/zoo/homenetsh
++ <span class="ge">*Linux Open Port 80 (HTTP Web Server Port)*</span>, Vivek Gite (2022), Cyberciti
+  + https://www.cyberciti.biz/faq/linux-iptables-firewall-open-port-80/
++ <span class="ge">*5 ways to open a port in Linux explained with examples*</span>, Arun Kumar (2023), FOSS Linux
+  + https://www.fosslinux.com/111811/5-ways-to-open-a-port-in-linux-explained-with-examples.htm
++ <span class="ge">*Linux .local domain*</span>
+  + https://en.wikipedia.org/wiki/.local
++ <span class="ge">*Linux Open Port: Step-by-Step Guide to Managing Firewall Ports*</span>, Vijaykrishna Ram and Anish Singh Walia, Digital Ocean
+  + https://www.digitalocean.com/community/tutorials/opening-a-port-on-linux
+<span class="gu">### Create the container </span>
+
+This step creates podman container, which is equivalent to a lightweight virtual machine, detached from the terminal.
+
+<span class="sb">```sh</span>
+podman<span class="w"> </span>run<span class="w"> </span>--name<span class="o">=</span>mwiki<span class="w"> </span>--detach<span class="w">  </span><span class="se">\</span>
 <span class="w">    </span>--publish<span class="o">=</span><span class="m">80</span>:80<span class="w"> </span>--publish<span class="o">=</span><span class="m">443</span>:443<span class="w">  </span><span class="se">\</span>
 <span class="w">    </span>--env<span class="w"> </span><span class="nv">MWIKI_URL</span><span class="o">=</span><span class="nv">$MWIKI_URL</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--env<span class="o">=</span><span class="nv">MWIKI_SITENAME</span><span class="o">=</span><span class="nv">$MWIKI_SITENAME</span><span class="w"> </span><span class="se">\</span>
@@ -395,7 +468,6 @@ podman<span class="w"> </span>run<span class="w"> </span>--name<span class="o">=
 <span class="w">    </span>--env<span class="w"> </span><span class="nv">MWIKI_WEBSITE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$MWIKI_WEBSITE</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--volume<span class="w"> </span><span class="nv">$MWIKI_FOLDER</span>:/wiki<span class="w"> </span>mwiki
 <span class="sb">```</span>
-
 
 Now, the website will be available at 
 
@@ -419,25 +491,75 @@ So, the url of this dummy machine on the local network would be
 
 + <span class="sb">`http://dummy.local`</span>
    
-<span class="gu">### Logging in </span>
+
+<span class="gu">### Logging in / Authentication</span>
 
 It is possible to log in without password by using a temporary magic hyperlink using the command
 
 <span class="sb">```sh</span>
-$<span class="w"> </span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>mwiki<span class="w"> </span>mwiki-auth
-Copy<span class="w"> </span>and<span class="w"> </span>paste<span class="w"> </span>the<span class="w"> </span>following<span class="w"> </span>URL<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>web<span class="w"> </span>browser<span class="w"> </span>to<span class="w"> </span>authenticate.
+podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>mwiki<span class="w"> </span>mwiki-auth
+<span class="sb">```</span>
 
-<span class="w">  </span>https://mydomain.com/auth?token<span class="o">=</span>eyJ1c2VyIjogImFkbWluIiwgInNhbHQiOiAxNzQsICJleHBpcmF0aW9uIjogMTc2OTA4MDU0NiwgInNpZ25hdHVyZSI6ICIxNTVlZDYxOTRhYTE5MTNmMzhkYWMzODI3ZTJiZTdiNzdiNGQ0NzVhYzVjMmJlNDU2ZTY5ZmViNTRiOTg0OGU4In0%3D
+Output:
 
-Or<span class="w"> </span>paste<span class="w"> </span>the<span class="w"> </span>following<span class="w"> </span>token<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>log<span class="w"> </span><span class="k">in</span><span class="w"> </span>form<span class="w"> </span>https://mydomain.com
+<span class="sb">```</span>
+<span class="sb">Copy and paste the following URL in the web browser to authenticate.</span>
 
-<span class="w"> </span><span class="nv">eyJ1c2VyIjogImFkbWluIiwgInNhbHQiOiAxNzQsICJleHBpcmF0aW9uIjogMTc2OTA4MDU0NiwgInNpZ25hdHVyZSI6ICIxNTVlZDYxOTRhYTE5MTNmMzhkYWMzODI3ZTJiZTdiNzdiNGQ0NzVhYzVjMmJlNDU2ZTY5ZmViNTRiOTg0OGU4In0</span><span class="o">=</span>
+<span class="sb">  https://mydomain.com/auth?token=eyJ1c2VyIjogImFkbWluIiwgInNhbHQiOiAxNzQsICJleHBpcmF0aW9uIjogMTc2OTA4MDU0NiwgInNpZ25hdHVyZSI6ICIxNTVlZDYxOTRhYTE5MTNmMzhkYWMzODI3ZTJiZTdiNzdiNGQ0NzVhYzVjMmJlNDU2ZTY5ZmViNTRiOTg0OGU4In0%3D</span>
 
-NOTE:<span class="w"> </span>This<span class="w"> </span>URL<span class="w"> </span>is<span class="w"> </span>only<span class="w"> </span>valid<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="m">20</span><span class="w"> </span>seconds.
-NOTE:<span class="w"> </span>If<span class="w"> </span>MWiki<span class="w"> </span>URL<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>correct,<span class="w"> </span><span class="nb">set</span><span class="w"> </span>the<span class="w"> </span>environment<span class="w"> </span>variable<span class="w"> </span><span class="nv">$MWIKI_URL</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>app<span class="w"> </span>URL.For<span class="w"> </span>instance,<span class="w"> </span><span class="k">in</span><span class="w"> </span>bash<span class="w"> </span>Unix<span class="w"> </span>shell<span class="w"> </span>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_URL</span><span class="o">=</span>https://mydomain.com<span class="w"> </span>before<span class="w"> </span>running<span class="w"> </span>this<span class="w"> </span>comamnd<span class="w"> </span>again.
+<span class="sb">Or paste the following token in the log in form https://mydomain.com</span>
+
+<span class="sb"> eyJ1c2VyIjogImFkbWluIiwgInNhbHQiOiAxNzQsICJleHBpcmF0aW9uIjogMTc2OTA4MDU0NiwgInNpZ25hdHVyZSI6ICIxNTVlZDYxOTRhYTE5MTNmMzhkYWMzODI3ZTJiZTdiNzdiNGQ0NzVhYzVjMmJlNDU2ZTY5ZmViNTRiOTg0OGU4In0=</span>
+
+<span class="sb">NOTE: This URL is only valid for 20 seconds.</span>
+<span class="sb">NOTE: If MWiki URL is not correct, set the environment variable $MWIKI_URL to the app URL.For instance, in bash Unix shell $ export MWIKI_URL=https://mydomain.com before running this comamnd again.</span>
 <span class="sb">```</span>
 
 Then, copy this url to the web browser to log in. Note that the magic login link is valid only for 20 seconds. After this step, the user can set the administrator password. MWiki does not use a hardcoded default password, instead it generates a random default password for every wiki.
+<span class="gu">### Common Operations</span>
+
+The previous command for creating the container needs to be run only once. After the last step, the following commands can be used for managing the container.
+
+View the MWiki container&#39;s logs:
+
+<span class="sb">```sh</span>
+podman<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span><span class="w"> </span>-f<span class="w"> </span>mwiki
+<span class="sb">```</span>
+
+Stop the MWiki container:
+
+<span class="sb">```sh</span>
+podman<span class="w"> </span>stop<span class="w"> </span>mwiki
+<span class="sb">```</span>
+
+Start the MWiki container:
+
+<span class="sb">```sh</span>
+podman<span class="w"> </span>start<span class="w"> </span>mwiki
+<span class="sb">```</span>
+
+Delete MWiki container^[Note that this command is not prone to data loss if the wiki repository is mounted to the container folder /wiki]:
+
+<span class="sb">```sh</span>
+podman<span class="w"> </span>rm<span class="w"> </span>mwiki
+<span class="sb">```</span>
+
+<span class="gu">## Further Reading</span>
+
++ <span class="ge">*Podman Documentation*</span>, podman docs
+  + https://docs.podman.io/en/latest/
++ <span class="ge">*Podman Desktop - Containers and Kubernetes | Podman Desktop*</span>, Podman Desktop
+  + https://podman-desktop.io/
++ <span class="ge">*How to Debug Permission Denied Errors in Podman Containers*</span>, oneuptime (2026)
+  + https://oneuptime.com/blog/post/2026-03-16-debug-permission-denied-errors-podman/view
++ <span class="ge">*Container permission denied: How to diagnose this error*</span>, Dan Walsh (2022) - Redhat
+  + https://www.redhat.com/en/blog/container-permission-denied-errors
++ <span class="ge">*I built a silent home server using an Intel N100 mini PC—here’s how it went*</span>, Jeff Butts (2025) - XDA Developers
+  + https://www.xda-developers.com/built-silent-home-server-using-intel-n100-mini-pc/
++ <span class="ge">*Begin Your Homelab Journey: Self-Hosting Apps on a Mini PC with Proxmox*</span>, SikuSiku
+  + https://sikusiku.com/2025/09/begin-your-homelab-journey-self-hosting-apps-on-a-mini-pc-with-proxmox/
++ <span class="ge">*I installed these 6 lightweight Linux tools on a cheap mini PC and turned it into a silent home server*</span>, Afam Onymadu (2026) - makeuseof
+  + https://www.makeuseof.com/installed-lightweight-linux-tools-mini-pc-turned-into-silent-home-server/
 </pre></div>
 
         </main>
