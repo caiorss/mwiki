@@ -13,8 +13,8 @@
     <meta name="description" content="{{page_description}}" />
     <meta name=generator content="MWiki">
     {% if page_author %} <meta name="author" content="{{page_author}}"> {% endif %}
-   
-    
+
+
    <style>
 {{font_face_main}}
 {{font_face_code}}
@@ -45,12 +45,13 @@
     --font-family-title: '{{title_font}}';
     {% endif %}
 
-    --font-size-h1:  1.800rem;
-    --font-size-h2:  1.350rem;
-    --font-size-h3:  1.125rem;
-    --font-size-h4:  1.000rem;
-    --font-size-h5:  0.875rem;
-    --font-size-h6:  0.750rem;
+
+    --font-size-h1: 1.800rem;
+    --font-size-h2: 1.650rem;
+    --font-size-h3: 1.425rem;
+    --font-size-h4: 1.350rem;
+    --font-size-h5: 0.875rem;
+    --font-size-h6: 0.750rem;
     --font-size-text: 0.720rem;
     --font-size-code: 0.700rem;
     --font-size-sidebar: 0.850rem;
@@ -62,9 +63,9 @@
 }
 
 
-        
+
     </style>
-  
+
     {% if not self_contained %}
     <link rel="stylesheet" href="{{root_url}}/static/static_style.css">
     {% else %}
@@ -72,7 +73,7 @@
     {{style_sheet_code}}
     </style>
     {% endif %}
-    
+
     {% block style %}{% endblock %}
     <!-- MathJax Settings -->
     <script>
@@ -89,24 +90,24 @@
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
-    // NOTE: It is encoded as base64 
+    // NOTE: It is encoded as base64
     const PAGE_SOURCE_CODE = "{{src_page_html}}";
     const PAGE_SOURCE_URL  = "{{src_page_html_url}}"
     const CITATION_REFERENCES = "{{ citation_references }}";
-	
+
     // Possible values: 'none', 'nosection' 'section', 'subsection'
-    //  none      => no enumeration 
-    //  nosection 
+    //  none      => no enumeration
+    //  nosection
     //      Schema: <equation-number>
     //      Example: Equations are enumerated as 1, 2, ..., 200
-    //              in the order that they are shown without section or 
+    //              in the order that they are shown without section or
     //              subsection number
-    //  section   
+    //  section
     //      Schema:  => <section>.<equation-number>
     //      Exmaple: => 2.1, 2.5, 6.8
-    //  subsection 
+    //  subsection
     //      Schema:  => <section>.<subsection>.<equation-number>
-    //      Example: => 1.3.1 , 1.3.2, 2.4.5 
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5
     //
     let equation_enumeration = "{{equation_enumeration}}";
 
@@ -120,7 +121,7 @@
         , processEscapes: true
         , processEnvironments: true
           // Location of equation numbers
-        , tagSide: "right"  
+        , tagSide: "right"
         // Possible values 'ams' or 'all' (all equations are numbered by default)
         , tags: equation_enumeration !== "none" ? "all" : "ams"
         //, tags: 'ams'
@@ -131,8 +132,8 @@
                                 , 'autoload-all'
                             ]}
         , tagformat: {
-          number: (n) => { 
-            if( equation_enumeration === "cont" 
+          number: (n) => {
+            if( equation_enumeration === "cont"
                 || equation_enumeration == "continuous")
             {
                 return '' + n;
@@ -141,7 +142,7 @@
             let nsec = MathJax.config.section;
             let nsub = MathJax.config.subsection;
             var out = '';
-            if (nsub === 0 || equation_enumeration == "section") 
+            if (nsub === 0 || equation_enumeration == "section")
             {
                 out = nsec + '.' + n;
             } else {
@@ -219,7 +220,7 @@
         /// displayAlign: "left"
       }
     // options for when overflow is linebreak
-    , linebreaks: {             
+    , linebreaks: {
         inline:           true,   // true for browser-based breaking of inline equations
         width:            '100%', // a fixed size or a percentage of the container width
         lineleading:      .2,     // the default lineleading in em units
@@ -244,7 +245,7 @@
         {% if embed_latex_renderer %}
         <link rel="stylesheet" href="/static/katex/node_modules/katex/dist/katex.min.css">
         <script defer src="/static/katex/node_modules/katex/dist/katex.min.js"></script>
-        <script defer src="/static/katex/node_modules/katex/dist/contrib/auto-render.min.js" 
+        <script defer src="/static/katex/node_modules/katex/dist/contrib/auto-render.min.js"
             onload="renderMathInElement(document.body);"></script>
         {% else %}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi" crossorigin="anonymous">
@@ -253,7 +254,7 @@
             <!-- onload="renderMathInElement(document.body);"></script> -->
         {% endif %}
     {% endif %}
-  
+
 
     {% if not compile_latex and latex_algorithm %}
         <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
@@ -274,7 +275,7 @@
     <script>
 
         document.addEventListener("DOMContentLoaded", (event) => {
-            // Select graphviz code blocks 
+            // Select graphviz code blocks
             let lst = document.querySelectorAll(".graphviz-dot");
             for(let x of lst){
 
@@ -284,7 +285,7 @@
                     // console.log(" [TRACE] code = ", code);
                     let svg = viz.renderSVGElement(code);
                     // console.log(" [TRACE] svg = ", svg);
-                    x.replaceWith(svg); 
+                    x.replaceWith(svg);
                     // x.outerHTML = svg;
                     /// document.getElementById("graph").appendChild(svg);
                 });
@@ -292,7 +293,7 @@
 
             }
         }, false);
-        
+
     </script>
 
     {% if not self_contained %}
@@ -323,7 +324,7 @@
                         <span><a class="link-sidebar" href="#{{h.anchor}}">{{h.title}}</a> </span>
                     {% endif %}
                     {% if h.children %}
-                        <div> 
+                        <div>
                         <ul>
                         {% for ch in h.children %}
                             <li><a class="link-sidebar" href="#{{ch.anchor}}">{{ch.title}}</a></li>
@@ -337,22 +338,22 @@
         </div>
     </aside>
     {% endif %}
-    
+
     <div class="main main-shift">
         {% if page_type != "src_page" %}
         <header class="header">
             <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="{{menu_icon_url}}" style="height: 25px;"/> </a>
-            <a data-i18n="home-page-button" class="sidebar-toggle-button" 
+            <a data-i18n="home-page-button" class="sidebar-toggle-button"
 			   title="Go to home page (Index)" href="{{root_url}}/"><img class="img-icon" src="{{home_icon_url}}"></a>
             <div class="dropdown">
-              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button" 
-                 href="#" 
+              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button"
+                 href="#"
                  title="Main menu."
                  class="dropbtn"
                  >
                 <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
                 </a>
-                
+
             <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
                   <a data-i18n="menu-item-print-label" class="sidebar-toggle-button"
                      href="#" onclick="printPage();"
@@ -376,29 +377,29 @@
             </div>
 
             <a data-i18n="button-toggle-sections" class="sidebar-toggle-button"
-                 href="#" 
+                 href="#"
                  onclick="toggleHeadings();"
-                 id="btn-scroll-bottom" 
+                 id="btn-scroll-bottom"
                  title="Fold/Unfold all sections."
-                 ><img class="img-icon" src="{{unfold_icon_url}}"></a> 
+                 ><img class="img-icon" src="{{unfold_icon_url}}"></a>
             <a data-i18n="menu-item-print-icon"
-                class="sidebar-toggle-button" 
+                class="sidebar-toggle-button"
         			  title="Print current page or export it to PDF."
                 href="#"
                 onclick="printPage();">
                 <img class="img-icon" src="{{root_url}}/static/printer-outline.svg">
             </a>
-                
-            <!-- 
-             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
-                 href="#" 
+
+            <!--
+             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button"
+                 href="#"
                  onclick="quickOpenPage();"
-                 id="btn-scroll-bottom" 
+                 id="btn-scroll-bottom"
                  title="Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry."
                  >
-               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E"> 
+               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E">
                 </a>
-            --> 
+            -->
               {% block topbar_buttons_last %}{% endblock %}
         </header>
         {% endif %}
@@ -434,7 +435,7 @@
                 height: 100% !important;
                 margin-left: -50px !important;
             }
- 
+
             .sidebar {
                 display: none;
             }
