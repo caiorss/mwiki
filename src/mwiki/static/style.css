@@ -472,7 +472,7 @@ img.admonition-icon {
 
 .tip .admonition-title {
   font-weight: bold;
-  font-size: larger;
+  /* font-size: larger; */
   background-color: #a8eec8;
   margin: 0 -0.6rem;
   padding: 0.4rem 0.6rem 0.4rem 2rem;
@@ -490,7 +490,7 @@ img.admonition-icon {
 
 .note .admonition-title {
   font-weight: bold;
-  font-size: larger;
+  /* font-size: larger; */
   background-color: #DCE7FC;
   margin: 0 -0.6rem;
   padding: 0.4rem 0.6rem 0.4rem 2rem;
@@ -503,7 +503,7 @@ img.admonition-icon {
 
 .info .admonition-title {
   font-weight: bold;
-  font-size: larger;
+  /* font-size: larger; */
   background-color: #81ff5b;
   margin: 0 -0.6rem;
   padding: 0.4rem 0.6rem 0.4rem 2rem;
@@ -517,7 +517,7 @@ img.admonition-icon {
 
 .warning .admonition-title {
   font-weight: bold;
-  font-size: larger;
+  /* font-size: larger; */
   background-color: #ff7a73;
   margin: 0 -0.6rem;
   padding: 0.4rem 0.6rem 0.4rem 2rem;
@@ -531,7 +531,7 @@ img.admonition-icon {
 
 .def .admonition-title {
   /* font-weight: bold; */
-  font-size: larger;
+  /* font-size: larger; */
   background-color: #D7EDE1;
   margin: 0 -0.6rem;
   padding: 0.4rem 0.6rem 0.4rem 2rem;
@@ -543,7 +543,7 @@ img.admonition-icon {
 
 .theorem .admonition-title {
   /* font-weight: bold; */
-  font-size: larger;
+  /* font-size: larger; */
   background-color: #a8eec8;
   margin: 0 -0.6rem;
   padding: 0.4rem 0.6rem 0.4rem 2rem;
