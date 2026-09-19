@@ -1825,6 +1825,8 @@ class HtmlRenderer(AbstractAstRenderer):
         ##style = f'style="background: {x};"' if (x := metadata.get("background")) else ""
         admonition_type = utils.strip_prefix("container_", node.type).strip("{").strip("}")
         admonition_title = utils.strip_prefix("{" + admonition_type + "}", node.info).strip()
+        # Render math expression within the admonition title
+        admonition_title = re.sub(r"\$(.+?)\$", r'<span class="math-inline lazy-load-latex">\1</span>', admonition_title)
         _title = f"<strong>({admonition_title})</strong>" if admonition_title != "" else ""
         if admonition_type == "def":
             admonition_title = f'<label class="admonition-tag" data-i18n="admonition-math-defintion-label">DEFINITION</label>: {_title}'
