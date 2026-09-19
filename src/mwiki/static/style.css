@@ -123,6 +123,7 @@ a {
 a.link-external {
   color: var(--link-external-color);
   word-wrap: break-word;
+  word-break: break-all;
 }
 
 a.link-sidebar {
