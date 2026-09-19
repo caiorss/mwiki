@@ -1827,11 +1827,11 @@ class HtmlRenderer(AbstractAstRenderer):
         admonition_title = utils.strip_prefix("{" + admonition_type + "}", node.info).strip()
         # Render math expression within the admonition title
         admonition_title = re.sub(r"\$(.+?)\$", r'<span class="math-inline lazy-load-latex">\1</span>', admonition_title)
-        _title = f"<strong>({admonition_title})</strong>" if admonition_title != "" else ""
+        _title = f"{admonition_title}" if admonition_title != "" else ""
         if admonition_type == "def":
-            admonition_title = f'<label class="admonition-tag" data-i18n="admonition-math-defintion-label">DEFINITION</label>: {_title}'
+            admonition_title = f'<label class="admonition-math-tag" data-i18n="admonition-math-defintion-label">Definition</label>: {_title}'
         elif admonition_type == "theorem":
-            admonition_title = f'<label class="admonition-tag" data-i18n="admonition-math-theorem-label">THEOREM</label> {self._theorem_counter}: {_title}'
+            admonition_title = f'<label class="admonition-math-tag" data-i18n="admonition-math-theorem-label">Theorem</label> {self._theorem_counter}: {_title}'
             self._theorem_counter += 1
         elif admonition_type == "example":
             admonition_title = f'<strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: {admonition_title}'
@@ -1841,8 +1841,11 @@ class HtmlRenderer(AbstractAstRenderer):
             rest = "" if admonition_title == "" else ": " + admonition_title
             admonition_title = admonition_type.title() + rest
         style = f"""style="background:{background};" """
+        admonition_class = "admonition"
+        if admonition_type in ["def", "theorem"]:
+            admonition_class = "math-admonition"
         if admonition_type != "details":
-            attrs =  f""" {label} class="{admonition_type} admonition anchor" {style}""".strip()
+            attrs =  f""" {label} class="{admonition_type} {admonition_class} anchor" {style}""".strip()
         else:
             attrs =  f""" {label} class="{admonition_type} anchor" """.strip()
         inner = ""
@@ -1865,7 +1868,10 @@ class HtmlRenderer(AbstractAstRenderer):
             icon_url = utils.file_to_base64_data_uri(icon_file)
         icon =  f"""<img class="admonition-icon" src="{icon_url}"/> """ \
                     if icon_ != "" else ""
-        title = f"""\n<span class="admonition-title">{icon}{admonition_title}{edit_link}</span>\n""" \
+        _admonition_title = "admonition-title"
+        if admonition_type in ["def", "theorem"]:
+            _admonition_title = "math-admonition-title"
+        title = f"""\n<span class="{_admonition_title}">{icon}{admonition_title}{edit_link}</span>\n""" \
                 if admonition_title != "" else ""
         if admonition_type == "details":
             html = f"""<details {attrs}>\n<summary><strong>{title}</strong></summary>\n<div class="admonition" style="background:{background};" >\n{inner}\n</div>\n</details>"""

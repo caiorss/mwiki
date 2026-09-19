@@ -464,6 +464,32 @@ abbr {
 
 }
 
+.math-admonition {
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-left: 10px;
+    border-left: 2px solid #6087a9;
+    break-inside: avoid;
+    hyphens: auto;
+}
+
+.math-admonition::after {
+    content: "";
+    display: block;
+    margin-left: -10px;
+    margin-bottom: -10px;
+    border-bottom: 2px solid #6087a9;
+    width: 1.6em;
+}
+
+.math-admonition-title {
+    font-size: 1.2rem;
+}
+
+.admonition-math-tag {
+    font-weight: bolder;
+}
+
 img.admonition-icon {
   max-width: 20px;
   margin-top: 5px !important;
