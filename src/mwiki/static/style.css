@@ -1115,6 +1115,10 @@ code {
   font-size: var(--font-size-code);
 }
 
+.code-markdown pre {
+    white-space: pre-wrap;
+}
+
 .highlight {
   background-color: lightyellow;
   font-family: var(--font-family-code);
