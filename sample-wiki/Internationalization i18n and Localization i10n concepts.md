@@ -491,10 +491,12 @@ Python
 + *Internationalized domain name*, Wikipedia
   + https://en.wikipedia.org/wiki/Internationalized_domain_name
   + *An internationalized domain name (IDN) is an Internet domain name that contains at least one label displayed in software applications, in whole or in part, in non-Latin script or alphabet[a] or in the Latin alphabet-based characters with diacritics or ligatures.[b] These writing systems are encoded by computers in multibyte Unicode. Internationalized domain names are stored in the Domain Name System (DNS) as ASCII strings using Punycode transcription. The DNS, which performs a lookup service to translate mostly user-friendly names into network addresses for locating Internet resources, is restricted in practice[c] to the use of ASCII characters, a practical limitation that initially set the standard for acceptable domain names. The internationalization of domain names is a technical solution to translate names written in language-native scripts into an ASCII text representation that is compatible with the DNS. Internationalized domain names can only be used with applications that are specifically designed for such use; they require no changes in the infrastructure of the Internet.*
-+ *IDN homograph attack*, Wikipedia
-  + https://en.wikipedia.org/wiki/IDN_homograph_attack
 + *IDN Display Algorithm*, Mozilla Wiki
   + https://wiki.mozilla.org/IDN_Display_Algorithm
++ *IDN homograph attack*, Wikipedia
+  + https://en.wikipedia.org/wiki/IDN_homograph_attack
++ *Reαd carefully: how to spot – and avoid – a homoglyph attack*, The Guardian 
+  + https://www.theguardian.com/money/2026/sep/20/how-to-spot-avoid-homoglyph-attack-scam
 + *UTF-8, Explained Simply*, Nic Baker - Youtube Video
   + https://www.youtube.com/watch?v=vpSkBV5vydg
 + *"The History of UTF-8, as told by Rob Pike"* (2003)
@@ -665,16 +667,17 @@ Python
   + https://centus.com/blog/right-to-left-languages-translation
 + *k-yak / stati18n Public* (2014)
   + https://github.com/k-yak/stati18n   
- 
-
++ *Digital Printing of Arabic: explaining the problem*, (digitalorientalist\.com)
+  + https://digitalorientalist.com/2017/08/21/digital-printing-of-arabic-explaining-the-problem/ 
 ### GUI (Graphics User Interface), UX (User Experience) and Culture
+
 
 + *How QR code payment blew up in India*, Phoebe Yu - Video (Youtube)
   + https://m.youtube.com/watch?v=OLY2coSRf7g
 + *How Google Maps fixed India's street name problem*, Phoebe Yu - Video (Youtube) 
   + https://m.youtube.com/watch?v=_HSYTIEXa5w
-     
-
++ *How Chinese Computing Secretly Changed the World*, Julesy
+  + https://m.youtube.com/watch?v=cPYK8s2OdMY     
 ### Numbers and Mesurement
 
 + *International System of Units*, Wikipedia

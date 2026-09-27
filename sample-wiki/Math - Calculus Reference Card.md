@@ -1240,7 +1240,34 @@ $$
         = 1 + x + \frac{1}{2!} x^2 + \frac{1}{3!} 3^2 + \frac{1}{4!} 4^2 + \cdots 
 $$
 
-Consine 
+Complex Exponential (Euler's Formula)^[Note thtat $j = \sqrt{-1}$ is the imaginary unit.]
+
+$$
+\begin{split}
+ e^{j \theta}
+   &= \sum_{n = 0}^{\infty} \frac{1}{n!} x^n
+   = 1 
+    + j \theta
+    + -\frac{1}{2!}   \theta^2
+    - \frac{1}{3!} j  \theta^3
+    + \frac{1}{4!}    \theta^4
+    + \frac{1}{5!} j \theta^5
+    - \frac{1}{6!}   \theta^5
+    + \cdots
+  \\ &= 
+    \underbrace{(1 - \frac{1}{2!} \theta^2 +  \frac{1}{4!} \theta^4 + \cdots)}_{ \cos \theta}
+    + j \underbrace{( 
+        \theta - \frac{1}{3!} \theta^3
+        + \frac{1}{5!} \theta^5 
+        + \cdots
+    )}_{ \sin \theta }
+
+  \\ &=  \sin \theta + j \cos \theta
+\end{split}
+$$
+
+
+Cosine 
 
 
 $$

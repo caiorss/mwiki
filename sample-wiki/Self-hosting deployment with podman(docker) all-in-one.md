@@ -58,31 +58,6 @@ docker build -t mwiki  --file docker/all-in-one.Dockerfile .
 
    
 
-### Set the environment variables.
-
-```sh
-export MWIKI_WEBSISTE="https://mydomain.com"
-export MWIKI_URL="https://mydomain.com"
-export MWIKI_FOLDER=/home/username/wiki
-```
-
-If the websiste is not public use
-
-```sh
-export MWIKI_PUBLIC=false
-```
-
-If the website is public (anyone can view), set the environment variable MWIKI_PUBLIC to true. The default value of this setting is false.
-
-```sh
-export MWIKI_PUBLIC=true
-```
-
-Set the Wiki name (website name).
-
-```sh
-export MWIKI_SITENAME=MBook
-```
 
 ### Open Firewall Ports
 
@@ -129,6 +104,34 @@ sudo firewall-cmd --reload
   + https://en.wikipedia.org/wiki/.local
 + *Linux Open Port: Step-by-Step Guide to Managing Firewall Ports*, Vijaykrishna Ram and Anish Singh Walia, Digital Ocean
   + https://www.digitalocean.com/community/tutorials/opening-a-port-on-linux
+
+
+### Set the environment variables.
+
+```sh
+export MWIKI_WEBSISTE="https://mydomain.com"
+export MWIKI_URL="https://mydomain.com"
+export MWIKI_FOLDER=/home/username/wiki
+```
+
+If the websiste is not public use
+
+```sh
+export MWIKI_PUBLIC=false
+```
+
+If the website is public (anyone can view), set the environment variable MWIKI_PUBLIC to true. The default value of this setting is false.
+
+```sh
+export MWIKI_PUBLIC=true
+```
+
+Set the Wiki name (website name).
+
+```sh
+export MWIKI_SITENAME=MBook
+```
+
 ### Create the container 
 
 This step creates podman container, which is equivalent to a lightweight virtual machine, detached from the terminal.
@@ -190,6 +193,7 @@ NOTE: If MWiki URL is not correct, set the environment variable $MWIKI_URL to th
 ```
 
 Then, copy this url to the web browser to log in. Note that the magic login link is valid only for 20 seconds. After this step, the user can set the administrator password. MWiki does not use a hardcoded default password, instead it generates a random default password for every wiki.
+
 ### Common Operations
 
 The previous command for creating the container needs to be run only once. After the last step, the following commands can be used for managing the container.

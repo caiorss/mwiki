@@ -124,9 +124,8 @@ $$
 | $\Sigma$      |  `\Sigma`    |
 | $\epsilon$    |  `\epsilon`  |
 | $\varepsilon$ |  `\varepsilon` |
-| $\nabla$      |  `\nabla`^{Not a greek letter, but it is a widely used symbol in calculus and fluid mechanics.}
-| $\partial$    | `\partial`^{Not a greek letter. This symbol is used for partial derivatives.} |
-
+| $\nabla$      |  `\nabla`^{@ Not a greek letter, but it is a widely used symbol in calculus and fluid mechanics. @}
+| $\partial$    | `\partial`^{@ Not a greek letter. This symbol is used for partial derivatives. @} |
 
 
 ### Equality and comparison
