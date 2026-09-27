@@ -94,11 +94,8 @@ def add_login(app: Flask, do_login: bool, username: str, password: str):
         ### breakpoint()
         path = utils.escape_url(request.args.get("path", "/"))
         if request.method == M_GET:
-            if is_loggedin():
-                ## breakpoint()
-                return flask.redirect(path)
-            else:
-                return flask.render_template('login.html', path = path)
+            resp = flask.render_template('login.html', path = path)
+            return resp
         assert request.method == M_POST
         _username = flask.request.form.get("username") or ""
         _password = flask.request.form.get("password") or ""
