@@ -707,7 +707,9 @@ def make_app_server(  host:        str
         conf: Settings = Settings.get_instance()
         # Enforce authorization
         if not user.user_can_edit():
-            flask.abort(STATUS_CODE_403_FORBIDDEN)
+            # flask.abort(STATUS_CODE_403_FORBIDDEN)
+            path = utils.escape_url(request.path)
+            return flask.redirect(f"/login?path={path}")
         mdfile_ = path + ".md"
         p: Optional[pathlib.Path] = next(base_path.rglob(mdfile_), None)
         out = None
@@ -760,7 +762,8 @@ def make_app_server(  host:        str
         # Enforce authorization  - Guest (Read-Only Users) and anonymous
         # users cannot edit the Wiki.
         if not user.user_can_edit():
-            flask.abort(STATUS_CODE_401_UNAUTHORIZED)
+            path = utils.escape_url(request.path)
+            return flask.redirect(f"/login?path={path}")
         conf: Settings = Settings.get_instance()
         if path == "special:macros":
             # Enforece - authorization - only admin can edit macros.
