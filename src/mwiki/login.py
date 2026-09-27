@@ -75,7 +75,7 @@ def add_login(app: Flask, do_login: bool, username: str, password: str):
     def is_loggedin():
         return session.get("loggedin") or False
 
-    def do_login():
+    def do_login_():
         session["loggedin"] = True
 
     def do_logoff():
@@ -106,7 +106,7 @@ def add_login(app: Flask, do_login: bool, username: str, password: str):
         ##if _username == username and _password == password:
         ## breakpoint()
         if check_login_db(_username, _password):
-            do_login()
+            do_login_()
             user = User.get_user_by_username(_username)
             session["user"] = user.to_Dict()
             return flask.redirect(path)
@@ -132,11 +132,10 @@ def add_login(app: Flask, do_login: bool, username: str, password: str):
         The user is not asked to log in if the Wiki if the user is already authenticated
         or the wiki is public. If the flag required is set to true, the user is asked to
         log in regardless if the Wiki is public. Setting the flag required to true
-        is useful in pages where an user may modify any data.
+        is useful for pages where an user may modify any data.
         """
         def login_checker(http_handler):
             def wrapper(*args, **kwargs):
-                pass
                 response = None
                 is_public = Settings.get_instance().public
                 ## breakpoint()
