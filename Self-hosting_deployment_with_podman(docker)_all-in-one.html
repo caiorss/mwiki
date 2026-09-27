@@ -11,8 +11,8 @@
     <meta name="description" content="Describes how to self-host MWiki via a self-contained Podman or Docker container image with minimal effort." />
     <meta name=generator content="MWiki">
     
-   
-    
+
+
    <style>
 
 @font-face {
@@ -85,12 +85,13 @@
     --font-family-title: 'Chicago MacOS';
     
 
-    --font-size-h1:  1.800rem;
-    --font-size-h2:  1.350rem;
-    --font-size-h3:  1.125rem;
-    --font-size-h4:  1.000rem;
-    --font-size-h5:  0.875rem;
-    --font-size-h6:  0.750rem;
+
+    --font-size-h1: 1.800rem;
+    --font-size-h2: 1.650rem;
+    --font-size-h3: 1.425rem;
+    --font-size-h4: 1.350rem;
+    --font-size-h5: 0.875rem;
+    --font-size-h6: 0.750rem;
     --font-size-text: 0.720rem;
     --font-size-code: 0.700rem;
     --font-size-sidebar: 0.850rem;
@@ -102,13 +103,13 @@
 }
 
 
-        
+
     </style>
-  
+
     
     <link rel="stylesheet" href="/mwiki/static/static_style.css">
     
-    
+
     
     <!-- MathJax Settings -->
     <script>
@@ -125,24 +126,24 @@
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
-    // NOTE: It is encoded as base64 
+    // NOTE: It is encoded as base64
     const PAGE_SOURCE_CODE = "";
     const PAGE_SOURCE_URL  = "/mwiki/src_pages/Self-hosting_deployment_with_podman(docker)_all-in-one.html"
     const CITATION_REFERENCES = "e30=";
-	
+
     // Possible values: 'none', 'nosection' 'section', 'subsection'
-    //  none      => no enumeration 
-    //  nosection 
+    //  none      => no enumeration
+    //  nosection
     //      Schema: <equation-number>
     //      Example: Equations are enumerated as 1, 2, ..., 200
-    //              in the order that they are shown without section or 
+    //              in the order that they are shown without section or
     //              subsection number
-    //  section   
+    //  section
     //      Schema:  => <section>.<equation-number>
     //      Exmaple: => 2.1, 2.5, 6.8
-    //  subsection 
+    //  subsection
     //      Schema:  => <section>.<subsection>.<equation-number>
-    //      Example: => 1.3.1 , 1.3.2, 2.4.5 
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5
     //
     let equation_enumeration = "section";
 
@@ -156,7 +157,7 @@
         , processEscapes: true
         , processEnvironments: true
           // Location of equation numbers
-        , tagSide: "right"  
+        , tagSide: "right"
         // Possible values 'ams' or 'all' (all equations are numbered by default)
         , tags: equation_enumeration !== "none" ? "all" : "ams"
         //, tags: 'ams'
@@ -167,8 +168,8 @@
                                 , 'autoload-all'
                             ]}
         , tagformat: {
-          number: (n) => { 
-            if( equation_enumeration === "cont" 
+          number: (n) => {
+            if( equation_enumeration === "cont"
                 || equation_enumeration == "continuous")
             {
                 return '' + n;
@@ -177,7 +178,7 @@
             let nsec = MathJax.config.section;
             let nsub = MathJax.config.subsection;
             var out = '';
-            if (nsub === 0 || equation_enumeration == "section") 
+            if (nsub === 0 || equation_enumeration == "section")
             {
                 out = nsec + '.' + n;
             } else {
@@ -255,7 +256,7 @@
         /// displayAlign: "left"
       }
     // options for when overflow is linebreak
-    , linebreaks: {             
+    , linebreaks: {
         inline:           true,   // true for browser-based breaking of inline equations
         width:            '100%', // a fixed size or a percentage of the container width
         lineleading:      .2,     // the default lineleading in em units
@@ -275,7 +276,7 @@
             <!-- onload="renderMathInElement(document.body);"></script> -->
         
     
-  
+
 
     
         <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
@@ -294,7 +295,7 @@
     <script>
 
         document.addEventListener("DOMContentLoaded", (event) => {
-            // Select graphviz code blocks 
+            // Select graphviz code blocks
             let lst = document.querySelectorAll(".graphviz-dot");
             for(let x of lst){
 
@@ -304,7 +305,7 @@
                     // console.log(" [TRACE] code = ", code);
                     let svg = viz.renderSVGElement(code);
                     // console.log(" [TRACE] svg = ", svg);
-                    x.replaceWith(svg); 
+                    x.replaceWith(svg);
                     // x.outerHTML = svg;
                     /// document.getElementById("graph").appendChild(svg);
                 });
@@ -312,7 +313,7 @@
 
             }
         }, false);
-        
+
     </script>
 
     
@@ -342,16 +343,16 @@
                         <span><a class="link-sidebar" href="#H_Installation">Installation</a> </span>
                     
                     
-                        <div> 
+                        <div>
                         <ul>
                         
                             <li><a class="link-sidebar" href="#H_Disable_SELinux">Disable SELinux</a></li>
                         
                             <li><a class="link-sidebar" href="#H_Build_the_Podman_Container_Image">Build the Podman Container Image</a></li>
                         
-                            <li><a class="link-sidebar" href="#H_Set_the_environment_variables.">Set the environment variables.</a></li>
-                        
                             <li><a class="link-sidebar" href="#H_Open_Firewall_Ports">Open Firewall Ports</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Set_the_environment_variables.">Set the environment variables.</a></li>
                         
                             <li><a class="link-sidebar" href="#H_Create_the_container">Create the container</a></li>
                         
@@ -375,22 +376,22 @@
         </div>
     </aside>
     
-    
+
     <div class="main main-shift">
         
         <header class="header">
             <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/mwiki/static/hamburger-menu.svg" style="height: 25px;"/> </a>
-            <a data-i18n="home-page-button" class="sidebar-toggle-button" 
+            <a data-i18n="home-page-button" class="sidebar-toggle-button"
 			   title="Go to home page (Index)" href="/mwiki/"><img class="img-icon" src="/mwiki/static/icon-home.svg"></a>
             <div class="dropdown">
-              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button" 
-                 href="#" 
+              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button"
+                 href="#"
                  title="Main menu."
                  class="dropbtn"
                  >
                 <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
                 </a>
-                
+
             <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
                   <a data-i18n="menu-item-print-label" class="sidebar-toggle-button"
                      href="#" onclick="printPage();"
@@ -414,29 +415,29 @@
             </div>
 
             <a data-i18n="button-toggle-sections" class="sidebar-toggle-button"
-                 href="#" 
+                 href="#"
                  onclick="toggleHeadings();"
-                 id="btn-scroll-bottom" 
+                 id="btn-scroll-bottom"
                  title="Fold/Unfold all sections."
-                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg"></a> 
+                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg"></a>
             <a data-i18n="menu-item-print-icon"
-                class="sidebar-toggle-button" 
+                class="sidebar-toggle-button"
         			  title="Print current page or export it to PDF."
                 href="#"
                 onclick="printPage();">
                 <img class="img-icon" src="/mwiki/static/printer-outline.svg">
             </a>
-                
-            <!-- 
-             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
-                 href="#" 
+
+            <!--
+             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button"
+                 href="#"
                  onclick="quickOpenPage();"
-                 id="btn-scroll-bottom" 
+                 id="btn-scroll-bottom"
                  title="Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry."
                  >
-               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E"> 
+               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E">
                 </a>
-            --> 
+            -->
               
         </header>
         
@@ -456,7 +457,7 @@
 
 <div class="div-heading"> 
 <h2 id="H_Overview" class="document-heading anchor">Overview <a class="link-heading" href="#H_Overview">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=7&end=12&anchor=H_Overview&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=7&end=12&anchor=H_Overview&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178334303527267" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -470,20 +471,20 @@ The all-in-one container provides an easy and lightweight approach to deploy MWi
 
 <div class="div-heading"> 
 <h2 id="H_Installation" class="document-heading anchor">Installation <a class="link-heading" href="#H_Installation">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=12&end=220&anchor=H_Installation&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Installation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=12&end=224&anchor=H_Installation&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178334303527267" title="[i18n]: Installation" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Disable_SELinux" class="document-heading anchor">Disable SELinux <a class="link-heading" href="#H_Disable_SELinux">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=14&end=38&anchor=H_Disable_SELinux&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Disable SELinux" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=14&end=38&anchor=H_Disable_SELinux&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178334303527267" title="[i18n]: Disable SELinux" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 Since SELinux may cause podman to fail with the error <code>[Errno 13] Permission denied: ...</code>, it may be worth to disable SELinux by using
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>setenforce<span class="w"> </span><span class="m">0</span>
 </pre></div>
 </code>
@@ -537,14 +538,14 @@ for temporarily disabling SELinux.
 
 <div class="div-heading"> 
 <h3 id="H_Build_the_Podman_Container_Image" class="document-heading anchor">Build the Podman Container Image <a class="link-heading" href="#H_Build_the_Podman_Container_Image">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=38&end=60&anchor=H_Build_the_Podman_Container_Image&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Build the Podman Container Image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=38&end=61&anchor=H_Build_the_Podman_Container_Image&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178334303527267" title="[i18n]: Build the Podman Container Image" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 Clone the repository and enter its root folder.
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/caiorss/mwiki<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>mwiki
 </pre></div>
 </code>
@@ -554,7 +555,7 @@ Clone the repository and enter its root folder.
 Build the container image using podman (recommended).
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>mwiki<span class="w">  </span>--file<span class="w"> </span>docker/all-in-one.Dockerfile<span class="w"> </span>.
 </pre></div>
 </code>
@@ -564,58 +565,15 @@ Build the container image using podman (recommended).
 Build the container image using docker.
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>mwiki<span class="w">  </span>--file<span class="w"> </span>docker/all-in-one.Dockerfile<span class="w"> </span>.
 </pre></div>
 </code>
 </pre></div>
 
 <div class="div-heading"> 
-<h3 id="H_Set_the_environment_variables." class="document-heading anchor">Set the environment variables. <a class="link-heading" href="#H_Set_the_environment_variables.">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=60&end=86&anchor=H_Set_the_environment_variables.&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Set the environment variables." class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
-</div>
-
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
-<code class="language-sh"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_WEBSISTE</span><span class="o">=</span><span class="s2">&quot;https://mydomain.com&quot;</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_URL</span><span class="o">=</span><span class="s2">&quot;https://mydomain.com&quot;</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_FOLDER</span><span class="o">=</span>/home/username/wiki
-</pre></div>
-</code>
-</pre></div>
-
-<p>
-If the websiste is not public use
-</p>
-
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
-<code class="language-sh"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_PUBLIC</span><span class="o">=</span><span class="nb">false</span>
-</pre></div>
-</code>
-</pre></div>
-
-<p>
-If the website is public (anyone can view), set the environment variable MWIKI_PUBLIC to true. The default value of this setting is false.
-</p>
-
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
-<code class="language-sh"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_PUBLIC</span><span class="o">=</span><span class="nb">true</span>
-</pre></div>
-</code>
-</pre></div>
-
-<p>
-Set the Wiki name (website name).
-</p>
-
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
-<code class="language-sh"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_SITENAME</span><span class="o">=</span>MBook
-</pre></div>
-</code>
-</pre></div>
-
-<div class="div-heading"> 
 <h3 id="H_Open_Firewall_Ports" class="document-heading anchor">Open Firewall Ports <a class="link-heading" href="#H_Open_Firewall_Ports">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=86&end=131&anchor=H_Open_Firewall_Ports&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Open Firewall Ports" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=61&end=108&anchor=H_Open_Firewall_Ports&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178334303527267" title="[i18n]: Open Firewall Ports" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -626,7 +584,7 @@ In some Linux distributions or other operating systems, TCP and UDP ports are bl
 <strong>Microsoft Windows</strong>: Open port 80 (http) and 443 (https) in Microsoft Windows (requires opening a terminal with administrator privilegees).
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>netsh<span class="w"> </span>firewall<span class="w"> </span>add<span class="w"> </span>portopening<span class="w"> </span>TCP<span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="s2">&quot;MWIki server port&quot;</span>
 netsh<span class="w"> </span>firewall<span class="w"> </span>add<span class="w"> </span>portopening<span class="w"> </span>TCP<span class="w"> </span><span class="m">443</span><span class="w"> </span><span class="s2">&quot;MWIki server port&quot;</span>
 </pre></div>
@@ -637,7 +595,7 @@ netsh<span class="w"> </span>firewall<span class="w"> </span>add<span class="w">
 <strong>Linux / IPtables</strong>: Open TCP ports 80 and 443 in Linux with Iptables (Default Linux firewall, all other Linux firewalls are wrappers around Iptables).
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>iptables<span class="w"> </span>-A<span class="w"> </span>INPUT<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">80</span><span class="w"> </span>-j<span class="w"> </span>ACCEPT
 sudo<span class="w"> </span>iptables<span class="w"> </span>-A<span class="w"> </span>INPUT<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">443</span><span class="w"> </span>-j<span class="w"> </span>ACCEPT
 </pre></div>
@@ -648,7 +606,7 @@ sudo<span class="w"> </span>iptables<span class="w"> </span>-A<span class="w"> <
 <strong>Linux / UFW</strong>: Open port 80 and 443 in Linux with UFW (Uncomplicated Firewall), mostly used by Debian and Ubuntu derived Linux distributions.
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">80</span>/tcp
 sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">443</span>/tcp
 </pre></div>
@@ -659,7 +617,7 @@ sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </s
 <strong>Linux / Firewalld</strong>: Open port 80 and 443 in Linux with firewalld.
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--add-port<span class="o">=</span><span class="m">80</span>/tcp<span class="w"> </span>--permanent
 sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--add-port<span class="o">=</span><span class="m">443</span>/tcp<span class="w"> </span>--permanent
 sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
@@ -710,15 +668,58 @@ sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
 </ul>
 
 <div class="div-heading"> 
+<h3 id="H_Set_the_environment_variables." class="document-heading anchor">Set the environment variables. <a class="link-heading" href="#H_Set_the_environment_variables.">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=108&end=134&anchor=H_Set_the_environment_variables.&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178334303527267" title="[i18n]: Set the environment variables." class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
+<code class="language-sh"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_WEBSISTE</span><span class="o">=</span><span class="s2">&quot;https://mydomain.com&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_URL</span><span class="o">=</span><span class="s2">&quot;https://mydomain.com&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_FOLDER</span><span class="o">=</span>/home/username/wiki
+</pre></div>
+</code>
+</pre></div>
+
+<p>
+If the websiste is not public use
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
+<code class="language-sh"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_PUBLIC</span><span class="o">=</span><span class="nb">false</span>
+</pre></div>
+</code>
+</pre></div>
+
+<p>
+If the website is public (anyone can view), set the environment variable MWIKI_PUBLIC to true. The default value of this setting is false.
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
+<code class="language-sh"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_PUBLIC</span><span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</code>
+</pre></div>
+
+<p>
+Set the Wiki name (website name).
+</p>
+
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
+<code class="language-sh"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_SITENAME</span><span class="o">=</span>MBook
+</pre></div>
+</code>
+</pre></div>
+
+<div class="div-heading"> 
 <h3 id="H_Create_the_container" class="document-heading anchor">Create the container <a class="link-heading" href="#H_Create_the_container">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=131&end=168&anchor=H_Create_the_container&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Create the container" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=134&end=171&anchor=H_Create_the_container&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178334303527267" title="[i18n]: Create the container" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 This step creates podman container, which is equivalent to a lightweight virtual machine, detached from the terminal.
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>podman<span class="w"> </span>run<span class="w"> </span>--name<span class="o">=</span>mwiki<span class="w"> </span>--detach<span class="w">  </span><span class="se">\</span>
 <span class="w">    </span>--publish<span class="o">=</span><span class="m">80</span>:80<span class="w"> </span>--publish<span class="o">=</span><span class="m">443</span>:443<span class="w">  </span><span class="se">\</span>
 <span class="w">    </span>--env<span class="w"> </span><span class="nv">MWIKI_URL</span><span class="o">=</span><span class="nv">$MWIKI_URL</span><span class="w"> </span><span class="se">\</span>
@@ -744,7 +745,7 @@ Now, the website will be available at
 To deploy on local host set the website environment variable to
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_WEBSITE</span><span class="o">=</span><span class="s2">&quot;localhost http://[MACHINE-HOSTNAME].local&quot;</span>
 </pre></div>
 </code>
@@ -754,7 +755,7 @@ To deploy on local host set the website environment variable to
 The machine hostname can be obtained using the commmand $ hostname on Windows, Linux and other Unix-like operating systems.
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>$<span class="w"> </span>hostname
 dummy
 </pre></div>
@@ -773,14 +774,14 @@ So, the url of this dummy machine on the local network would be
 
 <div class="div-heading"> 
 <h3 id="H_Logging_in_/_Authentication" class="document-heading anchor">Logging in / Authentication <a class="link-heading" href="#H_Logging_in_/_Authentication">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=168&end=192&anchor=H_Logging_in_/_Authentication&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Logging in / Authentication" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=171&end=196&anchor=H_Logging_in_/_Authentication&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178334303527267" title="[i18n]: Logging in / Authentication" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 It is possible to log in without password by using a temporary magic hyperlink using the command
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>mwiki<span class="w"> </span>mwiki-auth
 </pre></div>
 </code>
@@ -790,7 +791,7 @@ It is possible to log in without password by using a temporary magic hyperlink u
 Output:
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-text"><div class="highlight"><pre><span></span>Copy and paste the following URL in the web browser to authenticate.
 
   https://mydomain.com/auth?token=eyJ1c2VyIjogImFkbWluIiwgInNhbHQiOiAxNzQsICJleHBpcmF0aW9uIjogMTc2OTA4MDU0NiwgInNpZ25hdHVyZSI6ICIxNTVlZDYxOTRhYTE5MTNmMzhkYWMzODI3ZTJiZTdiNzdiNGQ0NzVhYzVjMmJlNDU2ZTY5ZmViNTRiOTg0OGU4In0%3D
@@ -811,7 +812,7 @@ Then, copy this url to the web browser to log in. Note that the magic login link
 
 <div class="div-heading"> 
 <h3 id="H_Common_Operations" class="document-heading anchor">Common Operations <a class="link-heading" href="#H_Common_Operations">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=192&end=220&anchor=H_Common_Operations&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Common Operations" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=196&end=224&anchor=H_Common_Operations&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178334303527267" title="[i18n]: Common Operations" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -822,7 +823,7 @@ The previous command for creating the container needs to be run only once. After
 View the MWiki container's logs:
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>podman<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span><span class="w"> </span>-f<span class="w"> </span>mwiki
 </pre></div>
 </code>
@@ -832,7 +833,7 @@ View the MWiki container's logs:
 Stop the MWiki container:
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>podman<span class="w"> </span>stop<span class="w"> </span>mwiki
 </pre></div>
 </code>
@@ -842,7 +843,7 @@ Stop the MWiki container:
 Start the MWiki container:
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>podman<span class="w"> </span>start<span class="w"> </span>mwiki
 </pre></div>
 </code>
@@ -852,7 +853,7 @@ Start the MWiki container:
 Delete MWiki container<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup class="footnote-reference" data-counter="1" data-footnote="Note that this command is not prone to data loss if the wiki repository is mounted to the container folder /wiki">[1]</sup></a>:
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>podman<span class="w"> </span>rm<span class="w"> </span>mwiki
 </pre></div>
 </code>
@@ -860,7 +861,7 @@ Delete MWiki container<a href="#" id="footnote-reference-link-1" class="footnote
 
 <div class="div-heading"> 
 <h2 id="H_Further_Reading" class="document-heading anchor">Further Reading <a class="link-heading" href="#H_Further_Reading">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=220&end=end&anchor=H_Further_Reading&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178274382261974" title="[i18n]: Further Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Self-hosting_deployment_with_podman(docker)_all-in-one?start=224&end=end&anchor=H_Further_Reading&page=Self-hosting deployment with podman(docker) all-in-one&timestamp=178334303527267" title="[i18n]: Further Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 

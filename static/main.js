@@ -28,7 +28,7 @@ class PopupWindow
         let code = `<h2 data-i18n="${windowI18NTitleTag}" class="window-title">${title}</h2> <button class="btn-window-close">[X]</button><hr>`;
         // console.log(" [TRACE] code = ", code);
         this._dom.innerHTML = code;
-        this._dom.innerHTML += html; 
+        this._dom.innerHTML += html;
         let self = this;
         this.onClick(".btn-window-close", () => self.close());
     }
@@ -74,8 +74,8 @@ class PopupWindow
     {
         let x =  this._dom.querySelector(".popup-message-text");
         if(!x)
-        { 
-            console.error(`Not found container of CSS class 'pupup-message-text'. 
+        {
+            console.error(`Not found container of CSS class 'pupup-message-text'.
                               Failed to set popup window messasge.`) ;
             return;
         }
@@ -90,11 +90,11 @@ class PopupWindow
      *------------------------------------------- */
     onEvent(cssSelector, eventName, handler)
     {
-      
+
         let x =  this._dom.querySelector(cssSelector);
         if(!x)
-        { 
-            console.error(`PopUpWindow.onEvent(selector, eventName, handler) => Not found container of CSS class 'pupup-message-text'. 
+        {
+            console.error(`PopUpWindow.onEvent(selector, eventName, handler) => Not found container of CSS class 'pupup-message-text'.
                               Failed to set popup window messasge.`) ;
             return;
         }
@@ -142,7 +142,7 @@ class PopupWindow
         let out = q.value;
         return out;
     }
-    
+
     show()
     {
         this._dom.style.visibility = "visible";
@@ -159,7 +159,7 @@ class PopupWindow
     {
         if(this._dom.style.visibility === "hidden")
         {
-           this.show(); 
+           this.show();
         } else {
             this.close();
         }
@@ -181,7 +181,7 @@ class PopupWindow
 
 function localStorageSet(key, value)
 {
-    try { 
+    try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch(err){
         // Remove cached LaTeX formulas if the storage quota is exceeded.
@@ -189,7 +189,7 @@ function localStorageSet(key, value)
           const key = localStorage.key(index);
           if(key.startsWith("latex-")){ localStorage.removeItem(key) }
         }
-        // Retry operation 
+        // Retry operation
         localStorage.setItem(key, JSON.stringify(value));
     }
 }
@@ -316,14 +316,14 @@ function katexRenderDOMLatex(domElement)
    for(let n of nodesInline)
    {
      let prev = n.textContent;
-     try{ 
+     try{
        n.classList.remove("lazy-load-latex");
        katex.render(n.textContent, n, { displayMode: false, macros: macros});
     } catch(error){
         n.textContent = prev + error;
     }
    }
-   // Render display math 
+   // Render display math
    let nodesDisplayMode = domElement.querySelectorAll(".div-latex-code");
    for(let n of nodesDisplayMode)
    {
@@ -355,7 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error(" Failed to load pseudocode.js library => error: ", error);
     }
    }
-   
+
    if(formulas.length <= MAX_FORMULAS){
       // Render all LaTeX formulas in this document, otherwise do Lazy loading
       katexRenderDocumentLatex();
@@ -417,7 +417,7 @@ class FlashCard
 {
   constructor(root)
   {
-     this._handlers = {}; 
+     this._handlers = {};
      this._root = root;
      this._visible = false;
      // Number of flashcards in this deck of flashcards
@@ -434,7 +434,7 @@ class FlashCard
         let entries = this._root.querySelectorAll(".card-entry");
         for(let x of entries)
         {
-           x.classList.add("hidden");    
+           x.classList.add("hidden");
            let backside = x.querySelector(".card-answer");
            backside.classList.add("hidden");
            x.querySelector(".btn-show-card").textContent = "open";
@@ -444,7 +444,7 @@ class FlashCard
         // checkbox.checkbox = false;
         let displayBackSide = checkbox.checked;
         if(displayBackSide){
-          checkbox.click();  
+          checkbox.click();
         }
      });
      let toggleBackSide = () => {
@@ -452,7 +452,7 @@ class FlashCard
         let entries = this._root.querySelectorAll(".card-entry");
         for(let x of entries)
         {
-           // x.classList.remove("hidden");    
+           // x.classList.remove("hidden");
            let backside = x.querySelector(".card-answer");
            backside.classList.toggle("hidden");
            let label = backside.classList.contains("hidden") ? "open" : "close";
@@ -463,10 +463,10 @@ class FlashCard
     let displayBackside = this.checkboxValue(".display-backside-checkbox");
     if(displayBackside){ toggleBackSide(); }
   }
-  
+
   toggle(target)
   {
-    if(this._visible){ this.hide(); } 
+    if(this._visible){ this.hide(); }
     else 						 { this.show(); }
   }
 
@@ -475,7 +475,7 @@ class FlashCard
     */
   toggleCard(index)
   {
-    
+
     let card = this._root.querySelectorAll(".card-entry")[index];
     card.classList.toggle("hidden");
   }
@@ -490,7 +490,7 @@ class FlashCard
     backside.classList.toggle("hidden");
   }
 
-  
+
   /** Display the backside of the i-th flashcard
     * @param {number} index
     */
@@ -500,31 +500,31 @@ class FlashCard
     let backside = card.querySelector(".card-answer");
     backside.classList.remove("hidden");
   }
-  
+
   show(target)
   {
     	this._visible = true;
       let entries = this._root.querySelectorAll(".card-entry");
       for(let x of entries)
       {
-         x.classList.remove("hidden");    
+         x.classList.remove("hidden");
          x.querySelector(".card-answer").classList.remove("hidden");
       }
   }
-  
+
   hide(target)
   {
     	this._visible = false;
       let entries = this._root.querySelectorAll(".card-entry");
       for(let x of entries)
       {
-         x.classList.add("hidden");    
+         x.classList.add("hidden");
          x.querySelector(".card-answer").classList.add("hidden");
       }
     	// entries[0].classList.remove("hidden");
       this._root.querySelectorAll(".card-entry")[this._current].classList.remove("hidden");
   }
-  
+
   /* Switch to next flashcard in the current cardset. */
   next(target)
   {
@@ -547,10 +547,10 @@ class FlashCard
     // alert("Error not implementd");
   }
 
-  /** Get value of a checkbox, given its CSS selector. 
-    * @param {string} selector 
+  /** Get value of a checkbox, given its CSS selector.
+    * @param {string} selector
     * @return {boolean}
-    */   
+    */
   checkboxValue(selector)
   {
     let dom = this._root.querySelector(selector)
@@ -558,7 +558,7 @@ class FlashCard
     let out = dom.checked;
     return out;
   }
-  
+
   /* Switch to previous flashcard of the cardset. */
   prev(target)
   {
@@ -567,7 +567,7 @@ class FlashCard
     this._current = this._current - 1;
     if(this._current <= 0){ this._current = 0; }
     this._root.querySelectorAll(".card-entry")[this._current].classList.toggle("hidden");
-  
+
   }
 
   /* Show back side of the current flashcard. */
@@ -578,12 +578,12 @@ class FlashCard
       target.textContent = label;
       answer.classList.toggle("hidden");
   }
- 
+
   bindClick(buttonClassNameTarget, handler)
   {
     this._handlers[buttonClassNameTarget] = handler;
   }
-  
+
   dispatchClick(targetClass, target)
   {
      let action = this._handlers[targetClass];
@@ -604,7 +604,7 @@ function cardHandler(event)
    //console.log(" [TRACE] obj ", obj);
    let targetClass = event.target.classList[0];
    //console.log(" [TRACE] target = ", event.target);
-   
+
    obj.dispatchClick(targetClass, event.target);
 }
 
@@ -612,7 +612,7 @@ function cardHandler(event)
 
 // I18N Internationalization for the Website GUI - Graphics User Interface.
 // It allows adding new localization without changing the UI code.
-translationsi18n = 
+translationsi18n =
 {
     // NOTE: Actually, it is international English using US-English (American English)
     // spelling. By international English, it means English without idiomatic expression
@@ -622,12 +622,12 @@ translationsi18n =
 		, "locale-name-native":       "American (USA) English"
         , "button-yes-label":         "Yes"
         , "button-no-label":          "No"
-		, "settings-page-title":      "Wiki Settings" 
+		, "settings-page-title":      "Wiki Settings"
 		, "source-page-title":        "Source Code"
 		, "sidebar-toggle-button":    { "title": "Toggle sidebar." }
 		, "button-toggle-sections":   { "title": "Fold/Unfold all sections." }
 		, "main-menu":                { "title": "Main menu" }
-		, "pages-menu":               { "title": "Menu containing actions for current page." } 
+		, "pages-menu":               { "title": "Menu containing actions for current page." }
 		, "home-page-button":         { "title": "Go to the initial page (index)" }
 		, "button-quick-switch-to-page": { "title": "Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry." }
 		, "user-accounts-menu-item-label": { "label": "Accounts", "title": "User accounts management." }
@@ -650,7 +650,7 @@ translationsi18n =
         , "login-form-token-auth-summary-label": "Token Authentication"
         , "login-form-token-label":              "Authentication token"
         , "login-form-token-input":              "Paste the authentication token"
-        , "keybindings-menu-item":    
+        , "keybindings-menu-item":
 			{  "label": "Keybindings"
 			 , "title": "Display a window showing all keyboard shortcuts, also known as keybindings."
 			}
@@ -662,7 +662,7 @@ translationsi18n =
       , "about-menu-item-label":    "About"
       , "new-account-menu-item-label": "New Account"
       , "user-settings-item-label": "My Account"
-      , "licenses-menu-item-label": 
+      , "licenses-menu-item-label":
 				{  "label": "Licenses"
 				 , "title": "Licenses of open source libraries used by this project."
 				}
@@ -670,7 +670,7 @@ translationsi18n =
 		, "search-entry-placeholder": "Search"
 		, "search-menu-item-label" :  "Search"
     , "sidebar-search-label":     "Search"
-    , "sidebar-table-of-contentes-label": "Contents"    
+    , "sidebar-table-of-contentes-label": "Contents"
 		, "figure-prefix-label": "Figure"
         , "video-prefix-label":   "Video"
 		, "title-listing-all-pages":   "All pages"
@@ -712,8 +712,8 @@ translationsi18n =
 		, "settings-default-content-locale-label":       "Default content language"
 		, "settings-use-default-locale-checkbox-label":  "Use Default Locale"
 		, "settings-use-default-locale-description": 	   "Always use the default locale (language) regardless of the user preferred language provided by the web browser."
-		
-		, "settings-public-checkbox-description": "If enabled, everybody including non logged in users will be able to view the wiki content. Note that only logged in users can edit the wiki." 
+
+		, "settings-public-checkbox-description": "If enabled, everybody including non logged in users will be able to view the wiki content. Note that only logged in users can edit the wiki."
     , "settings-use-cdn-checkbox-label":      "Use CDN"
 		, "settings-use-cdn-description":         "Load JavaScript libraries from a CDN Content-Delivery Network instead of loading them from this server."
     , "settings-latex-renderer-label":        "LaTeX Renderer"
@@ -741,7 +741,7 @@ translationsi18n =
 									, "title": "Switch to document view mode and exit editing mode."}
 
 		, "edit-page-preview-popup-window": "Preview of"
-		, "edit-page-preview-button": { 
+		, "edit-page-preview-button": {
 									      "label": "Preview"
 										, "title": "View how page will look like before saving."
 									  }
@@ -758,7 +758,7 @@ translationsi18n =
 									  }
 		, "edit-page-spellchecker-button": "Spell Checker"
 		, "edit-page-insert-link-button": {
-											  "label": "Link to Wiki page" 
+											  "label": "Link to Wiki page"
 											 ,"title": "Insert hyperlink to existing wiki page at current cursor position."
 
 											}
@@ -800,8 +800,8 @@ translationsi18n =
         , "foldable-math-proof-block-label":      "Proof"
         , "foldable-math-derivation-block-label": "Derivation"
         , "foldable-math-example-block-label":    "Example"
-        , "admonition-math-defintion-label":      "DEFINITION"
-        , "admonition-math-theorem-label":        "THEOREM"
+        , "admonition-math-defintion-label":      "Definition"
+        , "admonition-math-theorem-label":        "Theorem"
         , "admonition-math-example-label":        "Example"
         , "abbreviation-window-title":            "Abbreviation"
         , "links-page-title":                     "Links of"
@@ -824,13 +824,13 @@ translationsi18n =
               "label": "LaTeX Input Window"
             , "title": "Open a LaTeX input popup window that allows typing LaTeX equations and getting immediate feedback about how the formula looks like when rendered."
           }
-        
+
         , "latex-input-window-title": "LaTeX Input Window"
         , "latex-input-window-btn-insert": {  "label": "Insert"
                                             , "title": "Close this window and insert LaTeX formula at current cursor position. Keyboard shortcut: Alt + Enter"
                                            }
         , "latex-input-window-btn-clear": { "label":  "Clear"
-                                          , "title":  "Clear LaTeX code entry. Keyboard shortcut: Ctrl + l" 
+                                          , "title":  "Clear LaTeX code entry. Keyboard shortcut: Ctrl + l"
                                           }
         , "latex-input-window-btn-close": {
                                               "label": "Close"
@@ -846,12 +846,12 @@ translationsi18n =
 		, "locale-name-native": 	  "Português Brasileiro"
         , "button-yes-label":         "Sim"
         , "button-no-label":          "Não"
-		, "settings-page-title":      "Configurações da Wiki" 
+		, "settings-page-title":      "Configurações da Wiki"
 		, "source-page-title":        "Código Fonte"
 		, "sidebar-toggle-button":    { "title": "Abre ou fecha barra lateral." }
 		, "button-toggle-sections":   { "title": "Dobrar/Desdobrar todas as seções." }
 		, "main-menu":                { "title": "Menu principal" }
-		, "pages-menu":               { "title": "Menu contendo ações para a página atual." } 
+		, "pages-menu":               { "title": "Menu contendo ações para a página atual." }
 		, "home-page-button":         { "title": "Ir para a página inicial (Index)" }
 		, "button-quick-switch-to-page": { "title": "Troca rápida de página. Abra uma janela que permite alternar para a página Wiki digitando seu nome ou buscar a entrada do usuário." }
 		, "user-accounts-menu-item-label": { "label": "Contas", "title": "Gerenciamento de contas de usuário." }
@@ -874,12 +874,12 @@ translationsi18n =
         , "login-form-token-auth-summary-label": "Autenticação com Token"
         , "login-form-token-label": "Token de autenticação"
         , "login-form-token-input": "Cole o token de autenticação"
-        , "keybindings-menu-item":    
+        , "keybindings-menu-item":
 				{   "label": "Altalhos"
 				  , "title": "Exibe uma janela mostrando todos os atalhos de teclado, também conhecidos como combinações de teclas (keybindings)."
 				 }
 		, "login-menu-item-label":    "Autenticar"
-        , "settings-menu-item-label": 
+        , "settings-menu-item-label":
 			{   "label": "Configurações"
 			  , "title": "Formulário para alterar as configurações do site, incluindo descrição e nome do site."
 			}
@@ -887,8 +887,8 @@ translationsi18n =
         , "about-menu-item-label":    "Sobre"
         , "new-account-menu-item-label": "Nova Conta"
         , "user-settings-item-label": "Minha Conta"
-        , "licenses-menu-item-label": 
-			{ 
+        , "licenses-menu-item-label":
+			{
 			    "label": "Licenças"
 			  , "title": "Licenças de bibliotecas de código aberto usadas por este projeto."
 			}
@@ -964,7 +964,7 @@ translationsi18n =
 									, "title": "Alternar para o modo de visualização de documento e sair do modo de edição."}
 
 		, "edit-page-preview-popup-window": "Visualização de"
-		, "edit-page-preview-button": { 
+		, "edit-page-preview-button": {
 									      "label": "Visualização"
 										  , "title": "Veja como a página ficará antes de salvar."
 									  }
@@ -981,7 +981,7 @@ translationsi18n =
 									  }
 		, "edit-page-spellchecker-button": "Corretor Ortográfico"
 		, "edit-page-insert-link-button": {
-											  "label": "Link para página da Wiki" 
+											  "label": "Link para página da Wiki"
 											 ,"title": "Inserir hiperlink para uma página wiki existente na posição atual do cursor."
 
 											}
@@ -1023,8 +1023,8 @@ translationsi18n =
         , "foldable-math-proof-block-label":      "Prova"
         , "foldable-math-derivation-block-label": "Derivação"
         , "foldable-math-example-block-label":    "Exemplo"
-        , "admonition-math-defintion-label":      "DEFINIÇÃO"
-        , "admonition-math-theorem-label":        "TEOREMA"
+        , "admonition-math-defintion-label":      "Definição"
+        , "admonition-math-theorem-label":        "Teorema"
         , "admonition-math-example-label":        "Exemplo"
         , "abbreviation-window-title":            "Abreviação"
         , "links-page-title":                     "Links de"
@@ -1068,7 +1068,7 @@ translationsi18n =
         , "label-copy-source-code": "copiado!"
         , "download-jupyter-notebook-icon-tooltip": { "title": "Baixar este Jupyter Notebook." }
   }
-        
+
 
 };
 
@@ -1089,7 +1089,7 @@ function setLocaleI18n(locale)
 		// if(oldLocale){ location.reload(); }
 	}
 	*/
-	
+
 	let elements = document.querySelectorAll("[data-i18n]");
 	for(let elem of elements)
 	{
@@ -1114,7 +1114,7 @@ function setLocaleI18n(locale)
 				elem.title = value_.title;
 			}
 		}
-		if( elem.tagName === "INPUT" 
+		if( elem.tagName === "INPUT"
 			&& (elem.type === "password" || elem.type === "text"
                 || elem.type === "search"))
 		{
@@ -1138,7 +1138,7 @@ function setLocaleI18n(locale)
 			elem.textContent = value;
 		}
 	}
-	
+
 }
 
 function normalizeI18nLocale(userLocale)
@@ -1219,11 +1219,11 @@ function popupInput(title, message, label, handler)
         , html: html_
     });
     pwindow.onWindowClick( (className) => {
-        let entry = pwindow.value(".popup-input"); 
+        let entry = pwindow.value(".popup-input");
         if(className.includes("btn-yes") && entry)
-        { 
-            handler(entry); 
-            pwindow.close(); 
+        {
+            handler(entry);
+            pwindow.close();
         }
         if(className == "btn-no" ){ pwindow.close(); }
     });
@@ -1237,7 +1237,7 @@ function popupMessage(title, message, options)
         <p class="popup-message-text">${message}</p>
     `;
     let pwindow = new PopupWindow({
-          title: title 
+          title: title
         , html: html_
         , height: options.height
         , zIndex: options.zIndex
@@ -1248,9 +1248,9 @@ function popupMessage(title, message, options)
     let hidden = options.hidden || false;
     // let closeOnBlur = options.closeOnBlur || false;
     // if(closeOnBlur)
-    // {  
+    // {
     //     //console.log(" [TRACE] Install close on Blur");
-    //     pwindow.onBlur((event) => pwindow.remove()); 
+    //     pwindow.onBlur((event) => pwindow.remove());
     // }
     if(!hidden){ pwindow.show(); }
     return pwindow;
@@ -1258,22 +1258,22 @@ function popupMessage(title, message, options)
 
 function popupIframe (title, url, options)
 {
-    if( options == undefined ){ 
+    if( options == undefined ){
         options = {};
     }
     let hidden = (options.hidden || false);
     let width = (options.width || "80%");
     // let minHeight = (options.minHeight || "90%");
     let html_ = `
-        <iframe src="${url}" title="${title}" width="100%" height="100%" ></iframe> 
+        <iframe src="${url}" title="${title}" width="100%" height="100%" ></iframe>
     `;
     let options_ =  {
-          title: title 
+          title: title
         , html: html_
         , width: width
         // , height: height
         , top: "20px"
-        , left: "50px" 
+        , left: "50px"
         , zIndex: "1000"
     };
     let pwindow = new PopupWindow(options_);
@@ -1284,9 +1284,9 @@ function popupIframe (title, url, options)
     });
     // let closeOnBlur = options.closeOnBlur || false;
     // if(closeOnBlur)
-    // {  
+    // {
     //     //console.log(" [TRACE] Install close on Blur");
-    //     pwindow.onBlur((event) => pwindow.remove()); 
+    //     pwindow.onBlur((event) => pwindow.remove());
     // }
     if(!hidden){ pwindow.show(); }
     return pwindow;
@@ -1319,7 +1319,7 @@ async function httpRequest(method, url, body)
 
     let headers =  {  'Content-Type':     'application/json'
                     , 'X-Requested-With': 'XMLHttpRequest'
-                    // Defined in based.html template as 
+                    // Defined in based.html template as
                     //  const CSRF_TOKEN = "{{ csrf_token() }}";
                     , 'X-CSRFToken':       CSRF_TOKEN
                     };
@@ -1358,7 +1358,7 @@ async function httpPutRequest(url, body)
     return result;
 }
 
-async function http_post(url, body) 
+async function http_post(url, body)
 {
     let result = await httpRequest("POST", url, body);
     return result;
@@ -1388,18 +1388,18 @@ async function pageIsBookmarked()
 }
 
 
-function linkify(inputText) 
+function linkify(inputText)
 {
     var replacedText, replacePattern1, replacePattern2, replacePattern3;
 
     //URLs starting with http://, https://, or ftp://
     replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-    replacedText = inputText.replace(replacePattern1, 
+    replacedText = inputText.replace(replacePattern1,
     '<a href="$1" target="_blank" class="link-external" rel="noreferrer noopener nofollow">$1</a>');
 
     //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
     replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-    replacedText = replacedText.replace(replacePattern2, 
+    replacedText = replacedText.replace(replacePattern2,
     '$1<a href="http://$2" target="_blank" class="link-external" rel="noreferrer noopener nofollow">$2</a>');
 
     //Change email addresses to mailto:: links.
@@ -1445,9 +1445,9 @@ function toggleShortcutKeybindingWinodw()
 function onClick(anchor, handler)
 {
     let dom = document.querySelector(".toc");
-    if (!dom){ 
+    if (!dom){
         console.warn(`DOM element ${anchor} not found.`);
-        return; 
+        return;
     }
     dom.addEventListener("click", handler);
 }
@@ -1465,16 +1465,16 @@ function displayPageSourceWindow()
     // let html = base64ToUtf8(PageSource);
     let srcWindow= new PopupWindow({
           title: `Source:`
-        , html:   `<iframe class="iframe-preview" 
+        , html:   `<iframe class="iframe-preview"
                            sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation-by-user-activation"
                            src="${PAGE_SOURCE_URL}"
-                           width="100%" 
-                           height="100%" 
+                           width="100%"
+                           height="100%"
                            ></iframe> `
         , width:  "95%"
         , height: "98%"
         , top: "0px"
-        , left: "0px" 
+        , left: "0px"
     });
 
 
@@ -1575,7 +1575,7 @@ var equationPopupWindow = null;
 
 document.addEventListener("DOMContentLoaded", async function()
 {
-  
+
     lazyLoadImages();
     // Call function every 500 ms
     timerId = setInterval(lazyLoadImages, 500);
@@ -1584,7 +1584,7 @@ document.addEventListener("DOMContentLoaded", async function()
     document.documentElement.style.setProperty('--font-family-main', FONT_FAMILY_MAIN);
     // set code font (typeface). NOte: this constant is defined in the file base.html
     document.documentElement.style.setProperty('--font-family-code', FONT_FAMILY_CODE);
-    // Set font of document headings (title) 
+    // Set font of document headings (title)
     document.documentElement.style.setProperty('--font-family-title', FONT_FAMILY_TITLE);
 
     displayEditButtons();
@@ -1600,20 +1600,20 @@ document.addEventListener("DOMContentLoaded", async function()
     var id = 0;
     for(let x of cardsets)
     {
-      
+
        flashcardObjects[id] = new FlashCard(x);
        x.dataset.id = id;
        x.addEventListener("click", cardHandler);
        id = id + 1;
     }
-  
+
 
     // Event bubbling
     onClick(".toc", (evt) => {
         if(isMobileScreen() && evt.target.className == "link-sidebar")
-        { 
+        {
             toggle_sidebar();
-        } 
+        }
     });
 
     // onClick("#btn-scroll-top", () => scrollToTop());
@@ -1708,7 +1708,7 @@ document.addEventListener("DOMContentLoaded", async function()
                     <th>Shortcut</th>
                     <th>Description</th>
                 </tr>
-            
+
                 <tr>
                     <td>?</td>
                     <td>Toggle keybind (shortcut) helper window.  </td>
@@ -1716,7 +1716,7 @@ document.addEventListener("DOMContentLoaded", async function()
                  <tr>
                     <td>?</td>
                     <td>Type ? Question mark again to close this window.</td>
-                </tr>               
+                </tr>
                 <tr>
                     <td>Ctrl /</td>
                     <td>Jump to search form.</td>
@@ -1745,7 +1745,7 @@ document.addEventListener("DOMContentLoaded", async function()
                     <td>Ctrl 9</td>
                     <td>Toggle display all links of current wiki page.</td>
                 </tr>
-    
+
 
             </table>
         `
@@ -1773,7 +1773,7 @@ document.addEventListener("DOMContentLoaded", async function()
                     let url =  `/create/${noteName}`;
                     // 1 second delay
                     setTimeout(() => { document.location.href = url; }, 1000);
-                    
+
 		            });
 	    });
     }
@@ -1782,7 +1782,7 @@ document.addEventListener("DOMContentLoaded", async function()
     doTranslationI18N();
 
     // Force Desktop CSS layout if the page was loaded with the URL
-    // parameter ?printer=true	
+    // parameter ?printer=true
     let params = new URLSearchParams(window.location.search);
     if( params.get("print") === "true" )
     {
@@ -1893,7 +1893,7 @@ document.addEventListener("mouseover", (event) => {
                                       , {hidden: true, height: "100px", zIndex: "2000"});
         }
         let title = geti18nTranslation("abbreviation-window-title");
-        let tooltip = `${target.innerText}: ${target.title}`; 
+        let tooltip = `${target.innerText}: ${target.title}`;
         tooltip_window.setTitle(title);
         tooltip_window.setMessage(tooltip);
         tooltip_window.show();
@@ -1903,7 +1903,7 @@ document.addEventListener("mouseover", (event) => {
             tooltip_window.close();
         }
     }
-    
+
     if( target.classList.contains("citation-link") )
     {
       let key = target.dataset.citekey;
@@ -1912,11 +1912,11 @@ document.addEventListener("mouseover", (event) => {
       tooltip_window.setMessage(html);
       tooltip_window.show();
       // console.log(" [TRACE] Render html = ", html);
-      return;  
+      return;
     }
 
-    // Hyperlink to equation 
-    // NOTE: It is only supported for KaTeX. 
+    // Hyperlink to equation
+    // NOTE: It is only supported for KaTeX.
     if( target.classList.contains("eqref") )
     {
        let div = document.querySelector(".equation-view");
@@ -1938,7 +1938,7 @@ document.addEventListener("mouseover", (event) => {
 _menus = new Set();
 
 const REFERENCES = (() => {
-  var data = {}; 
+  var data = {};
   try{
       inner = base64ToUtf8(CITATION_REFERENCES);
       //console.trace(" inner = ", inner);
@@ -1946,11 +1946,11 @@ const REFERENCES = (() => {
       // console.trace(" data = ", data);
   } catch(error){
   }
-  return data; 
+  return data;
 })();
 
 document.addEventListener("click", (event) => {
-    let target = event.target; 
+    let target = event.target;
 
     if(target.classList.contains("bookmark-checkbox"))
     {
@@ -1973,7 +1973,7 @@ document.addEventListener("click", (event) => {
       return;
     }
 
-    
+
     if(target.tagName === "ABBR")
     {
          let tooltip = `${target.innerText}: ${target.title}`;
@@ -2021,7 +2021,7 @@ document.addEventListener("click", (event) => {
        tooltip_window.show();
        return;
     }
-    
+
     // Toggle zoom images (expand to 100% width) when they are clicked
     if(target.classList[0] == "wiki-image")
     {
@@ -2039,7 +2039,7 @@ document.addEventListener("click", (event) => {
         } else {
             dom = event.target.parentElement.querySelector(".menu-dropdown-content");
         }
-        // Show menu 
+        // Show menu
         dom.classList.toggle("menu-hidden");
         _menus.add(dom);
     } else {
@@ -2047,12 +2047,12 @@ document.addEventListener("click", (event) => {
         {
             // Hide menu
             x.classList.add("menu-hidden")
-        } 
+        }
     }
 
     if(target.tagName == "H2" && target.parentElement.classList[0] == "div-heading")
     {
-        // Fold all other headings 
+        // Fold all other headings
         setHeadingsVisibility(false);
         // Iterate over the siblings
         // The purpose of .nextElementSibling is to skip
@@ -2061,14 +2061,14 @@ document.addEventListener("click", (event) => {
         while(true)
         {
             sibling = sibling.nextElementSibling;
-            if(sibling == null || (sibling.className === "div-heading"  
+            if(sibling == null || (sibling.className === "div-heading"
                                     /* && sibling.children[0].tagName == "H2" */ ))
             { break; }
             // Alternate viisibility
             // when the display CSS property is set to none,
-            // the DOM node becomes non visible. 
+            // the DOM node becomes non visible.
             let display =  sibling.style.display === "none" ? "" : "none";
-            sibling.style.display = display; 
+            sibling.style.display = display;
         }
         // Click on link programatically in order to set focus
         // on this heading
@@ -2088,13 +2088,13 @@ document.addEventListener("click", (event) => {
         {
             sibling = sibling.nextElementSibling;
             if(sibling == null || sibling.className === "div-heading" )
-                                    
+
             { break; }
             // Alternate viisibility
             // when the display CSS property is set to none,
-            // the DOM node becomes non visible. 
+            // the DOM node becomes non visible.
             let display =  sibling.style.display === "none" ? "" : "none";
-            sibling.style.display = display; 
+            sibling.style.display = display;
         }
         // Click on link programatically in order to set focus
         // on this heading
@@ -2107,7 +2107,7 @@ document.addEventListener("click", (event) => {
 
   if(equationPopupWindow){
      equationPopupWindow.close();
-  }   
+  }
 });
 
 
@@ -2137,12 +2137,12 @@ function deletePage(pagename)
     popupYesNo(deletePageFormTitle, message, async () => {
            let resp = await httpRequest("DELETE", `/api/wiki/${pagename}`);
            if (resp.status === "error"){
-               popupMessage("Error", resp.error); 
+               popupMessage("Error", resp.error);
                return;
-           } 
+           }
            // Refresh/Reload current page
            document.location.reload();
-       });   
+       });
 }
 
 function generateUUID() { // Public Domain/MIT
@@ -2173,9 +2173,9 @@ function menuClicked(event) {
     /// console.log(" [TRACE] target = ", event.target);
     // let parent = event.target.parentElement;
         // console.log(" [TRACE] parent = ", parent);
-    /** 
-     *  CSS Class 
-     * 
+    /**
+     *  CSS Class
+     *
      * .show {
      *     visibility: visible;
      * }
@@ -2186,11 +2186,11 @@ function menuClicked(event) {
     // console.log(" [TRACE] target.href = ", href);
 
     // if( href === "home" )
-    // {  
+    // {
     //    alert("Button Home was clicked");
     // } else if( href === "about" )
     // {
-    //    alert("Button About was clicked");   
+    //    alert("Button About was clicked");
     // }
 
 }
@@ -2209,7 +2209,7 @@ function clearFormEntries(formID)
     }
 }
 
-var _visibilityFlag = true; 
+var _visibilityFlag = true;
 
 function toggleHeadings()
 {
@@ -2238,12 +2238,12 @@ function setHeadingsVisibility(visibility)
         while(true)
         {
             sibling = sibling.nextElementSibling;
-            if(sibling == null || (sibling.className === "div-heading"  
+            if(sibling == null || (sibling.className === "div-heading"
                                     && sibling.children[0].tagName == "H2" ))
             { break; }
             // Alternate viisibility
             // when the display CSS property is set to none,
-            // the DOM node becomes non visible. 
+            // the DOM node becomes non visible.
             //// let display =  sibling.style.display === "none" ? "" : "none";
             //////let display =  _visiblityFlag && (sibling.className !== "div-heading") ? "" : "none";
             var display = "";
@@ -2252,13 +2252,13 @@ function setHeadingsVisibility(visibility)
             } else {
                 if(sibling.className !== "div-heading"){ display = "none"; }
             }
-            sibling.style.display = display; 
+            sibling.style.display = display;
         }
     }
 }
 
 // document.addEventListener("click", (event) => {
-//     let target = event.target; 
+//     let target = event.target;
 //     let className = target.classList[0];
 //     if(className === "link-internal-missing")
 //     {
@@ -2268,9 +2268,9 @@ function setHeadingsVisibility(visibility)
 //         popupYesNo("Create Note?", message, async () => {
 //             let resp = await http_post(`/api/wiki/${noteName}`);
 //             if (resp.status === "error"){
-//                 popupMessage("Error", resp.error); 
+//                 popupMessage("Error", resp.error);
 //                 return;
-//             } 
+//             }
 //             redirect(`/edit/${noteName}`);
 //         });
 //     }
@@ -2286,8 +2286,8 @@ document.addEventListener("keydown", (event) => {
     if (event.key == "?")
     {
         if(event.target.tagName === "INPUT") { return; }
-        let url = new  URL(document.URL); 
-        // Skip wiki editor page 
+        let url = new  URL(document.URL);
+        // Skip wiki editor page
         if( url.pathname.startsWith("/edit/") ){ return; }
         keybindDisplayWindow.toggle();
     }
@@ -2314,14 +2314,14 @@ document.addEventListener("keydown", (event) => {
     }
 
     // Keybind Ctrl+2
-    // Open Index page 
+    // Open Index page
     if (event.ctrlKey && event.key === "1") {
-        // Redirect browser to root URL 
+        // Redirect browser to root URL
         window.location.href = "/";
     }
 
     // Keybind: Ctrl+2
-    // Open Search Page, containing a search form and 
+    // Open Search Page, containing a search form and
     // listing all wiki pages
     if (event.ctrlKey && event.key === "2") {
         // Redirect browser to /pages URL
@@ -2329,15 +2329,15 @@ document.addEventListener("keydown", (event) => {
     }
 
     // Keybind: Ctrl+3
-    // Open Pages that allows navigating by tags 
+    // Open Pages that allows navigating by tags
     if (event.ctrlKey && event.key === "3") {
         // Redirect browser to /pages URL
         window.location.href = "/tags";
     }
-    
-    
+
+
     // Keybind: Ctrl+5
-    // Toggle headings off current section 
+    // Toggle headings off current section
     // NOTE: Headings are titles of sections or subsections.
     // This keybinding allows quick navigation in a given Wiki page.
     if (event.ctrlKey && event.key === "5") {
@@ -2363,6 +2363,3 @@ document.addEventListener("keydown", (event) => {
 
 
 });
-
-
-

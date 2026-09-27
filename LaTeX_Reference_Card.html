@@ -11,8 +11,8 @@
     <meta name="description" content="Comprehensive overview of LaTeX and examples." />
     <meta name=generator content="MWiki">
     
-   
-    
+
+
    <style>
 
 @font-face {
@@ -85,12 +85,13 @@
     --font-family-title: 'Chicago MacOS';
     
 
-    --font-size-h1:  1.800rem;
-    --font-size-h2:  1.350rem;
-    --font-size-h3:  1.125rem;
-    --font-size-h4:  1.000rem;
-    --font-size-h5:  0.875rem;
-    --font-size-h6:  0.750rem;
+
+    --font-size-h1: 1.800rem;
+    --font-size-h2: 1.650rem;
+    --font-size-h3: 1.425rem;
+    --font-size-h4: 1.350rem;
+    --font-size-h5: 0.875rem;
+    --font-size-h6: 0.750rem;
     --font-size-text: 0.720rem;
     --font-size-code: 0.700rem;
     --font-size-sidebar: 0.850rem;
@@ -102,13 +103,13 @@
 }
 
 
-        
+
     </style>
-  
+
     
     <link rel="stylesheet" href="/mwiki/static/static_style.css">
     
-    
+
     
     <!-- MathJax Settings -->
     <script>
@@ -125,24 +126,24 @@
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
-    // NOTE: It is encoded as base64 
+    // NOTE: It is encoded as base64
     const PAGE_SOURCE_CODE = "";
     const PAGE_SOURCE_URL  = "/mwiki/src_pages/LaTeX_Reference_Card.html"
     const CITATION_REFERENCES = "e30=";
-	
+
     // Possible values: 'none', 'nosection' 'section', 'subsection'
-    //  none      => no enumeration 
-    //  nosection 
+    //  none      => no enumeration
+    //  nosection
     //      Schema: <equation-number>
     //      Example: Equations are enumerated as 1, 2, ..., 200
-    //              in the order that they are shown without section or 
+    //              in the order that they are shown without section or
     //              subsection number
-    //  section   
+    //  section
     //      Schema:  => <section>.<equation-number>
     //      Exmaple: => 2.1, 2.5, 6.8
-    //  subsection 
+    //  subsection
     //      Schema:  => <section>.<subsection>.<equation-number>
-    //      Example: => 1.3.1 , 1.3.2, 2.4.5 
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5
     //
     let equation_enumeration = "subsection";
 
@@ -156,7 +157,7 @@
         , processEscapes: true
         , processEnvironments: true
           // Location of equation numbers
-        , tagSide: "right"  
+        , tagSide: "right"
         // Possible values 'ams' or 'all' (all equations are numbered by default)
         , tags: equation_enumeration !== "none" ? "all" : "ams"
         //, tags: 'ams'
@@ -167,8 +168,8 @@
                                 , 'autoload-all'
                             ]}
         , tagformat: {
-          number: (n) => { 
-            if( equation_enumeration === "cont" 
+          number: (n) => {
+            if( equation_enumeration === "cont"
                 || equation_enumeration == "continuous")
             {
                 return '' + n;
@@ -177,7 +178,7 @@
             let nsec = MathJax.config.section;
             let nsub = MathJax.config.subsection;
             var out = '';
-            if (nsub === 0 || equation_enumeration == "section") 
+            if (nsub === 0 || equation_enumeration == "section")
             {
                 out = nsec + '.' + n;
             } else {
@@ -255,7 +256,7 @@
         /// displayAlign: "left"
       }
     // options for when overflow is linebreak
-    , linebreaks: {             
+    , linebreaks: {
         inline:           true,   // true for browser-based breaking of inline equations
         width:            '100%', // a fixed size or a percentage of the container width
         lineleading:      .2,     // the default lineleading in em units
@@ -275,7 +276,7 @@
             <!-- onload="renderMathInElement(document.body);"></script> -->
         
     
-  
+
 
     
         <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
@@ -294,7 +295,7 @@
     <script>
 
         document.addEventListener("DOMContentLoaded", (event) => {
-            // Select graphviz code blocks 
+            // Select graphviz code blocks
             let lst = document.querySelectorAll(".graphviz-dot");
             for(let x of lst){
 
@@ -304,7 +305,7 @@
                     // console.log(" [TRACE] code = ", code);
                     let svg = viz.renderSVGElement(code);
                     // console.log(" [TRACE] svg = ", svg);
-                    x.replaceWith(svg); 
+                    x.replaceWith(svg);
                     // x.outerHTML = svg;
                     /// document.getElementById("graph").appendChild(svg);
                 });
@@ -312,7 +313,7 @@
 
             }
         }, false);
-        
+
     </script>
 
     
@@ -335,7 +336,7 @@
                         <span><a class="link-sidebar" href="#H_Typesetting">Typesetting</a> </span>
                     
                     
-                        <div> 
+                        <div>
                         <ul>
                         
                             <li><a class="link-sidebar" href="#H_Font_Types">Font Types</a></li>
@@ -354,7 +355,7 @@
                         <span><a class="link-sidebar" href="#H_Symbols">Symbols</a> </span>
                     
                     
-                        <div> 
+                        <div>
                         <ul>
                         
                             <li><a class="link-sidebar" href="#H_Greek_Letters_and_Math_Symbol">Greek Letters and Math Symbol</a></li>
@@ -373,7 +374,7 @@
                         <span><a class="link-sidebar" href="#H_Common_Cases">Common Cases</a> </span>
                     
                     
-                        <div> 
+                        <div>
                         <ul>
                         
                             <li><a class="link-sidebar" href="#H_Fractions">Fractions</a></li>
@@ -397,7 +398,7 @@
                         <span><a class="link-sidebar" href="#H_Default_Latex_Macros">Default Latex Macros</a> </span>
                     
                     
-                        <div> 
+                        <div>
                         <ul>
                         
                             <li><a class="link-sidebar" href="#H_Macros_for_first_order_derivative">Macros for first order derivative</a></li>
@@ -418,7 +419,7 @@
                         <span><a class="link-sidebar" href="#H_Macros_for_expressing_vectors_in_other_reference_frames">Macros for expressing vectors in other reference frames</a> </span>
                     
                     
-                        <div> 
+                        <div>
                         <ul>
                         
                             <li><a class="link-sidebar" href="#H_Vectors_expressed_in_other_frame">Vectors expressed in other frame</a></li>
@@ -444,22 +445,22 @@
         </div>
     </aside>
     
-    
+
     <div class="main main-shift">
         
         <header class="header">
             <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/mwiki/static/hamburger-menu.svg" style="height: 25px;"/> </a>
-            <a data-i18n="home-page-button" class="sidebar-toggle-button" 
+            <a data-i18n="home-page-button" class="sidebar-toggle-button"
 			   title="Go to home page (Index)" href="/mwiki/"><img class="img-icon" src="/mwiki/static/icon-home.svg"></a>
             <div class="dropdown">
-              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button" 
-                 href="#" 
+              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button"
+                 href="#"
                  title="Main menu."
                  class="dropbtn"
                  >
                 <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
                 </a>
-                
+
             <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
                   <a data-i18n="menu-item-print-label" class="sidebar-toggle-button"
                      href="#" onclick="printPage();"
@@ -483,29 +484,29 @@
             </div>
 
             <a data-i18n="button-toggle-sections" class="sidebar-toggle-button"
-                 href="#" 
+                 href="#"
                  onclick="toggleHeadings();"
-                 id="btn-scroll-bottom" 
+                 id="btn-scroll-bottom"
                  title="Fold/Unfold all sections."
-                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg"></a> 
+                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg"></a>
             <a data-i18n="menu-item-print-icon"
-                class="sidebar-toggle-button" 
+                class="sidebar-toggle-button"
         			  title="Print current page or export it to PDF."
                 href="#"
                 onclick="printPage();">
                 <img class="img-icon" src="/mwiki/static/printer-outline.svg">
             </a>
-                
-            <!-- 
-             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
-                 href="#" 
+
+            <!--
+             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button"
+                 href="#"
                  onclick="quickOpenPage();"
-                 id="btn-scroll-bottom" 
+                 id="btn-scroll-bottom"
                  title="Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry."
                  >
-               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E"> 
+               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E">
                 </a>
-            --> 
+            -->
               
         </header>
         
@@ -525,13 +526,13 @@
 
 <div class="div-heading"> 
 <h2 id="H_Typesetting" class="document-heading anchor">Typesetting <a class="link-heading" href="#H_Typesetting">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=9&end=90&anchor=H_Typesetting&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Typesetting" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=9&end=90&anchor=H_Typesetting&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Typesetting" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Font_Types" class="document-heading anchor">Font Types <a class="link-heading" href="#H_Font_Types">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=11&end=32&anchor=H_Font_Types&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Font Types" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=11&end=32&anchor=H_Font_Types&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Font Types" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -690,10 +691,10 @@
 
 <div class="div-heading"> 
 <h3 id="H_Font_Sizes" class="document-heading anchor">Font Sizes <a class="link-heading" href="#H_Font_Sizes">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=32&end=57&anchor=H_Font_Sizes&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Font Sizes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=32&end=57&anchor=H_Font_Sizes&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Font Sizes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="code-markdown">
 <code class="language-markdown"><div class="highlight"><pre><span></span>+ $\Huge Hello!$
 + $\huge Hello!$
 + $\LARGE Hello!$
@@ -743,10 +744,10 @@ Rendering
 
 <div class="div-heading"> 
 <h3 id="H_Table" class="document-heading anchor">Table <a class="link-heading" href="#H_Table">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=57&end=90&anchor=H_Table&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Table" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=57&end=90&anchor=H_Table&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Table" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\notag</span> 
 
 <span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}</span> <span class="nb">{</span>|l|l|<span class="nb">}</span>
@@ -784,13 +785,13 @@ Rendering:^{Note that MWiki markdown and MyST markdown already support tables.}
 
 <div class="div-heading"> 
 <h2 id="H_Symbols" class="document-heading anchor">Symbols <a class="link-heading" href="#H_Symbols">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=90&end=165&anchor=H_Symbols&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Symbols" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=90&end=164&anchor=H_Symbols&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Symbols" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Greek_Letters_and_Math_Symbol" class="document-heading anchor">Greek Letters and Math Symbol <a class="link-heading" href="#H_Greek_Letters_and_Math_Symbol">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=92&end=131&anchor=H_Greek_Letters_and_Math_Symbol&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Greek Letters and Math Symbol" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=92&end=130&anchor=H_Greek_Letters_and_Math_Symbol&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Greek Letters and Math Symbol" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -1022,21 +1023,21 @@ Rendering:^{Note that MWiki markdown and MyST markdown already support tables.}
 
 <td><span class="math-inline lazy-load-latex">\nabla</span></td>
  
-<td><code>\nabla</code>^{Not a greek letter, but it is a widely used symbol in calculus and fluid mechanics.}</td>
+<td><code>\nabla</code><a href="#" id="footnote-reference-link-1" class="footnote-link"><sup class="footnote-reference" data-counter="1" data-footnote="Not a greek letter, but it is a widely used symbol in calculus and fluid mechanics.">[1]</sup></a></td>
 </tr>
  
 <tr>
 
 <td><span class="math-inline lazy-load-latex">\partial</span></td>
  
-<td><code>\partial</code>^{Not a greek letter. This symbol is used for partial derivatives.}</td>
+<td><code>\partial</code><a href="#" id="footnote-reference-link-2" class="footnote-link"><sup class="footnote-reference" data-counter="2" data-footnote="Not a greek letter. This symbol is used for partial derivatives.">[2]</sup></a></td>
 </tr>
 </tbody>
 </table>
 
 <div class="div-heading"> 
 <h3 id="H_Equality_and_comparison" class="document-heading anchor">Equality and comparison <a class="link-heading" href="#H_Equality_and_comparison">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=131&end=146&anchor=H_Equality_and_comparison&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Equality and comparison" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=130&end=145&anchor=H_Equality_and_comparison&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Equality and comparison" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -1161,7 +1162,7 @@ Rendering:^{Note that MWiki markdown and MyST markdown already support tables.}
 
 <div class="div-heading"> 
 <h3 id="H_Sets_Symbols_and_Logical_Operators" class="document-heading anchor">Sets Symbols and Logical Operators <a class="link-heading" href="#H_Sets_Symbols_and_Logical_Operators">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=146&end=165&anchor=H_Sets_Symbols_and_Logical_Operators&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Sets Symbols and Logical Operators" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=145&end=164&anchor=H_Sets_Symbols_and_Logical_Operators&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Sets Symbols and Logical Operators" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -1341,13 +1342,13 @@ Rendering:^{Note that MWiki markdown and MyST markdown already support tables.}
 
 <div class="div-heading"> 
 <h2 id="H_Common_Cases" class="document-heading anchor">Common Cases <a class="link-heading" href="#H_Common_Cases">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=165&end=217&anchor=H_Common_Cases&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Common Cases" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=164&end=216&anchor=H_Common_Cases&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Common Cases" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Fractions" class="document-heading anchor">Fractions <a class="link-heading" href="#H_Fractions">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=167&end=183&anchor=H_Fractions&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Fractions" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=166&end=182&anchor=H_Fractions&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Fractions" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -1452,7 +1453,7 @@ Rendering:^{Note that MWiki markdown and MyST markdown already support tables.}
 
 <div class="div-heading"> 
 <h3 id="H_Complex_Numbers" class="document-heading anchor">Complex Numbers <a class="link-heading" href="#H_Complex_Numbers">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=183&end=217&anchor=H_Complex_Numbers&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Complex Numbers" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=182&end=216&anchor=H_Complex_Numbers&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Complex Numbers" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -1684,7 +1685,7 @@ Shortcut for writing imaginary unit \renewcommand{\i}{{\mathrm{i}}, then the ima
 
 <div class="div-heading"> 
 <h2 id="H_Matrices" class="document-heading anchor">Matrices <a class="link-heading" href="#H_Matrices">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=217&end=483&anchor=H_Matrices&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Matrices" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=216&end=482&anchor=H_Matrices&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Matrices" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -1692,7 +1693,7 @@ Shortcut for writing imaginary unit \renewcommand{\i}{{\mathrm{i}}, then the ima
 <strong>Basic Matrix (bmatrix)</strong>
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
      a<span class="nb">_{</span>11<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>12<span class="nb">}</span>
   <span class="k">\\</span> a<span class="nb">_{</span>21<span class="nb">}</span> <span class="nb">&amp;</span> a<span class="nb">_{</span>22<span class="nb">}</span>
@@ -1714,7 +1715,7 @@ Shortcut for writing imaginary unit \renewcommand{\i}{{\mathrm{i}}, then the ima
 <strong>Basic matrix (PMatrix)</strong>
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>pmatrix<span class="nb">}</span>
 A <span class="nb">&amp;</span> B <span class="nb">&amp;</span> C <span class="k">\cr</span>
 d <span class="nb">&amp;</span> e <span class="nb">&amp;</span> f <span class="k">\cr</span>
@@ -1738,7 +1739,7 @@ d &amp; e &amp; f \cr
 <strong>Basic matrix (BMatrix)</strong>
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>Bmatrix<span class="nb">}</span> 
  x <span class="nb">&amp;</span> y <span class="k">\\</span> 
  z <span class="nb">&amp;</span> v 
@@ -1760,7 +1761,7 @@ d &amp; e &amp; f \cr
 <strong>Matrix with N elements and dots</strong>
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
       d<span class="nb">_</span>1     <span class="nb">&amp;</span> c<span class="nb">_</span>1      <span class="nb">&amp;</span> 0         <span class="nb">&amp;</span> <span class="k">\cdots</span>   <span class="nb">&amp;</span> 0        <span class="k">\\</span> 
       a<span class="nb">_</span>1     <span class="nb">&amp;</span> d<span class="nb">_</span>2      <span class="nb">&amp;</span> c<span class="nb">_</span>2       <span class="nb">&amp;</span> <span class="k">\cdots</span>   <span class="nb">&amp;</span> 0        <span class="k">\\</span>
@@ -1788,7 +1789,7 @@ d &amp; e &amp; f \cr
 <strong>Matrix written in indices notation</strong>
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span>R =  <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
             R<span class="nb">_{</span>11<span class="nb">}</span> <span class="nb">&amp;</span> R<span class="nb">_{</span>12<span class="nb">}</span> <span class="nb">&amp;</span> R<span class="nb">_{</span>13<span class="nb">}</span>
         <span class="k">\\</span>  R<span class="nb">_{</span>21<span class="nb">}</span> <span class="nb">&amp;</span> R<span class="nb">_{</span>22<span class="nb">}</span> <span class="nb">&amp;</span> R<span class="nb">_{</span>23<span class="nb">}</span>
@@ -1816,7 +1817,7 @@ R =  \begin{bmatrix}
 A rotation 3 by matrix <span class="math-inline lazy-load-latex">R</span> consists of 3 column vectors <span class="math-inline lazy-load-latex">\mathbf{u}</span>, <span class="math-inline lazy-load-latex">\mathbf{v}</span> and <span class="math-inline lazy-load-latex">\mathbf{w}</span>, which are basis vectors of the rotated reference frame expressed in the fixed frame. The unit vector<span class="math-inline lazy-load-latex">\mathbf{u}</span> is the x axis of the rotated frame, <span class="math-inline lazy-load-latex">\mathbf{v}</span> is the y axis of the rotated frame and <span class="math-inline lazy-load-latex">\mathbf{w}</span> is its z axis.
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span>R = <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
              |      <span class="nb">&amp;</span>     |      <span class="nb">&amp;</span>    |       
       <span class="k">\\</span> <span class="k">\mathbf</span><span class="nb">{</span>u<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span> <span class="nb">&amp;</span> <span class="k">\mathbf</span><span class="nb">{</span>w<span class="nb">}</span>
@@ -1844,7 +1845,7 @@ R = \begin{bmatrix}
 <strong>Jacobian Matrix</strong>
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>align<span class="nb">}</span>
  J(<span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}</span>) <span class="nb">&amp;</span>= 
 	 <span class="k">\frac</span><span class="nb">{</span><span class="k">\partial</span> <span class="k">\mathbf</span><span class="nb">{</span>f<span class="nb">}}{</span><span class="k">\partial</span> <span class="k">\mathbf</span><span class="nb">{</span>x<span class="nb">}}</span> =
@@ -1920,7 +1921,7 @@ R = \begin{bmatrix}
 <strong>Matrix with Row Labels (Labeled Matrix)</strong>
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>cc<span class="nb">}</span> 
 <span class="nb">&amp;</span>
 <span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>ccccc<span class="nb">}</span> 1 <span class="nb">&amp;</span> 2 <span class="nb">&amp;</span> 3 <span class="nb">&amp;</span> 4 <span class="nb">&amp;</span> 5<span class="k">\\</span>
@@ -1964,7 +1965,7 @@ m &amp; e &amp; t &amp; a &amp; *
 <strong>Matrix with Rows and Columns Labels</strong>
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>c c<span class="nb">}</span> 
 <span class="nb">&amp;</span> <span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>c c c<span class="nb">}</span> a <span class="nb">&amp;</span> b <span class="nb">&amp;</span>c <span class="k">\\</span> <span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span> <span class="k">\\</span>
 <span class="k">\begin</span><span class="nb">{</span>array<span class="nb">}{</span>c c c<span class="nb">}</span>p<span class="k">\\</span>q<span class="k">\\</span>r <span class="k">\end</span><span class="nb">{</span>array<span class="nb">}</span> <span class="nb">&amp;</span>
@@ -1998,7 +1999,7 @@ m &amp; e &amp; t &amp; a &amp; *
 
 <div class="div-heading"> 
 <h2 id="H_Default_Latex_Macros" class="document-heading anchor">Default Latex Macros <a class="link-heading" href="#H_Default_Latex_Macros">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=483&end=734&anchor=H_Default_Latex_Macros&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Default Latex Macros" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=482&end=733&anchor=H_Default_Latex_Macros&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Default Latex Macros" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -2018,14 +2019,14 @@ Note that this hyperlink does not work in the Wikis or notes exported to html, s
 
 <div class="div-heading"> 
 <h3 id="H_Macros_for_first_order_derivative" class="document-heading anchor">Macros for first order derivative <a class="link-heading" href="#H_Macros_for_first_order_derivative">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=491&end=511&anchor=H_Macros_for_first_order_derivative&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Macros for first order derivative" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=490&end=510&anchor=H_Macros_for_first_order_derivative&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Macros for first order derivative" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 The default macro <code>\dt{}</code> allows writing derivatives of fucntions or vector-valued functions with respect to time in <a href="https://en.wikipedia.org/wiki/Leibniz%27s_notation"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Leibniz's notation</a>.
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span>f(x) = <span class="k">\dt</span><span class="nb">{}</span> y = <span class="k">\dt</span><span class="nb">{</span>y<span class="nb">}</span>
 </pre></div>
 </code>
@@ -2045,7 +2046,7 @@ f(x)= \dt{} y = \dt{y}
 Instead of
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span>f(x)= <span class="k">\frac</span><span class="nb">{</span>d <span class="nb">}{</span>dt<span class="nb">}</span> y = <span class="k">\frac</span><span class="nb">{</span>d y<span class="nb">}{</span>dt<span class="nb">}</span>
 </pre></div>
 </code>
@@ -2053,14 +2054,14 @@ Instead of
 
 <div class="div-heading"> 
 <h3 id="H_Macro_for_second_order_derivative" class="document-heading anchor">Macro for second order derivative <a class="link-heading" href="#H_Macro_for_second_order_derivative">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=511&end=532&anchor=H_Macro_for_second_order_derivative&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Macro for second order derivative" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=510&end=531&anchor=H_Macro_for_second_order_derivative&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Macro for second order derivative" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 The acceleration vector of a point-mass is the second order derivative of its position vector <span class="math-inline lazy-load-latex">\mathbf{r} = (x(t), y(t), z(t))</span> with respect to time <span class="math-inline lazy-load-latex">t</span>.
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\mathbf</span><span class="nb">{</span>a<span class="nb">}</span>(t) = <span class="k">\ddt</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}}</span>
 </pre></div>
 </code>
@@ -2080,7 +2081,7 @@ Output:
 Instead of
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-text"><div class="highlight"><pre><span></span>\mathbf{a}(t) = \frac{d^2 \mathbf{r}}{dt^2}
 </pre></div>
 </code>
@@ -2088,7 +2089,7 @@ Instead of
 
 <div class="div-heading"> 
 <h3 id="H_Macros_for_partial_derivative" class="document-heading anchor">Macros for partial derivative <a class="link-heading" href="#H_Macros_for_partial_derivative">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=532&end=572&anchor=H_Macros_for_partial_derivative&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Macros for partial derivative" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=531&end=571&anchor=H_Macros_for_partial_derivative&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Macros for partial derivative" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <h4 class="document-heading">First Order Partial Derivative</h4>
@@ -2097,7 +2098,7 @@ Instead of
 Partial derivative of a function <span class="math-inline lazy-load-latex">u(x, y)</span> with respect to <span class="math-inline lazy-load-latex">x</span>.
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\pd</span><span class="nb">{</span>u<span class="nb">}{</span>x<span class="nb">}</span>
 </pre></div>
 </code>
@@ -2117,7 +2118,7 @@ Output:
 Instead of
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\frac</span><span class="nb">{</span><span class="k">\partial</span> u<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">}</span>
 </pre></div>
 </code>
@@ -2125,7 +2126,7 @@ Instead of
 
 <h4 class="document-heading">Second order partial derivative</h4>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\pdd</span><span class="nb">{</span>u<span class="nb">}{</span>x<span class="nb">}</span>
 </pre></div>
 </code>
@@ -2145,7 +2146,7 @@ Output:
 Instead of
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\frac</span><span class="nb">{</span><span class="k">\partial</span><span class="nb">^</span>2 u<span class="nb">}{</span><span class="k">\partial</span> x<span class="nb">^</span>2<span class="nb">}</span>
 </pre></div>
 </code>
@@ -2153,14 +2154,14 @@ Instead of
 
 <div class="div-heading"> 
 <h3 id="H_Macros_for_writing_vectors" class="document-heading anchor">Macros for writing vectors <a class="link-heading" href="#H_Macros_for_writing_vectors">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=572&end=734&anchor=H_Macros_for_writing_vectors&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Macros for writing vectors" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=571&end=733&anchor=H_Macros_for_writing_vectors&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Macros for writing vectors" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 The macro <code>\b{VECTOR}</code> allows writing vectors in bold face font in a more concise form than <code>\mathbf{VECTOR}</code>. For instance,
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\b</span><span class="nb">{</span>u<span class="nb">}</span> = <span class="k">\b</span><span class="nb">{</span>v<span class="nb">}</span> + <span class="k">\b</span><span class="nb">{</span>w<span class="nb">}</span>
 </pre></div>
 </code>
@@ -2180,7 +2181,7 @@ Output:
 Instead of
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\mathbf</span><span class="nb">{</span>u<span class="nb">}</span> = <span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span> + <span class="k">\mathbf</span><span class="nb">{</span>w<span class="nb">}</span>
 </pre></div>
 </code>
@@ -2192,7 +2193,7 @@ Instead of
 Example:
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\bs</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}</span> = <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
                 <span class="k">\theta_</span>1 <span class="k">\\</span> <span class="k">\vdots</span> <span class="k">\\</span> <span class="k">\theta_n</span> 
               <span class="k">\end</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
@@ -2230,7 +2231,7 @@ Where <span class="math-inline lazy-load-latex">\bs{\theta}</span> (<code>\bs{\t
 Deriatives of vectors with dot notation can be written using the macro <code>\bdot{VECTOR}</code>. Example:
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\b</span><span class="nb">{</span>v<span class="nb">}</span> = <span class="k">\frac</span><span class="nb">{</span>d<span class="nb">}{</span>dt<span class="nb">}</span> <span class="k">\b</span><span class="nb">{</span>r<span class="nb">}</span> = <span class="k">\bdot</span><span class="nb">{</span>r<span class="nb">}</span>
 </pre></div>
 </code>
@@ -2250,7 +2251,7 @@ Output:
 Instead of
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span> = <span class="k">\frac</span><span class="nb">{</span>d<span class="nb">}{</span>dt<span class="nb">}</span> <span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}</span> = <span class="k">\dot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}}</span>
 </pre></div>
 </code>
@@ -2266,7 +2267,7 @@ The formula states that the velocity vector <span class="math-inline lazy-load-l
 Example:
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\bsdot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}</span> = 
             <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
                 <span class="k">\dot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}_</span>1 <span class="k">\\</span> <span class="k">\vdots</span> <span class="k">\\</span> <span class="k">\dot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}_</span>n 
@@ -2288,7 +2289,7 @@ Example:
 Instead of
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\dot</span><span class="nb">{</span><span class="k">\boldsymbol</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}}</span> = 
             <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span> 
                 <span class="k">\dot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}_</span>1 <span class="k">\\</span> <span class="k">\vdots</span> <span class="k">\\</span> <span class="k">\dot</span><span class="nb">{</span><span class="k">\theta</span><span class="nb">}_</span>n 
@@ -2307,7 +2308,7 @@ where <span class="math-inline lazy-load-latex">\bsdot{\theta}(t)</span> (<code>
 The macro <code>\bddot{VECTOR}</code> can be used for writing the second order derivative of a vector with respect to time. For instance,
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\b</span><span class="nb">{</span>a<span class="nb">}</span> = <span class="k">\bdot</span><span class="nb">{</span>v<span class="nb">}</span> = <span class="k">\bddot</span><span class="nb">{</span>r<span class="nb">}</span> = <span class="k">\frac</span><span class="nb">{</span>d<span class="nb">^</span>2 <span class="k">\b</span><span class="nb">{</span>r<span class="nb">}}{</span>dt<span class="nb">^</span>2<span class="nb">}</span>
 </pre></div>
 </code>
@@ -2327,7 +2328,7 @@ Output:
 Instead of
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\mathbf</span><span class="nb">{</span>a<span class="nb">}</span> = <span class="k">\dot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}}</span> 
     = <span class="k">\ddot</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}}</span> 
     = <span class="k">\frac</span><span class="nb">{</span>d<span class="nb">^</span>2 <span class="k">\mathbf</span><span class="nb">{</span>r<span class="nb">}}{</span>dt<span class="nb">^</span>2<span class="nb">}</span>
@@ -2345,7 +2346,7 @@ where <span class="math-inline lazy-load-latex">\bddot{r}(t)</span> (<code>\bddo
 Unit vectors are vectors with unit magnitude, which are expressed using the hat notation with bold face. For instance,
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\b</span><span class="nb">{</span>r<span class="nb">}</span> = x(t) <span class="k">\bhat</span><span class="nb">{</span>x<span class="nb">}</span> + y(t) <span class="k">\bhat</span><span class="nb">{</span>y<span class="nb">}</span> + z(t) <span class="k">\bhat</span><span class="nb">{</span>z<span class="nb">}</span>
 </pre></div>
 </code>
@@ -2367,10 +2368,10 @@ where <span class="math-inline lazy-load-latex">\bhat{x}</span> (<code>\bhat{x}<
 
 <div class="note admonition anchor" style="background:;"><details>
 <summary>
-<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-info.svg"/> Note: Source Code of LateX Macros for vectors<a class="link-edit link-edit-admonition" style="display:none" href="/edit/LaTeX Reference Card?start=712&end=732&page=LaTeX Reference Card&timestamp=178240923897258" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><img class="admonition-icon" src="/mwiki//static/icon-info.svg"/> Note: Source Code of LateX Macros for vectors<a class="link-edit link-edit-admonition" style="display:none" href="/edit/LaTeX Reference Card?start=711&end=731&page=LaTeX Reference Card&timestamp=179050703376651" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 </summary>
 <div class="details-content">
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="c">% Vector notation, short for mathbf (bold face)</span>
 <span class="c">% Exmaple: \b{r} = (x, y, z)</span>
 <span class="k">\newcommand</span><span class="nb">{</span><span class="k">\b</span><span class="nb">}</span>[1]<span class="nb">{</span> <span class="k">\mathbf</span><span class="nb">{</span>#1<span class="nb">}</span> <span class="nb">}</span>
@@ -2393,7 +2394,7 @@ where <span class="math-inline lazy-load-latex">\bhat{x}</span> (<code>\bhat{x}<
 
 <div class="div-heading"> 
 <h2 id="H_Macros_for_expressing_vectors_in_other_reference_frames" class="document-heading anchor">Macros for expressing vectors in other reference frames <a class="link-heading" href="#H_Macros_for_expressing_vectors_in_other_reference_frames">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=734&end=end&anchor=H_Macros_for_expressing_vectors_in_other_reference_frames&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Macros for expressing vectors in other reference frames" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=733&end=end&anchor=H_Macros_for_expressing_vectors_in_other_reference_frames&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Macros for expressing vectors in other reference frames" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -2403,14 +2404,14 @@ The LaTeX macros in this section are useful for expressing vectors in other refe
 
 <div class="div-heading"> 
 <h3 id="H_Vectors_expressed_in_other_frame" class="document-heading anchor">Vectors expressed in other frame <a class="link-heading" href="#H_Vectors_expressed_in_other_frame">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=738&end=759&anchor=H_Vectors_expressed_in_other_frame&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Vectors expressed in other frame" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=737&end=758&anchor=H_Vectors_expressed_in_other_frame&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Vectors expressed in other frame" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 The velocity vector <span class="math-inline lazy-load-latex">\b{v}(t)</span> measured or expressed in the body frame <span class="math-inline lazy-load-latex">B</span> is denoted by <span class="math-inline lazy-load-latex">\fb{v}{B}</span> (<code>\fb{v}{B}</code>). The same vector expressed in the inertial frame <span class="math-inline lazy-load-latex">N</span> is <span class="math-inline lazy-load-latex">\fb{v}{N}</span>. The matrix <span class="math-inline lazy-load-latex">{}^B_NR \in \text{SO}(3)</span> (Special Orhtogonal Group) is a rotation matrix (orthogonal matrix), or orientation matrix, that expresses the instanteous orientation of the inertial frame <span class="math-inline lazy-load-latex">N</span> with repsect to the body frame <span class="math-inline lazy-load-latex">B</span>. Note that the macro <code>\fb{}</code> stands for "frame bold".
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\fb</span><span class="nb">{</span>v<span class="nb">}{</span>B<span class="nb">}</span> = <span class="nb">{}^</span>B<span class="nb">_</span>NR <span class="k">\,</span> <span class="k">\fb</span><span class="nb">{</span>v<span class="nb">}{</span>N<span class="nb">}</span>
 </pre></div>
 </code>
@@ -2430,7 +2431,7 @@ Output:
 Instead of
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="nb">{}^</span>B<span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span> = <span class="nb">{}^</span>B<span class="nb">_</span>NR <span class="k">\,</span> <span class="nb">{}^</span>N<span class="k">\mathbf</span><span class="nb">{</span>v<span class="nb">}</span>
 </pre></div>
 </code>
@@ -2438,14 +2439,14 @@ Instead of
 
 <div class="div-heading"> 
 <h3 id="H_Vectors_(Greek_letter)_expressed_in_other_frame" class="document-heading anchor">Vectors (Greek letter) expressed in other frame <a class="link-heading" href="#H_Vectors_(Greek_letter)_expressed_in_other_frame">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=759&end=779&anchor=H_Vectors_(Greek_letter)_expressed_in_other_frame&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Vectors (Greek letter) expressed in other frame" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=758&end=778&anchor=H_Vectors_(Greek_letter)_expressed_in_other_frame&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Vectors (Greek letter) expressed in other frame" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 Consider the angular velocity vector <span class="math-inline lazy-load-latex">\bs{\omega}_1(t)</span> expressed in the inertial frame <span class="math-inline lazy-load-latex">N</span>.
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\fbs</span><span class="nb">{</span><span class="k">\omega</span><span class="nb">}{</span>N<span class="nb">}_</span>1
 </pre></div>
 </code>
@@ -2465,7 +2466,7 @@ Output:
 Instead of
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="nb">{}^</span>N<span class="k">\boldsymbol</span><span class="nb">{</span><span class="k">\omega</span><span class="nb">}_</span>1
 </pre></div>
 </code>
@@ -2473,14 +2474,14 @@ Instead of
 
 <div class="div-heading"> 
 <h3 id="H_Unit_Vector_expressed_in_other_frame" class="document-heading anchor">Unit Vector expressed in other frame <a class="link-heading" href="#H_Unit_Vector_expressed_in_other_frame">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=779&end=800&anchor=H_Unit_Vector_expressed_in_other_frame&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Unit Vector expressed in other frame" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=778&end=799&anchor=H_Unit_Vector_expressed_in_other_frame&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Unit Vector expressed in other frame" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 The direction vector <span class="math-inline lazy-load-latex">\fbhat{z}{0}_2</span> (unit vector) is the axis of the joint 2 of a robotic manipulator expressed in the base frame 0.
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\|</span> <span class="k">\fbhat</span><span class="nb">{</span>z<span class="nb">}{</span>0<span class="nb">}_</span>2 <span class="k">\|</span> = 1
 </pre></div>
 </code>
@@ -2500,7 +2501,7 @@ Output:
 Instead of
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\|</span> <span class="nb">{}^</span>0<span class="k">\hat</span><span class="nb">{</span><span class="k">\mathbf</span><span class="nb">{</span>z<span class="nb">}}_</span>2 <span class="k">\|</span> = 1
 </pre></div>
 </code>
@@ -2508,14 +2509,14 @@ Instead of
 
 <div class="div-heading"> 
 <h3 id="H_Skew-symmetric_or_cross-product_matrix_operator" class="document-heading anchor">Skew-symmetric or cross-product matrix operator <a class="link-heading" href="#H_Skew-symmetric_or_cross-product_matrix_operator">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=800&end=833&anchor=H_Skew-symmetric_or_cross-product_matrix_operator&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Skew-symmetric or cross-product matrix operator" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=799&end=832&anchor=H_Skew-symmetric_or_cross-product_matrix_operator&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Skew-symmetric or cross-product matrix operator" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 The skew-symmetric operator or cross-product matrix operator <span class="math-inline lazy-load-latex">\skew{}</span> is commonly used for obtaining the cross product matrix of a vector <span class="math-inline lazy-load-latex">\b{r} = (x, y, z)</span> such that <span class="math-inline lazy-load-latex">\skew{\b{r}} \b{f} = \b{r} \times \b{f}</span>, where <span class="math-inline lazy-load-latex">\times</span> is the cross-product operator. This operator is needed because, unlike matrices, the cross-product operator is not associative.
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\skew</span><span class="nb">{</span><span class="k">\b</span><span class="nb">{</span>r<span class="nb">}}</span> = <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
                      0 <span class="nb">&amp;</span> -z <span class="nb">&amp;</span>  y 
                  <span class="k">\\</span>  z <span class="nb">&amp;</span>  0 <span class="nb">&amp;</span> -x
@@ -2543,7 +2544,7 @@ Output:
 Instead of
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\skew</span><span class="nb">{</span><span class="k">\b</span><span class="nb">{</span>r<span class="nb">}}</span> = <span class="k">\begin</span><span class="nb">{</span>bmatrix<span class="nb">}</span>
                      0 <span class="nb">&amp;</span> -z <span class="nb">&amp;</span>  y 
                  <span class="k">\\</span>  z <span class="nb">&amp;</span>  0 <span class="nb">&amp;</span> -x
@@ -2555,14 +2556,14 @@ Instead of
 
 <div class="div-heading"> 
 <h3 id="H_Macros_for_Laplace_Transform" class="document-heading anchor">Macros for Laplace Transform <a class="link-heading" href="#H_Macros_for_Laplace_Transform">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=833&end=852&anchor=H_Macros_for_Laplace_Transform&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Macros for Laplace Transform" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=832&end=851&anchor=H_Macros_for_Laplace_Transform&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Macros for Laplace Transform" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 Example:
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="sb">$$</span>
 <span class="nb">  </span><span class="nv">\laplace</span><span class="nb">{ </span><span class="nv">\ddot</span><span class="nb">{f}</span><span class="o">(</span><span class="nb">t</span><span class="o">)</span><span class="nb"> } </span><span class="o">=</span><span class="nb"> </span><span class="o">-</span><span class="nv">\dot</span><span class="nb">{f}</span><span class="o">(</span><span class="m">0</span><span class="o">)</span><span class="nb"> </span><span class="o">-</span><span class="nb"> s f</span><span class="o">(</span><span class="m">0</span><span class="o">)</span><span class="nb"> </span><span class="o">+</span><span class="nb"> s ^ </span><span class="m">2</span><span class="nb"> </span><span class="nv">\laplace</span><span class="nb">{ f</span><span class="o">(</span><span class="nb">t</span><span class="o">)</span><span class="nb"> }  </span>
 <span class="s">$$</span>
@@ -2586,14 +2587,14 @@ where <span class="math-inline lazy-load-latex">\laplace{ g(t) }</span> is the l
 
 <div class="div-heading"> 
 <h3 id="H_Macro_for_Inverse_Laplace_Transform" class="document-heading anchor">Macro for Inverse Laplace Transform <a class="link-heading" href="#H_Macro_for_Inverse_Laplace_Transform">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=852&end=863&anchor=H_Macro_for_Inverse_Laplace_Transform&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Macro for Inverse Laplace Transform" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=851&end=862&anchor=H_Macro_for_Inverse_Laplace_Transform&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Macro for Inverse Laplace Transform" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 Example:
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-latex"><div class="highlight"><pre><span></span><span class="k">\ilaplace</span><span class="nb">{</span> <span class="k">\frac</span><span class="nb">{</span>1<span class="nb">}{</span>s<span class="nb">}</span> F(s) <span class="nb">}</span> = <span class="k">\int_</span><span class="nb">{</span>0<span class="nb">}^{</span><span class="k">\tau</span><span class="nb">}</span> f(<span class="k">\tau</span>) <span class="k">\,</span> d<span class="k">\tau</span>
 </pre></div>
 </code>
@@ -2607,14 +2608,14 @@ Example:
 
 <div class="div-heading"> 
 <h3 id="H_Macro_for_Computation_Complexity" class="document-heading anchor">Macro for Computation Complexity <a class="link-heading" href="#H_Macro_for_Computation_Complexity">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=863&end=end&anchor=H_Macro_for_Computation_Complexity&page=LaTeX Reference Card&timestamp=178240923897258" title="[i18n]: Macro for Computation Complexity" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/LaTeX_Reference_Card?start=862&end=end&anchor=H_Macro_for_Computation_Complexity&page=LaTeX Reference Card&timestamp=179050703376651" title="[i18n]: Macro for Computation Complexity" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
 Example:
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="code-markdown">
 <code class="language-markdown"><div class="highlight"><pre><span></span>+ The computational complexity of this algorithm is $\BigO{n}$.
 + The computational complexity of the second algorithm is $\BigO{n^3}$.
 </pre></div>

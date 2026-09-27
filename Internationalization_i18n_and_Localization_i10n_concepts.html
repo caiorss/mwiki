@@ -11,8 +11,8 @@
     <meta name="description" content="Terminology and concepts of internationalization i18N and localization i10n for building scalable software that can be localized to any world language." />
     <meta name=generator content="MWiki">
     
-   
-    
+
+
    <style>
 
 @font-face {
@@ -85,12 +85,13 @@
     --font-family-title: 'Chicago MacOS';
     
 
-    --font-size-h1:  1.800rem;
-    --font-size-h2:  1.350rem;
-    --font-size-h3:  1.125rem;
-    --font-size-h4:  1.000rem;
-    --font-size-h5:  0.875rem;
-    --font-size-h6:  0.750rem;
+
+    --font-size-h1: 1.800rem;
+    --font-size-h2: 1.650rem;
+    --font-size-h3: 1.425rem;
+    --font-size-h4: 1.350rem;
+    --font-size-h5: 0.875rem;
+    --font-size-h6: 0.750rem;
     --font-size-text: 0.720rem;
     --font-size-code: 0.700rem;
     --font-size-sidebar: 0.850rem;
@@ -102,13 +103,13 @@
 }
 
 
-        
+
     </style>
-  
+
     
     <link rel="stylesheet" href="/mwiki/static/static_style.css">
     
-    
+
     
     <!-- MathJax Settings -->
     <script>
@@ -125,24 +126,24 @@
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
-    // NOTE: It is encoded as base64 
+    // NOTE: It is encoded as base64
     const PAGE_SOURCE_CODE = "";
     const PAGE_SOURCE_URL  = "/mwiki/src_pages/Internationalization_i18n_and_Localization_i10n_concepts.html"
     const CITATION_REFERENCES = "e30=";
-	
+
     // Possible values: 'none', 'nosection' 'section', 'subsection'
-    //  none      => no enumeration 
-    //  nosection 
+    //  none      => no enumeration
+    //  nosection
     //      Schema: <equation-number>
     //      Example: Equations are enumerated as 1, 2, ..., 200
-    //              in the order that they are shown without section or 
+    //              in the order that they are shown without section or
     //              subsection number
-    //  section   
+    //  section
     //      Schema:  => <section>.<equation-number>
     //      Exmaple: => 2.1, 2.5, 6.8
-    //  subsection 
+    //  subsection
     //      Schema:  => <section>.<subsection>.<equation-number>
-    //      Example: => 1.3.1 , 1.3.2, 2.4.5 
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5
     //
     let equation_enumeration = "section";
 
@@ -156,7 +157,7 @@
         , processEscapes: true
         , processEnvironments: true
           // Location of equation numbers
-        , tagSide: "right"  
+        , tagSide: "right"
         // Possible values 'ams' or 'all' (all equations are numbered by default)
         , tags: equation_enumeration !== "none" ? "all" : "ams"
         //, tags: 'ams'
@@ -167,8 +168,8 @@
                                 , 'autoload-all'
                             ]}
         , tagformat: {
-          number: (n) => { 
-            if( equation_enumeration === "cont" 
+          number: (n) => {
+            if( equation_enumeration === "cont"
                 || equation_enumeration == "continuous")
             {
                 return '' + n;
@@ -177,7 +178,7 @@
             let nsec = MathJax.config.section;
             let nsub = MathJax.config.subsection;
             var out = '';
-            if (nsub === 0 || equation_enumeration == "section") 
+            if (nsub === 0 || equation_enumeration == "section")
             {
                 out = nsec + '.' + n;
             } else {
@@ -255,7 +256,7 @@
         /// displayAlign: "left"
       }
     // options for when overflow is linebreak
-    , linebreaks: {             
+    , linebreaks: {
         inline:           true,   // true for browser-based breaking of inline equations
         width:            '100%', // a fixed size or a percentage of the container width
         lineleading:      .2,     // the default lineleading in em units
@@ -275,7 +276,7 @@
             <!-- onload="renderMathInElement(document.body);"></script> -->
         
     
-  
+
 
     
         <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
@@ -294,7 +295,7 @@
     <script>
 
         document.addEventListener("DOMContentLoaded", (event) => {
-            // Select graphviz code blocks 
+            // Select graphviz code blocks
             let lst = document.querySelectorAll(".graphviz-dot");
             for(let x of lst){
 
@@ -304,7 +305,7 @@
                     // console.log(" [TRACE] code = ", code);
                     let svg = viz.renderSVGElement(code);
                     // console.log(" [TRACE] svg = ", svg);
-                    x.replaceWith(svg); 
+                    x.replaceWith(svg);
                     // x.outerHTML = svg;
                     /// document.getElementById("graph").appendChild(svg);
                 });
@@ -312,7 +313,7 @@
 
             }
         }, false);
-        
+
     </script>
 
     
@@ -356,7 +357,7 @@
                         <span><a class="link-sidebar" href="#H_Common_Locales">Common Locales</a> </span>
                     
                     
-                        <div> 
+                        <div>
                         <ul>
                         
                             <li><a class="link-sidebar" href="#H_ISO_Language_Code">ISO Language Code</a></li>
@@ -403,7 +404,7 @@
                         <span><a class="link-sidebar" href="#H_See_also">See also</a> </span>
                     
                     
-                        <div> 
+                        <div>
                         <ul>
                         
                             <li><a class="link-sidebar" href="#H_Unicode">Unicode</a></li>
@@ -423,22 +424,22 @@
         </div>
     </aside>
     
-    
+
     <div class="main main-shift">
         
         <header class="header">
             <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/mwiki/static/hamburger-menu.svg" style="height: 25px;"/> </a>
-            <a data-i18n="home-page-button" class="sidebar-toggle-button" 
+            <a data-i18n="home-page-button" class="sidebar-toggle-button"
 			   title="Go to home page (Index)" href="/mwiki/"><img class="img-icon" src="/mwiki/static/icon-home.svg"></a>
             <div class="dropdown">
-              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button" 
-                 href="#" 
+              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button"
+                 href="#"
                  title="Main menu."
                  class="dropbtn"
                  >
                 <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
                 </a>
-                
+
             <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
                   <a data-i18n="menu-item-print-label" class="sidebar-toggle-button"
                      href="#" onclick="printPage();"
@@ -462,29 +463,29 @@
             </div>
 
             <a data-i18n="button-toggle-sections" class="sidebar-toggle-button"
-                 href="#" 
+                 href="#"
                  onclick="toggleHeadings();"
-                 id="btn-scroll-bottom" 
+                 id="btn-scroll-bottom"
                  title="Fold/Unfold all sections."
-                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg"></a> 
+                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg"></a>
             <a data-i18n="menu-item-print-icon"
-                class="sidebar-toggle-button" 
+                class="sidebar-toggle-button"
         			  title="Print current page or export it to PDF."
                 href="#"
                 onclick="printPage();">
                 <img class="img-icon" src="/mwiki/static/printer-outline.svg">
             </a>
-                
-            <!-- 
-             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
-                 href="#" 
+
+            <!--
+             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button"
+                 href="#"
                  onclick="quickOpenPage();"
-                 id="btn-scroll-bottom" 
+                 id="btn-scroll-bottom"
                  title="Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry."
                  >
-               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E"> 
+               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E">
                 </a>
-            --> 
+            -->
               
         </header>
         
@@ -504,7 +505,7 @@
 
 <div class="div-heading"> 
 <h2 id="H_Terminology_of_Internationalization" class="document-heading anchor">Terminology of Internationalization <a class="link-heading" href="#H_Terminology_of_Internationalization">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=8&end=100&anchor=H_Terminology_of_Internationalization&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Terminology of Internationalization" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=8&end=100&anchor=H_Terminology_of_Internationalization&page=Internationalization i18n and Localization i10n concepts&timestamp=179050662568846" title="[i18n]: Terminology of Internationalization" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -573,7 +574,7 @@
 
 <div class="div-heading"> 
 <h2 id="H_Internationalization_Issues" class="document-heading anchor">Internationalization Issues <a class="link-heading" href="#H_Internationalization_Issues">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=100&end=134&anchor=H_Internationalization_Issues&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Internationalization Issues" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=100&end=134&anchor=H_Internationalization_Issues&page=Internationalization i18n and Localization i10n concepts&timestamp=179050662568846" title="[i18n]: Internationalization Issues" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -655,7 +656,7 @@ Cultural Assumptions
 
 <div class="div-heading"> 
 <h2 id="H_Common_Mistakes" class="document-heading anchor">Common Mistakes <a class="link-heading" href="#H_Common_Mistakes">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=134&end=144&anchor=H_Common_Mistakes&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Common Mistakes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=134&end=144&anchor=H_Common_Mistakes&page=Internationalization i18n and Localization i10n concepts&timestamp=179050662568846" title="[i18n]: Common Mistakes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -679,13 +680,13 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <div class="div-heading"> 
 <h2 id="H_Common_Locales" class="document-heading anchor">Common Locales <a class="link-heading" href="#H_Common_Locales">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=144&end=317&anchor=H_Common_Locales&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Common Locales" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=144&end=317&anchor=H_Common_Locales&page=Internationalization i18n and Localization i10n concepts&timestamp=179050662568846" title="[i18n]: Common Locales" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_ISO_Language_Code" class="document-heading anchor">ISO Language Code <a class="link-heading" href="#H_ISO_Language_Code">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=146&end=183&anchor=H_ISO_Language_Code&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: ISO Language Code" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=146&end=183&anchor=H_ISO_Language_Code&page=Internationalization i18n and Localization i10n concepts&timestamp=179050662568846" title="[i18n]: ISO Language Code" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 
@@ -931,7 +932,7 @@ Some reasons to avoid using IP address, geographic location or country for choos
 
 <div class="div-heading"> 
 <h3 id="H_Locale_Code" class="document-heading anchor">Locale Code <a class="link-heading" href="#H_Locale_Code">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=183&end=306&anchor=H_Locale_Code&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Locale Code" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=183&end=306&anchor=H_Locale_Code&page=Internationalization i18n and Localization i10n concepts&timestamp=179050662568846" title="[i18n]: Locale Code" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <p>
@@ -1468,7 +1469,7 @@ It is possible to change the UI interface language of some application on Linux 
 In bash shell or any other POSIX shell.
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$LANG</span>
 en_US.UTF-8
 </pre></div>
@@ -1479,7 +1480,7 @@ en_US.UTF-8
 In Python,
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>&gt;&gt;&gt;<span class="w"> </span>import<span class="w"> </span>os<span class="w"> </span>
 
 &gt;&gt;&gt;<span class="w"> </span>os.getenv<span class="o">(</span><span class="s2">&quot;LANG&quot;</span>,<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="o">)</span>
@@ -1492,7 +1493,7 @@ In Python,
 The following command temporarily changes the Kwrite KDE text editor language to Swiss German even if the default language used during the Linux distribution installation was not German. This feature is useful for learning new vocabulary of other languages.
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>env<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>de_CH<span class="w"> </span>kwrite
 </pre></div>
 </code>
@@ -1502,7 +1503,7 @@ The following command temporarily changes the Kwrite KDE text editor language to
 Lanch kwite with language set to Swiss German detached from terminal (without blocking the terminal emulator).
 </p>
 
-<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre>
+<div class="div-source-code"><span class="span-copy-button"><label data-i18n="label-copy-source-code" class="hidden">Copied</label><a href="#" data-i18n="btn-copy-source-code"  title="Copy the source code."><img class="img-icon btn-copy-button" src="/mwiki//static/content-copy.svg"></a></span><pre class="">
 <code class="language-sh"><div class="highlight"><pre><span></span>$<span class="w"> </span>env<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>de_CH.UTF-8<span class="w"> </span>kwrite<span class="w"> </span><span class="m">1</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="nb">disown</span>
 </pre></div>
 </code>
@@ -1536,7 +1537,7 @@ Explanation:
 
 <div class="div-heading"> 
 <h3 id="H_See_Also" class="document-heading anchor">See Also <a class="link-heading" href="#H_See_Also">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=306&end=317&anchor=H_See_Also&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: See Also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=306&end=317&anchor=H_See_Also&page=Internationalization i18n and Localization i10n concepts&timestamp=179050662568846" title="[i18n]: See Also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">
@@ -1572,7 +1573,7 @@ Explanation:
 
 <div class="div-heading"> 
 <h2 id="H_Falsehoods_Many_Programmers_Believe_About_Names" class="document-heading anchor">Falsehoods Many Programmers Believe About Names <a class="link-heading" href="#H_Falsehoods_Many_Programmers_Believe_About_Names">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=317&end=409&anchor=H_Falsehoods_Many_Programmers_Believe_About_Names&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Falsehoods Many Programmers Believe About Names" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=317&end=409&anchor=H_Falsehoods_Many_Programmers_Believe_About_Names&page=Internationalization i18n and Localization i10n concepts&timestamp=179050662568846" title="[i18n]: Falsehoods Many Programmers Believe About Names" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -1879,7 +1880,7 @@ People only a have a single given name and there is no whitespace within a given
 
 <div class="div-heading"> 
 <h2 id="H_American_English_Vs_British_English" class="document-heading anchor">American English Vs British English <a class="link-heading" href="#H_American_English_Vs_British_English">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=409&end=466&anchor=H_American_English_Vs_British_English&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: American English Vs British English" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=409&end=466&anchor=H_American_English_Vs_British_English&page=Internationalization i18n and Localization i10n concepts&timestamp=179050662568846" title="[i18n]: American English Vs British English" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -2266,7 +2267,7 @@ People only a have a single given name and there is no whitespace within a given
 
 <div class="div-heading"> 
 <h2 id="H_Software_Libraries" class="document-heading anchor">Software Libraries <a class="link-heading" href="#H_Software_Libraries">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=466&end=475&anchor=H_Software_Libraries&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Software Libraries" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=466&end=475&anchor=H_Software_Libraries&page=Internationalization i18n and Localization i10n concepts&timestamp=179050662568846" title="[i18n]: Software Libraries" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -2292,7 +2293,7 @@ Gettext
 
 <div class="div-heading"> 
 <h2 id="H_Footnotes" class="document-heading anchor">Footnotes <a class="link-heading" href="#H_Footnotes">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=475&end=480&anchor=H_Footnotes&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Footnotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=475&end=480&anchor=H_Footnotes&page=Internationalization i18n and Localization i10n concepts&timestamp=179050662568846" title="[i18n]: Footnotes" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -2316,13 +2317,13 @@ Gettext
 
 <div class="div-heading"> 
 <h2 id="H_See_also" class="document-heading anchor">See also <a class="link-heading" href="#H_See_also">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=480&end=end&anchor=H_See_also&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=480&end=end&anchor=H_See_also&page=Internationalization i18n and Localization i10n concepts&timestamp=179050662568846" title="[i18n]: See also" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Unicode" class="document-heading anchor">Unicode <a class="link-heading" href="#H_Unicode">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=482&end=529&anchor=H_Unicode&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Unicode" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=482&end=531&anchor=H_Unicode&page=Internationalization i18n and Localization i10n concepts&timestamp=179050662568846" title="[i18n]: Unicode" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">
@@ -2357,6 +2358,13 @@ Gettext
 </ul>
 </li>
 <li>
+<em>IDN Display Algorithm</em>, Mozilla Wiki <ul class="">
+<li>
+<a href="https://wiki.mozilla.org/IDN_Display_Algorithm"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://wiki.mozilla.org/IDN_Display_Algorithm</a> 
+</li>
+</ul>
+</li>
+<li>
 <em>IDN homograph attack</em>, Wikipedia <ul class="">
 <li>
 <a href="https://en.wikipedia.org/wiki/IDN_homograph_attack"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikipedia.org/wiki/IDN_homograph_attack</a> 
@@ -2364,9 +2372,9 @@ Gettext
 </ul>
 </li>
 <li>
-<em>IDN Display Algorithm</em>, Mozilla Wiki <ul class="">
+<em>Reαd carefully: how to spot – and avoid – a homoglyph attack</em>, The Guardian <ul class="">
 <li>
-<a href="https://wiki.mozilla.org/IDN_Display_Algorithm"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://wiki.mozilla.org/IDN_Display_Algorithm</a> 
+<a href="https://www.theguardian.com/money/2026/sep/20/how-to-spot-avoid-homoglyph-attack-scam"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.theguardian.com/money/2026/sep/20/how-to-spot-avoid-homoglyph-attack-scam</a> 
 </li>
 </ul>
 </li>
@@ -2480,7 +2488,7 @@ Gettext
 
 <div class="div-heading"> 
 <h3 id="H_Internationalization_and_Localization__Reading" class="document-heading anchor">Internationalization and Localization  Reading <a class="link-heading" href="#H_Internationalization_and_Localization__Reading">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=529&end=669&anchor=H_Internationalization_and_Localization__Reading&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Internationalization and Localization  Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=531&end=671&anchor=H_Internationalization_and_Localization__Reading&page=Internationalization i18n and Localization i10n concepts&timestamp=179050662568846" title="[i18n]: Internationalization and Localization  Reading" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">
@@ -2949,11 +2957,18 @@ Brief: * Usually, programs are written and documented in English, and use Englis
 </li>
 </ul>
 </li>
+<li>
+<em>Digital Printing of Arabic: explaining the problem</em>, (digitalorientalist.com) <ul class="">
+<li>
+<a href="https://digitalorientalist.com/2017/08/21/digital-printing-of-arabic-explaining-the-problem/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://digitalorientalist.com/2017/08/21/digital-printing-of-arabic-explaining-the-problem/</a> 
+</li>
+</ul>
+</li>
 </ul>
 
 <div class="div-heading"> 
 <h3 id="H_GUI_(Graphics_User_Interface),_UX_(User_Experience)_and_Culture" class="document-heading anchor">GUI (Graphics User Interface), UX (User Experience) and Culture <a class="link-heading" href="#H_GUI_(Graphics_User_Interface),_UX_(User_Experience)_and_Culture">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=669&end=677&anchor=H_GUI_(Graphics_User_Interface),_UX_(User_Experience)_and_Culture&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: GUI (Graphics User Interface), UX (User Experience) and Culture" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=671&end=680&anchor=H_GUI_(Graphics_User_Interface),_UX_(User_Experience)_and_Culture&page=Internationalization i18n and Localization i10n concepts&timestamp=179050662568846" title="[i18n]: GUI (Graphics User Interface), UX (User Experience) and Culture" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">
@@ -2971,11 +2986,18 @@ Brief: * Usually, programs are written and documented in English, and use Englis
 </li>
 </ul>
 </li>
+<li>
+<em>How Chinese Computing Secretly Changed the World</em>, Julesy <ul class="">
+<li>
+<a href="https://m.youtube.com/watch?v=cPYK8s2OdMY"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://m.youtube.com/watch?v=cPYK8s2OdMY</a> 
+</li>
+</ul>
+</li>
 </ul>
 
 <div class="div-heading"> 
 <h3 id="H_Numbers_and_Mesurement" class="document-heading anchor">Numbers and Mesurement <a class="link-heading" href="#H_Numbers_and_Mesurement">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=677&end=end&anchor=H_Numbers_and_Mesurement&page=Internationalization i18n and Localization i10n concepts&timestamp=178274382261974" title="[i18n]: Numbers and Mesurement" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Internationalization_i18n_and_Localization_i10n_concepts?start=680&end=end&anchor=H_Numbers_and_Mesurement&page=Internationalization i18n and Localization i10n concepts&timestamp=179050662568846" title="[i18n]: Numbers and Mesurement" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <ul class="">

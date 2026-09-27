@@ -11,8 +11,8 @@
     <meta name="description" content="Describes how to self-host MWiki via a self-contained Podman or Docker container image with minimal effort." />
     <meta name=generator content="MWiki">
     
-   
-    
+
+
    <style>
 
 @font-face {
@@ -85,12 +85,13 @@
     --font-family-title: 'Chicago MacOS';
     
 
-    --font-size-h1:  1.800rem;
-    --font-size-h2:  1.350rem;
-    --font-size-h3:  1.125rem;
-    --font-size-h4:  1.000rem;
-    --font-size-h5:  0.875rem;
-    --font-size-h6:  0.750rem;
+
+    --font-size-h1: 1.800rem;
+    --font-size-h2: 1.650rem;
+    --font-size-h3: 1.425rem;
+    --font-size-h4: 1.350rem;
+    --font-size-h5: 0.875rem;
+    --font-size-h6: 0.750rem;
     --font-size-text: 0.720rem;
     --font-size-code: 0.700rem;
     --font-size-sidebar: 0.850rem;
@@ -102,13 +103,13 @@
 }
 
 
-        
+
     </style>
-  
+
     
     <link rel="stylesheet" href="/mwiki/static/static_style.css">
     
-    
+
     
     <!-- MathJax Settings -->
     <script>
@@ -125,24 +126,24 @@
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
-    // NOTE: It is encoded as base64 
+    // NOTE: It is encoded as base64
     const PAGE_SOURCE_CODE = "";
     const PAGE_SOURCE_URL  = ""
     const CITATION_REFERENCES = "";
-	
+
     // Possible values: 'none', 'nosection' 'section', 'subsection'
-    //  none      => no enumeration 
-    //  nosection 
+    //  none      => no enumeration
+    //  nosection
     //      Schema: <equation-number>
     //      Example: Equations are enumerated as 1, 2, ..., 200
-    //              in the order that they are shown without section or 
+    //              in the order that they are shown without section or
     //              subsection number
-    //  section   
+    //  section
     //      Schema:  => <section>.<equation-number>
     //      Exmaple: => 2.1, 2.5, 6.8
-    //  subsection 
+    //  subsection
     //      Schema:  => <section>.<subsection>.<equation-number>
-    //      Example: => 1.3.1 , 1.3.2, 2.4.5 
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5
     //
     let equation_enumeration = "";
 
@@ -156,7 +157,7 @@
         , processEscapes: true
         , processEnvironments: true
           // Location of equation numbers
-        , tagSide: "right"  
+        , tagSide: "right"
         // Possible values 'ams' or 'all' (all equations are numbered by default)
         , tags: equation_enumeration !== "none" ? "all" : "ams"
         //, tags: 'ams'
@@ -167,8 +168,8 @@
                                 , 'autoload-all'
                             ]}
         , tagformat: {
-          number: (n) => { 
-            if( equation_enumeration === "cont" 
+          number: (n) => {
+            if( equation_enumeration === "cont"
                 || equation_enumeration == "continuous")
             {
                 return '' + n;
@@ -177,7 +178,7 @@
             let nsec = MathJax.config.section;
             let nsub = MathJax.config.subsection;
             var out = '';
-            if (nsub === 0 || equation_enumeration == "section") 
+            if (nsub === 0 || equation_enumeration == "section")
             {
                 out = nsec + '.' + n;
             } else {
@@ -255,7 +256,7 @@
         /// displayAlign: "left"
       }
     // options for when overflow is linebreak
-    , linebreaks: {             
+    , linebreaks: {
         inline:           true,   // true for browser-based breaking of inline equations
         width:            '100%', // a fixed size or a percentage of the container width
         lineleading:      .2,     // the default lineleading in em units
@@ -268,7 +269,7 @@
     
 
     
-  
+
 
     
 
@@ -283,7 +284,7 @@
     <script>
 
         document.addEventListener("DOMContentLoaded", (event) => {
-            // Select graphviz code blocks 
+            // Select graphviz code blocks
             let lst = document.querySelectorAll(".graphviz-dot");
             for(let x of lst){
 
@@ -293,7 +294,7 @@
                     // console.log(" [TRACE] code = ", code);
                     let svg = viz.renderSVGElement(code);
                     // console.log(" [TRACE] svg = ", svg);
-                    x.replaceWith(svg); 
+                    x.replaceWith(svg);
                     // x.outerHTML = svg;
                     /// document.getElementById("graph").appendChild(svg);
                 });
@@ -301,7 +302,7 @@
 
             }
         }, false);
-        
+
     </script>
 
     
@@ -313,7 +314,7 @@
 <body>
 
     
-    
+
     <div class="main main-shift">
         
 
@@ -384,31 +385,6 @@ docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </
 
    
 
-<span class="gu">### Set the environment variables.</span>
-
-<span class="sb">```sh</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_WEBSISTE</span><span class="o">=</span><span class="s2">&quot;https://mydomain.com&quot;</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_URL</span><span class="o">=</span><span class="s2">&quot;https://mydomain.com&quot;</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_FOLDER</span><span class="o">=</span>/home/username/wiki
-<span class="sb">```</span>
-
-If the websiste is not public use
-
-<span class="sb">```sh</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_PUBLIC</span><span class="o">=</span><span class="nb">false</span>
-<span class="sb">```</span>
-
-If the website is public (anyone can view), set the environment variable MWIKI_PUBLIC to true. The default value of this setting is false.
-
-<span class="sb">```sh</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_PUBLIC</span><span class="o">=</span><span class="nb">true</span>
-<span class="sb">```</span>
-
-Set the Wiki name (website name).
-
-<span class="sb">```sh</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_SITENAME</span><span class="o">=</span>MBook
-<span class="sb">```</span>
 
 <span class="gu">### Open Firewall Ports</span>
 
@@ -455,6 +431,34 @@ sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
   + https://en.wikipedia.org/wiki/.local
 + <span class="ge">*Linux Open Port: Step-by-Step Guide to Managing Firewall Ports*</span>, Vijaykrishna Ram and Anish Singh Walia, Digital Ocean
   + https://www.digitalocean.com/community/tutorials/opening-a-port-on-linux
+
+
+<span class="gu">### Set the environment variables.</span>
+
+<span class="sb">```sh</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_WEBSISTE</span><span class="o">=</span><span class="s2">&quot;https://mydomain.com&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_URL</span><span class="o">=</span><span class="s2">&quot;https://mydomain.com&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_FOLDER</span><span class="o">=</span>/home/username/wiki
+<span class="sb">```</span>
+
+If the websiste is not public use
+
+<span class="sb">```sh</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_PUBLIC</span><span class="o">=</span><span class="nb">false</span>
+<span class="sb">```</span>
+
+If the website is public (anyone can view), set the environment variable MWIKI_PUBLIC to true. The default value of this setting is false.
+
+<span class="sb">```sh</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_PUBLIC</span><span class="o">=</span><span class="nb">true</span>
+<span class="sb">```</span>
+
+Set the Wiki name (website name).
+
+<span class="sb">```sh</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MWIKI_SITENAME</span><span class="o">=</span>MBook
+<span class="sb">```</span>
+
 <span class="gu">### Create the container </span>
 
 This step creates podman container, which is equivalent to a lightweight virtual machine, detached from the terminal.
@@ -516,6 +520,7 @@ Output:
 <span class="sb">```</span>
 
 Then, copy this url to the web browser to log in. Note that the magic login link is valid only for 20 seconds. After this step, the user can set the administrator password. MWiki does not use a hardcoded default password, instead it generates a random default password for every wiki.
+
 <span class="gu">### Common Operations</span>
 
 The previous command for creating the container needs to be run only once. After the last step, the following commands can be used for managing the container.
@@ -581,7 +586,7 @@ podman<span class="w"> </span>rm<span class="w"> </span>mwiki
                 height: 100% !important;
                 margin-left: -50px !important;
             }
- 
+
             .sidebar {
                 display: none;
             }
