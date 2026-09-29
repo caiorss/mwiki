@@ -28,9 +28,9 @@ def mastodon_handle_plugin(
     """Turn mastodon handles into hyperlinks.
 
     Plugin for parsing mastodon handles and turning them into hyperlinks.
-    For instance, the mastodon handle @kde@floss.social is turned into a hyperlink 
+    For instance, the mastodon handle @kde@floss.social is turned into a hyperlink
     to the URL https://floss.social/@kde.
-    
+
     NOTE: A mastodon handle is equivalent to Twitter's user name @someUserName.
 
     """
@@ -163,7 +163,7 @@ rules: dict[str, dict[str, list[RuleDictType]]] = {
                 #### "name": "math_inline",
                  "name": "mastodon_handle_inline"
                 ##, "rex": re.compile(r"@(.+)@([\w\.]+)\s\n?", flags = re.M | re.)
-               , "rex": re.compile(r"@(.+)@([\w\.]+)")
+               , "rex": re.compile(r"@(.+?)@([\w\.-]+)")
                , "tmpl": """<a href="https://{1}/@{2}" class="link-external" >@{1}@{2}</a>"""
                , "tag": "@"
                , "pre": syntax_filter
