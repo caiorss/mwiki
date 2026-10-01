@@ -1387,7 +1387,7 @@ class HtmlRenderer(AbstractAstRenderer):
                 temp = utils.strip_prefix("rd:", temp)
                 label = temp
                 title = f"Subreddit {temp}"
-                href = f"https://old.reddit.com" + temp
+                href = f"https://reddit.com" + temp
             label = href if fullLinkFlag else label
         title = node.attrs.get("title", title)
         title = f'title="{title}"' if title != "" else ""

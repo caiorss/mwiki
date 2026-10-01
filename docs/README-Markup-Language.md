@@ -824,7 +824,7 @@ Rendering:
 
 The hyperlink `<rd:/r/cpp>` is a hyperlink to
 
-+ https://old.reddit.com/r/cpp 
++ https://reddit.com/r/cpp 
 
 ## Image 
 ### Internal Image 

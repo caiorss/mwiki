@@ -980,7 +980,7 @@ Rendering:
 
 The hyperlink `<rd:/r/cpp>` is a hyperlink to 
 
-+ https://old.reddit.com/r/cpp 
++ https://reddit.com/r/cpp 
 
 ## Image 
 ### Internal Image 
@@ -2979,4 +2979,4 @@ It is possible to view all flashcards and their backside at once; go to next car
    + => Allows testing MyST online without installation.
 + https://myst-parser.readthedocs.io/en/latest/syntax/math.html
 + https://markdown-it-py.readthedocs.io/en/latest/architecture.html
-+ https://mystmd.org/guide/glossaries-and-terms  
++ https://mystmd.org/guide/glossaries-and-terms
