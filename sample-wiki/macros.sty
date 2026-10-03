@@ -4,9 +4,20 @@
 % used in any MWiki page (markdown file).                %
 %--------------------------------------------------------%
 
+% Inner product
+\newcommand{\inner}[1]{ \langle #1 \rangle }
+
 \newcommand{\dy}{ \displaystyle }
 
+\newcommand{\eps}{ \epsilon }
+\newcommand{\veps}{ \varepsilon }
+
+\newcommand{\ev}[1]{ \left. #1 \right| }
+
 \newcommand{\def}{ \stackrel{\text{def}}{=} }
+
+% Norm of a vector || x || = \sqrt{x1^2 + ... + xn^2}
+\newcommand{\norm}[1]{ \|#1\| }
 
 \newcommand{\op}{ \operatorname }
 
@@ -185,3 +196,6 @@
 \newcommand{\E}[1] { \operatorname{E}\left[ #1 \right] }
 \newcommand{\Var}{ \operatorname{Var} }
 \newcommand{\cov}{ \operatorname{cov} }
+
+% Hessian matrix operator
+\newcommand{\hess}{ \overline{\nabla}^2 }
