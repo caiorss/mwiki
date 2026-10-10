@@ -756,7 +756,7 @@ def make_app_server(  host:        str
     @app.route("/edit/<path>", methods = [M_GET, M_POST])
     @check_login( required = True)
     def route_edit_page(path: str):
-        """Servers Wiki code editor (Ace 9) JavaScript editor."""
+        """Serves MWiki's code editor (Ace 9 JavaScript editor)."""
         path = path.replace("_", " ")
         user = current_user()
         # Enforce authorization  - Guest (Read-Only Users) and anonymous
