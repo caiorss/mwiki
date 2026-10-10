@@ -1,26 +1,26 @@
 from typing import Any, Tuple, List, Optional
 import os
-import enum 
+import enum
 import json
 from flask_sqlalchemy import SQLAlchemy
-import flask_sqlalchemy as sa 
+import flask_sqlalchemy as sa
 import sqlalchemy
 from sqlalchemy import ForeignKey
-import sqlalchemy.orm as so 
+import sqlalchemy.orm as so
 import datetime
 import secrets
 from werkzeug.security import generate_password_hash, check_password_hash
 import yaml.scanner
 from . import utils
 from . constants import *
-from . import render 
+from . import render
 from . import mparser
 import pathlib
 import frontmatter
 import yaml
 import flask
 import mwiki
-import mwiki.export as export 
+import mwiki.export as export
 
 ## db = SQLAlchemy(app)
 db = SQLAlchemy()
@@ -103,12 +103,12 @@ class User(db.Model):
     # date_modified  = so.mapped_column(DateTime, defalt=datetime.datetime.utcnow)
 
     def is_admin(self):
-        result = self.type == USER_ADMIN or self.type == USER_MASTER_ADMIN 
-        return result 
-    
+        result = self.type == USER_ADMIN or self.type == USER_MASTER_ADMIN
+        return result
+
     def user_can_edit(self):
         result = self.active and (self.is_admin() or self.type == USER_EDITOR)
-        return result 
+        return result
 
     def is_anonymous(self):
         result = self.type == USER_ANONYMOUS
@@ -130,7 +130,7 @@ class User(db.Model):
 
     def update_password(self, password: str):
         hash = generate_password_hash(password)
-        self.password = hash 
+        self.password = hash
         self.commit()
 
     def __repr__(self):
@@ -148,7 +148,7 @@ class User(db.Model):
 
     def save(self):
         """Update database entry"""
-        self.date_modified = datetime.datetime.now(datetime.timezone.utc)           
+        self.date_modified = datetime.datetime.now(datetime.timezone.utc)
         db.session.add(self)
         db.session.commit()
 
@@ -176,7 +176,7 @@ class User(db.Model):
                       , password = passwd)
         db.session.add(user)
         db.session.commit()
-        return user 
+        return user
 
     def _to_dict(self):
         out = dict(
@@ -186,9 +186,9 @@ class User(db.Model):
                 , description = self.description
                 , active = self.active
                 , type = self.type )
-        return out 
+        return out
 
-    @classmethod 
+    @classmethod
     def to_dict(cls):
         objs = cls.query.all()
         out = [q._to_dict() for q in objs]
@@ -204,16 +204,16 @@ class User(db.Model):
                 admin.passowrd = entry["password"]
                 admin.active = entry["active"]
                 admin.type = entry["type"]
-                admin.save()                
+                admin.save()
                 continue
             obj.email    = entry["email"]
             obj.passowrd = entry["password"]
             obj.active   = entry["active"]
             obj.type     = entry["type"]
-            obj.save() 
-        
-        
-        
+            obj.save()
+
+
+
 
 
 class FontFamiliyEnum(enum.Enum):
@@ -235,7 +235,7 @@ class FontFamiliyEnum(enum.Enum):
     neo_euler = "Neo Euler"
     munson = "Munson"
     ia_writer_quator_s = "iA Writer Quatro S"
-    # IBM old-chool monospace that gives back the 
+    # IBM old-chool monospace that gives back the
     # nolstagic feeling of typewriters.
     ibm_plex_mono = "IBM Plex Mono"
     # nolstagic font mimics typewriters in old documents with ink leakage.
@@ -292,7 +292,7 @@ class CodeFontFamily(enum.Enum):
     dotmatrix = "Epson DotMatrix"
     dotmatrix_duo = "Epson DotMatrixDuo"
     mapple_mono = "MapleMono"
-    
+
 
 
 class TitleFontFamily(enum.Enum):
@@ -315,7 +315,7 @@ class TitleFontFamily(enum.Enum):
     jackwrite_bold = "Jackwrite Bold"
     essays1743 =  "Essays1743"
     # IBM old-chool monospace that gives back the nolstagic
-    # feeling of the typewriter 
+    # feeling of the typewriter
     ibm_plex_mono = "IBM Plex Mono"
     # Font that mimics Epson's dot-matrix font used in the 1980's for
     # printing code in computer magazines designed by Stefan Schmidt.
@@ -436,7 +436,7 @@ class Settings(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key = True)
     # Public => Indicates whether the wiki can be viewed (not edited) by everybody.
     public:   so.Mapped[bool] = so.mapped_column(default = False)
-    # Display Page Source => If enabled, the menu page will present a button for 
+    # Display Page Source => If enabled, the menu page will present a button for
     # showing the Markdown code of the current page
     show_source:   so.Mapped[bool] = so.mapped_column(default = False)
     # Display edit button [E]. If this setting is enabled, an edit button [X] (CSS class 'link-edit')
@@ -455,10 +455,10 @@ class Settings(db.Model):
     vim_emulation: so.Mapped[bool] = so.mapped_column(default = False)
 	# Default language/locale => The default English is the American English locale (en-US)
     default_locale: so.Mapped[str] = so.mapped_column( default = "en-US" )
-    # Web Site Name 
+    # Web Site Name
     sitename: so.Mapped[str] = so.mapped_column(default= "MWiki")
     default_password: so.Mapped[str] = so.mapped_column(nullable=False)
-    # Wiki Site Description 
+    # Wiki Site Description
     description: so.Mapped[str] = so.mapped_column(default="MWiki Website")
     # Possible values: "mathjax", "katex" (experimental), "katex - server side"
     latex_renderer: so.Mapped[str] = so.mapped_column(default = "katex")
@@ -466,25 +466,25 @@ class Settings(db.Model):
     # instead of using the vendored depencies such as MathJax, KaTeX
     # and GraphViz renderer.
     use_cdn: so.Mapped[bool] = so.mapped_column(default = False)
-    
+
     language: so.Mapped[str] = so.mapped_column(default = "en")
     """ISO language code of default document language. Default language is English.
     For instance, "en" for English, "fr" for French, "es" for Spanish.
     This field is used in HTML lang attribute for the declaring the document
     language. For instance, if the document language is French, the ISO language
-    code is "fr", the HTML lang attribute will be `<html lang="fr">`. 
+    code is "fr", the HTML lang attribute will be `<html lang="fr">`.
     Note that if a document's language is different than the default language,
     it is possible to override the language declaration by using the frontmatter
     directive `language: es`, that will declare the language of current wiki page
-    as Spanish.  
+    as Spanish.
     """
-    
+
     language_switch: so.Mapped[bool] = so.mapped_column(default = True)
     """
     Allow users to switch the user interface language locale
     during their session if this flag is set to true.
     """
-    
+
     display_alt_button: so.Mapped[bool] = so.mapped_column(default = True)
     """
     Display a mastodon-like alt text button in figures (images with metadat)
@@ -510,23 +510,23 @@ class Settings(db.Model):
             ## s.main_font = FontFamiliyEnum.computer_modern
             db.session.add(s)
             db.session.commit()
-            return s 
+            return s
         else:
             return q
 
     def save(self):
         """Update database entry"""
-        self.date_modified = datetime.datetime.now(datetime.timezone.utc)           
+        self.date_modified = datetime.datetime.now(datetime.timezone.utc)
         db.session.add(self)
         db.session.commit()
 
     def __repr__(self) -> str:
-        out = f"Settings{{  public = {self.public} ; sitename = {self.sitename}  }}" 
+        out = f"Settings{{  public = {self.public} ; sitename = {self.sitename}  }}"
         return out
 
-    @property 
+    @property
     def font_main_css(self, root_url = "/") -> str:
-        font_face_main_font =  export.render_font_data_by_family( self.main_font 
+        font_face_main_font =  export.render_font_data_by_family( self.main_font
                                                                 , root_url = root_url
                                                                 , root_path = root_path)
         return font_face_main_font
@@ -536,9 +536,9 @@ class Settings(db.Model):
         font_face_code_font = export.render_font_data_by_family( self.code_font
                                                                , root_url = root_url
                                                                , root_path = root_path )
-        return font_face_code_font 
+        return font_face_code_font
 
-    @property 
+    @property
     def font_title_css(self, root_url = "/") -> str:
         font_face_title_font = export.render_font_data_by_family( self.title_font
                                                                 , root_url = root_url
@@ -619,7 +619,7 @@ class BookmarkedPage(db.Model):
 def is_database_created() -> bool:
     tables = sqlalchemy.inspect(db.engine).get_table_names()
     result = tables != []
-    return result 
+    return result
 
 
 class WikiPage():
@@ -629,7 +629,7 @@ class WikiPage():
                  , latex_renderer = "mathjax", debug: bool = False):
         self._base_path: pathlib.Path = base_path
         self._cache: pathlib.Path = base_path / ".data/cache"
-        self._title = title 
+        self._title = title
         # Create cache directory if it does not exist yet.
         self._cache.mkdir(exist_ok=True)
         self._timestamp = 0
@@ -640,9 +640,10 @@ class WikiPage():
     @property
     def timestamp(self):
         return self._timestamp
-    
+
     def path(self) -> Optional[pathlib.Path]:
         """Get path of Wiki page file"""
+        #breakpoint()
         p = next(self._base_path.rglob(self._title + ".md"), None)
         if p is not None:
             self._timestamp =  int(100000 * p.lstat().st_mtime)
@@ -661,7 +662,7 @@ class WikiPage():
         """Get markdown content of wiki page file."""
         path = self.path()
         text = path.read_text()
-        return text 
+        return text
 
     def write(self, text: str) -> None:
         """Update markdown content of wiki page file"""
@@ -757,7 +758,7 @@ class WikiPage():
         # root_path = utils.get_module_path(mwiki)
         # root_url = "/"
         # ### print(" [TRACE] root_path => (718) = " + str(root_path))
-        # font_face_main_font =  export.render_font_data_by_family( conf.main_font 
+        # font_face_main_font =  export.render_font_data_by_family( conf.main_font
         #                                                         , root_url = root_url
         #                                                         , root_path = root_path)
         # font_face_title_font = export.render_font_data_by_family( conf.title_font
@@ -785,14 +786,14 @@ class WikiPage():
                                       , timestamp            = self.timestamp
                                       # , equation_enumeration = renderer.equation_enumeration_style
                                       , equation_enumeration_style = renderer.equation_enumeration_style
-                                      , equation_enumeration_enabled = renderer.equation_enumeration_enabled 
+                                      , equation_enumeration_enabled = renderer.equation_enumeration_enabled
                                       , katex_macros         = utils.base64_encode(renderer.katex_macros)
                                       , citation_references   = utils.base64_encode(renderer.citation_references_json)
-                                      , headings = renderer.headings 
+                                      , headings = renderer.headings
                                       # , font_face_main       = font_face_main_font
                                       # , font_face_title      = font_face_title_font
                                       # , font_face_code       = font_face_code_font
-                                      , conf = conf 
+                                      , conf = conf
                                    )
         out.write_text(html)
 
@@ -808,9 +809,9 @@ class WikiPage():
         html_path = self._cache_html_file()
         if self.is_dirty():
             self._update_cached_html(latex_macros)
-        ##out = html_path.relative_to(self._base_path) 
-        return html_path  
-        
+        ##out = html_path.relative_to(self._base_path)
+        return html_path
+
 
     def frontmatter(self):
         """Return wikipage metadata"""
@@ -831,7 +832,7 @@ class WikiPage():
 
 
 class WikiRepository():
-    
+
     def __init__(self, wikipath: str, debug = False):
         self._wikipath = wikipath
         self._base_path =  pathlib.Path(wikipath)
@@ -839,14 +840,14 @@ class WikiRepository():
 
     def find_page(self, title: str) -> Optional[pathlib.Path]:
         """Get path to Wiki page"""
-        mdfile = title  + ".md" 
+        mdfile = title  + ".md"
         result = next(self._base_path.rglob(mdfile), None)
-        return result 
+        return result
 
     def get_wiki_page(self, title: str, latex_renderer = "mathjax") -> Optional[WikiPage]:
         path = self.find_page(title)
-        if path is None: 
-            return None 
+        if path is None:
+            return None
         wikipage = WikiPage( base_path = self._base_path
                             , path = path
                             , title = title
@@ -854,8 +855,3 @@ class WikiRepository():
                             , latex_renderer = latex_renderer
                             )
         return wikipage
-        
-
-
-
-
