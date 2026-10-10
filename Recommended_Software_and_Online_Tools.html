@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="icon" type="imag/x-icon" href="/mwiki/favicon.ico" >
+    
+    <title data-i18n="">MBook - Recommended Software and Online Tools</title>
+    <meta name="description" content="Recomended software and online tools, which can improve the usage of MWiki." />
+    <meta name=generator content="MWiki">
+    
+
+
+   <style>
+
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: normal;
+    
+    
+    
+    src: url('/mwiki/static/fonts/cmu-concrete-regular.woff');
+    
+}
+    
+
+
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: italic;
+    
+    
+    
+    src: url('/mwiki/static/fonts/cmu-concrete-italic.woff');
+    
+}
+    
+
+@font-face {
+    font-family: 'Libertinus Mono';
+    
+    
+    
+    src: url('/mwiki/static/fonts/LibertinusMono-Regular.woff2');
+    
+}
+    
+
+@font-face {
+    font-family: 'Chicago MacOS';
+    
+    
+    
+    src: url('/mwiki/static/fonts/ChicagoFLF.ttf');
+    
+}
+    
+
+:root {
+    /*--- Desktop screen Width ----------------*/
+    --screen-width-desktop: 850px;
+
+    /* --bg-sidebar: #F2EACA; */  /* #F7F4ED; */
+    --bg-sidebar: white;  /* #F7F4ED; */
+    /* --bg-main:   #F2EACA ; */
+    --bg-main: white;
+    --typography-main-line-height: 1.7em;
+    --typography-main-leter-spacing: 0.5px;
+    --screen-type: "desktop";
+    --link-external-color: blue; /* hsl(0, 100%, 33%); */
+    --link-internal-color: blue;
+    --form-background-color: #fbfcfc;
+    --form-border-color: #cfd5e2;
+    --primary-button-background-color: #0172ad;
+
+
+    
+    --font-family-main: 'CMU Concrete';
+    
+    
+    --font-family-title: 'Chicago MacOS';
+    
+
+
+    --font-size-h1: 1.800rem;
+    --font-size-h2: 1.650rem;
+    --font-size-h3: 1.425rem;
+    --font-size-h4: 1.350rem;
+    --font-size-h5: 0.875rem;
+    --font-size-h6: 0.750rem;
+    --font-size-text: 0.720rem;
+    --font-size-code: 0.700rem;
+    --font-size-sidebar: 0.850rem;
+
+    --code-block-background-color: rgb(243, 244.5, 246.75);
+
+    /* Magnifier icon */
+    --icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(136, 145, 164)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+}
+
+
+
+    </style>
+
+    
+    <link rel="stylesheet" href="/mwiki/static/static_style.css">
+    
+
+    
+    <!-- MathJax Settings -->
+    <script>
+
+    const FONT_FAMILY_MAIN = "CMU Concrete"
+    const FONT_FAMILY_TITLE = "Chicago MacOS"
+    const FONT_FAMILY_CODE = "Libertinus Mono"
+    const DEFAULT_LOCALE = "en-US";
+	  const USE_DEFAULT_LOCALE = "True" === "True";
+    const LATEX_RENDERER = "katex";
+    const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
+    const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
+    const KATEX_MACROS = "eyJcXGlubmVyIjogIlxcbGFuZ2xlICMxIFxccmFuZ2xlIiwgIlxcZHkiOiAiXFxkaXNwbGF5c3R5bGUiLCAiXFxlcHMiOiAiXFxlcHNpbG9uIiwgIlxcdmVwcyI6ICJcXHZhcmVwc2lsb24iLCAiXFxldiI6ICJcXGxlZnQuICMxIFxccmlnaHR8IiwgIlxcZGVmIjogIlxcc3RhY2tyZWx7XFx0ZXh0e2RlZn19ez19IiwgIlxcbm9ybSI6ICJcXHwjMVxcfCIsICJcXG9wIjogIlxcb3BlcmF0b3JuYW1lIiwgIlxcY2VxIjogIlxcY29sb25lcXVhbHMiLCAiXFxiIjogIlxcbWF0aGJmeyMxfSIsICJcXGJoYXQiOiAiXFxoYXR7XFxtYXRoYmZ7IzF9fSIsICJcXGJkb3QiOiAiXFxkb3R7XFxtYXRoYmZ7IzF9fSIsICJcXGJkZG90IjogIlxcZGRvdHtcXG1hdGhiZnsjMX19IiwgIlxcYnMiOiAiXFxib2xkc3ltYm9seyMxfSIsICJcXGJzaGF0IjogIlxcaGF0e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcYnNkb3QiOiAiXFxkb3R7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxic2Rkb3QiOiAiXFxkZG90e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcZmIiOiAie31eeyMyfVxcbWF0aGJmeyMxfSIsICJcXGZiaGF0IjogInt9XnsjMn1cXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcZmJzIjogInt9XnsjMn1cXGJvbGRzeW1ib2x7IzF9IiwgImZyIjogInt9XnsjMX1feyMyfSIsICJcXHNrZXciOiAiXFxsZWZ0WyAjMSBcXHJpZ2h0XV97XFx0aW1lc30iLCAiXFxhcmdtYXgiOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWF4fSIsICJcXGFyZ21pbiI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtaW59IiwgIlxcUiI6ICJ7IFxcbWF0aGJie1J9IH0iLCAiXFxaIjogIlxcbWF0aGJie1p9IiwgIlxcbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxpbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1eey0xfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxkIjogIlxcbWF0aHJte2R9IiwgIlxccCI6ICJcXHBhcnRpYWwiLCAiXFxlIjogIlxcbWF0aHJte2V9IiwgIlxcZHQiOiAiXFxmcmFje2QgIzF9e2R0fSIsICJcXGRkdCI6ICJcXGZyYWN7ZF4yICMxfXtkdF4yfSIsICJcXHBkIjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCAjMn0iLCAiXFxwZGQiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgIzJeMn0iLCAiXFxDIjogInsgXFxtYXRoYmJ7Q30gfSIsICJcXEJpZ08iOiAiXFxtYXRoY2Fse099XFwhXFxsZWZ0KCMxXFxyaWdodCkiLCAiXFxtZGVmIjogIntcXHRyaWFuZ2xlcSBcXDt9IiwgIlxcc2duIjogIlxcb3BlcmF0b3JuYW1le3Nnbn0iLCAiXFxyYW5rIjogIlxcb3BlcmF0b3JuYW1le3Jhbmt9IiwgIlxccmUiOiAiXFxvcGVyYXRvcm5hbWV7UmV9IiwgIlxcaW0iOiAiXFxvcGVyYXRvcm5hbWV7SW19IiwgIlxcaW1nIjogIlxcb3BlcmF0b3JuYW1le2ltfSIsICJcXHRyYWNlIjogIlxcb3BlcmF0b3JuYW1le3RyfSIsICJcXHB0IjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCB0fSIsICJcXHB4IjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCB4fSIsICJcXHB5IjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCB5fSIsICJcXHB6IjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCB6fSIsICJcXHB4eCI6ICJcXGZyYWN7XFxwYXJ0aWFsXjIgIzF9e1xccGFydGlhbCB4XjJ9IiwgIlxccHl5IjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsIHleMn0iLCAiXFxwenoiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgel4yfSIsICJcXEUiOiAiXFxvcGVyYXRvcm5hbWV7RX1cXGxlZnRbICMxIFxccmlnaHRdIiwgIlxcVmFyIjogIlxcb3BlcmF0b3JuYW1le1Zhcn0iLCAiXFxjb3YiOiAiXFxvcGVyYXRvcm5hbWV7Y292fSIsICJcXGhlc3MiOiAiXFxvdmVybGluZXtcXG5hYmxhfV4yIn0=";
+    const CSRF_TOKEN = ""
+    const STATIC_COMPILATION = true;
+    const IS_USER_ADMIN = false;
+    // NOTE: It is encoded as base64
+    const PAGE_SOURCE_CODE = "";
+    const PAGE_SOURCE_URL  = "/mwiki/src_pages/Recommended_Software_and_Online_Tools.html"
+    const CITATION_REFERENCES = "e30=";
+
+    // Possible values: 'none', 'nosection' 'section', 'subsection'
+    //  none      => no enumeration
+    //  nosection
+    //      Schema: <equation-number>
+    //      Example: Equations are enumerated as 1, 2, ..., 200
+    //              in the order that they are shown without section or
+    //              subsection number
+    //  section
+    //      Schema:  => <section>.<equation-number>
+    //      Exmaple: => 2.1, 2.5, 6.8
+    //  subsection
+    //      Schema:  => <section>.<subsection>.<equation-number>
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5
+    //
+    let equation_enumeration = "section";
+
+    MathJax = {
+        loader: {load: ['[tex]/tagformat', '[tex]/mathtools', 'output/chtml']}
+
+      , section: 1
+      , tex: {
+          inlineMath: [['$','$'], ['\\(','\\)']]
+        , displayMath: [['$$','$$'], ['\\[','\\]']]
+        , processEscapes: true
+        , processEnvironments: true
+          // Location of equation numbers
+        , tagSide: "right"
+        // Possible values 'ams' or 'all' (all equations are numbered by default)
+        , tags: equation_enumeration !== "none" ? "all" : "ams"
+        //, tags: 'ams'
+        , packages: {'[+]': [
+                                  'tagformat'
+                                , 'sections'
+                                , 'subsections'
+                                , 'autoload-all'
+                            ]}
+        , tagformat: {
+          number: (n) => {
+            if( equation_enumeration === "cont"
+                || equation_enumeration == "continuous")
+            {
+                return '' + n;
+            }
+
+            let nsec = MathJax.config.section;
+            let nsub = MathJax.config.subsection;
+            var out = '';
+            if (nsub === 0 || equation_enumeration == "section")
+            {
+                out = nsec + '.' + n;
+            } else {
+                out = nsec + '.' + nsub +  '.' + n;
+            }
+            // console.log("Display section = ", out);
+            return out;
+          }
+        }
+      }
+
+     , startup: {
+
+            ready() {
+                // console.log(" [TRACE] I was called from ready()");
+                const Configuration = MathJax._.input.tex.Configuration.Configuration;
+                const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+                new CommandMap('sections', {
+                      nextSection: 'NextSection'
+                    , setSection:  'SetSection'
+                }, {
+                     NextSection(parser, name) {
+                        // console.log(" [TRACE] Called NextSection()");
+                        MathJax.config.section++;
+                        MathJax.config.subsection = 0;
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                    , SetSection(parser, name) {
+                        // console.log(" [TRACE] Called SetSection()");
+                        const n = parser.GetArgument(name);
+                        MathJax.config.section = parseInt(n);
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                });
+                if (equation_enumeration === "subsection")
+                {
+                    new CommandMap('subsections', {
+                          nextSubSection: 'NextSubSection'
+                        , setSubSection:  'SetSubSection'
+                    }, {
+                         NextSubSection(parser, name) {
+                            // console.log(" [TRACE] NextSubSection() called.");
+                            MathJax.config.subsection++;
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                        , SetSubSection(parser, name) {
+                            const n = parser.GetArgument(name);
+                            // console.log(" [TRACE] SetSubSection to ", n);
+                            MathJax.config.subsection = parseInt(n);
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                    });
+                }
+
+                Configuration.create(
+                      'sections', { handler: { macro: ['sections'] } }
+                );
+
+                if( equation_enumeration === "subsection" )
+                {
+                    Configuration.create(
+                        'subsections', { handler: { macro: ['subsections'] } }
+                    );
+
+                }
+
+                MathJax.startup.defaultReady();
+                pseudocode.renderClass("pseudocode", { "lineNumber": true, "scopeLines": true });
+                // This function is provided by main.js.
+                if( isMobileScreen() ) { setHeadingVisibility(false); }
+                /// setHeadingsVisibility(false)
+            }
+        }
+    , chtml: {
+        /// displayAlign: "left"
+      }
+    // options for when overflow is linebreak
+    , linebreaks: {
+        inline:           true,   // true for browser-based breaking of inline equations
+        width:            '100%', // a fixed size or a percentage of the container width
+        lineleading:      .2,     // the default lineleading in em units
+        LinebreakVisitor: null,   // The LinebreakVisitor to use
+    },
+
+    }
+    </script>
+
+    
+
+    
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js" integrity="sha384-J+9dG2KMoiR9hqcFao0IBLwxt6zpcyN68IgwzsCSkbreXUjmNVRhPFTssqdSGjwQ" crossorigin="anonymous"></script>
+        <!-- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" -->
+            <!-- onload="renderMathInElement(document.body);"></script> -->
+        
+    
+
+
+    
+        <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js" async> </script>
+    
+
+
+    
+
+    
+    <!-- Additional Javascript libraries -->
+    
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", (event) => {
+            // Select graphviz code blocks
+            let lst = document.querySelectorAll(".graphviz-dot");
+            for(let x of lst){
+
+                Viz.instance().then(function(viz) {
+                    // console.log("[TRACE] x = ", x);
+                    let code = x.innerText;
+                    // console.log(" [TRACE] code = ", code);
+                    let svg = viz.renderSVGElement(code);
+                    // console.log(" [TRACE] svg = ", svg);
+                    x.replaceWith(svg);
+                    // x.outerHTML = svg;
+                    /// document.getElementById("graph").appendChild(svg);
+                });
+
+
+            }
+        }, false);
+
+    </script>
+
+    
+    <script type="text/javascript" src="/mwiki/static/main.js"></script>
+    
+
+</head>
+
+<body>
+
+    
+    <aside class="sidebar sidebar-visibility">
+        
+        <div class="toc">
+            <!-- Table of contents template placeholder -->
+            <ul>
+            
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Overview">Overview</a> </span>
+                    
+                    
+                </ol>
+            
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Online_Tools">Online Tools</a> </span>
+                    
+                    
+                        <div>
+                        <ul>
+                        
+                            <li><a class="link-sidebar" href="#H_Search_Engines">Search Engines</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_General_Tools">General Tools</a></li>
+                        
+                        </ul>
+                        </div>
+                    
+                </ol>
+            
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Browser_Addons">Browser Addons</a> </span>
+                    
+                    
+                </ol>
+            
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Password_Manager">Password Manager</a> </span>
+                    
+                    
+                </ol>
+            
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Translation_and_Text-to-speak">Translation and Text-to-speak</a> </span>
+                    
+                    
+                </ol>
+            
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Screenshot_Tools">Screenshot Tools</a> </span>
+                    
+                    
+                </ol>
+            
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Video_Recorder">Video Recorder</a> </span>
+                    
+                    
+                </ol>
+            
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Container_Orchestration_Tools">Container Orchestration Tools</a> </span>
+                    
+                    
+                </ol>
+            
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Site-To-Site_Mesh_VPN_for_Self-Hosting">Site-To-Site Mesh VPN for Self-Hosting</a> </span>
+                    
+                    
+                </ol>
+            
+            </ul>
+        </div>
+    </aside>
+    
+
+    <div class="main main-shift">
+        
+        <header class="header">
+            <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/mwiki/static/hamburger-menu.svg" style="height: 25px;"/> </a>
+            <a data-i18n="home-page-button" class="sidebar-toggle-button"
+			   title="Go to home page (Index)" href="/mwiki/"><img class="img-icon" src="/mwiki/static/icon-home.svg"></a>
+            <div class="dropdown">
+              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button"
+                 href="#"
+                 title="Main menu."
+                 class="dropbtn"
+                 >
+                <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
+                </a>
+
+            <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                  <a data-i18n="menu-item-print-label" class="sidebar-toggle-button"
+                     href="#" onclick="printPage();"
+                     title="Print current page or export it to PDF." >Print</a>
+                
+                <a data-i18n="show-source-menu-item-label" class="sidebar-toggle-button"
+                    href="#" onclick="displayPageSourceWindow();">Show source</a>
+                
+                
+                 <a data-i18n="popup-window-change-language-menu-launcher" class="sidebar-toggle-button" href="#"
+                    onclick="changeLanguageForm.toggle();"
+                    title="Open form that allows overriding the current user interface language."
+                 >Language</a>
+                
+                   <a data-i18n="keybindings-menu-item" class="sidebar-toggle-button" href="#"
+                    onclick="toggleShortcutKeybindingWinodw();"
+                    title="Display a window showing all keyboard shortcuts, also known as keybindings."
+                 >Keybindings</a>
+                 <a data-i18n="about-menu-item-label" class="sidebar-toggle-button" href="/mwiki/about.html">About</a>
+              </div>
+            </div>
+
+            <a data-i18n="button-toggle-sections" class="sidebar-toggle-button"
+                 href="#"
+                 onclick="toggleHeadings();"
+                 id="btn-scroll-bottom"
+                 title="Fold/Unfold all sections."
+                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg"></a>
+            <a data-i18n="menu-item-print-icon"
+                class="sidebar-toggle-button"
+        			  title="Print current page or export it to PDF."
+                href="#"
+                onclick="printPage();">
+                <img class="img-icon" src="/mwiki/static/printer-outline.svg">
+            </a>
+
+            <!--
+             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button"
+                 href="#"
+                 onclick="quickOpenPage();"
+                 id="btn-scroll-bottom"
+                 title="Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry."
+                 >
+               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E">
+                </a>
+            -->
+              
+        </header>
+        
+
+        <main class="content">
+            
+            <div class="div-heading-h1">
+                <h1 data-i18n="" class="document-heading">Recommended Software and Online Tools</h1>
+            </div>
+            
+            <p class="hidden-mathjax-macros" style="display: none;">
+                $$
+                
+                $$
+            </p>
+            
+
+<div class="div-heading"> 
+<h2 id="H_Overview" class="document-heading anchor">Overview <a class="link-heading" href="#H_Overview">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Recommended_Software_and_Online_Tools?start=11&end=16&anchor=H_Overview&page=Recommended Software and Online Tools&timestamp=179162821004045" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<p>
+The following set of companion sotfware or apps are recommended for MWiki as they can provide additional features and improve usage.
+</p>
+
+<div class="div-heading"> 
+<h2 id="H_Online_Tools" class="document-heading anchor">Online Tools <a class="link-heading" href="#H_Online_Tools">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Recommended_Software_and_Online_Tools?start=16&end=46&anchor=H_Online_Tools&page=Recommended Software and Online Tools&timestamp=179162821004045" title="[i18n]: Online Tools" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<div class="div-heading"> 
+<h3 id="H_Search_Engines" class="document-heading anchor">Search Engines <a class="link-heading" href="#H_Search_Engines">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Recommended_Software_and_Online_Tools?start=18&end=24&anchor=H_Search_Engines&page=Recommended Software and Online Tools&timestamp=179162821004045" title="[i18n]: Search Engines" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<ul class="">
+<li>
+<a href="https://searx.space"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://searx.space</a> 
+</li>
+<li>
+<a href="https://www.mojeek.com"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.mojeek.com</a> 
+</li>
+<li>
+<a href="https://noai.duckduckgo.com"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://noai.duckduckgo.com</a> <ul class="">
+<li>
+Search engine without false and misleading AI summary. 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h3 id="H_General_Tools" class="document-heading anchor">General Tools <a class="link-heading" href="#H_General_Tools">¶</a></h3> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Recommended_Software_and_Online_Tools?start=24&end=46&anchor=H_General_Tools&page=Recommended Software and Online Tools&timestamp=179162821004045" title="[i18n]: General Tools" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+
+<ul class="">
+<li>
+<em>QuickLatex</em> <ul class="">
+<li>
+<a href="https://www.quicklatex.com"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.quicklatex.com</a> 
+</li>
+<li>
+This online tool allows quickly viewing and rendering LaTeX math expressions without needing to install anything. 
+</li>
+</ul>
+</li>
+<li>
+<em>Table Generator for Markdown, LaTeX and MediaWiki</em> <ul class="">
+<li>
+<a href="https://www.tablesgenerator.com"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.tablesgenerator.com</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Detexify</em> <ul class="">
+<li>
+<a href="https://detexify.kirelabs.org/classify.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://detexify.kirelabs.org/classify.html</a> 
+</li>
+<li>
+<em>Allows to recognize LaTeX symbols by drawing them by hand.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>LaTeX Equation Editor</em> <ul class="">
+<li>
+<a href="https://editor.codecogs.com/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://editor.codecogs.com/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em><a href="http://Mathcha.io"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Mathcha.io</a></em> <ul class="">
+<li>
+<a href="https://www.mathcha.io"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.mathcha.io</a> 
+</li>
+<li>
+*Online tool for scientific/technical illustration drawing, which supports LaTeX symbols and has many building blocks for drawing geometric, electrical, mechanical and computer science diagrams or schemas. 
+</li>
+</ul>
+</li>
+<li>
+<em>Plurimath - Convert between multiple math representation languages</em> <ul class="">
+<li>
+<a href="https://www.plurimath.org/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://www.plurimath.org/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>How to write algorithm in Latex</em> <ul class="">
+<li>
+<a href="https://shantoroy.com/latex/how-to-write-algorithm-in-latex"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://shantoroy.com/latex/how-to-write-algorithm-in-latex</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>LaTeX/Algorithms - Wikibooks</em> <ul class="">
+<li>
+<a href="https://en.wikibooks.org/wiki/LaTeX/Algorithms"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://en.wikibooks.org/wiki/LaTeX/Algorithms</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Browser_Addons" class="document-heading anchor">Browser Addons <a class="link-heading" href="#H_Browser_Addons">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Recommended_Software_and_Online_Tools?start=46&end=69&anchor=H_Browser_Addons&page=Recommended Software and Online Tools&timestamp=179162821004045" title="[i18n]: Browser Addons" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+<em>LibreWolf</em> - Fork of Firefox Web Browser <ul class="">
+<li>
+<a href="https://librewolf.net/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://librewolf.net/</a> 
+</li>
+<li>
+<em>Modified Firefox web browser hardened for better security, privacy and protection against tracking.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Obsidian Web Clipper</em> (Firefox Addon)* [BEST] <ul class="">
+<li>
+<a href="https://addons.mozilla.org/en-US/firefox/addon/web-clipper-obsidian"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://addons.mozilla.org/en-US/firefox/addon/web-clipper-obsidian</a> 
+</li>
+<li>
+Extension that lets users to save web pages in markdown format or turn selected parts of the web page into markdown. This tool can be used with MWiki for extracting information from web pages as MWiki markup language is compatible with Obsidian markdown. 
+</li>
+</ul>
+</li>
+<li>
+<em>Web Archives</em> - Search for older versions of current URL win Web Archiver, <a href="http://archive.is"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >archive.is</a> and other sites. <ul class="">
+<li>
+<a href="https://addons.mozilla.org/en-US/firefox/addon/view-page-archive/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://addons.mozilla.org/en-US/firefox/addon/view-page-archive/</a> 
+</li>
+<li>
+<em>View archived and cached versions of web pages on various search engines, such as the Wayback Machine and Archive․is.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Allow Right Click - Re-enable right-click on websites that overwrite it</em> (Firefox) <ul class="">
+<li>
+<a href="https://addons.mozilla.org/en-US/firefox/addon/re-enable-right-click/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://addons.mozilla.org/en-US/firefox/addon/re-enable-right-click/</a> 
+</li>
+<li>
+<em>The "Allow Right-Click" extension modifies some JavaScript methods to enable the original right-click context menu when a web page intentionally blocks right-clicking on its content. Most modern browsers permit JavaScript to disable the default context menu when a web page provides its custom context menu for its content (such as in Google Docs). However, this ability can also allow website owners to disable the right-click context menu without providing any useful functionality. The extension adds a button to the toolbar area of the user's browser. Clicking the extension's icon injects a small script into the current page to remove the context menu blockage. It is important to note that the extension does not inject any code by default on any web page; it only does so on user action. Users can click the extension button to release the restriction when a website blocks the right-click context menu without offering a custom context menu.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Script Blocker Ultimate</em> - (NoScript, Disable JS) <ul class="">
+<li>
+<a href="https://addons.mozilla.org/en-US/firefox/addon/script-blocker-ultimate/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://addons.mozilla.org/en-US/firefox/addon/script-blocker-ultimate/</a> 
+</li>
+<li>
+<em>Extension for toggling execution of Javascript, which allows disabling and enabling JavaScript.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>NoScript</em> <ul class="">
+<li>
+<a href="https://noscript.net/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://noscript.net/</a> 
+</li>
+<li>
+<em>Browser extension that blocks scripts by default.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Tree Style Tabs for Firefox</em> <ul class="">
+<li>
+<a href="https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Password_Manager" class="document-heading anchor">Password Manager <a class="link-heading" href="#H_Password_Manager">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Recommended_Software_and_Online_Tools?start=69&end=88&anchor=H_Password_Manager&page=Recommended Software and Online Tools&timestamp=179162821004045" title="[i18n]: Password Manager" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+<em>Official KeepassXC Websiste</em> (Non Cloud, Offline and FOSS password manager) <ul class="">
+<li>
+<a href="https://keepassxc.org"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://keepassxc.org</a> 
+</li>
+<li>
+<em>Let KeePassXC safely store your passwords and auto-fill them into your favorite apps, so you can forget all about them. We do the heavy lifting in a no-nonsense, ad-free, tracker-free, and cloud-free manner. Free and open source.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>KeePassXC-Browser</em>, Firefox Add-Ons (Browser integration for KepassXC) <ul class="">
+<li>
+<a href="https://addons.mozilla.org/en-US/firefox/addon/keepassxc-browser/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://addons.mozilla.org/en-US/firefox/addon/keepassxc-browser/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>KeePassDX</em> (Fdroid App store) <ul class="">
+<li>
+<a href="https://f-droid.org/packages/com.kunzisoft.keepass.libre/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://f-droid.org/packages/com.kunzisoft.keepass.libre/</a> 
+</li>
+<li>
+Even though KeepassXC supports neither Android nor iOS mobile devices, KeePassXC database file can copied to mobile device using some file synchronization app and opened using any of many suitable mobile app for this file format. One of such mobile application for Android devices is KeePassDX, which is a free, open source and local first (offline, non cloud) just as KeePassXC. This application has the same features as KeePassXC, for instance, password generator, auto fill service, TOTP code generation and TOTP secret importing through QR code. 
+</li>
+</ul>
+</li>
+<li>
+<em>Documentation and FAQ</em>, KeePassXC <ul class="">
+<li>
+<a href="https://keepassxc.org/docs/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://keepassxc.org/docs/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>KeePassXC: Getting Started Guide, KeePassXC</em> <ul class="">
+<li>
+<a href="https://keepassxc.org/docs/KeePassXC_GettingStarted"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://keepassxc.org/docs/KeePassXC_GettingStarted</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>KeePassXC/cli</em>, Gentoo Wiki <ul class="">
+<li>
+<a href="https://wiki.gentoo.org/wiki/KeePassXC/cli"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://wiki.gentoo.org/wiki/KeePassXC/cli</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Saving Attachments in KeePass</em>, Steve Shank, Oregon Computer Solutions <ul class="">
+<li>
+<a href="https://steveshank.com/cgi-bin/article.pl?aid=815"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://steveshank.com/cgi-bin/article.pl?aid=815</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Translation_and_Text-to-speak" class="document-heading anchor">Translation and Text-to-speak <a class="link-heading" href="#H_Translation_and_Text-to-speak">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Recommended_Software_and_Online_Tools?start=88&end=95&anchor=H_Translation_and_Text-to-speak&page=Recommended Software and Online Tools&timestamp=179162821004045" title="[i18n]: Translation and Text-to-speak" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+<em>Speech Note - Flathub</em> [Linux Flatpak APP] (Offline "G00gl3 Translator") <ul class="">
+<li>
+<a href="https://flathub.org/apps/net.mkiol.SpeechNote"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://flathub.org/apps/net.mkiol.SpeechNote</a> 
+</li>
+<li>
+Brief: <em>Speech Note let you take, read and translate notes in multiple languages. It uses Speech to Text, Text to Speech and Machine Translation to do so. Text and voice processing take place entirely offline, locally on your computer, without using a network connection. Your privacy is always respected. No data is sent to the Internet.</em> 
+</li>
+<li>
+WARNING: Automated text translation tools are based on word probability in the same way as the hyped LLM - Large Laguage Models. As a result, they may not be able to accurately translate slangs, jargons, popular sayings and language nuances. Moreover, they are more likely to fail for languages distant from European languages and English. It is also worth noting that some language varieties or dialects, such as the Bavarian German dialect, might exist mostly in spoken form and unfortunately, not exist in significant amount in written form, what makes it harder to automated tools to translate the information. 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Screenshot_Tools" class="document-heading anchor">Screenshot Tools <a class="link-heading" href="#H_Screenshot_Tools">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Recommended_Software_and_Online_Tools?start=95&end=115&anchor=H_Screenshot_Tools&page=Recommended Software and Online Tools&timestamp=179162821004045" title="[i18n]: Screenshot Tools" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<p>
+Note: These tools allows taking screenshots of select part of the screen and pasting the screenshot image at the target application or MWiki editor by typing Ctrl + v.
+</p>
+
+<ul class="">
+<li>
+<em>Spetacle</em> [BEST] <ul class="">
+<li>
+<a href="https://apps.kde.org/spectacle/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://apps.kde.org/spectacle/</a> 
+</li>
+<li>
+<em>KDE Plasma tool for taking screenshots. It also allows selecting rectangular are of the screen and adding texts and annotations. This app is available in any Linux distribution with KDE plasma desktop environment.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Flameshot</em> <ul class="">
+<li>
+<a href="https://flameshot.org"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://flameshot.org</a> 
+</li>
+<li>
+<em>Cross platform screenshot tool available for Microsoft Windows, Linux distributions and Apple's MacOSX.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Flameshot - Flatpak</em> <ul class="">
+<li>
+<a href="https://flathub.org/apps/org.flameshot.Flameshot"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://flathub.org/apps/org.flameshot.Flameshot</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>KSnip - Flathub</em>  (KDE/QT Flatpak App) <ul class="">
+<li>
+<a href="https://flathub.org/apps/org.ksnip.ksnip"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://flathub.org/apps/org.ksnip.ksnip</a> 
+</li>
+<li>
+<em>Ksnip is a Qt based cross-platform screenshot tool that provides many annotation features for your screenshots.</em> 
+</li>
+</ul>
+</li>
+<li>
+<em>Shutter Screenshot tool</em> [BEST] <ul class="">
+<li>
+<a href="https://shutter-project.org"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://shutter-project.org</a> 
+</li>
+<li>
+=> Note: Note available as AppImage or flatpak app. It is easier to install Shutter in Debian-based or Ubuntu-based Linux distributions. 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Video_Recorder" class="document-heading anchor">Video Recorder <a class="link-heading" href="#H_Video_Recorder">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Recommended_Software_and_Online_Tools?start=115&end=122&anchor=H_Video_Recorder&page=Recommended Software and Online Tools&timestamp=179162821004045" title="[i18n]: Video Recorder" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+<em>Peek - Flathub</em> (Screen Recorder - can create GIF animation or WebM and MP4 videos) <ul class="">
+<li>
+<a href="https://flathub.org/apps/com.uploadedlobster.peek"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://flathub.org/apps/com.uploadedlobster.peek</a> 
+</li>
+<li>
+Brief: * Peek makes it easy to create short screencasts of a screen area. It was built for the specific use case of recording screen areas, e.g. for easily showing UI features of your own apps or for showing a bug in bug reports. With Peek you simply place the Peek window over the area you want to record and press "Record". Peek is optimized for generating animated GIFs, but you can also directly record to WebM or MP4 if you prefer.* 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Container_Orchestration_Tools" class="document-heading anchor">Container Orchestration Tools <a class="link-heading" href="#H_Container_Orchestration_Tools">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Recommended_Software_and_Online_Tools?start=122&end=129&anchor=H_Container_Orchestration_Tools&page=Recommended Software and Online Tools&timestamp=179162821004045" title="[i18n]: Container Orchestration Tools" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+<em>Docker Compose</em>, Docker Company Official Docs <ul class="">
+<li>
+<a href="https://docs.docker.com/compose/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://docs.docker.com/compose/</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Podman Compose</em>, Red Hat <ul class="">
+<li>
+<a href="https://docs.podman.io/en/latest/markdown/podman-compose.1.html"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://docs.podman.io/en/latest/markdown/podman-compose.1.html</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Site-To-Site_Mesh_VPN_for_Self-Hosting" class="document-heading anchor">Site-To-Site Mesh VPN for Self-Hosting <a class="link-heading" href="#H_Site-To-Site_Mesh_VPN_for_Self-Hosting">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Recommended_Software_and_Online_Tools?start=129&end=end&anchor=H_Site-To-Site_Mesh_VPN_for_Self-Hosting&page=Recommended Software and Online Tools&timestamp=179162821004045" title="[i18n]: Site-To-Site Mesh VPN for Self-Hosting" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<p>
+A site-to-site mesh <abbr title="Virtual Private Network">VPN</abbr> such as <strong>tailscale</strong> can be helpful for self hosting this application in a private local network and accessing it from anywhere around the world without exposing any TCP or UDP ports to the internet.
+</p>
+
+<ul class="">
+<li>
+<em>Tailscale</em> - Official Website <ul class="">
+<li>
+<a href="https://tailscale.com"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://tailscale.com</a> 
+</li>
+<li>
+Note: Only some tailscale clients are open source, the default tailscale server provided as SAAS (Software-As-Service) is not open source, although there exists the <strong>Headscale</strong> open source implementation of tailscale server. 
+</li>
+</ul>
+</li>
+<li>
+<em>Tailscale Client Download</em> <ul class="">
+<li>
+<a href="https://tailscale.com/download"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://tailscale.com/download</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Tailscale Client for Android on F-Droid App Store</em> (App Store for Open Source Android apps compiled with reproducible build) <ul class="">
+<li>
+<a href="https://f-droid.org/packages/com.tailscale.ipn"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://f-droid.org/packages/com.tailscale.ipn</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Headscale Server</em> (Open source, suitable for homelabs and self-hosting) <ul class="">
+<li>
+<a href="https://headscale.net/stable"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://headscale.net/stable</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Headscale Server - Github Repository</em> (Written in GO - Golang) <ul class="">
+<li>
+<a href="https://github.com/juanfont/headscale"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://github.com/juanfont/headscale</a> 
+</li>
+</ul>
+</li>
+<li>
+<em>Cookie AutoDelete</em> (For better privacy and less tracking) <ul class="">
+<li>
+<a href="https://addons.mozilla.org/en-US/firefox/addon/cookie-autodelete/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://addons.mozilla.org/en-US/firefox/addon/cookie-autodelete/</a> 
+</li>
+<li>
+<em>Control your cookies! This WebExtension is inspired by Self Destructing Cookies. When a tab closes, any cookies not being used are automatically deleted. Keep the ones you trust (forever/until restart) while deleting the rest. Containers Supported.</em> 
+</li>
+</ul>
+</li>
+</ul>
+
+
+        </main>
+
+        
+    </div>
+    <script>
+    </script>
+
+</body>
+
+</html>

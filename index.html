@@ -122,7 +122,7 @@
     const LATEX_RENDERER = "katex";
     const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
     const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
-    const KATEX_MACROS = "eyJcXGR5IjogIlxcZGlzcGxheXN0eWxlIiwgIlxcZGVmIjogIlxcc3RhY2tyZWx7XFx0ZXh0e2RlZn19ez19IiwgIlxcb3AiOiAiXFxvcGVyYXRvcm5hbWUiLCAiXFxjZXEiOiAiXFxjb2xvbmVxdWFscyIsICJcXGIiOiAiXFxtYXRoYmZ7IzF9IiwgIlxcYmhhdCI6ICJcXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRvdCI6ICJcXGRvdHtcXG1hdGhiZnsjMX19IiwgIlxcYmRkb3QiOiAiXFxkZG90e1xcbWF0aGJmeyMxfX0iLCAiXFxicyI6ICJcXGJvbGRzeW1ib2x7IzF9IiwgIlxcYnNoYXQiOiAiXFxoYXR7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxic2RvdCI6ICJcXGRvdHtcXGJvbGRzeW1ib2x7IzF9fSIsICJcXGJzZGRvdCI6ICJcXGRkb3R7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxmYiI6ICJ7fV57IzJ9XFxtYXRoYmZ7IzF9IiwgIlxcZmJoYXQiOiAie31eeyMyfVxcaGF0e1xcbWF0aGJmeyMxfX0iLCAiXFxmYnMiOiAie31eeyMyfVxcYm9sZHN5bWJvbHsjMX0iLCAiZnIiOiAie31eeyMxfV97IzJ9IiwgIlxcc2tldyI6ICJcXGxlZnRbICMxIFxccmlnaHRdX3tcXHRpbWVzfSIsICJcXGFyZ21heCI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtYXh9IiwgIlxcYXJnbWluIjogIlxcb3BlcmF0b3JuYW1lKntcXG1hdGhybXtcXGFyZ1xcLG1pbn0iLCAiXFxSIjogInsgXFxtYXRoYmJ7Un0gfSIsICJcXFoiOiAiXFxtYXRoYmJ7Wn0iLCAiXFxsYXBsYWNlIjogIlxcbWF0aGNhbHtMfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGlsYXBsYWNlIjogIlxcbWF0aGNhbHtMfV57LTF9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcZm91cmllciI6ICJcXG1hdGhjYWx7Rn1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxpZm91cmllciI6ICJcXG1hdGhjYWx7Rn1eey0xfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGQiOiAiXFxtYXRocm17ZH0iLCAiXFxwIjogIlxccGFydGlhbCIsICJcXGUiOiAiXFxtYXRocm17ZX0iLCAiXFxkdCI6ICJcXGZyYWN7ZCAjMX17ZHR9IiwgIlxcZGR0IjogIlxcZnJhY3tkXjIgIzF9e2R0XjJ9IiwgIlxccGQiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsICMyfSIsICJcXHBkZCI6ICJcXGZyYWN7XFxwYXJ0aWFsXjIgIzF9e1xccGFydGlhbCAjMl4yfSIsICJcXEMiOiAieyBcXG1hdGhiYntDfSB9IiwgIlxcQmlnTyI6ICJcXG1hdGhjYWx7T31cXCFcXGxlZnQoIzFcXHJpZ2h0KSIsICJcXG1kZWYiOiAie1xcdHJpYW5nbGVxIFxcO30iLCAiXFxzZ24iOiAiXFxvcGVyYXRvcm5hbWV7c2dufSIsICJcXHJhbmsiOiAiXFxvcGVyYXRvcm5hbWV7cmFua30iLCAiXFxyZSI6ICJcXG9wZXJhdG9ybmFtZXtSZX0iLCAiXFxpbSI6ICJcXG9wZXJhdG9ybmFtZXtJbX0iLCAiXFxpbWciOiAiXFxvcGVyYXRvcm5hbWV7aW19IiwgIlxcdHJhY2UiOiAiXFxvcGVyYXRvcm5hbWV7dHJ9IiwgIlxccHQiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHR9IiwgIlxccHgiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHh9IiwgIlxccHkiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHl9IiwgIlxccHoiOiAiXFxmcmFje1xccGFydGlhbCAjMX17XFxwYXJ0aWFsIHp9IiwgIlxccHh4IjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsIHheMn0iLCAiXFxweXkiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgeV4yfSIsICJcXHB6eiI6ICJcXGZyYWN7XFxwYXJ0aWFsXjIgIzF9e1xccGFydGlhbCB6XjJ9IiwgIlxcRSI6ICJcXG9wZXJhdG9ybmFtZXtFfVxcbGVmdFsgIzEgXFxyaWdodF0iLCAiXFxWYXIiOiAiXFxvcGVyYXRvcm5hbWV7VmFyfSIsICJcXGNvdiI6ICJcXG9wZXJhdG9ybmFtZXtjb3Z9In0=";
+    const KATEX_MACROS = "eyJcXGlubmVyIjogIlxcbGFuZ2xlICMxIFxccmFuZ2xlIiwgIlxcZHkiOiAiXFxkaXNwbGF5c3R5bGUiLCAiXFxlcHMiOiAiXFxlcHNpbG9uIiwgIlxcdmVwcyI6ICJcXHZhcmVwc2lsb24iLCAiXFxldiI6ICJcXGxlZnQuICMxIFxccmlnaHR8IiwgIlxcZGVmIjogIlxcc3RhY2tyZWx7XFx0ZXh0e2RlZn19ez19IiwgIlxcbm9ybSI6ICJcXHwjMVxcfCIsICJcXG9wIjogIlxcb3BlcmF0b3JuYW1lIiwgIlxcY2VxIjogIlxcY29sb25lcXVhbHMiLCAiXFxiIjogIlxcbWF0aGJmeyMxfSIsICJcXGJoYXQiOiAiXFxoYXR7XFxtYXRoYmZ7IzF9fSIsICJcXGJkb3QiOiAiXFxkb3R7XFxtYXRoYmZ7IzF9fSIsICJcXGJkZG90IjogIlxcZGRvdHtcXG1hdGhiZnsjMX19IiwgIlxcYnMiOiAiXFxib2xkc3ltYm9seyMxfSIsICJcXGJzaGF0IjogIlxcaGF0e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcYnNkb3QiOiAiXFxkb3R7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxic2Rkb3QiOiAiXFxkZG90e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcZmIiOiAie31eeyMyfVxcbWF0aGJmeyMxfSIsICJcXGZiaGF0IjogInt9XnsjMn1cXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcZmJzIjogInt9XnsjMn1cXGJvbGRzeW1ib2x7IzF9IiwgImZyIjogInt9XnsjMX1feyMyfSIsICJcXHNrZXciOiAiXFxsZWZ0WyAjMSBcXHJpZ2h0XV97XFx0aW1lc30iLCAiXFxhcmdtYXgiOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWF4fSIsICJcXGFyZ21pbiI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtaW59IiwgIlxcUiI6ICJ7IFxcbWF0aGJie1J9IH0iLCAiXFxaIjogIlxcbWF0aGJie1p9IiwgIlxcbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxpbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1eey0xfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxkIjogIlxcbWF0aHJte2R9IiwgIlxccCI6ICJcXHBhcnRpYWwiLCAiXFxlIjogIlxcbWF0aHJte2V9IiwgIlxcZHQiOiAiXFxmcmFje2QgIzF9e2R0fSIsICJcXGRkdCI6ICJcXGZyYWN7ZF4yICMxfXtkdF4yfSIsICJcXHBkIjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCAjMn0iLCAiXFxwZGQiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgIzJeMn0iLCAiXFxDIjogInsgXFxtYXRoYmJ7Q30gfSIsICJcXEJpZ08iOiAiXFxtYXRoY2Fse099XFwhXFxsZWZ0KCMxXFxyaWdodCkiLCAiXFxtZGVmIjogIntcXHRyaWFuZ2xlcSBcXDt9IiwgIlxcc2duIjogIlxcb3BlcmF0b3JuYW1le3Nnbn0iLCAiXFxyYW5rIjogIlxcb3BlcmF0b3JuYW1le3Jhbmt9IiwgIlxccmUiOiAiXFxvcGVyYXRvcm5hbWV7UmV9IiwgIlxcaW0iOiAiXFxvcGVyYXRvcm5hbWV7SW19IiwgIlxcaW1nIjogIlxcb3BlcmF0b3JuYW1le2ltfSIsICJcXHRyYWNlIjogIlxcb3BlcmF0b3JuYW1le3RyfSIsICJcXHB0IjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCB0fSIsICJcXHB4IjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCB4fSIsICJcXHB5IjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCB5fSIsICJcXHB6IjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCB6fSIsICJcXHB4eCI6ICJcXGZyYWN7XFxwYXJ0aWFsXjIgIzF9e1xccGFydGlhbCB4XjJ9IiwgIlxccHl5IjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsIHleMn0iLCAiXFxwenoiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgel4yfSIsICJcXEUiOiAiXFxvcGVyYXRvcm5hbWV7RX1cXGxlZnRbICMxIFxccmlnaHRdIiwgIlxcVmFyIjogIlxcb3BlcmF0b3JuYW1le1Zhcn0iLCAiXFxjb3YiOiAiXFxvcGVyYXRvcm5hbWV7Y292fSIsICJcXGhlc3MiOiAiXFxvdmVybGluZXtcXG5hYmxhfV4yIn0=";
     const CSRF_TOKEN = ""
     const STATIC_COMPILATION = true;
     const IS_USER_ADMIN = false;
@@ -495,7 +495,7 @@ This is the index page. The first page shown by MWiki.
 
 <div class="div-heading"> 
 <h2 id="H_Links_to_Internal_Pages" class="document-heading anchor">Links to Internal Pages <a class="link-heading" href="#H_Links_to_Internal_Pages">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=9&end=21&anchor=H_Links_to_Internal_Pages&page=Index&timestamp=179050385673226" title="[i18n]: Links to Internal Pages" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=9&end=22&anchor=H_Links_to_Internal_Pages&page=Index&timestamp=179162768775326" title="[i18n]: Links to Internal Pages" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -522,13 +522,16 @@ This is the index page. The first page shown by MWiki.
 <a href="Internationalization_i18n_and_Localization_i10n_concepts.html" class="link-internal wiki-link" title="Terminology and concepts of internationalization i18N and localization i10n for building scalable software that can be localized to any world language.">Internationalization i18n and Localization i10n concepts</a> 
 </li>
 <li>
+<a href="Recommended_Software_and_Online_Tools.html" class="link-internal wiki-link" title="Recomended software and online tools, which can improve the usage of MWiki.">Recommended Software and Online Tools</a> 
+</li>
+<li>
 <a href="about.html" class="link-internal wiki-link" title="">About Special Page</a> 
 </li>
 </ul>
 
 <div class="div-heading"> 
 <h2 id="H_Overview" class="document-heading anchor">Overview <a class="link-heading" href="#H_Overview">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=21&end=42&anchor=H_Overview&page=Index&timestamp=179050385673226" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=22&end=43&anchor=H_Overview&page=Index&timestamp=179162768775326" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -563,7 +566,7 @@ This website was generated using the command
 
 <div class="div-heading"> 
 <h2 id="H_Bookmarks" class="document-heading anchor">Bookmarks <a class="link-heading" href="#H_Bookmarks">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=42&end=50&anchor=H_Bookmarks&page=Index&timestamp=179050385673226" title="[i18n]: Bookmarks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=43&end=51&anchor=H_Bookmarks&page=Index&timestamp=179162768775326" title="[i18n]: Bookmarks" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -578,7 +581,7 @@ This website was generated using the command
 
 <div class="div-heading"> 
 <h2 id="H_Special_Hyperlinks_Examples" class="document-heading anchor">Special Hyperlinks Examples <a class="link-heading" href="#H_Special_Hyperlinks_Examples">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=50&end=101&anchor=H_Special_Hyperlinks_Examples&page=Index&timestamp=179050385673226" title="[i18n]: Special Hyperlinks Examples" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=51&end=102&anchor=H_Special_Hyperlinks_Examples&page=Index&timestamp=179162768775326" title="[i18n]: Special Hyperlinks Examples" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -729,7 +732,7 @@ Brief: <em>media: uvcvideo: Skip parsing frames of type UVC_VS_UNDEFINED in uvc_
 
 <div class="div-heading"> 
 <h2 id="H_Internal_Pages" class="document-heading anchor">Internal Pages <a class="link-heading" href="#H_Internal_Pages">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=101&end=109&anchor=H_Internal_Pages&page=Index&timestamp=179050385673226" title="[i18n]: Internal Pages" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=102&end=110&anchor=H_Internal_Pages&page=Index&timestamp=179162768775326" title="[i18n]: Internal Pages" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -751,7 +754,7 @@ Hyperlinks to internal pages that still does not exist will be shown in red, whi
 
 <div class="div-heading"> 
 <h2 id="H_Images" class="document-heading anchor">Images <a class="link-heading" href="#H_Images">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=109&end=170&anchor=H_Images&page=Index&timestamp=179050385673226" title="[i18n]: Images" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=110&end=171&anchor=H_Images&page=Index&timestamp=179162768775326" title="[i18n]: Images" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -873,7 +876,7 @@ corresponds to the file
 
 <div class="div-heading"> 
 <h2 id="H_Figure" class="document-heading anchor">Figure <a class="link-heading" href="#H_Figure">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=170&end=232&anchor=H_Figure&page=Index&timestamp=179050385673226" title="[i18n]: Figure" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=171&end=233&anchor=H_Figure&page=Index&timestamp=179162768775326" title="[i18n]: Figure" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -931,17 +934,17 @@ Java coffee cup symbol.
 
 <div class="div-heading"> 
 <h2 id="H_Math" class="document-heading anchor">Math <a class="link-heading" href="#H_Math">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=232&end=307&anchor=H_Math&page=Index&timestamp=179050385673226" title="[i18n]: Math" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=233&end=308&anchor=H_Math&page=Index&timestamp=179162768775326" title="[i18n]: Math" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
 <div class="div-heading"> 
 <h3 id="H_Definition" class="document-heading anchor">Definition <a class="link-heading" href="#H_Definition">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=233&end=232&anchor=H_Definition&page=Index&timestamp=179050385673226" title="[i18n]: Definition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=234&end=233&anchor=H_Definition&page=Index&timestamp=179162768775326" title="[i18n]: Definition" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <div id="inverse-matrix" class="def math-admonition anchor" style="background:;">
-<span class="math-admonition-title"><label class="admonition-math-tag" data-i18n="admonition-math-defintion-label">Definition</label>: Inverse Matrix<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Index?start=235&end=246&page=Index&timestamp=179050385673226" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="math-admonition-title"><label class="admonition-math-tag" data-i18n="admonition-math-defintion-label">Definition</label>: Inverse Matrix<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Index?start=236&end=247&page=Index&timestamp=179162768775326" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 <p>
 The inverse matrix <span class="math-inline lazy-load-latex">A^{-1}</span> of a matrix <span class="math-inline lazy-load-latex">A: n \times n</span> is defined as a matrix that when multiplied by the square matrix A yields the identity matrix. Note that not always an inverse matrix of a square matrix Q exists.
 </p><div  class="katex-math-block anchor"> 
@@ -954,11 +957,11 @@ The inverse matrix <span class="math-inline lazy-load-latex">A^{-1}</span> of a 
 
 <div class="div-heading"> 
 <h3 id="H_Theorem" class="document-heading anchor">Theorem <a class="link-heading" href="#H_Theorem">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=247&end=277&anchor=H_Theorem&page=Index&timestamp=179050385673226" title="[i18n]: Theorem" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=248&end=278&anchor=H_Theorem&page=Index&timestamp=179162768775326" title="[i18n]: Theorem" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <div class="theorem math-admonition anchor" style="background:;">
-<span class="math-admonition-title"><label class="admonition-math-tag" data-i18n="admonition-math-theorem-label">Theorem</label> 1: Determinant of Orthogonal Matrix<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Index?start=249&end=276&page=Index&timestamp=179050385673226" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="math-admonition-title"><label class="admonition-math-tag" data-i18n="admonition-math-theorem-label">Theorem</label> 1: Determinant of Orthogonal Matrix<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Index?start=250&end=277&page=Index&timestamp=179162768775326" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 <p>
 For any <strong>orthogonal matrix</strong><a href="#" id="footnote-reference-link-1" class="footnote-link"><sup class="footnote-reference" data-counter="1" data-footnote="A square matrix &lt;span class=&quot;math-inline lazy-load-latex&quot;&gt;Q&lt;/span&gt; is said to be orthogonal if &lt;span class=&quot;math-inline lazy-load-latex&quot;&gt;Q Q^T = \mathbf{I}&lt;/span&gt;">[1]</sup></a> <span class="math-inline lazy-load-latex">Q \in \mathbb{R}^{n \times n}</span> of n rows and n columns
 </p><div  class="katex-math-block anchor"> 
@@ -991,12 +994,12 @@ For any <strong>orthogonal matrix</strong><a href="#" id="footnote-reference-lin
 
 <div class="div-heading"> 
 <h3 id="H_Solved_Exercise" class="document-heading anchor">Solved Exercise <a class="link-heading" href="#H_Solved_Exercise">¶</a></h3> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=277&end=307&anchor=H_Solved_Exercise&page=Index&timestamp=179050385673226" title="[i18n]: Solved Exercise" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=278&end=308&anchor=H_Solved_Exercise&page=Index&timestamp=179162768775326" title="[i18n]: Solved Exercise" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 
 <aside class="example admonition anchor" style="background:;"  class="admonition example">
 <span class="admonition-title"><strong>
-<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Chain Rule for Derivative Multi-Variate Functions<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Index?start=279&end=306&page=Index&timestamp=179050385673226" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
+<span class="admonition-title"><strong class="admonition-tag" data-i18n="admonition-math-example-label">Example</strong>: Chain Rule for Derivative Multi-Variate Functions<a class="link-edit link-edit-admonition" style="display:none" href="/edit/Index?start=280&end=307&page=Index&timestamp=179162768775326" title="Edit admonition"><img class="img-icon" src="/static/pencil.svg"></a></span>
 </strong></span>
 
 <p>
@@ -1034,7 +1037,7 @@ Let the function f be <span class="math-inline lazy-load-latex">f(x, y) = x^2/A^
 
 <div class="div-heading"> 
 <h2 id="H_Pseudocode_of_Algorithms_in_LaTeX" class="document-heading anchor">Pseudocode of Algorithms in LaTeX <a class="link-heading" href="#H_Pseudocode_of_Algorithms_in_LaTeX">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=307&end=end&anchor=H_Pseudocode_of_Algorithms_in_LaTeX&page=Index&timestamp=179050385673226" title="[i18n]: Pseudocode of Algorithms in LaTeX" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Index?start=308&end=end&anchor=H_Pseudocode_of_Algorithms_in_LaTeX&page=Index&timestamp=179162768775326" title="[i18n]: Pseudocode of Algorithms in LaTeX" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
