@@ -632,10 +632,10 @@ class WikiPage():
         self._title = title 
         # Create cache directory if it does not exist yet.
         self._cache.mkdir(exist_ok=True)
-        self._path = self.path()
         self._timestamp = 0
+        self._path = self.path()
         self._debug = debug
-        self._latex_renderer = latex_renderer 
+        self._latex_renderer = latex_renderer
 
     @property
     def timestamp(self):
