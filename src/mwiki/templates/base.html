@@ -25,7 +25,7 @@
         {% if title_font %} --font-family-title: '{{conf.title_font}}'; {% endif %}
     }
     </style>
-    
+
     <link rel="stylesheet" href="/static/style.css">
     {% block style %}{% endblock %}
 
@@ -47,7 +47,7 @@
     const equation_enumeration = "{{equation_enumeration_style}}";
     const PAGE_PATH = "{{page_path}}"
     </script>
-    
+
     {%if latex_renderer == "mathjax" %}
     <!-- MathJax Settings -->
     <script>
@@ -61,7 +61,7 @@
         , processEscapes: true
         , processEnvironments: true
           // Location of equation numbers
-        , tagSide: "right"  
+        , tagSide: "right"
         // Possible values 'ams' or 'all' (all equations are numbered by default)
         , tags: enumeration_enabled ? "all" : "ams"
         //, tags: 'ams'
@@ -72,7 +72,7 @@
                                 , 'autoload-all'
                             ]}
         , tagformat: {
-          number: (n) => { 
+          number: (n) => {
             <!-- if( !enumeration_enabled ){ return ''; } -->
             if( equation_enumeration === "cont"
                 || equation_enumeration == "continuous")
@@ -86,7 +86,7 @@
             if (nsub === 0 || equation_enumeration == "section")
             {
                 out = nsec + '.' + n;
-            } else 
+            } else
             {
                 out = nsec + '.' + nsub +  '.' + n;
             }
@@ -162,7 +162,7 @@
         /// displayAlign: "left"
       }
     // options for when overflow is linebreak
-    , linebreaks: {             
+    , linebreaks: {
         inline:           true,   // true for browser-based breaking of inline equations
         width:            '100%', // a fixed size or a percentage of the container width
         lineleading:      .2,     // the default lineleading in em units
@@ -205,7 +205,7 @@
     <!-- The loading of KaTeX is deferred to speed up page rendering -->
     <script defer src="/static/katex/node_modules/katex/dist/katex.min.js"></script>
     <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <!-- <script defer src="/static/katex/node_modules/katex/dist/contrib/auto-render.min.js" 
+    <!-- <script defer src="/static/katex/node_modules/katex/dist/contrib/auto-render.min.js"
             onload="renderMathInElement(document.body);"></script> -->
     {% if latex_algorithm %}
         <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
@@ -213,7 +213,7 @@
         <link rel="stylesheet" href="/static/pseudocode.min.css">
     {% endif %}
 {% endif %}
-    
+
 {% if latex_renderer == "katex" and use_cdn() and mathjax_enabled %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi" crossorigin="anonymous">
     <!-- The loading of KaTeX is deferred to speed up page rendering -->
@@ -228,7 +228,7 @@
     <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js"> </script>
     {% endif %}
 {% endif %}
-    
+
     {% block jslibs %}
     <!-- Additional Javascript libraries -->
     {% endblock %}
@@ -245,7 +245,7 @@
         var CSRF_TOKEN = "{{ csrf_token() }}";
 
         document.addEventListener("DOMContentLoaded", (event) => {
-            // Select graphviz code blocks 
+            // Select graphviz code blocks
             let lst = document.querySelectorAll(".graphviz-dot");
             for(let x of lst){
 
@@ -255,7 +255,7 @@
                     // console.log(" [TRACE] code = ", code);
                     let svg = viz.renderSVGElement(code);
                     // console.log(" [TRACE] svg = ", svg);
-                    x.replaceWith(svg); 
+                    x.replaceWith(svg);
                     // x.outerHTML = svg;
                     /// document.getElementById("graph").appendChild(svg);
                 });
@@ -263,7 +263,7 @@
 
             }
         }, false);
-        
+
     </script>
 
     <!--
@@ -275,7 +275,7 @@
         mermaid.initialize({ startOnLoad: true });
     </script>
     -->
-    
+
     <script type="text/javascript" src="/static/main.js"></script>
 
 </head>
@@ -293,18 +293,18 @@
         {% endif %}
         <div class="toc">
             <!-- Table of contents template placeholder -->
-            {% block toc %}{% endblock %} 
+            {% block toc %}{% endblock %}
         </div>
 
     </aside>
     <div class="main main-shift">
         <header class="header">
             <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/static/hamburger-menu.svg" style="height: 25px;"/> </a>
-            <a data-i18n="home-page-button" class="sidebar-toggle-button" 
+            <a data-i18n="home-page-button" class="sidebar-toggle-button"
 			           title="Go to home page (Index)" href="/"><img class="img-icon" src="/static/icon-home.svg"></a>
             <div class="dropdown">
-              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button" 
-                 href="#" 
+              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button"
+                 href="#"
                  title="Main menu."
                  class="dropbtn"
                  >
@@ -339,38 +339,45 @@
                  {% endif %}
                  <a data-i18n="about-menu-item-label" class="sidebar-toggle-button" href="/about">About</a>
                  {% if show_licenses() %}
-                 <a data-i18n="licenses-menu-item-label" class="sidebar-toggle-button" href="/licenses" 
+                 <a data-i18n="licenses-menu-item-label" class="sidebar-toggle-button" href="/licenses"
 					title="Licenses of open source libraries used by this project.">Licenses</a>
 				 {% endif %}
               </div>
             </div>
-            {% block topbar_buttons %}{% endblock %} 
-            <!-- 
-            <a class="sidebar-toggle-button" 
-                 href="#" 
-                 id="btn-scroll-top" 
+            {% block topbar_buttons %}{% endblock %}
+            <!--
+            <a class="sidebar-toggle-button"
+                 href="#"
+                 id="btn-scroll-top"
                  title="Scroll to top of the page"
-                 >☝️</a>                 
-             <a class="sidebar-toggle-button" 
-                 href="#" 
-                 id="btn-scroll-bottom" 
+                 >☝️</a>
+             <a class="sidebar-toggle-button"
+                 href="#"
+                 id="btn-scroll-bottom"
                  title="Scroll to bottom the page"
-                 >👇</a>           
+                 >👇</a>
              -->
-             <a data-i18n="button-toggle-sections" class="sidebar-toggle-button" 
-                 href="#" 
+            {% if  current_user().is_admin() %}
+            <a data-i18n="button-create-new-page" class="sidebar-toggle-button"
+                href="#"
+                id="btn-create-new-page"
+                title="Create a new page."
+                ><img class="img-icon" src="/static/plus-circle-outline.svg" ></a>
+            {% endif %}
+             <a data-i18n="button-toggle-sections" class="sidebar-toggle-button"
+                 href="#"
                  onclick="toggleHeadings();"
-                 id="btn-scroll-bottom" 
+                 id="btn-scroll-bottom"
                  title="Fold/Unfold all sections."
-                 ><img class="img-icon" src="/static/dots-vertical.svg" ></a> 
-             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button" 
-                 href="#" 
+                 ><img class="img-icon" src="/static/dots-vertical.svg" ></a>
+             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button"
+                 href="#"
                  onclick="quickOpenPage();"
-                 id="btn-scroll-bottom" 
+                 id="btn-scroll-bottom"
                  title="Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry."
                  >
-               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E"> 
-                </a> 
+               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E">
+                </a>
               {% block topbar_buttons_last %}{% endblock %}
         </header>
 

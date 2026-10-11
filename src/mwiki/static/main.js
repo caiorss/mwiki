@@ -1756,26 +1756,30 @@ document.addEventListener("DOMContentLoaded", async function()
 
 
     let btnCreateNote = document.querySelector("#btn-create-note");
+    let btnCreateNewPage = document.querySelector("#btn-create-new-page");
+    // New Note
+    let title = geti18nTranslation("new-note-popup-window-title");
+    // Name
+    let label = geti18nTranslation("new-note-popup-window-label");
+    // Enter the name of the note be created.
+    let instruction = geti18nTranslation("new-note-popup-window-instruction");
+
+    let createNewPage = () => {
+      popupInput(
+        title
+      , instruction
+      , label
+      , (noteName) => {
+        let url = `/create/${noteName}`;
+        // 1 second delay
+        setTimeout(() => { document.location.href = url; }, 1000);
+
+      });
+    };
+    btnCreateNewPage.addEventListener("click", createNewPage);
     if( btnCreateNote )
     {
-        // New Note
-        let title = geti18nTranslation("new-note-popup-window-title");
-        // Name
-        let label = geti18nTranslation("new-note-popup-window-label");
-        // Enter the name of the note be created.
-        let instruction = geti18nTranslation("new-note-popup-window-instruction");
-		    btnCreateNote.addEventListener("click", () => {
-            popupInput(
-                  title
-                , instruction
-                , label
-                , (noteName) => {
-                    let url =  `/create/${noteName}`;
-                    // 1 second delay
-                    setTimeout(() => { document.location.href = url; }, 1000);
-
-		            });
-	    });
+      btnCreateNote.addEventListener("click", createNewPage);
     }
 
     // Translate user interface I18N
