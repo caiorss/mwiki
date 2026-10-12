@@ -765,6 +765,7 @@ class WikiPage():
                 , "headings":              headings
                 , "equation_enumeration_style": renderer.equation_enumeration_style
                 , "equation_enumeration_enabled": renderer.equation_enumeration_enabled
+                , "citation_references":          renderer.citation_references_json
                 , "author":                       renderer.author
                 , "timestamp":             renderer._timestemap
             }

@@ -572,7 +572,7 @@ def make_app_server(  host:        str
                                           , equation_enumeration_style = info.get("equation_enumeration_style")
                                           , equation_enumeration_enabled = info.get("equation_enumeration_enabled")
                                           , katex_macros         = utils.base64_encode(info.get("katex_macros", "")) # utils.base64_encode(renderer.katex_macros)
-                                          , citation_references   = utils.base64_encode(info.get("citation_references_json", ""))
+                                          , citation_references   = utils.base64_encode(info.get("citation_references", ""))
                                           , headings = info.get("headings")
                                           # , font_face_main       = font_face_main_font
                                           # , font_face_title      = font_face_title_font
