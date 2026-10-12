@@ -718,16 +718,9 @@ class WikiPage():
 
 
     def _update_cached_html(self, latex_macros = "" ):
-        ## breakpoint()
         if not self.is_dirty():
             return
-        ## print(" [TRACE] Recompiling page %s" % str(self._path))
         out = self._cache_html_file()
-        text = self.read()
-        ## print(" [TRACE] Updating cache = " + str(out))
-        ## headings = mparser.get_headings(text)
-        ## root = mparser.make_headings_hierarchy(headings)
-        ## toc = mparser.headings_to_html(root)
         pagefile = str(self.path())
         base_path = str(self._base_path)
         conf: Settings = Settings.get_instance()
@@ -771,30 +764,6 @@ class WikiPage():
             }
         with open(str(info), "w") as fd:
             json.dump(data, fd)
-        # if dependencies != [] or internal_links != []:
-        #     data = {
-        #               "version":      CACHE_FILE_FORMAT_VERSION
-        #             , "dependencies": dependencies
-        #             , "links":        internal_links
-        #         }
-        #     with open(str(info), "w") as fd:
-        #         json.dump(data, fd)
-        # else:
-        #     if info.exists():
-        #         info.unlink()
-        conf: Settings = Settings.get_instance()
-        # root_path = utils.get_module_path(mwiki)
-        # root_url = "/"
-        # ### print(" [TRACE] root_path => (718) = " + str(root_path))
-        # font_face_main_font =  export.render_font_data_by_family( conf.main_font
-        #                                                         , root_url = root_url
-        #                                                         , root_path = root_path)
-        # font_face_title_font = export.render_font_data_by_family( conf.title_font
-        #                                                         , root_url = root_url
-        #                                                         , root_path = root_path)
-        # font_face_code_font = export.render_font_data_by_family( conf.code_font
-        #                                                        , root_url = root_url
-        #                                                        , root_path = root_path )
         out.write_text(content)
 
     def render_html(self, latex_macros = "") -> str:
