@@ -26,7 +26,7 @@ import mwiki.export as export
 ## db = SQLAlchemy(app)
 db = SQLAlchemy()
 
-CACHE_FILE_FORMAT_VERSION = "0.1.4-temp1"
+CACHE_FILE_FORMAT_VERSION = "0.1.5-temp1"
 
 
 
