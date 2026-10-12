@@ -2,6 +2,7 @@ from typing import Any, Tuple, List, Optional
 import os
 import enum
 import json
+import dataclasses
 from flask_sqlalchemy import SQLAlchemy
 import flask_sqlalchemy as sa
 import sqlalchemy
@@ -672,6 +673,7 @@ class WikiPage():
     def is_dirty(self):
         """Returns true if cached html needs update (be recompiled)."""
         if self._debug:
+            print(" [TRACE] Running in debug mode")
             return True
         out = self._cache_html_file()
         src = self._path
@@ -734,6 +736,8 @@ class WikiPage():
                                                     , display_alt_button = conf.display_alt_button
                                                 )
         title = renderer.title if renderer.title != "" else self._title
+        # JSON database file containing metadata stored in
+        #  $MWIKI_REPO/.cache/<page-name>.json
         info = out.parent / out.name.replace(".html", ".json")
         ###breakpoint()
         # List eof embedded pages
@@ -742,19 +746,42 @@ class WikiPage():
         internal_links = [ {  "link":    x
                             , "exists":  (self._base_path / (x + ".md")).exists() }
                             for x in renderer._internal_links ]
-        if dependencies != [] or internal_links != []:
-            data = {
-                      "version":      CACHE_FILE_FORMAT_VERSION
-                    , "dependencies": dependencies
-                    , "links":        internal_links
-                }
-            with open(str(info), "w") as fd:
-                json.dump(data, fd)
-        else:
-            if info.exists():
-                info.unlink()
+        headings = [ dataclasses.asdict(h) for h in renderer.headings]
+        ## breakpoint()
+        data = {
+                  "version":      CACHE_FILE_FORMAT_VERSION
+                , "dependencies":          dependencies
+                , "links":                 internal_links
+                , "title":                 renderer.title
+                , "name":                  self._title
+                , "page_path":             str(self._path.relative_to(self._base_path))
+                , "language":              renderer.language
+                , "description":           renderer.description
+                , "latex_renderer":        renderer.latex_renderer
+                , "mathjax_macros":        renderer.mathjax_macros
+                , "needs_mathjax":         renderer.needs_mathjax
+                , "needs_graphviz":        renderer.needs_graphviz
+                , "needs_latex_algorithm": renderer.needs_latex_algorithm
+                , "headings":              headings
+                , "equation_enumeration_style": renderer.equation_enumeration_style
+                , "equation_enumeration_enabled": renderer.equation_enumeration_enabled
+                , "author":                       renderer.author
+                , "timestamp":             renderer._timestemap
+            }
+        with open(str(info), "w") as fd:
+            json.dump(data, fd)
+        # if dependencies != [] or internal_links != []:
+        #     data = {
+        #               "version":      CACHE_FILE_FORMAT_VERSION
+        #             , "dependencies": dependencies
+        #             , "links":        internal_links
+        #         }
+        #     with open(str(info), "w") as fd:
+        #         json.dump(data, fd)
+        # else:
+        #     if info.exists():
+        #         info.unlink()
         conf: Settings = Settings.get_instance()
-
         # root_path = utils.get_module_path(mwiki)
         # root_url = "/"
         # ### print(" [TRACE] root_path => (718) = " + str(root_path))
@@ -767,41 +794,21 @@ class WikiPage():
         # font_face_code_font = export.render_font_data_by_family( conf.code_font
         #                                                        , root_url = root_url
         #                                                        , root_path = root_path )
-        html = flask.render_template(  "content.html"
-                                      , title                = title
-                                      , page                 = self._title
-                                      , page_path            = self._path.relative_to(self._base_path)
-                                      , page_link            = self._title.replace(" ", "_")
-                                      , pagename             = self._title
-                                      , content_language     = renderer.language
-                                      , page_description     = renderer.description
-                                      , page_author          = renderer.author
-                                      , content              = content
-                                      ## , toc                  = toc
-                                      , latex_renderer       = renderer.latex_renderer
-                                      , latex_macros         = renderer.mathjax_macros
-                                      , mathjax_enabled      = renderer.needs_mathjax
-                                      , graphviz_enabled     = renderer.needs_graphviz
-                                      , latex_algorithm      = renderer.needs_latex_algorithm
-                                      , timestamp            = self.timestamp
-                                      # , equation_enumeration = renderer.equation_enumeration_style
-                                      , equation_enumeration_style = renderer.equation_enumeration_style
-                                      , equation_enumeration_enabled = renderer.equation_enumeration_enabled
-                                      , katex_macros         = utils.base64_encode(renderer.katex_macros)
-                                      , citation_references   = utils.base64_encode(renderer.citation_references_json)
-                                      , headings = renderer.headings
-                                      # , font_face_main       = font_face_main_font
-                                      # , font_face_title      = font_face_title_font
-                                      # , font_face_code       = font_face_code_font
-                                      , conf = conf
-                                   )
-        out.write_text(html)
+        out.write_text(content)
 
     def render_html(self, latex_macros = "") -> str:
         """Render MWiki page to html"""
         out = self._cache_html_file()
         self._update_cached_html(latex_macros)
         data = out.read_text()
+        return data
+
+    def get_info(self) -> dict:
+        out = self._cache_html_file()
+        info = out.parent / out.name.replace(".html", ".json")
+        data = {}
+        with info.open() as fd:
+            data = json.load(fd)
         return data
 
     def compile(self, latex_macros = "") -> pathlib.Path:

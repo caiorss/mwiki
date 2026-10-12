@@ -549,7 +549,36 @@ def make_app_server(  host:        str
                 ## flask.abort(404)
                 out = flask.redirect(f"/create/{path}")
                 return out
-            html = page.render_html()
+            content = page.render_html()
+            info = page.get_info()
+            html = flask.render_template(  "content.html"
+                                          , title                = info.get("title", "")
+                                          , page                 = info.get("name", "")
+                                          #, page_path            = self._path.relative_to(self._base_path)
+                                          , page_link            = info.get("name", "").replace(" ", "_")
+                                          , pagename             = info.get("title", "")
+                                          , content_language     = info.get("language", "")
+                                          , page_description     = info.get("description", "")
+                                          , page_author          = info.get("author")
+                                          , content              = content
+                                          ## , toc                  = toc
+                                          , latex_renderer       = info.get("latex_renderer") # renderer.latex_renderer
+                                          , latex_macros         = info.get("mathjax_macros") # renderer.mathjax_macros
+                                          , mathjax_enabled      = info.get("needs_mathjax")  # renderer.needs_mathjax
+                                          , graphviz_enabled     = info.get("needs_graphviz")        # renderer.needs_graphviz
+                                          , latex_algorithm      = info.get("needs_latex_algorithm") # renderer.needs_latex_algorithm
+                                          , timestamp            = info.get("timestamp") # self.timestamp
+                                          , equation_enumeration = info.get("equation_enumeration_style")
+                                          , equation_enumeration_style = info.get("equation_enumeration_style")
+                                          , equation_enumeration_enabled = info.get("equation_enumeration_enabled")
+                                          , katex_macros         = utils.base64_encode(info.get("katex_macros", "")) # utils.base64_encode(renderer.katex_macros)
+                                          , citation_references   = utils.base64_encode(info.get("citation_references_json", ""))
+                                          , headings = info.get("headings")
+                                          # , font_face_main       = font_face_main_font
+                                          # , font_face_title      = font_face_title_font
+                                          # , font_face_code       = font_face_code_font
+                                          , conf = conf
+                                       )
             return html
             # print(" [TRACE] path_ = ", path_)
             ##out = serve_static_file(base_path, path_)
