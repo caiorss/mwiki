@@ -26,9 +26,7 @@ import mwiki.export as export
 ## db = SQLAlchemy(app)
 db = SQLAlchemy()
 
-CACHE_FILE_FORMAT_VERSION = "0.1.5-temp1"
-
-
+CACHE_FILE_FORMAT_VERSION = "0.1.6-temp2"
 
 class Config:
     """Singletion containg wiki settings
@@ -752,6 +750,7 @@ class WikiPage():
                 , "description":           renderer.description
                 , "latex_renderer":        renderer.latex_renderer
                 , "mathjax_macros":        renderer.mathjax_macros
+                , "katex_macros":          renderer.katex_macros
                 , "needs_mathjax":         renderer.needs_mathjax
                 , "needs_graphviz":        renderer.needs_graphviz
                 , "needs_latex_algorithm": renderer.needs_latex_algorithm
