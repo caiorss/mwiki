@@ -39,6 +39,12 @@ BE
 Locale
   : Language ISO code for instance, en-US (American English), en-UK (British English), fr-CA (Canadian French) and so on.
   
+MENA
+  : Middle East (Mideast)^[The craddle of civilization] and North Africa
+  
+MSA
+  : Modern Standard Arabic
+  
 CJK  Languages
   : Chinese, Japanese and Korean languages
 
@@ -248,62 +254,6 @@ NOTE:
 4. Puerto Rico is not a country. The island is USA non incorporated territory, even though the island has its own olympic team.
 5. Spanish locales don't have much difference other than country code, currency and paper size since most Spanish countries follows the [Royal Spanish Academy](https://en.wikipedia.org/wiki/Royal_Spanish_Academy)^{@ Spanish: Real Academia Española @}
 
-**Change User Interface Language on Linux**
-
-It is possible to change the UI interface language of some application on Linux on command line by setting the environment variable LANG to the desired locale code. The default system locale on Linux can be obtained by reading the environment variable $LANG.
-
-In bash shell or any other POSIX shell.
-
-```sh
-$ echo $LANG
-en_US.UTF-8
-```
-
-In Python, 
-
-```sh
->>> import os 
-
->>> os.getenv("LANG", "")
-'en_US.UTF-8'
-```
-
-The following command temporarily changes the Kwrite KDE text editor language to Swiss German even if the default language used during the Linux distribution installation was not German. This feature is useful for learning new vocabulary of other languages.
-
-```sh
-env LANG=de_CH kwrite
-```
-
-Lanch kwite with language set to Swiss German detached from terminal (without blocking the terminal emulator).
-
-```sh
-$ env LANG=de_CH.UTF-8 kwrite 1> /dev/null 2> /dev/null & disown
-```
-
-Explanation:
-
-+ `1> /dev/null` redirects the kwrite process' stdout (standard output) to Linux pseudo file /dev/null.
-+ `2> /dev/null` redirects the kwrite process' stderr (standard error output) to Linux pseudo file /dev/null.
-+ `& disown` => Detach kwrite process from the terminal in order run this application as a daemon (background process/service) and to avoid blocking the terminal emulator and terminating the kwrite process if the terminal is closed.
-
-
-**Screenshot of KWrite using different locales**
-
-```{figure} ![[pasted-image-1760611139235.jpg]]
-
-KWrite started with en_US American English locale 
-```
-
-```{figure} ![[pasted-image-1760611027216.jpg]]
-
-KWrite started with de_DE German locale for Switzerland
-```
-
-```{figure} ![[pasted-image-1760610949514.jpg]]
-
-KWrite started with es_ES Spanish locale for Spain
-```
-
 ### See Also
 
 + *Country Code Language List*
@@ -423,6 +373,7 @@ KWrite started with es_ES Spanish locale for Spain
 | free software license | free software licence |
 | center              | centre               |
 | center of mass      | centre of mass       | 
+| center of pressure  | centre of pressure   |
 | aerodynamic center  | aerodynamic centre   |
 | color               | colour               |
 | favor               | favour               |
@@ -458,13 +409,15 @@ KWrite started with es_ES Spanish locale for Spain
 | sophomore student       | second-year undergraduate student |
 | junior student        | third-year undegraduate student (university student) |
 | senior student   | university student in final year of undegraduate degree |
+| associate professor | lecturer^[Used in continental Europe and UK]  |
 | apartment          | flat                  |   
 | truck               | lorry                |
 | truck               | shorthand for pickup truck |
 | highway, freeway   | motorway              |
 | gas station        | petrol station        | 
+| gas station        | service station^[Astralian English] |
      
-## Software Libraries
+## APIs and Software Libraries
 
 JavaScript
  + i18Next
@@ -472,6 +425,123 @@ JavaScript
 Python
 + Gettext
     
+
+### Change User Interface Language on Linux
+
+Linux desktop applications intended for end-users are available in many language due to most of them be open source, which allows users to contribute with translations to additional languages. As a result, it is possible to change the UI interface language of many applications on Linux from command line by setting the environment variable LANG to the desired locale code. The default system locale on Linux can be obtained from the environment variable $LANG. 
+
+
+In bash shell or any other POSIX shell.
+
+```sh
+$ echo $LANG
+en_US.UTF-8
+```
+
+In Python, 
+
+```sh
+>>> import os 
+
+>>> os.getenv("LANG", "")
+'en_US.UTF-8'
+```
+
+The following command temporarily changes the Kwrite KDE text editor language to Swiss German even if the default language used during the Linux distribution installation was not German. This feature is useful for learning new vocabulary of other languages.
+
+```sh
+env LANG=de_CH kwrite
+```
+
+Lanch kwite with language set to Swiss German detached from terminal (without blocking the terminal emulator).
+
+```sh
+$ env LANG=de_CH.UTF-8 kwrite 1> /dev/null 2> /dev/null & disown
+```
+
+Explanation:
+
++ `1> /dev/null` redirects the kwrite process' stdout (standard output) to Linux pseudo file /dev/null.
++ `2> /dev/null` redirects the kwrite process' stderr (standard error output) to Linux pseudo file /dev/null.
++ `& disown` => Detach kwrite process from the terminal in order run this application as a daemon (background process/service) and to avoid blocking the terminal emulator and terminating the kwrite process if the terminal is closed.
+
+
+**Screenshot of KWrite using different locales**
+
+```{figure} ![[pasted-image-1760611139235.jpg]]
+
+KWrite started with en_US American English locale 
+```
+
+```{figure} ![[pasted-image-1760611027216.jpg]]
+
+KWrite started with de_DE German locale for Switzerland
+```
+
+```{figure} ![[pasted-image-1760610949514.jpg]]
+
+KWrite started with es_ES Spanish locale for Spain
+```
+
+
+### Formatting Currency (Monetary Values) in Python
+
+Imports.
+
+```python
+import locale
+```
+
+Define helper function.
+
+```python
+def format_currency(value: float, locale_: str) -> str:
+    oldLocale, _ = locale.getlocale()
+    out = ""
+    try:
+        locale.setlocale(locale.LC_ALL, locale_)
+        out = locale.currency(value, grouping = True)
+    except locale.Error:
+        pass
+    locale.setlocale(locale.LC_ALL, oldLocale)
+    return out
+```
+
+Usage:
+
+```python
+value = 102_000_125.51
+
+# English USA locale
+>>> format_currency(value, "en_US")
+'$102,000,125.51'
+
+# German (Germany / Deutschland) locale
+>>> format_currency(value, "de_DE")
+'102.000.125,51 EUR'
+
+# German (Switzerland) locale
+>>> format_currency(value, "de_CH")
+"CHF 102'000'125.51"
+
+# French (France) locale
+>>> format_currency(value, "fr_FR")
+'102\xa0000\xa0125,51 EUR'
+>>> print(format_currency(value, "fr_FR"))
+102 000 125,51 EUR
+
+# French (Canada) locale
+>>> print(format_currency(value, "fr_CA"))
+102 000 125,51 $
+
+# Spanish (Mexico) locale
+>>> format_currency(value, "es_MX")
+'$ 102,000,125.51'
+
+# Brazilian Portuguese locale
+>>> format_currency(value, "pt_BR")
+'R$ 102.000.125,51'
+```
 
 ## Footnotes
 

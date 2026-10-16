@@ -122,6 +122,12 @@ CC0-1.0
   + https://medhir.com/blog/right-to-root-access
 + *Right to root access*
   + https://news.ycombinator.com/item?id=42677835
++ *Categories of Free and Nonfree Software*, GNU
+  + https://www.gnu.org/philosophy/categories.html
++ *Public Domain Is Not Open Source*, Open Source Initiative
+   + https://opensource.org/blog/public-domain-is-not-open-source
++ *When companies use the GPL against each other, our community loses*, Sfconservancy (2019)
+  + https://sfconservancy.org/blog/2019/oct/02/cambium-ubiquiti-gpl-violations/
 + *Open source licenses: Everything you need to know*, Techchrunch
   + https://techcrunch.com/2025/01/12/open-source-licenses-everything-you-need-to-know/
 + *A compendium of "open-source" licenses*
@@ -154,3 +160,9 @@ CC0-1.0
   + https://dev.to/laetitiaperraut/unveiling-server-side-public-license-10-beyond-the-code-a-holistic-exploration-54i5
 + *The Business Source License*, Matt Rickard
   + https://blog.matt-rickard.com/p/the-business-source-license
++ *What are Open Weights?*, OSI - Open Source Iniciative (AI)
+  + https://opensource.org/ai/open-weights
++ *What is an Open-Weight Model?*, Stanford AI
+  + https://hai.stanford.edu/ai-definitions/what-is-an-open-weight-model
++ *Copyrightability of LLM-generated code: Can we license “vibe code” into Free Software?*, FSEF 
+  + https://fsfe.org/news/2026/news-20260825-01.html
