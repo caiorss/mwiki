@@ -1575,6 +1575,20 @@ var equationPopupWindow = null;
 
 document.addEventListener("DOMContentLoaded", async function()
 {
+    // Fix scrolling when one clicks in the sidebar
+    var _main = document.querySelector(".main")
+    var _toc = document.querySelector(".toc");
+    _toc.addEventListener("click", (event) => {
+        // Event bubbling pattern
+      	let trg = event.target;
+      	if(trg.classList[0] === "link-sidebar"){
+          // Delay of 100 milliseconds
+          setTimeout(() => {
+            // Scroll up by 70 pixels
+            _main.scrollBy(0, -70);
+          }, 100);
+        }
+    });
 
     lazyLoadImages();
     // Call function every 500 ms
