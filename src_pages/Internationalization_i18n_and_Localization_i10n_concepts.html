@@ -366,6 +366,12 @@ BE
 Locale
   : Language ISO code for instance, en-US (American English), en-UK (British English), fr-CA (Canadian French) and so on.
   
+MENA
+  : Middle East (Mideast)^[The craddle of civilization] and North Africa
+  
+MSA
+  : Modern Standard Arabic
+  
 CJK  Languages
   : Chinese, Japanese and Korean languages
 
@@ -575,62 +581,6 @@ World Regional Languages
 <span class="sb">4. Puerto Rico is not a country. The island is USA non incorporated territory, even though the island has its own olympic team.</span>
 <span class="sb">5. Spanish locales don&#39;t have much difference other than country code, currency and paper size since most Spanish countries follows the [Royal Spanish Academy](https://en.wikipedia.org/wiki/Royal_Spanish_Academy)^{@ Spanish: Real Academia Española @}</span>
 
-<span class="sb">**Change User Interface Language on Linux**</span>
-
-<span class="sb">It is possible to change the UI interface language of some application on Linux on command line by setting the environment variable LANG to the desired locale code. The default system locale on Linux can be obtained by reading the environment variable $LANG.</span>
-
-<span class="sb">In bash shell or any other POSIX shell.</span>
-
-<span class="sb">```sh</span>
-<span class="sb">$ echo $LANG</span>
-<span class="sb">en_US.UTF-8</span>
-<span class="sb">```</span>
-
-In Python, 
-
-<span class="sb">```sh</span>
-&gt;&gt;&gt;<span class="w"> </span>import<span class="w"> </span>os<span class="w"> </span>
-
-&gt;&gt;&gt;<span class="w"> </span>os.getenv<span class="o">(</span><span class="s2">&quot;LANG&quot;</span>,<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="o">)</span>
-<span class="s1">&#39;en_US.UTF-8&#39;</span>
-<span class="sb">```</span>
-
-The following command temporarily changes the Kwrite KDE text editor language to Swiss German even if the default language used during the Linux distribution installation was not German. This feature is useful for learning new vocabulary of other languages.
-
-<span class="sb">```sh</span>
-env<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>de_CH<span class="w"> </span>kwrite
-<span class="sb">```</span>
-
-Lanch kwite with language set to Swiss German detached from terminal (without blocking the terminal emulator).
-
-<span class="sb">```sh</span>
-$<span class="w"> </span>env<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>de_CH.UTF-8<span class="w"> </span>kwrite<span class="w"> </span><span class="m">1</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="nb">disown</span>
-<span class="sb">```</span>
-
-Explanation:
-
-+ <span class="sb">`1&gt; /dev/null`</span> redirects the kwrite process&#39; stdout (standard output) to Linux pseudo file /dev/null.
-+ <span class="sb">`2&gt; /dev/null`</span> redirects the kwrite process&#39; stderr (standard error output) to Linux pseudo file /dev/null.
-+ <span class="sb">`&amp; disown`</span> =&gt; Detach kwrite process from the terminal in order run this application as a daemon (background process/service) and to avoid blocking the terminal emulator and terminating the kwrite process if the terminal is closed.
-
-
-<span class="gs">**Screenshot of KWrite using different locales**</span>
-
-```{figure} ![[pasted-image-1760611139235.jpg]]
-
-KWrite started with en_US American English locale 
-<span class="sb">```</span>
-
-<span class="sb">```{figure} ![[pasted-image-1760611027216.jpg]]</span>
-
-<span class="sb">KWrite started with de_DE German locale for Switzerland</span>
-<span class="sb">```</span>
-
-```{figure} ![[pasted-image-1760610949514.jpg]]
-
-KWrite started with es_ES Spanish locale for Spain
-<span class="sb">```</span>
-
 <span class="sb">### See Also</span>
 
 <span class="sb">+ *Country Code Language List*</span>
@@ -750,6 +700,7 @@ KWrite started with es_ES Spanish locale for Spain
 <span class="sb">| free software license | free software licence |</span>
 <span class="sb">| center              | centre               |</span>
 <span class="sb">| center of mass      | centre of mass       | </span>
+<span class="sb">| center of pressure  | centre of pressure   |</span>
 <span class="sb">| aerodynamic center  | aerodynamic centre   |</span>
 <span class="sb">| color               | colour               |</span>
 <span class="sb">| favor               | favour               |</span>
@@ -785,13 +736,15 @@ KWrite started with es_ES Spanish locale for Spain
 <span class="sb">| sophomore student       | second-year undergraduate student |</span>
 <span class="sb">| junior student        | third-year undegraduate student (university student) |</span>
 <span class="sb">| senior student   | university student in final year of undegraduate degree |</span>
+<span class="sb">| associate professor | lecturer^[Used in continental Europe and UK]  |</span>
 <span class="sb">| apartment          | flat                  |   </span>
 <span class="sb">| truck               | lorry                |</span>
 <span class="sb">| truck               | shorthand for pickup truck |</span>
 <span class="sb">| highway, freeway   | motorway              |</span>
 <span class="sb">| gas station        | petrol station        | </span>
+<span class="sb">| gas station        | service station^[Astralian English] |</span>
 <span class="sb">     </span>
-<span class="sb">## Software Libraries</span>
+<span class="sb">## APIs and Software Libraries</span>
 
 <span class="sb">JavaScript</span>
 <span class="sb"> + i18Next</span>
@@ -800,10 +753,127 @@ KWrite started with es_ES Spanish locale for Spain
 <span class="sb">+ Gettext</span>
 <span class="sb">    </span>
 
-<span class="sb">## Footnotes</span>
+<span class="sb">### Change User Interface Language on Linux</span>
 
-<span class="sb">```{footnotes}</span>
+<span class="sb">Linux desktop applications intended for end-users are available in many language due to most of them be open source, which allows users to contribute with translations to additional languages. As a result, it is possible to change the UI interface language of many applications on Linux from command line by setting the environment variable LANG to the desired locale code. The default system locale on Linux can be obtained from the environment variable $LANG. </span>
+
+
+<span class="sb">In bash shell or any other POSIX shell.</span>
+
+<span class="sb">```sh</span>
+<span class="sb">$ echo $LANG</span>
+<span class="sb">en_US.UTF-8</span>
 <span class="sb">```</span>
+
+In Python, 
+
+<span class="sb">```sh</span>
+&gt;&gt;&gt;<span class="w"> </span>import<span class="w"> </span>os<span class="w"> </span>
+
+&gt;&gt;&gt;<span class="w"> </span>os.getenv<span class="o">(</span><span class="s2">&quot;LANG&quot;</span>,<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="o">)</span>
+<span class="s1">&#39;en_US.UTF-8&#39;</span>
+<span class="sb">```</span>
+
+The following command temporarily changes the Kwrite KDE text editor language to Swiss German even if the default language used during the Linux distribution installation was not German. This feature is useful for learning new vocabulary of other languages.
+
+<span class="sb">```sh</span>
+env<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>de_CH<span class="w"> </span>kwrite
+<span class="sb">```</span>
+
+Lanch kwite with language set to Swiss German detached from terminal (without blocking the terminal emulator).
+
+<span class="sb">```sh</span>
+$<span class="w"> </span>env<span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>de_CH.UTF-8<span class="w"> </span>kwrite<span class="w"> </span><span class="m">1</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span><span class="nb">disown</span>
+<span class="sb">```</span>
+
+Explanation:
+
++ <span class="sb">`1&gt; /dev/null`</span> redirects the kwrite process&#39; stdout (standard output) to Linux pseudo file /dev/null.
++ <span class="sb">`2&gt; /dev/null`</span> redirects the kwrite process&#39; stderr (standard error output) to Linux pseudo file /dev/null.
++ <span class="sb">`&amp; disown`</span> =&gt; Detach kwrite process from the terminal in order run this application as a daemon (background process/service) and to avoid blocking the terminal emulator and terminating the kwrite process if the terminal is closed.
+
+
+<span class="gs">**Screenshot of KWrite using different locales**</span>
+
+```{figure} ![[pasted-image-1760611139235.jpg]]
+
+KWrite started with en_US American English locale 
+<span class="sb">```</span>
+
+<span class="sb">```{figure} ![[pasted-image-1760611027216.jpg]]</span>
+
+<span class="sb">KWrite started with de_DE German locale for Switzerland</span>
+<span class="sb">```</span>
+
+```{figure} ![[pasted-image-1760610949514.jpg]]
+
+KWrite started with es_ES Spanish locale for Spain
+<span class="sb">```</span>
+
+
+<span class="sb">### Formatting Currency (Monetary Values) in Python</span>
+
+<span class="sb">Imports.</span>
+
+<span class="sb">```python</span>
+<span class="sb">import locale</span>
+<span class="sb">```</span>
+
+Define helper function.
+
+<span class="sb">```python</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">format_currency</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">locale_</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">oldLocale</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">locale</span><span class="o">.</span><span class="n">getlocale</span><span class="p">()</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">LC_ALL</span><span class="p">,</span> <span class="n">locale_</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">locale</span><span class="o">.</span><span class="n">currency</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">grouping</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">locale</span><span class="o">.</span><span class="n">Error</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="n">locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">LC_ALL</span><span class="p">,</span> <span class="n">oldLocale</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+<span class="sb">```</span>
+
+Usage:
+
+<span class="sb">```python</span>
+<span class="n">value</span> <span class="o">=</span> <span class="mf">102_000_125.51</span>
+
+<span class="c1"># English USA locale</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">format_currency</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;en_US&quot;</span><span class="p">)</span>
+<span class="s1">&#39;$102,000,125.51&#39;</span>
+
+<span class="c1"># German (Germany / Deutschland) locale</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">format_currency</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;de_DE&quot;</span><span class="p">)</span>
+<span class="s1">&#39;102.000.125,51 EUR&#39;</span>
+
+<span class="c1"># German (Switzerland) locale</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">format_currency</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;de_CH&quot;</span><span class="p">)</span>
+<span class="s2">&quot;CHF 102&#39;000&#39;125.51&quot;</span>
+
+<span class="c1"># French (France) locale</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">format_currency</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;fr_FR&quot;</span><span class="p">)</span>
+<span class="s1">&#39;102</span><span class="se">\xa0</span><span class="s1">000</span><span class="se">\xa0</span><span class="s1">125,51 EUR&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">format_currency</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;fr_FR&quot;</span><span class="p">))</span>
+<span class="mi">102</span> <span class="mi">000</span> <span class="mi">125</span><span class="p">,</span><span class="mi">51</span> <span class="n">EUR</span>
+
+<span class="c1"># French (Canada) locale</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">format_currency</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;fr_CA&quot;</span><span class="p">))</span>
+<span class="mi">102</span> <span class="mi">000</span> <span class="mi">125</span><span class="p">,</span><span class="mi">51</span> <span class="err">$</span>
+
+<span class="c1"># Spanish (Mexico) locale</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">format_currency</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;es_MX&quot;</span><span class="p">)</span>
+<span class="s1">&#39;$ 102,000,125.51&#39;</span>
+
+<span class="c1"># Brazilian Portuguese locale</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">format_currency</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;pt_BR&quot;</span><span class="p">)</span>
+<span class="s1">&#39;R$ 102.000.125,51&#39;</span>
+<span class="sb">```</span>
+
+<span class="gu">## Footnotes</span>
+
+```{footnotes}
+```
  
 <span class="gu">## See also</span>
 
