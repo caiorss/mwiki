@@ -16,7 +16,7 @@ W3C
  : World Wide Web Consortium
 
 [IANA](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority)
- : Intenet Assigned Numbers Authority
+ : Internet Assigned Numbers Authority
 
 IETF
   : Internet Engineering Task Force

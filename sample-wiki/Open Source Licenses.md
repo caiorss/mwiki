@@ -8,7 +8,7 @@ description: Summary of open source licenses.
 % Note that this is a definition list.
 %
 
-## Open Source Licences Overview
+## Overview
 
 IP
   : Intelectual Property 
@@ -60,7 +60,7 @@ Copyleft Linceses
   : Any version of modification of the software must be distributed under the same copyleft license. This license style is not favored by companies that need to keep their software modification proprietary.
   
 MIT License (Permissive)
-  : Introduced by MIT - Massachussets Institute of Technology in the 1980s. Used by React JS front-end framework and Ruby programming language. The only requirement of this license is to include the **copyright notice** in derivative works. Drawback: the license grants any patent rights, what creates legal uncertainty for software that depends on **patented technologies**.
+  : Introduced by MIT - Massachussets Institute of Technology in the 1980s. Used by React JS front-end framework and Ruby programming language. The only requirement of this license is to include the **copyright notice** in derivative works. Drawback: the license **grants no patent rights**, which creates legal uncertainty for software that depends on **patented technologies**.
   
 Apache 2.0 License (Permissive)
   : Similar to MIT license, but it grants patent rights to any user of a sofware released under MIT license.
@@ -89,7 +89,6 @@ Unlicense
   
 CC0-1.0 
   : Creative Commons 1.0 - public domain dedication tool used mostly by **creative works**.
-
 ## Summary 
 
 

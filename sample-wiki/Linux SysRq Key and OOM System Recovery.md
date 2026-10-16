@@ -18,8 +18,7 @@ For many users, the solution is a forced system reboot. However, it may lead to 
 To check whether SysRq is eanabled, run 
 
 ```sh
-$ cat /proc/sys/kernel/sysrq
-1
+cat /proc/sys/kernel/sysrq
 ```
 
 if the output is 0, then sysrq is disabled, otherwise sysrq is enabled. All sysrq functions are only enabled when this pseudo-file, created by the Linux kernel, is set to 1. 
@@ -29,13 +28,13 @@ if the output is 0, then sysrq is disabled, otherwise sysrq is enabled. All sysr
 Enable all SysRq options/functions.
 
 ```sh
-$ sudo sysctl kernel.sysrq=1
+sudo sysctl kernel.sysrq=1
 ```
 
 All SysRq options can be enabled by setting the pseudo-file (a kernel interface) using the command.
 
 ```sh
-$ echo 1 | sudo tee /proc/sys/kernel/sysrq
+echo 1 | sudo tee /proc/sys/kernel/sysrq
 ```
 
 ### Persist SysRq Value on Reboot
@@ -43,13 +42,13 @@ $ echo 1 | sudo tee /proc/sys/kernel/sysrq
 Create backup of the configuration file.
 
 ```sh
-$ sudo cp /etc/sysctl.d/99-sysctl.conf -v /etc/sysctl.d/99-sysctl.conf.back
+sudo cp /etc/sysctl.d/99-sysctl.conf -v /etc/sysctl.d/99-sysctl.conf.back
 ```
 
 Override the file 99-sysctl.conf with the line `kernel.sysrq = 1`. 
 
 ```sh
-$ echo "kernel.sysrq = 1" | sudo tee /etc/sysctl.d/99-sysctl.conf
+echo "kernel.sysrq = 1" | sudo tee /etc/sysctl.d/99-sysctl.conf
 ```
 
 
