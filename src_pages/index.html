@@ -568,7 +568,7 @@ Java coffee cup symbol.
 
 <span class="sb">$$</span>
 <span class="sb">  \notag</span>
-<span class="sb">   A^{-1} A \triangleq A^{-1} \triangleq \mathbf{I}</span>
+<span class="sb">   A^{-1} A \triangleq A^{-1} A \triangleq \mathbf{I}</span>
 <span class="sb">$$</span>
 
 <span class="sb">:::</span>
@@ -630,58 +630,8 @@ $$
     &amp;=  0 
 \end{split}
 $$
-<span class="sb">```</span>
-<span class="sb">:::</span>
-<span class="sb"> </span>
-<span class="sb">## Pseudocode of Algorithms in LaTeX</span>
-<span class="sb">Code in LaTeX:</span>
-
-<span class="sb">````latex</span>
-<span class="sb">```{pseudo}</span>
-<span class="sb">\begin{algorithm}</span>
-<span class="sb">\caption{Buble Sort Algorithm}</span>
-<span class="sb">\begin{algorithmic}</span>
-<span class="sb">\PROCEDURE{BubbleSort}{$A, n$}</span>
-<span class="sb">   \STATE $B = $ \CALL{CopyArray}{$A, n$}</span>
-<span class="sb">   \STATE $\:$ \textit{// i = 0, 1, ..., n - 1}</span>
-<span class="sb">   \FOR{$i = 0$ \TO  $i &lt; n$}</span>
-<span class="sb">       \STATE $\:$ \textit{// j = 0, 1, ..., n - 2 }</span>
-<span class="sb">       \FOR{$j = 0$ \TO $j &lt; n - 1$}</span>
-<span class="sb">           \IF{$B[j] &gt; B[j+1]$}</span>
-<span class="sb">               \STATE swap $B[j]$ with $B[j+1]$</span>
-<span class="sb">           \ENDIF</span>
-<span class="sb">       \ENDFOR</span>
-<span class="sb">   \ENDFOR</span>
-<span class="sb">   \RETURN{$B$}</span>
-<span class="sb">\ENDPROCEDURE</span>
-<span class="sb">\end{algorithmic}</span>
-<span class="sb">\end{algorithm}</span>
-<span class="sb">```</span>
-````
-
-
-Rendering:
-
-```{pseudo}
-\begin{algorithm}
-\caption{Buble Sort Algorithm}
-\begin{algorithmic}
-\PROCEDURE{BubbleSort}{$A, n$}
-   \STATE $B = $ \CALL{CopyArray}{$A, n$}
-   \STATE $\:$ \textit{// i = 0, 1, ..., n - 1}
-   \FOR{$i = 0$ \TO  $i &lt; n$}
-       \STATE $\:$ \textit{// j = 0, 1, ..., n - 2 }
-       \FOR{$j = 0$ \TO $j &lt; n - 1$}
-           \IF{$B[j] &gt; B[j+1]$}
-               \STATE swap $B[j]$ with $B[j+1]$
-           \ENDIF
-       \ENDFOR
-   \ENDFOR
-   \RETURN{$B$}
-\ENDPROCEDURE
-\end{algorithmic}
-\end{algorithm}
 ```
+:::
 </pre></div>
 
         </main>

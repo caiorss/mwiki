@@ -345,8 +345,7 @@ For many users, the solution is a forced system reboot. However, it may lead to 
 To check whether SysRq is eanabled, run 
 
 <span class="sb">```sh</span>
-$<span class="w"> </span>cat<span class="w"> </span>/proc/sys/kernel/sysrq
-<span class="m">1</span>
+cat<span class="w"> </span>/proc/sys/kernel/sysrq
 <span class="sb">```</span>
 
 if the output is 0, then sysrq is disabled, otherwise sysrq is enabled. All sysrq functions are only enabled when this pseudo-file, created by the Linux kernel, is set to 1. 
@@ -356,13 +355,13 @@ if the output is 0, then sysrq is disabled, otherwise sysrq is enabled. All sysr
 Enable all SysRq options/functions.
 
 <span class="sb">```sh</span>
-$<span class="w"> </span>sudo<span class="w"> </span>sysctl<span class="w"> </span>kernel.sysrq<span class="o">=</span><span class="m">1</span>
+sudo<span class="w"> </span>sysctl<span class="w"> </span>kernel.sysrq<span class="o">=</span><span class="m">1</span>
 <span class="sb">```</span>
 
 All SysRq options can be enabled by setting the pseudo-file (a kernel interface) using the command.
 
 <span class="sb">```sh</span>
-$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/proc/sys/kernel/sysrq
+<span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/proc/sys/kernel/sysrq
 <span class="sb">```</span>
 
 <span class="gu">### Persist SysRq Value on Reboot</span>
@@ -370,13 +369,13 @@ $<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><sp
 Create backup of the configuration file.
 
 <span class="sb">```sh</span>
-$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/sysctl.d/99-sysctl.conf<span class="w"> </span>-v<span class="w"> </span>/etc/sysctl.d/99-sysctl.conf.back
+sudo<span class="w"> </span>cp<span class="w"> </span>/etc/sysctl.d/99-sysctl.conf<span class="w"> </span>-v<span class="w"> </span>/etc/sysctl.d/99-sysctl.conf.back
 <span class="sb">```</span>
 
 Override the file 99-sysctl.conf with the line <span class="sb">`kernel.sysrq = 1`</span>. 
 
 <span class="sb">```sh</span>
-$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;kernel.sysrq = 1&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/sysctl.d/99-sysctl.conf
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;kernel.sysrq = 1&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/sysctl.d/99-sysctl.conf
 <span class="sb">```</span>
 
 
