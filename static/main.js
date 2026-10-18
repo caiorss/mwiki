@@ -103,7 +103,8 @@ class PopupWindow
 
     onWindowClick(handler)
     {
-        this._dom.addEventListener("click", (event) => {
+      this._dom.addEventListener("click", (event) => {
+            event.preventDefault();
             let target = event.target;
             let className = target.className;
             handler(className);
@@ -1778,16 +1779,22 @@ document.addEventListener("DOMContentLoaded", async function()
     // Enter the name of the note be created.
     let instruction = geti18nTranslation("new-note-popup-window-instruction");
 
-    let createNewPage = () => {
+    let createNewPage = (event) => {
+      event.preventDefault();
       popupInput(
         title
       , instruction
       , label
       , (noteName) => {
         let url = `/create/${noteName}`;
+        console.trace(`Redirecting to ${url}`);
         // 1 second delay
-        setTimeout(() => { document.location.href = url; }, 1000);
-
+        setTimeout(() => {
+          console.trace(`Redirecting to ${url}`);
+          document.location.href = url;
+         // document.location = url;
+        }, 500);
+        return false;
       });
     };
     btnCreateNewPage.addEventListener("click", createNewPage);
