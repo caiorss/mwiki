@@ -241,7 +241,7 @@ The inverse matrix $A^{-1}$ of a matrix $A: n \times n$ is defined as a matrix t
 
 $$
   \notag
-   A^{-1} A \triangleq A^{-1} A \triangleq \mathbf{I}
+   A^{-1} A \triangleq A A^{-1} \triangleq \mathbf{I}
 $$
 
 :::
@@ -305,5 +305,3 @@ $$
 $$
 ```
 :::
- 
- 
