@@ -187,10 +187,6 @@ This Wiki page, whose relative URL is /wiki/Linear%20Algebra%20New is generated 
 
 **Wiki Screenshot 3**
 
-![](docs/images/screen3.png)
-
-**Wiki Screenshot 4**
-
 MWiki code editor powered by Ace9 Javascript code editor.
 
 ![](docs/images/screen4.png)
@@ -205,7 +201,7 @@ Dialog window for inserting emoji and unicode symbols. This dialog provides many
 ![](docs/images/screen-unicode-emoji-symbols-window.png)
 
 
-**Wiki Screenshot 5 (Settings)**
+**Wiki Screenshot 4 (Settings)**
 
 MWiki settings page.
 
@@ -213,19 +209,19 @@ MWiki settings page.
 
 ![](docs/images/screen5b.png)
 
-**Wiki Screenshot 6**
+**Wiki Screenshot 5**
 
 Main menu screenshot.
 
 ![](docs/images/screen6.png)
 
-**Wiki Screenshot 7**
+**Wiki Screenshot 6**
 
 Page menu screenshot.
 
 ![](docs/images/screen7.png)
 
-**Wiki Screenshot 8**
+**Wiki Screenshot 7**
 
 It is possible to fold all Wiki headings for fast navigation on mobile devices or desktop by clicking at the '(F)' button on the top navigation bar.
 
@@ -236,17 +232,17 @@ It is possible to fold all Wiki headings for fast navigation on mobile devices o
 ![](docs/images/screen8.png)
 
 
-**Wiki Screenshot 9**
+**Wiki Screenshot 8**
 
 ![](docs/images/screen9.png)
 
-**Wiki Screenshot 10**
+**Wiki Screenshot 9**
 
 The Wiki has built-in search engine that allows searching for keywords in all Markdown files used for rendering the wiki pages.
 
 ![](docs/images/screen10.png)
 
-**Wiki Screenshot 11 - Reference Card**
+**Wiki Screenshot 10 - Reference Card**
 
 This wiki provides a reference card popup windown that provides examples of the MWiki markup language.
 
@@ -262,7 +258,7 @@ This wiki provides a reference card popup windown that provides examples of the 
 
 ![](docs/images/refcard3.png)
 
-**Wiki Screenshot 12** 
+**Wiki Screenshot 11** 
 
 It is possible to view equations referenced by links, defined using `$\eqref{EquationLabel}`, to LaTeX equations labeled with `\label{EquationLabel}` wihout clicking at reference links. This feature makes it easier and faster to browse cross-referenced equations. Note that it is only available for KaTeX rendering engine.
 
