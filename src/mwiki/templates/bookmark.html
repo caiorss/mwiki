@@ -11,7 +11,7 @@
 {% block content %}
 
     {% for b in bookmarks %}
-        <li><a class="link-internal" target="_blank" href="{{b.url}}" >{{b.page}}</a></li>
+        <li><a class="link-internal" href="{{b.url}}" >{{b.page}}</a></li>
     {% endfor %}
 {% endblock %}
 
