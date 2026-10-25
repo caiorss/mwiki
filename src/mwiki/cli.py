@@ -1,24 +1,24 @@
-"""Command Line Handler 
+"""Command Line Handler
 
 Module responsible for processing command line switches and options.
 """
 import os
-import os.path 
+import os.path
 import sys
 import json
 import random
 import pathlib
 import subprocess
-import tomli 
+import tomli
 import shutil
 from pprint import pprint
-from typing import Optional, Tuple, List 
+from typing import Optional, Tuple, List
 import click
-import flask 
+import flask
 import jinja2
 ##import waitress
-## from click.decorators import commmand 
-## from gunicorn.app.wsiapp import run 
+## from click.decorators import commmand
+## from gunicorn.app.wsiapp import run
 import multiprocessing
 import mwiki.utils as utils
 from mwiki.server import make_app_server
@@ -32,8 +32,8 @@ import mwiki.utils as utils
 from mwiki.latex import LatexFormula
 from . import render
 from .models import User, Settings, MwikiConfig
-from .app import db, make_app 
-import mwiki.export 
+from .app import db, make_app
+import mwiki.export
 
 def debughook(etype, value, tb):
     import pdb
@@ -49,7 +49,7 @@ def generate_login_token_url(wikipath: Optional[str], user: str):
     wikipath = wikipath or os.getenv("MWIKI_PATH")
     if wikipath is None:
         print("Error expected --wikipath=./path-to-wiki or MWIKI_PATH environment variable set to this path.")
-        exit(1)
+        sys.exit(1)
     wikipath = utils.expand_path(wikipath)
     mwiki.models.MwikiConfig.set_path(wikipath)
     secret_key = mwiki.models.get_secret_key()
@@ -85,9 +85,9 @@ def cli1():
 @click.option("-p", "--port", default = 8080, help="TCP port to be listend, default 8080.")
 @click.option("--login", default = "", help = "Require login to access any page.")
 @click.option("--debug", is_flag = True
-            , help =( "Run server in debug mode. WARNING: It is unsafe to run" 
-                     " the server in debug mode when exposed in the internet since" 
-                     " it can display creadentials and tokens passed as environment" 
+            , help =( "Run server in debug mode. WARNING: It is unsafe to run"
+                     " the server in debug mode when exposed in the internet since"
+                     " it can display creadentials and tokens passed as environment"
                      " variables and expose internal details."
                      ))
 @click.option("--random-ssl", is_flag  = True
@@ -96,20 +96,20 @@ def cli1():
                           " or create or pass any file in order to use this command line switch."
                           ))
 @click.option("--wikipath", default = ".", help = "Path to wiki directory, default '.' current directory.")
-@click.option("-c", "--config", default = None, 
-                help = ( "Path to TOML configuration file for" 
+@click.option("-c", "--config", default = None,
+                help = ( "Path to TOML configuration file for"
                         "running the server and loading its settings from the file."))
-@click.option("-s", "--secret-key", default = None, 
+@click.option("-s", "--secret-key", default = None,
                 help = ( "Secret key of flask application." ))
-@click.option("-g", "--wsgi", 
-                is_flag = True, 
+@click.option("-g", "--wsgi",
+                is_flag = True,
                 help = ( "Run application with gunicorn WSGI server."
                          "NOTE: Gunicorn only works on Unix-like systems, including "
                          "Linux, BSD or Apple's MacOS. This option is recommended for "
                          "deploying the server in production."
                          ))
 @click.option("--clean-cache", is_flag = True, help = "Clean MWIKI cache in $MWIKI_REPO/.data directory.")
-@click.option("--pdb", is_flag = True, 
+@click.option("--pdb", is_flag = True,
                 help = ( "Enable post-mortem debugger." ))
 @click.option("--auth", is_flag = True, help = "Create 20 seconds authenticatiion token and URL for passwordless login. (default user 'admin')")
 @click.option("--auth-user", default = "admin", help = "Default user for the login token. (default admin)")
@@ -122,19 +122,19 @@ def server(  host:       str
            , config:     str
            , secret_key: Optional[str]
            , pdb:        bool
-           , clean_cache: bool 
+           , clean_cache: bool
            , wsgi:       bool
            , auth:       bool
-           , auth_user:  str 
+           , auth_user:  str
            ):
     """Run the mwiki server."""
-    _login = None  
+    _login = None
     if pdb:
         print("[INFO] Enabled Post-mortem debugger.")
         sys.excepthook = debughook
     # Default value for configuration variables
-    _host = host 
-    _port = port 
+    _host = host
+    _port = port
     _debug = debug
     _do_login = login
     _login = login.split(",")
@@ -144,9 +144,9 @@ def server(  host:       str
     ## print(" [TRACE] (before) wikipath = ", _wikipath)
     _secret_key = secret_key
     _random_ssl = random_ssl
-    ##_pdb = pdb 
-    _wsgi = wsgi 
-    ## ---- Load server settings from a configuration file --- ## 
+    ##_pdb = pdb
+    _wsgi = wsgi
+    ## ---- Load server settings from a configuration file --- ##
     if config is not None:
         if not os.path.isfile(config):
             print(f"Error file '{config} does not exist")
@@ -166,7 +166,7 @@ def server(  host:       str
         _password   = server.get("password", "")
         _wikipath   = utils.expand_path( server.get("wikipath", ".") )
         _random_ssl = server.get("random-ssl", False)
-        _login = (_username, _password) if _do_login else None 
+        _login = (_username, _password) if _do_login else None
         _secret_key = server.get("secret_key", None)
         #make_app_server(_host, _port, _debug, _login, _wikipath, _random_ssl, _secret_key)
     _wikipath = utils.expand_path(_wikipath)
@@ -177,7 +177,7 @@ def server(  host:       str
         cachedir.mkdir(exist_ok= True)
     if auth:
         generate_login_token_url(_wikipath, auth_user)
-    
+
     if debug:
         mwiki.models.MwikiConfig.enable_debug()
     if not os.path.isdir(_wikipath):
@@ -202,18 +202,18 @@ def server(  host:       str
         pyexecutable = sys.executable
         procWatcher =  subprocess.Popen([  pyexecutable
                                       ,"-m" , "mwiki.watcher"
-                                      ]) 
+                                      ])
         ## print(" [TRACE] procWatcher = ", procWatcher.pid)
         proc = subprocess.Popen([  pyexecutable
                                  , "-m" , "waitress"
                                  , f"--port={port}"
                                  , f"--host={host}"
                                  , "mwiki.wsgi:app"
-                                 ]) 
+                                 ])
         proc.wait()
         ## print(" [TRACE] Starting flask app using WSGI, wikipath = ", _wikipath)
         ### gunicorn_runner(_host, _port, _wikipath
-        ###                 , login = _loginp 
+        ###                 , login = _loginp
         ###                 , secret_key= _secret_key
         ###                 )
         sys.exit(0)
@@ -248,24 +248,24 @@ def watch(wikipath: str):
 
 
 @cli1.command()
-@click.option("--wikipath", default = None, 
+@click.option("--wikipath", default = None,
                 help = ( "Path to folder containing *.md files." )
                 )
-@click.option("-o", "--output", default = None, 
+@click.option("-o", "--output", default = None,
                 help = ( "Directory that will contain the compilation output (default value ./out)." )
                 )
 @click.option( "--page"
              , default = None
              , help = "Export single page to html, instead of the whole wiki.")
-@click.option("--website-name", default = "MWiki", help="Name of the static website (default value 'MWiki').") 
-@click.option("--root-url", default = "/", help="Root URL that the static website will be deployed to.  (default value '/').") 
-@click.option("--locale", default = "en-US", help="Default locale of the user interface. (Default value 'en-US')") 
-@click.option("--icon", default = None, help="Favicon of the static website. (Default value MWiki icon)") 
-@click.option("--main-font", default = "literata", help="Main font used in document text.") 
-@click.option("--code-font", default = "libertinus-mono", help="Code monospace font used in code blocks.") 
-@click.option("--title-font", default = "news-reader", help="Title font used in document section headings.") 
+@click.option("--website-name", default = "MWiki", help="Name of the static website (default value 'MWiki').")
+@click.option("--root-url", default = "/", help="Root URL that the static website will be deployed to.  (default value '/').")
+@click.option("--locale", default = "en-US", help="Default locale of the user interface. (Default value 'en-US')")
+@click.option("--icon", default = None, help="Favicon of the static website. (Default value MWiki icon)")
+@click.option("--main-font", default = "literata", help="Main font used in document text.")
+@click.option("--code-font", default = "libertinus-mono", help="Code monospace font used in code blocks.")
+@click.option("--title-font", default = "news-reader", help="Title font used in document section headings.")
 @click.option("--unicode-emoji-favicon", default = "📚", help = "Use unicode or emoji symbol as favicon.")
-@click.option("--list-fonts", is_flag = True, help="List all available fonts.") 
+@click.option("--list-fonts", is_flag = True, help="List all available fonts.")
 @click.option("--allow-language-switch", is_flag = True
               , help = ( "Allow end-user to switch the user interface language." ))
 @click.option("--content-language", default = "en", help = "Set ISO language code of default content language.")
@@ -294,31 +294,31 @@ def export(   wikipath:              Optional[str]
             , output:                Optional[str]
             , page:                  Optional[str]
             , website_name:          str
-            , root_url:              str 
+            , root_url:              str
             , locale:                str
             , content_language:      str
             , icon:                  Optional[str]
-            , main_font:             str 
-            , code_font:             str 
-            , title_font:            str 
+            , main_font:             str
+            , code_font:             str
+            , title_font:            str
             , unicode_emoji_favicon: Optional[str]
-            , list_fonts:            bool 
+            , list_fonts:            bool
             , allow_language_switch: bool
-            , self_contained:        bool 
+            , self_contained:        bool
             , embed_latex_renderer:  bool
-            , latex_renderer:        str 
-            , compile_latex:         bool 
-            , verbose:               bool 
-            , author:                str 
-            , source:                bool 
+            , latex_renderer:        str
+            , compile_latex:         bool
+            , verbose:               bool
+            , author:                str
+            , source:                bool
     ):
     "Export a MWiki repository or a markdown files repository to a static website."""
     mwiki.export.export(  wikipath, output, page, website_name
                         , root_url, locale, content_language, icon, main_font
                         , code_font, title_font, unicode_emoji_favicon
                         , list_fonts, allow_language_switch, self_contained
-                        , embed_latex_renderer, latex_renderer, compile_latex, verbose, author, source)        
- 
+                        , embed_latex_renderer, latex_renderer, compile_latex, verbose, author, source)
+
 @cli1.command()
 @click.option("--admin-password",  help = "Set admin password." )
 @click.option("--sitename",  help = "Change site name"  )
@@ -331,12 +331,12 @@ def manage(   admin_password: Optional[str]
             , wikipath: Optional[str]
             , settings_dump_stdout: bool
             , settings_load_stdin:  bool
-            , shell: bool 
+            , shell: bool
         ) -> None:
     """Manage MWiki settings, including accounts, passwords and etc."""
-    wikipath = wikipath or os.getenv("MWIKI_PATH", "") 
+    wikipath = wikipath or os.getenv("MWIKI_PATH", "")
     MwikiConfig.set_path(wikipath)
-    os.environ["MWIKI_PATH"] = wikipath 
+    os.environ["MWIKI_PATH"] = wikipath
     if wikipath == "":
         print("Error expected --wikipath=$PATH or $MWIKI_PATH environment set to this value.")
         sys.exit(1)
@@ -361,7 +361,7 @@ def manage(   admin_password: Optional[str]
         with app.app_context():
             conf: Settings = Settings.get_instance()
             conf_dict = conf.to_dict()
-            users = User.to_dict() 
+            users = User.to_dict()
             data = dict(settings = conf_dict, users = users)
             out = json.dumps(data, indent = 4)
             print(out)
@@ -384,7 +384,7 @@ def manage(   admin_password: Optional[str]
                                  , "-m", "flask"
                                  , "--app=mwiki.wsgi"
                                  , "shell"
-                                 ]) 
+                                 ])
         proc.wait()
 
 
@@ -406,10 +406,10 @@ def auth(wikipath: Optional[str], user: str):
 
 
 @cli1.command()
-@click.option("-f", "--file", default = None, 
+@click.option("-f", "--file", default = None,
                 help = ( "Input markdown file to be converted." )
                 )
-@click.option("-o", "--output", default = None, 
+@click.option("-o", "--output", default = None,
                 help = ( "Output file." )
                 )
 def convert(file: Optional[str], output: Optional[str]):
@@ -420,4 +420,3 @@ def convert(file: Optional[str], output: Optional[str]):
 def main():
     cli = click.CommandCollection(sources = [ cli1 ])
     cli()
-
