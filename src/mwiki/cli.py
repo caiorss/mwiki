@@ -150,13 +150,13 @@ def server(  host:       str
     if config is not None:
         if not os.path.isfile(config):
             print(f"Error file '{config} does not exist")
-            exit(1)
+            sys.exit(1)
         conf = {}
         with open(config, 'rb') as fd:
             conf = tomli.load(fd)
         if "server" not in conf:
             print(f"Error - missing section [server] in toml config file '{config}'.")
-            exit(1)
+            sys.exit(1)
         server      = conf.get("server", {})
         _host       = server.get("host", "127.0.0.1")
         _port       = server.get("port", 8080)
@@ -183,12 +183,12 @@ def server(  host:       str
     if not os.path.isdir(_wikipath):
         print("ERROR: Expected an existing wiki directory files (markdown repository).")
         print(f"Directory {_wikipath} not found.")
-        exit(1)
+        sys.exit(1)
     if login != "":
         #os.environ["DO_LOGIN"] = "true"
         if len(_login) != 2:
             ### print("Error expected login in format --login=<USERNAME>;<PASSWORD>")
-            exit(1)
+            sys.exit(1)
     # Add all markdown files (Wiki pages) to the search index database (powered by Whoosh Python library)
     base_path = pathlib.Path(_wikipath)
     mwiki.models.MwikiConfig.set_path(_wikipath)
@@ -216,7 +216,7 @@ def server(  host:       str
         ###                 , login = _loginp 
         ###                 , secret_key= _secret_key
         ###                 )
-        exit(0)
+        sys.exit(0)
     _login =  x if len(x := login.split(",")) == 2 else None
     app = make_app_server(  host       = _host
                           , port       = _port
@@ -339,7 +339,7 @@ def manage(   admin_password: Optional[str]
     os.environ["MWIKI_PATH"] = wikipath 
     if wikipath == "":
         print("Error expected --wikipath=$PATH or $MWIKI_PATH environment set to this value.")
-        exit(1)
+        sys.exit(1)
     app = make_app(wikipath)
     if admin_password is not None:
         with app.app_context():
@@ -350,7 +350,7 @@ def manage(   admin_password: Optional[str]
                 print(" [*] Password changed for admin. Ok.")
             else:
                 print("Error user not found")
-                exit(1)
+                sys.exit(1)
     if sitename is not None:
         with app.app_context():
             settings = Settings.get_instance()
@@ -365,7 +365,7 @@ def manage(   admin_password: Optional[str]
             data = dict(settings = conf_dict, users = users)
             out = json.dumps(data, indent = 4)
             print(out)
-            exit(0)
+            sys.exit(0)
     if settings_load_stdin:
         with app.app_context():
             conf: Settings = Settings.get_instance()
@@ -396,12 +396,12 @@ def auth(wikipath: Optional[str], user: str):
     wikipath = wikipath or os.getenv("MWIKI_PATH")
     if wikipath is None:
         print("Error extepected --wikipath or enviroment variable $MWIKI_PATH")
-        exit(1)
+        sys.exit(1)
     if not pathlib.Path(wikipath).resolve().is_dir():
         print(f"Error directory not found: {wikipath}")
-        exit(1)
+        sys.exit(1)
     generate_login_token_url(wikipath, user)
-    exit(0)
+    sys.exit(0)
 
 
 
