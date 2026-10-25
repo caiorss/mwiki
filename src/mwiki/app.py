@@ -6,25 +6,25 @@ import secrets
 import urllib.parse
 ## from bottle import route, run
 ## from bottle import static_file, route, auth_basic, request
-import flask 
+import flask
 import base64
 from flask import Flask, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.exc import IntegrityError, OperationalError
 import flask_session
-import flask_wtf as fwt 
+import flask_wtf as fwt
 from flask_wtf.csrf import CSRFProtect
-import wtforms as wt 
-import wtforms.validators as wtfv 
+import wtforms as wt
+import wtforms.validators as wtfv
 from flask_migrate import Migrate
 
 from typing import Any, Tuple, List, Optional
 import datetime
-import mwiki 
+import mwiki
 from . import utils
 from . import mparser
 from . import render
-from . import search 
+from . import search
 from . models import db, User, Settings, BookmarkedPage, WikiPage, WikiRepository
 from . models import is_database_created, MwikiConfig
 from . login import add_login
@@ -36,20 +36,20 @@ from . constants import *
 
 def make_app(wikipath: str):
     """NOTE: mwikipath is the path to MWiki repository of markdown files. """
-    app = Flask(__name__) 
+    app = Flask(__name__)
     # App.config['SESSION_TYPE'] = 'filesystem'
     # App.config['SESSION_FILE_DIR'] = session_folder ## 'M:/code/flaskLoginTest/sessions'
 
-    app.config.update(  SESSION_SERVER_SIDE     = True  
+    app.config.update(  SESSION_SERVER_SIDE     = True
                       , SESSION_TYPE            = "sqlalchemy"
                       , SESSION_COOKIE_NAME     =  os.getenv("MWIKI_SITENAME", "MWiki")
                       , SESSION_COOKIE_PATH     ='/'
                       # Protect against XSS (Script Injection)
-                      , SESSION_COOKIE_HTTPONLY = True 
-                      # Cookies are only served over HTTPS, not HTTP 
-                      ##, SESSION_COOKIE_SECURE   = True 
-                      , SESSION_PERMANENT       = True 
-                      , SESSION_FILE_THRESHOLD = 1000  
+                      , SESSION_COOKIE_HTTPONLY = True
+                      # Cookies are only served over HTTPS, not HTTP
+                      ##, SESSION_COOKIE_SECURE   = True
+                      , SESSION_PERMANENT       = True
+                      , SESSION_FILE_THRESHOLD = 1000
                       , PERMANENT_SESSION_LIFETIME = datetime.timedelta(days = 30)
                      )
 
@@ -63,7 +63,7 @@ def make_app(wikipath: str):
     app.config['SESSION_SQLALCHEMY'] = db
     ## app.json = CustomJSONProvider(app)
     ## app.json_provider_class = CustomJSONProvider(app)
-    app.jinja_env.filters['encode_url'] = lambda u: urllib.parse.quote_plus(u) 
+    app.jinja_env.filters['encode_url'] = lambda u: urllib.parse.quote_plus(u)
     app.jinja_env.globals.update(config_sitename = lambda:  Settings.get_instance().sitename)
     app.jinja_env.globals.update(config_description = lambda:  Settings.get_instance().description)
     app.jinja_env.globals.update(config_show_source = lambda:  Settings.get_instance().show_source)
@@ -91,52 +91,53 @@ def make_app(wikipath: str):
     # --- Database Initialization -----#
     # Create all database tables if they don't exist yet.
     with app.app_context():
-        user = None 
+        user = None
         created = is_database_created()
-        ## Evironment variables which allows defining 
+        ## Evironment variables which allows defining
         ## container configuration during initialization.
         ADMIN_PASSWORD = os.getenv("MWIKI_ADMIN_PASSWORD")
         SITE_NAME = os.getenv("MWIKI_SITENAME", "MWiki")
         PUBLIC = os.getenv("MWIKI_PUBLIC", False) != False
-        if not created: 
+        if not created:
             ##print(" [TRACE] Admin user created OK")
             user = User( username = "admin", type = USER_MASTER_ADMIN )
             # Useful for installation with Docker
             user.set_password(ADMIN_PASSWORD)
-        db.create_all()
+            db.create_all()
+            conf = Settings.get_instance()
+            conf.sitename = SITE_NAME
+            conf.public = PUBLIC
+            db.session.add(conf)
+            db.session.commit()
         conf = Settings.get_instance()
-        conf.sitename = SITE_NAME
-        conf.public = PUBLIC 
-        db.session.add(conf)
-        db.session.commit()
         try:
             if not created:
                 db.session.add(user)
                 db.session.commit()
         except (IntegrityError, OperationalError) as ex:
             print(ex)
-        admin = User.get_user_by_username("admin")    
+        admin = User.get_user_by_username("admin")
         if admin.password is None:
             password = conf.default_password
             ##print(f" [INFO] Enter the username: {admin.username} and password: '{password}' to log in.")
-    return app 
+    return app
 
-    
+
 def current_user() -> User:
     """Get user logged in to the server."""
-    obj  = session.get("user") 
-    if obj is None or not isinstance(obj, dict) or  obj.get("__class") != "User": 
+    obj  = session.get("user")
+    if obj is None or not isinstance(obj, dict) or  obj.get("__class") != "User":
         user = User(  username = "anonymous"
                     , password = "dummy"
                     , type = USER_ANONYMOUS)
-        return user 
+        return user
     user = User(  id = obj.get("id")
                 , username = obj.get("username")
                 , email = obj.get("email")
                 , type = obj.get("type")
-                , active = True 
+                , active = True
               )
-    return user 
+    return user
 
 def display_edit_buttons() -> bool:
     user = current_user()
@@ -171,4 +172,3 @@ def favicon_mimetype() -> str:
         return ""
     mimetype = _extension_mimetypes.get(xs[1], "")
     return mimetype
-            
