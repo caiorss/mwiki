@@ -1,6 +1,23 @@
 # Changelog 
 
 
+## Relesase v0.9.6
+
++ Feature - change the style of math admonition to a more serious and less colorful one. 
++ Feature - allow LaTeX expression in admonition titles. 
++ Feature - implement button for creating new wiki page or note. 
++ Feature - Wrap text in code blocks `<pre></pre>` tags for markdown and text code blocks.
++ Do not redirect users if they are already logged in. 
++ Redirect users to log in page if they do not have permission to create or edit some page.
+  + Users now are redirected to the login page if they do not have permission to create or edit some page instead of being shown a forbidden (403 status code) or unauthorized page (401 status code). 
++ Bugfix - Fix special hyperlinks to reddit due deprecation of old.reddit.com. 
++ Bugfix -  Fix database initialization bug. 
++ Bugfix - Fix the timestamp bug. 
++ Bugfix - Fix the caching synchronization issue. 
++ Bugfix - Fix scrolling when one clicks at hyperlink in the sidebar. 
++ Bugfix - Fix parsing of mastodon special links.
+  + Before this bug, the Regex failed to match mastodon links containing a dash character (-), such as @test@front-end.social, which refers to https://front-end.social/@test 
+
 ## Release v0.9.5
 
 +  implement {html} block for embeding html, css and JavaScript code in a sandboxed iframe.
