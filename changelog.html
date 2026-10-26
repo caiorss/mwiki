@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="icon" type="imag/x-icon" href="/mwiki/favicon.ico" >
+    
+    <title data-i18n="">MBook - changelog</title>
+    <meta name="description" content="" />
+    <meta name=generator content="MWiki">
+    
+
+
+   <style>
+
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: normal;
+    
+    
+    
+    src: url('/mwiki/static/fonts/cmu-concrete-regular.woff');
+    
+}
+    
+
+
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: italic;
+    
+    
+    
+    src: url('/mwiki/static/fonts/cmu-concrete-italic.woff');
+    
+}
+    
+
+@font-face {
+    font-family: 'Libertinus Mono';
+    
+    
+    
+    src: url('/mwiki/static/fonts/LibertinusMono-Regular.woff2');
+    
+}
+    
+
+@font-face {
+    font-family: 'Chicago MacOS';
+    
+    
+    
+    src: url('/mwiki/static/fonts/ChicagoFLF.ttf');
+    
+}
+    
+
+:root {
+    /*--- Desktop screen Width ----------------*/
+    --screen-width-desktop: 850px;
+
+    /* --bg-sidebar: #F2EACA; */  /* #F7F4ED; */
+    --bg-sidebar: white;  /* #F7F4ED; */
+    /* --bg-main:   #F2EACA ; */
+    --bg-main: white;
+    --typography-main-line-height: 1.7em;
+    --typography-main-leter-spacing: 0.5px;
+    --screen-type: "desktop";
+    --link-external-color: blue; /* hsl(0, 100%, 33%); */
+    --link-internal-color: blue;
+    --form-background-color: #fbfcfc;
+    --form-border-color: #cfd5e2;
+    --primary-button-background-color: #0172ad;
+
+
+    
+    --font-family-main: 'CMU Concrete';
+    
+    
+    --font-family-title: 'Chicago MacOS';
+    
+
+
+    --font-size-h1: 1.800rem;
+    --font-size-h2: 1.650rem;
+    --font-size-h3: 1.425rem;
+    --font-size-h4: 1.350rem;
+    --font-size-h5: 0.875rem;
+    --font-size-h6: 0.750rem;
+    --font-size-text: 0.720rem;
+    --font-size-code: 0.700rem;
+    --font-size-sidebar: 0.850rem;
+
+    --code-block-background-color: rgb(243, 244.5, 246.75);
+
+    /* Magnifier icon */
+    --icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(136, 145, 164)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+}
+
+
+
+    </style>
+
+    
+    <link rel="stylesheet" href="/mwiki/static/static_style.css">
+    
+
+    
+    <!-- MathJax Settings -->
+    <script>
+
+    const FONT_FAMILY_MAIN = "CMU Concrete"
+    const FONT_FAMILY_TITLE = "Chicago MacOS"
+    const FONT_FAMILY_CODE = "Libertinus Mono"
+    const DEFAULT_LOCALE = "en-US";
+	  const USE_DEFAULT_LOCALE = "True" === "True";
+    const LATEX_RENDERER = "katex";
+    const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
+    const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
+    const KATEX_MACROS = "eyJcXGlubmVyIjogIlxcbGFuZ2xlICMxIFxccmFuZ2xlIiwgIlxcZHkiOiAiXFxkaXNwbGF5c3R5bGUiLCAiXFxlcHMiOiAiXFxlcHNpbG9uIiwgIlxcdmVwcyI6ICJcXHZhcmVwc2lsb24iLCAiXFxldiI6ICJcXGxlZnQuICMxIFxccmlnaHR8IiwgIlxcZGVmIjogIlxcc3RhY2tyZWx7XFx0ZXh0e2RlZn19ez19IiwgIlxcbm9ybSI6ICJcXHwjMVxcfCIsICJcXG9wIjogIlxcb3BlcmF0b3JuYW1lIiwgIlxcY2VxIjogIlxcY29sb25lcXVhbHMiLCAiXFxiIjogIlxcbWF0aGJmeyMxfSIsICJcXGJoYXQiOiAiXFxoYXR7XFxtYXRoYmZ7IzF9fSIsICJcXGJkb3QiOiAiXFxkb3R7XFxtYXRoYmZ7IzF9fSIsICJcXGJkZG90IjogIlxcZGRvdHtcXG1hdGhiZnsjMX19IiwgIlxcYnMiOiAiXFxib2xkc3ltYm9seyMxfSIsICJcXGJzaGF0IjogIlxcaGF0e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcYnNkb3QiOiAiXFxkb3R7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxic2Rkb3QiOiAiXFxkZG90e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcZmIiOiAie31eeyMyfVxcbWF0aGJmeyMxfSIsICJcXGZiaGF0IjogInt9XnsjMn1cXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcZmJzIjogInt9XnsjMn1cXGJvbGRzeW1ib2x7IzF9IiwgImZyIjogInt9XnsjMX1feyMyfSIsICJcXHNrZXciOiAiXFxsZWZ0WyAjMSBcXHJpZ2h0XV97XFx0aW1lc30iLCAiXFxhcmdtYXgiOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWF4fSIsICJcXGFyZ21pbiI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtaW59IiwgIlxcUiI6ICJ7IFxcbWF0aGJie1J9IH0iLCAiXFxaIjogIlxcbWF0aGJie1p9IiwgIlxcbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxpbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1eey0xfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxkIjogIlxcbWF0aHJte2R9IiwgIlxccCI6ICJcXHBhcnRpYWwiLCAiXFxlIjogIlxcbWF0aHJte2V9IiwgIlxcZHQiOiAiXFxmcmFje2QgIzF9e2R0fSIsICJcXGRkdCI6ICJcXGZyYWN7ZF4yICMxfXtkdF4yfSIsICJcXHBkIjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCAjMn0iLCAiXFxwZGQiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgIzJeMn0iLCAiXFxDIjogInsgXFxtYXRoYmJ7Q30gfSIsICJcXEJpZ08iOiAiXFxtYXRoY2Fse099XFwhXFxsZWZ0KCMxXFxyaWdodCkiLCAiXFxtZGVmIjogIntcXHRyaWFuZ2xlcSBcXDt9IiwgIlxcc2duIjogIlxcb3BlcmF0b3JuYW1le3Nnbn0iLCAiXFxyYW5rIjogIlxcb3BlcmF0b3JuYW1le3Jhbmt9IiwgIlxccmUiOiAiXFxvcGVyYXRvcm5hbWV7UmV9IiwgIlxcaW0iOiAiXFxvcGVyYXRvcm5hbWV7SW19IiwgIlxcaW1nIjogIlxcb3BlcmF0b3JuYW1le2ltfSIsICJcXHRyYWNlIjogIlxcb3BlcmF0b3JuYW1le3RyfSIsICJcXHB0IjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCB0fSIsICJcXHB4IjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCB4fSIsICJcXHB5IjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCB5fSIsICJcXHB6IjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCB6fSIsICJcXHB4eCI6ICJcXGZyYWN7XFxwYXJ0aWFsXjIgIzF9e1xccGFydGlhbCB4XjJ9IiwgIlxccHl5IjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsIHleMn0iLCAiXFxwenoiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgel4yfSIsICJcXEUiOiAiXFxvcGVyYXRvcm5hbWV7RX1cXGxlZnRbICMxIFxccmlnaHRdIiwgIlxcVmFyIjogIlxcb3BlcmF0b3JuYW1le1Zhcn0iLCAiXFxjb3YiOiAiXFxvcGVyYXRvcm5hbWV7Y292fSIsICJcXGhlc3MiOiAiXFxvdmVybGluZXtcXG5hYmxhfV4yIn0=";
+    const CSRF_TOKEN = ""
+    const STATIC_COMPILATION = true;
+    const IS_USER_ADMIN = false;
+    // NOTE: It is encoded as base64
+    const PAGE_SOURCE_CODE = "";
+    const PAGE_SOURCE_URL  = "/mwiki/src_pages/changelog.html"
+    const CITATION_REFERENCES = "e30=";
+
+    // Possible values: 'none', 'nosection' 'section', 'subsection'
+    //  none      => no enumeration
+    //  nosection
+    //      Schema: <equation-number>
+    //      Example: Equations are enumerated as 1, 2, ..., 200
+    //              in the order that they are shown without section or
+    //              subsection number
+    //  section
+    //      Schema:  => <section>.<equation-number>
+    //      Exmaple: => 2.1, 2.5, 6.8
+    //  subsection
+    //      Schema:  => <section>.<subsection>.<equation-number>
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5
+    //
+    let equation_enumeration = "section";
+
+    MathJax = {
+        loader: {load: ['[tex]/tagformat', '[tex]/mathtools', 'output/chtml']}
+
+      , section: 1
+      , tex: {
+          inlineMath: [['$','$'], ['\\(','\\)']]
+        , displayMath: [['$$','$$'], ['\\[','\\]']]
+        , processEscapes: true
+        , processEnvironments: true
+          // Location of equation numbers
+        , tagSide: "right"
+        // Possible values 'ams' or 'all' (all equations are numbered by default)
+        , tags: equation_enumeration !== "none" ? "all" : "ams"
+        //, tags: 'ams'
+        , packages: {'[+]': [
+                                  'tagformat'
+                                , 'sections'
+                                , 'subsections'
+                                , 'autoload-all'
+                            ]}
+        , tagformat: {
+          number: (n) => {
+            if( equation_enumeration === "cont"
+                || equation_enumeration == "continuous")
+            {
+                return '' + n;
+            }
+
+            let nsec = MathJax.config.section;
+            let nsub = MathJax.config.subsection;
+            var out = '';
+            if (nsub === 0 || equation_enumeration == "section")
+            {
+                out = nsec + '.' + n;
+            } else {
+                out = nsec + '.' + nsub +  '.' + n;
+            }
+            // console.log("Display section = ", out);
+            return out;
+          }
+        }
+      }
+
+     , startup: {
+
+            ready() {
+                // console.log(" [TRACE] I was called from ready()");
+                const Configuration = MathJax._.input.tex.Configuration.Configuration;
+                const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+                new CommandMap('sections', {
+                      nextSection: 'NextSection'
+                    , setSection:  'SetSection'
+                }, {
+                     NextSection(parser, name) {
+                        // console.log(" [TRACE] Called NextSection()");
+                        MathJax.config.section++;
+                        MathJax.config.subsection = 0;
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                    , SetSection(parser, name) {
+                        // console.log(" [TRACE] Called SetSection()");
+                        const n = parser.GetArgument(name);
+                        MathJax.config.section = parseInt(n);
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                });
+                if (equation_enumeration === "subsection")
+                {
+                    new CommandMap('subsections', {
+                          nextSubSection: 'NextSubSection'
+                        , setSubSection:  'SetSubSection'
+                    }, {
+                         NextSubSection(parser, name) {
+                            // console.log(" [TRACE] NextSubSection() called.");
+                            MathJax.config.subsection++;
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                        , SetSubSection(parser, name) {
+                            const n = parser.GetArgument(name);
+                            // console.log(" [TRACE] SetSubSection to ", n);
+                            MathJax.config.subsection = parseInt(n);
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                    });
+                }
+
+                Configuration.create(
+                      'sections', { handler: { macro: ['sections'] } }
+                );
+
+                if( equation_enumeration === "subsection" )
+                {
+                    Configuration.create(
+                        'subsections', { handler: { macro: ['subsections'] } }
+                    );
+
+                }
+
+                MathJax.startup.defaultReady();
+                pseudocode.renderClass("pseudocode", { "lineNumber": true, "scopeLines": true });
+                // This function is provided by main.js.
+                if( isMobileScreen() ) { setHeadingVisibility(false); }
+                /// setHeadingsVisibility(false)
+            }
+        }
+    , chtml: {
+        /// displayAlign: "left"
+      }
+    // options for when overflow is linebreak
+    , linebreaks: {
+        inline:           true,   // true for browser-based breaking of inline equations
+        width:            '100%', // a fixed size or a percentage of the container width
+        lineleading:      .2,     // the default lineleading in em units
+        LinebreakVisitor: null,   // The LinebreakVisitor to use
+    },
+
+    }
+    </script>
+
+    
+
+    
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js" integrity="sha384-J+9dG2KMoiR9hqcFao0IBLwxt6zpcyN68IgwzsCSkbreXUjmNVRhPFTssqdSGjwQ" crossorigin="anonymous"></script>
+        <!-- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" -->
+            <!-- onload="renderMathInElement(document.body);"></script> -->
+        
+    
+
+
+    
+        <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js" async> </script>
+    
+
+
+    
+
+    
+    <!-- Additional Javascript libraries -->
+    
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", (event) => {
+            // Select graphviz code blocks
+            let lst = document.querySelectorAll(".graphviz-dot");
+            for(let x of lst){
+
+                Viz.instance().then(function(viz) {
+                    // console.log("[TRACE] x = ", x);
+                    let code = x.innerText;
+                    // console.log(" [TRACE] code = ", code);
+                    let svg = viz.renderSVGElement(code);
+                    // console.log(" [TRACE] svg = ", svg);
+                    x.replaceWith(svg);
+                    // x.outerHTML = svg;
+                    /// document.getElementById("graph").appendChild(svg);
+                });
+
+
+            }
+        }, false);
+
+    </script>
+
+    
+    <script type="text/javascript" src="/mwiki/static/main.js"></script>
+    
+
+</head>
+
+<body>
+
+    
+    <aside class="sidebar sidebar-visibility">
+        
+        <div class="toc">
+            <!-- Table of contents template placeholder -->
+            <ul>
+            
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Changelog">Changelog</a> </span>
+                    
+                    
+                        <div>
+                        <ul>
+                        
+                            <li><a class="link-sidebar" href="#H_Relesase_v0.9.6">Relesase v0.9.6</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Release_v0.9.5">Release v0.9.5</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Release_v0.9.4">Release v0.9.4</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Release_v0.9.3">Release v0.9.3</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Release_v0.9.2">Release v0.9.2</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Release_v0.9.1">Release v0.9.1</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Release_v0.9">Release v0.9</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Release_v0.8.1">Release v0.8.1</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Release_v0.8">Release v0.8</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Release_v0.7">Release v0.7</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Release_v0.6">Release v0.6</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Release_v0.5.1">Release v0.5.1</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Release_v0.5">Release v0.5</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Release_v0.4">Release v0.4</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Release_v0.3.1">Release v0.3.1</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Release_v0.2">Release v0.2</a></li>
+                        
+                            <li><a class="link-sidebar" href="#H_Release_v0.1">Release v0.1</a></li>
+                        
+                        </ul>
+                        </div>
+                    
+                </ol>
+            
+            </ul>
+        </div>
+    </aside>
+    
+
+    <div class="main main-shift">
+        
+        <header class="header">
+            <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/mwiki/static/hamburger-menu.svg" style="height: 25px;"/> </a>
+            <a data-i18n="home-page-button" class="sidebar-toggle-button"
+			   title="Go to home page (Index)" href="/mwiki/"><img class="img-icon" src="/mwiki/static/icon-home.svg"></a>
+            <div class="dropdown">
+              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button"
+                 href="#"
+                 title="Main menu."
+                 class="dropbtn"
+                 >
+                <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
+                </a>
+
+            <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                  <a data-i18n="menu-item-print-label" class="sidebar-toggle-button"
+                     href="#" onclick="printPage();"
+                     title="Print current page or export it to PDF." >Print</a>
+                
+                <a data-i18n="show-source-menu-item-label" class="sidebar-toggle-button"
+                    href="#" onclick="displayPageSourceWindow();">Show source</a>
+                
+                
+                 <a data-i18n="popup-window-change-language-menu-launcher" class="sidebar-toggle-button" href="#"
+                    onclick="changeLanguageForm.toggle();"
+                    title="Open form that allows overriding the current user interface language."
+                 >Language</a>
+                
+                   <a data-i18n="keybindings-menu-item" class="sidebar-toggle-button" href="#"
+                    onclick="toggleShortcutKeybindingWinodw();"
+                    title="Display a window showing all keyboard shortcuts, also known as keybindings."
+                 >Keybindings</a>
+                 <a data-i18n="about-menu-item-label" class="sidebar-toggle-button" href="/mwiki/about.html">About</a>
+              </div>
+            </div>
+
+            <a data-i18n="button-toggle-sections" class="sidebar-toggle-button"
+                 href="#"
+                 onclick="toggleHeadings();"
+                 id="btn-scroll-bottom"
+                 title="Fold/Unfold all sections."
+                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg"></a>
+            <a data-i18n="menu-item-print-icon"
+                class="sidebar-toggle-button"
+        			  title="Print current page or export it to PDF."
+                href="#"
+                onclick="printPage();">
+                <img class="img-icon" src="/mwiki/static/printer-outline.svg">
+            </a>
+
+            <!--
+             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button"
+                 href="#"
+                 onclick="quickOpenPage();"
+                 id="btn-scroll-bottom"
+                 title="Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry."
+                 >
+               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E">
+                </a>
+            -->
+              
+        </header>
+        
+
+        <main class="content">
+            
+            <div class="div-heading-h1">
+                <h1 data-i18n="" class="document-heading">changelog</h1>
+            </div>
+            
+            <p class="hidden-mathjax-macros" style="display: none;">
+                $$
+                
+                $$
+            </p>
+            <h1 class="document-heading">Changelog</h1>
+
+<div class="div-heading"> 
+<h2 id="H_Relesase_v0.9.6" class="document-heading anchor">Relesase v0.9.6 <a class="link-heading" href="#H_Relesase_v0.9.6">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=3&end=20&anchor=H_Relesase_v0.9.6&page=changelog&timestamp=179302003773309" title="[i18n]: Relesase v0.9.6" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+Feature - change the style of math admonition to a more serious and less colorful one. 
+</li>
+<li>
+Feature - allow LaTeX expression in admonition titles. 
+</li>
+<li>
+Feature - implement button for creating new wiki page or note. 
+</li>
+<li>
+Feature - Wrap text in code blocks <code>&lt;pre&gt;&lt;/pre&gt;</code> tags for markdown and text code blocks. 
+</li>
+<li>
+Do not redirect users if they are already logged in. 
+</li>
+<li>
+Redirect users to log in page if they do not have permission to create or edit some page. <ul class="">
+<li>
+Users now are redirected to the login page if they do not have permission to create or edit some page instead of being shown a forbidden (403 status code) or unauthorized page (401 status code). 
+</li>
+</ul>
+</li>
+<li>
+Bugfix - Fix special hyperlinks to reddit due deprecation of <a href="http://old.reddit.com"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >old.reddit.com</a>. 
+</li>
+<li>
+Bugfix -  Fix database initialization bug. 
+</li>
+<li>
+Bugfix - Fix the timestamp bug. 
+</li>
+<li>
+Bugfix - Fix the caching synchronization issue. 
+</li>
+<li>
+Bugfix - Fix scrolling when one clicks at hyperlink in the sidebar. 
+</li>
+<li>
+Bugfix - Fix parsing of mastodon special links. <ul class="">
+<li>
+Before this bug, the Regex failed to match mastodon links containing a dash character (-), such as <a href="https://front-end.social/@test"  target="_blank" title="Mastdon account from server front-end.social" class="link-external" rel="noreferrer noopener nofollow" >@test@front-end.social</a>, which refers to <a href="https://front-end.social/@test"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://front-end.social/@test</a> 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Release_v0.9.5" class="document-heading anchor">Release v0.9.5 <a class="link-heading" href="#H_Release_v0.9.5">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=20&end=34&anchor=H_Release_v0.9.5&page=changelog&timestamp=179302003773309" title="[i18n]: Release v0.9.5" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+implement {html} block for embeding html, css and JavaScript code in a sandboxed iframe. 
+</li>
+<li>
+Add code font/typeface Maple Mono provided <a href="https://font.subf.dev/en"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://font.subf.dev/en</a>. 
+</li>
+<li>
+Implement popup window for using the web browser's spell checker. This window in the editor page allows user to check the spelling of any pasted text using the native web browser's spell checker. 
+</li>
+<li>
+Force downloading Jupyter Notebook if the user clicks at the download button. 
+</li>
+<li>
+Improve rendering speed of LaTeX (KaTeX engine) formulas by caching the generated html on local storage if there is space available. 
+</li>
+<li>
+Add new useful default LaTeX macros. 
+</li>
+<li>
+Bugfix - Fix rendering of math myst role for KaTeX engine. 
+</li>
+<li>
+Bugfix - Fix display of MyST note role. 
+</li>
+<li>
+Bugfix - Fix the button for downloading Jupyter notebook files. 
+</li>
+<li>
+Bugfix - Fix extension of video files in the html generated code. 
+</li>
+<li>
+Bugfix - Fix font size of <code>&lt;code&gt;</code> html tag. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Release_v0.9.4" class="document-heading anchor">Release v0.9.4 <a class="link-heading" href="#H_Release_v0.9.4">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=34&end=43&anchor=H_Release_v0.9.4&page=changelog&timestamp=179302003773309" title="[i18n]: Release v0.9.4" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+Update minimum required Python version to 3.13. 
+</li>
+<li>
+Implement pages bookmarks. This feature allows users to bookmark pages for faster and better navigation. 
+</li>
+<li>
+Implement all-in-one.Dockerfile, a Docker or Podman cofiguration file, for streamlining self hosting MWiki. The all-in-one image provides a multi-process Linux container with MWiki and a pre-configured Caddy reverse proxy and static web server. This approach simplifies self-hosting as all Caddy configuration can be tuned via environment variables and the user does not need to take care of multiple containers. While this approach is not scalable, it is good enough for a deployment on a single machine. 
+</li>
+<li>
+Change footnote syntax in order to avoid parsing ambiguity. The MWiki syntax for footnote was changed from <code>^{footnote here}</code> to <code>^{@ footnote here @}</code>. The Obsidian's compatibility syntax <code>^[footnote here]</code> for footnotes still remains the same. 
+</li>
+<li>
+Implement command $ mwiki manage --shell for flask db shell. 
+</li>
+<li>
+The <a href="http://Index.md"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Index.md</a> page is automatically created if it does not exist yet. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Release_v0.9.3" class="document-heading anchor">Release v0.9.3 <a class="link-heading" href="#H_Release_v0.9.3">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=43&end=60&anchor=H_Release_v0.9.3&page=changelog&timestamp=179302003773309" title="[i18n]: Release v0.9.3" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+LaTeX pseudocode blocks algorithms by pseudocodeJS now can be rendered with KaTeX. 
+</li>
+<li>
+Implement typographic notation for ordinal numberals <code>{st}</code> for first, <code>{nd}</code> for second, <code>{rd}</code> for third and <code>{th}</code> for th as in fifth. For instance <code>1{st}</code> is rendered to 1st, where st is a superscript text. 
+</li>
+<li>
+Create IEEE-style citations and references. This feature allows adding references to books, journal articles, in proceedings, conferences, and websistes to the YAML front-matter. References defined in the front-matter can be cited using the syntax <code>$[@&lt;CITATION-KEY&gt;, &lt;LOCATOR&gt;]</code>. Example: <code>$[@zhang2018 page:10-20; @freedman2010 equation:30]</code> is rendered as [10, pp 10-20], [15, eq.(30)] according to the IEEE citation style. References are enumerated in the order they appear. 
+</li>
+<li>
+Create syntax <code>{references}</code> for inserting the cited references in the YAML front-matter in the rendered document.Implement icon button for copying source code to clipboard. 
+</li>
+<li>
+Implement embedding Jupyter Notebooks. Now it is possible to embed Jupyter Notebook files using the syntax <code>![[notebook_name]].py</code>. A embedded jupyter notebook is rendered to html and added to the page embedding it in a foldable <code>&lt;details&gt;</code> tag. 
+</li>
+<li>
+Improve look and feel of the table of contents in the sidebar by making to look more professional and polished. 
+</li>
+<li>
+Add light gray background color to the sidebar. 
+</li>
+<li>
+Implement lazy loading for math formulas rendered with KaTeX. This change reduces the time to render pages with lots of LaTeX math formulas by rendering only the formulas visible within the current viewport. It is similar to the lazy loading feature for images and videos. This feature does not work for MathJax library. 
+</li>
+<li>
+Add LaTeX syntax highlight to the page <code>/special:macros</code> for editing global LaTeX macros, which has the same syntax as a LaTeX's .sty or .tex file. 
+</li>
+<li>
+Bugfix - Bugfix - Fix route /links/<pagename> Undefined Error. Error message: <em>jinja2.exceptions.UndefinedError: 'conf' is undefined.</em> 
+</li>
+<li>
+Bugfix - Fix jinja2.exceptions.UndefinedError for route /tags. 
+</li>
+<li>
+Bugfix - Fix mathjax's LaTeX macros in wikis exported to static websites. 
+</li>
+<li>
+Bugfix - Fix menu item for showing modal dialog for quickly creating a new page. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Release_v0.9.2" class="document-heading anchor">Release v0.9.2 <a class="link-heading" href="#H_Release_v0.9.2">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=60&end=67&anchor=H_Release_v0.9.2&page=changelog&timestamp=179302003773309" title="[i18n]: Release v0.9.2" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+Update Latex Refcard in sample wiki and add more examples about custom built-in LaTeX macros for expressing vectors in other reference frames. 
+</li>
+<li>
+Refactor navigation hyperlinks of the sidebard. Now, only hyperlinks to headings of level h2 and h3 are displayed on the sidebar. Hyperlinks to headings with repeated title go to the correct heading. 
+</li>
+<li>
+Bugfix - Fix flashcard icon buttons. Add CSS style flashcard's icons buttons for exported pages. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Release_v0.9.1" class="document-heading anchor">Release v0.9.1 <a class="link-heading" href="#H_Release_v0.9.1">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=67&end=95&anchor=H_Release_v0.9.1&page=changelog&timestamp=179302003773309" title="[i18n]: Release v0.9.1" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+Add fonts/typefaces choices in the settings form: IBM's  iA Writer Quattro S, Roboto, Essay1743, Rokkit Semibold, Linux Libertine, Orbitron Bold. 
+</li>
+<li>
+Add flag <code>--clean-cache</code> to command <code>$ mwiki server</code> for cleaning the cache directory <code>$MWIKI_DIRECTORY/.data/cache</code> containing pages compiled to html. Cleaning the cache may be useful for changing the site favicon without manually deleting the cached directory. 
+</li>
+<li>
+Divide settings forms into sections for improving organization and usability using <code>&lt;h2&gt;</code> headings for each section. The settings were grouped as general settings, language settings, editor settings and font settings. 
+</li>
+<li>
+Implement default content language in language in the settings form. This language setting form allows administrators to set the default content language, which is rendered as <code>&lt;html lang=&quot;$(ISO-LANGUAGE-CODE)&quot;&gt;</code>. For instance, if the default content language is set to French, the html language declaration will be <code>&lt;html lang=&quot;fr&quot;&gt;</code>. This HTML attribute is useful for search engine and screen readers. 
+</li>
+<li>
+Implement frontmatter's directive 'language', for overriding the default content language of the current document. For instance, if the default content language is English and the content language of the current document (MWiki page) is in German (Deustch), it is possible to override the default content language by adding the directive <code>language: de</code> in the frontmatter. Where "de" is the ISO language code of the German language. This language declaration is rendered to <code>&lt;html lang=&quot;de&quot;&gt;</code>. 
+</li>
+<li>
+Implement command line swtich <code>--content-language</code> for the static websiste generator command <code>$ mwiki export</code>. This switch allows declaring the ISO language code of the default content language in the lang attribute <code>&lt;html lang=&quot;$LANGUAGE-CODE&quot;&gt;</code>. If no content language is defined, the content language code will "en" (English). If any markdown page uses a different language, it can be declared using with the frontmatter's directive <code>language: $(LANGUAGE-CODE)</code>. For instance, <code>language: es</code> for declaring that the page content is in Spanish. 
+</li>
+<li>
+Implement ability to use user-defined favicon (Ruby-On-Rail-like convention over configuration). Any image file named as favicon, for instance favicon.ico, favicon.png, favicon.jpeg or favicon.png in the Wiki repository's root directory can be used as the website favicon without any configuration. 
+</li>
+<li>
+Add Flask-Migrate Python-Package dependecy. 
+</li>
+<li>
+Add "convert to JPEG" checkbox to the upload form for reducing the file size of uploaded images. This feature reduces disk storage space and bandwidth usage. 
+</li>
+<li>
+Command $ mwiki export for static websiste generation or creating self-contained html files now has the command line switch --unicode-emoji-favicon, which allows using using a emoji or unicode symbol such as "🎓" as web site favicon. 
+</li>
+<li>
+Implement printer (printing machine) icon on the page header (topbard) for printing the current Wiki page or exporting it to PDF (Adobe's Portable Document File). 
+</li>
+<li>
+Printer icon button opens page in new tab and displays it in desktop mode for better printing or exporting to PDF in mobile devices. In mobile devices this feature is useful for downloading pages as PDF files for offile reading. 
+</li>
+<li>
+Implement editor's dialog window for inserting unicode and emoji symbols. <ul class="">
+<li>
+The dialog allows inserting several types of unicode and emoji symbols, including coutry flags, emojis and unicode symbols related to nature, food, beverage,technology, math symbols, APL (array-oriented programming language) symbols. 
+</li>
+</ul>
+</li>
+<li>
+Markdown syntax for text highlight <code>==text to be highlighted==</code> now supports markdown within the highlighted text and MWiki syntax. For instance, before this change the hyperlink within the <code>==</code>, such as <code>==some text [a linke](http://site.com)</code>, would not be rendered to a hyperlink (html's <code>&lt;a&gt;</code> tag). 
+</li>
+<li>
+Equation enumeration is enabled by default. For disabling it, add the directive <code>equation_enumeratin_enabled: off</code> to the document's frontmatter. 
+</li>
+<li>
+Document preview now supports KaTeX, which provides faster math rendering and page loading. 
+</li>
+<li>
+Improve flashcard system. Add reset button to flashcard decks. Improve button style of flashcard decks and add checkbox "[] Show backside" for always displaying backside (answer) of flashcards, which is useful during a study session for a later review. 
+</li>
+<li>
+The popup window that displays referenced equations now is able to display latex equations with macros. This dialog window is shown when an user hoovers the mouse (cursor) over a reference <code>\eqref{lableOfEquation}</code> to some equation. Note that this feature only works if the renderer is set to KaTeX. 
+</li>
+<li>
+Use SVG icons in the flashcard deck GUI (Graphics User Interface) as button labels instead of text. This change allows a flashcard deck to fit in small screens. 
+</li>
+<li>
+Fix font size of dialog windows for mobile devices. 
+</li>
+<li>
+Bugfix - The code editor's session no longer becomes invalid due to old CSRF (Cross Site Request Forgery) token expiration. Now the CSRF token is automatically renewed by Ajax JavaScript requests to a REST API endpoint, that requires authentication. 
+</li>
+<li>
+Bugfix - Fix geti18nTranslation() - also get locale preference from local storage. This function failed when the user language obtained from the web browser was different than the user chosen language for the user interface, which is stored in the local storage. 
+</li>
+<li>
+Bugfix - Fix I8N internationalization of elements with string interpolation. 
+</li>
+<li>
+Bugfix - Disable assertion in <code>resolve_equation_references()</code> function. The assertion <code>number != &quot;???&quot;</code> should not crash the application. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Release_v0.9" class="document-heading anchor">Release v0.9 <a class="link-heading" href="#H_Release_v0.9">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=95&end=147&anchor=H_Release_v0.9&page=changelog&timestamp=179302003773309" title="[i18n]: Release v0.9" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+Add new fonts/typefaces choices:  Averia, AveriaSans, Averia Gruesa, NotoSans, Space Groteske, EBGaramond, Jet Brains Mono (monospace font for source code listing), DMMono Regular. 
+</li>
+<li>
+Generate CSS font-face data dynamically instead of hardcoding them in the CSS file. This change improves the website loading speed. 
+</li>
+<li>
+Create custom markdown/JSON syntax for flashcard deck <code>{flashcard}</code>. NOTE that this feature is still under development. 
+</li>
+<li>
+Implement mastodon-like button for displaying alt text of figures, images with metadata defined with a <code>{figure}</code> block, in popup windows. 
+</li>
+<li>
+Implement LaTeX input window for the code editor. <ul class="">
+<li>
+Implement LaTeX input window (popup window) in which an user can type a LaTeX formula or code and get immediate feedback about how the formula looks like as the it is rendered immediately as the user types. This feature improves the usability, user experience (UX) by making it easier and faster to enter LaTeX formulas. 
+</li>
+</ul>
+</li>
+<li>
+Add settings checkbox "Display alt text button", which enables or disables a mastodon-like button for displaying the alt text of figures in a popup-window. 
+</li>
+<li>
+Implement setting latex_renderer (allows switching to KaTeX). <ul class="">
+<li>
+Implement  website settings latex_renderer in the /settings form. The site configuration latex_renderer allows choosing MathJax or KaTeX JavaScript library for rendering LaTeX math formulas. KaTeX is newer and faster than MathJax, however it still does not have full feature parity with the later library, as a result the KaTeX support is still experimental. 
+</li>
+</ul>
+</li>
+<li>
+Add checkbox use_cdn (default disabled) for the settings forms, that enables or disables loading JavaScript libraries from a CDN (Content Delivery Network). If this checkbox is enabled, MathJax or KaTeX will be loaded from a CDN instead of being loaded from the vendored libraries hosted by the MWiki server. 
+</li>
+<li>
+Implement settings checkbox "Allow language switch". <ul class="">
+<li>
+If the settings checkbox "allow language switch" is enabled, users can switch the user interface language during their sessions. If disabled, the users will not be  able to switch the user interface language and the main menu item "Language" will not be shown. 
+</li>
+</ul>
+</li>
+<li>
+Create equation derivation <code>{derivation}</code> block, simular to <code>{proof}</code>. This block is intended to show how a equation or differential equation is derived. It was created as the terminology <strong>derivation</strong> is more popular in physics and engineering than the terminology <strong>proof</strong>, which is more popular in mathematics and statiscs. 
+</li>
+<li>
+Rename code block <code>{latex_macros}</code>for defining LaTeX macros to <code>{macros}</code>. 
+</li>
+<li>
+Rename frontmatter directive <code>equation_enumeration</code> to <code>equation_enumeration_style</code>, which has the choice "cont" or "continous" for continues enumeration 1, 2, 3, ...; "section" for section (default) enumeration 1.1, 1.2, 2.1, 2.2, ...; "subsection" for 1.2.3, 2.3.6. 
+</li>
+<li>
+Add frontmatter directive <code>equation_enumeration_enabled</code>, which has "on" or "off" possible values. If this directive is set to "on", all display-mode equations will be enumerated unless they have a <code>\notag</code> LaTeX command. If the directive is set to "off" (default value), only referenced with <code>\label{UNIQUE_LABEL}</code> equations by <code>\eqref{UNIQUE_LABEL}</code> will be eneumerated. 
+</li>
+<li>
+Implement global LaTeX macros and menu items for editing macros. <ul class="">
+<li>
+Implemented global LaTeX macros stored in the file <em>$MWIKI_REPOSITORY_PATH/macros.stye</em>. The menu item "Edit Macros" opens the file $MWIKI_REPOSITORY_PATH/macros.sty (Latex macro file extension). Macros defined in this file can be used in all MWiki pages. For a instance, if the LaTeX macro <code>\newcommand{\v}[1]{ \mathbf{#1} }</code> is defined in this file. It can be used for writing LaTeX formulas with vectors in all MWiki pages using <code>\v{r}_1</code> for position vector instead of <code>\mathbf{r}_1</code>. 
+</li>
+</ul>
+</li>
+<li>
+Implement frontmatter directive latex_renderer for overriding the default LaTeX renderer. <ul class="">
+<li>
+The frontmatter directive latex_renderer allows overriding the default LaTeX renderer, that is set in the settings form page /settings 
+</li>
+</ul>
+</li>
+<li>
+Disable default equation enumeration within math code blocks such as <code>{solution}</code>, <code>{proof}</code> or <code>{derivation}</code> and <code>{example}</code>. LaTeX <code>\notag</code> directives are automatically added to formulas within those foldable sections. In order to enable enumeration in this section, add the directive <code>:enumeration: on</code>. 
+</li>
+<li>
+Render LaTeX math expression in popup windows of footnotes. 
+</li>
+<li>
+Implement popup window for displaying LaTeX equation referenced by <code>\eqref{EQUATION_LABEL}</code> links. A referenced equation is displayed when the mouse hoovers over a reference link to it. (Only Implemented for KaTeX renderer) 
+</li>
+<li>
+Implement unix shell script wrappers in the docker/podman container image. 
+</li>
+<li>
+Implement user account management. <ul class="">
+<li>
+Implement user account management, including:  list all users; create new user account;delete user account and edit user account. The user account panel can be accessed byopening the menu item Settings => User Accounts. The URL routes for user account managementare: /users - List all users; /users/new - Create new user accoun); Edit user account /users/edit?user{USERNAME}. 
+</li>
+</ul>
+</li>
+<li>
+Show a horizontal scroll bar if a display-mode LaTeX equation does not fit a mobile device screen. 
+</li>
+<li>
+Rename static websiste generator (compiler) command $ mwiki compile to $ mwiki export. 
+</li>
+<li>
+Add <code>--source</code> switch flag for the command $ mwiki export. <ul class="">
+<li>
+Add --source command line switch to MWiki static websiste generator. This option displays a menu item that shows the markdown (wikicode) source code of the current wiki page. This feature is useful for generating fully open source documents and allow users to view the document sources. 
+</li>
+</ul>
+</li>
+<li>
+Add  command line switch <code>--latex-render</code> for <code>$ mwiki export</code> command. This swtich allows changing the LaTeX renderer to MathJax with <code>--latex-render=mathjax</code> or to KaTeX with <code>--latex-render=katex</code>. 
+</li>
+<li>
+Add development dependencies, pytest pytest-cov (test coverage) and parsel (html5 parser) for unit testing. 
+</li>
+<li>
+Rename command line swtich <code>--embed-mathjax</code> to <code>--embed-latex-render</code> for the command $ mwiki export. This command line switch is used for self-hosting the front-end javascript libraries Mathjax or KaTeX. The default behavior of this command is to load the LaTeX rendering library from a CDN (Content Delivery Network). 
+</li>
+<li>
+Implement compilation of markdown to self-contained html file. <ul class="">
+<li>
+Implement flag --self-contained for the command $ mwiki compile. This flag enables compilation of MWiki markdown files (wiki pages) to a self-contained html file, which contains all resourses, including icons, images, scripts and style sheets, encoded in base64 format. The self-contained html files are suitable to offline reading in a similar to PDF files.  In android mobile devices, the self-contained html files can be viewed just by opening them in any file browser and selecting the option to open with the Android built-in Html viewer. 
+</li>
+</ul>
+</li>
+<li>
+Command $ mwiki export now can compile LaTeX on server side using KaTeX <ul class="">
+<li>
+Now the command $ mwiki export with the --compile-latex can build static websistes or self-contained html files with LaTeX formulas embedded as HTML fragments, compiled by KaTeX CLI - Command Line Interface. This feature requires a NodeJS (nodejs runtime) installation and the parent directory of the node executable to be listed in the $PATH environment variable. If nodeJS is not avaiable in or accessible in the command line, it is possible to set the environment variable MWIKI_NODE_PATH to nodejs path. The NPM package manager is not used sinece KaTeX is vendored by MWiki (the KaTeX source code is bundled with MWiki source code). 
+</li>
+</ul>
+</li>
+<li>
+Remove rendundant command compile_latex from the module mwiki.cli. <ul class="">
+<li>
+The command removed was used for compiling all LaTeX formulas using xelatex, pdflatex, pdfcrop and pdf2svg. Now LaTeX formulas can be compiled and pre-rendered by using a vendored KaTeX javascript library. 
+</li>
+</ul>
+</li>
+<li>
+Create Unit Test suite tests/test_ast.py, tests/test_render.py, tests/test_latex.py and 
+</li>
+<li>
+Add makefile rule "cov" for obtaining the test coverage report using pytest. 
+</li>
+<li>
+Bugfix - The pencil icon buttons for editing sections or the whole page are only visible to admins. <ul class="">
+<li>
+Before this commit, the pencil icon button for editing sections or a whole wiki page were not visible to anonymous users, but they were visible to guest users (without admin privilege). Now those buttons are only visible to admin users. 
+</li>
+</ul>
+</li>
+<li>
+Bugfix - Action buttons of the search page /pages are only shown for admin users. <ul class="">
+<li>
+The page /pages list all wiki pages or pages matching the search results. Each search match has three buttons, edit, delete and view source. Now those buttons are only show to admin users. Anonymous and guest users do not view those buttons. Authorization (permission) for those action, including delete and edit are still enforced in the server side. 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Release_v0.8.1" class="document-heading anchor">Release v0.8.1 <a class="link-heading" href="#H_Release_v0.8.1">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=147&end=164&anchor=H_Release_v0.8.1&page=changelog&timestamp=179302003773309" title="[i18n]: Release v0.8.1" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+Display root URL in the compilation output. 
+</li>
+<li>
+The command $ mwiki compile displays all compilation settings. 
+</li>
+<li>
+Display value of boolean compilation settings as on/off instead of True/False. 
+</li>
+<li>
+Display information about mathjax self-hosting in the '$ mwiki compile' output. 
+</li>
+<li>
+Add command line switch --author to the static generator command. <ul class="">
+<li>
+Add command line switch --author="Author Name" to the subcommand $ mwiki compile. This command line option allows overriding the author attribute in the frontmatter of all MWiki pages if they are not set. This command line option only makes sense if all pages have the same author.  The author field is compiled to the html meta tag <code>&lt;meta name=&quot;author&quot; content=&quot;Author Name&quot;&gt;</code>. 
+</li>
+</ul>
+</li>
+<li>
+Add flag --embed-mathjax to the command $ mwiki compile. <ul class="">
+<li>
+Add command line switch --embed-mathjax to the static website generator subcommand $ mwiki compile for self hosting mathjax in the static websiste instead of loading the library from a CDN (Content Delivery Network). If this command line switch is enabled, mathjax is copied from the module mwiki to the static websiste output directory. The drawback of this approach is the larger disk space and bandwidth usage. 
+</li>
+</ul>
+</li>
+<li>
+Bugfix - Fix popup window for creating new MWiki page/note. 
+</li>
+<li>
+Bugfix - Fix edge case of the static websiste compile when root URL is /. 
+</li>
+<li>
+Bugfix - Fix the display of LaTeX algorithms in the static website generator. 
+</li>
+<li>
+Bugfix - Fix the style of .admonition-title css class on mobile devices. 
+</li>
+<li>
+Bugix - Fix relative URL of admonitions' SVG icons when using a different root URL than /. <ul class="">
+<li>
+Fix static websiste generator that did not resolved the path of admonitions' SVG icons when using a different root URL than the default root URL. 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Release_v0.8" class="document-heading anchor">Release v0.8 <a class="link-heading" href="#H_Release_v0.8">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=164&end=204&anchor=H_Release_v0.8&page=changelog&timestamp=179302003773309" title="[i18n]: Release v0.8" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+Created checkbox for toggling password display in the login form. dth usage. 
+</li>
+<li>
+Created editor line wrapping checkbox. <ul class="">
+<li>
+Implement editor checkbox for toggling line wrapping which, may be desirable when editing long lines that needs alignment, such as wide tables. 
+</li>
+</ul>
+</li>
+<li>
+Added editor checkbox that allows users to override Vim emulation default settings. <ul class="">
+<li>
+The settings form has a checkbox that alllows enabling or disabling emulation for all users. The checkbox added to the editor page allows users to override the default Vim emulation settings and persist the user-specific configuration in the browser's local storage. The checkbox makes toggling Vim emulation faster as users no longer have to lose their focus to enable or disabling Vim keybindings by opening the settings form page. 
+</li>
+</ul>
+</li>
+<li>
+Implemented popup window that allows users to override the current locale. <ul class="">
+<li>
+This change improves the i18n internationalizatioin infrastructure by  addding the item "Language" to the main menu for opening a form that allows users to quickly switch the current user interface language. The user language setting is unique for each user and persisted in the browser local storage. If there is no user locale/language setting in the local storage, then the system attempts to get the user locale from the JavaScript navigator.language API when the checkbox "always use default language/locale" is disabled. When the previous checkbox is enabled, the UI language is the default one set by the admin in the settings form. Note that even if the checkbox "always use the default language" is enabled, each user is still able to switch the user interface language during his or her session 
+</li>
+</ul>
+</li>
+<li>
+Implement file uploading by dragging and dropping. <ul class="">
+<li>
+Implement file upload by dragging and dropping files from the desktop to the Wiki editor. When a file is dragged and dropped on the editor, the upload popup window is shown and the user can click at the button upload, change the file name or cancel the operation. 
+</li>
+</ul>
+</li>
+<li>
+Disable save buttons while saving the document. <ul class="">
+<li>
+Save buttons are disabled while saving the document in order to avoid multiple concurrent request and idempotency issues that could cause data loss in  aslow connection if an user attempted to click any save button multiple times. If the http post request fails, the save buttons are enabled again. 
+</li>
+</ul>
+</li>
+<li>
+Improve portuguese localization related to edit-page-upload-button i18n key. 
+</li>
+<li>
+Implemented magic link for passwordless authentication. <ul class="">
+<li>
+The command $ mwiki auth generates a sign in link that also allows authentication without password by copying and pasting the link. The magic login link is valid for 1 minute and uses HMAC signature to ensure its authenticity and integrity.  This feature is similar to Jupyter server token URL login, that allows logging in to a Jupyter Lab server by pasting the magic link in some web browser. 
+</li>
+</ul>
+</li>
+<li>
+Added flag --auth to the command $ mwiki server command for passwordless login. <ul class="">
+<li>
+When the flag --auth is added to the command $ mwiki server, a login token and login URL for passwordless authentication are printed in ther terminal before starting the server. Both the token and the URL are valid for 20 seconds and can be used for fast authentication as admin without password. The authentication is endpoint cannot be manipulated be non authorized users as it uses a random numer salt and HMAC digital signature. +  Secret key is now stored in the wiki repository. <ul class="">
+<li>
+Before this change, the secret key was stored in special folders for application data sepecific for each operating system. Now the secret key is stored in the file $WIKI_REPOSITORY/.data/appkey.txt. The key is a uniquely generated random hexadecimal string during the wiki initialization and is unique per MWiki deployment. 
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+Implemented lazy loading of the library pseudocodeJS. <ul class="">
+<li>
+Now the library pseudocodeJS, for rendering LaTeX pseudocode blocks of algorithms, is only loaded when there is at least one pseudocode block in the markdown code. This code change improves the page loading speed and reduces bandwidth. 
+</li>
+</ul>
+</li>
+<li>
+Implemented Graphviz lazy loading. <ul class="">
+<li>
+The graphviz library, for redering graph diagrams written in graphviz dot language, is now loaded only when needed. This modification ensures faster page speed loading and less bandwidth costs. 
+</li>
+</ul>
+</li>
+<li>
+Created static website generator. <ul class="">
+<li>
+Implement comamnd line $ mwiki compile that compiles the whole MWiki markdown repository to a static website that can be easily deployed by copying and pasting files to a static file web server. Static files can also be served using Caddy, NGinx, github or gitlab repository. 
+</li>
+</ul>
+</li>
+<li>
+Implemented rendering of "author" attribute in the YAML frontmatter to html <code>&lt;meta&gt;</code> tag. The author attribute in  the YAML frontmatter <code>athor: John Doe</code> is rendered to <code>&lt;meta name=&quot;author&quot; content=&quot;John Doe&quot;&gt;</code>. 
+</li>
+<li>
+Page description attribute in the YAML frontmater, for instance <code>description description here.</code> is compiled to the html meta tag <code>&lt;meta name=&quot;description&gt;description here&quot;&gt;</code>. 
+</li>
+<li>
+Added new fonts (typefaces) choices in the settings form: Jackwrite, Jackwrite Bold (font that mimics typewriter text with leaked ink in an old sheet of paper), medieval font Fondamento, DINWeb, CMU Concrete, CMU Sans Serif, peachi medium, saira thin and saira thin bold. Added Epson dotmatrix 1980's/80's nostalgia fonts, that mimics Epson dotmatrix fonts popular in the 1980s for printing code in computer magazines. 
+</li>
+<li>
+Improve search - normalize Romanian and Istro-Romanian alphabets letters to English alphabet. 
+</li>
+<li>
+Improve search - normalize Maltese Alphabet letters to English alphabet. 
+</li>
+<li>
+Improve search - normalize letters of the Czesh alphabet to English alphabet. 
+</li>
+<li>
+Bugfix - Fix the label of the login button. 
+</li>
+<li>
+Bugfix - Add missing required html attributes in the login form. 
+</li>
+<li>
+Bugfix - Fix menu button for creating new note. 
+</li>
+<li>
+Bugfix - display warning for AST element without renderer function. <ul class="">
+<li>
+A "Rendering not implementd" warning is issued instead of throwing an exception when there is no implementation of renderer method for a markdown element. 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Release_v0.7" class="document-heading anchor">Release v0.7 <a class="link-heading" href="#H_Release_v0.7">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=204&end=241&anchor=H_Release_v0.7&page=changelog&timestamp=179302003773309" title="[i18n]: Release v0.7" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+Update Python minimum required version to 3.9 and remove version pinning for updating dependencies. Note that the version of depedencies are still fixed in the lockfiles for supply chain security purposes. 
+</li>
+<li>
+Delete poetry.lock - lock file of poetry package manager because now this project will only use UV package manager. 
+</li>
+<li>
+Improve upload form style. 
+</li>
+<li>
+Improve usability - use pointer cursor for section headings. 
+</li>
+<li>
+Add new fonts/typeface choices in the settings form: Crimson, Muson,  Bricolage Grotesque, range and range mono fonts/typefaces. 
+</li>
+<li>
+Enhance user feedback when uploading pasted image. <ul class="">
+<li>
+Improve user feedback by showing in the status bar whether the system is still uploading the pasted image from clipboard and also whether the upload was successful. 
+</li>
+</ul>
+</li>
+<li>
+Insert figure block <code>{figure}</code> (images with metadata) upon upload of other image formats including webp, apng, bmp, avif, ico and svg. 
+</li>
+<li>
+Refresh page if its timestamp is greater than the edit button timestamp. <ul class="">
+<li>
+When the user clicks at the pencil icon,  on the left side of a wiki page section header, and the timestamp provided in the pencion icon hyperlink is older than the page timestamp, the page is reloaded in order to ensure that the user is always editing the most up-to-date wiki page file. 
+</li>
+</ul>
+</li>
+<li>
+Feature - Extend syntax of {comment} block for toggling rendering of enclosed code. The <code>{comment}</code> block syntax was extended with commands "on" and "off" for toggling the rendering/display of the enclosed markdown code without needing the removal of the backticks and tag <code>{comment}</code>. This feature is useful for toggling the display of content that is not ready to be published. 
+</li>
+<li>
+Recompile markdown if the version of metadata file does not match the expected version. 
+</li>
+<li>
+Implement MyST role raw <code>{r}`text</code> and <code>{raw}`text`````. Due to compatibility with Github Flavored Markdown, angle brackets may be interpreted as html tags which may not be desirable. MyST raw role ```{r}`enclosed text</code> or <code>{raw}`enclosed text```` solves this issue by rendering the text to iself. For instance the markdown </code>&lt;a href=&quot;https://site.com&quot;&gt;label&lt;/a&gt;``` code is rendered to <code>&lt;a href=&quot;https://site.com&quot;&gt;label&lt;/a&gt;</code> without monospace font/typeafce instead of being rendered to a html hyperlink. 
+</li>
+<li>
+Implement footnote reference <code>term1^[footnote here]</code> - syntax compatible with MyST markdown and Obsidian. 
+</li>
+<li>
+Implement footnote reference <code>term^{footnote here}</code> - custom MWiki syntax. However, the advantage of this syntax is the lack of conflict with markdown constructs such as hyperlinks <code>[label](http://some-site.com).</code> 
+</li>
+<li>
+Implement footnotes listing syntax using code blocks with tag <code>{footnotes}</code>. This construct lists all footnotes of current page and hyperlinks to the corresponding footnotes references in the document. 
+</li>
+<li>
+Implement <code>{video}</code> blocks for embeding videos with metadata, such as caption below the video with enumeration. 
+</li>
+<li>
+Improve rendering of embedded pages. 
+</li>
+<li>
+Add i18n internationalization of the form successful update message. 
+</li>
+<li>
+Only load mathjax in the template base.html when necessary for making page loading faster. 
+</li>
+<li>
+Improve sytle of foldable blocks such as <code>{example}</code>, <code>{solution}</code> and <code>{proof}</code>. 
+</li>
+<li>
+Improve search - normalize escape characters <code>\.</code> and <code>\:</code>. <ul class="">
+<li>
+The domain name of websites such as <a href="http://somedomain.org"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >somedomain.org</a> is parsed as URL by default. When this behavior is not desirable, the URL is written as <code>somedomain\.org</code>. However, this breaks the search as searching for <a href="http://somedomain.org"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >somedomain.org</a> yields no result. The solution for this issue added by this commit is to to turn the escaped character <code>&quot;\.&quot;</code> into <code>&quot;.&quot;</code> and <code>&quot;\:&quot;</code> into <code>&quot;:&quot;</code> when storing the text in the search index database for full text search. 
+</li>
+</ul>
+</li>
+<li>
+Improve search - Normalize spanish diactric (ñ) n tilde to n. 
+</li>
+<li>
+Improve search - normalize diactrics and ligatures of french latin alphabet. <ul class="">
+<li>
+Letters, ligatures and diactrics of French latin alphabet are now normalized to equivalent letters of English alphabet in order to enhance for french words with an english keyboard layout or a non french keyboard layout. 
+</li>
+</ul>
+</li>
+<li>
+Improve search by normalizing diactrics, accents and chracters from Old English, Old Norse, Icelandic and Sweedish alphabets to corresponding letters of the English Alphabet. 
+</li>
+<li>
+Improve search - normalize Vietnamese latin alphabet to English Alphabet. <ul class="">
+<li>
+Normalize letters, symbols and diactrics of the Vietnamese latin alphabet to English alphabet for improving the search engine. This feature allows searching for vietnamese words using an English keyboard layout. For instance, the vietnamese word "người" is stored in the search index database as "nguoi" instead of being stored as "người". So, searching for "nguoi" or "người" yields the same search results. As a result, this approach makes it easier to search for vietnamese words using an English keyboard layout or non vietnamese keyboard layouts. 
+</li>
+</ul>
+</li>
+<li>
+Bugfix - Fix regex of markdown_it_parser plugin for wiki links. <ul class="">
+<li>
+The parser failed to recognize wiki internal linkswhen there were two wiki links in the same line, for instance, theparser failed to recognize <code>See about [[Unix]] and [[Linux]]</code> due to use of greedy regex quantifier star <code>(*)</code> instead of star  followed by question mark <code>(*?)</code>. 
+</li>
+</ul>
+</li>
+<li>
+Bugfix - Fix pencil hyperlinks in section headers for editing corresponding sections. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Release_v0.6" class="document-heading anchor">Release v0.6 <a class="link-heading" href="#H_Release_v0.6">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=241&end=271&anchor=H_Release_v0.6&page=changelog&timestamp=179302003773309" title="[i18n]: Release v0.6" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+Refactor watcher module for using polling instead watchdog module for improving realibility. <ul class="">
+<li>
+This refactoring was needed due to the buggy behavior of watchdog module (library). In addition, there are many reports that this module may not work well on Micrsoft Windows and sometimes fail to work on Linux. 
+</li>
+</ul>
+</li>
+<li>
+Implement normalization of other latin alphabets to english Alphabet (Improve Search). <ul class="">
+<li>
+This commit implements normalization of other latin alphabets variants to English latin alphabet, including Polish latin alphabet, Turkish Latin Alphabet and Serbo-Croatian alphabet. This feature allows searching for words written in other latin alphabet variants using only letters of English alphabet. For instance, it is possible to search for the Polish word Władysław by typing "Wladyslaw" instead "Władysław", whose letters are not available in an english keyboard layout. If a Wiki page contains a word such as "Władysław" or other words written using letters of Polish, Turkish or Serbo-croatian alphaet, the letters are not available in English are turned into English equivalent letters. For example, the word "Władysław" is recorded as "Wladyslaw" in the search index database. If the user types the word in Polish letters "Władysław" in the search form, the word it is turned into "Wladyslaw". As a result, the search results will contain all pages with "Wladyslaw" or "Władysław" word. 
+</li>
+</ul>
+</li>
+<li>
+Improve search - Normalize Danish and Norwegian alphabets to English alphabet. 
+</li>
+<li>
+Implement internationalization (i18n) infrastructure for adding multiple locales to the UI - User Interface without changing any part of the code. The UI - User Interface supports the following locales, en-US (American English) and pt-BR (Brazilian Portuguese). But, it is possible to add new languages by editing only a JSON global variable. 
+</li>
+<li>
+Implement UI localization to Portuguese language (Brazilian Portuguese). The default language of the user interface is English (American English spelling). However, it is possible to change the default locale/language in the settings form. 
+</li>
+<li>
+Normalize English locales to en-US (American English) and Portuguese locales to pt-BR (Brazilian Portuguese). <ul class="">
+<li>
+Map all english locales provided by the web browser to en-US ) and all portuguese locales to pt-BR (Brazilian Portuguese). In the future, more locales of other languages or different dialects of the same language can be added. 
+</li>
+</ul>
+</li>
+<li>
+Fix css style of the log in form for mobile devices. 
+</li>
+<li>
+Improve look and feel of the login form (also known as sig in or authentication form). 
+</li>
+<li>
+Improve appearance of the settings form. 
+</li>
+<li>
+Improve look and feel of the popup window for insert link to a wiki page. 
+</li>
+<li>
+Accessibility improvement - Use figure caption as alt text if no alt text is provided. 
+</li>
+<li>
+Performance improvment - Recompile markdown file if any link depency is changed. <ul class="">
+<li>
+Details: If a page contains an internal to hyperlink to a Wiki page <code>[Mass Moment of Internetia Tensor]]</code> and the corresponding     markdown page does not exist yet the link will be red. If this page corresponding to this link is created and the page referencing this link is refreshed, it will be recompiled for updating the cached html. After recompilation the link will become green. 
+</li>
+</ul>
+</li>
+<li>
+Implement custom MyST role for adding notes to text. 
+</li>
+<li>
+implement save icon button in the editor page header. <ul class="">
+<li>
+This diskette icon allows quickly saving a Wiki page document in a mobile device with small screen. 
+</li>
+</ul>
+</li>
+<li>
+Update reference card - add example about  Note MyST role. 
+</li>
+<li>
+Bugfix - Create search index directory if it does not exist yet. 
+</li>
+<li>
+Bugfix - Fix equation enumeration undefined javascript bug in the preview window. 
+</li>
+<li>
+Bugfix - Fix the behavior of the popup window for displaying abbreviations of <code>&lt;abbr&gt;</code> htm5 elements in mobile devices. 
+</li>
+<li>
+Bugfix - Fix back link of the settings page. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Release_v0.5.1" class="document-heading anchor">Release v0.5.1 <a class="link-heading" href="#H_Release_v0.5.1">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=271&end=283&anchor=H_Release_v0.5.1&page=changelog&timestamp=179302003773309" title="[i18n]: Release v0.5.1" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+Implement fast and efficient full text search. <ul class="">
+<li>
+Implement fast and efficient full text search, similar to web search engine using Python Whoosh library.  + Improve full text search by normalizing words and adding the fuzzy match plugin. 
+</li>
+</ul>
+</li>
+<li>
+Update search index outside the http request-response transaction. <ul class="">
+<li>
+Now the Python Woosh search index is updated outside the request-response cycle for speeding up the server response.  The module mwiki.watcher watches the file system and detects modified markdown files and updates the search index database of Python Woosh full-text search engine. 
+</li>
+</ul>
+</li>
+<li>
+Implement checkbox show licenses (enabled by default) in the settings form. <ul class="">
+<li>
+If this checkbox is eanbled, a menu option whith the label 'Licenses' is added to the main menu. When clicked this menu option redirects to a page showin the license of this project AGPL (GNU Afero) and the licenses of all depedencies used by this project giving credit to other projects and open source developers. 
+</li>
+</ul>
+</li>
+<li>
+Change code for {figure} block of pasted image inserted in the editor. 
+</li>
+<li>
+The http route /licenses is only available if show_licenses flags is enabled. 
+</li>
+<li>
+Add Python Whoosh to open source licenses template page. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Release_v0.5" class="document-heading anchor">Release v0.5 <a class="link-heading" href="#H_Release_v0.5">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=283&end=300&anchor=H_Release_v0.5&page=changelog&timestamp=179302003773309" title="[i18n]: Release v0.5" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+Implement site settings for changing code font. <ul class="">
+<li>
+Implement settings form option that allows the admin to change the default code font (monospace font/typeface). 
+</li>
+</ul>
+</li>
+<li>
+Implement caching of markdown-to-html compilation. <ul class="">
+<li>
+Implement caching of markdown-to-html compilation, which allows faster page response and less server load (CPU usage) as the markdown files of wiki pages (notes)  are recompiled only when they are modified or when some dependency changes. 
+</li>
+</ul>
+</li>
+<li>
+Add new monospace fonts/typefaces, including Commint Mono, Julia Mono, Julia Mono Light, Libertinus Mono, Libertinus Sans and Libertinus Serif. In this version, the following code (monospace) fonts are available: IBM Plex Mono; Go mono; Logic Monospace Regular; Logic Monospace Medium; Commint Mono; Julia Mono; Julia Mono Light and Libertinus Mono. 
+</li>
+<li>
+The popup window "quick open" now search page if input does not match user input. <ul class="">
+<li>
+The popup window "Quick Open Wiki Page", that allows quickly switching to other wiki page by providing a user input text entry with title completion, now searches the terms entered by the user if they do not match any wiki page title. 
+</li>
+</ul>
+</li>
+<li>
+Wiki pages (notes) with spaces in the file name are regarded as the same as pages with underline in the file name. <ul class="">
+<li>
+After this change, the files  'Cloud <a href="http://Computing.md"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Computing.md</a>' abd 'Cloud_Computing.md' are regarded as the same file, consequentely the wiki pages 'Cloud Computing' and 'Cloud_Computing' are also regarded as the wiki page (note). This approach improves compatibility with Wikis or note taking applications  that use underline in file name and Wikis that use space in the file name. 
+</li>
+</ul>
+</li>
+<li>
+Bugfix - Fix datalist DOM elment of popup window "Quick Open Wiki Page". 
+</li>
+<li>
+Bugfix - Function openWikiPageCallback() now uses underline '_' characters in the url instead of spaces. 
+</li>
+<li>
+Bugfix - Fix the display of edit buttons (pencil icons) due to architecture changes. <ul class="">
+<li>
+Passing server data to the page via template no longer works because cached pages are served directly from the compilation output (html files). As a result, a rest api endpoint /api/auth was implemented for allowing the client-side to obtain the configuration data for modify the page without markdown recompilation on every request. 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Release_v0.4" class="document-heading anchor">Release v0.4 <a class="link-heading" href="#H_Release_v0.4">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=300&end=322&anchor=H_Release_v0.4&page=changelog&timestamp=179302003773309" title="[i18n]: Release v0.4" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+Use underline in URLs instead of whitespace. <ul class="">
+<li>
+URLs to internal wiki pages such as <a href="/wiki/Linux_Operating_System" class="link-internal-missing wiki-link" title="">Linux Operating System</a> are now rendered using underline character '_' instead of whistespaces ' ', which corresponds to '%20' URL enconding. This feature makes URL rendering look better and be easier to type. For instance, before this commit, the URL to the page file 'Linux Operating <a href="http://System.md"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >System.md</a>' was '/wiki/Linux%20Operating%20System' now this URL is '/wiki/Linux_Operating_System'. 
+</li>
+</ul>
+</li>
+<li>
+Settings Form Changes <ul class="">
+<li>
+Settings form allows changing fonts (typefaces) used by the website, including, main font and title font. 
+</li>
+<li>
+Implement checkbox in settings form for enabling/disabling the display the wiki edit button (pencil icon) for all users. If this setting is disabled, only admin users or users with permission to edit pages will be able to view the edit button. 
+</li>
+<li>
+Implement hyperlink to go to previous page in the settings form. 
+</li>
+<li>
+implement VIM emulation checkbox in setting form.  This checkbox  (/settings relative URL) allows enabling or disabling VIM editor emulation in the wiki code editor (Ace9). After this commit, emulation of VIM editor keybindings is disabled by default as VIM keybindings are not familiar to most users. However, it can be enabled by the admin in the settings form. VIM keybindgs are highly recommended as they make easier to navigate in the text or code and do complex editing with few keystrokes. 
+</li>
+</ul>
+</li>
+<li>
+Provide the following fonts typefaces options in the settings form: <ul class="">
+<li>
+Computer Modern, Neo Euler, Chicago (used by older versions of Apple Inc's MacOSX), IBM Plex Mono, Comorant Light, Literata (font used by Google Books),  Logic Monospace Regular, Logic Monospace Medium, Garamond Pro Regular, GO Mono, NewsReader, Graphik Regular,  Textura Modern and Bastarda. 
+</li>
+</ul>
+</li>
+<li>
+Implement image and video lazy loading. <ul class="">
+<li>
+This feature allows faster page loading loading as only images visible in the current window viewport are loaded. As a result, the load on the server is reduced. 
+</li>
+</ul>
+</li>
+<li>
+UI - User Interface Improvement. <ul class="">
+<li>
+Replace text buttons including '[E]' and text menus with SVG icons 
+</li>
+<li>
+Improve user interface UI of the settings form. 
+</li>
+<li>
+Remove search button in the left toolbar due to its redundancy. 
+</li>
+<li>
+Rename label of editor button 'view' to 'back'. 
+</li>
+</ul>
+</li>
+<li>
+Remove (C) and (R) from the typographic convention database. 
+</li>
+<li>
+Implement figure syntax for images with metadata, including caption/label, alt text (alternative text) for better accessibility, unique identifier and automatic enumeration. It is similar to MyST markdown figure syntax. 
+</li>
+<li>
+Editor now uses figure syntax when pasting an image instead of the old image syntax. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Release_v0.3.1" class="document-heading anchor">Release v0.3.1 <a class="link-heading" href="#H_Release_v0.3.1">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=322&end=329&anchor=H_Release_v0.3.1&page=changelog&timestamp=179302003773309" title="[i18n]: Release v0.3.1" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+Implement optional section enumeration. 
+</li>
+<li>
+Implement Keyboard shortcuts for quick navigation. 
+</li>
+<li>
+Disable annoying pull-down-to-refresh behavior in mobile browsers. 
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Release_v0.2" class="document-heading anchor">Release v0.2 <a class="link-heading" href="#H_Release_v0.2">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=329&end=381&anchor=H_Release_v0.2&page=changelog&timestamp=179302003773309" title="[i18n]: Release v0.2" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+Centralize document title heading h1. 
+</li>
+<li>
+Bugfix - Display Links menu items of Page menu for all users, including anonymous users. <ul class="">
+<li>
+NOTE: No change of permission model has been introduced, anonymous users can only view the wiki page if the checkbox 'Public Wiki' of  /settings menu is enabled. 
+</li>
+</ul>
+</li>
+<li>
+Move 'Search' and 'Tags' menu items from Main menu to Page menu. 
+</li>
+<li>
+Rename 'Wiki Settings' menu item label to 'Settings'. 
+</li>
+<li>
+Move create new page menu item from Main menu to Page menu. 
+</li>
+<li>
+Bugfix - Fix missing CRSF token of create user form. 
+</li>
+<li>
+Implement checkbox for enabling/disable menu item for showing page source. <ul class="">
+<li>
+This commits implements a Web Site setting checkbox at URL endpoint /settings, which allows enabling or disabling menu option in [Page] menu for showing markdown source of current wiki page. 
+</li>
+</ul>
+</li>
+<li>
+Refactor page_menu.html only displaying editing menus for logged in users. 
+</li>
+<li>
+Move button show reference card from Main menu to Page menu. 
+</li>
+<li>
+Add button show reference card to editor toolbar. 
+</li>
+<li>
+Bugfix - Fix frontmatter rendering - AttributeError: 'NoneType' object has no attribute 'get'. 
+</li>
+<li>
+About page shows information from site settings. <ul class="">
+<li>
+Move MWiki AGPL license to /licenses listing all open source licenses. 
+</li>
+<li>
+About page now displays information about the website or website description that can be changed by user in the URL endpoint /settings. A form where the user can change web site name, description and whether it is public or not. 
+</li>
+</ul>
+</li>
+<li>
+Allow changing document title in wiki page frontmatter with title directive. 
+</li>
+<li>
+Implement adjustable LaTeX equation enumeration.  Implement 'equation_enumeration' directive for a front-matter of a MWiki page (markdown file). This directive allows enabling/disabling LaTeX equation enumeration and changing equation enumeration style. If the directive is set to 'none', automatic equation enumeration is disabled. If the directive is set to 'section' the enumeration schema becomes <code>&lt;section-number&gt;.&lt;equation-number&gt;</code> (default style). If the directive is set to to 'subsection' , the enumeration style is set to  <code>&lt;section&gt;.&lt;subsection&gt;.&lt;eqnum&gt;</code>.  For instance, if a LaTeX (MathJaX) equation is numbered as 2.4.10, it means that is the 10th equation of the 4th subsection of the section 2 of the current wiki page. 
+</li>
+<li>
+Implement continous equation enumeration. <ul class="">
+<li>
+Create continous equation enumeration style for Mathjax/LaTeX equations, where equation are enumerated as 1, 2, 3, ..., in the order that they are defined. This enumeration style might be useful for short documents. 
+</li>
+</ul>
+</li>
+<li>
+Implement MyST role syntax for embeding youtube videos. 
+</li>
+<li>
+Rename Global menu to Main. 
+</li>
+<li>
+Create editor button for saving document. 
+</li>
+<li>
+Bugfix - Fix path traversal vulnerability - do not serve hidden folders or database.sqlite. 
+</li>
+<li>
+Implement CSRF protection. <ul class="">
+<li>
+Implement protection against CSRF - Cross-Site Request Forgery attacks by requiring the CSRF token in forms and Ajax requests. 
+</li>
+</ul>
+</li>
+<li>
+Upload pasted images from clipboard in JPEG instead of PNG format. <ul class="">
+<li>
+Now images pasted from clipboard are saved in JPEG format (.jpg extension) instead of PNG format. This feature significantly reduces image size, saves bandwidth and loads them faster in a web browser. The images are converted in the server side using Python pillow package 
+</li>
+</ul>
+</li>
+<li>
+Create edit buttton on top of wiki h1 section header. <ul class="">
+<li>
+Create [E] edit button on top of wiki h1 section header, whichallows editing the whole page without going to the menu [Global]. 
+</li>
+</ul>
+</li>
+<li>
+Implement actions of Do and Redo editor buttons. 
+</li>
+<li>
+Implement special hyperlink to subreddits using the `<a href="https://reddit.com/r/smalltalk"  target="_blank" title="Subreddit /r/smalltalk" class="link-external" rel="noreferrer noopener nofollow" >/r/smalltalk</a> syntax. 
+</li>
+<li>
+Use database as default session storage instead of file system. 
+</li>
+<li>
+Implement hyperlink to patent numbers with comma. 
+</li>
+<li>
+Implement system management command line switches. 
+</li>
+<li>
+Initial settings can be defined through environment variables.  Initial settings of the Wiki web app now can be defined using environment variables, which is useful for automated installation via docker-compose or other container orchestration tools. MWIKI_ADMIN_PASSWORD => Defines default admin password.  MWIKI_PUBLIC => Enable or disable initial login form. MWIKI_SITENAME => Allows changing the web site name. 
+</li>
+<li>
+Allow defining admin password using environment variable. 
+</li>
+<li>
+mplement {u} MyST role syntax for underline markup. 
+</li>
+<li>
+Imlement clipboard to markdown converter. 
+</li>
+<li>
+Implement short hyperlink syntax to CVE database and update docs, example <code>&lt;cve:CVE-2024-53104&gt;</code>. 
+</li>
+<li>
+Implement wordlinks for frontmatter. 
+</li>
+<li>
+Bugfix - catch yaml.parser.ParserError exception. 
+</li>
+<li>
+Replace hardcoded status codes by constants. 
+</li>
+<li>
+Implement special hyperlink syntax for mastdon user account handle. For instance, the handle (akin to Twitter user account) <code>@kde@floss.social</code> is rendered as the link <a href="https://floss.social/@kde"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >https://floss.social/@kde</a> with  label <code>@kde@floss.social</code> In this case, <code>@kde@floss.social</code> is rendered to html as <code>&lt;a href=&quot;https://floss.social/@kde&quot; ...&gt;@kde@foss.social&lt;/a&gt;</code>. 
+</li>
+<li>
+Update <a href="http://README.md"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >README.md</a>  - add pipx install instructions.+Bugfix - Solve dependency hell issue by replacing gunicorn with waitress WSGI server. <ul class="">
+<li>
+This commit makes it possible to install this application with pipx and Poetry with newer versions of Python.  In addition, unlike Gunicorn, waitress WSGI sever also works on Microsoft Windows. 
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="div-heading"> 
+<h2 id="H_Release_v0.1" class="document-heading anchor">Release v0.1 <a class="link-heading" href="#H_Release_v0.1">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/changelog?start=381&end=end&anchor=H_Release_v0.1&page=changelog&timestamp=179302003773309" title="[i18n]: Release v0.1" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<ul class="">
+<li>
+First release. 
+</li>
+<li>
+Implement of MyST comments. 
+</li>
+<li>
+Allow markdown folder to be set through environment variable. 
+</li>
+<li>
+Implement Obsididian markdown  syntax for text highlight. 
+</li>
+<li>
+Implement this MyST syntax for math code block with directives. 
+</li>
+<li>
+Add noreferrer noopener nofollow rel properties to all external hyperlinks in order to improve privacy and avoid leaking data. 
+</li>
+<li>
+Implement HTML rendering of MyST math role. 
+</li>
+<li>
+Implement html rendering of sup and sup MyST roles. 
+</li>
+<li>
+Implement rest API endpoint /api/logged. 
+</li>
+<li>
+Refactor - replace string-replacement template with flask built-in template system (Jinja2). 
+</li>
+<li>
+Implement display of frontmatter metadata. 
+</li>
+<li>
+Implement latex macros for MathJax. 
+</li>
+<li>
+Change style - set default font to Computer Modern and make the page look like a LaTeX document. 
+</li>
+<li>
+Change style - use monospace ttf font IBM Plex Mono in code blocks. 
+</li>
+<li>
+Improve search by removing accents from queries.  Some languages such as Portuguese, Spanish and French uses accents. Now it is possible to search for words with accents without typing all accents since the accents are now remove from queries. For instance, the Portuguese word 'industrialização' is turned into the word 'industrializacao', which provides more search results. 
+</li>
+<li>
+Implement Obsidian-like feature for embeding a note within another note by using the syntax: <code>![[Note name]]</code> , that embeds the file 'Note <a href="http://Name.md"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Name.md</a>' within the current note. 
+</li>
+<li>
+Render link to non existing notes (wiki pages) in red color. 
+</li>
+<li>
+Implement button for creating new note (Wiki page). 
+</li>
+<li>
+Implement Obsidian's tag syntax, that uses number sign '<a href="/pages?search=%23'." class="link-internal">#'.</a>  
+</li>
+<li>
+Change MathJax settings to enumerate all latex equations by default. 
+</li>
+<li>
+Implement automatic heading enumeration. 
+</li>
+<li>
+Implement navitgation menus. 
+</li>
+<li>
+Create button for scrolling to top. 
+</li>
+<li>
+Create button for scrolling to bottom. 
+</li>
+<li>
+Create command utility to convert from org-mode to MWiki markdown. Note that this feature is still experimental and unstable. 
+</li>
+<li>
+Create html5/js modal window for displaying abbreviation <code>&lt;abbr&gt;</code> html5 elements. 
+</li>
+<li>
+Create popup window for displaying MWiki markup language reference card. 
+</li>
+<li>
+Implement short hyperlink expansion and short link to Python packages. 
+</li>
+<li>
+Feature - implement custom wiki markup syntax for creating html <code>&lt;details&gt;</code> foldable element. 
+</li>
+<li>
+Create syntax for mathematica proof foldable block. 
+</li>
+<li>
+Implement code block syntax for drawing graphs using  graphviz dot language. 
+</li>
+<li>
+Load ace9 JS code editor in edit.html from self-hosted static files. 
+</li>
+<li>
+Implement database login. 
+</li>
+<li>
+Add flask-wtf Python dependency for handling forms. 
+</li>
+<li>
+Implement settings form page. 
+</li>
+<li>
+Improve security - enforce authorization on server-side. 
+</li>
+</ul>
+
+
+        </main>
+
+        
+    </div>
+    <script>
+    </script>
+
+</body>
+
+</html>
