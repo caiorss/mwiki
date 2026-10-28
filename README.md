@@ -2,7 +2,7 @@
 
 ## Overview 
 
-MWiki is a **wiki engine** and note taking web application software geared towards mathematics and research designed for scientific and technical communication. This wiki engine software has semantic-rich lightweight markup language based on MyST markdown, Obsidian markdown, and Mediawiki engine markup language. In this application is also a static websiste generator, that can export MWiki notes or pages to a static websites or self-contained html files for offline reading, similar to PDF files.
+MWiki is a **wiki engine** and note taking web application software geared towards mathematics and research designed for scientific and technical communication. This wiki engine software has semantic-rich lightweight markup language based on MyST markdown, Obsidian markdown, and Mediawiki engine markup language. The application is also a static websiste generator, that can export MWiki notes or pages to a static websites or self-contained html files for offline reading, similar to PDF files.
 
 
 This Python application is powered by Python Flask web framework and the extensible markdown-it parser used by MyST markdown and the Jupyter Book project. 
