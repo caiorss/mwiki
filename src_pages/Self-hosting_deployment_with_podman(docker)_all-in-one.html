@@ -341,13 +341,12 @@ The all-in-one container provides an easy and lightweight approach to deploy MWi
 
 <span class="gu">### Disable SELinux</span>
 
-Since SELinux may cause podman to fail with the error <span class="sb">`[Errno 13] Permission denied: ...`</span>, it may be worth to disable SELinux by using
+Since SELinux may cause podman to fail with the error <span class="sb">`[Errno 13] Permission denied: ...`</span>, it may be worth to  
+temporarily disable SELinux by using the following command.
 
 <span class="sb">```sh</span>
 sudo<span class="w"> </span>setenforce<span class="w"> </span><span class="m">0</span><span class="w"> </span>
 <span class="sb">```</span>
-
-for temporarily disabling SELinux.
 
 <span class="gs">**See**</span>
 
@@ -361,7 +360,6 @@ for temporarily disabling SELinux.
   + https://www.golinuxcloud.com/disable-selinux/
 + <span class="ge">*Changing SELinux States and Modes*</span>
   + https://docs.fedoraproject.org/en-US/quick-docs/selinux-changing-states-and-modes/
-
 
 <span class="gu">### Build the Podman Container Image</span>
 

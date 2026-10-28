@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="icon" type="imag/x-icon" href="/mwiki/favicon.ico" >
+    
+    <title data-i18n="">MBook - Technical Details</title>
+    <meta name="description" content="Tehcnical details about MWiki and comparison to other software and wiki engines." />
+    <meta name=generator content="MWiki">
+    
+
+
+   <style>
+
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: normal;
+    
+    
+    
+    src: url('/mwiki/static/fonts/cmu-concrete-regular.woff');
+    
+}
+    
+
+
+@font-face {
+    font-family: 'CMU Concrete';
+    
+    font-style: italic;
+    
+    
+    
+    src: url('/mwiki/static/fonts/cmu-concrete-italic.woff');
+    
+}
+    
+
+@font-face {
+    font-family: 'Libertinus Mono';
+    
+    
+    
+    src: url('/mwiki/static/fonts/LibertinusMono-Regular.woff2');
+    
+}
+    
+
+@font-face {
+    font-family: 'Chicago MacOS';
+    
+    
+    
+    src: url('/mwiki/static/fonts/ChicagoFLF.ttf');
+    
+}
+    
+
+:root {
+    /*--- Desktop screen Width ----------------*/
+    --screen-width-desktop: 850px;
+
+    /* --bg-sidebar: #F2EACA; */  /* #F7F4ED; */
+    --bg-sidebar: white;  /* #F7F4ED; */
+    /* --bg-main:   #F2EACA ; */
+    --bg-main: white;
+    --typography-main-line-height: 1.7em;
+    --typography-main-leter-spacing: 0.5px;
+    --screen-type: "desktop";
+    --link-external-color: blue; /* hsl(0, 100%, 33%); */
+    --link-internal-color: blue;
+    --form-background-color: #fbfcfc;
+    --form-border-color: #cfd5e2;
+    --primary-button-background-color: #0172ad;
+
+
+    
+    --font-family-main: 'CMU Concrete';
+    
+    
+    --font-family-title: 'Chicago MacOS';
+    
+
+
+    --font-size-h1: 1.800rem;
+    --font-size-h2: 1.650rem;
+    --font-size-h3: 1.425rem;
+    --font-size-h4: 1.350rem;
+    --font-size-h5: 0.875rem;
+    --font-size-h6: 0.750rem;
+    --font-size-text: 0.720rem;
+    --font-size-code: 0.700rem;
+    --font-size-sidebar: 0.850rem;
+
+    --code-block-background-color: rgb(243, 244.5, 246.75);
+
+    /* Magnifier icon */
+    --icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(136, 145, 164)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+}
+
+
+
+    </style>
+
+    
+    <link rel="stylesheet" href="/mwiki/static/static_style.css">
+    
+
+    
+    <!-- MathJax Settings -->
+    <script>
+
+    const FONT_FAMILY_MAIN = "CMU Concrete"
+    const FONT_FAMILY_TITLE = "Chicago MacOS"
+    const FONT_FAMILY_CODE = "Libertinus Mono"
+    const DEFAULT_LOCALE = "en-US";
+	  const USE_DEFAULT_LOCALE = "True" === "True";
+    const LATEX_RENDERER = "katex";
+    const IS_LATEX_RENDERER_MATHJAX = LATEX_RENDERER === "mathjax";
+    const IS_LATEX_RENDERER_KATEX   = LATEX_RENDERER === "katex";
+    const KATEX_MACROS = "eyJcXGlubmVyIjogIlxcbGFuZ2xlICMxIFxccmFuZ2xlIiwgIlxcZHkiOiAiXFxkaXNwbGF5c3R5bGUiLCAiXFxlcHMiOiAiXFxlcHNpbG9uIiwgIlxcdmVwcyI6ICJcXHZhcmVwc2lsb24iLCAiXFxldiI6ICJcXGxlZnQuICMxIFxccmlnaHR8IiwgIlxcZGVmIjogIlxcc3RhY2tyZWx7XFx0ZXh0e2RlZn19ez19IiwgIlxcbm9ybSI6ICJcXHwjMVxcfCIsICJcXG9wIjogIlxcb3BlcmF0b3JuYW1lIiwgIlxcY2VxIjogIlxcY29sb25lcXVhbHMiLCAiXFxiIjogIlxcbWF0aGJmeyMxfSIsICJcXGJoYXQiOiAiXFxoYXR7XFxtYXRoYmZ7IzF9fSIsICJcXGJkb3QiOiAiXFxkb3R7XFxtYXRoYmZ7IzF9fSIsICJcXGJkZG90IjogIlxcZGRvdHtcXG1hdGhiZnsjMX19IiwgIlxcYnMiOiAiXFxib2xkc3ltYm9seyMxfSIsICJcXGJzaGF0IjogIlxcaGF0e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcYnNkb3QiOiAiXFxkb3R7XFxib2xkc3ltYm9seyMxfX0iLCAiXFxic2Rkb3QiOiAiXFxkZG90e1xcYm9sZHN5bWJvbHsjMX19IiwgIlxcZmIiOiAie31eeyMyfVxcbWF0aGJmeyMxfSIsICJcXGZiaGF0IjogInt9XnsjMn1cXGhhdHtcXG1hdGhiZnsjMX19IiwgIlxcZmJzIjogInt9XnsjMn1cXGJvbGRzeW1ib2x7IzF9IiwgImZyIjogInt9XnsjMX1feyMyfSIsICJcXHNrZXciOiAiXFxsZWZ0WyAjMSBcXHJpZ2h0XV97XFx0aW1lc30iLCAiXFxhcmdtYXgiOiAiXFxvcGVyYXRvcm5hbWUqe1xcbWF0aHJte1xcYXJnXFwsbWF4fSIsICJcXGFyZ21pbiI6ICJcXG9wZXJhdG9ybmFtZSp7XFxtYXRocm17XFxhcmdcXCxtaW59IiwgIlxcUiI6ICJ7IFxcbWF0aGJie1J9IH0iLCAiXFxaIjogIlxcbWF0aGJie1p9IiwgIlxcbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxpbGFwbGFjZSI6ICJcXG1hdGhjYWx7TH1eey0xfVxcbGVmdFxceyMxXFxyaWdodFxcfSIsICJcXGZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XFxsZWZ0XFx7IzFcXHJpZ2h0XFx9IiwgIlxcaWZvdXJpZXIiOiAiXFxtYXRoY2Fse0Z9XnstMX1cXGxlZnRcXHsjMVxccmlnaHRcXH0iLCAiXFxkIjogIlxcbWF0aHJte2R9IiwgIlxccCI6ICJcXHBhcnRpYWwiLCAiXFxlIjogIlxcbWF0aHJte2V9IiwgIlxcZHQiOiAiXFxmcmFje2QgIzF9e2R0fSIsICJcXGRkdCI6ICJcXGZyYWN7ZF4yICMxfXtkdF4yfSIsICJcXHBkIjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCAjMn0iLCAiXFxwZGQiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgIzJeMn0iLCAiXFxDIjogInsgXFxtYXRoYmJ7Q30gfSIsICJcXEJpZ08iOiAiXFxtYXRoY2Fse099XFwhXFxsZWZ0KCMxXFxyaWdodCkiLCAiXFxtZGVmIjogIntcXHRyaWFuZ2xlcSBcXDt9IiwgIlxcc2duIjogIlxcb3BlcmF0b3JuYW1le3Nnbn0iLCAiXFxyYW5rIjogIlxcb3BlcmF0b3JuYW1le3Jhbmt9IiwgIlxccmUiOiAiXFxvcGVyYXRvcm5hbWV7UmV9IiwgIlxcaW0iOiAiXFxvcGVyYXRvcm5hbWV7SW19IiwgIlxcaW1nIjogIlxcb3BlcmF0b3JuYW1le2ltfSIsICJcXHRyYWNlIjogIlxcb3BlcmF0b3JuYW1le3RyfSIsICJcXHB0IjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCB0fSIsICJcXHB4IjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCB4fSIsICJcXHB5IjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCB5fSIsICJcXHB6IjogIlxcZnJhY3tcXHBhcnRpYWwgIzF9e1xccGFydGlhbCB6fSIsICJcXHB4eCI6ICJcXGZyYWN7XFxwYXJ0aWFsXjIgIzF9e1xccGFydGlhbCB4XjJ9IiwgIlxccHl5IjogIlxcZnJhY3tcXHBhcnRpYWxeMiAjMX17XFxwYXJ0aWFsIHleMn0iLCAiXFxwenoiOiAiXFxmcmFje1xccGFydGlhbF4yICMxfXtcXHBhcnRpYWwgel4yfSIsICJcXEUiOiAiXFxvcGVyYXRvcm5hbWV7RX1cXGxlZnRbICMxIFxccmlnaHRdIiwgIlxcVmFyIjogIlxcb3BlcmF0b3JuYW1le1Zhcn0iLCAiXFxjb3YiOiAiXFxvcGVyYXRvcm5hbWV7Y292fSIsICJcXGhlc3MiOiAiXFxvdmVybGluZXtcXG5hYmxhfV4yIn0=";
+    const CSRF_TOKEN = ""
+    const STATIC_COMPILATION = true;
+    const IS_USER_ADMIN = false;
+    // NOTE: It is encoded as base64
+    const PAGE_SOURCE_CODE = "";
+    const PAGE_SOURCE_URL  = "/mwiki/src_pages/Technical_Details.html"
+    const CITATION_REFERENCES = "e30=";
+
+    // Possible values: 'none', 'nosection' 'section', 'subsection'
+    //  none      => no enumeration
+    //  nosection
+    //      Schema: <equation-number>
+    //      Example: Equations are enumerated as 1, 2, ..., 200
+    //              in the order that they are shown without section or
+    //              subsection number
+    //  section
+    //      Schema:  => <section>.<equation-number>
+    //      Exmaple: => 2.1, 2.5, 6.8
+    //  subsection
+    //      Schema:  => <section>.<subsection>.<equation-number>
+    //      Example: => 1.3.1 , 1.3.2, 2.4.5
+    //
+    let equation_enumeration = "section";
+
+    MathJax = {
+        loader: {load: ['[tex]/tagformat', '[tex]/mathtools', 'output/chtml']}
+
+      , section: 1
+      , tex: {
+          inlineMath: [['$','$'], ['\\(','\\)']]
+        , displayMath: [['$$','$$'], ['\\[','\\]']]
+        , processEscapes: true
+        , processEnvironments: true
+          // Location of equation numbers
+        , tagSide: "right"
+        // Possible values 'ams' or 'all' (all equations are numbered by default)
+        , tags: equation_enumeration !== "none" ? "all" : "ams"
+        //, tags: 'ams'
+        , packages: {'[+]': [
+                                  'tagformat'
+                                , 'sections'
+                                , 'subsections'
+                                , 'autoload-all'
+                            ]}
+        , tagformat: {
+          number: (n) => {
+            if( equation_enumeration === "cont"
+                || equation_enumeration == "continuous")
+            {
+                return '' + n;
+            }
+
+            let nsec = MathJax.config.section;
+            let nsub = MathJax.config.subsection;
+            var out = '';
+            if (nsub === 0 || equation_enumeration == "section")
+            {
+                out = nsec + '.' + n;
+            } else {
+                out = nsec + '.' + nsub +  '.' + n;
+            }
+            // console.log("Display section = ", out);
+            return out;
+          }
+        }
+      }
+
+     , startup: {
+
+            ready() {
+                // console.log(" [TRACE] I was called from ready()");
+                const Configuration = MathJax._.input.tex.Configuration.Configuration;
+                const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+                new CommandMap('sections', {
+                      nextSection: 'NextSection'
+                    , setSection:  'SetSection'
+                }, {
+                     NextSection(parser, name) {
+                        // console.log(" [TRACE] Called NextSection()");
+                        MathJax.config.section++;
+                        MathJax.config.subsection = 0;
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                    , SetSection(parser, name) {
+                        // console.log(" [TRACE] Called SetSection()");
+                        const n = parser.GetArgument(name);
+                        MathJax.config.section = parseInt(n);
+                        parser.tags.counter = parser.tags.allCounter = 0;
+                    }
+                });
+                if (equation_enumeration === "subsection")
+                {
+                    new CommandMap('subsections', {
+                          nextSubSection: 'NextSubSection'
+                        , setSubSection:  'SetSubSection'
+                    }, {
+                         NextSubSection(parser, name) {
+                            // console.log(" [TRACE] NextSubSection() called.");
+                            MathJax.config.subsection++;
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                        , SetSubSection(parser, name) {
+                            const n = parser.GetArgument(name);
+                            // console.log(" [TRACE] SetSubSection to ", n);
+                            MathJax.config.subsection = parseInt(n);
+                            parser.tags.counter = parser.tags.allCounter = 0;
+                        }
+                    });
+                }
+
+                Configuration.create(
+                      'sections', { handler: { macro: ['sections'] } }
+                );
+
+                if( equation_enumeration === "subsection" )
+                {
+                    Configuration.create(
+                        'subsections', { handler: { macro: ['subsections'] } }
+                    );
+
+                }
+
+                MathJax.startup.defaultReady();
+                pseudocode.renderClass("pseudocode", { "lineNumber": true, "scopeLines": true });
+                // This function is provided by main.js.
+                if( isMobileScreen() ) { setHeadingVisibility(false); }
+                /// setHeadingsVisibility(false)
+            }
+        }
+    , chtml: {
+        /// displayAlign: "left"
+      }
+    // options for when overflow is linebreak
+    , linebreaks: {
+        inline:           true,   // true for browser-based breaking of inline equations
+        width:            '100%', // a fixed size or a percentage of the container width
+        lineleading:      .2,     // the default lineleading in em units
+        LinebreakVisitor: null,   // The LinebreakVisitor to use
+    },
+
+    }
+    </script>
+
+    
+
+    
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css" integrity="sha384-WcoG4HRXMzYzfCgiyfrySxx90XSl2rxY5mnVY5TwtWE6KLrArNKn0T/mOgNL0Mmi" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js" integrity="sha384-J+9dG2KMoiR9hqcFao0IBLwxt6zpcyN68IgwzsCSkbreXUjmNVRhPFTssqdSGjwQ" crossorigin="anonymous"></script>
+        <!-- <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" -->
+            <!-- onload="renderMathInElement(document.body);"></script> -->
+        
+    
+
+
+    
+        <!-- Pseudocode.js (version 2.4.1) - Render LaTeX pseudocode code blocks.-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/pseudocode@2.4.1/build/pseudocode.min.js" async> </script>
+    
+
+
+    
+
+    
+    <!-- Additional Javascript libraries -->
+    
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", (event) => {
+            // Select graphviz code blocks
+            let lst = document.querySelectorAll(".graphviz-dot");
+            for(let x of lst){
+
+                Viz.instance().then(function(viz) {
+                    // console.log("[TRACE] x = ", x);
+                    let code = x.innerText;
+                    // console.log(" [TRACE] code = ", code);
+                    let svg = viz.renderSVGElement(code);
+                    // console.log(" [TRACE] svg = ", svg);
+                    x.replaceWith(svg);
+                    // x.outerHTML = svg;
+                    /// document.getElementById("graph").appendChild(svg);
+                });
+
+
+            }
+        }, false);
+
+    </script>
+
+    
+    <script type="text/javascript" src="/mwiki/static/main.js"></script>
+    
+
+</head>
+
+<body>
+
+    
+    <aside class="sidebar sidebar-visibility">
+        
+        <div class="toc">
+            <!-- Table of contents template placeholder -->
+            <ul>
+            
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Overview">Overview</a> </span>
+                    
+                    
+                </ol>
+            
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Inspiration">Inspiration</a> </span>
+                    
+                    
+                </ol>
+            
+                <ol>
+                    
+                        <span><a class="link-sidebar" href="#H_Technologies_Used">Technologies Used</a> </span>
+                    
+                    
+                </ol>
+            
+            </ul>
+        </div>
+    </aside>
+    
+
+    <div class="main main-shift">
+        
+        <header class="header">
+            <a data-i18n="sidebar-toggle-button" class="sidebar-toggle-button" href="#/" onclick="toggle_sidebar();"><img class="img-icon" src="/mwiki/static/hamburger-menu.svg" style="height: 25px;"/> </a>
+            <a data-i18n="home-page-button" class="sidebar-toggle-button"
+			   title="Go to home page (Index)" href="/mwiki/"><img class="img-icon" src="/mwiki/static/icon-home.svg"></a>
+            <div class="dropdown">
+              <a data-i18n="main-menu" class="button-toggle-menu sidebar-toggle-button"
+                 href="#"
+                 title="Main menu."
+                 class="dropbtn"
+                 >
+                <img class="header-icon img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M4%204C2.89%204%202%204.89%202%206V18A2%202%200%200%200%204%2020H20A2%202%200%200%200%2022%2018V8C22%206.89%2021.1%206%2020%206H12L10%204H4M4%208H20V18H4V8M7%2022V24H9V22H7M11%2022V24H13V22H11M15%2022V24H17V22H15%22%20%2F%3E%3C%2Fsvg%3E">
+                </a>
+
+            <div class="menu-dropdown-content menu-hidden" onclick="menuClicked(event)">
+                  <a data-i18n="menu-item-print-label" class="sidebar-toggle-button"
+                     href="#" onclick="printPage();"
+                     title="Print current page or export it to PDF." >Print</a>
+                
+                <a data-i18n="show-source-menu-item-label" class="sidebar-toggle-button"
+                    href="#" onclick="displayPageSourceWindow();">Show source</a>
+                
+                
+                 <a data-i18n="popup-window-change-language-menu-launcher" class="sidebar-toggle-button" href="#"
+                    onclick="changeLanguageForm.toggle();"
+                    title="Open form that allows overriding the current user interface language."
+                 >Language</a>
+                
+                   <a data-i18n="keybindings-menu-item" class="sidebar-toggle-button" href="#"
+                    onclick="toggleShortcutKeybindingWinodw();"
+                    title="Display a window showing all keyboard shortcuts, also known as keybindings."
+                 >Keybindings</a>
+                 <a data-i18n="about-menu-item-label" class="sidebar-toggle-button" href="/mwiki/about.html">About</a>
+              </div>
+            </div>
+
+            <a data-i18n="button-toggle-sections" class="sidebar-toggle-button"
+                 href="#"
+                 onclick="toggleHeadings();"
+                 id="btn-scroll-bottom"
+                 title="Fold/Unfold all sections."
+                 ><img class="img-icon" src="/mwiki/static/dots-vertical.svg"></a>
+            <a data-i18n="menu-item-print-icon"
+                class="sidebar-toggle-button"
+        			  title="Print current page or export it to PDF."
+                href="#"
+                onclick="printPage();">
+                <img class="img-icon" src="/mwiki/static/printer-outline.svg">
+            </a>
+
+            <!--
+             <a data-i18n="button-quick-switch-to-page" class="sidebar-toggle-button"
+                 href="#"
+                 onclick="quickOpenPage();"
+                 id="btn-scroll-bottom"
+                 title="Quick switch to page. Open a window that allows switching to Wiki page by typing its name or search all pages for the user entry."
+                 >
+               <img class="img-icon" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M9.5%2C3A6.5%2C6.5%200%200%2C1%2016%2C9.5C16%2C11.11%2015.41%2C12.59%2014.44%2C13.73L14.71%2C14H15.5L20.5%2C19L19%2C20.5L14%2C15.5V14.71L13.73%2C14.44C12.59%2C15.41%2011.11%2C16%209.5%2C16A6.5%2C6.5%200%200%2C1%203%2C9.5A6.5%2C6.5%200%200%2C1%209.5%2C3M9.5%2C5C7%2C5%205%2C7%205%2C9.5C5%2C12%207%2C14%209.5%2C14C12%2C14%2014%2C12%2014%2C9.5C14%2C7%2012%2C5%209.5%2C5Z%22%20%2F%3E%3C%2Fsvg%3E">
+                </a>
+            -->
+              
+        </header>
+        
+
+        <main class="content">
+            
+            <div class="div-heading-h1">
+                <h1 data-i18n="" class="document-heading">Technical Details</h1>
+            </div>
+            
+            <p class="hidden-mathjax-macros" style="display: none;">
+                $$
+                
+                $$
+            </p>
+            
+
+<div class="div-heading"> 
+<h2 id="H_Overview" class="document-heading anchor">Overview <a class="link-heading" href="#H_Overview">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Technical_Details?start=12&end=15&anchor=H_Overview&page=Technical Details&timestamp=179318126197193" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<p>
+MWiki is a <a href="https://en.wikipedia.org/wiki/Wiki"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >wiki</a> engine and note taking web application software geared towards <abbr title="Science, Technology, Engineering, and Mathematics">STEM</abbr> and designed for scientific and technical communication. This wiki engine software has semantic-rich lightweight markup language inspired by MyST markdown, Obsidian markdown, and Mediawiki engine markup language. The application also works as a static websiste generator, that can export MWiki notes or pages to a static website or self-contained html files for offline reading, similar to PDF files.
+</p>
+
+<div class="div-heading"> 
+<h2 id="H_Inspiration" class="document-heading anchor">Inspiration <a class="link-heading" href="#H_Inspiration">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Technical_Details?start=15&end=33&anchor=H_Inspiration&page=Technical Details&timestamp=179318126197193" title="[i18n]: Inspiration" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<p>
+MWiki was inspired by many other Wiki engines and applications, inclunding:
+</p>
+
+<dl class="anchor">
+<dt class="anchor"><a href="https://en.wikipedia.org/wiki/MediaWiki"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Mediawiki</a> (PHP)</dt>
+<dd class="anchor">PHP Wiki engine used by Wikipedia. Although Mediawiki is mature, this engine is hard to self-host and does not uses markdown as markup language. The style of MWiki URLs was heavily inspired by Mediawiki and the schema of Wikipedia URLs.</dd>
+<dt class="anchor"><a href="https://en.wikipedia.org/wiki/DokuWiki"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Dokuwiki</a> (PHP)</dt>
+<dd class="anchor">File-based wiki, but does not uses markdown as its markup language. Dokuwiki also requires many plugins to achieve to obtain the same number of features that MWiki has by default.</dd>
+<dt class="anchor"><a href="https://en.wikipedia.org/wiki/MoinMoin"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >MoinMoin</a> (Python 2)</dt>
+<dd class="anchor">File-based wiki engine. Pages are stored as a single file instead of being stored in a database. MoinMoin also does not use markdown as its markup language. Other issue is the usage of Python 2, which makes the code hard to modify and the lack of support for Python 2.</dd>
+<dt class="anchor"><a href="https://en.wikipedia.org/wiki/Obsidian_(software)"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Obsidian</a></dt>
+<dd class="anchor">Desktop note taking application and personal wiki, which uses markdown. As Obsidian is a desktop application, it is harder to access notes from other devices due to the need for file synchronization. MWiki borrowed many concepts from Obsidian, such as the syntax for embedding files and for internal hyperlinks. As a result, since MWiki syntax is a superset of Obsidian syntax, it is possible to export existing Obsidian pages to static website or as wiki repository.</dd>
+<dt class="anchor">MyST Markdown (Jupyter Book project)</dt>
+<dd class="anchor">Markdown language from Jupyter book project. MWiki uses the same parser as Jupyter book, which is a static website generator, but not a wiki.</dd>
+</dl>
+
+<div class="div-heading"> 
+<h2 id="H_Technologies_Used" class="document-heading anchor">Technologies Used <a class="link-heading" href="#H_Technologies_Used">¶</a></h2> 
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Technical_Details?start=33&end=end&anchor=H_Technologies_Used&page=Technical Details&timestamp=179318126197193" title="[i18n]: Technologies Used" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+</div>
+<hr class="line-under-heading">
+
+<dl class="anchor">
+<dt class="anchor">Backend (Main Web Server)</dt>
+<dd class="anchor">Python <a href="https://flask.palletsprojects.com/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >flask</a> web server with SQLite as database<a href="#" id="footnote-reference-link-1" class="footnote-link"><sup class="footnote-reference" data-counter="1" data-footnote="Note that that all wiki pages or notes are text files, while the database is only used for administrative tasks, including session storage">[1]</sup></a>, however it is possible to use any other database compatible with SQL Alchemy <abbr title="Object Relational Mapping">ORM</abbr>.</dd>
+<dt class="anchor">Backend (Reverse proxy and static files server)</dt>
+<dd class="anchor">Caddy web server</dd>
+<dt class="anchor">Frontend</dt>
+<dd class="anchor"><abbr title="Hypertext Markup Language (Version 5)">HTML5</abbr> + <abbr title="Cascade Style Sheet">CSS</abbr> + hand-rolled JavaScript without any framework, such as React, VueJS, NextJS and so on.</dd>
+<dt class="anchor"><abbr title="Object Relational Mapping">ORM</abbr> (Object Relational Mappping)</dt>
+<dd class="anchor">SQL <a href="https://www.sqlalchemy.org/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Alchemy</a></dd>
+<dt class="anchor">Search Engine</dt>
+<dd class="anchor"><a href="https://en.wikipedia.org/wiki/Wiki"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >whoosh</a><a href="#" id="footnote-reference-link-2" class="footnote-link"><sup class="footnote-reference" data-counter="2" data-footnote="2011 - Matt Chaput">[2]</sup></a> - Pure Python search engine, which makes MWiki easier to self-host.</dd>
+</dl>
+
+
+        </main>
+
+        
+    </div>
+    <script>
+    </script>
+
+</body>
+
+</html>
