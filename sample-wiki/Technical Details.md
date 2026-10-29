@@ -46,4 +46,4 @@ ORM (Object Relational Mappping)
   : SQL [Alchemy](https://www.sqlalchemy.org/)
 
 Search Engine
-  : [whoosh](https://en.wikipedia.org/wiki/Wiki)^[2011 - Matt Chaput] - Pure Python search engine, which makes MWiki easier to self-host.
+  : [whoosh](https://github.com/mchaput/whoosh)^[2011 - Matt Chaput] - Pure Python search engine, which makes MWiki easier to self-host.
