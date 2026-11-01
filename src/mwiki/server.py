@@ -551,8 +551,9 @@ def make_app_server(  host:        str
                 return out
             content = page.render_html()
             info = page.get_info()
+            pagename = info.get("title") or info.get("name", "")
             html = flask.render_template(  "content.html"
-                                          , title                = info.get("title", "")
+                                          , title                = pagename
                                           , page                 = info.get("name", "")
                                           #, page_path            = self._path.relative_to(self._base_path)
                                           , page_link            = info.get("name", "").replace(" ", "_")
