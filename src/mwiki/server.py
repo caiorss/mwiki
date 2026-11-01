@@ -557,7 +557,8 @@ def make_app_server(  host:        str
                                           , page                 = info.get("name", "")
                                           #, page_path            = self._path.relative_to(self._base_path)
                                           , page_link            = info.get("name", "").replace(" ", "_")
-                                          , pagename             = info.get("title", "")
+                                          , pagename             = pagename
+                                          , page_path            = info.get("name", "")
                                           , content_language     = info.get("language", "")
                                           , page_description     = info.get("description", "")
                                           , page_author          = info.get("author")
@@ -684,7 +685,7 @@ def make_app_server(  host:        str
     @app.route("/api/bookmark", methods = [ M_GET, M_POST])
     @check_login(required = True)
     def api_bookmark():
-        ## breakpoint()
+        # breakpoint()
         user = current_user()
         inp: dict[str, Any] = {}
         try:
@@ -692,7 +693,7 @@ def make_app_server(  host:        str
         except werkzeug.exceptions.BadRequest as ex:
             pass
         ## page = inp.get("page")
-        page = request.args.get("page")
+        page = request.args.get("page") + ".md"
         bookmark = inp.get("bookmark", False)
         if not page:
             flask.abort(STATUS_CODE_400_BAD_REQUEST)
