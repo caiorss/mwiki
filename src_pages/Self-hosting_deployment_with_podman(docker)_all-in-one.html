@@ -337,7 +337,8 @@ description: Describes how to self-host MWiki via a self-contained Podman or Doc
 Linux containers can be thought as lightweight disposable virtual machine since they provide a way to virtualize software with less resource usage than full-featured virtual machines as containers share the same kernel and are based on process isolation rather than hardware emulation. By using containers, server software, including MWiki can be deployed isolated from the host machine in a secure fashion without causing disruptions or breaking changes. Moreover, as containers are sandboxed by default, they are able to mitigate and limit the reach of security vulnerabilities in the host machine if any container is ever compromised.
 
 The all-in-one container provides an easy and lightweight approach to deploy MWiki with everything pre configured, including Mwiki server and Caddy web server in  a single docker or podman container. Caddy web server is used for serving static files and providing TLS (Transport Layer Security), also known as SSL - Socket Layer Security, by encrypting the network traffic between the server and a client web browser.
-<span class="gu">##  Installation</span>
+
+<span class="gu">## Preparation</span>
 
 <span class="gu">### Disable SELinux</span>
 
@@ -361,27 +362,6 @@ sudo<span class="w"> </span>setenforce<span class="w"> </span><span class="m">0<
 + <span class="ge">*Changing SELinux States and Modes*</span>
   + https://docs.fedoraproject.org/en-US/quick-docs/selinux-changing-states-and-modes/
 
-<span class="gu">### Build the Podman Container Image</span>
-
-Clone the repository and enter its root folder.
-
-<span class="sb">```sh</span>
-git<span class="w"> </span>clone<span class="w"> </span>https://github.com/caiorss/mwiki<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>mwiki
-<span class="sb">```</span>
-
-Build the container image using podman (recommended).
-
-<span class="sb">```sh</span>
-podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>mwiki<span class="w">  </span>--file<span class="w"> </span>docker/all-in-one.Dockerfile<span class="w"> </span>.
-<span class="sb">```</span>
-
-Build the container image using docker.
-
-<span class="sb">```sh</span>
-docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>mwiki<span class="w">  </span>--file<span class="w"> </span>docker/all-in-one.Dockerfile<span class="w"> </span>.
-<span class="sb">```</span>
-
-   
 
 
 <span class="gu">### Open Firewall Ports</span>
@@ -429,6 +409,57 @@ sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
   + https://en.wikipedia.org/wiki/.local
 + <span class="ge">*Linux Open Port: Step-by-Step Guide to Managing Firewall Ports*</span>, Vijaykrishna Ram and Anish Singh Walia, Digital Ocean
   + https://www.digitalocean.com/community/tutorials/opening-a-port-on-linux
+
+
+
+
+<span class="gu">##  Installation</span>
+
+<span class="gu">### Obtain the Container Image</span>
+
+Obtain container image using podman.
+
+<span class="sb">```sh</span>
+podman<span class="w"> </span>pull<span class="w"> </span>ghcr.io/caiorss/mwiki:latest
+<span class="sb">```</span>
+
+Obtain container image using docker.
+
+<span class="sb">```sh</span>
+podman<span class="w"> </span>pull<span class="w"> </span>ghcr.io/caiorss/mwiki:latest
+<span class="sb">```</span>
+
+Obtain container image with specific version.
+
+<span class="sb">```sh</span>
+pdoman<span class="w"> </span>pull<span class="w"> </span>ghcr.io/caiorss/mwiki:&lt;TAGS&gt;
+<span class="sb">```</span>
+
+Possible tags:
+
++ latest, 0.9.6
+
+<span class="gu">### Build the Podman Container Image</span>
+
+Clone the repository and enter its root folder.
+
+<span class="sb">```sh</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/caiorss/mwiki<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>mwiki
+<span class="sb">```</span>
+
+Build the container image using podman (recommended).
+
+<span class="sb">```sh</span>
+podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>mwiki<span class="w">  </span>--file<span class="w"> </span>docker/all-in-one.Dockerfile<span class="w"> </span>.
+<span class="sb">```</span>
+
+Build the container image using docker.
+
+<span class="sb">```sh</span>
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>mwiki<span class="w">  </span>--file<span class="w"> </span>docker/all-in-one.Dockerfile<span class="w"> </span>.
+<span class="sb">```</span>
+
+   
 
 
 <span class="gu">### Set the environment variables.</span>
@@ -546,7 +577,6 @@ Delete MWiki container^[Note that this command is not prone to data loss if the 
 <span class="sb">```sh</span>
 podman<span class="w"> </span>rm<span class="w"> </span>mwiki
 <span class="sb">```</span>
-
 <span class="gu">## Further Reading</span>
 
 + <span class="ge">*Podman Documentation*</span>, podman docs
