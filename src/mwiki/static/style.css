@@ -945,8 +945,6 @@ main thead th {
     min-height: 98%;
   }
 
-
-
 }
 
 /** For mobile devices with small screen */
@@ -1574,7 +1572,11 @@ code {
   visibility: none;
 }
 
-
+.popup-window .div-latex-code {
+  overflow-y: auto;
+  overflow-x: auto;
+  height: 220px;
+}
 
 @media print {
 
