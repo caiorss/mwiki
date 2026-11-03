@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Create user and group for MWiki
 RUN groupadd -r mwiki && useradd -r -g mwiki mwiki
-# Set PYTHONPATH environment variable in order 
+# Set PYTHONPATH environment variable in order
 # to be able to find Python modules
 ENV PYTHONPATH=/app
 ENV MWIKI_PATH=/wiki
@@ -22,7 +22,7 @@ COPY ./docker/mwiki.sh  /opt/mwiki
 COPY ./docker/mwiki-auth.sh   /opt/mwiki-auth
 RUN  chmod +x /opt/mwiki && chmod +x /opt/mwiki-auth
 
-WORKDIR /root 
+WORKDIR /root
 RUN curl -L  -o caddy.tar.gz https://github.com/caddyserver/caddy/releases/download/v2.10.2/caddy_2.10.2_linux_amd64.tar.gz \
   &&  tar -xvzf caddy.tar.gz \
   &&  rm -rf caddy.tar.gz    \
@@ -30,10 +30,10 @@ RUN curl -L  -o caddy.tar.gz https://github.com/caddyserver/caddy/releases/downl
   &&  mv caddy /usr/bin/
 
 
-WORKDIR /wiki 
+WORKDIR /wiki
 
-COPY ./docker/confgen.py     /bin 
-COPY ./docker/entrypoint.sh  /bin 
+COPY ./docker/confgen.py     /bin
+COPY ./docker/entrypoint.sh  /bin
 COPY ./docker/Caddyfile_.j2   /etc/
 
 
@@ -45,19 +45,19 @@ EXPOSE 2019
 ENV MWIKI_X_ACCEL_REDIRECT=true
 ENV MWIKI_WEBSITE="http://localhost"
 ENV MWIKI_URL="http://localhost"
-ENV ROOT_CRT="/root/.local/share/caddy/pki/authorities/lab/root.crt" 
+ENV ROOT_CRT="/root/.local/share/caddy/pki/authorities/lab/root.crt"
 
 # Persist caddy server's data
-VOLUME /root/.config/caddy 
+VOLUME /root/.config/caddy
 VOLUME /root/.local/share/caddy
 
-RUN cat <<EOF > /bin/entrypoint.sh 
+RUN cat <<EOF > /bin/entrypoint.sh
 #!/usr/bin/env sh
 python3 /bin/confgen.py  /etc/Caddyfile_.j2 > /etc/Caddyfile
 cat /etc/Caddyfile
 caddy run --config /etc/Caddyfile &
 
-# Check whether the execution of somecommand 
+# Check whether the execution of the command
 # was successful
 if [ $? -ne 0 ]
 then
@@ -65,7 +65,7 @@ then
   exit 1
 fi
 
-sleep 10
+sleep 5
 echo "Copy ROOT CRT = $ROOT_CRT"
 
 if [ -f $ROOT_CRT ]
@@ -74,7 +74,7 @@ then
 fi
 
 echo "Starting mwiki server ... wait"
-python3 -m mwiki server --wsgi --host=0.0.0.0 --port=9090 --wikipath=/wiki 
+python3 -m mwiki server --wsgi --host=0.0.0.0 --port=9090 --wikipath=/wiki
 EOF
 
 
