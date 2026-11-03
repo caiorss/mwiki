@@ -10,7 +10,8 @@ keywords:
 Linux containers can be thought as lightweight disposable virtual machine since they provide a way to virtualize software with less resource usage than full-featured virtual machines as containers share the same kernel and are based on process isolation rather than hardware emulation. By using containers, server software, including MWiki can be deployed isolated from the host machine in a secure fashion without causing disruptions or breaking changes. Moreover, as containers are sandboxed by default, they are able to mitigate and limit the reach of security vulnerabilities in the host machine if any container is ever compromised.
 
 The all-in-one container provides an easy and lightweight approach to deploy MWiki with everything pre configured, including Mwiki server and Caddy web server in  a single docker or podman container. Caddy web server is used for serving static files and providing TLS (Transport Layer Security), also known as SSL - Socket Layer Security, by encrypting the network traffic between the server and a client web browser.
-##  Installation
+
+## Preparation
 
 ### Disable SELinux
 
@@ -34,27 +35,6 @@ sudo setenforce 0
 + *Changing SELinux States and Modes*
   + https://docs.fedoraproject.org/en-US/quick-docs/selinux-changing-states-and-modes/
 
-### Build the Podman Container Image
-
-Clone the repository and enter its root folder.
-
-```sh
-git clone https://github.com/caiorss/mwiki && cd mwiki
-```
-
-Build the container image using podman (recommended).
-
-```sh
-podman build -t mwiki  --file docker/all-in-one.Dockerfile .
-```
-
-Build the container image using docker.
-
-```sh
-docker build -t mwiki  --file docker/all-in-one.Dockerfile .
-```
-
-   
 
 
 ### Open Firewall Ports
@@ -102,6 +82,57 @@ sudo firewall-cmd --reload
   + https://en.wikipedia.org/wiki/.local
 + *Linux Open Port: Step-by-Step Guide to Managing Firewall Ports*, Vijaykrishna Ram and Anish Singh Walia, Digital Ocean
   + https://www.digitalocean.com/community/tutorials/opening-a-port-on-linux
+
+
+
+
+##  Installation
+
+### Obtain the Container Image
+
+Obtain container image using podman.
+
+```sh
+podman pull ghcr.io/caiorss/mwiki:latest
+```
+
+Obtain container image using docker.
+
+```sh
+podman pull ghcr.io/caiorss/mwiki:latest
+```
+
+Obtain container image with specific version.
+
+```sh
+pdoman pull ghcr.io/caiorss/mwiki:<TAGS>
+```
+
+Possible tags:
+
++ latest, 0.9.6
+
+### Build the Podman Container Image
+
+Clone the repository and enter its root folder.
+
+```sh
+git clone https://github.com/caiorss/mwiki && cd mwiki
+```
+
+Build the container image using podman (recommended).
+
+```sh
+podman build -t mwiki  --file docker/all-in-one.Dockerfile .
+```
+
+Build the container image using docker.
+
+```sh
+docker build -t mwiki  --file docker/all-in-one.Dockerfile .
+```
+
+   
 
 
 ### Set the environment variables.
@@ -219,7 +250,6 @@ Delete MWiki container^[Note that this command is not prone to data loss if the 
 ```sh
 podman rm mwiki
 ```
-
 ## Further Reading
 
 + *Podman Documentation*, podman docs
