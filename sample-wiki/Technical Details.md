@@ -24,7 +24,7 @@ MWiki was inspired by many other Wiki engines and applications, inclunding:
 [Dokuwiki (PHP)](https://en.wikipedia.org/wiki/DokuWiki)
   : File-based wiki, but does not uses markdown as its markup language. Dokuwiki also requires many plugins to achieve to obtain the same number of features that MWiki has by default.  
 
-[MoinMoin (Python 3)](https://en.wikipedia.org/wiki/MoinMoin)
+[MoinMoin (Python 2)](https://en.wikipedia.org/wiki/MoinMoin)
   : File-based wiki engine. Pages are stored as a single file instead of being stored in a database. MoinMoin also does not use markdown as its markup language. Other issue is the usage of Python 2, which makes the code hard to modify and the lack of support for Python 3.
 
 [Obsidian](https://en.wikipedia.org/wiki/Obsidian_(software)) (Proprietary) 
