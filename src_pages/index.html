@@ -393,10 +393,10 @@ Paper with DOI Hyperlink:
   + &lt;r-doi:10.1109/ICACT.2014.6779016&gt; 
 
 See this arxiv paper:  
-+ &lt;arxiv:1609.06088&gt; - <span class="ge">*Time Derivative of Rotation Matrices: a tutorial*</span>, shiyu zhao, (2016)  
++ &lt;arxiv:1609.06088&gt; - <span class="ge">*Time Derivative of Rotation Matrices: a tutorial*</span>, Shiyu Zhao, (2016)  
 
 See this Arxiv paper:
-+ <span class="ge">*Time Derivative of Rotation Matrices: a Tutorial*</span>, shiyu zhao, (2016)  
++ <span class="ge">*Time Derivative of Rotation Matrices: a Tutorial*</span>, Shiyu Zhao, (2016)  
 <span class="w">  </span><span class="k">-</span><span class="w"> </span>&lt;r-arxiv:1609.06088&gt; 
 
 Semantic Scholar Article: 
@@ -500,6 +500,8 @@ corresponds to the file
 
 <span class="gu">## Figure </span>
 
+Figures are images with label, alt-text and other metadata.
+
 <span class="gs">**Figure of Java Duke Mascot (External Image)**</span>
 
 ````markdown
@@ -560,6 +562,25 @@ Java coffee cup symbol.
 
 <span class="sb">Java coffee cup symbol. </span>
 <span class="sb">```    </span>
+
+<span class="sb">**Licensed Picture with Attribution**</span>
+
+<span class="sb">````markdown</span>
+<span class="sb">```{figure} ![[pasted-image-1794313192736.jpg]]</span>
+<span class="sb">:width: 400px</span>
+<span class="sb">:alt: The Viking 5C Rocket Engine. The engine was designed and manufactured by six countries: France, Germany, Spain, Belgium, Sweden and Italy. It was used in first stage of Ariane 4 from 1990 to 2003. Picture taken at the National Air and Space Museum&#39;s Steven F. Udvar-Hazy Center, Chantilly, Virginia, USA. Length: 2.87 m (9 ft 5 in). Weight: 399 Kg (880 lb). Thrust: 760700 N (171500 lb) Propellants: Nitrogen tetroxide &amp; unsymmetrical dimethyl hydrazine (UDMH). Manufacturer: SNECMA for the European Space Agency.</span>
+
+<span class="sb">Viking 5C [rocket engine](https://en.wikipedia.org/wiki/Rocket_engine) used on Ariane 1 through Ariane 4 - Sanjay Acharya - Own work (CC BY-SA 3.0)</span>
+<span class="sb">```</span>
+````
+
+```{figure} ![[pasted-image-1794313192736.jpg]]
+:width: 400px
+:alt: The Viking 5C Rocket Engine. The engine was designed and manufactured by six countries: France, Germany, Spain, Belgium, Sweden and Italy. It was used in first stage of Ariane 4 from 1990 to 2003. Picture taken at the National Air and Space Museum&#39;s Steven F. Udvar-Hazy Center, Chantilly, Virginia, USA. Length: 2.87 m (9 ft 5 in). Weight: 399 Kg (880 lb). Thrust: 760700 N (171500 lb) Propellants: Nitrogen tetroxide &amp; unsymmetrical dimethyl hydrazine (UDMH). Manufacturer: SNECMA for the European Space Agency.
+
+Viking 5C [<span class="nt">rocket engine</span>](<span class="na">https://en.wikipedia.org/wiki/Rocket_engine</span>) used on Ariane 1 through Ariane 4 - Sanjay Acharya - Own work (CC BY-SA 3.0)
+<span class="sb">```</span>
+
 <span class="sb">## Math  </span>
 <span class="sb">### Definition </span>
 
@@ -596,7 +617,7 @@ Java coffee cup symbol.
 <span class="sb">   \\ \det (Q Q^T)      &amp;= \det(Q) \det(Q) </span>
 <span class="sb">   \\ \det (Q Q^{-1})   &amp;= \det(Q) \det(Q) </span>
 <span class="sb">   \\ \det (\mathbf{I}) &amp;= \det(Q)^2</span>
-<span class="sb">   \\  1                &amp;= \det{Q}^2</span>
+<span class="sb">   \\  1                &amp;= \det(Q)^2</span>
 <span class="sb">   \\  \det(Q)          &amp;= 1</span>
 <span class="sb">\end{split}</span>
 <span class="sb">$$</span>

@@ -340,24 +340,29 @@ abbreviations:
 <span class="gu">## Overview</span>
 
 MWiki is a [<span class="nt">wiki</span>](<span class="na">https://en.wikipedia.org/wiki/Wiki</span>) engine and note taking web application software geared towards STEM and designed for scientific and technical communication. This wiki engine software has semantic-rich lightweight markup language inspired by MyST markdown, Obsidian markdown, and Mediawiki engine markup language. The application also works as a static websiste generator, that can export MWiki notes or pages to a static website or self-contained html files for offline reading, similar to PDF files.
+
 <span class="gu">## Inspiration</span>
 
 MWiki was inspired by many other Wiki engines and applications, inclunding:
 
-[<span class="nt">Mediawiki</span>](<span class="na">https://en.wikipedia.org/wiki/MediaWiki</span>) (PHP)
+[<span class="nt">Mediawiki (PHP)</span>](<span class="na">https://en.wikipedia.org/wiki/MediaWiki</span>)
   : PHP Wiki engine used by Wikipedia. Although Mediawiki is mature, this engine is hard to self-host and does not uses markdown as markup language. The style of MWiki URLs was heavily inspired by Mediawiki and the schema of Wikipedia URLs.
 
-[<span class="nt">Dokuwiki</span>](<span class="na">https://en.wikipedia.org/wiki/DokuWiki</span>) (PHP)
+[<span class="nt">Dokuwiki (PHP)</span>](<span class="na">https://en.wikipedia.org/wiki/DokuWiki</span>)
   : File-based wiki, but does not uses markdown as its markup language. Dokuwiki also requires many plugins to achieve to obtain the same number of features that MWiki has by default.  
 
-[<span class="nt">MoinMoin</span>](<span class="na">https://en.wikipedia.org/wiki/MoinMoin</span>) (Python 2)
-  : File-based wiki engine. Pages are stored as a single file instead of being stored in a database. MoinMoin also does not use markdown as its markup language. Other issue is the usage of Python 2, which makes the code hard to modify and the lack of support for Python 2.
+[<span class="nt">MoinMoin (Python 3)</span>](<span class="na">https://en.wikipedia.org/wiki/MoinMoin</span>)
+  : File-based wiki engine. Pages are stored as a single file instead of being stored in a database. MoinMoin also does not use markdown as its markup language. Other issue is the usage of Python 2, which makes the code hard to modify and the lack of support for Python 3.
 
-[<span class="nt">Obsidian</span>](<span class="na">https://en.wikipedia.org/wiki/Obsidian_(software</span>)) 
+[<span class="nt">Obsidian</span>](<span class="na">https://en.wikipedia.org/wiki/Obsidian_(software</span>)) (Proprietary) 
   : Desktop note taking application and personal wiki, which uses markdown. As Obsidian is a desktop application, it is harder to access notes from other devices due to the need for file synchronization. MWiki borrowed many concepts from Obsidian, such as the syntax for embedding files and for internal hyperlinks. As a result, since MWiki syntax is a superset of Obsidian syntax, it is possible to export existing Obsidian pages to static website or as wiki repository.  
   
 MyST Markdown (Jupyter Book project)
   : Markdown language from Jupyter book project. MWiki uses the same parser as Jupyter book, which is a static website generator, but not a wiki.
+
+Mastodon (Open Source Social Network)
+  : The alt text button for displaying alt text of images was inspired by Mastodon.
+
 <span class="gu">## Technologies Used</span>
 
 Backend (Main Web Server)
@@ -370,7 +375,7 @@ Frontend
   : HTML5 + CSS + hand-rolled JavaScript without any framework, such as React, VueJS, NextJS and so on.
  
 ORM (Object Relational Mappping)
-  : SQL [<span class="nt">Alchemy</span>](<span class="na">https://www.sqlalchemy.org/</span>)
+  : [<span class="nt">SQL Alchemy</span>](<span class="na">https://www.sqlalchemy.org/</span>)
 
 Search Engine
   : [<span class="nt">whoosh</span>](<span class="na">https://github.com/mchaput/whoosh</span>)^[2011 - Matt Chaput] - Pure Python search engine, which makes MWiki easier to self-host.

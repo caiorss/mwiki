@@ -437,7 +437,7 @@
 
 <div class="div-heading"> 
 <h2 id="H_Overview" class="document-heading anchor">Overview <a class="link-heading" href="#H_Overview">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Technical_Details?start=12&end=15&anchor=H_Overview&page=Technical Details&timestamp=179327050505449" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Technical_Details?start=12&end=16&anchor=H_Overview&page=Technical Details&timestamp=179431295673455" title="[i18n]: Overview" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -447,7 +447,7 @@ MWiki is a <a href="https://en.wikipedia.org/wiki/Wiki"  target="_blank"  class=
 
 <div class="div-heading"> 
 <h2 id="H_Inspiration" class="document-heading anchor">Inspiration <a class="link-heading" href="#H_Inspiration">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Technical_Details?start=15&end=33&anchor=H_Inspiration&page=Technical Details&timestamp=179327050505449" title="[i18n]: Inspiration" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Technical_Details?start=16&end=38&anchor=H_Inspiration&page=Technical Details&timestamp=179431295673455" title="[i18n]: Inspiration" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -456,21 +456,23 @@ MWiki was inspired by many other Wiki engines and applications, inclunding:
 </p>
 
 <dl class="anchor">
-<dt class="anchor"><a href="https://en.wikipedia.org/wiki/MediaWiki"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Mediawiki</a> (PHP)</dt>
+<dt class="anchor"><a href="https://en.wikipedia.org/wiki/MediaWiki"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Mediawiki (PHP)</a></dt>
 <dd class="anchor">PHP Wiki engine used by Wikipedia. Although Mediawiki is mature, this engine is hard to self-host and does not uses markdown as markup language. The style of MWiki URLs was heavily inspired by Mediawiki and the schema of Wikipedia URLs.</dd>
-<dt class="anchor"><a href="https://en.wikipedia.org/wiki/DokuWiki"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Dokuwiki</a> (PHP)</dt>
+<dt class="anchor"><a href="https://en.wikipedia.org/wiki/DokuWiki"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Dokuwiki (PHP)</a></dt>
 <dd class="anchor">File-based wiki, but does not uses markdown as its markup language. Dokuwiki also requires many plugins to achieve to obtain the same number of features that MWiki has by default.</dd>
-<dt class="anchor"><a href="https://en.wikipedia.org/wiki/MoinMoin"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >MoinMoin</a> (Python 2)</dt>
-<dd class="anchor">File-based wiki engine. Pages are stored as a single file instead of being stored in a database. MoinMoin also does not use markdown as its markup language. Other issue is the usage of Python 2, which makes the code hard to modify and the lack of support for Python 2.</dd>
-<dt class="anchor"><a href="https://en.wikipedia.org/wiki/Obsidian_(software)"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Obsidian</a></dt>
+<dt class="anchor"><a href="https://en.wikipedia.org/wiki/MoinMoin"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >MoinMoin (Python 3)</a></dt>
+<dd class="anchor">File-based wiki engine. Pages are stored as a single file instead of being stored in a database. MoinMoin also does not use markdown as its markup language. Other issue is the usage of Python 2, which makes the code hard to modify and the lack of support for Python 3.</dd>
+<dt class="anchor"><a href="https://en.wikipedia.org/wiki/Obsidian_(software)"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Obsidian</a> (Proprietary)</dt>
 <dd class="anchor">Desktop note taking application and personal wiki, which uses markdown. As Obsidian is a desktop application, it is harder to access notes from other devices due to the need for file synchronization. MWiki borrowed many concepts from Obsidian, such as the syntax for embedding files and for internal hyperlinks. As a result, since MWiki syntax is a superset of Obsidian syntax, it is possible to export existing Obsidian pages to static website or as wiki repository.</dd>
 <dt class="anchor">MyST Markdown (Jupyter Book project)</dt>
 <dd class="anchor">Markdown language from Jupyter book project. MWiki uses the same parser as Jupyter book, which is a static website generator, but not a wiki.</dd>
+<dt class="anchor">Mastodon (Open Source Social Network)</dt>
+<dd class="anchor">The alt text button for displaying alt text of images was inspired by Mastodon.</dd>
 </dl>
 
 <div class="div-heading"> 
 <h2 id="H_Technologies_Used" class="document-heading anchor">Technologies Used <a class="link-heading" href="#H_Technologies_Used">¶</a></h2> 
-<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Technical_Details?start=33&end=end&anchor=H_Technologies_Used&page=Technical Details&timestamp=179327050505449" title="[i18n]: Technologies Used" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
+<a data-i18n="edit-section-button" class="link-edit" style="display:none" href="/edit/Technical_Details?start=38&end=end&anchor=H_Technologies_Used&page=Technical Details&timestamp=179431295673455" title="[i18n]: Technologies Used" class="edit-button"><img class="img-icon" src="/static/pencil.svg"></a>
 </div>
 <hr class="line-under-heading">
 
@@ -482,7 +484,7 @@ MWiki was inspired by many other Wiki engines and applications, inclunding:
 <dt class="anchor">Frontend</dt>
 <dd class="anchor"><abbr title="Hypertext Markup Language (Version 5)">HTML5</abbr> + <abbr title="Cascade Style Sheet">CSS</abbr> + hand-rolled JavaScript without any framework, such as React, VueJS, NextJS and so on.</dd>
 <dt class="anchor"><abbr title="Object Relational Mapping">ORM</abbr> (Object Relational Mappping)</dt>
-<dd class="anchor">SQL <a href="https://www.sqlalchemy.org/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >Alchemy</a></dd>
+<dd class="anchor"><a href="https://www.sqlalchemy.org/"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >SQL Alchemy</a></dd>
 <dt class="anchor">Search Engine</dt>
 <dd class="anchor"><a href="https://github.com/mchaput/whoosh"  target="_blank"  class="link-external" rel="noreferrer noopener nofollow" >whoosh</a><a href="#" id="footnote-reference-link-2" class="footnote-link"><sup class="footnote-reference" data-counter="2" data-footnote="2011 - Matt Chaput">[2]</sup></a> - Pure Python search engine, which makes MWiki easier to self-host.</dd>
 </dl>
