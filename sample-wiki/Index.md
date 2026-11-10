@@ -66,10 +66,10 @@ Paper with DOI Hyperlink:
   + <r-doi:10.1109/ICACT.2014.6779016> 
 
 See this arxiv paper:  
-+ <arxiv:1609.06088> - *Time Derivative of Rotation Matrices: a tutorial*, shiyu zhao, (2016)  
++ <arxiv:1609.06088> - *Time Derivative of Rotation Matrices: a tutorial*, Shiyu Zhao, (2016)  
 
 See this Arxiv paper:
-+ *Time Derivative of Rotation Matrices: a Tutorial*, shiyu zhao, (2016)  
++ *Time Derivative of Rotation Matrices: a Tutorial*, Shiyu Zhao, (2016)  
   - <r-arxiv:1609.06088> 
 
 Semantic Scholar Article: 
@@ -173,6 +173,8 @@ corresponds to the file
 
 ## Figure 
 
+Figures are images with label, alt-text and other metadata.
+
 **Figure of Java Duke Mascot (External Image)**
 
 ````markdown
@@ -233,6 +235,25 @@ Java coffee cup symbol.
 
 Java coffee cup symbol. 
 ```    
+
+**Licensed Picture with Attribution**
+
+````markdown
+```{figure} ![[pasted-image-1794313192736.jpg]]
+:width: 400px
+:alt: The Viking 5C Rocket Engine. The engine was designed and manufactured by six countries: France, Germany, Spain, Belgium, Sweden and Italy. It was used in first stage of Ariane 4 from 1990 to 2003. Picture taken at the National Air and Space Museum's Steven F. Udvar-Hazy Center, Chantilly, Virginia, USA. Length: 2.87 m (9 ft 5 in). Weight: 399 Kg (880 lb). Thrust: 760700 N (171500 lb) Propellants: Nitrogen tetroxide & unsymmetrical dimethyl hydrazine (UDMH). Manufacturer: SNECMA for the European Space Agency.
+
+Viking 5C [rocket engine](https://en.wikipedia.org/wiki/Rocket_engine) used on Ariane 1 through Ariane 4 - Sanjay Acharya - Own work (CC BY-SA 3.0)
+```
+````
+
+```{figure} ![[pasted-image-1794313192736.jpg]]
+:width: 400px
+:alt: The Viking 5C Rocket Engine. The engine was designed and manufactured by six countries: France, Germany, Spain, Belgium, Sweden and Italy. It was used in first stage of Ariane 4 from 1990 to 2003. Picture taken at the National Air and Space Museum's Steven F. Udvar-Hazy Center, Chantilly, Virginia, USA. Length: 2.87 m (9 ft 5 in). Weight: 399 Kg (880 lb). Thrust: 760700 N (171500 lb) Propellants: Nitrogen tetroxide & unsymmetrical dimethyl hydrazine (UDMH). Manufacturer: SNECMA for the European Space Agency.
+
+Viking 5C [rocket engine](https://en.wikipedia.org/wiki/Rocket_engine) used on Ariane 1 through Ariane 4 - Sanjay Acharya - Own work (CC BY-SA 3.0)
+```
+
 ## Math  
 ### Definition 
 
@@ -269,7 +290,7 @@ $$
    \\ \det (Q Q^T)      &= \det(Q) \det(Q) 
    \\ \det (Q Q^{-1})   &= \det(Q) \det(Q) 
    \\ \det (\mathbf{I}) &= \det(Q)^2
-   \\  1                &= \det{Q}^2
+   \\  1                &= \det(Q)^2
    \\  \det(Q)          &= 1
 \end{split}
 $$

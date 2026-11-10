@@ -13,24 +13,29 @@ abbreviations:
 ## Overview
 
 MWiki is a [wiki](https://en.wikipedia.org/wiki/Wiki) engine and note taking web application software geared towards STEM and designed for scientific and technical communication. This wiki engine software has semantic-rich lightweight markup language inspired by MyST markdown, Obsidian markdown, and Mediawiki engine markup language. The application also works as a static websiste generator, that can export MWiki notes or pages to a static website or self-contained html files for offline reading, similar to PDF files.
+
 ## Inspiration
 
 MWiki was inspired by many other Wiki engines and applications, inclunding:
 
-[Mediawiki](https://en.wikipedia.org/wiki/MediaWiki) (PHP)
+[Mediawiki (PHP)](https://en.wikipedia.org/wiki/MediaWiki)
   : PHP Wiki engine used by Wikipedia. Although Mediawiki is mature, this engine is hard to self-host and does not uses markdown as markup language. The style of MWiki URLs was heavily inspired by Mediawiki and the schema of Wikipedia URLs.
 
-[Dokuwiki](https://en.wikipedia.org/wiki/DokuWiki) (PHP)
+[Dokuwiki (PHP)](https://en.wikipedia.org/wiki/DokuWiki)
   : File-based wiki, but does not uses markdown as its markup language. Dokuwiki also requires many plugins to achieve to obtain the same number of features that MWiki has by default.  
 
-[MoinMoin](https://en.wikipedia.org/wiki/MoinMoin) (Python 2)
-  : File-based wiki engine. Pages are stored as a single file instead of being stored in a database. MoinMoin also does not use markdown as its markup language. Other issue is the usage of Python 2, which makes the code hard to modify and the lack of support for Python 2.
+[MoinMoin (Python 3)](https://en.wikipedia.org/wiki/MoinMoin)
+  : File-based wiki engine. Pages are stored as a single file instead of being stored in a database. MoinMoin also does not use markdown as its markup language. Other issue is the usage of Python 2, which makes the code hard to modify and the lack of support for Python 3.
 
-[Obsidian](https://en.wikipedia.org/wiki/Obsidian_(software)) 
+[Obsidian](https://en.wikipedia.org/wiki/Obsidian_(software)) (Proprietary) 
   : Desktop note taking application and personal wiki, which uses markdown. As Obsidian is a desktop application, it is harder to access notes from other devices due to the need for file synchronization. MWiki borrowed many concepts from Obsidian, such as the syntax for embedding files and for internal hyperlinks. As a result, since MWiki syntax is a superset of Obsidian syntax, it is possible to export existing Obsidian pages to static website or as wiki repository.  
   
 MyST Markdown (Jupyter Book project)
   : Markdown language from Jupyter book project. MWiki uses the same parser as Jupyter book, which is a static website generator, but not a wiki.
+
+Mastodon (Open Source Social Network)
+  : The alt text button for displaying alt text of images was inspired by Mastodon.
+
 ## Technologies Used
 
 Backend (Main Web Server)
@@ -43,7 +48,7 @@ Frontend
   : HTML5 + CSS + hand-rolled JavaScript without any framework, such as React, VueJS, NextJS and so on.
  
 ORM (Object Relational Mappping)
-  : SQL [Alchemy](https://www.sqlalchemy.org/)
+  : [SQL Alchemy](https://www.sqlalchemy.org/)
 
 Search Engine
   : [whoosh](https://github.com/mchaput/whoosh)^[2011 - Matt Chaput] - Pure Python search engine, which makes MWiki easier to self-host.
